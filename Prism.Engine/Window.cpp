@@ -31,6 +31,12 @@ namespace SDLFacade {
 
 	void Window::createOpenGLContext(int majorVersion, int minorVersion, bool useCompatibilityProfile)
 	{
+
+		if (gWindow == nullptr) {
+			std::cout << "SDL_Window does not exist. Has init() been called?" << std::endl;
+			return;
+		}
+
 		bool success = true;	
 		SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1); //Always set this to 1 obviousbly
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, majorVersion);
