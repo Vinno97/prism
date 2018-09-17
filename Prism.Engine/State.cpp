@@ -1,5 +1,5 @@
 #include "State.h"
-
+#include "Context.h"
 
 
 State::State()
@@ -8,6 +8,10 @@ State::State()
 
 State::~State()
 = default;
+
+void State::update(Context context)
+{
+}
 
 void State::onEnter()
 {
