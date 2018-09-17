@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2035
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Prism.Engine", "Prism.Engine\Prism.Engine.vcxproj", "{76C79DD1-01CD-4145-A02F-26538E4B060D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Prism.Game", "Prism.Game\Prism.Game.vcxproj", "{A0B2A277-895F-400F-B287-A91484A40C9E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{76C79DD1-01CD-4145-A02F-26538E4B060D}.Debug|x64.ActiveCfg = Debug|x64
+		{76C79DD1-01CD-4145-A02F-26538E4B060D}.Debug|x64.Build.0 = Debug|x64
+		{76C79DD1-01CD-4145-A02F-26538E4B060D}.Debug|x86.ActiveCfg = Debug|Win32
+		{76C79DD1-01CD-4145-A02F-26538E4B060D}.Debug|x86.Build.0 = Debug|Win32
+		{76C79DD1-01CD-4145-A02F-26538E4B060D}.Release|x64.ActiveCfg = Release|x64
+		{76C79DD1-01CD-4145-A02F-26538E4B060D}.Release|x64.Build.0 = Release|x64
+		{76C79DD1-01CD-4145-A02F-26538E4B060D}.Release|x86.ActiveCfg = Release|Win32
+		{76C79DD1-01CD-4145-A02F-26538E4B060D}.Release|x86.Build.0 = Release|Win32
+		{A0B2A277-895F-400F-B287-A91484A40C9E}.Debug|x64.ActiveCfg = Debug|x64
+		{A0B2A277-895F-400F-B287-A91484A40C9E}.Debug|x64.Build.0 = Debug|x64
+		{A0B2A277-895F-400F-B287-A91484A40C9E}.Debug|x86.ActiveCfg = Debug|Win32
+		{A0B2A277-895F-400F-B287-A91484A40C9E}.Debug|x86.Build.0 = Debug|Win32
+		{A0B2A277-895F-400F-B287-A91484A40C9E}.Release|x64.ActiveCfg = Release|x64
+		{A0B2A277-895F-400F-B287-A91484A40C9E}.Release|x64.Build.0 = Release|x64
+		{A0B2A277-895F-400F-B287-A91484A40C9E}.Release|x86.ActiveCfg = Release|Win32
+		{A0B2A277-895F-400F-B287-A91484A40C9E}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E9D609D1-7016-454C-948A-ABB9CF91247C}
+	EndGlobalSection
+EndGlobal
