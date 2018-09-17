@@ -22,6 +22,7 @@
     <ClInclude Include="Context.h" />
     <ClInclude Include="CoreEngine.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="InputManager.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="StateMachine.h" />
     <ClInclude Include="Window.h" />
@@ -30,6 +31,7 @@
     <ClCompile Include="Context.cpp" />
     <ClCompile Include="CoreEngine.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="StateMachine.cpp" />

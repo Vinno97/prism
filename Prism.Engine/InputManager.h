@@ -4,7 +4,7 @@
 class InputManager
 {
 public:
-	InputManager(SDL_Window *window);
+	InputManager();
 	bool isKeyPressed(SDL_Scancode);
 	~InputManager();
 };

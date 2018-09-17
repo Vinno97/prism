@@ -2,7 +2,7 @@
 #include <SDL.h>
 
 
-InputManager::InputManager(SDL_Window *window)
+InputManager::InputManager()
 {
 }
 

@@ -39,6 +39,9 @@
     <ClInclude Include="Window.h">
       <Filter>Header Files\SDLFacade</Filter>
     </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>Header Files\SDLFacade</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -61,6 +64,9 @@
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>Source Files\SDLFacade</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
