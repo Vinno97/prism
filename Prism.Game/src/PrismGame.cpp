@@ -3,10 +3,8 @@
 
 
 PrismGame::PrismGame()
-{
-}
+= default;
 
 
 PrismGame::~PrismGame()
-{
-}
+= default;

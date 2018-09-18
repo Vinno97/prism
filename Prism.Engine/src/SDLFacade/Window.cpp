@@ -51,7 +51,8 @@ namespace SDLFacade {
 		gContext = SDL_GL_CreateContext(gWindow);
 		if (gContext == nullptr)
 		{
-			printf("OpenGL context could not be created! SDL Error: %s\n", SDL_GetError());
+			printf("OpenGL context could not be created! SDL Error: %s\n", 
+				SDL_GetError());
 			success = false;
 		}
 		else
