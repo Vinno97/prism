@@ -34,6 +34,7 @@ namespace SDLFacade {
 
 		if (gWindow == nullptr) {
 			std::cout << "SDL_Window does not exist. Has init() been called?" << std::endl;
+			throw "SDL_Window does not exist";
 			return;
 		}
 
