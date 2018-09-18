@@ -3,10 +3,8 @@
 
 
 Context::Context()
-{
-}
+= default;
 
 
 Context::~Context()
-{
-}
+= default;

@@ -3,13 +3,12 @@
 #include <SDL2/SDL.h>
 #include <SDL2/glew.h>
 #include <SDL2/SDL_opengl.h>
-#include <stdio.h>
+#include <cstdio>
 #include <string>
 
 namespace SDLFacade {
 	Window::Window()
-	{
-	}
+		= default;
 
 	void SDLFacade::Window::init(const char* title, const int width, const int height, const int x, const int y)
 	{
@@ -38,36 +37,38 @@ namespace SDLFacade {
 			return;
 		}
 
-		bool success = true;	
+		bool success = true;
 		SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1); //Always set this to 1 obviousbly
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, majorVersion);
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, minorVersion);
-		if (useCompatibilityProfile)
+		if (useCompatibilityProfile) {
 			SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_COMPATIBILITY);
-		else
+		}
+		else {
 			SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+		}
 
 		gContext = SDL_GL_CreateContext(gWindow);
-		if (gContext == NULL)
+		if (gContext == nullptr)
 		{
 			printf("OpenGL context could not be created! SDL Error: %s\n", SDL_GetError());
 			success = false;
 		}
 		else
 		{
-		//	//Initialize GLEW
-		//	bool glewExperimental = GL_TRUE;
-		//	GLenum glewError = glewInit();
-		//	if (glewError != GLEW_OK)
-		//	{
-		//		printf("Error initializing GLEW! %s\n", glewGetErrorString(glewError));
-		//	}
+			//	//Initialize GLEW
+			//	bool glewExperimental = GL_TRUE;
+			//	GLenum glewError = glewInit();
+			//	if (glewError != GLEW_OK)
+			//	{
+			//		printf("Error initializing GLEW! %s\n", glewGetErrorString(glewError));
+			//	}
 
-		//	//Use Vsync
-		//	if (SDL_GL_SetSwapInterval(1) < 0)
-		//	{
-		//		printf("Warning: Unable to set VSync! SDL Error: %s\n", SDL_GetError());
-		//	}
+			//	//Use Vsync
+			//	if (SDL_GL_SetSwapInterval(1) < 0)
+			//	{
+			//		printf("Warning: Unable to set VSync! SDL Error: %s\n", SDL_GetError());
+			//	}
 		}
 	}
 
@@ -88,4 +89,4 @@ namespace SDLFacade {
 		}
 		SDL_Quit();
 	}
-}
+}  // namespace SDLFacade
