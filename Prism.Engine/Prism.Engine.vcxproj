@@ -37,6 +37,11 @@
     <ClCompile Include="src\StateMachine.cpp" />
     <ClCompile Include="src\SDLFacade\Window.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Library Include="lib\SDL2.lib" />
+    <Library Include="lib\SDL2main.lib" />
+    <Library Include="lib\SDL2test.lib" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{76C79DD1-01CD-4145-A02F-26538E4B060D}</ProjectGuid>
@@ -58,7 +63,7 @@
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
