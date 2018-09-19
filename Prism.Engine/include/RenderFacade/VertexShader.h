@@ -1,8 +1,9 @@
 #pragma once
+#include <SDL2/SDL_opengl.h>
 
 namespace RenderFacade {
 	class VertexShader {
 	public:
-		int vertexShader;
+		GLuint vertexID;
 	};
 }

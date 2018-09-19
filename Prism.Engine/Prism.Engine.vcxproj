@@ -32,8 +32,14 @@
     <ClInclude Include="include\StateMachine.h" />
     <ClInclude Include="include\Window.h" />
     <ClInclude Include="include\RenderFacade\RenderDevice.h" />
+    <ClInclude Include="include\RenderFacade\OGLFragmentShader.h" />
+    <ClInclude Include="include\RenderFacade\Pipeline.h" />
+    <ClInclude Include="include\RenderFacade\OGLPipeline.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\RenderFacade\OGLPipeline.cpp" />
+    <ClCompile Include="src\RenderFacade\OGLFragmentShader.cpp" />
+    <ClCompile Include="src\RenderFacade\Pipeline.cpp" />
     <ClCompile Include="src\RenderFacade\RenderDevice.cpp" />
     <ClCompile Include="src\Renderer\CoreRenderer.cpp" />
     <ClCompile Include="src\Context.cpp" />

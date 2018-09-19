@@ -5,20 +5,25 @@
 #include <iostream> 
 namespace RenderFacade {
 		OGLVertexShader::OGLVertexShader(const char* source) {
-			// ------------------------------------
-			// vertex shader
-			vertexShader = glCreateShader(GL_VERTEX_SHADER);
-			glShaderSource(vertexShader, 1, &source, NULL);
-			glCompileShader(vertexShader);
 
-	//		// check for shader compile errors
-			int success;
-			char infoLog[512];
-			glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
-			if(!success)
+			//Create vertex shader
+			vertexID = glCreateShader(GL_VERTEX_SHADER);
+			
+			//Set vertex source
+			glShaderSource(vertexID, 1, &source, NULL);
+
+			//Compile vertex source
+			glCompileShader(vertexID);
+
+			//Check vertex shader for errors
+			GLint vShaderCompiled = GL_FALSE;
+			glGetShaderiv(vertexID, GL_COMPILE_STATUS, &vShaderCompiled);
+			if (vShaderCompiled != GL_TRUE)
 			{
-				glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
-				std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
+				printf("Unable to compile vertex shader %d!\n", vertexID);
 			}
+		}
+		OGLVertexShader::~OGLVertexShader()
+		{
 		}
 	};

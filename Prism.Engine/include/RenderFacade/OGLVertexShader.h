@@ -7,6 +7,6 @@ namespace RenderFacade {
 	public:
 		OGLVertexShader(const char* source);
 		~OGLVertexShader();
-		int vertexShader;
+		//int vertexID;
 	};
 }

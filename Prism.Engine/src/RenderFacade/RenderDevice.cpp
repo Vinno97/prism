@@ -1,5 +1,7 @@
 #include "RenderFacade/RenderDevice.h"
 #include "RenderFacade/VertexShader.h"
+#include "RenderFacade/FragmentShader.h"
+#include "RenderFacade/Pipeline.h"
 
 namespace RenderFacade {
 
@@ -13,6 +15,14 @@ namespace RenderFacade {
 
 	VertexShader RenderDevice::createVertexShader(const char* source) {
 		return VertexShader();
+	}
+
+	FragmentShader RenderDevice::createFragmentShader(const char* source) {
+		return FragmentShader();
+	}
+	
+	Pipeline RenderDevice::createPipeline(VertexShader vs, FragmentShader fs) {
+		return Pipeline();
 	}
 
 }
