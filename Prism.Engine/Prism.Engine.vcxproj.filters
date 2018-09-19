@@ -42,6 +42,24 @@
     <ClInclude Include="include\Window.h">
       <Filter>Header Files\SDLFacade</Filter>
     </ClInclude>
+    <ClInclude Include="include\CoreRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\RenderFacade\OGLRenderDevice.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\RenderFacade\RenderDevice.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\RenderFacade\VertexShader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\RenderFacade\FragmentShader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\RenderFacade\OGLVertexShader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Context.cpp">
@@ -67,6 +85,15 @@
     </ClCompile>
     <ClCompile Include="src\SDLFacade\InputManager.cpp">
       <Filter>Source Files\SDLFacade</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer\CoreRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RenderFacade\OGLRenderDevice.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RenderFacade\OGLVertexShader.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -19,18 +19,27 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\CoreRenderer.h" />
     <ClInclude Include="include\Context.h" />
     <ClInclude Include="include\CoreEngine.h" />
     <ClInclude Include="include\Game.h" />
     <ClInclude Include="include\InputManager.h" />
+    <ClInclude Include="include\RenderFacade\FragmentShader.h" />
+    <ClInclude Include="include\RenderFacade\OGLRenderDevice.h" />
+    <ClInclude Include="include\RenderFacade\OGLVertexShader.h" />
+    <ClInclude Include="include\RenderFacade\VertexShader.h" />
     <ClInclude Include="include\State.h" />
     <ClInclude Include="include\StateMachine.h" />
     <ClInclude Include="include\Window.h" />
+    <ClInclude Include="include\RenderFacade\RenderDevice.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Renderer\CoreRenderer.cpp" />
     <ClCompile Include="src\Context.cpp" />
     <ClCompile Include="src\CoreEngine.cpp" />
     <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\RenderFacade\OGLRenderDevice.cpp" />
+    <ClCompile Include="src\RenderFacade\OGLVertexShader.cpp" />
     <ClCompile Include="src\SDLFacade\InputManager.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\State.cpp" />
@@ -117,7 +126,7 @@
       <AdditionalIncludeDirectories>$(ProjectDir)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>SDL2main.lib;SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2main.lib;SDL2.lib;glew32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
       <AdditionalLibraryDirectories>$(ProjectDir)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>

@@ -123,11 +123,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Prism.Engine\Prism.Engine.vcxproj">
-      <Project>{76c79dd1-01cd-4145-a02f-26538e4b060d}</Project>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="include\PrismGame.h" />
   </ItemGroup>
   <ItemGroup>
@@ -139,6 +134,11 @@
       <DeploymentContent>true</DeploymentContent>
       <FileType>Document</FileType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Prism.Engine\Prism.Engine.vcxproj">
+      <Project>{76c79dd1-01cd-4145-a02f-26538e4b060d}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
