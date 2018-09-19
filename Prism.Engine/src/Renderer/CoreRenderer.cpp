@@ -5,14 +5,16 @@
 #include <stdio.h>
 #include <string>
 #include <iostream>
-//#include "RenderFacade/RenderDevice.h"
-//#include "RenderFacade/OGLRenderDevice.h"
+#include "RenderFacade/RenderDevice.h"
+#include "RenderFacade/VertexShader.h"
+#include "RenderFacade/OGLRenderDevice.h"
+#include "RenderFacade/OGLVertexShader.h"
 
 namespace Renderer {
 
 	CoreRenderer::CoreRenderer()
 	{
-		//renderDevice = RenderFacade::OGLRenderDevice();
+		renderDevice = RenderFacade::OGLRenderDevice();
 	}
 
 	void CoreRenderer::init()
@@ -37,6 +39,7 @@ namespace Renderer {
 
 		//Create vertex shader
 		GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
+		
 		//Set vertex source
 		glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
 
@@ -146,7 +149,6 @@ namespace Renderer {
 		//Clear color buffer
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		std::cout << "NO" << std::endl;
 
 		//Render quad
 		if (true)

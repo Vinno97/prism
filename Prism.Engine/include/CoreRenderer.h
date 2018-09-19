@@ -5,8 +5,8 @@
 #include <SDL2/SDL_opengl.h>
 #include <stdio.h>
 #include <string>
-//#include "RenderFacade/RenderDevice.h"
-//#include "RenderFacade/VertexShader.h"
+#include "RenderFacade/RenderDevice.h"
+#include "RenderFacade/VertexShader.h"
 
 namespace Renderer {
 	class CoreRenderer
@@ -17,8 +17,8 @@ namespace Renderer {
 		void draw();
 		~CoreRenderer();
 	private:
-		//RenderFacade::RenderDevice renderDevice;
-		//RenderFacade::VertexShader vertexShader;
+		RenderFacade::RenderDevice renderDevice;
+		RenderFacade::VertexShader vertexShader;
 
 		GLuint gProgramID;
 		GLuint gVertexPos2DLocation;

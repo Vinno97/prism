@@ -10,8 +10,8 @@ int main(int argc, char ** argv) {
 	Renderer::CoreRenderer coreRenderer;
 	coreRenderer.init();
 	while (true) {
-		coreRenderer.draw();
-		window.swapScreen();
+		//coreRenderer.draw();
+		//window.swapScreen();
 	}
 	return 0;
 }

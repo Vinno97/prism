@@ -34,6 +34,7 @@
     <ClInclude Include="include\RenderFacade\RenderDevice.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\RenderFacade\RenderDevice.cpp" />
     <ClCompile Include="src\Renderer\CoreRenderer.cpp" />
     <ClCompile Include="src\Context.cpp" />
     <ClCompile Include="src\CoreEngine.cpp" />

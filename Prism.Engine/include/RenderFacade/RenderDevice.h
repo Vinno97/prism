@@ -8,6 +8,6 @@ namespace RenderFacade {
 	public:
 		RenderDevice();
 		~RenderDevice();
-		VertexShader createVertexShader(const char* source);
+		virtual VertexShader createVertexShader(const char* source);
 	};
 }

@@ -95,6 +95,9 @@
     <ClCompile Include="src\RenderFacade\OGLVertexShader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\RenderFacade\RenderDevice.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\SDL2.lib" />
