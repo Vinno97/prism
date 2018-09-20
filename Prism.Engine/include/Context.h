@@ -5,6 +5,6 @@ public:
 	Context();
 	~Context();
 
-	int deltaTime;
+	double deltaTime;
 };
 
