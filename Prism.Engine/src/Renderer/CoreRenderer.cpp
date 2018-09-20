@@ -6,6 +6,9 @@
 #include <string>
 #include <iostream>
 #include <chrono>
+#include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #include "RenderFacade/RenderDevice.h"
 #include "RenderFacade/VertexShader.h"
 #include "RenderFacade/OGLRenderDevice.h"
@@ -13,6 +16,7 @@
 #include "RenderFacade/OGLPipeline.h"
 
 namespace Renderer {
+	glm::mat4 trans = glm::mat4(1.0f);
 
 	auto t_start = std::chrono::high_resolution_clock::now();
 	CoreRenderer::CoreRenderer()
@@ -23,20 +27,27 @@ namespace Renderer {
 	void CoreRenderer::init()
 	{
 
-		//New shaders
-
-		gProgramID = glCreateProgram();
-
+		trans = glm::rotate(trans, glm::radians(45.0f), glm::vec3(0.0f, 0.0f, 1.0f));
 
 		//Get vertex source
-		const char* vertexShaderSource =
-		{
-			"#version 140\nin vec2 LVertexPos2D; void main() { gl_Position = vec4( LVertexPos2D.x, LVertexPos2D.y, 0, 1 ); }"
+		const char* vertexShaderSource = { \
+			"#version 140\n\
+			in vec2 LVertexPos2D; \
+			uniform mat4 trans;\
+			void main() { \
+				gl_Position = trans * vec4( LVertexPos2D.x, LVertexPos2D.y, 0, 1 ); \
+			}"
 		};
+	
 
 		const char* fragmentShaderSource =
 		{
-			"#version 140\nuniform vec3 triangleColor;out vec4 LFragment; void main() { LFragment = vec4(triangleColor, 1.0 ); }"
+			"#version 140\n\
+			uniform vec3 triangleColor;\
+			out vec4 LFragment; \
+			void main() { \
+				LFragment = vec4(triangleColor, 1.0 ); \
+			}"
 		};
 
 
@@ -46,7 +57,8 @@ namespace Renderer {
 
 		pipeline = renderDevice->createPipeline(vertexShader, fragmentShader);
 		
-		vertexShader->createUniform("triangleColor");
+		pipeline->createUniform("triangleColor");
+		pipeline->createUniform("trans");
 
 		//Do Fragment
 		//End new shaders
@@ -106,7 +118,8 @@ namespace Renderer {
 			auto t_now = std::chrono::high_resolution_clock::now();
 			float time = std::chrono::duration_cast<std::chrono::duration<float>>(t_now - t_start).count();
 			pipeline->run();
-			fragmentShader->setUniformVector("triangleColor", (sin(time * 4.0f) + 1.0f) / 2.0f, 0.0f, 0.0f);
+			pipeline->setUniformVector("triangleColor", (sin(time * 4.0f) + 1.0f) / 2.0f, 0.0f, 0.0f);
+			pipeline->setUniformMatrix4f("trans", trans);
 			//Enable vertex position
 			glEnableVertexAttribArray(gVertexPos2DLocation);
 

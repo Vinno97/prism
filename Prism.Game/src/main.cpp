@@ -5,7 +5,7 @@
 //QQQ Remove this main method
 int main(int argc, char ** argv) {
 	SDLFacade::Window window;
-	window.init("Prism", 1280, 720, 100, 100);
+	window.init("Prism", 720, 720, 100, 100);
 	//window.createOpenGLContext(4, 1, true);
 	Renderer::CoreRenderer cr;
 	cr.init();

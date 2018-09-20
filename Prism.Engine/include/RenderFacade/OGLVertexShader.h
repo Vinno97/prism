@@ -7,6 +7,5 @@ namespace RenderFacade {
 	public:
 		OGLVertexShader(const char* source);
 		~OGLVertexShader();
-		bool createUniform(const char* name) override;
 	};
 }

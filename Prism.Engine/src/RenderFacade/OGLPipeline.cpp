@@ -1,4 +1,7 @@
-#include <gl\glew.h>
+#include <gl/glew.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #include <SDL2/SDL_opengl.h>
 #include "RenderFacade/VertexShader.h"
 #include "RenderFacade/FragmentShader.h"
@@ -23,6 +26,7 @@ namespace RenderFacade {
 	OGLPipeline::~OGLPipeline()
 	{
 	}
+
 	void OGLPipeline::run()
 	{
 		glUseProgram(pipelineID);
@@ -30,5 +34,24 @@ namespace RenderFacade {
 	void OGLPipeline::stop()
 	{
 		glUseProgram(NULL);
+	}
+	bool OGLPipeline::createUniform(const char * name)
+	{
+		int uniColor = glGetUniformLocation(pipelineID, name);
+		uniforms[name] = uniColor;
+		return true;
+	}
+	bool OGLPipeline::setUniformMatrix4f(const char * name, glm::mat4 matrix)
+	{
+		int id = uniforms[name];
+		glUniformMatrix4fv(id, 1, GL_FALSE, glm::value_ptr(matrix));
+		return true;
+	}
+
+	bool OGLPipeline::setUniformVector(const char * name, float x, float y, float z)
+	{
+		int id = uniforms[name];
+		glUniform3f(id, x, y, z);
+		return true;
 	}
 }

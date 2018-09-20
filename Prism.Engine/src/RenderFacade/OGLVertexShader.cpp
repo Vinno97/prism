@@ -1,8 +1,12 @@
 #pragma once
-#include <gl\glew.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
+#include <glm/gtc/type_ptr.hpp>
+#include <GL/glew.h>
 #include <SDL2/SDL_opengl.h>
 #include "RenderFacade/OGLVertexShader.h"
 #include <iostream> 
+
 namespace RenderFacade {
 	OGLVertexShader::OGLVertexShader(const char* source) {
 
@@ -22,10 +26,6 @@ namespace RenderFacade {
 		{
 			printf("Unable to compile vertex shader %d!\n", vertexID);
 		}
-	}
-
-	bool OGLVertexShader::createUniform(const char* name) {
-		return true;
 	}
 
 	OGLVertexShader::~OGLVertexShader()
