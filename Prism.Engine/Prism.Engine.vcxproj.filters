@@ -104,9 +104,6 @@
     <ClCompile Include="src\RenderFacade\OGLVertexShader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\RenderFacade\RenderDevice.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\RenderFacade\OGLFragmentShader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

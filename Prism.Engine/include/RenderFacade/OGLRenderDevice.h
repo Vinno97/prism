@@ -11,8 +11,8 @@ namespace RenderFacade {
 	public:
 		OGLRenderDevice();
 		~OGLRenderDevice();
-		virtual VertexShader createVertexShader(const char* source);
-		virtual FragmentShader createFragmentShader(const char* source);
-		virtual Pipeline createPipeline(VertexShader vs, FragmentShader fs);
+		VertexShader* createVertexShader(const char* source) override;
+		FragmentShader* createFragmentShader(const char* source) override;
+		Pipeline* createPipeline(VertexShader* vs, FragmentShader* fs) override;
 	};
 }

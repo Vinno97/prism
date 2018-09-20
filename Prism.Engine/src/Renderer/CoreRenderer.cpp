@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <string>
 #include <iostream>
+#include <chrono>
 #include "RenderFacade/RenderDevice.h"
 #include "RenderFacade/VertexShader.h"
 #include "RenderFacade/OGLRenderDevice.h"
@@ -13,6 +14,7 @@
 
 namespace Renderer {
 
+	auto t_start = std::chrono::high_resolution_clock::now();
 	CoreRenderer::CoreRenderer()
 	{
 		renderDevice = new RenderFacade::OGLRenderDevice();
@@ -34,17 +36,17 @@ namespace Renderer {
 
 		const char* fragmentShaderSource =
 		{
-			"#version 140\nout vec4 LFragment; void main() { LFragment = vec4( 1.0, 1.0, 1.0, 1.0 ); }"
+			"#version 140\nuniform vec3 triangleColor;out vec4 LFragment; void main() { LFragment = vec4(triangleColor, 1.0 ); }"
 		};
 
 
-		RenderFacade::VertexShader vertexShaderObj = renderDevice->createVertexShader(vertexShaderSource);
+		vertexShader = renderDevice->createVertexShader(vertexShaderSource);
 
-		RenderFacade::FragmentShader fragmentShaderObj = renderDevice->createFragmentShader(fragmentShaderSource);
+		fragmentShader = renderDevice->createFragmentShader(fragmentShaderSource);
 
-		pipeline = renderDevice->createPipeline(vertexShaderObj, fragmentShaderObj);
+		pipeline = renderDevice->createPipeline(vertexShader, fragmentShader);
 		
-		vertexShaderObj.createUniform("a");
+		vertexShader->createUniform("triangleColor");
 
 		//Do Fragment
 		//End new shaders
@@ -53,7 +55,7 @@ namespace Renderer {
 		bool success = true;
 
 		//Get vertex attribute location
-		gVertexPos2DLocation = glGetAttribLocation(pipeline.pipelineID, "LVertexPos2D");
+		gVertexPos2DLocation = glGetAttribLocation(pipeline->pipelineID, "LVertexPos2D");
 		if (gVertexPos2DLocation == -1)
 		{
 			printf("LVertexPos2D is not a valid glsl program variable!\n");
@@ -97,11 +99,14 @@ namespace Renderer {
 		glClear(GL_COLOR_BUFFER_BIT);
 
 
-		//Render quad
+
+	//Render quad
 		if (true)
 		{
-			//Bind program
-			pipeline.run();
+			auto t_now = std::chrono::high_resolution_clock::now();
+			float time = std::chrono::duration_cast<std::chrono::duration<float>>(t_now - t_start).count();
+			pipeline->run();
+			fragmentShader->setUniformVector("triangleColor", (sin(time * 4.0f) + 1.0f) / 2.0f, 0.0f, 0.0f);
 			//Enable vertex position
 			glEnableVertexAttribArray(gVertexPos2DLocation);
 
@@ -117,7 +122,7 @@ namespace Renderer {
 			glDisableVertexAttribArray(gVertexPos2DLocation);
 
 			//Unbind program
-			pipeline.stop();
+			pipeline->stop();
 		}
 	}
 

@@ -15,16 +15,16 @@ namespace RenderFacade {
 	{
 		///QQQ Delete all devices and shaders etc
 	}
-	VertexShader OGLRenderDevice::createVertexShader(const char * source)
+	VertexShader* OGLRenderDevice::createVertexShader(const char * source)
 	{
-		return OGLVertexShader(source);
+		return new OGLVertexShader(source);
 	}
-	FragmentShader OGLRenderDevice::createFragmentShader(const char * source)
+	FragmentShader* OGLRenderDevice::createFragmentShader(const char * source)
 	{
-		return OGLFragmentShader(source);
+		return new OGLFragmentShader(source);
 	}
-	Pipeline OGLRenderDevice::createPipeline(VertexShader vs, FragmentShader fs)
+	Pipeline* OGLRenderDevice::createPipeline(VertexShader* vs, FragmentShader* fs)
 	{
-		return OGLPipeline(vs, fs);
+		return new OGLPipeline(vs, fs);
 	}
 }

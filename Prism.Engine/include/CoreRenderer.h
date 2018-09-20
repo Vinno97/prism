@@ -18,9 +18,9 @@ namespace Renderer {
 		~CoreRenderer();
 	private:
 		RenderFacade::RenderDevice* renderDevice;
-		GLuint vertexShader;
-		GLuint fragmentShader;
-		RenderFacade::Pipeline pipeline;
+		RenderFacade::VertexShader* vertexShader;
+		RenderFacade::FragmentShader* fragmentShader;
+		RenderFacade::Pipeline* pipeline;
 
 		GLuint gProgramID;
 		GLuint gVertexPos2DLocation;

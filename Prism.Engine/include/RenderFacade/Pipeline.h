@@ -5,10 +5,10 @@ namespace RenderFacade {
 	class Pipeline
 	{
 	public:
-		GLuint pipelineID;
-		~Pipeline() {};
 		Pipeline() {};
-		void run() {};
-		void stop() {};
+		virtual void run() = 0;
+		virtual void stop() = 0;
+
+		GLuint pipelineID;
 	};
 }

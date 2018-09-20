@@ -22,6 +22,19 @@ namespace RenderFacade {
 		}
 	}
 
+	bool OGLFragmentShader::createUniform(const char* name) {
+		int uniColor = glGetUniformLocation(fragmentID, name);
+		uniforms[name] = uniColor;
+		return true;
+	}
+
+
+	bool OGLFragmentShader::setUniformVector(const char* name, float x, float y, float z) {
+		int id = uniforms[name];
+		glUniform3f(id, x, y, z);
+		return true;
+	}
+
 	//QQQ Delete shader
 	OGLFragmentShader::~OGLFragmentShader()
 	{

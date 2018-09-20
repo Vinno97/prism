@@ -7,9 +7,9 @@ namespace RenderFacade {
 	class OGLPipeline : public Pipeline
 	{
 	public:
-		OGLPipeline(VertexShader vs, FragmentShader fs);
+		OGLPipeline(VertexShader* vs, FragmentShader* fs);
 		~OGLPipeline();
-		void run();	
-		void stop();
+		void run() override;	
+		void stop() override;
 	};
 }

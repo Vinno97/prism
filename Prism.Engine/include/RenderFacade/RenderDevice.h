@@ -8,10 +8,10 @@ namespace RenderFacade {
 	class RenderDevice
 	{
 	public:
-		RenderDevice();
-		~RenderDevice();
-		virtual VertexShader createVertexShader(const char* source);
-		virtual FragmentShader createFragmentShader(const char* source);
-		virtual Pipeline createPipeline(VertexShader vs, FragmentShader fs);
+		RenderDevice() {};
+		~RenderDevice() {};
+		virtual VertexShader* createVertexShader(const char* source) = 0;
+		virtual FragmentShader* createFragmentShader(const char* source) = 0;
+		virtual Pipeline* createPipeline(VertexShader* vs, FragmentShader* fs) = 0;
 	};
 }
