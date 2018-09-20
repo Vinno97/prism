@@ -18,41 +18,23 @@ namespace SDLFacade {
 		}
 		else
 		{
-			//Use OpenGL 3.1 core
-			SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-			SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
-			SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_COMPATIBILITY);
-
 			//Create window
+
+			//Enable antialiasing
+			SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
+			SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
+			SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
+			SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 8);
+
+			SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 32);
+
+			SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
+			SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 2);
+
 			gWindow = SDL_CreateWindow("SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
 			if (gWindow == NULL)
 			{
 				printf("Window could not be created! SDL Error: %s\n", SDL_GetError());
-			}
-			else
-			{
-				//Create context
-				gContext = SDL_GL_CreateContext(gWindow);
-				if (gContext == NULL)
-				{
-					printf("OpenGL context could not be created! SDL Error: %s\n", SDL_GetError());
-				}
-				else
-				{
-					//Initialize GLEW
-					glewExperimental = GL_TRUE;
-					GLenum glewError = glewInit();
-					if (glewError != GLEW_OK)
-					{
-						printf("Error initializing GLEW! %s\n", glewGetErrorString(glewError));
-					}
-
-					//Use Vsync
-					if (SDL_GL_SetSwapInterval(1) < 0)
-					{
-						printf("Warning: Unable to set VSync! SDL Error: %s\n", SDL_GetError());
-					}
-				}
 			}
 		}
 
@@ -92,19 +74,19 @@ namespace SDLFacade {
 		}
 		else
 		{
-				//Initialize GLEW
-				bool glewExperimental = GL_TRUE;
-				GLenum glewError = glewInit();
-				if (glewError != GLEW_OK)
-				{
-					printf("Error initializing GLEW! %s\n", glewGetErrorString(glewError));
-			    }
+			//Initialize GLEW
+			bool glewExperimental = GL_TRUE;
+			GLenum glewError = glewInit();
+			if (glewError != GLEW_OK)
+			{
+				printf("Error initializing GLEW! %s\n", glewGetErrorString(glewError));
+			}
 
-				//Use Vsync
-				if (SDL_GL_SetSwapInterval(1) < 0)
-				{
-					printf("Warning: Unable to set VSync! SDL Error: %s\n", SDL_GetError());
-				}
+			//Use Vsync
+			if (SDL_GL_SetSwapInterval(1) < 0)
+			{
+				printf("Warning: Unable to set VSync! SDL Error: %s\n", SDL_GetError());
+			}
 		}
 	}
 

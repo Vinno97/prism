@@ -25,7 +25,7 @@ namespace Renderer {
 	);
 
 
-	glm::mat4 proj = glm::perspective(glm::radians(70.0f), 1920.0f/1080.0f, 1.0f, 10.0f);
+	glm::mat4 proj = glm::perspective(glm::radians(70.0f), 1920.0f/1080.0f, 1.0f, 100.0f);
 
 	auto t_start = std::chrono::high_resolution_clock::now();
 	CoreRenderer::CoreRenderer()
@@ -36,6 +36,7 @@ namespace Renderer {
 	void CoreRenderer::init()
 	{
 
+		//glEnable(GL_MULTISAMPLE);
 		trans = glm::rotate(trans, glm::radians(0.0f), glm::vec3(0.0f, 0.0f, 1.0f));
 
 		//Get vertex source
@@ -73,13 +74,6 @@ namespace Renderer {
 		pipeline->createUniform("view");
 		pipeline->createUniform("proj");
 
-		//Do Fragment
-		//End new shaders
-
-		//Success flag
-		bool success = true;
-
-
 		//Initialize clear color
 		glClearColor(1.f, 1.f, 1.f, 1.f);
 
@@ -89,7 +83,7 @@ namespace Renderer {
 		-0.5f, -0.5f, -2.0f,  // bottom left
 		-0.5f,  0.5f, -2.0f   // top left 
 		};
-		unsigned int indices[] = {  // note that we start from 0!
+		unsigned int indices[] = {  
 			0, 1, 3,   // first triangle
 			1, 2, 3    // second triangle
 		};
@@ -125,7 +119,6 @@ namespace Renderer {
 			auto t_now = std::chrono::high_resolution_clock::now();
 			float time = std::chrono::duration_cast<std::chrono::duration<float>>(t_now - t_start).count();
 
-
 			pipeline->run();
 			pipeline->setUniformVector("triangleColor", 1.0f, 0.0f, 0.0f);
 			pipeline->setUniformMatrix4f("model", trans);
@@ -134,7 +127,7 @@ namespace Renderer {
 			//Set index data and render
 			glm::mat4 trans = glm::mat4(1.0f);
 			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, NULL);
-			trans = glm::translate(trans, glm::vec3(0.f, 2.f, -1.f));
+			trans = glm::translate(trans, glm::vec3(-0.5f, 2.f+(0.f+(time/2))*-1, -1.f));
 			pipeline->setUniformMatrix4f("model", trans);
 			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, NULL);
 			//Disable vertex position
