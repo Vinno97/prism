@@ -44,6 +44,8 @@ namespace Renderer {
 
 		pipeline = renderDevice->createPipeline(vertexShaderObj, fragmentShaderObj);
 		
+		vertexShaderObj.createUniform("a");
+
 		//Do Fragment
 		//End new shaders
 

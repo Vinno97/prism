@@ -5,5 +5,6 @@ namespace RenderFacade {
 	class VertexShader {
 	public:
 		GLuint vertexID;
+		bool createUniform(const char* name) { return false; };
 	};
 }

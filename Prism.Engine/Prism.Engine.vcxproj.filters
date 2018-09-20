@@ -113,9 +113,6 @@
     <ClCompile Include="src\RenderFacade\OGLPipeline.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\RenderFacade\Pipeline.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\SDL2.lib" />

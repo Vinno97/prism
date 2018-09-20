@@ -6,9 +6,9 @@ namespace RenderFacade {
 	{
 	public:
 		GLuint pipelineID;
-		Pipeline();
-		~Pipeline();
-		void run();
-		void stop();
+		~Pipeline() {};
+		Pipeline() {};
+		void run() {};
+		void stop() {};
 	};
 }

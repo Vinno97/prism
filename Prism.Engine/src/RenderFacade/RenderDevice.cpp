@@ -14,15 +14,15 @@ namespace RenderFacade {
 	}
 
 	VertexShader RenderDevice::createVertexShader(const char* source) {
-		return VertexShader();
+		throw "Method should not be called";
 	}
 
 	FragmentShader RenderDevice::createFragmentShader(const char* source) {
-		return FragmentShader();
+		throw "Method should not be called";
 	}
 	
 	Pipeline RenderDevice::createPipeline(VertexShader vs, FragmentShader fs) {
-		return Pipeline();
+		throw "Method should not be called";
 	}
 
 }

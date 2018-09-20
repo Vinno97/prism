@@ -39,7 +39,6 @@
   <ItemGroup>
     <ClCompile Include="src\RenderFacade\OGLPipeline.cpp" />
     <ClCompile Include="src\RenderFacade\OGLFragmentShader.cpp" />
-    <ClCompile Include="src\RenderFacade\Pipeline.cpp" />
     <ClCompile Include="src\RenderFacade\RenderDevice.cpp" />
     <ClCompile Include="src\Renderer\CoreRenderer.cpp" />
     <ClCompile Include="src\Context.cpp" />
