@@ -24,9 +24,7 @@ namespace Renderer {
 		glm::vec3(0.0f, 0.0f, 1.0f)
 	);
 
-
 	glm::mat4 proj = glm::perspective(glm::radians(70.0f), 1920.0f/1080.0f, 1.0f, 100.0f);
-
 	auto t_start = std::chrono::high_resolution_clock::now();
 	CoreRenderer::CoreRenderer()
 	{
@@ -36,7 +34,7 @@ namespace Renderer {
 	void CoreRenderer::init()
 	{
 
-		//glEnable(GL_MULTISAMPLE);
+		glEnable(GL_MULTISAMPLE);
 		trans = glm::rotate(trans, glm::radians(0.0f), glm::vec3(0.0f, 0.0f, 1.0f));
 
 		//Get vertex source
@@ -64,10 +62,13 @@ namespace Renderer {
 
 
 		vertexShader = renderDevice->createVertexShader(vertexShaderSource);
-
 		fragmentShader = renderDevice->createFragmentShader(fragmentShaderSource);
 
 		pipeline = renderDevice->createPipeline(vertexShader, fragmentShader);
+
+		//Shaders have been uploaded to the GPU and no longer need to be held in memory
+		delete vertexShader;
+		delete fragmentShader;
 		
 		pipeline->createUniform("triangleColor");
 		pipeline->createUniform("model");
@@ -88,57 +89,48 @@ namespace Renderer {
 			1, 2, 3    // second triangle
 		};
 
-		//Create VBO
-		glGenBuffers(1, &gVBO);
-		glBindBuffer(GL_ARRAY_BUFFER, gVBO);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+		vertexBuffer = renderDevice->createVertexBuffer(sizeof(vertices), vertices);
+		indexBuffer = renderDevice->createIndexBuffer(sizeof(indices), indices);
+		indexBuffer->bind();
 
-		//Create IBO
-		glGenBuffers(1, &gIBO);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gIBO);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-		//Enable vertex position
-
-		//Set vertex data
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (void*)0);
 		glEnableVertexAttribArray(0);
 
+		glEnable(GL_DEPTH_TEST);
 		return;
 	}
 
 
 	void CoreRenderer::draw()
 	{
+
 		//Clear color buffer
-	glClear(GL_COLOR_BUFFER_BIT);
+		renderDevice->clearScreen();
 
-	//Render quad
-		if (true)
-		{
-			auto t_now = std::chrono::high_resolution_clock::now();
-			float time = std::chrono::duration_cast<std::chrono::duration<float>>(t_now - t_start).count();
+		auto t_now = std::chrono::high_resolution_clock::now();
+		float time = std::chrono::duration_cast<std::chrono::duration<float>>(t_now - t_start).count();
 
-			pipeline->run();
-			pipeline->setUniformVector("triangleColor", 1.0f, 0.0f, 0.0f);
-			pipeline->setUniformMatrix4f("model", trans);
-			pipeline->setUniformMatrix4f("view", view);
-			pipeline->setUniformMatrix4f("proj", proj);
-			//Set index data and render
-			glm::mat4 trans = glm::mat4(1.0f);
-			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, NULL);
-			trans = glm::translate(trans, glm::vec3(-0.5f, 2.f+(0.f+(time/2))*-1, -1.f));
-			pipeline->setUniformMatrix4f("model", trans);
-			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, NULL);
-			//Disable vertex position
-			//glDisableVertexAttribArray(gVertexPos2DLocation);
+		pipeline->run();
+		pipeline->setUniformVector("triangleColor", 1.0f, 0.0f, 0.0f);
+		pipeline->setUniformMatrix4f("model", trans);
+		pipeline->setUniformMatrix4f("view", view);
+		pipeline->setUniformMatrix4f("proj", proj);
 
-			//Unbind program
-			pipeline->stop();
-		}
+	    renderDevice->DrawTrianglesIndexed(0, 6);
+		glm::mat4 trans = glm::mat4(1.0f);
+
+	    trans = glm::translate(trans, glm::vec3(-0.5f, 2.f+(0.f+(time/5))*-1, -1.f));
+	    pipeline->setUniformMatrix4f("model", trans);
+
+	    renderDevice->DrawTrianglesIndexed(0, 6);
+
+		pipeline->stop();
 	}
 
 	CoreRenderer::~CoreRenderer()
 	{
+		delete pipeline;
+		delete vertexBuffer;
+		delete renderDevice;
 	}
 }

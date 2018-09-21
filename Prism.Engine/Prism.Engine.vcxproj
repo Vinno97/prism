@@ -25,8 +25,12 @@
     <ClInclude Include="include\Game.h" />
     <ClInclude Include="include\InputManager.h" />
     <ClInclude Include="include\RenderFacade\FragmentShader.h" />
+    <ClInclude Include="include\RenderFacade\IndexBuffer.h" />
+    <ClInclude Include="include\RenderFacade\OGLIndexBuffer.h" />
     <ClInclude Include="include\RenderFacade\OGLRenderDevice.h" />
+    <ClInclude Include="include\RenderFacade\OGLVertexBuffer.h" />
     <ClInclude Include="include\RenderFacade\OGLVertexShader.h" />
+    <ClInclude Include="include\RenderFacade\VertexBuffer.h" />
     <ClInclude Include="include\RenderFacade\VertexShader.h" />
     <ClInclude Include="include\State.h" />
     <ClInclude Include="include\StateMachine.h" />
@@ -37,6 +41,7 @@
     <ClInclude Include="include\RenderFacade\OGLPipeline.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\RenderFacade\OGLIndexBuffer.cpp" />
     <ClCompile Include="src\RenderFacade\OGLPipeline.cpp" />
     <ClCompile Include="src\RenderFacade\OGLFragmentShader.cpp" />
     <ClCompile Include="src\Renderer\CoreRenderer.cpp" />
@@ -44,6 +49,7 @@
     <ClCompile Include="src\CoreEngine.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\RenderFacade\OGLRenderDevice.cpp" />
+    <ClCompile Include="src\RenderFacade\OGLVertexBuffer.cpp" />
     <ClCompile Include="src\RenderFacade\OGLVertexShader.cpp" />
     <ClCompile Include="src\SDLFacade\InputManager.cpp" />
     <ClCompile Include="src\main.cpp" />

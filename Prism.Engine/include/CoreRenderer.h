@@ -7,6 +7,8 @@
 #include <string>
 #include "RenderFacade/RenderDevice.h"
 #include "RenderFacade/VertexShader.h"
+#include "RenderFacade/VertexBuffer.h"
+#include "RenderFacade/IndexBuffer.h"
 
 namespace Renderer {
 	class CoreRenderer
@@ -21,6 +23,8 @@ namespace Renderer {
 		RenderFacade::VertexShader* vertexShader;
 		RenderFacade::FragmentShader* fragmentShader;
 		RenderFacade::Pipeline* pipeline;
+		RenderFacade::VertexBuffer* vertexBuffer;
+		RenderFacade::IndexBuffer* indexBuffer;
 
 		GLuint gProgramID;
 		GLuint gVertexPos2DLocation;
