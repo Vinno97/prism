@@ -15,9 +15,13 @@ namespace ECS {
 		= default;
 
 
-	EntityManager::~EntityManager()
-		= default;
-
+	EntityManager::~EntityManager() {
+		for (const auto typePair : entityComponents) {
+			for (const auto componentPair : typePair.second) {
+				delete componentPair.second;
+			}
+		}
+	}
 
 	Component* EntityManager::getComponent(unsigned int entityId, std::type_index componentType) const
 	{
@@ -31,9 +35,15 @@ namespace ECS {
 
 	void EntityManager::removeComponentFromEntity(unsigned int entityId, std::type_index componentType)
 	{
-		entityComponents.at(componentType).erase(entityId);
-		if (entityComponents.at(componentType).empty()) {
-			entityComponents.erase(componentType);
+		try {
+			delete entityComponents.at(componentType).at(entityId);
+			entityComponents.at(componentType).erase(entityId);
+			if (entityComponents.at(componentType).empty()) {
+				entityComponents.erase(componentType);
+			}
+		}
+		catch (const std::out_of_range& exception) {
+			throw std::runtime_error(std::string("No component of type ") + componentType.name() + " found for entity " + std::to_string(entityId));
 		}
 	}
 

@@ -5,7 +5,7 @@
 
 namespace ECS {
 	namespace Components {
-		struct PositionComponent : public Component {
+		struct PositionComponent : Component {
 			int x;
 			int y;
 		};

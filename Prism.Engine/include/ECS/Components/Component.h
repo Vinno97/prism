@@ -8,12 +8,6 @@
 
 namespace ECS {
 	namespace Components {
-		struct Component {
-			/*public:
-				Component();
-				~Component();
-
-				std::type_index type;*/
-		};
+		struct Component {};
 	}
 }

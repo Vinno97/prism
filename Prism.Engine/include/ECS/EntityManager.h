@@ -25,20 +25,6 @@ namespace ECS {
 		EntityManager();
 		~EntityManager();
 
-
-		//int createEntity(std::vector<Component*>& components);
-		//int createEntity(const Component* components...);
-		//int createEntity(Component* components ...);
-
-		/*template<typename... T>
-		int createEntity(T components ...) {
-			std::vector<T> componentsVector = { components };
-
-			return createEntity(componentsVector);
-		}*/
-
-		//int createEntity(std::vector<Component>& components, std::vector<std::type_index type>);
-
 		template<class A>
 		int createEntity(A& c1) {
 			entities.push_back(++lastEntityId);
@@ -103,15 +89,10 @@ namespace ECS {
 		}
 
 
-		//void addComponentToEntity(unsigned int entityId, Component* component);
 		template<class T, typename = std::enable_if < std::is_base_of<Component, T>::value>>
 		void addComponentToEntity(unsigned int entityId, T& component)
 		{
 			const std::type_index type = std::type_index(typeid(component));
-			//addComponentToEntity(entityId, component, type);
-
-			//auto type = component.type;
-
 
 			if (entityComponents.find(type) == entityComponents.end()) {
 				std::map<unsigned int, Component*> *components = &entityComponents[type];
@@ -123,22 +104,6 @@ namespace ECS {
 			entityComponents[type][entityId] = new T(component);
 		}
 
-		//void addComponentToEntity(unsigned int entityId, PositionComponent& component)
-		//{
-		//	const std::type_index type = std::type_index(typeid(component));
-		//	//addComponentToEntity(entityId, component, type);
-
-
-		//	if (entityComponents.find(type) == entityComponents.end()) {
-		//		std::map<unsigned int, Component> *components = &entityComponents[type];
-
-		//		if (components->find(entityId) != components->end()) {
-		//			throw std::runtime_error("Already attached a component of type " + *type.name() + *" to entity " + std::to_string(entityId));
-		//		}
-		//	}
-		//	entityComponents[type][entityId] = component;
-		//}
-
 		template<typename T, typename = std::enable_if < std::is_base_of<Component, T>::value>>
 		void removeComponentFromEntity(unsigned int entityId) {
 			const std::type_index type{ std::type_index(typeid(T)) };
@@ -147,18 +112,10 @@ namespace ECS {
 
 		template<typename T, typename = std::enable_if < std::is_base_of<Component, T>::value>>
 		T* getComponent(unsigned int entityId) const {
-			/*const std::type_index type{ std::type_index(typeid(T)) };
-			return static_cast<T*>(getComponent(entityId, type));*/
 			const std::type_index type{ std::type_index(typeid(T)) };
 			return static_cast<T*>(getComponent(entityId, type));
 
 		}
-
-		/*PositionComponent* getComponent(unsigned int entityId) {
-			const std::type_index type{ std::type_index(typeid(PositionComponent)) };
-			return static_cast<PositionComponent*>(getComponent(entityId, type));
-		}*/
-
 
 		template<typename T, typename = std::enable_if < std::is_base_of<Component, T>::value>>
 		std::vector<EntityWithComponent<T>> getAllEntities() const {

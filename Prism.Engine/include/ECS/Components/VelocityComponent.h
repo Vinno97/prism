@@ -6,7 +6,7 @@
 
 namespace ECS {
 	namespace Components {
-		struct VelocityComponent : public Component {
+		struct VelocityComponent : Component {
 			float dx;
 			float dy;
 		};
