@@ -51,26 +51,26 @@ namespace SDLFacade {
 		gContext = SDL_GL_CreateContext(gWindow);
 		if (gContext == nullptr)
 		{
-			printf("OpenGL context could not be created! SDL Error: %s\n", 
+			printf("OpenGL context could not be created! SDL Error: %s\n",
 				SDL_GetError());
 			success = false;
 		}
-		else
-		{
-			//	//Initialize GLEW
-			//	bool glewExperimental = GL_TRUE;
-			//	GLenum glewError = glewInit();
-			//	if (glewError != GLEW_OK)
-			//	{
-			//		printf("Error initializing GLEW! %s\n", glewGetErrorString(glewError));
-			//	}
+	}
 
-			//	//Use Vsync
-			//	if (SDL_GL_SetSwapInterval(1) < 0)
-			//	{
-			//		printf("Warning: Unable to set VSync! SDL Error: %s\n", SDL_GetError());
-			//	}
+	bool Window::shouldClose()
+	{
+		SDL_Event e;
+		//Handle events on queue
+		while (SDL_PollEvent(&e) != 0)
+		{
+			//User requests quit
+			if (e.type == SDL_QUIT)
+			{
+				this->close();
+				return true;
+			}
 		}
+		return false;
 	}
 
 	void Window::close()
@@ -90,4 +90,4 @@ namespace SDLFacade {
 		}
 		SDL_Quit();
 	}
-}  // namespace SDLFacade
+}

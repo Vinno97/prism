@@ -23,6 +23,7 @@
     <ClInclude Include="include\CoreEngine.h" />
     <ClInclude Include="include\Game.h" />
     <ClInclude Include="include\InputManager.h" />
+    <ClInclude Include="include\Key.h" />
     <ClInclude Include="include\State.h" />
     <ClInclude Include="include\StateMachine.h" />
     <ClInclude Include="include\Window.h" />

@@ -34,6 +34,8 @@ namespace SDLFacade {
 		/// </remarks>
 		void createOpenGLContext(int majorVersion, int minorVersion, bool useCompatibilityProfile);
 		
+		bool shouldClose();
+
 		/// <summary>
 		/// Destroys the window
 		/// </summary>	
