@@ -3,13 +3,18 @@
 #include <cstdio>
 #include <vector>
 #include <map>
+#include <typeindex>
 
-#include "Component.h"
+
+#include "Components/Component.h"
+#include "Components/PositionComponent.h"
+
 #include "Listener.h"
-
-typedef void *EntityHandle;
+#include "EntityWithComponent.h"
 
 namespace ECS {
+
+	using namespace Components;
 
 	/// <summary>
 	///	Handles the creation, management and removal of Entities.
@@ -20,168 +25,185 @@ namespace ECS {
 		EntityManager();
 		~EntityManager();
 
-		/// <summary>
-		/// Creates a new Entity with one or more predefined Components.
-		/// </summary>
+
+		//int createEntity(std::vector<Component*>& components);
+		//int createEntity(const Component* components...);
+		//int createEntity(Component* components ...);
+
+		/*template<typename... T>
+		int createEntity(T components ...) {
+			std::vector<T> componentsVector = { components };
+
+			return createEntity(componentsVector);
+		}*/
+
+		//int createEntity(std::vector<Component>& components, std::vector<std::type_index type>);
+
 		template<class A>
-		EntityHandle makeEntity(A& c1)
-		{
-			Component* components[] = { &c1 };
-			unsigned int componentIDs[] = { A::ID };
-			return makeEntity(components, componentIDs, 1);
+		int createEntity(A& c1) {
+			entities.push_back(++lastEntityId);
+			addComponentToEntity(lastEntityId, c1);
+			return lastEntityId;
 		}
 
 		template<class A, class B>
-		EntityHandle makeEntity(A& c1, B& c2)
-		{
-			Component* components[] = { &c1, &c2 };
-			unsigned int componentIDs[] = { A::ID, B::ID };
-			return makeEntity(components, componentIDs, 2);
+		int createEntity(A& c1, B& c2) {
+			int entity = createEntity(c1);
+			addComponentToEntity(entity, c2);
+			return entity;
 		}
 
 		template<class A, class B, class C>
-		EntityHandle makeEntity(A& c1, B& c2, C& c3)
-		{
-			Component* components[] = { &c1, &c2, &c3 };
-			unsigned int componentIDs[] = { A::ID, B::ID, C::ID };
-			return makeEntity(components, componentIDs, 3);
+		int createEntity(A& c1, B& c2, C& c3) {
+			int entity = createEntity(c1, 2c);
+			addComponentToEntity(entity, c3);
+			return entity;
 		}
 
 		template<class A, class B, class C, class D>
-		EntityHandle makeEntity(A& c1, B& c2, C& c3, D& c4)
-		{
-			Component* components[] = { &c1, &c2, &c3, &c4 };
-			unsigned int componentIDs[] = { A::ID, B::ID, C::ID, D::ID };
-			return makeEntity(components, componentIDs, 4);
+		int createEntity(A& c1, B& c2, C& c3, D& c4) {
+			int entity = createEntity(c1, 2c, c3);
+			addComponentToEntity(entity, c4);
+			return entity;
 		}
 
 		template<class A, class B, class C, class D, class E>
-		EntityHandle makeEntity(A& c1, B& c2, C& c3, D& c4, E& c5)
-		{
-			Component* components[] = { &c1, &c2, &c3, &c4, &c5 };
-			unsigned int componentIDs[] = { A::ID, B::ID, C::ID, D::ID, E::ID };
-			return makeEntity(components, componentIDs, 5);
-		}
-
-		template<class A, class B, class C, class D, class E, class F>
-		EntityHandle makeEntity(A& c1, B& c2, C& c3, D& c4, E& c5, F& c6)
-		{
-			Component* components[] = { &c1, &c2, &c3, &c4, &c5, &c6 };
-			unsigned int componentIDs[] = { A::ID, B::ID, C::ID, D::ID, E::ID, F::ID };
-			return makeEntity(components, componentIDs, 6);
+		int createEntity(A& c1, B& c2, C& c3, D& c4, E& c5) {
+			int entity = createEntity(c1, 2c, c3, c4);
+			addComponentToEntity(entity, c5);
+			return entity;
 		}
 
 		template<class A, class B, class C, class D, class E, class F, class G>
-		EntityHandle makeEntity(A& c1, B& c2, C& c3, D& c4, E& c5, F& c6, G& c7)
-		{
-			Component* components[] = { &c1, &c2, &c3, &c4, &c5, &c6, &c7 };
-			unsigned int componentIDs[] = { A::ID, B::ID, C::ID, D::ID, E::ID, F::ID, G::ID };
-			return makeEntity(components, componentIDs, 7);
+		int createEntity(A& c1, B& c2, C& c3, D& c4, E& c5, F& c6, G& c7) {
+			int entity = createEntity(c1, 2c, c3, c4, c5, c6);
+			addComponentToEntity(entity, c7);
+			return entity;
 		}
 
 		template<class A, class B, class C, class D, class E, class F, class G, class H>
-		EntityHandle makeEntity(A& c1, B& c2, C& c3, D& c4, E& c5, F& c6, G& c7, H& c8)
-		{
-			Component* components[] = { &c1, &c2, &c3, &c4, &c5, &c6, &c7, &c8 };
-			unsigned int componentIDs[] = { A::ID, B::ID, C::ID, D::ID, E::ID, F::ID, G::ID, H::ID };
-			return makeEntity(components, componentIDs, 8);
+		int createEntity(A& c1, B& c2, C& c3, D& c4, E& c5, F& c6, G& c7, H& c8) {
+			int entity = createEntity(c1, 2c, c3, c4, c5, c6, c7);
+			addComponentToEntity(entity, c8);
+			return entity;
 		}
 
 		template<class A, class B, class C, class D, class E, class F, class G, class H, class I>
-		EntityHandle makeEntity(A& c1, B& c2, C& c3, D& c4, E& c5, F& c6, G& c7, H& c8, I& c9)
-		{
-			Component* components[] = { &c1, &c2, &c3, &c4, &c5, &c6, &c7, &c8, &c9 };
-			unsigned int componentIDs[] = { A::ID, B::ID, C::ID, D::ID, E::ID, F::ID, G::ID, H::ID, I::ID };
-			return makeEntity(components, componentIDs, 9);
+		int createEntity(A& c1, B& c2, C& c3, D& c4, E& c5, F& c6, G& c7, H& c8, I& c9) {
+			int entity = createEntity(c1, 2c, c3, c4, c5, c6, c7, c8);
+			addComponentToEntity(entity, c9);
+			return entity;
 		}
 
 		template<class A, class B, class C, class D, class E, class F, class G, class H, class I, class J>
-		EntityHandle makeEntity(A& c1, B& c2, C& c3, D& c4, E& c5, F& c6, G& c7, H& c8, I& c9, J& c10)
-		{
-			Component* components[] = { &c1, &c2, &c3, &c4, &c5, &c6, &c7, &c8, &c9, &c10 };
-			unsigned int componentIDs[] = { A::ID, B::ID, C::ID, D::ID, E::ID, F::ID, G::ID, H::ID, I::ID, J::ID };
-			return makeEntity(components, componentIDs, 10);
+		int createEntity(A& c1, B& c2, C& c3, D& c4, E& c5, F& c6, G& c7, H& c8, I& c9, J& c10) {
+			int entity = createEntity(c1, 2c, c3, c4, c5, c6, c7, c8, c9);
+			addComponentToEntity(entity, c10);
+			return entity;
 		}
 
 
-		/// <summary>
-		/// Adds a Component to an Entity.
-		/// </summary>
-		template<class Component>
-		inline void addComponent(EntityHandle entity, Component* component)
+		//void addComponentToEntity(unsigned int entityId, Component* component);
+		template<class T, typename = std::enable_if < std::is_base_of<Component, T>::value>>
+		void addComponentToEntity(unsigned int entityId, T& component)
 		{
-			addComponentInternal(entity, handleToEntity(entity), Component::ID, component);
-			for (unsigned int i = 0; i < listeners.size(); i++) {
-				const std::vector<unsigned int>& componentIDs = listeners[i]->getComponentIDs();
-				if (listeners[i]->shouldNotifyOnAllComponentOperations()) {
-					listeners[i]->onAddComponent(entity, Component::ID);
-				}
-				else {
-					for (unsigned int j = 0; j < componentIDs.size(); j++) {
-						if (componentIDs[j] == Component::ID) {
-							listeners[i]->onAddComponent(entity, Component::ID);
-							break;
-						}
-					}
+			const std::type_index type = std::type_index(typeid(component));
+			//addComponentToEntity(entityId, component, type);
+
+			//auto type = component.type;
+
+
+			if (entityComponents.find(type) == entityComponents.end()) {
+				std::map<unsigned int, Component*> *components = &entityComponents[type];
+
+				if (components->find(entityId) != components->end()) {
+					throw std::runtime_error("Already attached a component of type " + *type.name() + *" to entity " + std::to_string(entityId));
 				}
 			}
+			entityComponents[type][entityId] = new T(component);
 		}
 
-		/// <summary>
-		/// Removes a Component of a certain type from an Entity.
-		/// </summary>
-		template<class Component>
-		bool removeComponent(EntityHandle entity)
-		{
-			for (unsigned int i = 0; i < listeners.size(); i++) {
-				const std::vector<unsigned int>& componentIDs = listeners[i]->getComponentIDs();
-				for (unsigned int j = 0; j < componentIDs.size(); j++) {
-					if (listeners[i]->shouldNotifyOnAllComponentOperations()) {
-						listeners[i]->onRemoveComponent(entity, Component::ID);
-					}
-					else {
-						if (componentIDs[j] == Component::ID) {
-							listeners[i]->onRemoveComponent(entity, Component::ID);
-							break;
-						}
-					}
-				}
-			}
-			return removeComponentInternal(entity, Component::ID);
+		//void addComponentToEntity(unsigned int entityId, PositionComponent& component)
+		//{
+		//	const std::type_index type = std::type_index(typeid(component));
+		//	//addComponentToEntity(entityId, component, type);
+
+
+		//	if (entityComponents.find(type) == entityComponents.end()) {
+		//		std::map<unsigned int, Component> *components = &entityComponents[type];
+
+		//		if (components->find(entityId) != components->end()) {
+		//			throw std::runtime_error("Already attached a component of type " + *type.name() + *" to entity " + std::to_string(entityId));
+		//		}
+		//	}
+		//	entityComponents[type][entityId] = component;
+		//}
+
+		template<typename T, typename = std::enable_if < std::is_base_of<Component, T>::value>>
+		void removeComponentFromEntity(unsigned int entityId) {
+			const std::type_index type{ std::type_index(typeid(T)) };
+			removeComponentFromEntity(entityId, type);
 		}
+
+		template<typename T, typename = std::enable_if < std::is_base_of<Component, T>::value>>
+		T* getComponent(unsigned int entityId) const {
+			/*const std::type_index type{ std::type_index(typeid(T)) };
+			return static_cast<T*>(getComponent(entityId, type));*/
+			const std::type_index type{ std::type_index(typeid(T)) };
+			return static_cast<T*>(getComponent(entityId, type));
+
+		}
+
+		/*PositionComponent* getComponent(unsigned int entityId) {
+			const std::type_index type{ std::type_index(typeid(PositionComponent)) };
+			return static_cast<PositionComponent*>(getComponent(entityId, type));
+		}*/
+
+
+		template<typename T, typename = std::enable_if < std::is_base_of<Component, T>::value>>
+		std::vector<EntityWithComponent<T>> getAllEntities() const {
+			auto const type = std::type_index(typeid(T));
+
+			auto const test = entities[type];
+
+			std::vector<EntityWithComponent<T>> result;
+
+			result.reserve(test.size());
+			for (auto const& pair : test) {
+				EntityWithComponent<T> test;
+				test.id = pair.first;
+				test.component;
+
+				result.push_back(test);
+			}
+
+			return result;
+		}
+
+		void removeEntity(unsigned int entityId);
+
 	private:
-		/// <summary>
-		/// Keeps a list of all instances of each compoent type.
-		/// </summary>
-		std::map<unsigned int, std::vector<unsigned short>> components;
+		unsigned int lastEntityId = 0;
+
 
 		/// <summary>
-		/// Keeps a list of all component on an Entity.
+		/// Keeps a list of all instances of each component type.
 		/// </summary>
-		std::vector<std::pair<unsigned int, std::vector<std::pair<unsigned int, unsigned int> > >* > entities;
+		//std::map<unsigned int, std::map<std::type_index, Component>> entityComponents;
+		std::map<std::type_index, std::map<unsigned int, Component*>> entityComponents;
+
+		/// <summary>
+		/// Keeps a list of all entities Entity.
+		/// </summary>
+		std::vector<unsigned int> entities;
 
 		/// <summary>
 		/// Keeps a list of all Listeners attached to the EntityManager.
 		/// </summary>
-		std::vector<Listener*> listeners;
 
-		inline std::pair<unsigned int, std::vector<std::pair<unsigned int, unsigned int> > >* handleToRawType(EntityHandle handle)
-		{
-			return (std::pair<unsigned int, std::vector<std::pair<unsigned int, unsigned int> > >*)handle;
-		}
-
-		inline unsigned int handleToEntityIndex(EntityHandle handle)
-		{
-			return handleToRawType(handle)->first;
-		}
-
-		inline std::vector<std::pair<unsigned int, unsigned int> >& handleToEntity(EntityHandle handle)
-		{
-			return handleToRawType(handle)->second;
-		}
+		Component* getComponent(unsigned int entityId, std::type_index componentType) const;
 
 
-		bool removeComponentInternal(EntityHandle handle, unsigned int componentID);
-		void addComponentInternal(EntityHandle handle, std::vector<std::pair<unsigned int, unsigned int> >& entity, unsigned int componentID, BaseComponent* component);
+		void removeComponentFromEntity(unsigned int entityId, std::type_index componentType);
 	};
 }

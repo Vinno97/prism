@@ -2,11 +2,11 @@
 
 #include <vector>
 
-#include "Component.h"
+#include "Components/Component.h"
 
 ///<summary>An interface that represents an ECS Listener</summery>
 namespace ECS {
-	class Listener
+	/*class Listener
 	{
 	public:
 		virtual void onMakeEntity(EntityHandle handle) {}
@@ -39,5 +39,5 @@ namespace ECS {
 		std::vector<unsigned int> componentIDs;
 		bool notifyOnAllComponentOperations = false;
 		bool notifyOnAllEntityOperations = false;
-	};
+	};*/
 }
