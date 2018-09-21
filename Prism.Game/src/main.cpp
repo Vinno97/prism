@@ -10,7 +10,7 @@ int main(int argc, char ** argv) {
 	window.createOpenGLContext(4, 1, true);
 	while (!window.shouldClose()) {
 		if (window.getInputManager().isKeyPressed(Key::KEY_W)) {
-			std::cout << "Dope" << std::endl;
+			std::cout << "Key W is pressed!" << std::endl;
 		}
 	}
 	return 0;
