@@ -22,11 +22,6 @@ void Window::init(const char* title, const int width, const int height, const in
 	}
 }
 
-InputManager Window::getInputManager()
-{
-	return InputManager();
-}
-
 void Window::createOpenGLContext(const int majorVersion, const int minorVersion, const bool useCompatibilityProfile)
 {
 

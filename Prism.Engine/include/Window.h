@@ -26,11 +26,6 @@ public:
 	void init(const char* title, const int width, const int height, const int x, const int y);
 	
 	/// <summary>
-	/// Returns an inputmanager
-	/// </summary>
-	InputManager getInputManager();
-	
-	/// <summary>
 	/// Prepares SDL window for opengl rendering. Requires for window to be initialized
 	/// </summary>		
 	/// <remarks>
