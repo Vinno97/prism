@@ -18,4 +18,3 @@ public:
 private:
 	std::map<Key, SDL_Scancode> keyMap;
 };
-

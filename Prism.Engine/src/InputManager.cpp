@@ -2,7 +2,6 @@
 #include <SDL2/SDL.h>
 #include "Key.h"
 
-
 InputManager::InputManager() {
 	keyMap[Key::KEY_W] = SDL_SCANCODE_W;
 	keyMap[Key::KEY_A] = SDL_SCANCODE_A;
@@ -13,12 +12,12 @@ InputManager::InputManager() {
 bool InputManager::isKeyPressed(Key key)
 {
 	const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
-	
-	if (currentKeyStates[keyMap[key]]) 
+
+	if (currentKeyStates[keyMap[key]])
 		return true;
 
 	return false;
 }
 
 InputManager::~InputManager()
-= default;
+	= default;

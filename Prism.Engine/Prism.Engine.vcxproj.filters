@@ -30,20 +30,20 @@
     <ClInclude Include="include\Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\InputManager.h">
-      <Filter>Header Files\SDLFacade</Filter>
-    </ClInclude>
     <ClInclude Include="include\State.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\StateMachine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Window.h">
-      <Filter>Header Files\SDLFacade</Filter>
-    </ClInclude>
     <ClInclude Include="include\Key.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\InputManager.h">
+      <Filter>Header Files\SDLFacade</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Window.h">
+      <Filter>Header Files\SDLFacade</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -65,10 +65,10 @@
     <ClCompile Include="src\StateMachine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\SDLFacade\Window.cpp">
+    <ClCompile Include="src\InputManager.cpp">
       <Filter>Source Files\SDLFacade</Filter>
     </ClCompile>
-    <ClCompile Include="src\SDLFacade\InputManager.cpp">
+    <ClCompile Include="src\Window.cpp">
       <Filter>Source Files\SDLFacade</Filter>
     </ClCompile>
   </ItemGroup>
