@@ -118,23 +118,29 @@ namespace ECS {
 		}
 
 		template<typename T, typename = std::enable_if < std::is_base_of<Component, T>::value>>
-		std::vector<EntityWithComponent<T>> getAllEntities() const {
+		std::vector<EntityWithComponent<T*>> getAllEntities() const {
 			auto const type = std::type_index(typeid(T));
 
-			auto const test = entities[type];
+			try {
 
-			std::vector<EntityWithComponent<T>> result;
+				auto const entities = entityComponents.at(type);
 
-			result.reserve(test.size());
-			for (auto const& pair : test) {
-				EntityWithComponent<T> test;
-				test.id = pair.first;
-				test.component;
+				std::vector<EntityWithComponent<T*>> result;
 
-				result.push_back(test);
+				result.reserve(entities.size());
+				for (auto const& entry : entities) {
+					EntityWithComponent<T*> entity;
+					entity.id = entry.first;
+					entity.component = static_cast<T*>(entry.second);
+
+					result.push_back(entity);
+				}
+
+				return result;
 			}
-
-			return result;
+			catch (const std::out_of_range& exception) {
+				throw std::runtime_error(std::string("No entities with an instance of component ") + type.name() + " found");
+			}
 		}
 
 		void removeEntity(unsigned int entityId);

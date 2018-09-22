@@ -32,12 +32,17 @@ void start() {
 
 	//entityManager.removeComponentFromEntity<PositionComponent>(entity);
 
-	PositionComponent* c = entityManager.getComponent<PositionComponent>(entity);
-	//auto* c = entityManager.getComponent(entity);
+	auto c = entityManager.getComponent<PositionComponent>(entity);
+	printf("Position: X: %d, Y: %d\n", c->x, c->y);
+
+	auto entities = entityManager.getAllEntities<VelocityComponent>();
+	printf("All entities with %s\n", "VelocityComponent");
+	for (auto entity : entities) {
+		printf("Entity: %d; Velocity dX: %.3f, dY: %.3f\n", entity.id, entity.component->dx, entity.component->dy);
+	}
 
 
 
-	printf("X: %d, Y: %d", c->x, c->y);
 	/*SDLFacade::Window window;
 	window.init("Prism", 1280, 720, 100, 100);
 	window.createOpenGLContext(4, 1, true);
