@@ -28,7 +28,7 @@ namespace SDLFacade {
 		return InputManager();
 	}
 
-	void Window::createOpenGLContext(int majorVersion, int minorVersion, bool useCompatibilityProfile)
+	void Window::createOpenGLContext(const int majorVersion, const int minorVersion, const bool useCompatibilityProfile)
 	{
 
 		if (gWindow == nullptr) {
