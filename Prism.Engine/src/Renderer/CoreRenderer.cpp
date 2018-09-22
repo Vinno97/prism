@@ -111,18 +111,27 @@ namespace Renderer {
 		float time = std::chrono::duration_cast<std::chrono::duration<float>>(t_now - t_start).count();
 
 		pipeline->run();
-		pipeline->setUniformVector("triangleColor", 1.0f, 0.0f, 0.0f);
+		pipeline->setUniformVector("triangleColor", 0.0f, 0.0f, 1.0f);
 		pipeline->setUniformMatrix4f("model", trans);
 		pipeline->setUniformMatrix4f("view", view);
 		pipeline->setUniformMatrix4f("proj", proj);
 
 	    renderDevice->DrawTrianglesIndexed(0, 6);
-		glm::mat4 trans = glm::mat4(1.0f);
+		//glm::mat4 trans = glm::mat4(1.0f);
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_ONE, GL_ONE);
+		glDepthMask(false);
+		glDepthFunc(GL_EQUAL);
 
-	    trans = glm::translate(trans, glm::vec3(-0.5f, 2.f+(0.f+(time/5))*-1, -1.f));
+	    //trans = glm::translate(trans, glm::vec3(-0.5f, 2.f+(0.f+(time/5))*-1, -1.f));
 	    pipeline->setUniformMatrix4f("model", trans);
 
+		pipeline->setUniformVector("triangleColor", 0.f, 1.0f, 0.0f);
 	    renderDevice->DrawTrianglesIndexed(0, 6);
+
+		glDepthFunc(GL_LESS);
+		glDepthMask(true);
+		glDisable(GL_BLEND);
 
 		pipeline->stop();
 	}
