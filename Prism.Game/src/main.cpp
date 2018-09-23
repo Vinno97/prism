@@ -1,8 +1,11 @@
 #pragma once
+#include <iostream>
 #include "Window.h"
 #include "ECS/EntityManager.h"
 #include "ECS/Components/PositionComponent.h"
 #include "ECS/Components/VelocityComponent.h"
+#include "InputManager.h"
+#include "Key.h"
 
 #include "ECS/Components/Component.h"
 
@@ -13,6 +16,16 @@
 // This function makes sure all objects are cleared from the stack before the memory gets dumped.
 
 void start() {
+    Window window;
+	InputManager inputManager;
+	window.init("Prism", 1280, 720, 100, 100);
+	window.createOpenGLContext(4, 1, true);
+	while (!window.shouldClose()) {
+		if (inputManager.isKeyPressed(Key::KEY_W)) {
+			std::cout << "Key W is pressed!" << std::endl;
+		}
+	}
+
 	using namespace ECS;
 	using namespace ECS::Components;
 
@@ -40,17 +53,8 @@ void start() {
 	for (auto entity : entities) {
 		printf("Entity: %d; Velocity dX: %.3f, dY: %.3f\n", entity.id, entity.component->dx, entity.component->dy);
 	}
-
-
-
-	/*SDLFacade::Window window;
-	window.init("Prism", 1280, 720, 100, 100);
-	window.createOpenGLContext(4, 1, true);
-	while (true) {
-	}*/
 }
 
-//QQQ Remove this main method
 int main(int argc, char ** argv) {
 	start();
 	_CrtDumpMemoryLeaks();
