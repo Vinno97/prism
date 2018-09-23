@@ -58,7 +58,7 @@ namespace ECS {
 		/// <returns>The ID of the newly created entity.</returns>
 		template<class A, class B, class C>
 		int createEntity(A& c1, B& c2, C& c3) {
-			int entity = createEntity(c1, 2c);
+			int entity = createEntity(c1, c2);
 			addComponentToEntity(entity, c3);
 			return entity;
 		}
@@ -73,7 +73,7 @@ namespace ECS {
 		/// <returns>The ID of the newly created entity.</returns>
 		template<class A, class B, class C, class D>
 		int createEntity(A& c1, B& c2, C& c3, D& c4) {
-			int entity = createEntity(c1, 2c, c3);
+			int entity = createEntity(c1, c2, c3);
 			addComponentToEntity(entity, c4);
 			return entity;
 		}
@@ -89,7 +89,7 @@ namespace ECS {
 		/// <returns>The ID of the newly created entity.</returns>
 		template<class A, class B, class C, class D, class E>
 		int createEntity(A& c1, B& c2, C& c3, D& c4, E& c5) {
-			int entity = createEntity(c1, 2c, c3, c4);
+			int entity = createEntity(c1, c2, c3, c4);
 			addComponentToEntity(entity, c5);
 			return entity;
 		}
@@ -106,7 +106,7 @@ namespace ECS {
 		/// <returns>The ID of the newly created entity.</returns>
 		template<class A, class B, class C, class D, class E, class F, class G>
 		int createEntity(A& c1, B& c2, C& c3, D& c4, E& c5, F& c6, G& c7) {
-			int entity = createEntity(c1, 2c, c3, c4, c5, c6);
+			int entity = createEntity(c1, c2, c3, c4, c5, c6);
 			addComponentToEntity(entity, c7);
 			return entity;
 		}
@@ -124,7 +124,7 @@ namespace ECS {
 		/// <returns>The ID of the newly created entity.</returns>
 		template<class A, class B, class C, class D, class E, class F, class G, class H>
 		int createEntity(A& c1, B& c2, C& c3, D& c4, E& c5, F& c6, G& c7, H& c8) {
-			int entity = createEntity(c1, 2c, c3, c4, c5, c6, c7);
+			int entity = createEntity(c1, c2, c3, c4, c5, c6, c7);
 			addComponentToEntity(entity, c8);
 			return entity;
 		}
@@ -143,7 +143,7 @@ namespace ECS {
 		/// <returns>The ID of the newly created entity.</returns>
 		template<class A, class B, class C, class D, class E, class F, class G, class H, class I>
 		int createEntity(A& c1, B& c2, C& c3, D& c4, E& c5, F& c6, G& c7, H& c8, I& c9) {
-			int entity = createEntity(c1, 2c, c3, c4, c5, c6, c7, c8);
+			int entity = createEntity(c1, c2, c3, c4, c5, c6, c7, c8);
 			addComponentToEntity(entity, c9);
 			return entity;
 		}
@@ -163,7 +163,7 @@ namespace ECS {
 		/// <returns>The ID of the newly created entity.</returns>
 		template<class A, class B, class C, class D, class E, class F, class G, class H, class I, class J>
 		int createEntity(A& c1, B& c2, C& c3, D& c4, E& c5, F& c6, G& c7, H& c8, I& c9, J& c10) {
-			int entity = createEntity(c1, 2c, c3, c4, c5, c6, c7, c8, c9);
+			int entity = createEntity(c1, c2, c3, c4, c5, c6, c7, c8, c9);
 			addComponentToEntity(entity, c10);
 			return entity;
 		}
