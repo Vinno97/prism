@@ -3,10 +3,8 @@
 
 
 CoreEngine::CoreEngine()
-{
-}
+= default;
 
 
 CoreEngine::~CoreEngine()
-{
-}
+= default;

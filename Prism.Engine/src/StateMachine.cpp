@@ -3,10 +3,8 @@
 
 
 StateMachine::StateMachine()
-{
-}
+= default;
 
 
 StateMachine::~StateMachine()
-{
-}
+= default;
