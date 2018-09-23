@@ -84,7 +84,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Prism.Engine\include;$(ProjectDir)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Prism.Engine\include;$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -129,8 +129,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\PrismGame.h" />
+    <ClInclude Include="include\ECS\Components\KeyboardInputComponent.h" />
+    <ClInclude Include="include\ECS\Systems\KeyboardInputSystem.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\ECS\Systems\KeyboardInputSystem.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\PrismGame.cpp" />
   </ItemGroup>

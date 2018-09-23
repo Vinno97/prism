@@ -5,8 +5,8 @@
 namespace ECS {
 	namespace Components {
 		struct VelocityComponent : Component {
-			float dx;
-			float dy;
+			float dx = 0;
+			float dy = 0;
 		};
 	}
 }
