@@ -178,8 +178,8 @@ namespace ECS {
 		{
 			const std::type_index type = std::type_index(typeid(component));
 
-			if (entityComponents.find(type) == entityComponents.end()) {
-				std::map<unsigned int, Component*> *components = &entityComponents[type];
+			if (entityComponents.find(type) != entityComponents.end()) {
+				std::map<unsigned int, Component*> *components = &entityComponents.at(type);
 
 				if (components->find(entityId) != components->end()) {
 					throw std::runtime_error("Already attached a component of type " + *type.name() + *" to entity " + std::to_string(entityId));
