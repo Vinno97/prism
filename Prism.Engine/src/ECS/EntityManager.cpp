@@ -33,6 +33,11 @@ namespace ECS {
 		}
 	}
 
+	bool EntityManager::hasComponent(unsigned int entityId, std::type_index componentType) const
+	{
+		return entityComponents.find(componentType) != entityComponents.end();
+	}
+
 	void EntityManager::removeComponentFromEntity(unsigned int entityId, std::type_index componentType)
 	{
 		try {

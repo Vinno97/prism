@@ -210,6 +210,17 @@ namespace ECS {
 
 		}
 
+		// <summary>
+		/// Returns whether or not an entity has a component.
+		/// </summary>
+		/// <param name="entityId">The ID of the entity to get the component from.</param>
+		/// <returns>A pointer to the component belonging to the entity.</returns>
+		template<typename T, typename = std::enable_if < std::is_base_of<Component, T>::value>>
+		bool hasComponent(unsigned int entityId) const {
+			const std::type_index type{ std::type_index(typeid(T)) };
+			return hasComponent(entityId, type);
+		}
+
 		/// <summary>
 		/// Retrieves all entities with a certain component type.
 		/// </summary>
@@ -257,6 +268,8 @@ namespace ECS {
 		/// </summary>
 
 		Component* getComponent(unsigned int entityId, std::type_index componentType) const;
+		
+		bool hasComponent(unsigned int entityId, std::type_index componentType) const;
 
 		std::vector<Entity<Component*>> getAllEntities(const std::type_index& componentType) const;
 
