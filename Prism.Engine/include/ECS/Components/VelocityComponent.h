@@ -1,8 +1,6 @@
 #pragma once
-#pragma once
 
 #include "Component.h"
-
 
 namespace ECS {
 	namespace Components {

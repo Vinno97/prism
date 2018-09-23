@@ -22,12 +22,10 @@
     <ClInclude Include="include\ECS\Components\Component.h" />
     <ClInclude Include="include\ECS\Components\PositionComponent.h" />
     <ClInclude Include="include\ECS\Components\VelocityComponent.h" />
-    <ClInclude Include="include\ECS\Entity.h" />
     <ClInclude Include="include\ECS\EntityManager.h" />
     <ClInclude Include="include\Context.h" />
     <ClInclude Include="include\CoreEngine.h" />
-    <ClInclude Include="include\ECS\EntityWithComponent.h" />
-    <ClInclude Include="include\ECS\PositionComponent.h" />
+    <ClInclude Include="include\ECS\Entity.h" />
     <ClInclude Include="include\Game.h" />
     <ClInclude Include="include\InputManager.h" />
     <ClInclude Include="include\State.h" />
@@ -35,11 +33,8 @@
     <ClInclude Include="include\Window.h" />
     <ClInclude Include="include\ECS\System.h" />
     <ClInclude Include="include\ECS\SystemManager.h" />
-    <ClInclude Include="include\ECS\Listener.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\ECS\Listener.cpp" />
-    <ClCompile Include="src\ECS\Entity.cpp" />
     <ClCompile Include="src\ECS\EntityManager.cpp" />
     <ClCompile Include="src\Context.cpp" />
     <ClCompile Include="src\CoreEngine.cpp" />

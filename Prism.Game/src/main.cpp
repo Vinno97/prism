@@ -26,7 +26,7 @@ void start() {
 	velocity.dx = 1.5f;
 	velocity.dy = .6f;
 
-
+	//int entity = entityManager.createEntity(position, velocity);
 	int entity = entityManager.createEntity(velocity);
 	entityManager.addComponentToEntity(entity, position);
 

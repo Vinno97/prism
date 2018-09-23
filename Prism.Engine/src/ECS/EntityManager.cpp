@@ -28,7 +28,7 @@ namespace ECS {
 		try {
 			return entityComponents.at(componentType).at(entityId);
 		}
-		catch (const std::out_of_range& exception) {
+		catch (const std::out_of_range&) {
 			throw std::runtime_error(std::string("No component of type ") + componentType.name() + " found for entity " + std::to_string(entityId));
 		}
 	}
@@ -42,7 +42,7 @@ namespace ECS {
 				entityComponents.erase(componentType);
 			}
 		}
-		catch (const std::out_of_range& exception) {
+		catch (const std::out_of_range&) {
 			throw std::runtime_error(std::string("No component of type ") + componentType.name() + " found for entity " + std::to_string(entityId));
 		}
 	}
@@ -60,6 +60,29 @@ namespace ECS {
 			}
 		}
 	}
+
+	std::vector<Entity<Component*>> EntityManager::getAllEntities(const std::type_index& componentType) const {
+		try {
+			auto const entities = entityComponents.at(componentType);
+
+			std::vector<Entity<Component*>> result;
+
+			result.reserve(entities.size());
+			for (auto const& entry : entities) {
+				Entity<Component*> entity;
+				entity.id = entry.first;
+				entity.component = entry.second;
+
+				result.push_back(entity);
+			}
+
+			return result;
+		}
+		catch (const std::out_of_range&) {
+			throw std::runtime_error(std::string("No entities with an instance of component ") + componentType.name() + " found");
+		}
+	}
+
 
 
 }
