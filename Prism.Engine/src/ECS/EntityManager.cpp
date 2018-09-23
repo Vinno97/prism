@@ -62,10 +62,9 @@ namespace ECS {
 	}
 
 	std::vector<Entity<Component*>> EntityManager::getAllEntities(const std::type_index& componentType) const {
+		std::vector<Entity<Component*>> result;
 		try {
 			auto const entities = entityComponents.at(componentType);
-
-			std::vector<Entity<Component*>> result;
 
 			result.reserve(entities.size());
 			for (auto const& entry : entities) {
@@ -78,9 +77,8 @@ namespace ECS {
 
 			return result;
 		}
-		catch (const std::out_of_range&) {
-			throw std::runtime_error(std::string("No entities with an instance of component ") + componentType.name() + " found");
-		}
+		catch (const std::out_of_range&) {} // No entities found, returning an empty array.
+		return result;
 	}
 
 
