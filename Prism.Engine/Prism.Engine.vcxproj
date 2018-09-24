@@ -32,6 +32,7 @@
     <ClInclude Include="include\RenderFacade\OGLVertexShader.h" />
     <ClInclude Include="include\RenderFacade\VertexBuffer.h" />
     <ClInclude Include="include\RenderFacade\VertexShader.h" />
+    <ClInclude Include="include\Key.h" />
     <ClInclude Include="include\State.h" />
     <ClInclude Include="include\StateMachine.h" />
     <ClInclude Include="include\Window.h" />
@@ -48,14 +49,14 @@
     <ClCompile Include="src\Context.cpp" />
     <ClCompile Include="src\CoreEngine.cpp" />
     <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\InputManager.cpp" />
+    <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\RenderFacade\OGLRenderDevice.cpp" />
     <ClCompile Include="src\RenderFacade\OGLVertexBuffer.cpp" />
     <ClCompile Include="src\RenderFacade\OGLVertexShader.cpp" />
-    <ClCompile Include="src\SDLFacade\InputManager.cpp" />
-    <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\State.cpp" />
     <ClCompile Include="src\StateMachine.cpp" />
-    <ClCompile Include="src\SDLFacade\Window.cpp" />
+    <ClCompile Include="src\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\SDL2.lib" />
