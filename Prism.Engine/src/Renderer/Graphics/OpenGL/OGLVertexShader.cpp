@@ -6,6 +6,7 @@
 #include <SDL2/SDL_opengl.h>
 #include "Renderer/Graphics/OpenGL/OGLVertexShader.h"
 #include <iostream> 
+#include <string>
 
 namespace Renderer {
 	namespace Graphics {
@@ -21,12 +22,23 @@ namespace Renderer {
 				//Compile vertex source
 				glCompileShader(vertexID);
 
-				//Check vertex shader for errors
-				GLint vShaderCompiled = GL_FALSE;
-				glGetShaderiv(vertexID, GL_COMPILE_STATUS, &vShaderCompiled);
-				if (vShaderCompiled != GL_TRUE)
+				GLint fShaderCompiled = GL_FALSE;
+				glGetShaderiv(vertexID, GL_COMPILE_STATUS, &fShaderCompiled);
+				if (fShaderCompiled != GL_TRUE)
 				{
-					printf("Unable to compile vertex shader %d!\n", vertexID);
+					int infologLength = 0;
+
+					int charsWritten  = 0;
+					char *infoLog;
+
+					glGetShaderiv(vertexID, GL_INFO_LOG_LENGTH,&infologLength);
+
+					infoLog = (char *)malloc(infologLength);
+					glGetShaderInfoLog(vertexID, infologLength, &charsWritten, infoLog);
+
+					std::string log = infoLog;
+
+					std::cout << "Unable to compile fragment shader " << log;
 				}
 			}
 
