@@ -1,9 +1,8 @@
 #include "StateMachine.h"
 
 
-StateMachine::StateMachine() {
-	currentState;
-}
+StateMachine::StateMachine()
+= default;
 
 StateMachine::~StateMachine()
 = default;
@@ -13,5 +12,5 @@ State StateMachine::getState() {
 }
 
 void StateMachine::setState(State newState) {
-	StateMachine::currentState = newState;
+	this->currentState = newState;
 }
