@@ -1,9 +1,10 @@
 #pragma once
 #include "CoreEngine.h"
 
-CoreEngine::CoreEngine(double frameRate) {
+
+CoreEngine::CoreEngine(double tps) {
 	this->isRunning = false;
-	this->frameTime = 1.0 / frameRate;
+	this->tikTime = 1.0 / tps;
 	//this->stateMachine = stateMachine; //// ????
 }
 
@@ -37,12 +38,21 @@ void CoreEngine::Run() {
 		unprocessedTime += deltaTime.count(); 
 		context.deltaTime = deltaTime.count();
 
-		while (unprocessedTime > frameTime) {
-			unprocessedTime -= frameTime;
+		while (unprocessedTime > tikTime) {
+			unprocessedTime -= tikTime;
 			
 
 			//statemachine.update(context);
 			
+		}
+		try
+		{
+			//Sleep 1 ms
+			std::this_thread::sleep_for(std::chrono::milliseconds(1));
+		}
+		catch (std::exception e)
+		{
+			std::cout<<e.what()<<std::endl;
 		}
 	}
 	CleanUp();

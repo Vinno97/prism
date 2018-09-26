@@ -1,6 +1,6 @@
 #pragma once
 #include <Chrono>
-#include "StateMachine.h"
+#include <thread>
 #include "Context.h"
 #include "window.h"
 class CoreEngine
@@ -15,7 +15,7 @@ public:
 
 private:
 	bool isRunning;
-	double frameTime;
+	double tikTime;
 	Context context;
 	//const StateMachine *stateMachine;
 
