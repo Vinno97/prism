@@ -120,6 +120,7 @@ namespace Renderer {
 		vertexArray1->addVertexBuffer(colourBuffer, 1, 3 * sizeof(GLfloat), 0, 3);
 
 		vertexArray1->unbind();
+
 		renderDevice->useDepthTest(true);
 
 		return;
@@ -137,7 +138,6 @@ namespace Renderer {
 		float time = std::chrono::duration_cast<std::chrono::duration<float>>(t_now - t_start).count();
 
 		pipeline->run();
-		//pipeline->setUniformVector("triangleColor", 0.0f, 0.0f, 1.0f);
 		pipeline->setUniformMatrix4f("model", trans);
 		pipeline->setUniformMatrix4f("view", view);
 		pipeline->setUniformMatrix4f("proj", proj);
@@ -150,7 +150,6 @@ namespace Renderer {
 	    trans = glm::translate(trans, glm::vec3(-0.5f, 2.f+(0.f+(time/5))*-1, -1.f));
 	    pipeline->setUniformMatrix4f("model", trans);
 
-		pipeline->setUniformVector("triangleColor", 0.f, 1.0f, 0.0f);
 	    renderDevice->DrawTrianglesIndexed(0, 6);
 
 		pipeline->stop();
