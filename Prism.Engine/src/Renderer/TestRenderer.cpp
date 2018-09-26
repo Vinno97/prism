@@ -1,4 +1,4 @@
-#include "Renderer/CoreRenderer.h"
+#include "Renderer/TestRenderer.h"
 #include <SDL2/SDL.h>
 #include <stdio.h>
 #include <string>
@@ -31,12 +31,13 @@ namespace Renderer {
 
 	glm::mat4 proj = glm::perspective(glm::radians(70.0f), 1920.0f/1080.0f, 1.0f, 100.0f);
 	auto t_start = std::chrono::high_resolution_clock::now();
-	CoreRenderer::CoreRenderer()
+
+	TestRenderer::TestRenderer()
 	{
 		renderDevice = new OGLRenderDevice();
 	}
 
-	void CoreRenderer::init()
+	void TestRenderer::init()
 	{
 		//Matrix for object in worldspace
 		trans = glm::rotate(trans, glm::radians(0.0f), glm::vec3(0.0f, 0.0f, 1.0f));
@@ -130,7 +131,7 @@ namespace Renderer {
 	}
 
 
-	void CoreRenderer::draw()
+	void TestRenderer::draw()
 	{
 		//Enable VAP
 		vertexArray1->bind();
@@ -158,7 +159,7 @@ namespace Renderer {
 		pipeline->stop();
 	}
 
-	CoreRenderer::~CoreRenderer()
+	TestRenderer::~TestRenderer()
 	{
 		delete pipeline;
 		delete vertexBuffer;

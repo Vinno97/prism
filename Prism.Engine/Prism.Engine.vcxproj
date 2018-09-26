@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\Renderer\CoreRenderer.h" />
+    <ClInclude Include="include\Renderer\TestRenderer.h" />
     <ClInclude Include="include\Context.h" />
     <ClInclude Include="include\CoreEngine.h" />
     <ClInclude Include="include\Game.h" />
@@ -44,19 +44,18 @@
     <ClInclude Include="include\Renderer\Graphics\VertexArrayObject.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Renderer\OGLRenderAPI\OGLIndexBuffer.cpp" />
-    <ClCompile Include="src\Renderer\OGLRenderAPI\OGLPipeline.cpp" />
-    <ClCompile Include="src\Renderer\OGLRenderAPI\OGLFragmentShader.cpp" />
-    <ClCompile Include="src\Renderer\OGLRenderAPI\OGLVertexArrayObject.cpp" />
-    <ClCompile Include="src\Renderer\CoreRenderer.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLIndexBuffer.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLPipeline.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLFragmentShader.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLVertexArrayObject.cpp" />
+    <ClCompile Include="src\Renderer\TestRenderer.cpp" />
     <ClCompile Include="src\Context.cpp" />
     <ClCompile Include="src\CoreEngine.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\InputManager.cpp" />
-    <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\Renderer\OGLRenderAPI\OGLRenderDevice.cpp" />
-    <ClCompile Include="src\Renderer\OGLRenderAPI\OGLVertexBuffer.cpp" />
-    <ClCompile Include="src\Renderer\OGLRenderAPI\OGLVertexShader.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLRenderDevice.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLVertexBuffer.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLVertexShader.cpp" />
     <ClCompile Include="src\State.cpp" />
     <ClCompile Include="src\StateMachine.cpp" />
     <ClCompile Include="src\Window.cpp" />

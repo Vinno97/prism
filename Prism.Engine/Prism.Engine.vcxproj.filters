@@ -45,9 +45,6 @@
     <ClInclude Include="include\Window.h">
       <Filter>Header Files\SDLFacade</Filter>
     </ClInclude>
-    <ClInclude Include="include\Renderer\CoreRenderer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\Renderer\Graphics\FragmentShader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -90,18 +87,15 @@
     <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLVertexShader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\Renderer\TestRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Context.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\CoreEngine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\State.cpp">
@@ -116,28 +110,31 @@
     <ClCompile Include="src\Window.cpp">
       <Filter>Source Files\SDLFacade</Filter>
     </ClCompile>
-    <ClCompile Include="src\Renderer\CoreRenderer.cpp">
+    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLFragmentShader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Renderer\OGLRenderAPI\OGLFragmentShader.cpp">
+    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLIndexBuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Renderer\OGLRenderAPI\OGLIndexBuffer.cpp">
+    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLPipeline.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Renderer\OGLRenderAPI\OGLPipeline.cpp">
+    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLRenderDevice.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Renderer\OGLRenderAPI\OGLRenderDevice.cpp">
+    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLVertexArrayObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Renderer\OGLRenderAPI\OGLVertexArrayObject.cpp">
+    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLVertexBuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Renderer\OGLRenderAPI\OGLVertexBuffer.cpp">
+    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLVertexShader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Renderer\OGLRenderAPI\OGLVertexShader.cpp">
+    <ClCompile Include="src\CoreEngine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer\TestRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -13,13 +13,13 @@
 using namespace Renderer::Graphics;
 
 namespace Renderer {
-	class CoreRenderer
+	class TestRenderer
 	{
 	public:
-		CoreRenderer();
+		TestRenderer();
 		void init();
 		void draw();
-		~CoreRenderer();
+		~TestRenderer();
 	private:
 		RenderDevice* renderDevice;
 		VertexShader* vertexShader;
