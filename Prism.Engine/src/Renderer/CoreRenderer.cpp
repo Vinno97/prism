@@ -19,7 +19,7 @@ namespace Renderer {
 	glm::mat4 trans = glm::mat4(1.0f);
 
 	glm::mat4 view = glm::lookAt(
-		glm::vec3(3.2f, 0.f, 1.2f),
+		glm::vec3(5.2f, 0.f, 1.2f),
 		glm::vec3(0.0f, 0.0f, 0.0f),
 		glm::vec3(0.0f, 0.0f, 1.0f)
 	);
@@ -144,6 +144,8 @@ namespace Renderer {
 
 	    renderDevice->DrawTrianglesIndexed(0, 6);
 		glm::mat4 trans = glm::mat4(1.0f);
+
+		view = glm::rotate(view, glm::radians(2.0f), glm::vec3(0.f, 0.0f, 1.0f));
 
 	    trans = glm::translate(trans, glm::vec3(-0.5f, 2.f+(0.f+(time/5))*-1, -1.f));
 	    pipeline->setUniformMatrix4f("model", trans);
