@@ -19,44 +19,44 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\CoreRenderer.h" />
+    <ClInclude Include="include\Renderer\CoreRenderer.h" />
     <ClInclude Include="include\Context.h" />
     <ClInclude Include="include\CoreEngine.h" />
     <ClInclude Include="include\Game.h" />
     <ClInclude Include="include\InputManager.h" />
-    <ClInclude Include="include\RenderAPI\FragmentShader.h" />
-    <ClInclude Include="include\RenderAPI\IndexBuffer.h" />
-    <ClInclude Include="include\RenderAPI\OGLIndexBuffer.h" />
-    <ClInclude Include="include\RenderAPI\OGLRenderDevice.h" />
-    <ClInclude Include="include\RenderAPI\OGLVertexArrayObject.h" />
-    <ClInclude Include="include\RenderAPI\OGLVertexBuffer.h" />
-    <ClInclude Include="include\RenderAPI\OGLVertexShader.h" />
-    <ClInclude Include="include\RenderAPI\VertexBuffer.h" />
-    <ClInclude Include="include\RenderAPI\VertexShader.h" />
+    <ClInclude Include="include\Renderer\Graphics\FragmentShader.h" />
+    <ClInclude Include="include\Renderer\Graphics\IndexBuffer.h" />
+    <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLIndexBuffer.h" />
+    <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLRenderDevice.h" />
+    <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLVertexArrayObject.h" />
+    <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLVertexBuffer.h" />
+    <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLVertexShader.h" />
+    <ClInclude Include="include\Renderer\Graphics\VertexBuffer.h" />
+    <ClInclude Include="include\Renderer\Graphics\VertexShader.h" />
     <ClInclude Include="include\Key.h" />
     <ClInclude Include="include\State.h" />
     <ClInclude Include="include\StateMachine.h" />
     <ClInclude Include="include\Window.h" />
-    <ClInclude Include="include\RenderAPI\RenderDevice.h" />
-    <ClInclude Include="include\RenderAPI\OGLFragmentShader.h" />
-    <ClInclude Include="include\RenderAPI\Pipeline.h" />
-    <ClInclude Include="include\RenderAPI\OGLPipeline.h" />
-    <ClInclude Include="include\RenderAPI\VertexArrayObject.h" />
+    <ClInclude Include="include\Renderer\Graphics\RenderDevice.h" />
+    <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLFragmentShader.h" />
+    <ClInclude Include="include\Renderer\Graphics\Pipeline.h" />
+    <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLPipeline.h" />
+    <ClInclude Include="include\Renderer\Graphics\VertexArrayObject.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\OGLRenderAPI\OGLIndexBuffer.cpp" />
-    <ClCompile Include="src\OGLRenderAPI\OGLPipeline.cpp" />
-    <ClCompile Include="src\OGLRenderAPI\OGLFragmentShader.cpp" />
-    <ClCompile Include="src\OGLRenderAPI\OGLVertexArrayObject.cpp" />
+    <ClCompile Include="src\Renderer\OGLRenderAPI\OGLIndexBuffer.cpp" />
+    <ClCompile Include="src\Renderer\OGLRenderAPI\OGLPipeline.cpp" />
+    <ClCompile Include="src\Renderer\OGLRenderAPI\OGLFragmentShader.cpp" />
+    <ClCompile Include="src\Renderer\OGLRenderAPI\OGLVertexArrayObject.cpp" />
     <ClCompile Include="src\Renderer\CoreRenderer.cpp" />
     <ClCompile Include="src\Context.cpp" />
     <ClCompile Include="src\CoreEngine.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\InputManager.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\OGLRenderAPI\OGLRenderDevice.cpp" />
-    <ClCompile Include="src\OGLRenderAPI\OGLVertexBuffer.cpp" />
-    <ClCompile Include="src\OGLRenderAPI\OGLVertexShader.cpp" />
+    <ClCompile Include="src\Renderer\OGLRenderAPI\OGLRenderDevice.cpp" />
+    <ClCompile Include="src\Renderer\OGLRenderAPI\OGLVertexBuffer.cpp" />
+    <ClCompile Include="src\Renderer\OGLRenderAPI\OGLVertexShader.cpp" />
     <ClCompile Include="src\State.cpp" />
     <ClCompile Include="src\StateMachine.cpp" />
     <ClCompile Include="src\Window.cpp" />

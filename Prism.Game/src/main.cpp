@@ -3,7 +3,7 @@
 #include "Window.h"
 #include "InputManager.h"
 #include "Key.h"
-#include "CoreRenderer.h"
+#include "Renderer/CoreRenderer.h"
 
 //QQQ Remove this main method
 int main(int argc, char ** argv) {

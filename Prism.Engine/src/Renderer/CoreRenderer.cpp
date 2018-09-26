@@ -1,4 +1,4 @@
-#include "CoreRenderer.h"
+#include "Renderer/CoreRenderer.h"
 #include <SDL2/SDL.h>
 #include <stdio.h>
 #include <string>
@@ -7,13 +7,16 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include "RenderAPI/RenderDevice.h"
-#include "RenderAPI/VertexShader.h"
-#include "RenderAPI/OGLRenderDevice.h"
-#include "RenderAPI/OGLVertexShader.h"
-#include "RenderAPI/OGLPipeline.h"
-#include "RenderAPI/VertexArrayObject.h"
-#include "RenderAPI/VertexBuffer.h"
+#include "Renderer/Graphics/RenderDevice.h"
+#include "Renderer/Graphics/VertexShader.h"
+#include "Renderer/Graphics/OpenGL/OGLRenderDevice.h"
+#include "Renderer/Graphics/OpenGL/OGLVertexShader.h"
+#include "Renderer/Graphics/OpenGL/OGLPipeline.h"
+#include "Renderer/Graphics/VertexArrayObject.h"
+#include "Renderer/Graphics/VertexBuffer.h"
+
+using namespace Renderer::Graphics;
+using namespace Renderer::Graphics::OpenGL;
 
 namespace Renderer {
 	glm::mat4 trans = glm::mat4(1.0f);
@@ -24,13 +27,13 @@ namespace Renderer {
 		glm::vec3(0.0f, 0.0f, 1.0f)
 	);
 
-	RenderAPI::VertexArrayObject* vertexArray1;
+	VertexArrayObject* vertexArray1;
 
 	glm::mat4 proj = glm::perspective(glm::radians(70.0f), 1920.0f/1080.0f, 1.0f, 100.0f);
 	auto t_start = std::chrono::high_resolution_clock::now();
 	CoreRenderer::CoreRenderer()
 	{
-		renderDevice = new RenderAPI::OGLRenderDevice();
+		renderDevice = new OGLRenderDevice();
 	}
 
 	void CoreRenderer::init()
@@ -109,7 +112,7 @@ namespace Renderer {
 		vertexBuffer = renderDevice->createVertexBuffer(sizeof(vertices), vertices);
 
 		//Another buffer for the colours
-		RenderAPI::VertexBuffer* colourBuffer = renderDevice->createVertexBuffer(sizeof(colours), colours);
+		VertexBuffer* colourBuffer = renderDevice->createVertexBuffer(sizeof(colours), colours);
 
 		//Indices buffer
 		indexBuffer = renderDevice->createIndexBuffer(sizeof(indices), indices);
