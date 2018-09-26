@@ -8,7 +8,6 @@ public:
 	~StateMachine();
 	State getState();
 	void setState(State newState);
-	
 
 private:
 	State currentState;

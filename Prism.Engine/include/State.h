@@ -9,4 +9,7 @@ public:
   virtual void update(Context context);
   virtual void onEnter();
   virtual void onLeave();
+
+private:
+	Context context;
 };
