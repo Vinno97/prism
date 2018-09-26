@@ -1,8 +1,8 @@
 #pragma once
 #include <SDL2/SDL_opengl.h>
-#include "RenderFacade/FragmentShader.h"
+#include "RenderAPI/FragmentShader.h"
 
-namespace RenderFacade {
+namespace RenderAPI {
 	class OGLFragmentShader : public FragmentShader
 	{
 	public:

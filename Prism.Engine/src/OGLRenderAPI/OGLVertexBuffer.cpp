@@ -1,10 +1,10 @@
 #pragma once
 #include <GL/glew.h>
 #include <SDL2/SDL_opengl.h>
-#include "RenderFacade/OGLVertexBuffer.h"
+#include "RenderAPI/OGLVertexBuffer.h"
 #include <iostream> 
 
-namespace RenderFacade {
+namespace RenderAPI {
 	OGLVertexBuffer::OGLVertexBuffer(long size, const void *data) {
 		glGenBuffers(1, &VBO);
 		glBindBuffer(GL_ARRAY_BUFFER, VBO);

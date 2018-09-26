@@ -1,11 +1,11 @@
 #pragma once
-#include "RenderFacade/Pipeline.h"
-#include "RenderFacade/VertexShader.h"
-#include "RenderFacade/FragmentShader.h"
+#include "RenderAPI/Pipeline.h"
+#include "RenderAPI/VertexShader.h"
+#include "RenderAPI/FragmentShader.h"
 #include <map>
 #include <glm/glm.hpp>
 
-namespace RenderFacade {
+namespace RenderAPI {
 	class OGLPipeline : public Pipeline
 	{
 	public:

@@ -1,6 +1,6 @@
 #pragma once
 #include <SDL2/SDL_opengl.h>
-namespace RenderFacade {
+namespace RenderAPI {
 	class IndexBuffer{
 	public:
 		IndexBuffer() {};

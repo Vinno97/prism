@@ -1,13 +1,14 @@
 #pragma once
 #include <SDL2/SDL_opengl.h>
-#include "RenderFacade/RenderDevice.h"
-#include "RenderFacade/VertexShader.h"
-#include "RenderFacade/FragmentShader.h"
-#include "RenderFacade/Pipeline.h"
-#include "RenderFacade/VertexBuffer.h"
-#include "RenderFacade/IndexBuffer.h"
+#include "RenderAPI/RenderDevice.h"
+#include "RenderAPI/VertexShader.h"
+#include "RenderAPI/FragmentShader.h"
+#include "RenderAPI/Pipeline.h"
+#include "RenderAPI/VertexBuffer.h"
+#include "RenderAPI/IndexBuffer.h"
+#include "RenderAPI/VertexArrayObject.h"
 
-namespace RenderFacade {
+namespace RenderAPI {
 	class OGLRenderDevice : public RenderDevice
 	{
 	public:
@@ -18,6 +19,10 @@ namespace RenderFacade {
 		Pipeline* createPipeline(VertexShader* vs, FragmentShader* fs) override;
 		VertexBuffer* createVertexBuffer(long size, const void *data) override;
 		IndexBuffer* createIndexBuffer(long size, const void *data) override;
+		VertexArrayObject* createVertexArrayobject() override;
+
+		void setClearColour(float r, float g, float b, float w) override;
+		void useDepthTest(bool enable) override;
 		void clearScreen() override;
 		void DrawTrianglesIndexed(long offset, int count) override;
 	};

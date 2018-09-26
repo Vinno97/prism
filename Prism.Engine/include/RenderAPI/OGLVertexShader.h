@@ -1,8 +1,8 @@
 #pragma once
 #include <SDL2/SDL_opengl.h>
-#include "RenderFacade/VertexShader.h"
+#include "RenderAPI/VertexShader.h"
 
-namespace RenderFacade {
+namespace RenderAPI {
 	class OGLVertexShader : public VertexShader {
 	public:
 		OGLVertexShader(const char* source);

@@ -1,15 +1,16 @@
 #pragma once
 #include <SDL2/SDL_opengl.h>
-#include "RenderFacade/RenderDevice.h"
-#include "RenderFacade/OGLRenderDevice.h"
-#include "RenderFacade/VertexShader.h"
-#include "RenderFacade/OGLVertexShader.h"
-#include "RenderFacade/OGLFragmentShader.h"
-#include "RenderFacade/OGLPipeline.h"
-#include "RenderFacade/OGLVertexBuffer.h"
-#include "RenderFacade/OGLIndexBuffer.h"
+#include "RenderAPI/RenderDevice.h"
+#include "RenderAPI/OGLRenderDevice.h"
+#include "RenderAPI/VertexShader.h"
+#include "RenderAPI/OGLVertexShader.h"
+#include "RenderAPI/OGLFragmentShader.h"
+#include "RenderAPI/OGLPipeline.h"
+#include "RenderAPI/OGLVertexBuffer.h"
+#include "RenderAPI/OGLIndexBuffer.h"
+#include "RenderAPI/OGLVertexArrayObject.h"
 
-namespace RenderFacade {
+namespace RenderAPI {
 	OGLRenderDevice::OGLRenderDevice()
 	{
 	}
@@ -41,6 +42,24 @@ namespace RenderFacade {
 	IndexBuffer * OGLRenderDevice::createIndexBuffer(long size, const void * data)
 	{
 		return new OGLIndexBuffer(size, data);
+	}
+
+	VertexArrayObject * OGLRenderDevice::createVertexArrayobject()
+	{
+		return new OGLVertexArrayObject;
+	}
+
+	void OGLRenderDevice::setClearColour(float r, float g, float b, float w)
+	{
+		glClearColor(r, g, b, w);
+	}
+
+	void OGLRenderDevice::useDepthTest(bool enable)
+	{
+		if (enable)
+			glEnable(GL_DEPTH_TEST);
+		else
+			glDisable(GL_DEPTH_TEST);
 	}
 
 	void OGLRenderDevice::clearScreen()

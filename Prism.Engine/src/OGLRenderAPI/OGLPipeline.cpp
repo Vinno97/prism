@@ -3,12 +3,12 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <SDL2/SDL_opengl.h>
-#include "RenderFacade/VertexShader.h"
-#include "RenderFacade/FragmentShader.h"
-#include "RenderFacade/OGLPipeline.h"
+#include "RenderAPI/VertexShader.h"
+#include "RenderAPI/FragmentShader.h"
+#include "RenderAPI/OGLPipeline.h"
 #include <iostream>
 
-namespace RenderFacade {
+namespace RenderAPI {
 	OGLPipeline::OGLPipeline(VertexShader* vs, FragmentShader* fs)
 	{
 		pipelineID = glCreateProgram();

@@ -1,6 +1,6 @@
 #pragma once
-#include "RenderFacade/IndexBuffer.h"
-namespace RenderFacade {
+#include "RenderAPI/IndexBuffer.h"
+namespace RenderAPI {
 	class OGLIndexBuffer : public IndexBuffer {
 	public:
 		OGLIndexBuffer(long size, const void *data);

@@ -10,7 +10,7 @@ int main(int argc, char ** argv) {
 	Window window;
 	InputManager inputManager;
 	window.init("Prism", 1920, 1080, 100, 100);
-	window.createOpenGLContext(4, 1, true);
+	window.createOpenGLContext(3, 2, true);
 	Renderer::CoreRenderer cr;
 	cr.init();
 	while (!window.shouldClose()) {

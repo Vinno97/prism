@@ -4,7 +4,7 @@
 #include <iostream>
 #include <map>
 
-namespace RenderFacade {
+namespace RenderAPI {
 	class VertexShader {
 	public:
 		VertexShader() {};

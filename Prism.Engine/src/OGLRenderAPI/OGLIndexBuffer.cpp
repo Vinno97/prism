@@ -1,10 +1,10 @@
 #pragma once
 #include <GL/glew.h>
 #include <SDL2/SDL_opengl.h>
-#include "RenderFacade/OGLIndexBuffer.h"
+#include "RenderAPI/OGLIndexBuffer.h"
 #include <iostream> 
 
-namespace RenderFacade {
+namespace RenderAPI {
 	OGLIndexBuffer::OGLIndexBuffer(long size, const void *data) {
 		glGenBuffers(1, &IBO);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);

@@ -3,7 +3,7 @@
 #include <iostream>
 #include <map>
 
-namespace RenderFacade {
+namespace RenderAPI {
 	class FragmentShader {
 	public:
 		GLuint fragmentID;

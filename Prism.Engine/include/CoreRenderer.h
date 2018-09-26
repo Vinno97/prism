@@ -5,10 +5,10 @@
 #include <SDL2/SDL_opengl.h>
 #include <stdio.h>
 #include <string>
-#include "RenderFacade/RenderDevice.h"
-#include "RenderFacade/VertexShader.h"
-#include "RenderFacade/VertexBuffer.h"
-#include "RenderFacade/IndexBuffer.h"
+#include "RenderAPI/RenderDevice.h"
+#include "RenderAPI/VertexShader.h"
+#include "RenderAPI/VertexBuffer.h"
+#include "RenderAPI/IndexBuffer.h"
 
 namespace Renderer {
 	class CoreRenderer
@@ -19,12 +19,12 @@ namespace Renderer {
 		void draw();
 		~CoreRenderer();
 	private:
-		RenderFacade::RenderDevice* renderDevice;
-		RenderFacade::VertexShader* vertexShader;
-		RenderFacade::FragmentShader* fragmentShader;
-		RenderFacade::Pipeline* pipeline;
-		RenderFacade::VertexBuffer* vertexBuffer;
-		RenderFacade::IndexBuffer* indexBuffer;
+		RenderAPI::RenderDevice* renderDevice;
+		RenderAPI::VertexShader* vertexShader;
+		RenderAPI::FragmentShader* fragmentShader;
+		RenderAPI::Pipeline* pipeline;
+		RenderAPI::VertexBuffer* vertexBuffer;
+		RenderAPI::IndexBuffer* indexBuffer;
 
 		GLuint gProgramID;
 		GLuint gVertexPos2DLocation;

@@ -48,40 +48,46 @@
     <ClInclude Include="include\CoreRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\RenderFacade\OGLRenderDevice.h">
+    <ClInclude Include="include\RenderAPI\FragmentShader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\RenderFacade\RenderDevice.h">
+    <ClInclude Include="include\RenderAPI\IndexBuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\RenderFacade\VertexShader.h">
+    <ClInclude Include="include\RenderAPI\OGLFragmentShader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\RenderFacade\FragmentShader.h">
+    <ClInclude Include="include\RenderAPI\OGLIndexBuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\RenderFacade\OGLVertexShader.h">
+    <ClInclude Include="include\RenderAPI\OGLPipeline.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\RenderFacade\OGLFragmentShader.h">
+    <ClInclude Include="include\RenderAPI\OGLRenderDevice.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\RenderFacade\Pipeline.h">
+    <ClInclude Include="include\RenderAPI\OGLVertexBuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\RenderFacade\OGLPipeline.h">
+    <ClInclude Include="include\RenderAPI\OGLVertexShader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\RenderFacade\VertexBuffer.h">
+    <ClInclude Include="include\RenderAPI\Pipeline.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\RenderFacade\OGLVertexBuffer.h">
+    <ClInclude Include="include\RenderAPI\RenderDevice.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\RenderFacade\IndexBuffer.h">
+    <ClInclude Include="include\RenderAPI\VertexBuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\RenderFacade\OGLIndexBuffer.h">
+    <ClInclude Include="include\RenderAPI\VertexShader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\RenderAPI\VertexArrayObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\RenderAPI\OGLVertexArrayObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -113,22 +119,25 @@
     <ClCompile Include="src\Renderer\CoreRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\RenderFacade\OGLFragmentShader.cpp">
+    <ClCompile Include="src\OGLRenderAPI\OGLFragmentShader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\RenderFacade\OGLPipeline.cpp">
+    <ClCompile Include="src\OGLRenderAPI\OGLIndexBuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\RenderFacade\OGLIndexBuffer.cpp">
+    <ClCompile Include="src\OGLRenderAPI\OGLPipeline.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\RenderFacade\OGLRenderDevice.cpp">
+    <ClCompile Include="src\OGLRenderAPI\OGLRenderDevice.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\RenderFacade\OGLVertexBuffer.cpp">
+    <ClCompile Include="src\OGLRenderAPI\OGLVertexBuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\RenderFacade\OGLVertexShader.cpp">
+    <ClCompile Include="src\OGLRenderAPI\OGLVertexShader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OGLRenderAPI\OGLVertexArrayObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

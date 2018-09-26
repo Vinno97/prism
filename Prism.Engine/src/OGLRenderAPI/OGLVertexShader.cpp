@@ -4,10 +4,10 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <GL/glew.h>
 #include <SDL2/SDL_opengl.h>
-#include "RenderFacade/OGLVertexShader.h"
+#include "RenderAPI/OGLVertexShader.h"
 #include <iostream> 
 
-namespace RenderFacade {
+namespace RenderAPI {
 	OGLVertexShader::OGLVertexShader(const char* source) {
 
 		//Create vertex shader
