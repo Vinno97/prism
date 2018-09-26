@@ -1,4 +1,6 @@
 #pragma once
+#include <Window.h>
+
 class Context
 {
 public:
@@ -6,5 +8,7 @@ public:
 	~Context();
 
 	double deltaTime;
+	Window *window;
+	const StateMachine *stateMachine;
 };
 

@@ -7,19 +7,17 @@ class CoreEngine
 {
 public:
 	const void Start();
-	void Stop();
 	void Run();
 	
-	CoreEngine(int windowWidth, int windowHeight, const double frameRate, StateMachine *stateMachine);
+	CoreEngine(const double frameRate);
+	void CreateContext(const char* title, const int width, const int height, const int x, const int y, StateMachine *stateMachine);
 	~CoreEngine();
 
 private:
-	int windowWidth;
-	int windowHeight;
 	bool isRunning;
 	double frameTime;
-	Context *context;
-	StateMachine *stateMachine;
+	Context context;
+	//const StateMachine *stateMachine;
 
 	void CleanUp();
 };
