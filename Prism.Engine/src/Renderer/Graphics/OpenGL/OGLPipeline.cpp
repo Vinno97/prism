@@ -35,7 +35,8 @@ namespace Renderer {
 
 					std::string log = infoLog;
 
-					std::cout << "Unable to link pipeline" << log;
+					std::cerr << "Unable to link pipeline" << log;
+					throw std::runtime_error("Pipeline cannot be linked");
 				}
 			}
 

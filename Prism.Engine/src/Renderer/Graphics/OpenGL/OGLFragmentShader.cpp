@@ -34,7 +34,8 @@ namespace Renderer {
 
 					std::string log = infoLog;
 
-					std::cout << "Unable to compile fragment shader " << log;
+					std::cerr << "Unable to compile fragment shader " << log;
+					throw std::runtime_error("Fragment shader does not compile");
 				}
 			}
 			//QQQ Delete shader

@@ -38,7 +38,8 @@ namespace Renderer {
 
 					std::string log = infoLog;
 
-					std::cout << "Unable to compile fragment shader " << log;
+					std::cerr << "Unable to compile vertex shader " << log;
+					throw std::runtime_error("Vertex shader does not compile");
 				}
 			}
 
