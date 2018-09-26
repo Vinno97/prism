@@ -4,6 +4,10 @@ namespace RenderAPI {
 	class VertexBuffer {
 	public:
 		VertexBuffer() {};
+
+		/// <summary>
+		/// Make this the current active vertexbuffer
+		/// </summary>
 		virtual void bind() = 0;
 	protected:
 		GLuint VBO;
