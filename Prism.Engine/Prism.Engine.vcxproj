@@ -26,6 +26,7 @@
     <ClInclude Include="include\Context.h" />
     <ClInclude Include="include\CoreEngine.h" />
     <ClInclude Include="include\ECS\Entity.h" />
+    <ClInclude Include="include\ECS\RenderSystem.h" />
     <ClInclude Include="include\Game.h" />
     <ClInclude Include="include\InputManager.h" />
     <ClInclude Include="include\Key.h" />
@@ -39,6 +40,7 @@
     <ClCompile Include="src\ECS\EntityManager.cpp" />
     <ClCompile Include="src\Context.cpp" />
     <ClCompile Include="src\CoreEngine.cpp" />
+    <ClCompile Include="src\ECS\RenderSystem.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\InputManager.cpp" />
     <ClCompile Include="src\main.cpp" />
