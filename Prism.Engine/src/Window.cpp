@@ -50,6 +50,7 @@ void Window::createOpenGLContext(const int majorVersion, const int minorVersion,
 		printf("OpenGL context could not be created! SDL Error: %s\n",
 			SDL_GetError());
 		success = false;
+		throw "OpenGL Context could not be created";
 	}
 	else
 	{
@@ -99,9 +100,5 @@ void Window::close()
 
 Window::~Window()
 {
-	if (gWindow == nullptr) {
-		std::cout << "Window was never initialized" << std::endl;
-		SDL_DestroyWindow(gWindow);
-	}
-	SDL_Quit();
+	close();
 }

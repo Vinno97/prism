@@ -7,6 +7,7 @@
 #include "Renderer/Graphics/FragmentShader.h"
 #include "Renderer/Graphics/OpenGL/OGLPipeline.h"
 #include <iostream>
+#include <string>
 
 namespace Renderer {
 	namespace Graphics {
@@ -19,9 +20,22 @@ namespace Renderer {
 				glLinkProgram(pipelineID);
 				GLint programSuccess = GL_TRUE;
 				glGetProgramiv(pipelineID, GL_LINK_STATUS, &programSuccess);
+
 				if (programSuccess != GL_TRUE)
 				{
-					printf("Error linking program %d!\n", pipelineID);
+					int infologLength = 0;
+
+					int charsWritten  = 0;
+					char *infoLog;
+
+					glGetProgramiv(pipelineID, GL_INFO_LOG_LENGTH,&infologLength);
+
+					infoLog = (char *)malloc(infologLength);
+					glGetProgramInfoLog(pipelineID, infologLength, &charsWritten, infoLog);
+
+					std::string log = infoLog;
+
+					std::cout << "Unable to link pipeline" << log;
 				}
 			}
 
