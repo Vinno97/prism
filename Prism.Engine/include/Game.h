@@ -6,7 +6,6 @@
 class Game : State
 {
 
-
 public:
 	Game();
 	~Game();
@@ -17,7 +16,6 @@ public:
 
 private:
 	Context context;
-
 };
 
 

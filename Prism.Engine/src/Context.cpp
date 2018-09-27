@@ -1,7 +1,5 @@
 #include "Context.h"
 
-
-
 Context::Context()
 = default;
 

@@ -6,11 +6,11 @@ class StateMachine
 public:
 	StateMachine();
 	~StateMachine();
-	State getState();
-	void setState(State newState);
+	State* getState();
+	void setState(State *newState);
 
 private:
-	State currentState;
+	State *currentState;
 };
 
 

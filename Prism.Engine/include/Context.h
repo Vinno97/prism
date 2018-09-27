@@ -10,6 +10,6 @@ public:
 
 	double deltaTime;
 	Window *window;
-	const StateMachine *stateMachine;
+	StateMachine *stateMachine;
 };
 

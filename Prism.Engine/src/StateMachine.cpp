@@ -7,10 +7,10 @@ StateMachine::StateMachine()
 StateMachine::~StateMachine()
 = default;
 
-State StateMachine::getState() {
+State *StateMachine::getState() {
 	return currentState;
 }
 
-void StateMachine::setState(State newState) {
+void StateMachine::setState(State *newState) {
 	this->currentState = newState;
 }

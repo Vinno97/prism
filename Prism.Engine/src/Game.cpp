@@ -9,7 +9,6 @@ Game::Game()
 Game::~Game()
 = default;
 
-
 void Game::update(Context context)
 {
 	this->context = context;
