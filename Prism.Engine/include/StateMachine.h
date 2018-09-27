@@ -10,7 +10,7 @@ public:
 	void setState(State newState);
 
 private:
-	State currentState;
+	State *currentState = nullptr;
 };
 
 
