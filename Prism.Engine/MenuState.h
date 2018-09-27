@@ -1,15 +1,11 @@
 #pragma once
-
 #include "State.h"
-#include "Context.h"
 
-class Game : State
+class MenuState : State
 {
-
-
 public:
-	Game();
-	~Game();
+	MenuState();
+	~MenuState();
 
 	void update(Context context) override;
 	void onEnter() override;
@@ -17,7 +13,5 @@ public:
 
 private:
 	Context context;
-
 };
-
 

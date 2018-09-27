@@ -27,8 +27,10 @@
     <ClInclude Include="include\State.h" />
     <ClInclude Include="include\StateMachine.h" />
     <ClInclude Include="include\Window.h" />
+    <ClInclude Include="MenuState.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="MenuState.cpp" />
     <ClCompile Include="src\Context.cpp" />
     <ClCompile Include="src\CoreEngine.cpp" />
     <ClCompile Include="src\Game.cpp" />
