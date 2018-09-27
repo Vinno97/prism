@@ -48,23 +48,23 @@ namespace Renderer {
 			"#version 330 core\n\
 			layout (location = 0) in vec3 aPos; \
 			layout (location = 1) in vec3 colour; \
-			out vec3 pass_colour;\
+			out vec4 pass_colour;\
 			uniform mat4 model;\
-			uniform dwqmat4 view;\
+			uniform mat4 view;\
 			uniform mat4 proj; \
 			void main() { \
 				gl_Position = proj * view * model * vec4(aPos.x, aPos.y, aPos.z, 1 ); \
-				pass_colour = colour; \
+				pass_colour = view * model * vec4(aPos.x, aPos.y, aPos.z, 1); \
 			}"
 		};
 	
 		const char* fragmentShaderSource =
 		{
 			"#version 330 core\n\
-			in vec3 pass_colour; \
+			in vec4 pass_colour; \
 			out vec4 FragColor; \
 			void main() { \
-				FragColor = vec4(pass_colour, 1.0 ); \
+				FragColor = pass_colour*-1; \
 			}"
 		};
 
@@ -84,7 +84,7 @@ namespace Renderer {
 		pipeline->createUniform("proj");
 
 		//Initialize clear color
-		renderDevice->setClearColour(1.f, 1.f, 1.f, 1.f);
+		renderDevice->setClearColour(0.7f, 0.7f, 0.7f, 1.f);
 
 		//Square shape
 		float vertices[] = {
@@ -133,7 +133,7 @@ namespace Renderer {
 
 	void TestRenderer::draw()
 	{
-		//Enable VAP
+		//Enable VAO
 		vertexArray1->bind();
 		//Clear color buffer
 		renderDevice->clearScreen();
@@ -149,9 +149,10 @@ namespace Renderer {
 	    renderDevice->DrawTrianglesIndexed(0, 6);
 		glm::mat4 trans = glm::mat4(1.0f);
 
-		view = glm::rotate(view, glm::radians(2.0f), glm::vec3(0.f, 0.0f, 1.0f));
+		view = glm::rotate(view, glm::radians(2.0f), glm::vec3(0.f, 1.0f, 1.0f));
 
-	    trans = glm::translate(trans, glm::vec3(-0.5f, 2.f+(0.f+(time/5))*-1, -1.f));
+	    trans = glm::rotate(trans, glm::radians(2.f), glm::vec3(1.f, 0.f, 1.f));
+		trans = glm::scale(trans, glm::vec3(10.f, 10.f, 0.f));
 	    pipeline->setUniformMatrix4f("model", trans);
 
 	    renderDevice->DrawTrianglesIndexed(0, 6);

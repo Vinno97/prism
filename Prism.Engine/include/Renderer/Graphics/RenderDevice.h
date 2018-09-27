@@ -68,7 +68,7 @@ namespace Renderer {
 			/// Draw the currently bound VBO's using indices 
 			/// </summary>
 			/// <param name="offset">Offset of the drawing call</param>
-			/// <param name="count">Amount of indices that is going be drawn</param>
+			/// <param name="count">Amount of indices that are going to be drawn</param>
 			virtual void DrawTrianglesIndexed(long offset, int count) = 0;
 		};
 	}
