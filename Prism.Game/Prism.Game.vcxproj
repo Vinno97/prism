@@ -91,7 +91,7 @@
       <SubSystem>Console</SubSystem>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /y $(ProjectDir)lib\SDL2.dll $(OutDir)</Command>
+      <Command>xcopy /y "$(ProjectDir)lib\SDL2.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
