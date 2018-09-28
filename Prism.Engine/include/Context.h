@@ -6,9 +6,17 @@ class Context
 {
 public:
 	Context();
+	const double getDeltatime();
+	Window *getWindow();
+	StateMachine *getStateMachine();
+	void setDeltatime(int newDeltaTime);
+	void setWindow(Window *newWindow);
+	void setStateMachine(StateMachine *newStateMachine);
 	~Context();
 
-	double deltaTime;
+
+private: 
+	int deltaTime;
 	Window *window;
 	StateMachine *stateMachine;
 };

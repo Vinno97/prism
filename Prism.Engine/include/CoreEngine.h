@@ -10,14 +10,14 @@
 class CoreEngine
 {
 public:
-	void Run();
-	
 	CoreEngine(State *beginstate);
-	void CreateWindow(const char* title, const int width, const int height, const int x, const int y);
+	const void CreateWindow(const char* title, const int width, const int height, const int x, const int y);
+	void Run();
 	~CoreEngine();
 
 private:
 	Context context;
+
 	void CleanUp();
 };
 

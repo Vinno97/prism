@@ -1,7 +1,7 @@
 #pragma once
 #include "State.h"
 
-struct StateMachine
+class StateMachine
 {
 public:
 	StateMachine();

@@ -22,10 +22,7 @@ int main(int argc, char ** argv) {
 	ce->CreateWindow(&title[0], 500, 500, 100, 100);
 	ce->Run();
 
-	//delete gPtr; 
 	delete ce;
-	
-	
 
 	return 0;
 	_CrtDumpMemoryLeaks();

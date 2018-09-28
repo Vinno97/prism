@@ -16,8 +16,6 @@ public:
 
 private:
 	Context context;
-	double frameTime = 0;
-	int frames = 0;
 };
 
 
