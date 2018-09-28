@@ -19,21 +19,43 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\Renderer\TestRenderer.h" />
     <ClInclude Include="include\Context.h" />
     <ClInclude Include="include\CoreEngine.h" />
     <ClInclude Include="include\Game.h" />
     <ClInclude Include="include\InputManager.h" />
+    <ClInclude Include="include\Renderer\Graphics\FragmentShader.h" />
+    <ClInclude Include="include\Renderer\Graphics\IndexBuffer.h" />
+    <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLIndexBuffer.h" />
+    <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLRenderDevice.h" />
+    <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLVertexArrayObject.h" />
+    <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLVertexBuffer.h" />
+    <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLVertexShader.h" />
+    <ClInclude Include="include\Renderer\Graphics\VertexBuffer.h" />
+    <ClInclude Include="include\Renderer\Graphics\VertexShader.h" />
     <ClInclude Include="include\Key.h" />
     <ClInclude Include="include\State.h" />
     <ClInclude Include="include\StateMachine.h" />
     <ClInclude Include="include\Window.h" />
+    <ClInclude Include="include\Renderer\Graphics\RenderDevice.h" />
+    <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLFragmentShader.h" />
+    <ClInclude Include="include\Renderer\Graphics\Pipeline.h" />
+    <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLPipeline.h" />
+    <ClInclude Include="include\Renderer\Graphics\VertexArrayObject.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLIndexBuffer.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLPipeline.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLFragmentShader.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLVertexArrayObject.cpp" />
+    <ClCompile Include="src\Renderer\TestRenderer.cpp" />
     <ClCompile Include="src\Context.cpp" />
     <ClCompile Include="src\CoreEngine.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\InputManager.cpp" />
-    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLRenderDevice.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLVertexBuffer.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLVertexShader.cpp" />
     <ClCompile Include="src\State.cpp" />
     <ClCompile Include="src\StateMachine.cpp" />
     <ClCompile Include="src\Window.cpp" />
@@ -118,7 +140,7 @@
       <AdditionalIncludeDirectories>$(ProjectDir)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>SDL2main.lib;SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2main.lib;SDL2.lib;glew32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
       <AdditionalLibraryDirectories>$(ProjectDir)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
