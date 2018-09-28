@@ -6,6 +6,8 @@
 #include "Key.h"
 #include "Game.h"
 #include <string>
+#include "Context.h"
+#include "StateMachine.h"
 
 #define _CRTDBG_MAP_ALLOC
 
@@ -13,16 +15,18 @@
 int main(int argc, char ** argv) {
 	//_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
-	State *ss = new State();
-	Game *s = new Game();
-	CoreEngine *ce = new CoreEngine(ss);
+	Game g = Game();
+	State *gPtr = &g;
+	CoreEngine *ce = new CoreEngine(gPtr);
 	std::string title = "prism";
 	ce->CreateWindow(&title[0], 500, 500, 100, 100);
 	ce->Run();
 
-	delete ss;
-	delete s; 
-	delete ce;		
+	//delete gPtr; 
+	delete ce;
+	
+	
+
 	return 0;
 	_CrtDumpMemoryLeaks();
 }

@@ -1,7 +1,7 @@
 #pragma once
 #include <Window.h>
-#include "StateMachine.h"
 
+class StateMachine;
 class Context
 {
 public:

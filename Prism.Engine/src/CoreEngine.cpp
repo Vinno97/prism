@@ -11,23 +11,25 @@ void CoreEngine::CreateWindow(const char* title, const int width, const int heig
 	context.window->init(title, width, height, x, y);
 }
 
-void CoreEngine::Run() {
-	
-
+void CoreEngine::Run() 
+{
 	auto lastTime = std::chrono::system_clock::now();
-
-	while (!context.window->shouldClose()) {
+	int count = 0;
+	while (!context.window->shouldClose()) 
+	{
 		auto startTime = std::chrono::system_clock::now();
-		//Deltatime in milliseconds
-		auto deltaTime = std::chrono::duration_cast<std::chrono::milliseconds>(startTime - lastTime); 
+		
+		//Deltatime in microseconds
+		auto deltaTime = std::chrono::duration_cast<std::chrono::microseconds>(startTime - lastTime); 
+		
 		lastTime = startTime;
 
 		context.deltaTime = deltaTime.count();
-
+		State *currentState = context.stateMachine->getState();
+		//Calls the game update fuction
+		currentState->update(context);
 	}
 }
-
-
 
 void CoreEngine::CleanUp() {
 	//Free memory

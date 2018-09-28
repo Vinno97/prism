@@ -8,7 +8,6 @@ State::~State()
 
 void State::update(Context context)
 {
-	this->context = context;
 }
 
 void State::onEnter()

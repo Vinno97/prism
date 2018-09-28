@@ -3,7 +3,7 @@
 #include "State.h"
 #include "Context.h"
 
-class Game : State
+class Game : public State
 {
 
 public:
@@ -16,6 +16,8 @@ public:
 
 private:
 	Context context;
+	double frameTime = 0;
+	int frames = 0;
 };
 
 
