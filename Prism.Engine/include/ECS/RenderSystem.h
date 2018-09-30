@@ -8,7 +8,6 @@ namespace ECS {
 	public:
 		RenderSystem(const EntityManager* entityManager);
 		~RenderSystem();
-		RenderSystem(int id);
 		void Update(Context context) override;
 	private:
 
