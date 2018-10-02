@@ -9,15 +9,21 @@
 #include <assimp/postprocess.h>
 #include "StateMachine.h"
 #include "MenuState.h"
+#include <cstdlib>
+#include <crtdbg.h>
 
-//QQQ Remove this main method
-int main(int argc, char ** argv) {
-
+void test() {
 	StateMachine sm;
 	MenuState ms;
 	sm.addState(ms);
 	sm.setState<MenuState>();
 	sm.getCurrentState()->update(Context());
+}
+
+//QQQ Remove this main method
+int main(int argc, char ** argv) {
+	test();
+	_CrtDumpMemoryLeaks();
 
 	Assimp::Importer importer;
 	Window window;

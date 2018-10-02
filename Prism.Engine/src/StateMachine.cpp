@@ -4,8 +4,11 @@
 StateMachine::StateMachine()
 = default;
 
-StateMachine::~StateMachine()
-= default;
+StateMachine::~StateMachine() {
+	for (const auto type : existingStates) {
+		delete type.second;
+	}
+}
 
 State* StateMachine::getCurrentState()
 {
