@@ -9,6 +9,18 @@ Game::Game()
 Game::~Game()
 = default;
 
-void Game::update(Context context)
+
+void Game::onUpdate(Context context)
+{
+	
+}
+
+void Game::onEnter()
+{
+	// Entered the State Game
+
+}
+
+void Game::onLeave()
 {
 }

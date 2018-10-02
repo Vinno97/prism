@@ -9,12 +9,24 @@
 #include "ECS/SystemManager.h"
 #include "assimp/Importer.hpp"
 #include "Renderer/TestRenderer.h"
-#include "ECS/Components/Component.h"
-
-
-
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+#include "StateMachine.h"
+#include "MenuState.h"
+#include <cstdlib>
+#include <crtdbg.h>
 #include <cstdlib>  
 #include <crtdbg.h> 
+#include "ECS/Components/Component.h"
+
+void StateMachineTest() {
+	StateMachine sm;
+	MenuState ms;
+	sm.addState(ms);
+	sm.setState<MenuState>();
+	sm.getCurrentState()->onEnter();
+}
 
 // This function makes sure all objects are cleared from the stack before the memory gets dumped.
 

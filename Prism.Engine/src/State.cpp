@@ -9,7 +9,7 @@ State::State()
 State::~State()
 = default;
 
-void State::update(Context context)
+void State::onUpdate(Context newContext)
 {
 }
 
