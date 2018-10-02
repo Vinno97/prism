@@ -27,20 +27,30 @@ public:
 		if (existingStates.find(type) != existingStates.end()) {
 			std::map<unsigned int, State*> *states = &existingStates.at(type);
 		}
+
 		existingStates[type] = new T(state);
 	}
 
 
 	template<typename T, typename = std::enable_if < std::is_base_of<State, T>::value>>
-	T* getState(T& stateId) const {
-		const std::type_index type{ std::type_index(typeid(T)) };
-		return static_cast<T*>(getState(stateId, type));
-
+	T* getState(T& state) const {
+		auto it = existingStates.begin();
+		// Iterate through the map
+		while (it != existingStates.end())
+		{
+			// Check if value of this entry matches with given value
+			if (it->second == value)
+			{
+				return &it->second;
+			}
+			// Go to next entry in map
+			it++;
+		}
 	}
 
 private:
 	State *currentState;
-	State* getState(unsigned int stateId, std::type_index stateType) const;
+
 
 	// keeps a list of States
 	std::map<std::type_index, std::map<unsigned int, State*>> existingStates;
