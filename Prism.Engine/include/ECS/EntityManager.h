@@ -30,7 +30,6 @@ namespace ECS {
 		/// <returns>The ID of the newly created entity.</returns>
 		template<class A>
 		int createEntity(A& c1) {
-			entities.push_back(++lastEntityId);
 			addComponentToEntity(lastEntityId, c1);
 			return lastEntityId;
 		}
@@ -258,11 +257,6 @@ namespace ECS {
 		std::map<std::type_index, std::map<unsigned int, Component*>> entityComponents;
 
 		/// <summary>
-		/// Keeps a list of all entities Entity.
-		/// </summary>
-		std::vector<unsigned int> entities;
-
-		/// <summary>
 		/// Keeps a list of all Listeners attached to the EntityManager.
 		/// </summary>
 
@@ -271,7 +265,6 @@ namespace ECS {
 		bool hasComponent(unsigned int entityId, std::type_index componentType) const;
 
 		std::vector<Entity<Component*>> getAllEntities(const std::type_index& componentType) const;
-
 
 		void removeComponentFromEntity(unsigned int entityId, std::type_index componentType);
 	};
