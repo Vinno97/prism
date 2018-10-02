@@ -11,11 +11,6 @@ namespace ECS {
 		ECS::entityManager = entityManager;
 	}
 
-	System::System(int ID)
-	{
-		id = ID;
-	}
-
 
 	System::~System()
 	{
