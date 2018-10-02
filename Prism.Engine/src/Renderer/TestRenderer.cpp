@@ -1,6 +1,6 @@
 #include "Renderer/TestRenderer.h"
 #include <SDL2/SDL.h>
-#include <stdio.h>
+#include <cstdio>
 #include <string>
 #include <iostream>
 #include <chrono>
@@ -126,8 +126,6 @@ namespace Renderer {
 		vertexArray1->unbind();
 
 		renderDevice->useDepthTest(true);
-
-		return;
 	}
 
 
@@ -166,4 +164,4 @@ namespace Renderer {
 		delete vertexBuffer;
 		delete renderDevice;
 	}
-}
+}  // namespace Renderer

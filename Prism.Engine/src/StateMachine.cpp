@@ -16,8 +16,9 @@ State* StateMachine::getCurrentState()
 }
 
 void StateMachine::setState(std::type_index type) {
-	if (this->currentState != nullptr)
+	if (this->currentState != nullptr) {
 		this->currentState->onLeave();
+}
 
 	this->currentState = getState(type);
 	this->currentState->onEnter();

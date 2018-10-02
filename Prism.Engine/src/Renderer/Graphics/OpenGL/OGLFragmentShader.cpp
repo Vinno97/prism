@@ -14,7 +14,7 @@ namespace Renderer {
 			{
 				fragmentID = glCreateShader(GL_FRAGMENT_SHADER);
 
-				glShaderSource(fragmentID, 1, &source, NULL);
+				glShaderSource(fragmentID, 1, &source, nullptr);
 
 				glCompileShader(fragmentID);
 
@@ -29,7 +29,7 @@ namespace Renderer {
 
 					glGetShaderiv(fragmentID, GL_INFO_LOG_LENGTH,&infologLength);
 
-					infoLog = (char *)malloc(infologLength);
+					infoLog = static_cast<char *>(malloc(infologLength));
 					glGetShaderInfoLog(fragmentID, infologLength, &charsWritten, infoLog);
 
 					std::string log = infoLog;
@@ -40,8 +40,7 @@ namespace Renderer {
 			}
 			//QQQ Delete shader
 			OGLFragmentShader::~OGLFragmentShader()
-			{
-			}
-		}
-	}
-}
+			= default;
+		}  // namespace OpenGL
+	}  // namespace Graphics
+}  // namespace Renderer

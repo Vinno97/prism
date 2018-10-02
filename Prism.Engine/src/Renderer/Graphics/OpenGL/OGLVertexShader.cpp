@@ -17,7 +17,7 @@ namespace Renderer {
 				vertexID = glCreateShader(GL_VERTEX_SHADER);
 
 				//Set vertex source
-				glShaderSource(vertexID, 1, &source, NULL);
+				glShaderSource(vertexID, 1, &source, nullptr);
 
 				//Compile vertex source
 				glCompileShader(vertexID);
@@ -33,7 +33,7 @@ namespace Renderer {
 
 					glGetShaderiv(vertexID, GL_INFO_LOG_LENGTH,&infologLength);
 
-					infoLog = (char *)malloc(infologLength);
+					infoLog = static_cast<char *>(malloc(infologLength));
 					glGetShaderInfoLog(vertexID, infologLength, &charsWritten, infoLog);
 
 					std::string log = infoLog;
@@ -44,8 +44,7 @@ namespace Renderer {
 			}
 
 			OGLVertexShader::~OGLVertexShader()
-			{
-			}
-		}
-	}
-}
+			= default;
+		}  // namespace OpenGL
+	}  // namespace Graphics
+}  // namespace Renderer

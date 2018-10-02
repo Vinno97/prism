@@ -6,8 +6,7 @@
 namespace ECS {
 
 	SystemManager::SystemManager()
-	{
-	}
+	= default;
 
 
 	SystemManager::~SystemManager()
@@ -43,4 +42,4 @@ namespace ECS {
 			throw std::runtime_error(std::string("No system of type ") + systemType.name() + " found.");
 		}
 	}
-}
+}  // namespace ECS

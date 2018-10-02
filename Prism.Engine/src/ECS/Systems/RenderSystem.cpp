@@ -12,5 +12,5 @@ namespace ECS {
 		void RenderSystem::update(Context context)
 		{
 		}
-	}
-}
+	}  // namespace Systems
+}  // namespace ECS

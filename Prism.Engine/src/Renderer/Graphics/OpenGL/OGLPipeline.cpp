@@ -30,7 +30,7 @@ namespace Renderer {
 
 					glGetProgramiv(pipelineID, GL_INFO_LOG_LENGTH,&infologLength);
 
-					infoLog = (char *)malloc(infologLength);
+					infoLog = static_cast<char *>(malloc(infologLength));
 					glGetProgramInfoLog(pipelineID, infologLength, &charsWritten, infoLog);
 
 					std::string log = infoLog;
@@ -41,8 +41,7 @@ namespace Renderer {
 			}
 
 			OGLPipeline::~OGLPipeline()
-			{
-			}
+			= default;
 
 			void OGLPipeline::run()
 			{
@@ -71,6 +70,6 @@ namespace Renderer {
 				glUniform3f(id, x, y, z);
 				return true;
 			}
-		}
-	}
-}
+		}  // namespace OpenGL
+	}  // namespace Graphics
+}  // namespace Renderer

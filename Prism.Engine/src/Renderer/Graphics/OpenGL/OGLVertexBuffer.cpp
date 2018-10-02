@@ -22,6 +22,6 @@ namespace Renderer {
 			{
 				glDeleteBuffers(1, &VBO);
 			}
-		};
-	}
-}
+		}  // namespace OpenGL;
+	}  // namespace Graphics
+}  // namespace Renderer

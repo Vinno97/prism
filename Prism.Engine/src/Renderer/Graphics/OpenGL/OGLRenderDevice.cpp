@@ -15,8 +15,7 @@ namespace Renderer {
 	namespace Graphics {
 		namespace OpenGL {
 			OGLRenderDevice::OGLRenderDevice()
-			{
-			}
+			= default;
 			OGLRenderDevice::~OGLRenderDevice()
 			{
 				///QQQ Delete all devices and shaders etc
@@ -59,10 +58,11 @@ namespace Renderer {
 
 			void OGLRenderDevice::useDepthTest(bool enable)
 			{
-				if (enable)
+				if (enable) {
 					glEnable(GL_DEPTH_TEST);
-				else
+				} else {
 					glDisable(GL_DEPTH_TEST);
+}
 			}
 
 			void OGLRenderDevice::clearScreen()
@@ -74,6 +74,6 @@ namespace Renderer {
 			{
 				glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, reinterpret_cast<const void *>(offset));
 			}
-		}
-	}
-}
+		}  // namespace OpenGL
+	}  // namespace Graphics
+}  // namespace Renderer

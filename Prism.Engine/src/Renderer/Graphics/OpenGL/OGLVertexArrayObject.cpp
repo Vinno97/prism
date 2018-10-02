@@ -18,10 +18,10 @@ namespace Renderer {
 			{
 				bind();
 
-				OGLVertexBuffer *oglVertexBuffer = reinterpret_cast<OGLVertexBuffer *>(vertexBuffer);
+				auto *oglVertexBuffer = reinterpret_cast<OGLVertexBuffer *>(vertexBuffer);
 				oglVertexBuffer->bind();
 				glEnableVertexAttribArray(index);
-				glVertexAttribPointer(index, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (void*)0);
+				glVertexAttribPointer(index, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (void*)nullptr);
 
 				unbind();
 			}
@@ -40,6 +40,6 @@ namespace Renderer {
 			{
 				glDeleteBuffers(1, &vaoID);
 			}
-		};
-	}
-}
+		}  // namespace OpenGL;
+	}  // namespace Graphics
+}  // namespace Renderer

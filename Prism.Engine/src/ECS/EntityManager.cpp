@@ -53,7 +53,7 @@ namespace ECS {
 	}
 
 	void EntityManager::removeEntity(unsigned int entityId) {
-		std::map<std::type_index, std::map<unsigned int, Component*>>::iterator itr = entityComponents.begin();
+		auto itr = entityComponents.begin();
 		while (itr != entityComponents.end()) {
 			itr->second.erase(entityId);
 
@@ -88,4 +88,4 @@ namespace ECS {
 
 
 
-}
+}  // namespace ECS

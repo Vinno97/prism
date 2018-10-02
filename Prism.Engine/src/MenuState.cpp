@@ -3,13 +3,11 @@
 
 
 MenuState::MenuState()
-{
-}
+= default;
 
 
 MenuState::~MenuState()
-{
-}
+= default;
 
 void MenuState::onUpdate(Context context)
 {

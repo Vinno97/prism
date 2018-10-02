@@ -19,7 +19,7 @@ void Window::init(const char* title, const int width, const int height, const in
 	{
 		//Create window
 		gWindow = SDL_CreateWindow("SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
-		if (gWindow == NULL)
+		if (gWindow == nullptr)
 		{
 			printf("Window could not be created! SDL Error: %s\n", SDL_GetError());
 		}
@@ -52,8 +52,8 @@ void Window::createOpenGLContext(const int majorVersion, const int minorVersion,
 		success = false;
 		throw "OpenGL Context could not be created";
 	}
-	else
-	{
+	
+	
 		//Initialize GLEW
 		bool glewExperimental = GL_TRUE;
 		GLenum glewError = glewInit();
@@ -66,7 +66,7 @@ void Window::createOpenGLContext(const int majorVersion, const int minorVersion,
 		{
 			printf("Warning: Unable to set VSync! SDL Error: %s\n", SDL_GetError());
 		}
-	}
+	
 }
 
 void Window::swapScreen() {

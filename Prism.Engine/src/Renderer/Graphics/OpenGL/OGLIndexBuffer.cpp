@@ -23,6 +23,6 @@ namespace Renderer {
 			{
 				glDeleteBuffers(1, &IBO);
 			}
-		};
-	}
-}
+		}  // namespace OpenGL;
+	}  // namespace Graphics
+}  // namespace Renderer

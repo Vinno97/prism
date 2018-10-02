@@ -11,10 +11,11 @@ InputManager::InputManager() {
 
 bool InputManager::isKeyPressed(Key key)
 {
-	const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
+	const Uint8* currentKeyStates = SDL_GetKeyboardState(nullptr);
 
-	if (currentKeyStates[keyMap[key]])
+	if (currentKeyStates[keyMap[key]]) {
 		return true;
+}
 
 	return false;
 }
