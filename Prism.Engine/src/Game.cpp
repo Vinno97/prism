@@ -10,9 +10,9 @@ Game::~Game()
 = default;
 
 
-void Game::update(Context context)
+void Game::onUpdate(Context context)
 {
-	this->context = context;
+	
 }
 
 void Game::onEnter()

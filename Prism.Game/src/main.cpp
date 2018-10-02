@@ -25,7 +25,7 @@ void StateMachineTest() {
 	MenuState ms;
 	sm.addState(ms);
 	sm.setState<MenuState>();
-	sm.getCurrentState()->update(Context());
+	sm.getCurrentState()->onEnter();
 }
 
 // This function makes sure all objects are cleared from the stack before the memory gets dumped.

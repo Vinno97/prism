@@ -11,7 +11,7 @@ MenuState::~MenuState()
 {
 }
 
-void MenuState::update(Context context)
+void MenuState::onUpdate(Context context)
 {
 }
 

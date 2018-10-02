@@ -6,10 +6,7 @@ public:
   State();
   ~State();
 
-  virtual void update(Context context);
+  virtual void onUpdate(Context context);
   virtual void onEnter();
   virtual void onLeave();
-
-private:
-	Context context;
 };
