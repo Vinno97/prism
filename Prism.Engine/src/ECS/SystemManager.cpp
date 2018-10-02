@@ -12,7 +12,11 @@ namespace ECS {
 
 	SystemManager::~SystemManager()
 	{
+		for (const auto type : systems) {
+			delete type.second;
+		}
 	}
+
 	void SystemManager::unRegisterSystem(std::type_index systemType)
 	{
 		try
