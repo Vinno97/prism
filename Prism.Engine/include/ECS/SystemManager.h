@@ -1,7 +1,9 @@
 #pragma once
 
-#include "ECS/System.h"
+#include "ECS/Systems/System.h"
+
 namespace ECS {
+	using namespace ECS::Systems;
 
 	/// <summary>
 	/// Handles the registration, unregistration and retrieval of systems. 

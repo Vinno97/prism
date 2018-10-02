@@ -27,7 +27,7 @@
     <ClInclude Include="include\Context.h" />
     <ClInclude Include="include\CoreEngine.h" />
     <ClInclude Include="include\ECS\Entity.h" />
-    <ClInclude Include="include\ECS\RenderSystem.h" />
+    <ClInclude Include="include\ECS\Systems\RenderSystem.h" />
     <ClInclude Include="include\Game.h" />
     <ClInclude Include="include\InputManager.h" />
     <ClInclude Include="include\Renderer\Graphics\FragmentShader.h" />
@@ -43,7 +43,7 @@
     <ClInclude Include="include\State.h" />
     <ClInclude Include="include\StateMachine.h" />
     <ClInclude Include="include\Window.h" />
-    <ClInclude Include="include\ECS\System.h" />
+    <ClInclude Include="include\ECS\Systems\System.h" />
     <ClInclude Include="include\ECS\SystemManager.h" />
     <ClInclude Include="include\Renderer\Graphics\RenderDevice.h" />
     <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLFragmentShader.h" />
@@ -60,7 +60,7 @@
     <ClCompile Include="src\Renderer\TestRenderer.cpp" />
     <ClCompile Include="src\Context.cpp" />
     <ClCompile Include="src\CoreEngine.cpp" />
-    <ClCompile Include="src\ECS\RenderSystem.cpp" />
+    <ClCompile Include="src\ECS\Systems\RenderSystem.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\InputManager.cpp" />
     <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLRenderDevice.cpp" />
@@ -70,9 +70,11 @@
     <ClCompile Include="src\StateMachine.cpp" />
     <ClCompile Include="src\Window.cpp" />
     <ClCompile Include="src\ECS\SystemManager.cpp" />
-    <ClCompile Include="src\ECS\System.cpp" />
+    <ClCompile Include="src\ECS\Systems\System.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Library Include="lib\glew32.lib" />
+    <Library Include="lib\glew32s.lib" />
     <Library Include="lib\SDL2.lib" />
     <Library Include="lib\SDL2main.lib" />
     <Library Include="lib\SDL2test.lib" />

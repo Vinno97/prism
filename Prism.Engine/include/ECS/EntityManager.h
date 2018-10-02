@@ -5,7 +5,6 @@
 #include <map>
 #include <typeindex>
 
-
 #include "Components/Component.h"
 #include "Components/PositionComponent.h"
 
