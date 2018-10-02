@@ -7,8 +7,8 @@
 #include "InputManager.h"
 #include "Key.h"
 #include "ECS/SystemManager.h"
-#include "ECS/RenderSystem.h"
-
+#include "assimp/Importer.hpp"
+#include "Renderer/TestRenderer.h"
 #include "ECS/Components/Component.h"
 
 
@@ -20,8 +20,20 @@
 
 void start() 
 {
-
-
+	Assimp::Importer importer;
+	Window window;
+	InputManager inputManager;
+	window.init("Prism", 1920, 1080, 100, 100);
+	window.createOpenGLContext(3, 2, true);
+	Renderer::TestRenderer cr;
+	cr.init();
+	while (!window.shouldClose()) {
+		if (inputManager.isKeyPressed(Key::KEY_W)) {
+			std::cout << "Key W is pressed!" << std::endl;
+		}
+		cr.draw();
+		window.swapScreen();
+	}
 }
 
 int main(int argc, char ** argv) {
