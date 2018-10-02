@@ -9,7 +9,26 @@
 #include "ECS/SystemManager.h"
 #include "assimp/Importer.hpp"
 #include "Renderer/TestRenderer.h"
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+#include "StateMachine.h"
+#include "MenuState.h"
+#include <cstdlib>
+#include <crtdbg.h>
 #include "ECS/Components/Component.h"
+
+void StateMachineTest() {
+	StateMachine sm;
+	MenuState ms;
+	sm.addState(ms);
+	sm.setState<MenuState>();
+	sm.getCurrentState()->update(Context());
+}
+
+//QQQ Remove this main method
+int main(int argc, char ** argv) {
+	StateMachineTest();
 
 
 

@@ -9,8 +9,9 @@ State::State()
 State::~State()
 = default;
 
-void State::update(Context context)
+void State::update(Context newContext)
 {
+	this->context = newContext;
 }
 
 void State::onEnter()
