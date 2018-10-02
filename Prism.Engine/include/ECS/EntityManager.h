@@ -214,7 +214,7 @@ namespace ECS {
 		/// Returns whether or not an entity has a component.
 		/// </summary>
 		/// <param name="entityId">The ID of the entity to get the component from.</param>
-		/// <returns>A pointer to the component belonging to the entity.</returns>
+		/// <returns>A boolean indicator whether the entity has the component.</returns>
 		template<typename T, typename = std::enable_if < std::is_base_of<Component, T>::value>>
 		bool hasComponent(unsigned int entityId) const {
 			const std::type_index type{ std::type_index(typeid(T)) };

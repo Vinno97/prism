@@ -13,7 +13,7 @@ namespace ECS {
 		~SystemManager();
 
 		/// <summary>
-		/// Unregisters a system.
+		/// Unregisters a System of a certain type.
 		/// </summary>
 		/// <param name"system">The system that needs to be unregisterd </param>
 		template<typename T, typename = std::enable_if < std::is_base_of<System, T>::value>>
@@ -25,8 +25,9 @@ namespace ECS {
 		}
 
 		/// <summary>
-		/// Returns the requested system.
+		/// Returns a System of the requested type.
 		/// </summary>
+		/// <returns>A pointer to the requested system.</returns>
 		template<typename T, typename = std::enable_if < std::is_base_of<System, T>::value>>
 		T* getSystem() const
 		{
@@ -35,12 +36,11 @@ namespace ECS {
 		}
 
 		/// <summary>
-		/// Registers a system and ensures that there is only one instance of it.
+		/// Registers a System and ensures that there is only one instance of it.
 		/// </summary>
 		/// <param name"system">The system that needs to be registerd </param>
 		template<typename A, typename B, typename = std::enable_if < std::is_base_of<System, A>::value>>
 		void registerSystem(B& system) {
-
 			const std::type_index type = std::type_index(typeid(system));
 
 			if (systems.find(type) != systems.end()) {
@@ -50,12 +50,12 @@ namespace ECS {
 		}
 
 		/// <summary>
-		/// Registers a system and ensures that there is only one instance of it.
+		/// Registers a System and ensures that there is only one instance of it.
 		/// </summary>
 		/// <param name"system">The system that needs to be registerd </param>
 		template<class A>
 		void registerSystem(A& system) {
-			registerSystem<A,A>(system);
+			registerSystem<A, A>(system);
 		}
 
 
