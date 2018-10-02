@@ -16,6 +16,8 @@
 #include "MenuState.h"
 #include <cstdlib>
 #include <crtdbg.h>
+#include <cstdlib>  
+#include <crtdbg.h> 
 #include "ECS/Components/Component.h"
 
 void StateMachineTest() {
@@ -25,15 +27,6 @@ void StateMachineTest() {
 	sm.setState<MenuState>();
 	sm.getCurrentState()->update(Context());
 }
-
-//QQQ Remove this main method
-int main(int argc, char ** argv) {
-	StateMachineTest();
-
-
-
-#include <cstdlib>  
-#include <crtdbg.h> 
 
 // This function makes sure all objects are cleared from the stack before the memory gets dumped.
 
