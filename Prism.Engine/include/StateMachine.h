@@ -39,7 +39,7 @@ public:
 		while (it != existingStates.end())
 		{
 			// Check if value of this entry matches with given value
-			if (it->second == value)
+			if (it->second == state)
 			{
 				return &it->second;
 			}
