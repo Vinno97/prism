@@ -11,8 +11,10 @@ public:
 	~StateMachine();
 
 	template<class T, typename = std::enable_if < std::is_base_of<State, T>::value>>
-	void setState(T& state)
+	void setState()
 	{
+		State &T = existingStates[type];
+
 		this->currentState->onLeave();
 		this->currentState = getState(state);
 		this->currentState->onEnter();
@@ -24,7 +26,6 @@ public:
 		if (existingStates.find(type) != existingStates.end()) {
 			std::map<unsigned int, State*> *states = &existingStates.at(type);
 		}
-
 		existingStates[type] = new T(state);
 	}
 
@@ -44,7 +45,7 @@ public:
 		}
 	}
 
-	State getCurrentState();
+	State *getCurrentState();
 
 private:
 	State *currentState;

@@ -7,7 +7,7 @@ StateMachine::StateMachine()
 StateMachine::~StateMachine()
 = default;
 
-State StateMachine::getCurrentState()
+State* StateMachine::getCurrentState()
 {
-	return *this->currentState;
+	return this->currentState;
 }
