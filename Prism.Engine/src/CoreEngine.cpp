@@ -2,13 +2,13 @@
 
 
 CoreEngine::CoreEngine(State *beginState) {
-	context.setStateMachine(new StateMachine());
-	context.getStateMachine()->setState(beginState);
-	context.setWindow(new Window());
+	context.stateMachine = new StateMachine();
+	context.stateMachine->setState<beginState>;
+	context.window = new Window();
 }
 
 const void CoreEngine::CreateWindow(const char* title, const int width, const int height, const int x, const int y) {
-	context.getWindow()->init(title, width, height, x, y);
+	context.window->init(title, width, height, x, y);
 }
 
 //Runns the gameloop
@@ -19,7 +19,7 @@ void CoreEngine::Run()
 	int count = 0;
 
 	//While the window is unclosed run the gameloop
-	while (!context.getWindow()->shouldClose()) 
+	while (!context.window->shouldClose()) 
 	{
 		//Holds the time in which the current gameupdat is being called
 		auto startTime = std::chrono::system_clock::now();
@@ -29,18 +29,15 @@ void CoreEngine::Run()
 		lastTime = startTime;
 
 		//Sets the right values in context
-		context.setDeltatime(deltaTime.count());
-		State *currentState = context.getStateMachine()->getState();
-
-		//Calls the game update fuction
-		currentState->update(context);
+		context.deltaTime = deltaTime.count();
+		context.stateMachine->getCurrentState()->onUpdate(context);
 	}
 }
 
 void CoreEngine::CleanUp() {
 	//Free memory
-	delete context.getStateMachine();
-	delete context.getWindow();
+	delete context.stateMachine;
+	delete context.window;
 }
 
 CoreEngine::~CoreEngine()
