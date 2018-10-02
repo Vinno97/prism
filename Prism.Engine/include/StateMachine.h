@@ -13,39 +13,35 @@ public:
 	template<class T, typename = std::enable_if < std::is_base_of<State, T>::value>>
 	void setState()
 	{
-		State &T = existingStates[type];
-
-		this->currentState->onLeave();
-		this->currentState = getState(state);
-		this->currentState->onEnter();
+		const std::type_index type{ std::type_index(typeid(T)) };
+		setState(type);
 	}
 
 	template<class T>
 	void addState(T& state) {
-		const std::type_index type = std::type_index(typeid(state));
-		if (existingStates.find(type) != existingStates.end()) {
-			std::map<unsigned int, State*> *states = &existingStates.at(type);
+		const std::type_index type{ std::type_index(typeid(T)) };
+
+		if (hasState(type)) {
+			throw std::runtime_error("There can only one type of " + *type.name() + *" registered");
 		}
+
 		existingStates[type] = new T(state);
 	}
 
 	template<typename T, typename = std::enable_if < std::is_base_of<State, T>::value>>
-	T* getState(T& state) const {
-		auto it = existingStates.begin();
-		// Iterate through the map
-		while (it != existingStates.end())
-		{
-			// Check if value of this entry matches with given value
-			if (it->second == state)
-			{
-				return &it->second;
-			}
-			// Go to next entry in map
-			it++;
-		}
+	T* getState() const {
+		const std::type_index type{ std::type_index(typeid(T)) };
+		return static_cast<T*>(getState(type));
+	}
+
+	template<class T>
+	bool hasState() const {
+		const std::type_index type{ std::type_index(typeid(T)) };
+		return hasState(type);
 	}
 
 	State *getCurrentState();
+
 
 private:
 	State *currentState;
@@ -53,6 +49,10 @@ private:
 	// keeps a list of States
 	std::map<std::type_index, State*> existingStates;
 
+	void setState(std::type_index type);
+
+	State* getState(std::type_index type) const;
+	bool hasState(std::type_index type) const;
 };
 
 

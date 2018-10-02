@@ -7,9 +7,17 @@
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
+#include "StateMachine.h"
+#include "MenuState.h"
 
 //QQQ Remove this main method
 int main(int argc, char ** argv) {
+
+	StateMachine sm;
+	MenuState ms;
+	sm.addState(ms);
+	sm.setState<MenuState>();
+	sm.getCurrentState()->update(Context());
 
 	Assimp::Importer importer;
 	Window window;

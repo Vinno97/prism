@@ -1,7 +1,7 @@
 #pragma once
 #include "State.h"
 
-class MenuState : State
+class MenuState : public State
 {
 public:
 	MenuState();
