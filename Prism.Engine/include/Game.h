@@ -10,12 +10,10 @@ public:
 	Game();
 	~Game();
 
-	void update(Context context) override;
-	void onEnter() override;
-	void onLeave() override;
+	virtual void onUpdate(Context context) override;
+	virtual void onEnter() override;
+	virtual void onLeave() override;
 
 private:
 	Context context;
 };
-
-

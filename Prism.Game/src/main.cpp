@@ -2,6 +2,9 @@
 #include <iostream>
 #include "CoreEngine.h"
 #include "Window.h"
+#include "ECS/EntityManager.h"
+#include "ECS/Components/PositionComponent.h"
+#include "ECS/Components/VelocityComponent.h"
 #include "InputManager.h"
 #include "Key.h"
 #include "Game.h"
