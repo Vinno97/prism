@@ -10,4 +10,3 @@ public:
 
 	virtual void update(Context context);
 };
-
