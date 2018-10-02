@@ -6,12 +6,9 @@
 
 class StateMachine
 {
-
-
 public:
 	StateMachine();
 	~StateMachine();
-
 
 	template<class T, typename = std::enable_if < std::is_base_of<State, T>::value>>
 	void setState(T& state)
@@ -31,7 +28,6 @@ public:
 		existingStates[type] = new T(state);
 	}
 
-
 	template<typename T, typename = std::enable_if < std::is_base_of<State, T>::value>>
 	T* getState(T& state) const {
 		auto it = existingStates.begin();
@@ -48,12 +44,13 @@ public:
 		}
 	}
 
+	State getCurrentState();
+
 private:
 	State *currentState;
 
-
 	// keeps a list of States
-	std::map<std::type_index, std::map<unsigned int, State*>> existingStates;
+	std::map<std::type_index, State*> existingStates;
 
 };
 
