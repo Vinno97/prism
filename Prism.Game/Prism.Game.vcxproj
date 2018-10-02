@@ -87,11 +87,12 @@
       <AdditionalIncludeDirectories>$(SolutionDir)Prism.Engine\include;$(ProjectDir)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(SolutionDir)x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)Prism.Engine\lib;$(SolutionDir)x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;glew32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /y $(ProjectDir)lib\SDL2.dll $(OutDir)</Command>
+      <Command>xcopy /y $(ProjectDir)lib\*.dll $(OutDir)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -123,11 +124,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Prism.Engine\Prism.Engine.vcxproj">
-      <Project>{76c79dd1-01cd-4145-a02f-26538e4b060d}</Project>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="include\PrismGame.h" />
   </ItemGroup>
   <ItemGroup>
@@ -135,10 +131,17 @@
     <ClCompile Include="src\PrismGame.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="lib\assimp-vc140-mtd.dll" />
+    <None Include="lib\glew32.dll" />
     <None Include="lib\SDL2.dll">
       <DeploymentContent>true</DeploymentContent>
       <FileType>Document</FileType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Prism.Engine\Prism.Engine.vcxproj">
+      <Project>{76c79dd1-01cd-4145-a02f-26538e4b060d}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
