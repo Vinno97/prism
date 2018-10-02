@@ -19,5 +19,3 @@ private:
 	Context context;
 
 };
-
-

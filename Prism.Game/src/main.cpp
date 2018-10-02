@@ -3,6 +3,8 @@
 #include "Window.h"
 #include "InputManager.h"
 #include "Key.h"
+#include "ECS/SystemManager.h"
+#include "assimp/Importer.hpp"
 #include "Renderer/TestRenderer.h"
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
@@ -11,20 +13,19 @@
 #include "MenuState.h"
 #include <cstdlib>
 #include <crtdbg.h>
+#include <cstdlib>  
+#include <crtdbg.h> 
 
-void test() {
-	StateMachine sm;
+
+// This function makes sure all objects are cleared from the stack before the memory gets dumped.
+void start() 
+{
+    StateMachine sm;
 	MenuState ms;
 	sm.addState(ms);
 	sm.setState<MenuState>();
 	sm.getCurrentState()->update(Context());
-}
-
-//QQQ Remove this main method
-int main(int argc, char ** argv) {
-	test();
-	_CrtDumpMemoryLeaks();
-
+    
 	Assimp::Importer importer;
 	Window window;
 	InputManager inputManager;
@@ -39,5 +40,10 @@ int main(int argc, char ** argv) {
 		cr.draw();
 		window.swapScreen();
 	}
+}
+
+int main(int argc, char ** argv) {
+	start();
+	_CrtDumpMemoryLeaks();
 	return 0;
 }
