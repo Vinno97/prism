@@ -224,10 +224,10 @@ namespace ECS {
 		/// </summary>
 		/// <returns>A vector containing combinations of entities and the matching component.</returns>
 		template<typename T, typename = std::enable_if < std::is_base_of<Component, T>::value>>
-		std::vector<Entity<T*>> getAllEntities() const {
+		std::vector<Entity<T*>> getAllEntitiesWithComponent() const {
 			auto const type = std::type_index(typeid(T));
 
-			auto const entities = getAllEntities(type);
+			auto const entities = getAllEntitiesWithComponent(type);
 
 			std::vector<Entity<T*>> result;
 
@@ -264,7 +264,7 @@ namespace ECS {
 		
 		bool hasComponent(unsigned int entityId, std::type_index componentType) const;
 
-		std::vector<Entity<Component*>> getAllEntities(const std::type_index& componentType) const;
+		std::vector<Entity<Component*>> getAllEntitiesWithComponent(const std::type_index& componentType) const;
 
 		void removeComponentFromEntity(unsigned int entityId, std::type_index componentType);
 	};

@@ -66,7 +66,7 @@ namespace ECS {
 		}
 	}
 
-	std::vector<Entity<Component*>> EntityManager::getAllEntities(const std::type_index& componentType) const {
+	std::vector<Entity<Component*>> EntityManager::getAllEntitiesWithComponent(const std::type_index& componentType) const {
 		std::vector<Entity<Component*>> result;
 		try {
 			auto const entities = entityComponents.at(componentType);
