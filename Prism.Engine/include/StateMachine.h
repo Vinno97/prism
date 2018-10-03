@@ -23,6 +23,7 @@ public:
 	/// <summary>
 	/// Add state to list of existing states
 	/// </summary>
+	/// <param name="state">New state</param>
 	template<class T>
 	void addState(T& state) {
 		const std::type_index type{ std::type_index(typeid(T)) };
