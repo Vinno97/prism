@@ -1,34 +1,39 @@
 #pragma once
 #include <glm/glm.hpp>
 #include "Renderer/Graphics/RenderDevice.h"
-#include "Renderer/Graphics/Loader/ModelLoader.h"
-#include "Renderer/Graphics/Models/Model.h"
 #include "Renderer/Graphics/OpenGL/OGLRenderDevice.h"
 #include "Renderer/Graphics/IndexBuffer.h"
 #include "Renderer/Graphics/VertexBuffer.h"
+#include "Renderer/Graphics/Loader/ModelLoader.h"
+#include "Renderer/Graphics/Models/Model.h"
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 #include <vector>
 #include <string>
+#include <iostream>
 
 using namespace std;
 using namespace Renderer::Graphics;
-using namespace Renderer::Graphics::Models;
 using namespace Renderer::Graphics::OpenGL;
-using namespace Renderer::Graphics::Loader;
-
+using namespace Renderer::Graphics::Models;
 
 namespace Renderer {
 	namespace Graphics {
 		namespace Loader {
-
 			Model ModelLoader::loadModel(string path)
 			{
 				RenderDevice* renderDevice = &OGLRenderDevice();
 
 				Assimp::Importer importer;
 				const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
+
+				if(!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) 
+				{
+					auto error = importer.GetErrorString();
+					cout << "ERROR::ASSIMP::" << error << endl;
+					throw exception("a");
+				}
 
 				aiMesh* mesh = scene->mMeshes[0];
 				VertexArrayObject* vertexArrayObject = renderDevice->createVertexArrayobject();
@@ -55,9 +60,8 @@ namespace Renderer {
 
 				Mesh* m = new Mesh(vertexArrayObject, indexBuffer);
 
-				return Model(*m);
+				return Model(m);
 			}
-
 		}
 	}
 }

@@ -13,8 +13,8 @@ namespace Renderer {
 
 			class Model {
 				public: 
-					Model(Mesh m);
-					Mesh mesh;
+					Model(Mesh* m);
+					Mesh* mesh;
 					//Material material;
 
 				private:

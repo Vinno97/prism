@@ -49,13 +49,13 @@
     <ClInclude Include="include\Renderer\Graphics\Pipeline.h" />
     <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLPipeline.h" />
     <ClInclude Include="include\Renderer\Graphics\VertexArrayObject.h" />
-    <ClInclude Include="src\Renderer\Graphics\Models\Mesh.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Renderer\Graphics\Loader\ModelLoader.cpp" />
     <ClCompile Include="src\Renderer\Graphics\Loader\StaticLoader.cpp" />
     <ClCompile Include="src\Renderer\Graphics\Loader\TextureLoader.cpp" />
     <ClCompile Include="src\Renderer\Graphics\Models\Material.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\Models\Mesh.cpp" />
     <ClCompile Include="src\Renderer\Graphics\Models\Model.cpp" />
     <ClCompile Include="src\Renderer\Graphics\Models\Texture.cpp" />
     <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLIndexBuffer.cpp" />

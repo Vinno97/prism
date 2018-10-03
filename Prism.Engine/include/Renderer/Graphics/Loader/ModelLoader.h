@@ -3,7 +3,7 @@
 #include "Renderer/Graphics/RenderDevice.h"
 #include "Renderer/Graphics/Loader/ModelLoader.h"
 #include "Renderer/Graphics/Models/Model.h"
-#include "Renderer/Graphics/OpenGL/OGLRenderDevice.h"
+#include "Renderer/Graphics/Models/Mesh.h"
 #include "Renderer/Graphics/IndexBuffer.h"
 #include "Renderer/Graphics/VertexBuffer.h"
 #include <assimp/Importer.hpp>
