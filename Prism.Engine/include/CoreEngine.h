@@ -27,12 +27,19 @@ public:
 	/// <param name="x">X position of window</param>
 	/// <param name="y">Y position of window</param>
 	const void CreateWindow(const char* title, const int width, const int height, const int x, const int y);
+
+	/// <summary>
+	/// Starts the gameloop 
+	/// </summary>
 	void Run();
 	~CoreEngine();
 
 private:
 	Context context;
 
+	/// <summary>
+	/// frees memorys from the heap
+	/// </summary>
 	void CleanUp();
 };
 
