@@ -10,6 +10,5 @@ public:
 	void onUpdate(Context context) override;
 	void onEnter() override;
 	void onLeave() override;
-
 };
 

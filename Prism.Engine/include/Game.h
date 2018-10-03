@@ -3,9 +3,8 @@
 #include "State.h"
 #include "Context.h"
 
-class Game : State
+class Game : public State
 {
-
 
 public:
 	Game();
@@ -15,4 +14,6 @@ public:
 	virtual void onEnter() override;
 	virtual void onLeave() override;
 
+private:
+	Context context;
 };
