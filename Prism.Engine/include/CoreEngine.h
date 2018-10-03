@@ -6,6 +6,9 @@
 #include "StateMachine.h"
 #include "State.h"
 
+/// <summary>
+/// is responsible for running the gameloop
+/// </summary>
 class CoreEngine
 {
 public:
