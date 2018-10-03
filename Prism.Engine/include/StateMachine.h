@@ -4,6 +4,9 @@
 #include <list>
 #include <typeindex>
 
+/// <summary>
+/// Statemachine class is repsonsible to add and managing the existing states 
+/// </summary>
 class StateMachine
 {
 public:

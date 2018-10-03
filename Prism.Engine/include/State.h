@@ -1,6 +1,9 @@
 #pragma once
 #include "Context.h"
 
+/// <summary>
+/// Abstract State class
+/// </summary>
 class State {
 public:
   State();
