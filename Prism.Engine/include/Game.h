@@ -3,16 +3,12 @@
 #include "State.h"
 #include "Context.h"
 
-class Game : State
-{
+class Game : State {
+ public:
+  Game();
+  ~Game();
 
-
-public:
-	Game();
-	~Game();
-
-	virtual void onUpdate(Context context) override;
-	virtual void onEnter() override;
-	virtual void onLeave() override;
-
+  virtual void onUpdate(Context context) override;
+  virtual void onEnter() override;
+  virtual void onLeave() override;
 };

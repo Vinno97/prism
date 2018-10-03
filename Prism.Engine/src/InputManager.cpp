@@ -3,22 +3,20 @@
 #include "Key.h"
 
 InputManager::InputManager() {
-	keyMap[Key::KEY_W] = SDL_SCANCODE_W;
-	keyMap[Key::KEY_A] = SDL_SCANCODE_A;
-	keyMap[Key::KEY_S] = SDL_SCANCODE_S;
-	keyMap[Key::KEY_D] = SDL_SCANCODE_D;
+  keyMap[Key::KEY_W] = SDL_SCANCODE_W;
+  keyMap[Key::KEY_A] = SDL_SCANCODE_A;
+  keyMap[Key::KEY_S] = SDL_SCANCODE_S;
+  keyMap[Key::KEY_D] = SDL_SCANCODE_D;
 }
 
-bool InputManager::isKeyPressed(Key key)
-{
-	const Uint8* currentKeyStates = SDL_GetKeyboardState(nullptr);
+bool InputManager::isKeyPressed(Key key) {
+  const Uint8* currentKeyStates = SDL_GetKeyboardState(nullptr);
 
-	if (currentKeyStates[keyMap[key]]) {
-		return true;
+  if (currentKeyStates[keyMap[key]]) {
+    return true;
+  }
+
+  return false;
 }
 
-	return false;
-}
-
-InputManager::~InputManager()
-	= default;
+InputManager::~InputManager() = default;

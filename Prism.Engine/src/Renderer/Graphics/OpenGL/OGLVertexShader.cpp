@@ -1,50 +1,46 @@
-#pragma once
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <GL/glew.h>
 #include <SDL2/SDL_opengl.h>
 #include "Renderer/Graphics/OpenGL/OGLVertexShader.h"
-#include <iostream> 
+#include <iostream>
 #include <string>
 
 namespace Renderer {
-	namespace Graphics {
-		namespace OpenGL {
-			OGLVertexShader::OGLVertexShader(const char* source) {
+namespace Graphics {
+namespace OpenGL {
+OGLVertexShader::OGLVertexShader(const char* source) {
+  // Create vertex shader
+  vertexID = glCreateShader(GL_VERTEX_SHADER);
 
-				//Create vertex shader
-				vertexID = glCreateShader(GL_VERTEX_SHADER);
+  // Set vertex source
+  glShaderSource(vertexID, 1, &source, nullptr);
 
-				//Set vertex source
-				glShaderSource(vertexID, 1, &source, nullptr);
+  // Compile vertex source
+  glCompileShader(vertexID);
 
-				//Compile vertex source
-				glCompileShader(vertexID);
+  GLint fShaderCompiled = GL_FALSE;
+  glGetShaderiv(vertexID, GL_COMPILE_STATUS, &fShaderCompiled);
+  if (fShaderCompiled != GL_TRUE) {
+    int infologLength = 0;
 
-				GLint fShaderCompiled = GL_FALSE;
-				glGetShaderiv(vertexID, GL_COMPILE_STATUS, &fShaderCompiled);
-				if (fShaderCompiled != GL_TRUE)
-				{
-					int infologLength = 0;
+    int charsWritten = 0;
+    char* infoLog;
 
-					int charsWritten  = 0;
-					char *infoLog;
+    glGetShaderiv(vertexID, GL_INFO_LOG_LENGTH, &infologLength);
 
-					glGetShaderiv(vertexID, GL_INFO_LOG_LENGTH,&infologLength);
+    infoLog = static_cast<char*>(malloc(infologLength));
+    glGetShaderInfoLog(vertexID, infologLength, &charsWritten, infoLog);
 
-					infoLog = static_cast<char *>(malloc(infologLength));
-					glGetShaderInfoLog(vertexID, infologLength, &charsWritten, infoLog);
+    std::string log = infoLog;
 
-					std::string log = infoLog;
+    std::cerr << "Unable to compile vertex shader " << log;
+    throw std::runtime_error("Vertex shader does not compile");
+  }
+}
 
-					std::cerr << "Unable to compile vertex shader " << log;
-					throw std::runtime_error("Vertex shader does not compile");
-				}
-			}
-
-			OGLVertexShader::~OGLVertexShader()
-			= default;
-		}  // namespace OpenGL
-	}  // namespace Graphics
+OGLVertexShader::~OGLVertexShader() = default;
+}  // namespace OpenGL
+}  // namespace Graphics
 }  // namespace Renderer

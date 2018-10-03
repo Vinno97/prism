@@ -13,24 +13,24 @@
 using namespace Renderer::Graphics;
 
 namespace Renderer {
-	class TestRenderer
-	{
-	public:
-		TestRenderer();
-		void init();
-		void draw();
-		~TestRenderer();
-	private:
-		RenderDevice* renderDevice;
-		VertexShader* vertexShader;
-		FragmentShader* fragmentShader;
-		Pipeline* pipeline;
-		VertexBuffer* vertexBuffer;
-		IndexBuffer* indexBuffer;
+class TestRenderer {
+ public:
+  TestRenderer();
+  void init();
+  void draw();
+  ~TestRenderer();
 
-		GLuint gProgramID;
-		GLuint gVertexPos2DLocation;
-		GLuint gVBO;
-		GLuint gIBO;
-	};
-}
+ private:
+  RenderDevice* renderDevice;
+  VertexShader* vertexShader;
+  FragmentShader* fragmentShader;
+  Pipeline* pipeline;
+  VertexBuffer* vertexBuffer;
+  IndexBuffer* indexBuffer;
+
+  GLuint gProgramID;
+  GLuint gVertexPos2DLocation;
+  GLuint gVBO;
+  GLuint gIBO;
+};
+}  // namespace Renderer

@@ -3,13 +3,13 @@
 #include "Renderer/Graphics/VertexShader.h"
 
 namespace Renderer {
-	namespace Graphics {
-		namespace OpenGL {
-			class OGLVertexShader : public VertexShader {
-			public:
-				OGLVertexShader(const char* source);
-				~OGLVertexShader();
-			};
-		}
-	}
-}
+namespace Graphics {
+namespace OpenGL {
+class OGLVertexShader : public VertexShader {
+ public:
+  OGLVertexShader(const char* source);
+  ~OGLVertexShader();
+};
+}  // namespace OpenGL
+}  // namespace Graphics
+}  // namespace Renderer

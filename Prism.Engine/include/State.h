@@ -2,7 +2,7 @@
 #include "Context.h"
 
 class State {
-public:
+ public:
   State();
   ~State();
 

@@ -4,10 +4,10 @@
 #include <map>
 
 namespace Renderer {
-	namespace Graphics {
-		class FragmentShader {
-		public:
-			GLuint fragmentID;
-		};
-	}
-}
+namespace Graphics {
+class FragmentShader {
+ public:
+  GLuint fragmentID;
+};
+}  // namespace Graphics
+}  // namespace Renderer

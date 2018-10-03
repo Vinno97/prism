@@ -5,11 +5,11 @@
 #include <map>
 
 namespace Renderer {
-	namespace Graphics {
-		class VertexShader {
-		public:
-			VertexShader() {};
-			GLuint vertexID;
-		};
-	}
-}
+namespace Graphics {
+class VertexShader {
+ public:
+  VertexShader(){};
+  GLuint vertexID;
+};
+}  // namespace Graphics
+}  // namespace Renderer

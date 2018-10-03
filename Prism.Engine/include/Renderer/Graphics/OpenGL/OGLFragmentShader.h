@@ -3,14 +3,13 @@
 #include "Renderer/Graphics/FragmentShader.h"
 
 namespace Renderer {
-	namespace Graphics {
-		namespace OpenGL {
-			class OGLFragmentShader : public FragmentShader
-			{
-			public:
-				OGLFragmentShader(const char* source);
-				~OGLFragmentShader();
-			};
-		}
-	}
-}
+namespace Graphics {
+namespace OpenGL {
+class OGLFragmentShader : public FragmentShader {
+ public:
+  OGLFragmentShader(const char* source);
+  ~OGLFragmentShader();
+};
+}  // namespace OpenGL
+}  // namespace Graphics
+}  // namespace Renderer

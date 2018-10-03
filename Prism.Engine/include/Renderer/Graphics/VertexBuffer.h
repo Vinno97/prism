@@ -2,17 +2,18 @@
 #include <SDL2/SDL_opengl.h>
 
 namespace Renderer {
-	namespace Graphics {
-		class VertexBuffer {
-		public:
-			VertexBuffer() {};
+namespace Graphics {
+class VertexBuffer {
+ public:
+  VertexBuffer(){};
 
-			/// <summary>
-			/// Make this the current active vertexbuffer
-			/// </summary>
-			virtual void bind() = 0;
-		protected:
-			GLuint VBO;
-		};
-	}
-}
+  /// <summary>
+  /// Make this the current active vertexbuffer
+  /// </summary>
+  virtual void bind() = 0;
+
+ protected:
+  GLuint VBO;
+};
+}  // namespace Graphics
+}  // namespace Renderer

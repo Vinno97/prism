@@ -1,8 +1,6 @@
 #pragma once
-class CoreEngine
-{
-public:
-	CoreEngine();
-	~CoreEngine();
+class CoreEngine {
+ public:
+  CoreEngine();
+  ~CoreEngine();
 };
-

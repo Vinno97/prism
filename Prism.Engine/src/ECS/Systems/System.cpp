@@ -2,14 +2,12 @@
 #include "ECS/EntityManager.h"
 #include "Context.h"
 
-
 namespace ECS {
-	namespace Systems {
-		System::System(EntityManager* entityManager) {
-			this->entityManager = entityManager;
-		}
-
-		System::~System()
-			= default;
-	}
+namespace Systems {
+System::System(EntityManager* entityManager) {
+  this->entityManager = entityManager;
 }
+
+System::~System() = default;
+}  // namespace Systems
+}  // namespace ECS

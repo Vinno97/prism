@@ -1,10 +1,8 @@
 #pragma once
-class Context
-{
-public:
-	Context();
-	~Context();
+class Context {
+ public:
+  Context();
+  ~Context();
 
-	int deltaTime;
+  int deltaTime;
 };
-
