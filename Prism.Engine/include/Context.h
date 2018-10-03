@@ -13,7 +13,7 @@ public:
 	~Context();
 
 	//Holds the time that has been passed since the last gameupdate
-	int deltaTime;
+	long deltaTime;
 
 	Window *window;
 	StateMachine *stateMachine;
