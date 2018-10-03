@@ -2,6 +2,10 @@
 #include <Window.h>
 
 class StateMachine;
+
+/// <summary>
+/// contains information that are needed to update the states
+/// </summary>
 struct Context
 {
 public:
