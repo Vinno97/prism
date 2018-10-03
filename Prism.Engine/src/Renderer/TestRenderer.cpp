@@ -14,9 +14,11 @@
 #include "Renderer/Graphics/OpenGL/OGLPipeline.h"
 #include "Renderer/Graphics/VertexArrayObject.h"
 #include "Renderer/Graphics/VertexBuffer.h"
+#include "Renderer/Graphics/Loader/ModelLoader.h"
 
 using namespace Renderer::Graphics;
 using namespace Renderer::Graphics::OpenGL;
+using namespace Renderer::Graphics::Loader;
 
 namespace Renderer {
 	glm::mat4 trans = glm::mat4(1.0f);
@@ -39,6 +41,10 @@ namespace Renderer {
 
 	void TestRenderer::init()
 	{
+		ModelLoader* modelLoader = new ModelLoader();
+		string path = "bunny.obj";
+		modelLoader->loadModel(path);
+
 		//Matrix for object in worldspace
 		trans = glm::rotate(trans, glm::radians(0.0f), glm::vec3(0.0f, 0.0f, 1.0f));
 
