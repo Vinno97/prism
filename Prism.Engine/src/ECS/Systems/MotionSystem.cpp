@@ -12,7 +12,7 @@ ECS::Systems::MotionSystem::~MotionSystem()
 = default;
 
 void ECS::Systems::MotionSystem::update(Context context) {
-	for (auto entity : entityManager->getAllEntities<VelocityComponent>()) {
+	for (auto entity : entityManager->getAllEntitiesWithComponent<VelocityComponent>()) {
 		auto velocity = entity.component;
 
 		// Drag gets calculated before the position gets moved. Otherwise it's not possible to easily move the position back later. 

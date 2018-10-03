@@ -24,27 +24,53 @@
     <ClInclude Include="include\ECS\Components\PositionComponent.h" />
     <ClInclude Include="include\ECS\Components\VelocityComponent.h" />
     <ClInclude Include="include\ECS\EntityManager.h" />
+    <ClInclude Include="include\Renderer\TestRenderer.h" />
     <ClInclude Include="include\Context.h" />
     <ClInclude Include="include\CoreEngine.h" />
     <ClInclude Include="include\ECS\Entity.h" />
+    <ClInclude Include="include\ECS\Systems\RenderSystem.h" />
     <ClInclude Include="include\ECS\Systems\MotionSystem.h" />
     <ClInclude Include="include\ECS\Systems\System.h" />
     <ClInclude Include="include\Game.h" />
     <ClInclude Include="include\InputManager.h" />
+    <ClInclude Include="include\Renderer\Graphics\FragmentShader.h" />
+    <ClInclude Include="include\Renderer\Graphics\IndexBuffer.h" />
+    <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLIndexBuffer.h" />
+    <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLRenderDevice.h" />
+    <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLVertexArrayObject.h" />
+    <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLVertexBuffer.h" />
+    <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLVertexShader.h" />
+    <ClInclude Include="include\Renderer\Graphics\VertexBuffer.h" />
+    <ClInclude Include="include\Renderer\Graphics\VertexShader.h" />
     <ClInclude Include="include\Key.h" />
     <ClInclude Include="include\State.h" />
     <ClInclude Include="include\StateMachine.h" />
     <ClInclude Include="include\Window.h" />
+    <ClInclude Include="include\MenuState.h" />
     <ClInclude Include="include\ECS\SystemManager.h" />
+    <ClInclude Include="include\Renderer\Graphics\RenderDevice.h" />
+    <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLFragmentShader.h" />
+    <ClInclude Include="include\Renderer\Graphics\Pipeline.h" />
+    <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLPipeline.h" />
+    <ClInclude Include="include\Renderer\Graphics\VertexArrayObject.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\MenuState.cpp" />
     <ClCompile Include="src\ECS\EntityManager.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLIndexBuffer.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLPipeline.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLFragmentShader.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLVertexArrayObject.cpp" />
+    <ClCompile Include="src\Renderer\TestRenderer.cpp" />
     <ClCompile Include="src\Context.cpp" />
     <ClCompile Include="src\CoreEngine.cpp" />
     <ClCompile Include="src\ECS\Systems\MotionSystem.cpp" />
+    <ClCompile Include="src\ECS\Systems\RenderSystem.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\InputManager.cpp" />
-    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLRenderDevice.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLVertexBuffer.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLVertexShader.cpp" />
     <ClCompile Include="src\State.cpp" />
     <ClCompile Include="src\StateMachine.cpp" />
     <ClCompile Include="src\Window.cpp" />
@@ -52,6 +78,9 @@
     <ClCompile Include="src\ECS\Systems\System.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Library Include="lib\glew32.lib" />
+    <Library Include="lib\glew32s.lib" />
+    <Library Include="lib\assimp-vc140-mtd.lib" />
     <Library Include="lib\SDL2.lib" />
     <Library Include="lib\SDL2main.lib" />
     <Library Include="lib\SDL2test.lib" />
@@ -107,7 +136,10 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -129,9 +161,10 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <EnablePREfast>false</EnablePREfast>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>SDL2main.lib;SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2main.lib;SDL2.lib;glew32.lib;opengl32.lib;assimp-vc140-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
       <AdditionalLibraryDirectories>$(ProjectDir)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>

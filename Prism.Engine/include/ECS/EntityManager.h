@@ -1,14 +1,10 @@
 #pragma once
-
 #include <cstdio>
 #include <vector>
 #include <map>
 #include <typeindex>
-
-
 #include "Components/Component.h"
 #include "Components/PositionComponent.h"
-
 #include "Entity.h"
 
 namespace ECS {
@@ -31,7 +27,6 @@ namespace ECS {
 		/// <returns>The ID of the newly created entity.</returns>
 		template<class A>
 		int createEntity(A& c1) {
-			entities.push_back(++lastEntityId);
 			addComponentToEntity(lastEntityId, c1);
 			return lastEntityId;
 		}
@@ -214,7 +209,7 @@ namespace ECS {
 		/// Returns whether or not an entity has a component.
 		/// </summary>
 		/// <param name="entityId">The ID of the entity to get the component from.</param>
-		/// <returns>A pointer to the component belonging to the entity.</returns>
+		/// <returns>A boolean indicator whether the entity has the component.</returns>
 		template<typename T, typename = std::enable_if < std::is_base_of<Component, T>::value>>
 		bool hasComponent(unsigned int entityId) const {
 			const std::type_index type{ std::type_index(typeid(T)) };
@@ -226,10 +221,10 @@ namespace ECS {
 		/// </summary>
 		/// <returns>A vector containing combinations of entities and the matching component.</returns>
 		template<typename T, typename = std::enable_if < std::is_base_of<Component, T>::value>>
-		std::vector<Entity<T*>> getAllEntities() const {
+		std::vector<Entity<T*>> getAllEntitiesWithComponent() const {
 			auto const type = std::type_index(typeid(T));
 
-			auto const entities = getAllEntities(type);
+			auto const entities = getAllEntitiesWithComponent(type);
 
 			std::vector<Entity<T*>> result;
 
@@ -259,11 +254,6 @@ namespace ECS {
 		std::map<std::type_index, std::map<unsigned int, Component*>> entityComponents;
 
 		/// <summary>
-		/// Keeps a list of all entities Entity.
-		/// </summary>
-		std::vector<unsigned int> entities;
-
-		/// <summary>
 		/// Keeps a list of all Listeners attached to the EntityManager.
 		/// </summary>
 
@@ -271,8 +261,7 @@ namespace ECS {
 		
 		bool hasComponent(unsigned int entityId, std::type_index componentType) const;
 
-		std::vector<Entity<Component*>> getAllEntities(const std::type_index& componentType) const;
-
+		std::vector<Entity<Component*>> getAllEntitiesWithComponent(const std::type_index& componentType) const;
 
 		void removeComponentFromEntity(unsigned int entityId, std::type_index componentType);
 	};

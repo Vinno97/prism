@@ -18,7 +18,7 @@ namespace ECS {
 		void KeyboardInputSystem::update(Context context) {
 			auto input = context.inputManager;
 			
-			for (auto entity : entityManager->getAllEntities<KeyboardInputComponent>()) {
+			for (auto entity : entityManager->getAllEntitiesWithComponent<KeyboardInputComponent>()) {
 				auto velocity = entityManager->getComponent<VelocityComponent>(entity.id);
 
 				if (input->isKeyPressed(Key::KEY_W))
