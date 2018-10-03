@@ -5,10 +5,10 @@ pool:
   vmImage: 'vs2017-win2016'
 
 steps:
-- bash: find . -type f -name '*.h' ! -path './Prism.*/include/*' -exec false {} + 
+- bash: find . -type f -name '*.h' ! -path './Prism.*/include/*' -exec echo {} >&2 \; -exec false {} + 
   displayName: Header files are only in the ''include' directories
 
-- bash: find . -type f -name '*.cpp' ! -path './Prism.*/src/*' ! -path './Prism.Engine/include/glm/*' -exec false {} +
+- bash: find . -type f -name '*.cpp' ! -path './Prism.*/src/*' ! -path './Prism.Engine/lib/include/glm/*' -exec echo {} >&2 \; -exec false {} +
   displayName: Source files are only in the 'src' directories
 
 - task: VSBuild@1
