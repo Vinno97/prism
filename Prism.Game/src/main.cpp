@@ -11,6 +11,7 @@
 #include <string>
 #include "Context.h"
 #include "StateMachine.h"
+#include "Renderer/TestRenderer.h"
 
 #define _CRTDBG_MAP_ALLOC
 
@@ -18,10 +19,27 @@
 void test() {
 	State st;
 	CoreEngine ce = CoreEngine(st);
-	std::string title = "prism";
-	ce.CreateWindow(&title[0], 500, 500, 100, 100);
+	ce.CreateWindow("prism", 500, 500, 100, 100);
 	ce.Run();
 
+}
+
+void start()
+{
+
+	Window window;
+	InputManager inputManager;
+	window.init("Prism", 1920, 1080, 100, 100);
+	
+	Renderer::TestRenderer cr;
+	cr.init();
+	while (!window.shouldClose()) {
+		if (inputManager.isKeyPressed(Key::KEY_W)) {
+			std::cout << "Key W is pressed!" << std::endl;
+		}
+		cr.draw();
+		window.swapScreen();
+	}
 }
 
 int main(int argc, char ** argv) {
