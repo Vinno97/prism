@@ -61,8 +61,9 @@ namespace Renderer {
 			{
 
 				glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
-				glCullFace(GL_BACK);
 				glEnable(GL_CULL_FACE);
+				glCullFace(GL_BACK);
+				glFrontFace(GL_CW);
 				if (enable)
 					glEnable(GL_DEPTH_TEST);
 				else

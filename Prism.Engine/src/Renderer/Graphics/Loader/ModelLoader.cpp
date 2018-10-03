@@ -62,7 +62,7 @@ namespace Renderer {
 				for (unsigned int a = 0; a < mesh->mNumFaces; a = a + 1)
 				{
 					aiFace temp = mesh->mFaces[a];
-					for (unsigned int b = 0; b < sizeof(temp.mIndices); b = b + 1)
+					for (unsigned int b = 0; b < temp.mNumIndices; b = b + 1)
 					{
 						unsigned int temp2 = temp.mIndices[b];
 						indices->push_back(temp2);
@@ -71,7 +71,7 @@ namespace Renderer {
 				
 				int *indicesArray = indices->data();
 				
-				IndexBuffer* indexBuffer = renderDevice->createIndexBuffer(indices->size()*sizeof(float), indicesArray);
+				IndexBuffer* indexBuffer = renderDevice->createIndexBuffer(indices->size()*sizeof(unsigned int), indicesArray);
 
 				vertexArrayObject->unbind();
 

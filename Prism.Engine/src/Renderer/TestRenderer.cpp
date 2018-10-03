@@ -26,7 +26,7 @@ namespace Renderer {
 	glm::mat4 trans = glm::mat4(1.0f);
 
 	glm::mat4 view = glm::lookAt(
-		glm::vec3(5.2f, 0.f, 1.2f),
+		glm::vec3(.01f, -1.f,  1.f),
 		glm::vec3(0.0f, 0.0f, 0.0f),
 		glm::vec3(0.0f, 0.0f, 1.0f)
 	);
@@ -46,7 +46,7 @@ namespace Renderer {
 
 
 		//Matrix for object in worldspace
-		trans = glm::rotate(trans, glm::radians(0.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+		//trans = glm::rotate(trans, glm::radians(0.0f), glm::vec3(0.0f, 0.0f, 1.0f));
 
 
 		//Make and compile shaders
@@ -135,7 +135,7 @@ namespace Renderer {
 		vertexArray1->unbind();
 		
 		renderDevice->useDepthTest(true);
-		trans = glm::scale(trans, glm::vec3(20.f, 20.f, 20.f));
+		trans = glm::scale(trans, glm::vec3(5.f, 5.f, 5.f));
 		return;
 	}
 
@@ -144,11 +144,12 @@ namespace Renderer {
 	{
 		//Enable VAO
 		//vertexArray1->bind();
-		model->mesh->vertexArrayObject->bind();
 		model->mesh->indexBuffer->bind();
+		model->mesh->vertexArrayObject->bind();
+		
 		//Clear color buffer
 		renderDevice->clearScreen();
-
+			view = glm::rotate(view, glm::radians(2.0f), glm::vec3(0.f, 1.0f, 1.0f));
 		auto t_now = std::chrono::high_resolution_clock::now();
 		float time = std::chrono::duration_cast<std::chrono::duration<float>>(t_now - t_start).count();
 
