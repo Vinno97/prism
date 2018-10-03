@@ -15,18 +15,20 @@
 #define _CRTDBG_MAP_ALLOC
 
 //QQQ Remove this main method
+void test() {
+	State st;
+	CoreEngine ce = CoreEngine(st);
+	std::string title = "prism";
+	ce.CreateWindow(&title[0], 500, 500, 100, 100);
+	ce.Run();
+
+}
+
 int main(int argc, char ** argv) {
 	//_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
-	Game g = Game();
-	State *gPtr = &g;
-	CoreEngine *ce = new CoreEngine(gPtr);
-	std::string title = "prism";
-	ce->CreateWindow(&title[0], 500, 500, 100, 100);
-	ce->Run();
-
-	delete ce;
-
-	return 0;
+	
+	test();
 	_CrtDumpMemoryLeaks();
+	return 0;
 }
