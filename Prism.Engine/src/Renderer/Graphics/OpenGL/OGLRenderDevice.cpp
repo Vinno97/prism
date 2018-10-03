@@ -59,6 +59,10 @@ namespace Renderer {
 
 			void OGLRenderDevice::useDepthTest(bool enable)
 			{
+
+				glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
+				glCullFace(GL_BACK);
+				glEnable(GL_CULL_FACE);
 				if (enable)
 					glEnable(GL_DEPTH_TEST);
 				else

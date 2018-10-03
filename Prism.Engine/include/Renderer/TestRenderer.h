@@ -9,8 +9,10 @@
 #include "Renderer/Graphics/VertexShader.h"
 #include "Renderer/Graphics/VertexBuffer.h"
 #include "Renderer/Graphics/IndexBuffer.h"
+#include "Renderer/Graphics/Models/Model.h"
 
 using namespace Renderer::Graphics;
+using namespace Renderer::Graphics::Models;
 
 namespace Renderer {
 	class TestRenderer
@@ -32,5 +34,7 @@ namespace Renderer {
 		GLuint gVertexPos2DLocation;
 		GLuint gVBO;
 		GLuint gIBO;
+
+		Model* model;
 	};
 }

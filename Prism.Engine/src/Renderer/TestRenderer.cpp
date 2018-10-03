@@ -15,10 +15,12 @@
 #include "Renderer/Graphics/VertexArrayObject.h"
 #include "Renderer/Graphics/VertexBuffer.h"
 #include "Renderer/Graphics/Loader/ModelLoader.h"
+#include "Renderer/Graphics/Models/Model.h"
 
 using namespace Renderer::Graphics;
 using namespace Renderer::Graphics::OpenGL;
 using namespace Renderer::Graphics::Loader;
+using namespace Renderer::Graphics::Models;
 
 namespace Renderer {
 	glm::mat4 trans = glm::mat4(1.0f);
@@ -41,9 +43,7 @@ namespace Renderer {
 
 	void TestRenderer::init()
 	{
-		ModelLoader* modelLoader = new ModelLoader();
-		string path = "bunny.obj";
-		modelLoader->loadModel(path);
+
 
 		//Matrix for object in worldspace
 		trans = glm::rotate(trans, glm::radians(0.0f), glm::vec3(0.0f, 0.0f, 1.0f));
@@ -73,6 +73,9 @@ namespace Renderer {
 				FragColor = pass_colour*-1; \
 			}"
 		};
+		ModelLoader* modelLoader = new ModelLoader(renderDevice);
+		string path = "C:/Users/Daan/Prism/prism/x64/Debug/bunny.obj";
+		model = modelLoader->loadModel(path);
 
 		vertexShader = renderDevice->createVertexShader(vertexShaderSource);
 		fragmentShader = renderDevice->createFragmentShader(fragmentShaderSource);
@@ -130,9 +133,9 @@ namespace Renderer {
 		vertexArray1->addVertexBuffer(colourBuffer, 1, 3 * sizeof(GLfloat), 0, 3);
 
 		vertexArray1->unbind();
-
+		
 		renderDevice->useDepthTest(true);
-
+		trans = glm::scale(trans, glm::vec3(20.f, 20.f, 20.f));
 		return;
 	}
 
@@ -140,7 +143,9 @@ namespace Renderer {
 	void TestRenderer::draw()
 	{
 		//Enable VAO
-		vertexArray1->bind();
+		//vertexArray1->bind();
+		model->mesh->vertexArrayObject->bind();
+		model->mesh->indexBuffer->bind();
 		//Clear color buffer
 		renderDevice->clearScreen();
 
@@ -148,20 +153,13 @@ namespace Renderer {
 		float time = std::chrono::duration_cast<std::chrono::duration<float>>(t_now - t_start).count();
 
 		pipeline->run();
+
+
 		pipeline->setUniformMatrix4f("model", trans);
 		pipeline->setUniformMatrix4f("view", view);
 		pipeline->setUniformMatrix4f("proj", proj);
 
-	    renderDevice->DrawTrianglesIndexed(0, 6);
-		glm::mat4 trans = glm::mat4(1.0f);
-
-		view = glm::rotate(view, glm::radians(2.0f), glm::vec3(0.f, 1.0f, 1.0f));
-
-	    trans = glm::rotate(trans, glm::radians(2.f), glm::vec3(1.f, 0.f, 1.f));
-		trans = glm::scale(trans, glm::vec3(10.f, 10.f, 0.f));
-	    pipeline->setUniformMatrix4f("model", trans);
-
-	    renderDevice->DrawTrianglesIndexed(0, 6);
+	    renderDevice->DrawTrianglesIndexed(0, model->mesh->indicesLength);
 
 		pipeline->stop();
 	}

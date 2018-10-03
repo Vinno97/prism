@@ -9,22 +9,24 @@
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
+#include "Renderer/Graphics/RenderDevice.h"
 #include <vector>
 #include <string>
 
 using namespace std;
+using namespace Renderer::Graphics;
 using namespace Renderer::Graphics::Models;
 
 namespace Renderer {
 	namespace Graphics {
 		namespace Loader {
-
 			class ModelLoader {
 			public:
-				Model loadModel(string path);
+				ModelLoader(RenderDevice* renderDevice);
+				Model* loadModel(string path);
 
 			private:
-
+				RenderDevice* renderDevice;
 
 			};
 		}

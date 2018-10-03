@@ -10,8 +10,10 @@ namespace Renderer {
 			class Mesh {
 			public:
 				Mesh(VertexArrayObject* vertexArrayObject, IndexBuffer* indexBuffer);
+
 				VertexArrayObject* vertexArrayObject;
 				IndexBuffer* indexBuffer;
+				int indicesLength;
 			};
 		}
 	}
