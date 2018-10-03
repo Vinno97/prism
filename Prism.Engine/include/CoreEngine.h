@@ -18,7 +18,14 @@ public:
 		context.stateMachine->setState<T>();
 	}
 
-
+	/// <summary>
+	/// Create new window 
+	/// </summary>
+	/// <param name="title">Title of the current window</param>
+	/// <param name="width">Width of window</param>
+	/// <param name="height">Height of window</param>
+	/// <param name="x">X position of window</param>
+	/// <param name="y">Y position of window</param>
 	const void CreateWindow(const char* title, const int width, const int height, const int x, const int y);
 	void Run();
 	~CoreEngine();
