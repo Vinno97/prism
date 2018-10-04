@@ -18,6 +18,7 @@ namespace Renderer {
 			OGLRenderDevice::OGLRenderDevice()
 			{
 			}
+
 			OGLRenderDevice::~OGLRenderDevice()
 			{
 				///QQQ Delete all devices and shaders etc

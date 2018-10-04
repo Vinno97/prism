@@ -14,7 +14,6 @@ namespace Renderer {
 			class OGLRenderDevice : public RenderDevice
 			{
 			public:
-				OGLRenderDevice();
 				~OGLRenderDevice();
 				static RenderDevice* getRenderDevice();
 				VertexShader* createVertexShader(const char* source) override;
@@ -28,6 +27,8 @@ namespace Renderer {
 				void useDepthTest(bool enable) override;
 				void clearScreen() override;
 				void DrawTrianglesIndexed(long offset, int count) override;
+			private:
+				OGLRenderDevice();
 			};
 		}
 	}
