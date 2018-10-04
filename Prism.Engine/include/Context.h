@@ -18,6 +18,6 @@ public:
 
 	Window *window;
 	StateMachine *stateMachine;
-	InputManager* inputManager;
+	InputManager *inputManager;
 };
 

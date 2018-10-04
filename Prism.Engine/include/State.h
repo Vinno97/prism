@@ -13,7 +13,7 @@ public:
   /// Method to update the game
   /// </summary>
   /// <param name="context">Contains context</param>
-  virtual void onUpdate(Context context);
+  virtual void onUpdate(Context &context);
 
   /// <summary>
   /// Method to initialize the state

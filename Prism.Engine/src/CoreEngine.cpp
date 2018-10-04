@@ -24,7 +24,8 @@ void CoreEngine::Run()
 
 		//Sets the right values in context
 		context.deltaTime = deltaTime.count();
-		context.stateMachine->getCurrentState()->onUpdate(context);
+		auto test = context.stateMachine->getCurrentState();
+		test->onUpdate(context);
 	}
 }
 
@@ -32,6 +33,7 @@ void CoreEngine::CleanUp() {
 	//Free memory
 	delete context.stateMachine;
 	delete context.window;
+	delete context.inputManager;
 }
 
 CoreEngine::~CoreEngine()

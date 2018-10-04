@@ -24,13 +24,16 @@
 #include "ECS/Components/KeyboardInputComponent.h"
 #include "ECS/Systems/KeyboardInputSystem.h"
 #include "ECS/Systems/MotionSystem.h"
+#include "PrismGame.h"
 
 #define _CRTDBG_MAP_ALLOC
 
 //QQQ Remove this main method
-void test() {
-	State st;
-	CoreEngine ce = CoreEngine(st);
+void test() 
+{
+	PrismGame ps = PrismGame();
+	CoreEngine ce = CoreEngine(ps);
+
 	ce.CreateWindow("prism", 500, 500, 100, 100);
 	ce.Run();
 
