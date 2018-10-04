@@ -1,11 +1,32 @@
 #pragma once
 
-//#include "../Prism.Engine/Game.h"
+#include "Game.h"
+
+#include "ECS/Entity.h"
+#include "ECS/EntityManager.h"
+#include "ECS/SystemManager.h"
+
+#include "ECS/Systems/MotionSystem.h"
+#include "ECS/Systems/KeyboardInputSystem.h"
+
+#include "ECS/Components/Component.h"
+#include "ECS/Components/DragComponent.h"
+#include "ECS/Components/PositionComponent.h"
+#include "ECS/Components/VelocityComponent.h"
 	
-class PrismGame
+class PrismGame : public Game
 {
 public:
 	PrismGame();
+	void onUpdate(Context context) override;
+	void onEnter() override;
+	void onLeave() override;
 	~PrismGame();
-};
 
+private:
+	ECS::EntityManager entityManager;
+	ECS::SystemManager systemManager;
+
+	void registerSystems();
+	void createPlayer();
+};
