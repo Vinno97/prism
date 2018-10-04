@@ -1,5 +1,4 @@
 #include "CoreEngine.h"
-#include "Renderer/TestRenderer.h"
 
 const void CoreEngine::CreateWindow(const char* title, const int width, const int height, const int x, const int y) {
 	context.window->init(title, width, height, x, y);
@@ -12,9 +11,6 @@ void CoreEngine::Run()
 	//Holds the time in which the gameupdate was last called 
 	auto lastTime = std::chrono::system_clock::now();
 	int count = 0;
-
-	Renderer::TestRenderer cr;
-	cr.init();
 
 	//While the window is unclosed run the gameloop
 	while (!context.window->shouldClose()) 
@@ -29,7 +25,6 @@ void CoreEngine::Run()
 		//Sets the right values in context
 		context.deltaTime = deltaTime.count();
 		context.stateMachine->getCurrentState()->onUpdate(context);
-		cr.draw();
 		//Swap the screen buffer
 		context.window->swapScreen();
 	}
