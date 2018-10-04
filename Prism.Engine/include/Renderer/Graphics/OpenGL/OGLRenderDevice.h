@@ -15,7 +15,15 @@ namespace Renderer {
 			{
 			public:
 				~OGLRenderDevice();
+
+				/// <summary>
+				/// Returns the renderdevice
+				/// </summary>
+				/// <remarks>
+				/// As a static method cannot be overriden this is not defined in the base class
+				/// </remarks>
 				static RenderDevice* getRenderDevice();
+
 				VertexShader* createVertexShader(const char* source) override;
 				FragmentShader* createFragmentShader(const char* source) override;
 				Pipeline* createPipeline(VertexShader* vs, FragmentShader* fs) override;
