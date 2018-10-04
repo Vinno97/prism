@@ -14,12 +14,19 @@
 namespace Renderer {
 	namespace Graphics {
 		namespace OpenGL {
+
 			OGLRenderDevice::OGLRenderDevice()
 			{
 			}
 			OGLRenderDevice::~OGLRenderDevice()
 			{
 				///QQQ Delete all devices and shaders etc
+			}
+
+			RenderDevice * OGLRenderDevice::getRenderDevice()
+			{
+				static OGLRenderDevice instance;
+				return &instance;
 			}
 
 			VertexShader* OGLRenderDevice::createVertexShader(const char * source)

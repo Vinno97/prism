@@ -15,6 +15,7 @@ namespace Renderer {
 			RenderDevice() {};
 			~RenderDevice() {};
 
+
 			/// <summary>
 			/// Create a new vertexshader
 			/// </summary>

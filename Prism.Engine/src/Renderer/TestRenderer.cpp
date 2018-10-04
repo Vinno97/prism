@@ -34,7 +34,7 @@ namespace Renderer {
 
 	TestRenderer::TestRenderer()
 	{
-		renderDevice = new OGLRenderDevice();
+		renderDevice = OGLRenderDevice::getRenderDevice();
 	}
 
 	void TestRenderer::init()

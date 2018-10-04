@@ -16,6 +16,7 @@ namespace Renderer {
 			public:
 				OGLRenderDevice();
 				~OGLRenderDevice();
+				static RenderDevice* getRenderDevice();
 				VertexShader* createVertexShader(const char* source) override;
 				FragmentShader* createFragmentShader(const char* source) override;
 				Pipeline* createPipeline(VertexShader* vs, FragmentShader* fs) override;
