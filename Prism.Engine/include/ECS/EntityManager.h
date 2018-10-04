@@ -28,7 +28,7 @@ namespace ECS {
 		template<class A>
 		int createEntity(A& c1) {
 			addComponentToEntity(lastEntityId, c1);
-			return lastEntityId;
+			return lastEntityId++;
 		}
 
 		/// <summary>
