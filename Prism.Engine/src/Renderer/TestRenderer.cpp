@@ -26,9 +26,9 @@ namespace Renderer {
 	glm::mat4 trans = glm::mat4(1.0f);
 
 	glm::mat4 view = glm::lookAt(
-		glm::vec3(.01f, -1.f,  1.f),
-		glm::vec3(0.0f, 0.0f, 0.0f),
-		glm::vec3(0.0f, 0.0f, 1.0f)
+		   glm::vec3(0.0f, 7.5f, -20.0f), 
+  		   glm::vec3(0.0f, 0.0f, 0.0f), 
+  		   glm::vec3(0.0f, 1.0f, 0.0f)
 	);
 
 	VertexArrayObject* vertexArray1;
@@ -137,7 +137,7 @@ namespace Renderer {
 		vertexArray1->unbind();
 		
 		renderDevice->useDepthTest(true);
-		trans = glm::scale(trans, glm::vec3(5.f, 5.f, 5.f));
+		trans = glm::scale(trans, glm::vec3(1.f, 1.f, 1.f));
 		return;
 	}
 
@@ -151,7 +151,7 @@ namespace Renderer {
 		
 		//Clear color buffer
 		renderDevice->clearScreen();
-			view = glm::rotate(view, glm::radians(2.0f), glm::vec3(0.f, 1.0f, 1.0f));
+	    trans = glm::rotate(trans, glm::radians(2.0f), glm::vec3(0.f, 1.f, .0f));
 		auto t_now = std::chrono::high_resolution_clock::now();
 		float time = std::chrono::duration_cast<std::chrono::duration<float>>(t_now - t_start).count();
 
