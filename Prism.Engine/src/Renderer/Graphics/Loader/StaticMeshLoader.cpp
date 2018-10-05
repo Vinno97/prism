@@ -19,6 +19,12 @@ namespace Renderer {
 			{
 			}
 
+			/// <summary>
+			/// Load a mesh
+			/// </summary>
+			/// <param name="path">The file path</param>
+			/// <param name="renderDevice">The RenderDevice</param>
+			/// <returns>Mesh*</returns>
 			Mesh* StaticMeshLoader::loadMesh(std::string path, RenderDevice* renderDevice)
 			{
 				Assimp::Importer importer;
