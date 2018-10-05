@@ -14,7 +14,7 @@ namespace ECS {
 		}
 
 		System::~System()
-			= default;
+		= default;
 
 		void System::update(Context c)
 		{

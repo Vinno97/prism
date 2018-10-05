@@ -12,8 +12,10 @@ namespace ECS {
 		KeyboardInputSystem::KeyboardInputSystem(EntityManager* entityManager) : System(entityManager) {
 		}
 
-		KeyboardInputSystem::~KeyboardInputSystem()
-			= default;
+		KeyboardInputSystem::~KeyboardInputSystem() {
+			std::cout << typeid(this).name() << std::endl;
+			//= default;
+		}
 
 		void KeyboardInputSystem::update(Context context) {
 			auto input = context.inputManager;

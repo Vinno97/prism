@@ -6,8 +6,6 @@
 /// creates new PrismGame object
 /// </summary>
 PrismGame::PrismGame() {
-	//entityManager = new ECS::EntityManager();
-	//systemManager = new ECS::SystemManager();
 	createPlayer();
 	registerSystems();
 }
@@ -53,10 +51,5 @@ void PrismGame::onEnter() {
 void PrismGame::onLeave() {
 }
 
-
-
-PrismGame::~PrismGame() {
-	std::cout << typeid(this).name() << std::endl;
-	//delete entityManager;
-	//delete systemManager;
-}
+PrismGame::~PrismGame()
+	= default;

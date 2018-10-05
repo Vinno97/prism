@@ -26,7 +26,12 @@
 #include "ECS/Systems/MotionSystem.h"
 #include "PrismGame.h"
 
+
 #define _CRTDBG_MAP_ALLOC
+
+using namespace ECS;
+using namespace ECS::Components;
+using namespace ECS::Systems;
 
 //QQQ Remove this main method
 void test() 
@@ -35,6 +40,24 @@ void test()
 
 	ce.CreateWindow("prism", 500, 500, 100, 100);
 	ce.Run();
+}
+
+void testPrismGame() {
+	PrismGame ps;
+}
+
+void testStateMachine() {
+	PrismGame ps;
+	StateMachine st;
+	st.addState(ps);
+}
+
+void testSystemManager() 
+{
+	EntityManager entityManager;
+	SystemManager sm;
+	KeyboardInputSystem input(&entityManager);
+	sm.registerSystem(input);
 }
 
 void start()
@@ -55,9 +78,7 @@ void start()
 	}
 }
 // This function makes sure all objects are cleared from the stack before the memory gets dumped.
-using namespace ECS;
-using namespace ECS::Components;
-using namespace ECS::Systems;
+
 
 void setUpEntities(EntityManager& entityManager) {
 	PositionComponent position;
@@ -106,9 +127,10 @@ void startmove() {
 
 int main(int argc, char ** argv) {
 	//_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-
+	//testStateMachine();
+	//testSystemManager();
 	test();
-	
+	//testPrismGame();
 	_CrtDumpMemoryLeaks();
 	return 0;
 }

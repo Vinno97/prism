@@ -7,6 +7,7 @@ StateMachine::StateMachine()
 StateMachine::~StateMachine() {
 	std::cout << typeid(this).name() << std::endl;
 	for (const auto type : existingStates) {
+		std::cout << typeid(type.second).name() << std::endl;
 		delete type.second;
 	}
 }

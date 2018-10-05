@@ -7,7 +7,7 @@
 class State {
 public:
   State();
-  ~State();
+  virtual ~State();
 
   /// <summary>
   /// Method to update the game
