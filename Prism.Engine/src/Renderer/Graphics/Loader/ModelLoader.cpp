@@ -18,12 +18,11 @@ using namespace std;
 using namespace Renderer::Graphics;
 using namespace Renderer::Graphics::OpenGL;
 using namespace Renderer::Graphics::Models;
-using namespace Renderer::Graphics::Loader;
 
 namespace Renderer {
 	namespace Graphics {
 		namespace Loader {
-			ModelLoader::ModelLoader(RenderDevice * renderDevice)
+			ModelLoader::ModelLoader(RenderDevice* renderDevice)
 			{
 				this->renderDevice = renderDevice;
 			}
@@ -32,8 +31,8 @@ namespace Renderer {
 			{
 				StaticMeshLoader staticMeshLoader = StaticMeshLoader();
 			//	Mesh* m = staticMeshLoader.loadStaticMesh(path, this->renderDevice);
-				staticMeshLoader.loadMesh();
-				return new Model(nullptr);
+				Mesh* m = staticMeshLoader.loadMesh(path, this->renderDevice);
+				return new Model(m);
 			}
 		}
 	}

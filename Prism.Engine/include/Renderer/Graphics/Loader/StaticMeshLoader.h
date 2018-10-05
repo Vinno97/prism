@@ -10,7 +10,7 @@ namespace Renderer {
 			public:
 				StaticMeshLoader();
 
-				void loadMesh();
+				Mesh* loadMesh(std::string path, RenderDevice* renderDevice);
 
 				~StaticMeshLoader();
 			};
