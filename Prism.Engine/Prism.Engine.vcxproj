@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\ECS\Components\AppearanceComponent.h" />
     <ClInclude Include="include\ECS\Components\Component.h" />
     <ClInclude Include="include\ECS\Components\PositionComponent.h" />
     <ClInclude Include="include\ECS\Components\VelocityComponent.h" />

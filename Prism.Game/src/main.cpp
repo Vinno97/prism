@@ -15,15 +15,49 @@
 #include "Context.h"
 #include "StateMachine.h"
 #include "Renderer/TestRenderer.h"
+#include "ECS/EntityManager.h"
+#include "ECS/Components/AppearanceComponent.h"
+#include "Renderer/Graphics/Models/Model.h";
+#include "ECS/Systems/RenderSystem.h"
+#include "ECS/SystemManager.h"
 
 #define _CRTDBG_MAP_ALLOC
 
 //QQQ Remove this main method
 void test() {
-	State st;
-	CoreEngine ce = CoreEngine(st);
-	ce.CreateWindow("prism", 500, 500, 100, 100);
-	ce.Run();
+	//State st;
+	//CoreEngine ce = CoreEngine(st);
+	//ce.CreateWindow("prism", 500, 500, 100, 100);
+	//ce.Run();
+
+	using namespace ECS;
+	using namespace ECS::Components;
+	using namespace ECS::Systems;
+
+	
+	
+	EntityManager* et = new EntityManager();
+	SystemManager sm;
+
+	System* s = new RenderSystem(et);
+	sm.registerSystem(s);
+	AppearanceComponent ac;
+	ac.x = 3;
+	ac.y = 4;
+	ac.z = 1;
+	Model* model = new Model(nullptr);
+	ac.model = model;
+
+	PositionComponent pc;
+	pc.x = 10;
+	pc.y = 20;
+
+	et->createEntity(ac, pc);
+
+	Context c;
+	s->update(c);
+
+	
 
 }
 
@@ -49,6 +83,9 @@ int main(int argc, char ** argv) {
 	//_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
 	test();
+
+	
+	
 	_CrtDumpMemoryLeaks();
 	return 0;
 }
