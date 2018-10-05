@@ -25,6 +25,8 @@ void CoreEngine::Run()
 		//Sets the right values in context
 		context.deltaTime = deltaTime.count();
 		context.stateMachine->getCurrentState()->onUpdate(context);
+		//Swap the screen buffer
+		context.window->swapScreen();
 	}
 }
 
