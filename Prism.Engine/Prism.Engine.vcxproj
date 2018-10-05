@@ -20,7 +20,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Renderer\Graphics\Loader\ModelLoader.h" />
-    <ClInclude Include="include\Renderer\Graphics\Loader\StaticMeshLoader.h" />
     <ClInclude Include="include\Renderer\Graphics\Loader\TextureLoader.h" />
     <ClInclude Include="include\Renderer\Graphics\Models\Material.h" />
     <ClInclude Include="include\Renderer\Graphics\Models\Mesh.h" />
@@ -49,10 +48,10 @@
     <ClInclude Include="include\Renderer\Graphics\Pipeline.h" />
     <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLPipeline.h" />
     <ClInclude Include="include\Renderer\Graphics\VertexArrayObject.h" />
+    <ClInclude Include="include\Renderer\Graphics\Loader\StaticMeshLoader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Renderer\Graphics\Loader\ModelLoader.cpp" />
-    <ClCompile Include="src\Renderer\Graphics\Loader\StaticLoader.cpp" />
     <ClCompile Include="src\Renderer\Graphics\Loader\TextureLoader.cpp" />
     <ClCompile Include="src\Renderer\Graphics\Models\Material.cpp" />
     <ClCompile Include="src\Renderer\Graphics\Models\Mesh.cpp" />
@@ -73,6 +72,7 @@
     <ClCompile Include="src\State.cpp" />
     <ClCompile Include="src\StateMachine.cpp" />
     <ClCompile Include="src\Window.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\Loader\StaticMeshLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\assimp-vc140-mtd.lib" />

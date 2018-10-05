@@ -105,10 +105,10 @@
     <ClInclude Include="include\Renderer\Graphics\Loader\ModelLoader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Renderer\Graphics\Loader\StaticMeshLoader.h">
+    <ClInclude Include="include\Renderer\Graphics\Loader\TextureLoader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Renderer\Graphics\Loader\TextureLoader.h">
+    <ClInclude Include="include\Renderer\Graphics\Loader\StaticMeshLoader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -173,10 +173,10 @@
     <ClCompile Include="src\Renderer\Graphics\Loader\TextureLoader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Renderer\Graphics\Loader\StaticLoader.cpp">
+    <ClCompile Include="src\Renderer\Graphics\Models\Mesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Renderer\Graphics\Models\Mesh.cpp">
+    <ClCompile Include="src\Renderer\Graphics\Loader\StaticMeshLoader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
