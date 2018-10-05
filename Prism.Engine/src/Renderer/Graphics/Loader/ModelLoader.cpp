@@ -30,7 +30,6 @@ namespace Renderer {
 			Model* ModelLoader::loadModel(string path)
 			{
 				StaticMeshLoader staticMeshLoader = StaticMeshLoader();
-			//	Mesh* m = staticMeshLoader.loadStaticMesh(path, this->renderDevice);
 				Mesh* m = staticMeshLoader.loadMesh(path, this->renderDevice);
 				return new Model(m);
 			}

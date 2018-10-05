@@ -75,8 +75,7 @@ namespace Renderer {
 		};
 		ModelLoader* modelLoader = new ModelLoader(renderDevice);
 
-		// TODO: Create data folder for objects.
-		string path = "../debug/bunny.obj";
+		string path = "res/bunny.obj";
 		model = modelLoader->loadModel(path);
 
 		vertexShader = renderDevice->createVertexShader(vertexShaderSource);
