@@ -5,6 +5,7 @@ StateMachine::StateMachine()
 = default;
 
 StateMachine::~StateMachine() {
+	std::cout << typeid(this).name() << std::endl;
 	for (const auto type : existingStates) {
 		delete type.second;
 	}

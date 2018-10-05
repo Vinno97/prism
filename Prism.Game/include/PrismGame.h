@@ -26,8 +26,8 @@ public:
 	~PrismGame();
 
 private:
-	ECS::EntityManager *entityManager;
-	ECS::SystemManager *systemManager;
+	ECS::EntityManager entityManager;
+	ECS::SystemManager systemManager;
 
 	void registerSystems();
 	void createPlayer();

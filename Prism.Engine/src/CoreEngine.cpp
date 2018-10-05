@@ -1,5 +1,6 @@
 #include "CoreEngine.h"
 
+
 const void CoreEngine::CreateWindow(const char* title, const int width, const int height, const int x, const int y) {
 	context.window->init(title, width, height, x, y);
 	context.window->createOpenGLContext(3, 2, true);
@@ -24,8 +25,8 @@ void CoreEngine::Run()
 
 		//Sets the right values in context
 		context.deltaTime = deltaTime.count();
-		auto test = context.stateMachine->getCurrentState();
-		test->onUpdate(context);
+		auto currentState = context.stateMachine->getCurrentState();
+		currentState->onUpdate(context);
 	}
 }
 

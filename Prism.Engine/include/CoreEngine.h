@@ -16,13 +16,14 @@ public:
 	/// initialize the coreEngine
 	/// </summary>
 	/// <param name="state">The first state</param>
-	template<typename T, typename = std::enable_if < std::is_base_of<State, T>::value>>
+	template<typename T/*, typename = std::enable_if < std::is_base_of<State, T>::value>*/>
 	CoreEngine(T state) 
 	{
+		T k = T();
 		context.window = new Window();
 		context.stateMachine = new StateMachine();
 		context.inputManager = new InputManager();
-		context.stateMachine->addState(state);
+		context.stateMachine->addState(k);
 		context.stateMachine->setState<T>();
 	}
 

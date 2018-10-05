@@ -1,5 +1,5 @@
 #include "ECS/EntityManager.h"
-
+#include <iostream>
 #include <vector>
 #include <unordered_map>
 #include <typeindex>
@@ -16,6 +16,7 @@ namespace ECS {
 
 
 	EntityManager::~EntityManager() {
+		std::cout << typeid(this).name() <<std::endl;
 		for (const auto typePair : entityComponents) {
 			for (const auto componentPair : typePair.second) {
 				delete componentPair.second;

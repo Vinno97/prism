@@ -12,6 +12,7 @@ namespace ECS {
 
 	SystemManager::~SystemManager()
 	{
+		std::cout << typeid(this).name() << std::endl;
 		for (const auto type : systems) {
 			delete type.second;
 		}

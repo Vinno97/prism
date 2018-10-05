@@ -31,17 +31,15 @@
 //QQQ Remove this main method
 void test() 
 {
-	PrismGame ps = PrismGame();
-	CoreEngine ce = CoreEngine(ps);
+	CoreEngine ce = CoreEngine(PrismGame());
 
 	ce.CreateWindow("prism", 500, 500, 100, 100);
 	ce.Run();
-
 }
 
 void start()
 {
-	Assimp::Importer importer;
+//	Assimp::Importer importer;
 	Window window;
 	InputManager inputManager;
 	window.init("Prism", 1920, 1080, 100, 100);
@@ -110,6 +108,7 @@ int main(int argc, char ** argv) {
 	//_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
 	test();
+	
 	_CrtDumpMemoryLeaks();
 	return 0;
 }
