@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\Renderer\ForwardRenderer.h" />
     <ClInclude Include="include\Renderer\Graphics\Loader\ModelLoader.h" />
     <ClInclude Include="include\Renderer\Graphics\Loader\TextureLoader.h" />
     <ClInclude Include="include\Renderer\Graphics\Models\Material.h" />
@@ -51,6 +52,7 @@
     <ClInclude Include="include\Renderer\Graphics\Loader\StaticMeshLoader.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Renderer\ForwardRenderer.cpp" />
     <ClCompile Include="src\Renderer\Graphics\Loader\ModelLoader.cpp" />
     <ClCompile Include="src\Renderer\Graphics\Loader\TextureLoader.cpp" />
     <ClCompile Include="src\Renderer\Graphics\Models\Material.cpp" />
