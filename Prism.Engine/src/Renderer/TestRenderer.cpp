@@ -74,7 +74,8 @@ namespace Renderer {
 			}"
 		};
 		ModelLoader* modelLoader = new ModelLoader(renderDevice);
-		string path = "C:/Users/Daan/Prism/prism/x64/Debug/bunny.obj";
+
+		string path = "res/bunny.obj";
 		model = modelLoader->loadModel(path);
 
 		vertexShader = renderDevice->createVertexShader(vertexShaderSource);
