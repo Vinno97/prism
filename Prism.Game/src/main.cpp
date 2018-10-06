@@ -34,7 +34,7 @@ void test() {
 	using namespace ECS;
 	using namespace ECS::Components;
 	using namespace ECS::Systems;
-
+	using namespace Renderer::Graphics::Loader;
 
 
 	EntityManager* et = new EntityManager();
@@ -46,7 +46,9 @@ void test() {
 	ac.x = 3;
 	ac.y = 4;
 	ac.z = 1;
-	Model* model = new Model(nullptr);
+	ModelLoader ml = ModelLoader();
+
+	Model* model = ml.loadModel("./res/bunny.obj");
 	ac.model = model;
 
 	PositionComponent pc;

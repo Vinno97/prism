@@ -3,10 +3,16 @@
 #include "ECS/Components/AppearanceComponent.h"
 #include "glm/glm.hpp"
 #include <tuple>
+#include "Renderer/Renderable.h"
+#include "Renderer/ForwardRenderer.h"
+#include "Renderer/Graphics/Loader/ModelLoader.h"
 
+using namespace Renderer;
 
 namespace ECS {
 	namespace Systems {
+
+		ForwardRenderer forwardRenderer = ForwardRenderer(1920,1080);
 		RenderSystem::RenderSystem(EntityManager * entityManager)
 			: System(entityManager)
 		{
@@ -19,7 +25,7 @@ namespace ECS {
 		void RenderSystem::update(Context context)
 		{
 			auto appearanceEntities = this->entityManager->getAllEntitiesWithComponent<AppearanceComponent>();
-			vector<std::tuple <Model*, float, float, float>> rendererData;
+			vector<Renderable> rendererData;
 
 			for (unsigned int i = 0; i < appearanceEntities.size(); i++)
 			{
@@ -27,17 +33,17 @@ namespace ECS {
 				auto appearance = appearanceEntities[i];
 				auto model = appearanceEntities[i].component->model;
 
-				auto x = position->x + appearance.component->x;
-				auto y = position->y + appearance.component->y;
-				auto z = appearance.component->z;
 
+				Renderable renderable;
+				get<0>(renderable.position) = position->x + appearance.component->x;
+				get<1>(renderable.position) = position->y + appearance.component->y;
+				get<2>(renderable.position) = appearance.component->z;
 
-				std:tuple<Model*, float, float, float> temp12(model, x, y, z);
-				rendererData.push_back(temp12);
+				rendererData.push_back(renderable);
 
 			}
-			//TODO: stuur renderData naar de forward renderer
-
+			
+			forwardRenderer.draw(rendererData);
 		}
 	}
 }
