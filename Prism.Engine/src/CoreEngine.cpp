@@ -10,9 +10,12 @@ using namespace std;
 using namespace Renderer::Graphics::Models;
 using namespace Renderer::Graphics::Loader;
 
+
+
 const void CoreEngine::CreateWindow(const char* title, const int width, const int height, const int x, const int y) {
 	context.window->init(title, width, height, x, y);
 	context.window->createOpenGLContext(3, 2, true);
+	this->forwardRenderer = new ForwardRenderer(1920, 1080);
 }
 
 //Runns the gameloop
@@ -22,20 +25,31 @@ void CoreEngine::Run()
 	auto lastTime = std::chrono::system_clock::now();
 	int count = 0;
 
-	Renderer::ForwardRenderer forwardRenderer = Renderer::ForwardRenderer(context.window->width, context.window->height);
-
 	ModelLoader ml = ModelLoader();
 	Model* m = ml.loadModel("./res/bunny.obj");
 
 	vector<Renderable> renderables;
+
+	Renderable renderable;
+	renderable.model = m;
+	get<0>(renderable.position) = 0.f;
+	get<1>(renderable.position) = -1.f;
+	get<0>(renderable.scale) = 10;
+	get<1>(renderable.scale) = 10;
+	get<2>(renderable.scale) = 10;
+
+	renderables.push_back(renderable);
+
 	Renderable renderable1;
 	renderable1.model = m;
+	get<0>(renderable1.position) = 1.f;
+	get<1>(renderable1.position) = 0.f;
+	get<0>(renderable1.scale) = 15;
+	get<1>(renderable1.scale) = 15;
+	get<2>(renderable1.scale) = 15;
+
 	renderables.push_back(renderable1);
 
-	Renderable renderable2;
-	renderable2.model = m;
-	get<0>(renderable2.position) = 0.5f;
-	renderables.push_back(renderable2);
 	//While the window is unclosed run the gameloop
 	while (!context.window->shouldClose()) 
 	{
@@ -50,7 +64,7 @@ void CoreEngine::Run()
 		context.deltaTime = deltaTime.count();
 		context.stateMachine->getCurrentState()->onUpdate(context);
 
-		forwardRenderer.draw(renderables);
+		this->forwardRenderer->draw(renderables);
 
 		//Swap the screen buffer
 		context.window->swapScreen();

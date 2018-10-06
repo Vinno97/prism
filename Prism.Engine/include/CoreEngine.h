@@ -5,6 +5,7 @@
 #include <Window.h>
 #include "StateMachine.h"
 #include "State.h"
+#include "Renderer/ForwardRenderer.h"
 
 /// <summary>
 /// is responsible for running the gameloop
@@ -43,7 +44,7 @@ public:
 
 private:
 	Context context;
-
+	Renderer::ForwardRenderer* forwardRenderer;
 	/// <summary>
 	/// frees memorys from the heap
 	/// </summary>

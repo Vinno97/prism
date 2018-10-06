@@ -3,6 +3,7 @@
 #include <SDL2/SDL_opengl.h>
 #include "Renderer/Graphics/VertexBuffer.h"
 #include <iostream>
+#include <memory>
 
 namespace Renderer {
 	namespace Graphics {
@@ -22,7 +23,7 @@ namespace Renderer {
 			/// <param name="size">Size of each block of data</param>
 			/// <param name="start">Start of the input within the vbo</param>
 			/// <param name="stride">Length of the block of data</param>
-			virtual void addVertexBuffer(VertexBuffer* vertexBuffer, int index, long long size, int start, int stride) = 0;
+			virtual void addVertexBuffer(std::unique_ptr<VertexBuffer> vertexBuffer, int index, long long size, int start, int stride) = 0;
 
 			/// <summary>
 			/// Make this the current active VAO

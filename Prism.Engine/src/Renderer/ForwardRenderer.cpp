@@ -46,12 +46,10 @@ namespace Renderer {
 			}"
 		};
 
-		VertexShader* vertexShader = renderDevice->createVertexShader(vertexShaderSource);
-		FragmentShader* fragmentShader = renderDevice->createFragmentShader(fragmentShaderSource);
-		geometryPipeline = renderDevice->createPipeline(vertexShader, fragmentShader);
+		std::unique_ptr<VertexShader> vertexShader = renderDevice->createVertexShader(vertexShaderSource);
+		std::unique_ptr<FragmentShader> fragmentShader = renderDevice->createFragmentShader(fragmentShaderSource);
 
-		delete vertexShader;
-		delete fragmentShader;
+		geometryPipeline = move(renderDevice->createPipeline(std::move(vertexShader), std::move(fragmentShader)));
 
 		geometryPipeline->createUniform("model");
 		geometryPipeline->createUniform("view");
@@ -75,10 +73,9 @@ namespace Renderer {
 		geometryPipeline->run();
 
 		for (auto renderable : renderables) {
-			auto position = glm::vec3(get<0>(renderable.position), get<1>(renderable.position), get<2>(renderable.position));
 			model = glm::mat4(1.0f);
-			model = glm::translate(model, position);
-			//camera = glm::rotate(camera, glm::radians(0.1f), glm::vec3(0.f, 1.f, 0.f));
+			model = glm::translate(model, glm::vec3(get<0>(renderable.position), get<1>(renderable.position), get<2>(renderable.position)));
+			model = glm::scale(model, glm::vec3(get<0>(renderable.scale), get<1>(renderable.scale), get<2>(renderable.scale)));
 
 			geometryPipeline->setUniformMatrix4f("view", camera);
 			geometryPipeline->setUniformMatrix4f("proj", projection);
@@ -93,6 +90,5 @@ namespace Renderer {
 
 	ForwardRenderer::~ForwardRenderer()
 	{
-		delete geometryPipeline;
 	}
 }

@@ -4,6 +4,9 @@
 #include "Renderer/Graphics/FragmentShader.h"
 #include <map>
 #include <glm/glm.hpp>
+#include <memory>
+
+using namespace std;
 
 namespace Renderer {
 	namespace Graphics {
@@ -11,7 +14,7 @@ namespace Renderer {
 			class OGLPipeline : public Pipeline
 			{
 			public:
-				OGLPipeline(VertexShader* vs, FragmentShader* fs);
+				OGLPipeline(unique_ptr<VertexShader> vs, unique_ptr<FragmentShader> fs);
 				~OGLPipeline();
 				void run() override;
 				void stop() override;

@@ -7,6 +7,9 @@
 #include "Renderer/Graphics/VertexBuffer.h"
 #include "Renderer/Graphics/IndexBuffer.h"
 #include "Renderer/Graphics/VertexArrayObject.h"
+#include <memory>
+
+using namespace std;
 
 namespace Renderer {
 	namespace Graphics {
@@ -24,12 +27,12 @@ namespace Renderer {
 				/// </remarks>
 				static RenderDevice* getRenderDevice();
 
-				VertexShader* createVertexShader(const char* source) override;
-				FragmentShader* createFragmentShader(const char* source) override;
-				Pipeline* createPipeline(VertexShader* vs, FragmentShader* fs) override;
-				VertexBuffer* createVertexBuffer(long size, const void *data) override;
-				IndexBuffer* createIndexBuffer(long size, const void *data) override;
-				VertexArrayObject* createVertexArrayobject() override;
+				unique_ptr<VertexShader> createVertexShader(const char* source) override;
+				unique_ptr<FragmentShader> createFragmentShader(const char* source) override;
+				shared_ptr<Pipeline> createPipeline(std::unique_ptr<VertexShader> vs, unique_ptr<FragmentShader> fs) override;
+				unique_ptr<VertexBuffer> createVertexBuffer(long size, const void *data) override;
+				unique_ptr<IndexBuffer> createIndexBuffer(long size, const void *data) override;
+				unique_ptr<VertexArrayObject> createVertexArrayobject() override;
 
 				void setClearColour(float r, float g, float b, float w) override;
 				void useDepthTest(bool enable) override;

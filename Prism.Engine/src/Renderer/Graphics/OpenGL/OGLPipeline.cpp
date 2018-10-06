@@ -8,11 +8,14 @@
 #include "Renderer/Graphics/OpenGL/OGLPipeline.h"
 #include <iostream>
 #include <string>
+#include <memory>
+
+using namespace std;
 
 namespace Renderer {
 	namespace Graphics {
 		namespace OpenGL {
-			OGLPipeline::OGLPipeline(VertexShader* vs, FragmentShader* fs)
+			OGLPipeline::OGLPipeline(unique_ptr<VertexShader> vs, unique_ptr<FragmentShader> fs)
 			{
 				pipelineID = glCreateProgram();
 				glAttachShader(pipelineID, vs->vertexID);

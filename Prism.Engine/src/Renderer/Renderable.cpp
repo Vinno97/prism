@@ -6,7 +6,7 @@ Renderable::Renderable()
 {
 	position = tuple<float, float, float>(0.f, 0.f, 0.f);
 	rotation = tuple<float, float, float>(0.f, 0.f, 0.f);
-	scale = tuple<float, float, float>(0.f, 0.f, 0.f);
+	scale = tuple<float, float, float>(1.f, 1.f, 1.f);
 }
 
 Renderable::~Renderable()

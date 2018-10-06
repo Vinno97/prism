@@ -15,7 +15,6 @@
 #include <string>
 #include "Context.h"
 #include "StateMachine.h"
-#include "Renderer/TestRenderer.h"
 
 #define _CRTDBG_MAP_ALLOC
 
@@ -23,7 +22,7 @@
 void test() {
 	State st;
 	CoreEngine ce = CoreEngine(st);
-	ce.CreateWindow("prism", 500, 500, 100, 100);
+	ce.CreateWindow("prism", 1920, 1080, 100, 100);
 	ce.Run();
 }
 
@@ -34,7 +33,6 @@ void start()
 	InputManager inputManager;
 	window.init("Prism", 1920, 1080, 100, 100);
 	window.createOpenGLContext(3, 2, true);
-
 
 	while (!window.shouldClose()) {
 		if (inputManager.isKeyPressed(Key::KEY_W)) {

@@ -5,6 +5,9 @@
 #include "Renderer/Graphics/VertexBuffer.h"
 #include "Renderer/Graphics/OpenGL/OGLVertexBuffer.h"
 #include <iostream> 
+#include <memory>
+
+using namespace std;
 
 namespace Renderer {
 	namespace Graphics {
@@ -14,11 +17,12 @@ namespace Renderer {
 				glBindVertexArray(vaoID);
 			}
 
-			void OGLVertexArrayObject::addVertexBuffer(VertexBuffer* vertexBuffer, int index, long long size, int start, int stride)
+			void OGLVertexArrayObject::addVertexBuffer(unique_ptr<VertexBuffer> vertexBuffer, int index, long long size, int start, int stride)
 			{
 				bind();
-
-				OGLVertexBuffer *oglVertexBuffer = reinterpret_cast<OGLVertexBuffer *>(vertexBuffer);
+				
+				VertexBuffer* buffer = vertexBuffer.get();
+				OGLVertexBuffer *oglVertexBuffer = reinterpret_cast<OGLVertexBuffer *>(buffer);
 				oglVertexBuffer->bind();
 				glEnableVertexAttribArray(index);
 				glVertexAttribPointer(index, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (void*)0);
