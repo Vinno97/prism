@@ -14,10 +14,10 @@ PrismGame::PrismGame() {
 /// create player entity
 /// </summary>
 void PrismGame::createPlayer() {
-	ECS::VelocityComponent velocity;
-	ECS::PositionComponent position;
-	ECS::DragComponent drag;
-	ECS::KeyboardInputComponent input;
+	VelocityComponent velocity;
+	PositionComponent position;
+	DragComponent drag;
+	KeyboardInputComponent input;
 	drag.force = 0.1;
 	entityManager.createEntity(velocity, position, drag, input);
 }
@@ -27,22 +27,22 @@ void PrismGame::createPlayer() {
 /// </summary>
 void PrismGame::registerSystems() 
 {
-	ECS::MotionSystem motionSystem = ECS::MotionSystem(&entityManager);
-	ECS::KeyboardInputSystem input = ECS::KeyboardInputSystem(&entityManager);
+	MotionSystem motionSystem = MotionSystem(&entityManager);
+	KeyboardInputSystem input = KeyboardInputSystem(&entityManager);
 	systemManager.registerSystem(motionSystem);
 	systemManager.registerSystem(input);
 }
 
 void PrismGame::onUpdate(Context &context) 
 {
-	auto input = systemManager.getSystem<ECS::KeyboardInputSystem>();
-	auto motion = systemManager.getSystem<ECS::MotionSystem>();
+	auto input = systemManager.getSystem<KeyboardInputSystem>();
+	auto motion = systemManager.getSystem<MotionSystem>();
 
 	input->update(context);
 	motion->update(context);
-	for (auto &entity : entityManager.getAllEntitiesWithComponent<ECS::VelocityComponent>()) {
+	for (auto &entity : entityManager.getAllEntitiesWithComponent<VelocityComponent>()) {
 		auto velocity = entity.component;
-		auto position = entityManager.getComponent<ECS::PositionComponent>(entity.id);
+		auto position = entityManager.getComponent<PositionComponent>(entity.id);
 		printf("Entity:\t\t%d \nPosition: \tX: %.2f, Y: %.2f\nVelocity:\tdX: %.2f, dY: %.2f\n\n", entity.id, position->x, position->y, velocity->dx, velocity->dy);
 	}
 }
@@ -52,4 +52,4 @@ void PrismGame::onLeave() {
 }
 
 PrismGame::~PrismGame()
-	= default;
+= default;

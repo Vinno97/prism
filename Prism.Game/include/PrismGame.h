@@ -15,7 +15,10 @@
 #include "ECS/Components/PositionComponent.h"
 #include "ECS/Components/VelocityComponent.h"
 #include "ECS/Components/KeyboardInputComponent.h"
-	
+
+using namespace ECS;
+using namespace ECS::Components;
+using namespace ECS::Systems;
 class PrismGame : public Game
 {
 public:
@@ -26,8 +29,8 @@ public:
 	~PrismGame();
 
 private:
-	ECS::EntityManager entityManager;
-	ECS::SystemManager systemManager;
+	EntityManager entityManager;
+	SystemManager systemManager;
 
 	void registerSystems();
 	void createPlayer();

@@ -205,7 +205,7 @@ namespace ECS {
 
 		}
 
-		// <summary>
+		/// <summary>
 		/// Returns whether or not an entity has a component.
 		/// </summary>
 		/// <param name="entityId">The ID of the entity to get the component from.</param>

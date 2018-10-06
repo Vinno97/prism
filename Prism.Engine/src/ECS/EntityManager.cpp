@@ -16,7 +16,6 @@ namespace ECS {
 
 
 	EntityManager::~EntityManager() {
-		std::cout << typeid(this).name() <<std::endl;
 		for (const auto typePair : entityComponents) {
 			for (const auto componentPair : typePair.second) {
 				delete componentPair.second;

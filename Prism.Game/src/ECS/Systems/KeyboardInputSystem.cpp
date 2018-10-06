@@ -13,7 +13,7 @@ namespace ECS {
 		}
 
 		KeyboardInputSystem::~KeyboardInputSystem()
-			= default;
+		= default;
 
 		void KeyboardInputSystem::update(Context context) {
 			auto input = context.inputManager;
