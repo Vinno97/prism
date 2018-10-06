@@ -15,13 +15,5 @@ namespace ECS {
 
 		System::~System()
 		= default;
-
-		void System::update(Context c)
-		{
-			std::cerr << "Error. Update function of base System is not overridden";
-		}
-
-
-
 	}
 }

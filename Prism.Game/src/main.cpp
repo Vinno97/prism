@@ -36,30 +36,9 @@ using namespace ECS::Systems;
 //QQQ Remove this main method
 void test() 
 {
-
-	//PrismGame *pg = new PrismGame();
 	CoreEngine ce = CoreEngine(PrismGame());
-
 	ce.CreateWindow("prism", 500, 500, 100, 100);
 	ce.Run();
-}
-
-void testPrismGame() {
-	PrismGame ps;
-}
-
-void testStateMachine() {
-	PrismGame ps;
-	StateMachine st;
-	st.addState(ps);
-}
-
-void testSystemManager() 
-{
-	std::shared_ptr<EntityManager> entityManager;
-	SystemManager sm;
-	KeyboardInputSystem input(entityManager);
-	sm.registerSystem(input);
 }
 
 void start()

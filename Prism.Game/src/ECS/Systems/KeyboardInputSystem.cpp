@@ -38,8 +38,6 @@ namespace ECS {
 					velocity->dy += 1;
 				}
 			}
-
-			
 		}
 	}
 }

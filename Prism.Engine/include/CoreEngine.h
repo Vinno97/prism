@@ -16,7 +16,7 @@ public:
 	/// initialize the coreEngine
 	/// </summary>
 	/// <param name="state">The first state</param>
-	template<typename T/*, typename = std::enable_if < std::is_base_of<State, T>::value>*/>
+	template<typename T, typename = std::enable_if < std::is_base_of<State, T>::value>>
 	CoreEngine(T state) 
 	{
 		context.window = new Window();
