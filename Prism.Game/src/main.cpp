@@ -37,12 +37,11 @@ using namespace ECS::Systems;
 void test() 
 {
 
-	PrismGame *pg = new PrismGame();
-	CoreEngine ce = CoreEngine(*pg);
+	//PrismGame *pg = new PrismGame();
+	CoreEngine ce = CoreEngine(PrismGame());
 
 	ce.CreateWindow("prism", 500, 500, 100, 100);
 	ce.Run();
-	delete pg;
 }
 
 void testPrismGame() {
