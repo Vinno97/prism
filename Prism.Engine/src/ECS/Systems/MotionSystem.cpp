@@ -6,7 +6,7 @@
 #include "ECS/Components/VelocityComponent.h"
 
 
-ECS::Systems::MotionSystem::MotionSystem(EntityManager * entityManager) : System(entityManager) {}
+ECS::Systems::MotionSystem::MotionSystem(std::shared_ptr<EntityManager> entityManager) : System(entityManager) {}
 
 ECS::Systems::MotionSystem::~MotionSystem()
 = default;

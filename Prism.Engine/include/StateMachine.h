@@ -35,7 +35,7 @@ public:
 			throw std::runtime_error("There can only one type of " + *type.name() + *" registered");
 		}
 
-		existingStates[type] = new T(/*state*/);
+		existingStates[type] = new T(state);
 	}
 
 	/// <summary>

@@ -13,12 +13,12 @@ namespace ECS {
 		class System
 		{
 		public:
-			System(EntityManager* entityManager);
+			System(std::shared_ptr<EntityManager> entityManager);
 			virtual ~System();
 			virtual void update(Context context) = 0;
 
 		protected:
-			EntityManager* entityManager;
+			std::shared_ptr<EntityManager> entityManager;
 		};
 	}	
 }

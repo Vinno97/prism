@@ -8,7 +8,7 @@ namespace ECS {
 		class MotionSystem : public System
 		{
 		public:
-			MotionSystem(EntityManager* entityManager);
+			MotionSystem(std::shared_ptr<EntityManager> entityManager);
 			~MotionSystem();
 			void update(Context context);
 		};

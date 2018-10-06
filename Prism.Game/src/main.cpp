@@ -36,10 +36,13 @@ using namespace ECS::Systems;
 //QQQ Remove this main method
 void test() 
 {
-	CoreEngine ce = CoreEngine(PrismGame());
+
+	PrismGame *pg = new PrismGame();
+	CoreEngine ce = CoreEngine(*pg);
 
 	ce.CreateWindow("prism", 500, 500, 100, 100);
 	ce.Run();
+	delete pg;
 }
 
 void testPrismGame() {
@@ -54,9 +57,9 @@ void testStateMachine() {
 
 void testSystemManager() 
 {
-	EntityManager entityManager;
+	std::shared_ptr<EntityManager> entityManager;
 	SystemManager sm;
-	KeyboardInputSystem input(&entityManager);
+	KeyboardInputSystem input(entityManager);
 	sm.registerSystem(input);
 }
 
@@ -80,7 +83,7 @@ void start()
 // This function makes sure all objects are cleared from the stack before the memory gets dumped.
 
 
-void setUpEntities(EntityManager& entityManager) {
+void setUpEntities(std::shared_ptr<EntityManager> entityManager) {
 	PositionComponent position;
 	VelocityComponent velocity;
 	KeyboardInputComponent input;
@@ -88,12 +91,12 @@ void setUpEntities(EntityManager& entityManager) {
 
 	drag.force = 0.1;
 
-	int entity = entityManager.createEntity(position, velocity, input, drag);
+	int entity = entityManager->createEntity(position, velocity, input, drag);
 
-	auto c = entityManager.getComponent<PositionComponent>(entity);
+	auto c = entityManager->getComponent<PositionComponent>(entity);
 	printf("Position: X: %.2f, Y: %.2f\n", c->x, c->y);
 
-	auto entities = entityManager.getAllEntitiesWithComponent<VelocityComponent>();
+	auto entities = entityManager->getAllEntitiesWithComponent<VelocityComponent>();
 	printf("All entities with %s\n", "VelocityComponent");
 	for (auto entity : entities) {
 		printf("Entity: %d; Velocity dX: %.3f, dY: %.3f\n", entity.id, entity.component->dx, entity.component->dy);
@@ -108,18 +111,18 @@ void startmove() {
 	window.createOpenGLContext(4, 1, true);
 	context.inputManager = &inputManager;
 
-	EntityManager entityManager;
+	std::shared_ptr<EntityManager> entityManager;
 	setUpEntities(entityManager);
 
-	KeyboardInputSystem input = KeyboardInputSystem(&entityManager);
-	MotionSystem motion = MotionSystem(&entityManager);
+	KeyboardInputSystem input = KeyboardInputSystem(entityManager);
+	MotionSystem motion = MotionSystem(entityManager);
 
 	while (!window.shouldClose()) {
 		input.update(context);
 		motion.update(context);
-		for (auto &entity : entityManager.getAllEntitiesWithComponent<VelocityComponent>()) {
+		for (auto &entity : entityManager->getAllEntitiesWithComponent<VelocityComponent>()) {
 			auto velocity = entity.component;
-			auto position = entityManager.getComponent<PositionComponent>(entity.id);
+			auto position = entityManager->getComponent<PositionComponent>(entity.id);
 			printf("Entity:\t\t%d \nPosition: \tX: %.2f, Y: %.2f\nVelocity:\tdX: %.2f, dY: %.2f\n\n", entity.id, position->x, position->y, velocity->dx, velocity->dy);
 		}
 	}

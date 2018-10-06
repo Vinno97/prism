@@ -29,8 +29,8 @@ public:
 	~PrismGame();
 
 private:
-	EntityManager entityManager;
-	SystemManager systemManager;
+	std::shared_ptr<EntityManager> entityManager;
+	std::shared_ptr<SystemManager> systemManager;
 
 	void registerSystems();
 	void createPlayer();

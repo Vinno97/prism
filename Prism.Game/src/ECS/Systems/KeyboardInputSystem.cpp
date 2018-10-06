@@ -9,7 +9,7 @@
 
 namespace ECS {
 	namespace Systems {
-		KeyboardInputSystem::KeyboardInputSystem(EntityManager* entityManager) : System(entityManager) {
+		KeyboardInputSystem::KeyboardInputSystem(std::shared_ptr<EntityManager> entityManager) : System(entityManager) {
 		}
 
 		KeyboardInputSystem::~KeyboardInputSystem()
