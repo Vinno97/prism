@@ -6,6 +6,7 @@
 #include <vector>
 #include <tuple>
 #include "Renderer/Graphics/RenderDevice.h"
+#include "Renderer/Renderable.h"
 #include "Renderer/Graphics/VertexShader.h"
 #include "Renderer/Graphics/OpenGL/OGLRenderDevice.h"
 #include "Renderer/Graphics/OpenGL/OGLVertexShader.h"
@@ -24,7 +25,7 @@ namespace Renderer {
 	public:
 		ForwardRenderer(int width, int height);
 		
-		void draw(vector<tuple<Model*, float, float, float>> renderables);
+		void draw(vector<Renderable> renderables);
 
 		~ForwardRenderer();
 	private: 
