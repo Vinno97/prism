@@ -23,7 +23,7 @@ namespace Renderer {
 		namespace Loader {
 			class ModelLoader {
 			public:
-				ModelLoader(RenderDevice* renderDevice);
+				ModelLoader();
 				Model* loadModel(string path);
 
 			private:

@@ -22,9 +22,9 @@ using namespace Renderer::Graphics::Models;
 namespace Renderer {
 	namespace Graphics {
 		namespace Loader {
-			ModelLoader::ModelLoader(RenderDevice* renderDevice)
+			ModelLoader::ModelLoader()
 			{
-				this->renderDevice = renderDevice;
+				this->renderDevice = OGLRenderDevice::getRenderDevice();
 			}
 			
 			Model* ModelLoader::loadModel(string path)

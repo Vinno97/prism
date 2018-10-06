@@ -47,6 +47,10 @@ public:
 	/// Destroys the window
 	/// </summary>	
 	void close();
+
+	int width;
+	int height;
+
 	~Window();
 private:
 	SDL_Window *gWindow;

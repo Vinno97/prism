@@ -1,24 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Source Files\SDLFacade">
-      <UniqueIdentifier>{b6242be1-40c0-44a0-b58f-3004ac1afe86}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\SDLFacade">
-      <UniqueIdentifier>{a7368fc5-8dfc-495f-8774-0d34089008ab}</UniqueIdentifier>
-    </Filter>
+    <ClCompile Include="src\Renderer\ForwardRenderer.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\Loader\ModelLoader.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\Loader\TextureLoader.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\Models\Material.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\Models\Mesh.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\Models\Model.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\Models\Texture.cpp" />
+    <ClCompile Include="src\MenuState.cpp" />
+    <ClCompile Include="src\ECS\EntityManager.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLIndexBuffer.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLPipeline.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLFragmentShader.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLVertexArrayObject.cpp" />
+    <ClCompile Include="src\Renderer\TestRenderer.cpp" />
+    <ClCompile Include="src\Context.cpp" />
+    <ClCompile Include="src\CoreEngine.cpp" />
+    <ClCompile Include="src\ECS\Systems\RenderSystem.cpp" />
+    <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\InputManager.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLRenderDevice.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLVertexBuffer.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLVertexShader.cpp" />
+    <ClCompile Include="src\State.cpp" />
+    <ClCompile Include="src\StateMachine.cpp" />
+    <ClCompile Include="src\Window.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\Loader\StaticMeshLoader.cpp" />
+    <ClCompile Include="src\ECS\SystemManager.cpp" />
+    <ClCompile Include="src\ECS\Systems\System.cpp" />
+    <ClCompile Include="src\Util\FileReader.cpp" />
+    <ClCompile Include="src\Renderer\Renderable.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Context.h">
@@ -226,11 +238,11 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <Library Include="lib\glew32.lib" />
+    <Library Include="lib\glew32s.lib" />
+    <Library Include="lib\assimp-vc140-mtd.lib" />
     <Library Include="lib\SDL2.lib" />
     <Library Include="lib\SDL2main.lib" />
     <Library Include="lib\SDL2test.lib" />
-    <Library Include="lib\assimp-vc140-mtd.lib" />
-    <Library Include="lib\glew32.lib" />
-    <Library Include="lib\glew32s.lib" />
   </ItemGroup>
 </Project>
