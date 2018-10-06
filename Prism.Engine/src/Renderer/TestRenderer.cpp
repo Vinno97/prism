@@ -34,14 +34,13 @@ namespace Renderer {
 
 	TestRenderer::TestRenderer()
 	{
-		renderDevice = new OGLRenderDevice();
+		renderDevice = OGLRenderDevice::getRenderDevice();
 	}
 
 	void TestRenderer::init()
 	{
 		//Matrix for object in worldspace
 		trans = glm::rotate(trans, glm::radians(0.0f), glm::vec3(0.0f, 0.0f, 1.0f));
-
 
 		//Make and compile shaders
 		const char* vertexShaderSource = { \
@@ -164,6 +163,5 @@ namespace Renderer {
 	{
 		delete pipeline;
 		delete vertexBuffer;
-		delete renderDevice;
 	}
 }
