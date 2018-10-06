@@ -21,7 +21,7 @@ namespace ECS {
 			auto appearanceEntities = this->entityManager->getAllEntitiesWithComponent<AppearanceComponent>();
 			vector<std::tuple <Model*, float, float, float>> rendererData;
 
-			for (unsigned int i = 0; i < appearanceEntities.end; i++)
+			for (unsigned int i = 0; i < appearanceEntities.size(); i++)
 			{
 				auto position = this->entityManager->getComponent<PositionComponent>(appearanceEntities[i].id);
 				auto appearance = appearanceEntities[i];
@@ -32,11 +32,11 @@ namespace ECS {
 				auto z = appearance.component->z;
 
 
-				std:tuple<Model*, float, float, float> temp12(model, position->x, position->y, 0);
+				std:tuple<Model*, float, float, float> temp12(model, x, y, z);
 				rendererData.push_back(temp12);
 
 			}
-			//TODO: stuur het model naar de forward renderer
+			//TODO: stuur renderData naar de forward renderer
 
 		}
 	}

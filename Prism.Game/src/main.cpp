@@ -34,13 +34,13 @@ void test() {
 	using namespace ECS::Components;
 	using namespace ECS::Systems;
 
-	
-	
+
+
 	EntityManager* et = new EntityManager();
 	SystemManager sm;
 
-	System* s = new RenderSystem(et);
-	sm.registerSystem(s);
+	RenderSystem sys = RenderSystem(et);
+	sm.registerSystem(sys);
 	AppearanceComponent ac;
 	ac.x = 3;
 	ac.y = 4;
@@ -55,9 +55,9 @@ void test() {
 	et->createEntity(ac, pc);
 
 	Context c;
-	s->update(c);
+	sys.update(c);
 
-	
+
 
 }
 
@@ -84,8 +84,8 @@ int main(int argc, char ** argv) {
 
 	test();
 
-	
-	
+
+
 	_CrtDumpMemoryLeaks();
 	return 0;
 }
