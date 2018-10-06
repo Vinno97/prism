@@ -27,11 +27,15 @@ void CoreEngine::Run()
 	ModelLoader ml = ModelLoader();
 	Model* m = ml.loadModel("./res/bunny.obj");
 
-	vector<tuple<Model*, float, float, float>> renderables;
+	vector<Renderable> renderables;
+	Renderable renderable1;
+	renderable1.model = m;
+	renderables.push_back(renderable1);
 
-	for(float x = -12.f; x < 20; x++)
-		renderables.push_back(tuple<Model*, float, float, float>(m, x/5, 0, 1));
-
+	Renderable renderable2;
+	renderable2.model = m;
+	get<0>(renderable2.position) = 0.5f;
+	renderables.push_back(renderable2);
 	//While the window is unclosed run the gameloop
 	while (!context.window->shouldClose()) 
 	{

@@ -69,24 +69,24 @@ namespace Renderer {
 		renderDevice->setClearColour(0.7f, 0.7f, 0.7f, 1.f);
 	}
 
-	void ForwardRenderer::draw(vector<tuple<Model*, float, float, float>> renderables)
+	void ForwardRenderer::draw(vector<Renderable> renderables)
 	{
 		renderDevice->clearScreen();
 		geometryPipeline->run();
 
 		for (auto renderable : renderables) {
-			auto position = glm::vec3(get<1>(renderable), get<2>(renderable), get<3>(renderable));
+			auto position = glm::vec3(get<0>(renderable.position), get<1>(renderable.position), get<2>(renderable.position));
 			model = glm::mat4(1.0f);
 			model = glm::translate(model, position);
-			camera = glm::rotate(camera, glm::radians(0.1f), glm::vec3(0.f, 1.f, 0.f));
+			//camera = glm::rotate(camera, glm::radians(0.1f), glm::vec3(0.f, 1.f, 0.f));
 
 			geometryPipeline->setUniformMatrix4f("view", camera);
 			geometryPipeline->setUniformMatrix4f("proj", projection);
 			geometryPipeline->setUniformMatrix4f("model", model);
 
-			get<0>(renderable)->mesh->vertexArrayObject->bind();
-			get<0>(renderable)->mesh->indexBuffer->bind();
-			renderDevice->DrawTrianglesIndexed(0, get<0>(renderable)->mesh->indicesLength);
+			renderable.model->mesh->vertexArrayObject->bind();
+			renderable.model->mesh->indexBuffer->bind();
+			renderDevice->DrawTrianglesIndexed(0, renderable.model->mesh->indicesLength);
 		}
 		geometryPipeline->stop();
 	}
