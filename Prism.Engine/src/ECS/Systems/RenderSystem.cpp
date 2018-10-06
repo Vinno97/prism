@@ -12,11 +12,11 @@ using namespace Renderer;
 namespace ECS {
 	namespace Systems {
 
-		ForwardRenderer forwardRenderer = ForwardRenderer(1920,1080);
+		
 		RenderSystem::RenderSystem(EntityManager * entityManager)
 			: System(entityManager)
 		{
-
+			
 		}
 
 		ECS::Systems::RenderSystem::~RenderSystem()
@@ -24,6 +24,9 @@ namespace ECS {
 
 		void RenderSystem::update(Context context)
 		{
+			//TODO: dit moet niet zo
+			ForwardRenderer forwardRenderer = ForwardRenderer(1920, 1080);
+
 			auto appearanceEntities = this->entityManager->getAllEntitiesWithComponent<AppearanceComponent>();
 			vector<Renderable> rendererData;
 
@@ -31,13 +34,13 @@ namespace ECS {
 			{
 				auto position = this->entityManager->getComponent<PositionComponent>(appearanceEntities[i].id);
 				auto appearance = appearanceEntities[i];
-				auto model = appearanceEntities[i].component->model;
-
 
 				Renderable renderable;
-				get<0>(renderable.position) = position->x + appearance.component->x;
-				get<1>(renderable.position) = position->y + appearance.component->y;
-				get<2>(renderable.position) = appearance.component->z;
+				renderable.model = appearanceEntities[i].component->model;
+
+				get<0>(renderable.position) = position->x + appearance.component->posX;
+				get<1>(renderable.position) = position->y + appearance.component->posY;
+				get<2>(renderable.position) = appearance.component->posZ;
 
 				rendererData.push_back(renderable);
 

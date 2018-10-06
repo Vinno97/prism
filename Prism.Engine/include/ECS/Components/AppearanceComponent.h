@@ -8,9 +8,15 @@ namespace ECS {
 	namespace Components {
 		struct AppearanceComponent : Component {	
 			Model* model;
-			float x;
-			float y;
-			float z;
+			float posX;
+			float posY;
+			float posZ;
+			float scaleX;
+			float scaleY;
+			float scaleZ;
+			float rotX;
+			float rotY;
+			float rotZ;
 		};
 	}
 }

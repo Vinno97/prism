@@ -15,50 +15,16 @@
 #include <string>
 #include "Context.h"
 #include "StateMachine.h"
-#include "Renderer/TestRenderer.h"
-#include "ECS/EntityManager.h"
-#include "ECS/Components/AppearanceComponent.h"
-#include "Renderer/Graphics/Models/Model.h";
-#include "ECS/Systems/RenderSystem.h"
-#include "ECS/SystemManager.h"
+
 
 #define _CRTDBG_MAP_ALLOC
 
 //QQQ Remove this main method
 void test() {
-	//State st;
-	//CoreEngine ce = CoreEngine(st);
-	//ce.CreateWindow("prism", 500, 500, 100, 100);
-	//ce.Run();
-
-	using namespace ECS;
-	using namespace ECS::Components;
-	using namespace ECS::Systems;
-	using namespace Renderer::Graphics::Loader;
-
-
-	EntityManager* et = new EntityManager();
-	SystemManager sm;
-
-	RenderSystem sys = RenderSystem(et);
-	sm.registerSystem(sys);
-	AppearanceComponent ac;
-	ac.x = 3;
-	ac.y = 4;
-	ac.z = 1;
-	ModelLoader ml = ModelLoader();
-
-	Model* model = ml.loadModel("./res/bunny.obj");
-	ac.model = model;
-
-	PositionComponent pc;
-	pc.x = 10;
-	pc.y = 20;
-
-	et->createEntity(ac, pc);
-
-	Context c;
-	sys.update(c);
+	State st;
+	CoreEngine ce = CoreEngine(st);
+	ce.CreateWindow("prism", 1920, 1080, 100, 100);
+	ce.Run();
 
 
 

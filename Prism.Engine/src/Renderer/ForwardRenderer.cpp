@@ -18,6 +18,7 @@ using namespace Renderer::Graphics::OpenGL;
 
 namespace Renderer {
 
+	
 	ForwardRenderer::ForwardRenderer(int width, int height)
 	{
 

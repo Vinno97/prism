@@ -24,7 +24,7 @@ namespace Renderer {
 	{
 	public:
 		ForwardRenderer(int width, int height);
-		
+		ForwardRenderer() = default;
 		void draw(vector<Renderable> renderables);
 
 		~ForwardRenderer();
