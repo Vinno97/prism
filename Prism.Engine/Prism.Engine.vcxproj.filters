@@ -1,195 +1,87 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Source Files\SDLFacade">
-      <UniqueIdentifier>{b6242be1-40c0-44a0-b58f-3004ac1afe86}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\SDLFacade">
-      <UniqueIdentifier>{a7368fc5-8dfc-495f-8774-0d34089008ab}</UniqueIdentifier>
-    </Filter>
+    <ClCompile Include="src\Renderer\ForwardRenderer.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\Loader\ModelLoader.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\Loader\TextureLoader.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\Models\Material.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\Models\Mesh.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\Models\Model.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\Models\Texture.cpp" />
+    <ClCompile Include="src\MenuState.cpp" />
+    <ClCompile Include="src\ECS\EntityManager.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLIndexBuffer.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLPipeline.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLFragmentShader.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLVertexArrayObject.cpp" />
+    <ClCompile Include="src\Renderer\TestRenderer.cpp" />
+    <ClCompile Include="src\Context.cpp" />
+    <ClCompile Include="src\CoreEngine.cpp" />
+    <ClCompile Include="src\ECS\Systems\RenderSystem.cpp" />
+    <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\InputManager.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLRenderDevice.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLVertexBuffer.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLVertexShader.cpp" />
+    <ClCompile Include="src\State.cpp" />
+    <ClCompile Include="src\StateMachine.cpp" />
+    <ClCompile Include="src\Window.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\Loader\StaticMeshLoader.cpp" />
+    <ClCompile Include="src\ECS\SystemManager.cpp" />
+    <ClCompile Include="src\ECS\Systems\System.cpp" />
+    <ClCompile Include="src\Util\FileReader.cpp" />
+    <ClCompile Include="src\Renderer\Renderable.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\Context.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\CoreEngine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Game.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\State.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\StateMachine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Key.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\InputManager.h">
-      <Filter>Header Files\SDLFacade</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Window.h">
-      <Filter>Header Files\SDLFacade</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Renderer\Graphics\FragmentShader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Renderer\Graphics\IndexBuffer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Renderer\Graphics\Pipeline.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Renderer\Graphics\RenderDevice.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Renderer\Graphics\VertexArrayObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Renderer\Graphics\VertexBuffer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Renderer\Graphics\VertexShader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLFragmentShader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLIndexBuffer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLPipeline.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLRenderDevice.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLVertexArrayObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLVertexBuffer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLVertexShader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Renderer\TestRenderer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Renderer\Graphics\Models\Mesh.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Renderer\Graphics\Models\Model.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Renderer\Graphics\Models\Material.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Renderer\Graphics\Models\Texture.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Renderer\Graphics\Loader\ModelLoader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Renderer\Graphics\Loader\TextureLoader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Renderer\Graphics\Loader\StaticMeshLoader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Renderer\ForwardRenderer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <ClInclude Include="include\Renderer\ForwardRenderer.h" />
+    <ClInclude Include="include\Renderer\Graphics\Loader\ModelLoader.h" />
+    <ClInclude Include="include\Renderer\Graphics\Loader\TextureLoader.h" />
+    <ClInclude Include="include\Renderer\Graphics\Models\Material.h" />
+    <ClInclude Include="include\Renderer\Graphics\Models\Mesh.h" />
+    <ClInclude Include="include\Renderer\Graphics\Models\Model.h" />
+    <ClInclude Include="include\Renderer\Graphics\Models\Texture.h" />
+    <ClInclude Include="include\ECS\Components\Component.h" />
+    <ClInclude Include="include\ECS\Components\PositionComponent.h" />
+    <ClInclude Include="include\ECS\Components\VelocityComponent.h" />
+    <ClInclude Include="include\ECS\EntityManager.h" />
+    <ClInclude Include="include\Renderer\TestRenderer.h" />
+    <ClInclude Include="include\Context.h" />
+    <ClInclude Include="include\CoreEngine.h" />
+    <ClInclude Include="include\ECS\Entity.h" />
+    <ClInclude Include="include\ECS\Systems\RenderSystem.h" />
+    <ClInclude Include="include\Game.h" />
+    <ClInclude Include="include\InputManager.h" />
+    <ClInclude Include="include\Renderer\Graphics\FragmentShader.h" />
+    <ClInclude Include="include\Renderer\Graphics\IndexBuffer.h" />
+    <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLIndexBuffer.h" />
+    <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLRenderDevice.h" />
+    <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLVertexArrayObject.h" />
+    <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLVertexBuffer.h" />
+    <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLVertexShader.h" />
+    <ClInclude Include="include\Renderer\Graphics\VertexBuffer.h" />
+    <ClInclude Include="include\Renderer\Graphics\VertexShader.h" />
+    <ClInclude Include="include\Key.h" />
+    <ClInclude Include="include\State.h" />
+    <ClInclude Include="include\StateMachine.h" />
+    <ClInclude Include="include\Window.h" />
+    <ClInclude Include="include\MenuState.h" />
+    <ClInclude Include="include\ECS\Systems\System.h" />
+    <ClInclude Include="include\ECS\SystemManager.h" />
+    <ClInclude Include="include\Renderer\Graphics\RenderDevice.h" />
+    <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLFragmentShader.h" />
+    <ClInclude Include="include\Renderer\Graphics\Pipeline.h" />
+    <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLPipeline.h" />
+    <ClInclude Include="include\Renderer\Graphics\VertexArrayObject.h" />
+    <ClInclude Include="include\Renderer\Graphics\Loader\StaticMeshLoader.h" />
+    <ClInclude Include="include\Util\FileReader.h" />
+    <ClInclude Include="include\Renderer\Renderable.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Context.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\State.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\StateMachine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\InputManager.cpp">
-      <Filter>Source Files\SDLFacade</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Window.cpp">
-      <Filter>Source Files\SDLFacade</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLFragmentShader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLIndexBuffer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLPipeline.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLRenderDevice.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLVertexArrayObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLVertexBuffer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLVertexShader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\CoreEngine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Renderer\TestRenderer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Renderer\Graphics\Models\Model.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Renderer\Graphics\Models\Material.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Renderer\Graphics\Models\Texture.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Renderer\Graphics\Loader\ModelLoader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Renderer\Graphics\Loader\TextureLoader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Renderer\Graphics\Models\Mesh.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Renderer\Graphics\Loader\StaticMeshLoader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Renderer\ForwardRenderer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
+    <Library Include="lib\glew32.lib" />
+    <Library Include="lib\glew32s.lib" />
+    <Library Include="lib\assimp-vc140-mtd.lib" />
     <Library Include="lib\SDL2.lib" />
     <Library Include="lib\SDL2main.lib" />
     <Library Include="lib\SDL2test.lib" />
-    <Library Include="lib\assimp-vc140-mtd.lib" />
   </ItemGroup>
 </Project>

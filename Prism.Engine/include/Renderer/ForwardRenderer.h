@@ -3,6 +3,8 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <vector>
+#include <tuple>
 #include "Renderer/Graphics/RenderDevice.h"
 #include "Renderer/Graphics/VertexShader.h"
 #include "Renderer/Graphics/OpenGL/OGLRenderDevice.h"
@@ -14,14 +16,22 @@
 #include "Renderer/Graphics/Models/Model.h"
 
 using namespace Renderer::Graphics;
+using namespace std;
 
 namespace Renderer {
 	class ForwardRenderer
 	{
 	public:
-		ForwardRenderer();
+		ForwardRenderer(int width, int height);
+		
+		void draw(vector<tuple<Model*, float, float, float>> renderables);
+
 		~ForwardRenderer();
 	private: 
+		glm::mat4 camera = glm::mat4(1.0f);
+		glm::mat4 projection = glm::mat4(1.0f);
+		glm::mat4 model = glm::mat4(0.0f);
+
 		Pipeline* geometryPipeline;
 		RenderDevice* renderDevice;
 	};
