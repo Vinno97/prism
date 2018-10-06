@@ -14,8 +14,16 @@ namespace Renderer {
 			class OGLRenderDevice : public RenderDevice
 			{
 			public:
-				OGLRenderDevice();
 				~OGLRenderDevice();
+
+				/// <summary>
+				/// Returns the renderdevice
+				/// </summary>
+				/// <remarks>
+				/// As a static method cannot be overriden this is not defined in the base class
+				/// </remarks>
+				static RenderDevice* getRenderDevice();
+
 				VertexShader* createVertexShader(const char* source) override;
 				FragmentShader* createFragmentShader(const char* source) override;
 				Pipeline* createPipeline(VertexShader* vs, FragmentShader* fs) override;
@@ -27,6 +35,8 @@ namespace Renderer {
 				void useDepthTest(bool enable) override;
 				void clearScreen() override;
 				void DrawTrianglesIndexed(long offset, int count) override;
+			private:
+				OGLRenderDevice();
 			};
 		}
 	}
