@@ -45,6 +45,9 @@
     <ClInclude Include="include\Window.h">
       <Filter>Header Files\SDLFacade</Filter>
     </ClInclude>
+    <ClInclude Include="include\MenuState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="include\Renderer\Graphics\FragmentShader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -90,6 +93,30 @@
     <ClInclude Include="include\Renderer\TestRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\ECS\EntityManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ECS\Components\Component.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ECS\Components\PositionComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ECS\Components\VelocityComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ECS\Entity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ECS\Systems\System.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ECS\Systems\RenderSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ECS\SystemManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="include\Renderer\Graphics\Models\Mesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -111,6 +138,9 @@
     <ClInclude Include="include\Renderer\Graphics\Loader\StaticMeshLoader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\ECS\Components\AppearanceComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Context.cpp">
@@ -130,6 +160,9 @@
     </ClCompile>
     <ClCompile Include="src\Window.cpp">
       <Filter>Source Files\SDLFacade</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MenuState.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLFragmentShader.cpp">
       <Filter>Source Files</Filter>
@@ -156,6 +189,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Renderer\TestRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ECS\EntityManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ECS\SystemManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ECS\Systems\System.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ECS\Systems\RenderSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Renderer\Graphics\Models\Model.cpp">
@@ -185,5 +230,7 @@
     <Library Include="lib\SDL2main.lib" />
     <Library Include="lib\SDL2test.lib" />
     <Library Include="lib\assimp-vc140-mtd.lib" />
+    <Library Include="lib\glew32.lib" />
+    <Library Include="lib\glew32s.lib" />
   </ItemGroup>
 </Project>
