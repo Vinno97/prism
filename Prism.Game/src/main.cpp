@@ -22,7 +22,7 @@
 void test() {
 	State st;
 	CoreEngine ce = CoreEngine(st);
-	ce.CreateWindow("prism", 120, 1080, 100, 100);
+	ce.CreateWindow("prism", 1920, 1080, 100, 100);
 	ce.Run();
 }
 

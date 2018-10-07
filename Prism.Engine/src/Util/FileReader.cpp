@@ -2,6 +2,7 @@
 #include <fstream>
 #include <streambuf>
 #include <windows.h>
+#include <iostream>
 
 namespace Util {
 	FileReader::FileReader()
@@ -15,8 +16,10 @@ namespace Util {
         string pwd = string(buf)+"/res";
 
 		ifstream file(pwd+path);
-		if (!file)
-			throw exception("File could not be opened");
+		if (!file) {
+			cout << "Resource file could not be opened: " << pwd + path << endl;
+			throw exception("Resource file could not be opened");
+		}
 
 		string str((istreambuf_iterator<char>(file)),
 					istreambuf_iterator<char>());
