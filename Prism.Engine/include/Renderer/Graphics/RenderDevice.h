@@ -31,7 +31,7 @@ namespace Renderer {
 			/// <summary>
 			/// Create a new pipeline
 			/// </summary>
-			virtual shared_ptr<Pipeline> createPipeline(unique_ptr<VertexShader> vs, unique_ptr<FragmentShader> fs) = 0;
+			virtual unique_ptr<Pipeline> createPipeline(VertexShader& vs, FragmentShader& fs) = 0;
 
 			/// <summary>
 			/// Create a new vertexbuffer

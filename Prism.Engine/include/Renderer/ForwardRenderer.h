@@ -33,7 +33,7 @@ namespace Renderer {
 		glm::mat4 projection = glm::mat4(1.0f);
 		glm::mat4 model = glm::mat4(0.0f);
 
-		shared_ptr<Pipeline> geometryPipeline;
+		unique_ptr<Pipeline> geometryPipeline;
 		RenderDevice* renderDevice;
 	};
 }

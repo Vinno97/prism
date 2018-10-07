@@ -1,5 +1,5 @@
 #include "Renderer/ForwardRenderer.h"
-
+#include <string>
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -12,7 +12,9 @@
 #include "Renderer/Graphics/VertexBuffer.h"
 #include "Renderer/Graphics/Loader/ModelLoader.h"
 #include "Renderer/Graphics/Models/Model.h"
+#include "Util/FileReader.h"
 
+using namespace std;
 using namespace Renderer::Graphics;
 using namespace Renderer::Graphics::OpenGL;
 
@@ -20,36 +22,15 @@ namespace Renderer {
 
 	ForwardRenderer::ForwardRenderer(int width, int height)
 	{
-
 		renderDevice = OGLRenderDevice::getRenderDevice();
 
-		const char* vertexShaderSource = { \
-			"#version 330 core\n\
-			layout (location = 0) in vec3 aPos; \
-			out vec4 pass_colour;\
-			uniform mat4 model;\
-			uniform mat4 view;\
-			uniform mat4 proj; \
-			void main() { \
-				gl_Position = proj * view * model * vec4(aPos.x, aPos.y, aPos.z, 1 ); \
-				pass_colour = view * model * vec4(aPos.x, aPos.y, aPos.z, 1); \
-			}"
-		};
-	
-		const char* fragmentShaderSource =
-		{
-			"#version 330 core\n\
-			in vec4 pass_colour; \
-			out vec4 FragColor; \
-			void main() { \
-				FragColor = pass_colour*-1; \
-			}"
-		};
+		Util::FileReader fileReader;
+		string vertexSource = fileReader.readResourceFileIntoString("/shaders/simpleGeometry.vs");
+		string fragmentSource = fileReader.readResourceFileIntoString("/shaders/simpleGeometry.fs");
 
-		std::unique_ptr<VertexShader> vertexShader = renderDevice->createVertexShader(vertexShaderSource);
-		std::unique_ptr<FragmentShader> fragmentShader = renderDevice->createFragmentShader(fragmentShaderSource);
-
-		geometryPipeline = move(renderDevice->createPipeline(std::move(vertexShader), std::move(fragmentShader)));
+		std::unique_ptr<VertexShader> vertexShader = renderDevice->createVertexShader(vertexSource.c_str());
+		std::unique_ptr<FragmentShader> fragmentShader = renderDevice->createFragmentShader(fragmentSource.c_str());
+		geometryPipeline = move(renderDevice->createPipeline(*vertexShader, *fragmentShader));
 
 		geometryPipeline->createUniform("model");
 		geometryPipeline->createUniform("view");

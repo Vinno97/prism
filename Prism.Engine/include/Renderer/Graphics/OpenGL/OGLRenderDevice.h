@@ -29,7 +29,7 @@ namespace Renderer {
 
 				unique_ptr<VertexShader> createVertexShader(const char* source) override;
 				unique_ptr<FragmentShader> createFragmentShader(const char* source) override;
-				shared_ptr<Pipeline> createPipeline(std::unique_ptr<VertexShader> vs, unique_ptr<FragmentShader> fs) override;
+				unique_ptr<Pipeline> createPipeline(VertexShader& vs, FragmentShader& fs) override;
 				unique_ptr<VertexBuffer> createVertexBuffer(long size, const void *data) override;
 				unique_ptr<IndexBuffer> createIndexBuffer(long size, const void *data) override;
 				unique_ptr<VertexArrayObject> createVertexArrayobject() override;

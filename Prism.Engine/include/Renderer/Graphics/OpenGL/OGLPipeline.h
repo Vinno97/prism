@@ -14,7 +14,7 @@ namespace Renderer {
 			class OGLPipeline : public Pipeline
 			{
 			public:
-				OGLPipeline(unique_ptr<VertexShader> vs, unique_ptr<FragmentShader> fs);
+				OGLPipeline(VertexShader& vs, FragmentShader& fs);
 				~OGLPipeline();
 				void run() override;
 				void stop() override;

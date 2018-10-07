@@ -42,9 +42,9 @@ namespace Renderer {
 				return make_unique<OGLFragmentShader>(source);
 			}
 
-			shared_ptr<Pipeline> OGLRenderDevice::createPipeline(unique_ptr<VertexShader> vs, unique_ptr<FragmentShader> fs)
+			unique_ptr<Pipeline> OGLRenderDevice::createPipeline(VertexShader& vs, FragmentShader& fs)
 			{
-				return make_shared<OGLPipeline>(move(vs), move(fs));
+				return make_unique<OGLPipeline>(vs, fs);
 			}
 
 			unique_ptr<VertexBuffer> OGLRenderDevice::createVertexBuffer(long size, const void * data)
