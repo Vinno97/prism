@@ -36,20 +36,15 @@ namespace Renderer {
 		geometryPipeline->createUniform("view");
 		geometryPipeline->createUniform("proj");
 
-		camera = glm::lookAt(
-			glm::vec3(0.0f, 0.0f, 3.0f),
-			glm::vec3(0.0f, 0.0f, 0.0f),
-			glm::vec3(0.0f, 1.0f, 0.0f)
-		);
-
-	    projection = glm::perspective(glm::radians(70.0f), 1920.0f/1080.0f, 1.f, 100.0f);
+	    projection = glm::perspective(glm::radians(45.0f), (float) width/height, 1.f, 100.0f);
 
 		renderDevice->useDepthTest(true);
 		renderDevice->setClearColour(0.7f, 0.7f, 0.7f, 1.f);
 	}
 
-	void ForwardRenderer::draw(vector<Renderable> renderables)
+	void ForwardRenderer::draw(Camera* camera, vector<Renderable> renderables)
 	{
+		view = camera->getCameraMatrix();
 		renderDevice->clearScreen();
 		geometryPipeline->run();
 
@@ -58,7 +53,7 @@ namespace Renderer {
 			model = glm::translate(model, glm::vec3(get<0>(renderable.position), get<1>(renderable.position), get<2>(renderable.position)));
 			model = glm::scale(model, glm::vec3(get<0>(renderable.scale), get<1>(renderable.scale), get<2>(renderable.scale)));
 
-			geometryPipeline->setUniformMatrix4f("view", camera);
+			geometryPipeline->setUniformMatrix4f("view", view);
 			geometryPipeline->setUniformMatrix4f("proj", projection);
 			geometryPipeline->setUniformMatrix4f("model", model);
 
