@@ -8,6 +8,7 @@
 #include <assimp/postprocess.h>
 #include <string>
 #include <vector>
+#include <array>
 
 using namespace std;
 using namespace Renderer::Graphics::Models;
@@ -37,7 +38,7 @@ namespace Renderer {
 					auto error = importer.GetErrorString();
 
 					cout << "ERROR::ASSIMP::" << error << endl;
-					throw exception("a");
+					throw exception("Assimp mesh loading.");
 				}
 
 				// Get the first mesh of the scene.  
@@ -45,6 +46,13 @@ namespace Renderer {
 				aiMesh* mesh = scene->mMeshes[0];
 
 				vector<float> vertices;
+
+				//Scene is empty.
+				if (!mesh)
+				{
+					cout << "Scene does not contain any meshes." << endl;
+					throw exception("Assimp mesh loading.");
+				}
 
 				// iterate over the mesh's vertices and push the 3d coordinates into the vector.
 				for (unsigned int a = 0; a < mesh->mNumVertices; a = a + 1) {
@@ -59,10 +67,23 @@ namespace Renderer {
 
 				VertexArrayObject* vertexArrayObject = renderDevice->createVertexArrayobject();
 
+
+				if (!vertexArrayObject)
+				{
+					cout << "Failed to create VAO." << endl;
+					throw exception("Assimp mesh loading.");
+				}
+
 				// Get the size of the vertices to provide the VertexBuffer with the right data.
 				auto verticesSize = vertices.size() * sizeof(float);
 
 				VertexBuffer* vertexBuffer = renderDevice->createVertexBuffer(verticesSize, verticesArray);
+
+				if (!vertexBuffer)
+				{
+					cout << "Failed to create Vertex Buffer." << endl;
+					throw exception("Assimp mesh loading.");
+				}
 
 				vertexArrayObject->addVertexBuffer(vertexBuffer, 0, 3 * sizeof(float), 0, 3);
 
@@ -86,12 +107,24 @@ namespace Renderer {
 
 				IndexBuffer* indexBuffer = renderDevice->createIndexBuffer(indices.size() * sizeof(unsigned int), indicesArray);
 
+				if (!indexBuffer)
+				{
+					cout << "Failed to create Index Buffer." << endl;
+					throw exception("Assimp mesh loading.");
+				}
+
 				// Unbind VAO to prevent overriding errors
 				vertexArrayObject->unbind();
 
 				// Combine all into a mesh.
 				Mesh* m = new Mesh(vertexArrayObject, indexBuffer);
 				m->indicesLength = indices.size();
+
+				if (!m)
+				{
+					cout << "Failed to create Mesh." << endl;
+					throw exception("Assimp mesh loading.");
+				}
 
 				return m;
 			}
