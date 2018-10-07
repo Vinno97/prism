@@ -21,7 +21,6 @@ void CoreEngine::Run()
 	{
 		//Holds the time in which the current gameupdat is being called
 		auto startTime = std::chrono::system_clock::now();
-		//renderables.clear();
 		//Deltatime in microseconds
 		auto deltaTime = std::chrono::duration_cast<std::chrono::microseconds>(startTime - lastTime); 
 		lastTime = startTime;
