@@ -14,7 +14,7 @@ namespace Renderer {
 		Camera();
 		mat4 getCameraMatrix();
 		void move(float x, float y, float z);
-		void rotateCamera(float x, float y, float z);
+		void rotate(float x, float y, float z);
 		~Camera();
 	private:
 		vec3 position;

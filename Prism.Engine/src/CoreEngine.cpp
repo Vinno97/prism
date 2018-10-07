@@ -1,11 +1,7 @@
 #include "CoreEngine.h"
-#include "Renderer/ForwardRenderer.h"
-#include "Renderer/Graphics/Models/Model.h"
-#include "Renderer/Graphics/Loader/ModelLoader.h"
 #include <tuple>
 #include <vector>
 
-using namespace Renderer;
 using namespace std;
 
 const void CoreEngine::CreateWindow(const char* title, const int width, const int height, const int x, const int y) {
@@ -25,7 +21,7 @@ void CoreEngine::Run()
 	{
 		//Holds the time in which the current gameupdat is being called
 		auto startTime = std::chrono::system_clock::now();
-		
+		//renderables.clear();
 		//Deltatime in microseconds
 		auto deltaTime = std::chrono::duration_cast<std::chrono::microseconds>(startTime - lastTime); 
 		lastTime = startTime;

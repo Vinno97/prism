@@ -52,6 +52,9 @@ namespace Renderer {
 			model = glm::mat4(1.0f);
 			model = glm::translate(model, glm::vec3(get<0>(renderable.position), get<1>(renderable.position), get<2>(renderable.position)));
 			model = glm::scale(model, glm::vec3(get<0>(renderable.scale), get<1>(renderable.scale), get<2>(renderable.scale)));
+			model = glm::rotate(model, get<0>(renderable.rotation), vec3(1.f, 0.f, 0.f)); //Rotate x
+			model = glm::rotate(model, get<1>(renderable.rotation), vec3(0.f, 1.f, 0.f)); //Rotate y
+			model = glm::rotate(model, get<2>(renderable.rotation), vec3(0.f, 0.f, 1.f)); //Rotate z
 
 			geometryPipeline->setUniformMatrix4f("view", view);
 			geometryPipeline->setUniformMatrix4f("proj", projection);

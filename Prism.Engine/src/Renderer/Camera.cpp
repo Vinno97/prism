@@ -30,8 +30,8 @@ namespace Renderer {
 
 		mat4 cameraMatrix = mat4(1.f);
 		cameraMatrix = translate(cameraMatrix, position);
-		cameraMatrix = rotate(cameraMatrix, radians(rotation.x), vec3(1.f, 0.f, 0.f));
-		cameraMatrix = rotate(cameraMatrix, radians(rotation.y), vec3(0.f, 1.f, 0.f));
+		cameraMatrix = glm::rotate(cameraMatrix, radians(rotation.x), vec3(1.f, 0.f, 0.f));
+		cameraMatrix = glm::rotate(cameraMatrix, radians(rotation.y), vec3(0.f, 1.f, 0.f));
 		cameraMatrix = inverse(cameraMatrix);
 		return cameraMatrix;
 	}
@@ -43,17 +43,11 @@ namespace Renderer {
 		position.z += z;
 	}
 
-	void Camera::rotateCamera(float x, float y, float z)
+	void Camera::rotate(float x, float y, float z)
 	{
 		rotation.x += x;
 		rotation.y += y;
 		rotation.z += z;
-	//	std::cout << yaw;
-	//	cameraDirection.x += cos(radians(yaw)) * cos(radians(pitch));
-	//	cameraDirection.y += sin(radians(pitch));
-	//	cameraDirection.z += sin(radians(yaw)) * cos(radians(pitch));
-	//	cameraDirection = normalize(cameraDirection);
-
 	}
 
 	Camera::~Camera()
