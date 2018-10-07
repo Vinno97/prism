@@ -44,7 +44,7 @@ namespace Renderer {
 
 	void ForwardRenderer::draw(Camera* camera, vector<Renderable> renderables)
 	{
-		view = camera->getCameraMatrix();
+		mat4 view = camera->getCameraMatrix();
 		renderDevice->clearScreen();
 		geometryPipeline->run();
 
