@@ -26,6 +26,9 @@ namespace Renderer {
 	public:
 		ForwardRenderer(int width, int height);
 		
+		/// <summary>
+		/// Draws the list of renderables from the viewpoint of a given camera
+		/// </summary>
 		void draw(Camera* camera, vector<Renderable> renderables);
 
 		~ForwardRenderer();
