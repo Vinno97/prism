@@ -73,10 +73,10 @@ namespace Renderer {
 				FragColor = pass_colour*-1; \
 			}"
 		};
-		ModelLoader* modelLoader = new ModelLoader(renderDevice);
+		ModelLoader modelLoader(renderDevice);// = ModelLoader(renderDevice);
 
 		string path = "res/bunny.obj";
-		model = modelLoader->loadModel(path);
+		model = modelLoader.loadModel(path);
 
 		vertexShader = renderDevice->createVertexShader(vertexShaderSource);
 		fragmentShader = renderDevice->createFragmentShader(fragmentShaderSource);

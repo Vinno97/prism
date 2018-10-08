@@ -4,6 +4,7 @@
 #include "Renderer/Graphics/IndexBuffer.h"
 #include "Renderer/Graphics/Models/Mesh.h"
 #include "Renderer/Graphics/Models/Material.h"
+#include <memory>
 
 using namespace std;
 
@@ -13,12 +14,9 @@ namespace Renderer {
 
 			class Model {
 				public: 
-					Model(Mesh* m);
-					Mesh* mesh;
+					Model(std::unique_ptr<Mesh> m);
+					std::unique_ptr<Mesh> mesh;
 					//Material material;
-
-				private:
-
 				};
 		}
 	}

@@ -13,6 +13,7 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <memory>
 
 using namespace std;
 using namespace Renderer::Graphics;
@@ -27,11 +28,12 @@ namespace Renderer {
 				this->renderDevice = renderDevice;
 			}
 			
-			Model* ModelLoader::loadModel(string path)
+			std::shared_ptr<Model> ModelLoader::loadModel(string path)
 			{
 				StaticMeshLoader staticMeshLoader = StaticMeshLoader();
-				Mesh* m = staticMeshLoader.loadMesh(path, this->renderDevice);
-				return new Model(m);
+				std::unique_ptr<Mesh> m = staticMeshLoader.loadMesh(path, this->renderDevice);
+				std::shared_ptr<Model> model = std::make_shared<Model>(m);
+				return model;
 			}
 		}
 	}

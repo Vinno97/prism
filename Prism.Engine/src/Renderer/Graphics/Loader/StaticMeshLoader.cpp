@@ -9,6 +9,7 @@
 #include <string>
 #include <vector>
 #include <array>
+#include <memory>
 
 using namespace std;
 using namespace Renderer::Graphics::Models;
@@ -26,7 +27,7 @@ namespace Renderer {
 			/// <param name="path">The file path</param>
 			/// <param name="renderDevice">The RenderDevice</param>
 			/// <returns>Mesh*</returns>
-			Mesh* StaticMeshLoader::loadMesh(std::string path, RenderDevice* renderDevice)
+			std::unique_ptr<Mesh> StaticMeshLoader::loadMesh(std::string path, RenderDevice* renderDevice)
 			{
 				Assimp::Importer importer;
 
@@ -50,7 +51,7 @@ namespace Renderer {
 				//Scene is empty.
 				if (!mesh)
 				{
-					cout << "Scene does not contain any meshes." << endl;
+					cout << "No meshes found." << endl;
 					throw exception("Assimp mesh loading.");
 				}
 
@@ -70,7 +71,7 @@ namespace Renderer {
 
 				if (!vertexArrayObject)
 				{
-					cout << "Failed to create VAO." << endl;
+					cout << "Renderdevice could to create VAO. No Vertex Array Object found." << endl;
 					throw exception("Assimp mesh loading.");
 				}
 
@@ -81,7 +82,7 @@ namespace Renderer {
 
 				if (!vertexBuffer)
 				{
-					cout << "Failed to create Vertex Buffer." << endl;
+					cout << "Renderdevice could not create Vertex Buffer. No Vertex Buffer found." << endl;
 					throw exception("Assimp mesh loading.");
 				}
 
@@ -109,24 +110,24 @@ namespace Renderer {
 
 				if (!indexBuffer)
 				{
-					cout << "Failed to create Index Buffer." << endl;
+					cout << "Renderdevice could not create IndexBuffer. No Index Buffer found." << endl;
 					throw exception("Assimp mesh loading.");
 				}
 
-				// Unbind VAO to prevent overriding errors
+				// Vertex Array Object gets unbind for it is no longer needed.
 				vertexArrayObject->unbind();
 
 				// Combine all into a mesh.
-				Mesh* m = new Mesh(vertexArrayObject, indexBuffer);
-				m->indicesLength = indices.size();
+				std::unique_ptr<Mesh> combinedMesh = std::make_unique<Mesh>(vertexArrayObject, indexBuffer);
+				combinedMesh->indicesLength = indices.size();
 
-				if (!m)
+				if (!combinedMesh)
 				{
-					cout << "Failed to create Mesh." << endl;
+					cout << "Mesh creation failed. No mesh found." << endl;
 					throw exception("Assimp mesh loading.");
 				}
 
-				return m;
+				return combinedMesh;
 			}
 
 			StaticMeshLoader::~StaticMeshLoader()

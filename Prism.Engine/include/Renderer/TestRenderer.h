@@ -5,6 +5,7 @@
 #include <SDL2/SDL_opengl.h>
 #include <stdio.h>
 #include <string>
+#include <memory>
 #include "Renderer/Graphics/RenderDevice.h"
 #include "Renderer/Graphics/VertexShader.h"
 #include "Renderer/Graphics/VertexBuffer.h"
@@ -35,6 +36,6 @@ namespace Renderer {
 		GLuint gVBO;
 		GLuint gIBO;
 
-		Model* model;
+		std::shared_ptr<Model> model;
 	};
 }
