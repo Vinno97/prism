@@ -24,12 +24,10 @@ namespace Renderer {
 		namespace Loader {
 			class ModelLoader {
 			public:
-				ModelLoader(RenderDevice* renderDevice);
-				std::shared_ptr<Model> loadModel(string path);
+				shared_ptr<Model> loadModel(string path);
 
 			private:
 				StaticMeshLoader staticMeshLoader;
-				RenderDevice* renderDevice;
 
 			};
 		}

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Renderer/Graphics/Loader/StaticMeshLoader.h"
+#include "Renderer/Graphics/OpenGL/OGLRenderDevice.h"
 #include "Renderer/Graphics/Models/Mesh.h"
 #include "Renderer/Graphics/RenderDevice.h"
 #include <assimp/Importer.hpp>
@@ -13,12 +14,14 @@
 
 using namespace std;
 using namespace Renderer::Graphics::Models;
+using namespace Renderer::Graphics::OpenGL;
 
 namespace Renderer {
 	namespace Graphics {
 		namespace Loader {
 			StaticMeshLoader::StaticMeshLoader()
 			{
+				this->renderDevice = OGLRenderDevice::getRenderDevice();
 			}
 
 			/// <summary>
@@ -27,7 +30,7 @@ namespace Renderer {
 			/// <param name="path">The file path</param>
 			/// <param name="renderDevice">The RenderDevice</param>
 			/// <returns>unique_ptr<Mesh></returns>
-			unique_ptr<Mesh> StaticMeshLoader::loadMesh(std::string path, RenderDevice* renderDevice)
+			unique_ptr<Mesh> StaticMeshLoader::loadMesh(string path)
 			{
 				Assimp::Importer importer;
 

@@ -14,9 +14,12 @@ namespace Renderer {
 			public:
 				StaticMeshLoader();
 
-				std::unique_ptr<Mesh> loadMesh(std::string path, RenderDevice* renderDevice);
+				unique_ptr<Mesh> loadMesh(string path);
 
 				~StaticMeshLoader();
+
+			private:
+				RenderDevice* renderDevice;
 			};
 		}
 	}

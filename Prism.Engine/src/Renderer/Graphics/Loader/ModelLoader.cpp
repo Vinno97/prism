@@ -23,15 +23,11 @@ using namespace Renderer::Graphics::Models;
 namespace Renderer {
 	namespace Graphics {
 		namespace Loader {
-			ModelLoader::ModelLoader(RenderDevice* renderDevice)
-			{
-				this->renderDevice = renderDevice;
-			}
-			
-			std::shared_ptr<Model> ModelLoader::loadModel(string path)
+
+			shared_ptr<Model> ModelLoader::loadModel(string path)
 			{
 				StaticMeshLoader staticMeshLoader = StaticMeshLoader();
-				unique_ptr<Mesh> m = staticMeshLoader.loadMesh(path, this->renderDevice);
+				unique_ptr<Mesh> m = staticMeshLoader.loadMesh(path);
 				shared_ptr<Model> model = make_shared<Model>(move(m));
 				return model;
 			}

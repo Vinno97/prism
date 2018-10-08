@@ -72,7 +72,7 @@ namespace Renderer {
 				FragColor = pass_colour*-1; \
 			}"
 		};
-		ModelLoader modelLoader(renderDevice);// = ModelLoader(renderDevice);
+		ModelLoader modelLoader;// = ModelLoader(renderDevice);
 
 		string path = "res/bunny.obj";
 		model = modelLoader.loadModel(path);
