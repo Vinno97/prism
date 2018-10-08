@@ -29,6 +29,8 @@ void CoreEngine::Run()
 
 	vector<Renderable> renderables;
 
+	//Test code
+	//Add 3 bunnies at different positions in the world
 	Renderable renderable;
 	renderable.model = m;
 	get<0>(renderable.position) = 0.f;
@@ -37,13 +39,16 @@ void CoreEngine::Run()
 	get<0>(renderable.scale) = 10;
 	get<1>(renderable.scale) = 10;
 	get<2>(renderable.scale) = 10;
-	get<0>(renderable.rotation) = 3.14f;
-
+	get<1>(renderable.rotation) = 180.f;
+	//Add to renderables
 	renderables.push_back(renderable);
+
+	//change position
 	get<0>(renderable.position) = -2.f;
 	get<1>(renderable.position) = -1.f;
 	get<2>(renderable.position) = -3.f;
 	renderables.push_back(renderable);
+
 	get<0>(renderable.position) = 2.f;
 	get<1>(renderable.position) = -1.f;
 	get<2>(renderable.position) = -3.f;
