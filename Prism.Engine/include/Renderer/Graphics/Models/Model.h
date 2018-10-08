@@ -14,8 +14,8 @@ namespace Renderer {
 
 			class Model {
 				public: 
-					Model(std::unique_ptr<Mesh> m);
-					std::unique_ptr<Mesh> mesh;
+					Model(unique_ptr<Mesh> m);
+					unique_ptr<Mesh> mesh;
 					//Material material;
 				};
 		}

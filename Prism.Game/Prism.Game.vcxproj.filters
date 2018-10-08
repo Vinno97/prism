@@ -26,6 +26,7 @@
     <None Include="lib\SDL2.dll" />
     <None Include="lib\assimp-vc140-mtd.dll" />
     <None Include="lib\glew32.dll" />
+    <None Include="lib\glew32.dll" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\PrismGame.h">
