@@ -9,11 +9,11 @@ namespace ECS {
 		class RenderSystem : public System
 		{
 		public:
-			RenderSystem(EntityManager* entityManager);
+			RenderSystem(std::shared_ptr<EntityManager> entityManager, int windowWidth, int windowHeight);
 			~RenderSystem();
 			void update(Context context) override;
 		private:
-			
+			std::shared_ptr<ForwardRenderer> forwardRenderer;
 		};
 
 

@@ -12,11 +12,9 @@ using namespace Renderer;
 namespace ECS {
 	namespace Systems {
 
-		
-		RenderSystem::RenderSystem(EntityManager * entityManager)
-			: System(entityManager)
-		{
-			
+		RenderSystem::RenderSystem(std::shared_ptr<EntityManager> entityManager, int windowWidth, int windowHeight)
+			: System(entityManager) {
+			forwardRenderer = std::make_shared<ForwardRenderer>(windowWidth, windowHeight);
 		}
 
 		ECS::Systems::RenderSystem::~RenderSystem()
@@ -25,7 +23,6 @@ namespace ECS {
 		void RenderSystem::update(Context context)
 		{
 			//TODO: dit moet niet zo
-			ForwardRenderer forwardRenderer = ForwardRenderer(1920, 1080);
 
 			auto appearanceEntities = this->entityManager->getAllEntitiesWithComponent<AppearanceComponent>();
 			vector<Renderable> rendererData;
@@ -33,20 +30,24 @@ namespace ECS {
 			for (unsigned int i = 0; i < appearanceEntities.size(); i++)
 			{
 				auto position = this->entityManager->getComponent<PositionComponent>(appearanceEntities[i].id);
-				auto appearance = appearanceEntities[i];
+				auto appearance = appearanceEntities[i].component;
 
 				Renderable renderable;
 				renderable.model = appearanceEntities[i].component->model;
 
-				get<0>(renderable.position) = position->x + appearance.component->posX;
-				get<1>(renderable.position) = position->y + appearance.component->posY;
-				get<2>(renderable.position) = appearance.component->posZ;
+				get<0>(renderable.position) = position->x + appearance->translationX;
+				get<1>(renderable.position) = appearance->translationY;
+				get<2>(renderable.position) = position->y + appearance->translationZ;
+
+				get<0>(renderable.scale) = appearance->scaleX;
+				get<1>(renderable.scale) = appearance->scaleY;
+				get<2>(renderable.scale) = appearance->scaleZ;
+
 
 				rendererData.push_back(renderable);
-
 			}
-			
-			forwardRenderer.draw(rendererData);
+
+			forwardRenderer->draw(rendererData);
 		}
 	}
 }

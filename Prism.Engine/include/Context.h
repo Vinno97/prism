@@ -1,5 +1,6 @@
 #pragma once
 #include <Window.h>
+#include "InputManager.h"
 
 class StateMachine;
 
@@ -13,9 +14,10 @@ public:
 	~Context();
 
 	//Holds the time that has been passed since the last gameupdate
-	long deltaTime;
+	long deltaTime = 0;
 
 	Window *window;
 	StateMachine *stateMachine;
+	InputManager *inputManager;
 };
 

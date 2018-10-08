@@ -6,17 +6,17 @@ using namespace Renderer::Graphics::Models;
 
 namespace ECS {
 	namespace Components {
-		struct AppearanceComponent : Component {	
+		struct AppearanceComponent : Component {
 			Model* model;
-			float posX;
-			float posY;
-			float posZ;
-			float scaleX;
-			float scaleY;
-			float scaleZ;
-			float rotX;
-			float rotY;
-			float rotZ;
+			float translationX = 0;
+			float translationY = 0;
+			float translationZ = 0;
+			float scaleX = 1;
+			float scaleY = 1;
+			float scaleZ = 1;
+			float rotationX = 0;
+			float rotationY = 0;
+			float rotationZ = 0;
 		};
 	}
 }

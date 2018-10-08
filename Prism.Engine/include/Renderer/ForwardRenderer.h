@@ -16,9 +16,6 @@
 #include "Renderer/Graphics/Loader/ModelLoader.h"
 #include "Renderer/Graphics/Models/Model.h"
 
-using namespace Renderer::Graphics;
-using namespace std;
-
 namespace Renderer {
 	class ForwardRenderer
 	{
@@ -28,7 +25,7 @@ namespace Renderer {
 		void draw(vector<Renderable> renderables);
 
 		~ForwardRenderer();
-	private: 
+	private:
 		glm::mat4 camera = glm::mat4(1.0f);
 		glm::mat4 projection = glm::mat4(1.0f);
 		glm::mat4 model = glm::mat4(0.0f);
