@@ -31,8 +31,8 @@ namespace Renderer {
 			std::shared_ptr<Model> ModelLoader::loadModel(string path)
 			{
 				StaticMeshLoader staticMeshLoader = StaticMeshLoader();
-				std::unique_ptr<Mesh> m = staticMeshLoader.loadMesh(path, this->renderDevice);
-				std::shared_ptr<Model> model = std::make_shared<Model>(m);
+				unique_ptr<Mesh> m = staticMeshLoader.loadMesh(path, this->renderDevice);
+				shared_ptr<Model> model = make_shared<Model>(move(m));
 				return model;
 			}
 		}
