@@ -1,5 +1,5 @@
 #pragma once
-
+#include <glm/glm.hpp>
 #include <tuple>
 #include "Renderer/Graphics/Models/Model.h"
 
@@ -9,6 +9,10 @@ class Renderable
 {
 public:
 	Renderable();
+	/// <summary>
+	///  returns a mat4 based on the position, rotation and scale
+	/// </summary>
+	glm::mat4 getMatrix();
 	~Renderable();
 
 	Model* model;
