@@ -47,6 +47,7 @@ namespace Renderer {
 
 				// Get the first mesh of the scene.  
 				// Needs function to handle all meshes from the scene.
+				// TODO: Function to handle more meshes from a model.
 				aiMesh* mesh = scene->mMeshes[0];
 
 				vector<float> vertices;
@@ -74,7 +75,7 @@ namespace Renderer {
 
 				if (!vertexArrayObject)
 				{
-					cout << "Renderdevice could to create VAO. No Vertex Array Object found." << endl;
+					cout << "Renderdevice could not create VAO. No Vertex Array Object found." << endl;
 					throw exception("Assimp mesh loading.");
 				}
 
