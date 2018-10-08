@@ -48,7 +48,6 @@ public:
 
 private:
 	Context context;
-
 	/// <summary>
 	/// frees memorys from the heap
 	/// </summary>

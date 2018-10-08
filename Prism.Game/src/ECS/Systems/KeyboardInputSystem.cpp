@@ -40,6 +40,18 @@ namespace ECS {
 				{
 					velocity->dy += speed * context.deltaTime;
 				}
+
+				if (entityManager->hasComponent<AppearanceComponent>(entity.id)) {
+					auto appearance = entityManager->getComponent<AppearanceComponent>(entity.id);
+					if (input->isKeyPressed(Key::KEY_Q))
+					{
+						appearance->rotationY -= context.deltaTime / 1000;
+					}
+					if (input->isKeyPressed(Key::KEY_E))
+					{
+						appearance->rotationY += context.deltaTime / 1000;
+					}
+				}
 			}
 		}
 	}

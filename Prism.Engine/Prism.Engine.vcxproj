@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\Renderer\Camera.h" />
     <ClInclude Include="include\Util\FileReader.h" />
     <ClInclude Include="include\Renderer\ForwardRenderer.h" />
     <ClInclude Include="include\ECS\Components\AppearanceComponent.h" />
@@ -33,7 +34,6 @@
     <ClInclude Include="include\Renderer\Graphics\Models\Mesh.h" />
     <ClInclude Include="include\Renderer\Graphics\Models\Model.h" />
     <ClInclude Include="include\Renderer\Graphics\Models\Texture.h" />
-    <ClInclude Include="include\Renderer\TestRenderer.h" />
     <ClInclude Include="include\Context.h" />
     <ClInclude Include="include\CoreEngine.h" />
     <ClInclude Include="include\ECS\Entity.h" />
@@ -66,6 +66,7 @@
     <ClInclude Include="include\Renderer\Renderable.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Renderer\Camera.cpp" />
     <ClCompile Include="src\Renderer\Renderable.cpp" />
     <ClCompile Include="src\Util\FileReader.cpp" />
     <ClCompile Include="src\Renderer\ForwardRenderer.cpp" />
@@ -81,7 +82,6 @@
     <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLPipeline.cpp" />
     <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLFragmentShader.cpp" />
     <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLVertexArrayObject.cpp" />
-    <ClCompile Include="src\Renderer\TestRenderer.cpp" />
     <ClCompile Include="src\Context.cpp" />
     <ClCompile Include="src\CoreEngine.cpp" />
     <ClCompile Include="src\ECS\Systems\MotionSystem.cpp" />

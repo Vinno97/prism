@@ -8,15 +8,18 @@
 #include "Renderer/Graphics/OpenGL/OGLPipeline.h"
 #include <iostream>
 #include <string>
+#include <memory>
+
+using namespace std;
 
 namespace Renderer {
 	namespace Graphics {
 		namespace OpenGL {
-			OGLPipeline::OGLPipeline(VertexShader* vs, FragmentShader* fs)
+			OGLPipeline::OGLPipeline(VertexShader& vs, FragmentShader& fs)
 			{
 				pipelineID = glCreateProgram();
-				glAttachShader(pipelineID, vs->vertexID);
-				glAttachShader(pipelineID, fs->fragmentID);
+				glAttachShader(pipelineID, vs.vertexID);
+				glAttachShader(pipelineID, fs.fragmentID);
 				glLinkProgram(pipelineID);
 				GLint programSuccess = GL_TRUE;
 				glGetProgramiv(pipelineID, GL_LINK_STATUS, &programSuccess);

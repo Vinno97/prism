@@ -15,6 +15,8 @@ namespace ECS {
 		RenderSystem::RenderSystem(std::shared_ptr<EntityManager> entityManager, int windowWidth, int windowHeight)
 			: System(entityManager) {
 			forwardRenderer = std::make_shared<ForwardRenderer>(windowWidth, windowHeight);
+			camera.move(0, 2.f, 3.f);
+			camera.rotate(-35.f, 0.f, 0.f);
 		}
 
 		ECS::Systems::RenderSystem::~RenderSystem()
@@ -23,6 +25,8 @@ namespace ECS {
 		void RenderSystem::update(Context context)
 		{
 			//TODO: dit moet niet zo
+			//camera.rotate(-.01f, 0.f, 0.f);
+
 
 			auto appearanceEntities = this->entityManager->getAllEntitiesWithComponent<AppearanceComponent>();
 			vector<Renderable> rendererData;
@@ -43,11 +47,15 @@ namespace ECS {
 				get<1>(renderable.scale) = appearance->scaleY;
 				get<2>(renderable.scale) = appearance->scaleZ;
 
+				get<0>(renderable.rotation) = appearance->rotationX;
+				get<1>(renderable.rotation) = appearance->rotationY;
+				get<2>(renderable.rotation) = appearance->rotationZ;
+
 
 				rendererData.push_back(renderable);
 			}
 
-			forwardRenderer->draw(rendererData);
+			forwardRenderer->draw(&camera, rendererData);
 		}
 	}
 }

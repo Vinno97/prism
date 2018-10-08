@@ -57,14 +57,14 @@ namespace Renderer {
 				// Convert vector to array.
 				float* verticesArray = vertices.data();
 
-				VertexArrayObject* vertexArrayObject = renderDevice->createVertexArrayobject();
+				unique_ptr<VertexArrayObject> vertexArrayObject = renderDevice->createVertexArrayobject();
 
 				// Get the size of the vertices to provide the VertexBuffer with the right data.
 				auto verticesSize = vertices.size() * sizeof(float);
 
-				VertexBuffer* vertexBuffer = renderDevice->createVertexBuffer(verticesSize, verticesArray);
+				unique_ptr<VertexBuffer> vertexBuffer = renderDevice->createVertexBuffer(verticesSize, verticesArray);
 
-				vertexArrayObject->addVertexBuffer(vertexBuffer, 0, 3 * sizeof(float), 0, 3);
+				vertexArrayObject->addVertexBuffer(move(vertexBuffer), 0, 3 * sizeof(float), 0, 3);
 
 				/*
 					For each number of primitives (mFace) of the mesh,
@@ -84,13 +84,13 @@ namespace Renderer {
 				// Convert vector to array
 				int* indicesArray = indices.data();
 
-				IndexBuffer* indexBuffer = renderDevice->createIndexBuffer(indices.size() * sizeof(unsigned int), indicesArray);
+				unique_ptr<IndexBuffer> indexBuffer = renderDevice->createIndexBuffer(indices.size() * sizeof(unsigned int), indicesArray);
 
 				// Unbind VAO to prevent overriding errors
 				vertexArrayObject->unbind();
 
 				// Combine all into a mesh.
-				Mesh* m = new Mesh(vertexArrayObject, indexBuffer);
+				Mesh* m = new Mesh(move(vertexArrayObject), move(indexBuffer));
 				m->indicesLength = indices.size();
 
 				return m;

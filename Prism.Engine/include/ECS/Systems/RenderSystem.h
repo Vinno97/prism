@@ -14,6 +14,7 @@ namespace ECS {
 			void update(Context context) override;
 		private:
 			std::shared_ptr<ForwardRenderer> forwardRenderer;
+			Camera camera;
 		};
 
 

@@ -9,7 +9,9 @@
 #include "Renderer/Graphics/OpenGL/OGLVertexBuffer.h"
 #include "Renderer/Graphics/OpenGL/OGLIndexBuffer.h"
 #include "Renderer/Graphics/OpenGL/OGLVertexArrayObject.h"
+#include <memory>
 
+using namespace std;
 
 namespace Renderer {
 	namespace Graphics {
@@ -30,34 +32,34 @@ namespace Renderer {
 				return &instance;
 			}
 
-			VertexShader* OGLRenderDevice::createVertexShader(const char * source)
+			unique_ptr<VertexShader> OGLRenderDevice::createVertexShader(const char * source)
 			{
-				return new OGLVertexShader(source);
+				return std::make_unique<OGLVertexShader>(source);
 			}
 
-			FragmentShader* OGLRenderDevice::createFragmentShader(const char * source)
+			unique_ptr<FragmentShader> OGLRenderDevice::createFragmentShader(const char * source)
 			{
-				return new OGLFragmentShader(source);
+				return make_unique<OGLFragmentShader>(source);
 			}
 
-			Pipeline* OGLRenderDevice::createPipeline(VertexShader* vs, FragmentShader* fs)
+			unique_ptr<Pipeline> OGLRenderDevice::createPipeline(VertexShader& vs, FragmentShader& fs)
 			{
-				return new OGLPipeline(vs, fs);
+				return make_unique<OGLPipeline>(vs, fs);
 			}
 
-			VertexBuffer * OGLRenderDevice::createVertexBuffer(long size, const void * data)
+			unique_ptr<VertexBuffer> OGLRenderDevice::createVertexBuffer(long size, const void * data)
 			{
-				return new OGLVertexBuffer(size, data);
+				return make_unique<OGLVertexBuffer>(size, data);
 			}
 
-			IndexBuffer * OGLRenderDevice::createIndexBuffer(long size, const void * data)
+			unique_ptr<IndexBuffer> OGLRenderDevice::createIndexBuffer(long size, const void * data)
 			{
-				return new OGLIndexBuffer(size, data);
+				return make_unique<OGLIndexBuffer>(size, data);
 			}
 
-			VertexArrayObject * OGLRenderDevice::createVertexArrayobject()
+			unique_ptr<VertexArrayObject> OGLRenderDevice::createVertexArrayobject()
 			{
-				return new OGLVertexArrayObject;
+				return make_unique<OGLVertexArrayObject>();
 			}
 
 			void OGLRenderDevice::setClearColour(float r, float g, float b, float w)
@@ -67,10 +69,7 @@ namespace Renderer {
 
 			void OGLRenderDevice::useDepthTest(bool enable)
 			{
-
 				glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
-				glEnable(GL_CULL_FACE);
-				glCullFace(GL_FRONT);
 				if (enable)
 					glEnable(GL_DEPTH_TEST);
 				else

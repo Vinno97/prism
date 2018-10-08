@@ -1,5 +1,5 @@
 #include "Renderer/ForwardRenderer.h"
-
+#include <string>
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -12,7 +12,9 @@
 #include "Renderer/Graphics/VertexBuffer.h"
 #include "Renderer/Graphics/Loader/ModelLoader.h"
 #include "Renderer/Graphics/Models/Model.h"
+#include "Util/FileReader.h"
 
+using namespace std;
 using namespace Renderer::Graphics;
 using namespace Renderer::Graphics::OpenGL;
 
@@ -21,67 +23,42 @@ namespace Renderer {
 	
 	ForwardRenderer::ForwardRenderer(int width, int height)
 	{
-
 		renderDevice = OGLRenderDevice::getRenderDevice();
 
-		const char* vertexShaderSource = { \
-			"#version 330 core\n\
-			layout (location = 0) in vec3 aPos; \
-			out vec4 pass_colour;\
-			uniform mat4 model;\
-			uniform mat4 view;\
-			uniform mat4 proj; \
-			void main() { \
-				gl_Position = proj * view * model * vec4(aPos.x, aPos.y, aPos.z, 1 ); \
-				pass_colour = view * model * vec4(aPos.x, aPos.y, aPos.z, 1); \
-			}"
-		};
-	
-		const char* fragmentShaderSource =
-		{
-			"#version 330 core\n\
-			in vec4 pass_colour; \
-			out vec4 FragColor; \
-			void main() { \
-				FragColor = pass_colour*-1; \
-			}"
-		};
+		Util::FileReader fileReader;
+		string vertexSource = fileReader.readResourceFileIntoString("/shaders/simpleGeometry.vs");
+		string fragmentSource = fileReader.readResourceFileIntoString("/shaders/simpleGeometry.fs");
 
-		VertexShader* vertexShader = renderDevice->createVertexShader(vertexShaderSource);
-		FragmentShader* fragmentShader = renderDevice->createFragmentShader(fragmentShaderSource);
-		geometryPipeline = renderDevice->createPipeline(vertexShader, fragmentShader);
-
-		delete vertexShader;
-		delete fragmentShader;
+		std::unique_ptr<VertexShader> vertexShader = renderDevice->createVertexShader(vertexSource.c_str());
+		std::unique_ptr<FragmentShader> fragmentShader = renderDevice->createFragmentShader(fragmentSource.c_str());
+		geometryPipeline = move(renderDevice->createPipeline(*vertexShader, *fragmentShader));
 
 		geometryPipeline->createUniform("model");
 		geometryPipeline->createUniform("view");
 		geometryPipeline->createUniform("proj");
 
-		camera = glm::lookAt(
-			glm::vec3(0.0f, 0.0f, 3.0f),
-			glm::vec3(0.0f, 0.0f, 0.0f),
-			glm::vec3(0.0f, 1.0f, 0.0f)
-		);
-
-	    projection = glm::perspective(glm::radians(70.0f), 1920.0f/1080.0f, 1.f, 100.0f);
+	    projection = glm::perspective(glm::radians(45.0f), (float) width/height, 1.f, 100.0f);
 
 		renderDevice->useDepthTest(true);
 		renderDevice->setClearColour(0.7f, 0.7f, 0.7f, 1.f);
 	}
 
-	void ForwardRenderer::draw(vector<Renderable> renderables)
+	void ForwardRenderer::draw(Camera* camera, vector<Renderable> renderables)
 	{
+		mat4 model;
+		mat4 view = camera->getCameraMatrix();
 		renderDevice->clearScreen();
 		geometryPipeline->run();
 
 		for (auto renderable : renderables) {
-			auto position = glm::vec3(get<0>(renderable.position), get<1>(renderable.position), get<2>(renderable.position));
 			model = glm::mat4(1.0f);
-			model = glm::translate(model, position);
-			//camera = glm::rotate(camera, glm::radians(0.1f), glm::vec3(0.f, 1.f, 0.f));
+			model = glm::translate(model, glm::vec3(get<0>(renderable.position), get<1>(renderable.position), get<2>(renderable.position)));
+			model = glm::scale(model, glm::vec3(get<0>(renderable.scale), get<1>(renderable.scale), get<2>(renderable.scale)));
+			model = glm::rotate(model, radians(get<0>(renderable.rotation)), vec3(1.f, 0.f, 0.f)); //Rotate x
+			model = glm::rotate(model, radians(get<1>(renderable.rotation)), vec3(0.f, 1.f, 0.f)); //Rotate y
+			model = glm::rotate(model, radians(get<2>(renderable.rotation)), vec3(0.f, 0.f, 1.f)); //Rotate z
 
-			geometryPipeline->setUniformMatrix4f("view", camera);
+			geometryPipeline->setUniformMatrix4f("view", view);
 			geometryPipeline->setUniformMatrix4f("proj", projection);
 			geometryPipeline->setUniformMatrix4f("model", model);
 
@@ -94,6 +71,5 @@ namespace Renderer {
 
 	ForwardRenderer::~ForwardRenderer()
 	{
-		delete geometryPipeline;
 	}
 }

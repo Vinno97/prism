@@ -7,6 +7,7 @@
 #include <tuple>
 #include "Renderer/Graphics/RenderDevice.h"
 #include "Renderer/Renderable.h"
+#include "Renderer/Camera.h"
 #include "Renderer/Graphics/VertexShader.h"
 #include "Renderer/Graphics/OpenGL/OGLRenderDevice.h"
 #include "Renderer/Graphics/OpenGL/OGLVertexShader.h"
@@ -21,16 +22,17 @@ namespace Renderer {
 	{
 	public:
 		ForwardRenderer(int width, int height);
-		ForwardRenderer() = default;
-		void draw(vector<Renderable> renderables);
+		
+		/// <summary>
+		/// Draws the list of renderables from the viewpoint of a given camera
+		/// </summary>
+		void draw(Camera* camera, vector<Renderable> renderables);
 
 		~ForwardRenderer();
-	private:
-		glm::mat4 camera = glm::mat4(1.0f);
+	private: 
 		glm::mat4 projection = glm::mat4(1.0f);
-		glm::mat4 model = glm::mat4(0.0f);
 
-		Pipeline* geometryPipeline;
+		unique_ptr<Pipeline> geometryPipeline;
 		RenderDevice* renderDevice;
 	};
 }

@@ -6,15 +6,16 @@
 #include "Renderer/Graphics/Models/Mesh.h"
 #include <string>
 #include <vector>
+#include <memory>
 
 using namespace std;
 
 namespace Renderer {
 	namespace Graphics {
 		namespace Models {
-			Mesh::Mesh(VertexArrayObject* vertexArrayObject, IndexBuffer* indexBuffer) {
-				this->vertexArrayObject = vertexArrayObject;
-				this->indexBuffer = indexBuffer;
+			Mesh::Mesh(unique_ptr<VertexArrayObject> vertexArrayObject, unique_ptr<IndexBuffer> indexBuffer) {
+				this->vertexArrayObject = move(vertexArrayObject);
+				this->indexBuffer = move(indexBuffer);
 			}
 		}
 	}
