@@ -17,7 +17,8 @@ namespace ECS {
 			= default;
 
 		void KeyboardInputSystem::update(Context context) {
-			float speed = 1 / 10000.f;
+			// 1 unit/second^2
+			double acceleration = 5;
 
 			auto input = context.inputManager;
 
@@ -26,19 +27,19 @@ namespace ECS {
 
 				if (input->isKeyPressed(Key::KEY_W))
 				{
-					velocity->dx -= speed * context.deltaTime;
+					velocity->dy -= acceleration * context.deltaTime;
 				}
 				if (input->isKeyPressed(Key::KEY_S))
 				{
-					velocity->dx += speed * context.deltaTime;
+					velocity->dy += acceleration * context.deltaTime;
 				}
 				if (input->isKeyPressed(Key::KEY_A))
 				{
-					velocity->dy -= speed * context.deltaTime;
+					velocity->dx -= acceleration * context.deltaTime;
 				}
 				if (input->isKeyPressed(Key::KEY_D))
 				{
-					velocity->dy += speed * context.deltaTime;
+					velocity->dx += acceleration * context.deltaTime;
 				}
 
 				if (entityManager->hasComponent<AppearanceComponent>(entity.id)) {

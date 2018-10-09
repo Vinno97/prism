@@ -5,7 +5,10 @@
 namespace ECS {
 	namespace Components {
 		struct DragComponent : Component {
-			float force = 0;
+			/// <summary>
+			///	The amount of drag in units/second^2
+			/// </summary>
+			double force = 0;
 		};
 	}
 }

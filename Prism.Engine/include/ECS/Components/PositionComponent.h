@@ -5,8 +5,16 @@
 namespace ECS {
 	namespace Components {
 		struct PositionComponent : Component {
-			float x = 0;
-			float y = 0;
+
+			/// <summary>
+			///	The position in units
+			/// </summary>
+			double x = 0;
+
+			/// <summary>
+			///	The position in units
+			/// </summary>
+			double y = 0;
 		};
 	}
 }

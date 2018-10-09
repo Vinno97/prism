@@ -5,8 +5,16 @@
 namespace ECS {
 	namespace Components {
 		struct VelocityComponent : Component {
-			float dx = 0;
-			float dy = 0;
+
+			/// <summary>
+			///	The amount of delta X in units/second
+			/// </summary>
+			double dx = 0;
+
+			/// <summary>
+			///	The amount of delta Y in units/second
+			/// </summary>
+			double dy = 0;
 		};
 	}
 }

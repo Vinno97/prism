@@ -8,7 +8,7 @@
 #include <vector>
 #include "ECS/EntityManager.h"
 #include "ECS/Components/AppearanceComponent.h"
-#include "Renderer/Graphics/Models/Model.h";
+#include "Renderer/Graphics/Models/Model.h"
 #include "ECS/Systems/RenderSystem.h"
 #include "ECS/SystemManager.h"
 
@@ -38,7 +38,7 @@ void CoreEngine::Run()
 		lastTime = startTime;
 		//c.rotate(0.0f, 3.14f, 0.f);
 		//Sets the right values in context
-		context.deltaTime = deltaTime.count();
+		context.deltaTime = deltaTime.count() / 1000000.f;
 		auto currentState = context.stateMachine->getCurrentState();
 		currentState->onUpdate(context);
 

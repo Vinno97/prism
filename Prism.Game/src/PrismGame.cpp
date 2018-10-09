@@ -24,13 +24,13 @@ void PrismGame::createPlayer() {
 	VelocityComponent velocity;
 	PositionComponent position;
 	DragComponent drag;
-	drag.force = 0.001f;
+	drag.force = 5.f;
 	KeyboardInputComponent input;
 	AppearanceComponent appearance;
 	appearance.translationZ = 1;
-	appearance.scaleX = 1;
-	appearance.scaleY = 1;
-	appearance.scaleZ = 1;
+	appearance.scaleX = 3;
+	appearance.scaleY = 3;
+	appearance.scaleZ = 3;
 	appearance.model = model;
 
 	entityManager->createEntity(velocity, position, drag, input, appearance);
