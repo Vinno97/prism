@@ -71,5 +71,7 @@ namespace Renderer {
 
 	ForwardRenderer::~ForwardRenderer()
 	{
+		//std::cout << "end";
+		//delete renderDevice;
 	}
 }

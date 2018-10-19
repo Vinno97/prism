@@ -26,8 +26,19 @@ public:
 	/// <param name="state">The first state</param>
 	template<typename T, typename = std::enable_if < std::is_base_of<State, T>::value>>
 	void setEntryPoint(T state) {
+		state.onInit(context);
 		context.stateMachine->addState(state);
 		context.stateMachine->setState<T>();
+	}
+
+	/// <summary>
+	/// adds a state to the statemachine
+	/// </summary>
+	/// <param name="state">The state that will be added</param>
+	template<typename T, typename = std::enable_if < std::is_base_of<State, T>::value>>
+	void addState(T state) {
+		state.onInit(context);
+		context.stateMachine->addState(state);
 	}
 
 	/// <summary>

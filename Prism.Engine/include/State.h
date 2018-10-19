@@ -8,15 +8,21 @@ class State {
 public:
 	State();
 	virtual ~State();
+	
+	/// <summary>
+	/// Method to initialize the state
+	/// </summary>
+	/// <param name="context">Contains context</param>
+	virtual void onInit(Context &context) = 0;
 
 	/// <summary>
-	/// Method to update the game
+	/// Method to update the state
 	/// </summary>
 	/// <param name="context">Contains context</param>
 	virtual void onUpdate(Context &context) = 0;
 
 	/// <summary>
-	/// Method to initialize the state
+	/// Method to enter the state
 	/// </summary>
 	virtual void onEnter();
 

@@ -24,6 +24,7 @@ class PrismGame : public Game
 {
 public:
 	PrismGame();
+	void onInit(Context &context) override;
 	void onUpdate(Context &context) override;
 	void onEnter() override;
 	void onLeave() override;
@@ -33,6 +34,6 @@ private:
 	std::shared_ptr<EntityManager> entityManager;
 	std::shared_ptr<SystemManager> systemManager;
 
-	void registerSystems();
+	void registerSystems(Context &context);
 	void createPlayer();
 };
