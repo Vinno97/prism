@@ -12,13 +12,10 @@
 class CoreEngine
 {
 public:
-
-	CoreEngine()
-	{
-		context.window = new Window();
-		context.stateMachine = new StateMachine();
-		context.inputManager = new InputManager();
-	}
+	/// <summary>
+	/// Creates a new coreEngine
+	/// </summary>
+	CoreEngine();
 
 	/// <summary>
 	/// initialize the coreEngine

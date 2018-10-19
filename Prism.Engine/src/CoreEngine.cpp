@@ -15,6 +15,13 @@
 using namespace std;
 using namespace Renderer::Graphics::Loader;
 
+CoreEngine::CoreEngine()
+{
+	context.window = new Window();
+	context.stateMachine = new StateMachine();
+	context.inputManager = new InputManager();
+}
+
 const void CoreEngine::InitWindow(const char* title, const int width, const int height, const int x, const int y) {
 	context.window->init(title, width, height, x, y);
 	context.window->createOpenGLContext(3, 2, true);

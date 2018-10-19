@@ -8,44 +8,19 @@
 PrismGame::PrismGame() {
 	entityManager = std::make_shared<EntityManager>();
 	systemManager = std::make_shared<SystemManager>();
+	entityRegister = std::make_shared<EntityRegister>(entityManager);
 }
 
 void PrismGame::onInit(Context & context)
 {
-	createPlayer();
+	entityRegister->RegisterPlayer();
 	registerSystems(context);
-}
-
-/// <summary>
-/// create player entity
-/// </summary>
-void PrismGame::createPlayer() {
-	// TODO: Deze functie moet later verplaatst worden naar een Factory of iets dergelijks.
-
-	//Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
-	//Model* model = ml.loadModel("./res/bunny.obj");
-
-	VelocityComponent velocity;
-	PositionComponent position;
-	DragComponent drag;
-	drag.force = 5.f;
-	KeyboardInputComponent input;
-	
-	/*
-	AppearanceComponent appearance;
-	appearance.translationZ = 1;
-	appearance.scaleX = 3;
-	appearance.scaleY = 3;
-	appearance.scaleZ = 3;
-	appearance.model = model;
-	*/
-
-	entityManager->createEntity(velocity, position, drag, input/*, appearance*/);
 }
 
 /// <summar>
 /// register systems in system manager
 /// </summary>
+/// <param name="context">The context that is needed to register the systems</param>
 void PrismGame::registerSystems(Context &context)
 {
 	MotionSystem motionSystem = MotionSystem(entityManager);
