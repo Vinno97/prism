@@ -24,7 +24,6 @@ void test() {
 	CoreEngine ce = CoreEngine(st);
 	ce.CreateWindow("prism", 500, 500, 100, 100);
 	ce.Run();
-
 }
 
 void start()

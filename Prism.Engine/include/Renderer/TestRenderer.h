@@ -5,12 +5,15 @@
 #include <SDL2/SDL_opengl.h>
 #include <stdio.h>
 #include <string>
+#include <memory>
 #include "Renderer/Graphics/RenderDevice.h"
 #include "Renderer/Graphics/VertexShader.h"
 #include "Renderer/Graphics/VertexBuffer.h"
 #include "Renderer/Graphics/IndexBuffer.h"
+#include "Renderer/Graphics/Models/Model.h"
 
 using namespace Renderer::Graphics;
+using namespace Renderer::Graphics::Models;
 
 namespace Renderer {
 	class TestRenderer
@@ -32,5 +35,7 @@ namespace Renderer {
 		GLuint gVertexPos2DLocation;
 		GLuint gVBO;
 		GLuint gIBO;
+
+		std::shared_ptr<Model> model;
 	};
 }
