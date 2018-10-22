@@ -5,6 +5,7 @@
 #include "Renderer/ForwardRenderer.h"
 #include "Renderer/Camera.h"
 #include <tuple>
+#include <memory>
 #include <vector>
 
 using namespace std;
@@ -25,14 +26,14 @@ void CoreEngine::Run()
 	int count = 0;
 
 	ModelLoader ml = ModelLoader();
-	Model* m = ml.loadModel("./res/bunny.obj");
+	shared_ptr<Model> m = ml.loadModel("./res/bunny.obj");
 
 	vector<Renderable> renderables;
 
 	//Test code
 	//Add 3 bunnies at different positions in the world
 	Renderable renderable;
-	renderable.model = m;
+	renderable.model = m.get();
 	get<0>(renderable.position) = 0.f;
 	get<1>(renderable.position) = -1.f;
 	get<2>(renderable.position) = -6.f;

@@ -90,7 +90,7 @@ namespace Renderer {
 					throw exception("Assimp mesh loading.");
 				}
 
-				vertexArrayObject->addVertexBuffer(vertexBuffer, 0, 3 * sizeof(float), 0, 3);
+				vertexArrayObject->addVertexBuffer(move(vertexBuffer), 0, 3 * sizeof(float), 0, 3);
 
 				/*
 					For each number of primitives (mFace) of the mesh,
@@ -122,7 +122,7 @@ namespace Renderer {
 				vertexArrayObject->unbind();
 
 				// Combine all into a mesh.
-				unique_ptr<Mesh> combinedMesh = make_unique<Mesh>(vertexArrayObject, indexBuffer);
+				unique_ptr<Mesh> combinedMesh = make_unique<Mesh>(move(vertexArrayObject), move(indexBuffer));
 				combinedMesh->indicesLength = indices.size();
 
 				if (!combinedMesh)
