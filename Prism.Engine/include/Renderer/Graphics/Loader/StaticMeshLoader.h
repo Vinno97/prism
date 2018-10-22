@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <memory>
 #include "Renderer/Graphics/RenderDevice.h"
 #include "Renderer/Graphics/Models/Mesh.h"
 
@@ -13,9 +14,12 @@ namespace Renderer {
 			public:
 				StaticMeshLoader();
 
-				Mesh* loadMesh(std::string path, RenderDevice* renderDevice);
+				unique_ptr<Mesh> loadMesh(string path);
 
 				~StaticMeshLoader();
+
+			private:
+				RenderDevice* renderDevice;
 			};
 		}
 	}

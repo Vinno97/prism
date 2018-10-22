@@ -7,7 +7,6 @@
 #include "ECS/Components/VelocityComponent.h"
 #include "InputManager.h"
 #include "Key.h"
-#include "Renderer/ForwardRenderer.h"
 #include "Game.h"
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
