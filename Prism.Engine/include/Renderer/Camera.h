@@ -15,7 +15,7 @@ namespace Renderer {
 		/// <summary>
 		/// Returns a 4f matrix with the camera transformation
 		/// </summary>
-		mat4 getCameraMatrix();
+		mat4 getCameraMatrix() const;
 		
 		/// <summary>
 		/// Translates the camera by the values given
