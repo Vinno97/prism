@@ -22,8 +22,8 @@ void PrismGame::onInit(Context & context)
 void PrismGame::createPlayer() {
 	// TODO: Deze functie moet later verplaatst worden naar een Factory of iets dergelijks.
 
-	//Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
-	//Model* model = ml.loadModel("./res/bunny.obj");
+	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
+	Model* model = ml.loadModel("./res/bunny.obj");
 
 	VelocityComponent velocity;
 	PositionComponent position;
@@ -31,16 +31,14 @@ void PrismGame::createPlayer() {
 	drag.force = 5.f;
 	KeyboardInputComponent input;
 	
-	/*
 	AppearanceComponent appearance;
 	appearance.translationZ = 1;
 	appearance.scaleX = 3;
 	appearance.scaleY = 3;
 	appearance.scaleZ = 3;
 	appearance.model = model;
-	*/
 
-	entityManager->createEntity(velocity, position, drag, input/*, appearance*/);
+	entityManager->createEntity(velocity, position, drag, input, appearance);
 }
 
 /// <summar>
@@ -49,10 +47,10 @@ void PrismGame::createPlayer() {
 void PrismGame::registerSystems(Context &context)
 {
 	MotionSystem motionSystem = MotionSystem(entityManager);
-	//RenderSystem renderSystem = RenderSystem(entityManager, context.window->width, context.window->height);
+	RenderSystem renderSystem = RenderSystem(entityManager, context.window->width, context.window->height);
 	KeyboardInputSystem inputSystem = KeyboardInputSystem(entityManager);
 	systemManager->registerSystem(motionSystem);
-	//systemManager->registerSystem(renderSystem);
+	systemManager->registerSystem(renderSystem);
 	systemManager->registerSystem(inputSystem);
 }
 
@@ -60,11 +58,11 @@ void PrismGame::onUpdate(Context &context)
 {
 	auto inputSystem = systemManager->getSystem<KeyboardInputSystem>();
 	auto motionSystem = systemManager->getSystem<MotionSystem>();
-	//auto renderSystem = systemManager->getSystem<RenderSystem>();
+	auto renderSystem = systemManager->getSystem<RenderSystem>();
 
 	inputSystem->update(context);
 	motionSystem->update(context);
-	//renderSystem->update(context);
+	renderSystem->update(context);
 
 	for (auto &entity : entityManager->getAllEntitiesWithComponent<VelocityComponent>()) {
 		auto velocity = entity.component;
