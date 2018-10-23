@@ -5,6 +5,7 @@
 #include "Renderer/ForwardRenderer.h"
 #include "Renderer/Camera.h"
 #include <tuple>
+#include <memory>
 #include <vector>
 #include "ECS/EntityManager.h"
 #include "ECS/Components/AppearanceComponent.h"

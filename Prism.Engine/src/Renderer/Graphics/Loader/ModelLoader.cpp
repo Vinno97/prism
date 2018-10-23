@@ -13,6 +13,7 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <memory>
 
 using namespace std;
 using namespace Renderer::Graphics;
@@ -22,16 +23,13 @@ using namespace Renderer::Graphics::Models;
 namespace Renderer {
 	namespace Graphics {
 		namespace Loader {
-			ModelLoader::ModelLoader()
-			{
-				this->renderDevice = OGLRenderDevice::getRenderDevice();
-			}
-			
-			Model* ModelLoader::loadModel(string path)
+
+			shared_ptr<Model> ModelLoader::loadModel(string path)
 			{
 				StaticMeshLoader staticMeshLoader = StaticMeshLoader();
-				Mesh* m = staticMeshLoader.loadMesh(path, this->renderDevice);
-				return new Model(m);
+				unique_ptr<Mesh> m = staticMeshLoader.loadMesh(path);
+				shared_ptr<Model> model = make_shared<Model>(move(m));
+				return model;
 			}
 		}
 	}

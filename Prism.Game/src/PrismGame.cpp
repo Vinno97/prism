@@ -22,8 +22,8 @@ void PrismGame::onInit(Context & context)
 void PrismGame::createPlayer() {
 	// TODO: Deze functie moet later verplaatst worden naar een Factory of iets dergelijks.
 
-	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
-	Model* model = ml.loadModel("./res/bunny.obj");
+	auto ml = Renderer::Graphics::Loader::ModelLoader();
+	auto model = ml.loadModel("./res/bunny.obj");
 
 	VelocityComponent velocity;
 	PositionComponent position;

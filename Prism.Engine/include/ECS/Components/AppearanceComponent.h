@@ -7,7 +7,7 @@ using namespace Renderer::Graphics::Models;
 namespace ECS {
 	namespace Components {
 		struct AppearanceComponent : Component {
-			Model* model;
+			shared_ptr<Model> model;
 			float translationX = 0;
 			float translationY = 0;
 			float translationZ = 0;
