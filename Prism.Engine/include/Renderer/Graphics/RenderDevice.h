@@ -6,6 +6,9 @@
 #include "Renderer/Graphics/VertexBuffer.h"
 #include "Renderer/Graphics/IndexBuffer.h"
 #include "Renderer/Graphics/VertexArrayObject.h"
+#include <memory>
+
+using namespace std;
 
 namespace Renderer {
 	namespace Graphics {
@@ -18,36 +21,36 @@ namespace Renderer {
 			/// <summary>
 			/// Create a new vertexshader
 			/// </summary>
-			virtual VertexShader* createVertexShader(const char* source) = 0;
+			virtual unique_ptr<VertexShader> createVertexShader(const char* source) = 0;
 
 			/// <summary>
 			/// Create a new fragmentshader
 			/// </summary>
-			virtual FragmentShader* createFragmentShader(const char* source) = 0;
+			virtual unique_ptr<FragmentShader> createFragmentShader(const char* source) = 0;
 
 			/// <summary>
 			/// Create a new pipeline
 			/// </summary>
-			virtual Pipeline* createPipeline(VertexShader* vs, FragmentShader* fs) = 0;
+			virtual unique_ptr<Pipeline> createPipeline(VertexShader& vs, FragmentShader& fs) = 0;
 
 			/// <summary>
 			/// Create a new vertexbuffer
 			/// </summary>
 			/// <param name="size">Size of the index buffer</param>
 			/// <param name="data">Data that the buffer will be filled with (float array)</param>
-			virtual VertexBuffer* createVertexBuffer(long size, const void *data) = 0;
+			virtual unique_ptr<VertexBuffer> createVertexBuffer(long size, const void *data) = 0;
 
 			/// <summary>
 			/// Create a new indexBuffer
 			/// </summary>
 			/// <param name="size">Size of the indice buffer</param>
 			/// <param name="data">Data that the buffer will be filled with (int array)</param>
-			virtual IndexBuffer* createIndexBuffer(long size, const void *data) = 0;
+			virtual unique_ptr<IndexBuffer> createIndexBuffer(long size, const void *data) = 0;
 
 			/// <summary>
 			/// Create a new vertexArrayObject
 			/// </summary>
-			virtual VertexArrayObject* createVertexArrayobject() = 0;
+			virtual unique_ptr<VertexArrayObject> createVertexArrayobject() = 0;
 
 			/// <summary>
 			/// Set the colour that the screen will be cleared with

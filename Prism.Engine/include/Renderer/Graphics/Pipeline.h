@@ -1,5 +1,4 @@
 #pragma once
-#include <SDL2/SDL_opengl.h>
 
 namespace Renderer {
 	namespace Graphics {
