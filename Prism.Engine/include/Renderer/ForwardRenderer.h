@@ -31,9 +31,15 @@ namespace Renderer {
 		/// </summary>
 		void draw(Camera* camera, vector<Renderable> renderables);
 
+		/// <summary>
+		/// Sets the intensity of the ambient light
+		/// </summary>
+		void setAmbientLightStrength(float strength);
+
 		~ForwardRenderer();
 	private: 
 		glm::mat4 projection = glm::mat4(1.0f);
+		float ambientLightStrength;
 
 		unique_ptr<Pipeline> geometryPipeline;
 		RenderDevice* renderDevice;

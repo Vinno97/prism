@@ -1,6 +1,9 @@
 #version 330 core
-in vec4 pass_colour; 
 out vec4 FragColor; 
-void main() { 
-	FragColor = pass_colour*-1; 
+uniform vec3 ambientLightColor;
+uniform float ambientLightStrength;
+void main() {
+    vec3 ambient = ambientLightStrength * ambientLightColor; 
+	vec3 result = ambient * vec3(.1f, .1f, .1f);
+    FragColor = vec4(result, 1.0);
 }

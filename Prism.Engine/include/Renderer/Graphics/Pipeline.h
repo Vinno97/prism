@@ -31,6 +31,11 @@ namespace Renderer {
 			/// Set the uniform to a specific vector
 			/// </summary> 
 			virtual bool setUniformVector(const char* name, float x, float y, float z) = 0;
+
+			/// <summary>
+			/// Set the uniform to a specific float 
+			/// </summary> 
+			virtual bool setUniformFloat(const char* name, float value) = 0;
 			GLuint pipelineID;
 		};
 	}

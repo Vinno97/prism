@@ -22,6 +22,7 @@ namespace Renderer {
 
 	ForwardRenderer::ForwardRenderer(int width, int height)
 	{
+		this->ambientLightStrength = 5.f;
 		renderDevice = OGLRenderDevice::getRenderDevice();
 
 		Util::FileReader fileReader;
@@ -34,6 +35,11 @@ namespace Renderer {
 
 		geometryPipeline->createUniform("model");
 		geometryPipeline->createUniform("view");
+		geometryPipeline->createUniform("proj");
+
+		geometryPipeline->createUniform("ambientLightColor");
+		geometryPipeline->createUniform("ambientLightStrength");
+
 		geometryPipeline->createUniform("proj");
 
 	    projection = glm::perspective(glm::radians(45.0f), (float) width/height, 1.f, 100.0f);
@@ -56,11 +62,19 @@ namespace Renderer {
 			geometryPipeline->setUniformMatrix4f("proj", projection);
 			geometryPipeline->setUniformMatrix4f("model", model);
 
+			geometryPipeline->setUniformVector("ambientLightColor", 1.f, 1.f, 1.f);
+			geometryPipeline->setUniformFloat("ambientLightStrength", this->ambientLightStrength);
+
 			renderable.model->mesh->vertexArrayObject->bind();
 			renderable.model->mesh->indexBuffer->bind();
 			renderDevice->DrawTrianglesIndexed(0, renderable.model->mesh->indicesLength);
 		}
 		geometryPipeline->stop();
+	}
+
+	void ForwardRenderer::setAmbientLightStrength(float strength)
+	{
+		this->ambientLightStrength = strength;
 	}
 
 	ForwardRenderer::~ForwardRenderer()
