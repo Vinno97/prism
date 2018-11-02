@@ -11,6 +11,8 @@ Window::Window()
 
 void Window::init(const char* title, const int width, const int height, const int x, const int y)
 {
+	this->width = width;
+	this->height = height;
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
 		printf("SDL could not initialize! SDL Error: %s\n", SDL_GetError());
