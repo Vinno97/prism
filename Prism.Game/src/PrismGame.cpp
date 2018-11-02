@@ -8,12 +8,11 @@
 PrismGame::PrismGame() {
 	entityManager = std::make_shared<EntityManager>();
 	systemManager = std::make_shared<SystemManager>();
-	entityRegister = std::make_shared<EntityRegister>(entityManager);
 }
 
 void PrismGame::onInit(Context & context)
 {
-	entityRegister->RegisterPlayer();
+	entityRegister.RegisterPlayer(entityManager);
 	registerSystems(context);
 }
 
@@ -24,10 +23,10 @@ void PrismGame::onInit(Context & context)
 void PrismGame::registerSystems(Context &context)
 {
 	MotionSystem motionSystem = MotionSystem(entityManager);
-	//RenderSystem renderSystem = RenderSystem(entityManager, context.window->width, context.window->height);
+	RenderSystem renderSystem = RenderSystem(entityManager, context.window->width, context.window->height);
 	KeyboardInputSystem inputSystem = KeyboardInputSystem(entityManager);
 	systemManager->registerSystem(motionSystem);
-	//systemManager->registerSystem(renderSystem);
+	systemManager->registerSystem(renderSystem);
 	systemManager->registerSystem(inputSystem);
 }
 
@@ -35,11 +34,11 @@ void PrismGame::onUpdate(Context &context)
 {
 	auto inputSystem = systemManager->getSystem<KeyboardInputSystem>();
 	auto motionSystem = systemManager->getSystem<MotionSystem>();
-	//auto renderSystem = systemManager->getSystem<RenderSystem>();
+	auto renderSystem = systemManager->getSystem<RenderSystem>();
 
 	inputSystem->update(context);
 	motionSystem->update(context);
-	//renderSystem->update(context);
+	renderSystem->update(context);
 
 	for (auto &entity : entityManager->getAllEntitiesWithComponent<VelocityComponent>()) {
 		auto velocity = entity.component;

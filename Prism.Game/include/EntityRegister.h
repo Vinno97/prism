@@ -21,9 +21,7 @@
 
 class EntityRegister {
 public: 
-	EntityRegister(std::shared_ptr<ECS::EntityManager> entityManager);
-	void RegisterPlayer();
+	EntityRegister();
+	void RegisterPlayer(std::shared_ptr<EntityManager> entityManager);
 	~EntityRegister();
-private:
-	std::shared_ptr<ECS::EntityManager> entityManager;
 };
