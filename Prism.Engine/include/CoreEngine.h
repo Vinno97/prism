@@ -21,6 +21,7 @@ public:
 	{
 		context.window = new Window();
 		context.stateMachine = new StateMachine();
+		context.inputManager = new InputManager();
 		context.stateMachine->addState(state);
 		context.stateMachine->setState<T>();
 	}

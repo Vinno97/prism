@@ -6,7 +6,7 @@ State::State()
 State::~State()
 = default;
 
-void State::onUpdate(Context newContext)
+void State::onUpdate(Context &newContext)
 {
 }
 
