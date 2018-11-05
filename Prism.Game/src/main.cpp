@@ -20,7 +20,6 @@
 #include <string>
 #include "Context.h"
 #include "StateMachine.h"
-#include "Renderer/TestRenderer.h"
 #include "ECS/Components/KeyboardInputComponent.h"
 #include "ECS/Systems/KeyboardInputSystem.h"
 #include "ECS/Systems/MotionSystem.h"
