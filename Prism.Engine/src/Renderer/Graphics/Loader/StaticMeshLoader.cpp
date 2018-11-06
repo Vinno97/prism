@@ -92,6 +92,30 @@ namespace Renderer {
 
 				vertexArrayObject->addVertexBuffer(move(vertexBuffer), 0, 3 * sizeof(float), 0, 3);
 
+
+				//Load normals
+				vector<float> normals;
+				for (unsigned int a = 0; a < mesh->mNumVertices; a = a + 1) {
+					auto v = mesh->mVertices[a];
+					normals.push_back(v.x);
+					normals.push_back(v.y);
+					normals.push_back(v.z);
+				}
+				// Get the size of the vertices to provide the VertexBuffer with the right data.
+				auto normalsSize = normals.size() * sizeof(float);
+
+				float* normalsArray = normals.data();
+				unique_ptr<VertexBuffer> normalBuffer = renderDevice->createVertexBuffer(normalsSize, normalsArray);
+
+				if (!normalBuffer)
+				{
+					cout << "Renderdevice could not create Vertex Buffer. No Vertex Buffer found." << endl;
+					throw exception("Assimp mesh loading.");
+				}
+
+				vertexArrayObject->addVertexBuffer(move(normalBuffer), 1, 3 * sizeof(float), 0, 3);
+
+
 				/*
 					For each number of primitives (mFace) of the mesh,
 					iterate over each and push the indices into the indices vector.
