@@ -14,15 +14,17 @@
 #include "ECS/Components/DragComponent.h"
 #include "ECS/Components/PositionComponent.h"
 #include "ECS/Components/VelocityComponent.h"
+#include "ECS/Components/AppearanceComponent.h"
 #include "ECS/Components/KeyboardInputComponent.h"
 
-using namespace ECS;
-using namespace ECS::Components;
-using namespace ECS::Systems;
+#include "Renderer/Graphics/Loader/ModelLoader.h"
+
+
 class PrismGame : public Game
 {
 public:
 	PrismGame();
+	void onInit(Context &context) override;
 	void onUpdate(Context &context) override;
 	void onEnter() override;
 	void onLeave() override;
@@ -32,6 +34,6 @@ private:
 	std::shared_ptr<EntityManager> entityManager;
 	std::shared_ptr<SystemManager> systemManager;
 
-	void registerSystems();
+	void registerSystems(Context &context);
 	void createPlayer();
 };

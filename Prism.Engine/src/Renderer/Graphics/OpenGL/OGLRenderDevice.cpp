@@ -32,42 +32,42 @@ namespace Renderer {
 				return &instance;
 			}
 
-			unique_ptr<VertexShader> OGLRenderDevice::createVertexShader(const char * source)
+			unique_ptr<VertexShader> OGLRenderDevice::createVertexShader(const char * source) const
 			{
 				return std::make_unique<OGLVertexShader>(source);
 			}
 
-			unique_ptr<FragmentShader> OGLRenderDevice::createFragmentShader(const char * source)
+			unique_ptr<FragmentShader> OGLRenderDevice::createFragmentShader(const char * source) const
 			{
 				return make_unique<OGLFragmentShader>(source);
 			}
 
-			unique_ptr<Pipeline> OGLRenderDevice::createPipeline(VertexShader& vs, FragmentShader& fs)
+			unique_ptr<Pipeline> OGLRenderDevice::createPipeline(VertexShader& vs, FragmentShader& fs) const
 			{
 				return make_unique<OGLPipeline>(vs, fs);
 			}
 
-			unique_ptr<VertexBuffer> OGLRenderDevice::createVertexBuffer(long size, const void * data)
+			unique_ptr<VertexBuffer> OGLRenderDevice::createVertexBuffer(long size, const void * data) const
 			{
 				return make_unique<OGLVertexBuffer>(size, data);
 			}
 
-			unique_ptr<IndexBuffer> OGLRenderDevice::createIndexBuffer(long size, const void * data)
+			unique_ptr<IndexBuffer> OGLRenderDevice::createIndexBuffer(long size, const void * data) const
 			{
 				return make_unique<OGLIndexBuffer>(size, data);
 			}
 
-			unique_ptr<VertexArrayObject> OGLRenderDevice::createVertexArrayobject()
+			unique_ptr<VertexArrayObject> OGLRenderDevice::createVertexArrayobject() const
 			{
 				return make_unique<OGLVertexArrayObject>();
 			}
 
-			void OGLRenderDevice::setClearColour(float r, float g, float b, float w)
+			void OGLRenderDevice::setClearColour(float r, float g, float b, float w) const
 			{
 				glClearColor(r, g, b, w);
 			}
 
-			void OGLRenderDevice::useDepthTest(bool enable)
+			void OGLRenderDevice::useDepthTest(bool enable) const
 			{
 				if (enable)
 					glEnable(GL_DEPTH_TEST);
@@ -75,12 +75,12 @@ namespace Renderer {
 					glDisable(GL_DEPTH_TEST);
 			}
 
-			void OGLRenderDevice::clearScreen()
+			void OGLRenderDevice::clearScreen() const
 			{
 				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			}
 
-			void OGLRenderDevice::DrawTrianglesIndexed(long offset, int count)
+			void OGLRenderDevice::DrawTrianglesIndexed(long offset, int count) const
 			{
 				glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, reinterpret_cast<const void *>(offset));
 			}

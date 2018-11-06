@@ -9,7 +9,7 @@ namespace Util {
 	{
 	}
 
-	string FileReader::readResourceFileIntoString(string path)
+	string FileReader::readResourceFileIntoString(string path) const
 	{
 		char buf[256];
         GetCurrentDirectoryA(256, buf);

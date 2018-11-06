@@ -12,7 +12,7 @@ public:
 	/// Check if a certain key is pressed.
 	/// </summary>
 	/// <param name="key">A key value of the Key enum type.</param>
-	bool isKeyPressed(Key key);
+	bool isKeyPressed(Key key) const;
 
 	~InputManager();
 private:

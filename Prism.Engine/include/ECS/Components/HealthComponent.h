@@ -5,7 +5,7 @@
 namespace ECS {
 	namespace Components {
 		struct HealthComponent : Component {
-			int health;
+			int health = 100;
 		};
 	}
 }

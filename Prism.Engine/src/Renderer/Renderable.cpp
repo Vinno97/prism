@@ -12,7 +12,7 @@ Renderable::Renderable()
 	scale = tuple<float, float, float>(1.f, 1.f, 1.f);
 }
 
-glm::mat4 Renderable::getMatrix()
+glm::mat4 Renderable::getMatrix() const
 {
 		glm::mat4 model = glm::mat4(1.0f);
 		model = glm::translate(model, glm::vec3(get<0>(position), get<1>(position), get<2>(position)));
