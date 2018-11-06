@@ -63,6 +63,7 @@
     <ClInclude Include="include\Renderer\Graphics\VertexArrayObject.h" />
     <ClInclude Include="include\Renderer\Graphics\Loader\StaticMeshLoader.h" />
     <ClInclude Include="include\Renderer\Renderable.h" />
+    <ClInclude Include="include\ECS\Components\SceneComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Renderer\Camera.cpp" />
