@@ -1,15 +1,19 @@
-#include "ECS/Systems/System.h"
-#include "ECS/EntityManager.h"
-#include "Context.h"
+#pragma once
 
+#include <cstdio>
+#include <iostream>  
+
+
+#include "Context.h"
+#include "ECS/Systems/System.h"
 
 namespace ECS {
 	namespace Systems {
-		System::System(EntityManager* entityManager) {
+		System::System(std::shared_ptr<EntityManager> entityManager) {
 			this->entityManager = entityManager;
 		}
 
 		System::~System()
-			= default;
+		= default;
 	}
 }

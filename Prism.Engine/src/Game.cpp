@@ -9,7 +9,7 @@ Game::~Game()
 = default;
 
 
-void Game::onUpdate(Context context)
+void Game::onUpdate(Context &context)
 {
 	
 }
