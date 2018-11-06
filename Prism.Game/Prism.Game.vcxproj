@@ -127,12 +127,16 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\ECS\Components\PlayerComponent.h" />
+    <ClInclude Include="include\ECS\Components\ResourceSpawnComponent.h" />
     <ClInclude Include="include\EntityRegister.h" />
     <ClInclude Include="include\PrismGame.h" />
     <ClInclude Include="include\ECS\Components\KeyboardInputComponent.h" />
     <ClInclude Include="include\ECS\Systems\KeyboardInputSystem.h" />
+    <ClInclude Include="include\ECS\Systems\RestockResourceSystem.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\ECS\Systems\RestockResourceSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\KeyboardInputSystem.cpp" />
     <ClCompile Include="src\EntityRegister.cpp" />
     <ClCompile Include="src\main.cpp" />

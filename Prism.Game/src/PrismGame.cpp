@@ -1,6 +1,15 @@
 #include "PrismGame.h"
 
+#include "ECS/Components/PositionComponent.h"
+#include "ECS/Components/VelocityComponent.h"
+#include "ECS/Systems/MotionSystem.h"
+#include "ECS/Systems/RenderSystem.h"
+#include "ECS/Systems/KeyboardInputSystem.h"
+#include "ECS/Systems/RestockResourceSystem.h"
 
+using namespace ECS;
+using namespace ECS::Systems;
+using namespace ECS::Components;
 
 /// <summar>
 /// creates new PrismGame object
@@ -12,7 +21,24 @@ PrismGame::PrismGame() {
 
 void PrismGame::onInit(Context & context)
 {
-	entityRegister.RegisterPlayer(entityManager);
+	auto player = entityRegister.createPlayer(*entityManager);
+	auto resourcePoint = entityRegister.createResourcePoint(*entityManager);
+	auto enemy = entityRegister.createEnemy(*entityManager);
+
+	for (int i = -4; i < 4; i++) {
+		auto entity = i % 2 == 0 ? entityRegister.createTower(*entityManager) : entityRegister.createWall(*entityManager);
+		auto position = entityManager->getComponent<PositionComponent>(entity);
+		position->y = -1;
+		position->x = i;
+	}
+
+	auto positions = entityManager->getAllEntitiesWithComponent<PositionComponent>();
+
+
+	entityManager->getComponent<PositionComponent>(player)->y = 1;
+	entityManager->getComponent<PositionComponent>(resourcePoint)->x = 1;
+	entityManager->getComponent<PositionComponent>(enemy)->x = -1;
+
 	registerSystems(context);
 }
 
@@ -25,9 +51,11 @@ void PrismGame::registerSystems(Context &context)
 	MotionSystem motionSystem = MotionSystem(entityManager);
 	RenderSystem renderSystem = RenderSystem(entityManager, context.window->width, context.window->height);
 	KeyboardInputSystem inputSystem = KeyboardInputSystem(entityManager);
+	RestockResourceSystem restockSystem = RestockResourceSystem(entityManager);
 	systemManager->registerSystem(motionSystem);
 	systemManager->registerSystem(renderSystem);
 	systemManager->registerSystem(inputSystem);
+	systemManager->registerSystem(restockSystem);
 }
 
 void PrismGame::onUpdate(Context &context)

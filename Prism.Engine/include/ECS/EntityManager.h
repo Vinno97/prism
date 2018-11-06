@@ -142,7 +142,7 @@ namespace ECS {
 		int buildEntity(F &&f, Fs &&... fs) {
 			int entity = buildEntity(std::forward<Fs>(fs)...);
 			addComponentToEntity(entity, f);
-			return 0;
+			return entity;
 		}
 	};
 }
