@@ -39,6 +39,8 @@ namespace Renderer {
 		geometryPipeline->createUniform("ambientLightColor");
 		geometryPipeline->createUniform("ambientLightStrength");
 
+		geometryPipeline->createUniform("sunPosition");
+		geometryPipeline->createUniform("sunColor");
 		geometryPipeline->createUniform("proj");
 
 	    projection = glm::perspective(glm::radians(45.0f), (float) width/height, 1.f, 100.0f);
@@ -63,6 +65,9 @@ namespace Renderer {
 
 			geometryPipeline->setUniformVector("ambientLightColor", scene.ambientLightColor.x, scene.ambientLightColor.y, scene.ambientLightColor.z);
 			geometryPipeline->setUniformFloat("ambientLightStrength", scene.ambientLightStrength);
+
+			geometryPipeline->setUniformVector("sunPosition", scene.testLight.direction.x, scene.testLight.direction.y, scene.testLight.direction.z);
+			geometryPipeline->setUniformVector("sunColor", scene.testLight.color.x, scene.testLight.color.y, scene.testLight.color.z);
 
 			renderable.model->mesh->vertexArrayObject->bind();
 			renderable.model->mesh->indexBuffer->bind();

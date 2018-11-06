@@ -20,24 +20,25 @@ void PrismGame::createPlayer() {
 	// TODO: Deze functie moet later verplaatst worden naar een Factory of iets dergelijks.
 
 	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
-	std::shared_ptr<Model> model = ml.loadModel("./res/bunny.obj");
+	std::shared_ptr<Model> model = ml.loadModel("./res/cube.obj");
 
 	VelocityComponent velocity;
 	SceneComponent sceneComponent;
 	sceneComponent.scene.ambientLightColor = Math::Vector3f{ 1.0f, 1.0f, 1.0f };
-	sceneComponent.scene.ambientLightStrength = 5.f;
+	sceneComponent.scene.ambientLightStrength = 0.2f;
 	sceneComponent.scene.testLight.color = Math::Vector3f{ 1.0f, 1.0f, 1.0f };
-	sceneComponent.scene.testLight.direction = Math::Vector3f{ .5f, 0.5f, .0f };
+	sceneComponent.scene.testLight.direction = Math::Vector3f{ -10.f, 10.0f, 10.0f };
 
 	PositionComponent position;
 	DragComponent drag;
 	drag.force = 5.f;
 	KeyboardInputComponent input;
 	AppearanceComponent appearance;
-	appearance.translationZ = 1;
-	appearance.scaleX = 3;
-	appearance.scaleY = 3;
-	appearance.scaleZ = 3;
+	appearance.translationZ = 3;
+	appearance.translationY = -3;
+	appearance.scaleX = 1;
+	appearance.scaleY = 1;
+	appearance.scaleZ = 1;
 	appearance.model = model;
 	entityManager->createEntity(velocity, position, drag, input, appearance);
 	entityManager->createEntity(sceneComponent);

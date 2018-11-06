@@ -96,7 +96,7 @@ namespace Renderer {
 				//Load normals
 				vector<float> normals;
 				for (unsigned int a = 0; a < mesh->mNumVertices; a = a + 1) {
-					auto v = mesh->mVertices[a];
+					auto v = mesh->mNormals[a];
 					normals.push_back(v.x);
 					normals.push_back(v.y);
 					normals.push_back(v.z);
