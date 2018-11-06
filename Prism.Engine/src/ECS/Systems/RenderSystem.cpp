@@ -53,7 +53,7 @@ namespace ECS {
 				rendererData.push_back(renderable);
 			}
 
-			forwardRenderer->draw(&camera, rendererData, sceneEntity->scene);
+			forwardRenderer->draw(camera, rendererData, sceneEntity->scene);
 		}
 	}
 }

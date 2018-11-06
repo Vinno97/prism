@@ -49,14 +49,14 @@ namespace Renderer {
 		renderDevice->setClearColour(0.7f, 0.7f, 0.7f, 1.f);
 	}
 
-	void ForwardRenderer::draw(Camera* camera, vector<Renderable> renderables, Scene& scene)
+	void ForwardRenderer::draw(Camera& camera, vector<Renderable> &renderables, Scene& scene)
 	{
 		mat4 model;
-		mat4 view = camera->getCameraMatrix();
+		mat4 view = camera.getCameraMatrix();
 		renderDevice->clearScreen();
 		geometryPipeline->run();
 
-		for (auto renderable : renderables) {
+		for (auto& renderable : renderables) {
 
 			model = renderable.getMatrix();
 			geometryPipeline->setUniformMatrix4f("view", view);
@@ -66,8 +66,8 @@ namespace Renderer {
 			geometryPipeline->setUniformVector("ambientLightColor", scene.ambientLightColor.x, scene.ambientLightColor.y, scene.ambientLightColor.z);
 			geometryPipeline->setUniformFloat("ambientLightStrength", scene.ambientLightStrength);
 
-			geometryPipeline->setUniformVector("sunPosition", scene.testLight.direction.x, scene.testLight.direction.y, scene.testLight.direction.z);
-			geometryPipeline->setUniformVector("sunColor", scene.testLight.color.x, scene.testLight.color.y, scene.testLight.color.z);
+			geometryPipeline->setUniformVector("sunPosition", scene.sun.direction.x, scene.sun.direction.y, scene.sun.direction.z);
+			geometryPipeline->setUniformVector("sunColor", scene.sun.color.x, scene.sun.color.y, scene.sun.color.z);
 
 			renderable.model->mesh->vertexArrayObject->bind();
 			renderable.model->mesh->indexBuffer->bind();
