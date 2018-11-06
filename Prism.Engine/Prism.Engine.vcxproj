@@ -29,6 +29,7 @@
     <ClInclude Include="include\Renderer\Graphics\Models\Model.h" />
     <ClInclude Include="include\Renderer\Graphics\Models\Texture.h" />
     <ClInclude Include="include\ECS\Components\Component.h" />
+    <ClInclude Include="include\ECS\Components\DragComponent.h" />
     <ClInclude Include="include\ECS\Components\PositionComponent.h" />
     <ClInclude Include="include\ECS\Components\VelocityComponent.h" />
     <ClInclude Include="include\ECS\EntityManager.h" />
@@ -36,6 +37,8 @@
     <ClInclude Include="include\CoreEngine.h" />
     <ClInclude Include="include\ECS\Entity.h" />
     <ClInclude Include="include\ECS\Systems\RenderSystem.h" />
+    <ClInclude Include="include\ECS\Systems\MotionSystem.h" />
+    <ClInclude Include="include\ECS\Systems\System.h" />
     <ClInclude Include="include\Game.h" />
     <ClInclude Include="include\InputManager.h" />
     <ClInclude Include="include\Renderer\Graphics\FragmentShader.h" />
@@ -52,7 +55,6 @@
     <ClInclude Include="include\StateMachine.h" />
     <ClInclude Include="include\Window.h" />
     <ClInclude Include="include\MenuState.h" />
-    <ClInclude Include="include\ECS\Systems\System.h" />
     <ClInclude Include="include\ECS\SystemManager.h" />
     <ClInclude Include="include\Renderer\Graphics\RenderDevice.h" />
     <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLFragmentShader.h" />
@@ -81,6 +83,7 @@
     <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLVertexArrayObject.cpp" />
     <ClCompile Include="src\Context.cpp" />
     <ClCompile Include="src\CoreEngine.cpp" />
+    <ClCompile Include="src\ECS\Systems\MotionSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\RenderSystem.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\InputManager.cpp" />

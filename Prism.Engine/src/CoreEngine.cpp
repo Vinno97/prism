@@ -13,6 +13,7 @@ using namespace Renderer::Graphics::Loader;
 using namespace Renderer::Graphics::Models;
 using namespace Renderer;
 
+
 const void CoreEngine::CreateWindow(const char* title, const int width, const int height, const int x, const int y) {
 	context.window->init(title, width, height, x, y);
 	context.window->createOpenGLContext(3, 2, true);
@@ -70,9 +71,12 @@ void CoreEngine::Run()
 		//c.rotate(0.0f, 3.14f, 0.f);
 		//Sets the right values in context
 		context.deltaTime = deltaTime.count();
+
+		//Swap the screen buffer
 		context.stateMachine->getCurrentState()->onUpdate(context);
 		fw->draw(&c, renderables);
 		context.window->swapScreen();
+
 	}
 }
 
@@ -80,6 +84,7 @@ void CoreEngine::CleanUp() {
 	//Free memory
 	delete context.stateMachine;
 	delete context.window;
+	delete context.inputManager;
 }
 
 CoreEngine::~CoreEngine()

@@ -1,13 +1,10 @@
 #pragma once
-
 #include <cstdio>
 #include <vector>
 #include <map>
 #include <typeindex>
-
 #include "Components/Component.h"
 #include "Components/PositionComponent.h"
-
 #include "Entity.h"
 
 namespace ECS {
@@ -31,7 +28,7 @@ namespace ECS {
 		template<class A>
 		int createEntity(A& c1) {
 			addComponentToEntity(lastEntityId, c1);
-			return lastEntityId;
+			return lastEntityId++;
 		}
 
 		/// <summary>
@@ -208,7 +205,7 @@ namespace ECS {
 
 		}
 
-		// <summary>
+		/// <summary>
 		/// Returns whether or not an entity has a component.
 		/// </summary>
 		/// <param name="entityId">The ID of the entity to get the component from.</param>

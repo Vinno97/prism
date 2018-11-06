@@ -1,5 +1,6 @@
 #pragma once
 #include <Window.h>
+#include "InputManager.h"
 
 class StateMachine;
 
@@ -17,5 +18,6 @@ public:
 
 	Window *window;
 	StateMachine *stateMachine;
+	InputManager *inputManager;
 };
 
