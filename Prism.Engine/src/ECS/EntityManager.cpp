@@ -36,7 +36,7 @@ namespace ECS {
 	{
 		if (this != &other) {
 			this->entityComponents = other.entityComponents;
-			//other.entityComponents.clear();
+			other.entityComponents.clear();
 		}
 		return *this;
 	}

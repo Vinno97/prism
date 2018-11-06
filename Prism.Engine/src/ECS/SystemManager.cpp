@@ -17,6 +17,40 @@ namespace ECS {
 		}
 	}
 
+	SystemManager::SystemManager(const SystemManager & other)
+	{
+		for (const auto type : other.systems) {
+			this->systems[type.first] = type.second;
+			type.first;
+		};
+
+		
+		//this->systems.insert(other.systems.begin(), other.systems.end());
+	}
+
+	SystemManager & SystemManager::operator=(const SystemManager & other)
+	{
+		if (this != &other) {
+			this->systems.insert(other.systems.begin(), other.systems.end());
+		}
+		return *this;
+	}
+
+	SystemManager::SystemManager(SystemManager && other)
+	{
+		this->systems = other.systems;
+		other.systems.clear();
+	}
+
+	SystemManager & SystemManager::operator=(SystemManager && other)
+	{
+		if (this != &other) {
+			this->systems = other.systems;
+			other.systems.clear();
+		}
+		return *this;
+	}
+
 	void SystemManager::unRegisterSystem(std::type_index systemType)
 	{
 		try
