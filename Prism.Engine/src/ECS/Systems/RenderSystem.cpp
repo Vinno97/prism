@@ -12,7 +12,7 @@ using namespace Renderer;
 namespace ECS {
 	namespace Systems {
 
-		RenderSystem::RenderSystem(std::shared_ptr<EntityManager> entityManager, int windowWidth, int windowHeight)
+		RenderSystem::RenderSystem(EntityManager &entityManager, int windowWidth, int windowHeight)
 			: System(entityManager) {
 			forwardRenderer = std::make_shared<ForwardRenderer>(windowWidth, windowHeight);
 			camera.move(0, 2.f, 3.f);
@@ -28,12 +28,12 @@ namespace ECS {
 			//camera.rotate(-.01f, 0.f, 0.f);
 
 
-			auto appearanceEntities = this->entityManager->getAllEntitiesWithComponent<AppearanceComponent>();
+			auto appearanceEntities = this->entityManager.getAllEntitiesWithComponent<AppearanceComponent>();
 			vector<Renderable> rendererData;
 
 			for (unsigned int i = 0; i < appearanceEntities.size(); i++)
 			{
-				auto position = this->entityManager->getComponent<PositionComponent>(appearanceEntities[i].id);
+				auto position = this->entityManager.getComponent<PositionComponent>(appearanceEntities[i].id);
 				auto appearance = appearanceEntities[i].component;
 
 				Renderable renderable;

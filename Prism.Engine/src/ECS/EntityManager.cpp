@@ -14,13 +14,42 @@ namespace ECS {
 	EntityManager::EntityManager()
 		= default;
 
+	EntityManager::EntityManager(const EntityManager &other) {
+		this->entityComponents.insert(other.entityComponents.begin(), other.entityComponents.end());
+	}
+
+	EntityManager & EntityManager::operator=(const EntityManager & other)
+	{
+		if (this != &other) {
+			this->entityComponents.insert(other.entityComponents.begin(), other.entityComponents.end());
+		}
+		return *this;
+	}
+
+	EntityManager::EntityManager(EntityManager && other)
+	{
+		this->entityComponents = other.entityComponents;
+		other.entityComponents.clear();
+	}
+
+	EntityManager & EntityManager::operator=(EntityManager && other)
+	{
+		if (this != &other) {
+			this->entityComponents = other.entityComponents;
+			//other.entityComponents.clear();
+		}
+		return *this;
+	}
 
 	EntityManager::~EntityManager() {
+		entityComponents.clear();
+		/*
 		for (const auto typePair : entityComponents) {
 			for (const auto componentPair : typePair.second) {
 				delete componentPair.second;
 			}
 		}
+		*/
 	}
 
 	Component* EntityManager::getComponent(unsigned int entityId, std::type_index componentType) const

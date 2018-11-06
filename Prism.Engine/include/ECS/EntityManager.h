@@ -18,6 +18,13 @@ namespace ECS {
 	{
 	public:
 		EntityManager();
+		EntityManager(const EntityManager &other);
+		EntityManager& operator=(const EntityManager& other);
+		EntityManager(EntityManager&& other);
+		EntityManager& operator=(EntityManager&& other);
+		
+		
+		
 		~EntityManager();
 
 		/// <summary>

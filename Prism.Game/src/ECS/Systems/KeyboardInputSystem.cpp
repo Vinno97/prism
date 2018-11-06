@@ -10,7 +10,7 @@
 
 namespace ECS {
 	namespace Systems {
-		KeyboardInputSystem::KeyboardInputSystem(std::shared_ptr<EntityManager> entityManager) : System(entityManager) {
+		KeyboardInputSystem::KeyboardInputSystem(EntityManager &entityManager) : System(entityManager) {
 		}
 
 		KeyboardInputSystem::~KeyboardInputSystem()
@@ -22,8 +22,8 @@ namespace ECS {
 
 			auto input = context.inputManager;
 
-			for (auto entity : entityManager->getAllEntitiesWithComponent<KeyboardInputComponent>()) {
-				auto velocity = entityManager->getComponent<VelocityComponent>(entity.id);
+			for (auto entity : entityManager.getAllEntitiesWithComponent<KeyboardInputComponent>()) {
+				auto velocity = entityManager.getComponent<VelocityComponent>(entity.id);
 
 				if (input->isKeyPressed(Key::KEY_W))
 				{
@@ -42,8 +42,8 @@ namespace ECS {
 					velocity->dx += acceleration * context.deltaTime;
 				}
 
-				if (entityManager->hasComponent<AppearanceComponent>(entity.id)) {
-					auto appearance = entityManager->getComponent<AppearanceComponent>(entity.id);
+				if (entityManager.hasComponent<AppearanceComponent>(entity.id)) {
+					auto appearance = entityManager.getComponent<AppearanceComponent>(entity.id);
 					if (input->isKeyPressed(Key::KEY_Q))
 					{
 						appearance->rotationY -= context.deltaTime * 50;
