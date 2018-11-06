@@ -4,6 +4,7 @@
 #include <iostream>
 #include "CoreEngine.h"
 #include "PrismGame.h"
+#include "Physics/BoundingBox.h"
 
 #define _CRTDBG_MAP_ALLOC
 
