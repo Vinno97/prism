@@ -3,7 +3,7 @@
 
 namespace ECS {
 	namespace Systems {
-		RenderSystem::RenderSystem(EntityManager * entityManager)
+		RenderSystem::RenderSystem(std::shared_ptr<EntityManager> entityManager)
 			: System(entityManager) {}
 
 		ECS::Systems::RenderSystem::~RenderSystem()

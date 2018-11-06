@@ -4,9 +4,8 @@
 
 namespace ECS {
 	namespace Components {
-		struct PositionComponent : Component {
-			float x = 0;
-			float y = 0;
+		struct DragComponent : Component {
+			float force = 0;
 		};
 	}
 }

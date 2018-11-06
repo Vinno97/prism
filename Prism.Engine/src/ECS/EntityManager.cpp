@@ -1,5 +1,5 @@
 #include "ECS/EntityManager.h"
-
+#include <iostream>
 #include <vector>
 #include <unordered_map>
 #include <typeindex>
