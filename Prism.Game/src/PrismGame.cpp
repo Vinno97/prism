@@ -1,6 +1,7 @@
 #include "PrismGame.h"
 
-
+#include "Math/Vector3f.h"
+#include "ECS/Components/SceneComponent.h"
 
 /// <summar>
 /// creates new PrismGame object
@@ -16,32 +17,56 @@ PrismGame::PrismGame() {
 /// create player entity
 /// </summary>
 void PrismGame::createPlayer() {
+	// TODO: Deze functie moet later verplaatst worden naar een Factory of iets dergelijks.
+
+	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
+	std::shared_ptr<Model> model = ml.loadModel("./res/bunny.obj");
+
 	VelocityComponent velocity;
+	SceneComponent sceneComponent;
+	sceneComponent.scene.ambientLightColor = Math::Vector3f{ 1.0f, 1.0f, 1.0f };
+	sceneComponent.scene.ambientLightStrength = 5.f;
+	sceneComponent.scene.testLight.color = Math::Vector3f{ 1.0f, 1.0f, 1.0f };
+	sceneComponent.scene.testLight.direction = Math::Vector3f{ .5f, 0.5f, .0f };
+
 	PositionComponent position;
 	DragComponent drag;
+	drag.force = 5.f;
 	KeyboardInputComponent input;
-	drag.force = 0.1;
-	entityManager->createEntity(velocity, position, drag, input);
+	AppearanceComponent appearance;
+	appearance.translationZ = 1;
+	appearance.scaleX = 3;
+	appearance.scaleY = 3;
+	appearance.scaleZ = 3;
+	appearance.model = model;
+	entityManager->createEntity(velocity, position, drag, input, appearance);
+	entityManager->createEntity(sceneComponent);
 }
 
 /// <summar>
 /// register systems in system manager
 /// </summary>
-void PrismGame::registerSystems() 
+void PrismGame::registerSystems()
 {
 	MotionSystem motionSystem = MotionSystem(entityManager);
-	KeyboardInputSystem input = KeyboardInputSystem(entityManager);
+	// TODO: Maak een initialisatiefunctie waarbij deze waardes uit de context gehaald kunnen worden.
+	RenderSystem renderSystem = RenderSystem(entityManager, 1920, 1080);
+	KeyboardInputSystem inputSystem = KeyboardInputSystem(entityManager);
 	systemManager->registerSystem(motionSystem);
-	systemManager->registerSystem(input);
+	systemManager->registerSystem(renderSystem);
+	systemManager->registerSystem(inputSystem);
 }
 
-void PrismGame::onUpdate(Context &context) 
+void PrismGame::onUpdate(Context &context)
 {
-	auto input = systemManager->getSystem<KeyboardInputSystem>();
-	auto motion = systemManager->getSystem<MotionSystem>();
+	auto inputSystem = systemManager->getSystem<KeyboardInputSystem>();
+	auto motionSystem = systemManager->getSystem<MotionSystem>();
+	auto renderSystem = systemManager->getSystem<RenderSystem>();
 
-	input->update(context);
-	motion->update(context);
+	inputSystem->update(context);
+	motionSystem->update(context);
+	renderSystem->update(context);
+
 	for (auto &entity : entityManager->getAllEntitiesWithComponent<VelocityComponent>()) {
 		auto velocity = entity.component;
 		auto position = entityManager->getComponent<PositionComponent>(entity.id);

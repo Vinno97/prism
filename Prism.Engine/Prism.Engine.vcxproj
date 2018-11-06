@@ -19,20 +19,23 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\Renderer\DirectionalLight.h" />
     <ClInclude Include="include\Renderer\Camera.h" />
+    <ClInclude Include="include\Renderer\Scene.h" />
     <ClInclude Include="include\Util\FileReader.h" />
     <ClInclude Include="include\Renderer\ForwardRenderer.h" />
+    <ClInclude Include="include\ECS\Components\AppearanceComponent.h" />
+    <ClInclude Include="include\ECS\Components\Component.h" />
+    <ClInclude Include="include\ECS\Components\DragComponent.h" />
+    <ClInclude Include="include\ECS\Components\PositionComponent.h" />
+    <ClInclude Include="include\ECS\Components\VelocityComponent.h" />
+    <ClInclude Include="include\ECS\EntityManager.h" />
     <ClInclude Include="include\Renderer\Graphics\Loader\ModelLoader.h" />
     <ClInclude Include="include\Renderer\Graphics\Loader\TextureLoader.h" />
     <ClInclude Include="include\Renderer\Graphics\Models\Material.h" />
     <ClInclude Include="include\Renderer\Graphics\Models\Mesh.h" />
     <ClInclude Include="include\Renderer\Graphics\Models\Model.h" />
     <ClInclude Include="include\Renderer\Graphics\Models\Texture.h" />
-    <ClInclude Include="include\ECS\Components\Component.h" />
-    <ClInclude Include="include\ECS\Components\DragComponent.h" />
-    <ClInclude Include="include\ECS\Components\PositionComponent.h" />
-    <ClInclude Include="include\ECS\Components\VelocityComponent.h" />
-    <ClInclude Include="include\ECS\EntityManager.h" />
     <ClInclude Include="include\Context.h" />
     <ClInclude Include="include\CoreEngine.h" />
     <ClInclude Include="include\ECS\Entity.h" />
@@ -64,20 +67,21 @@
     <ClInclude Include="include\Renderer\Graphics\Loader\StaticMeshLoader.h" />
     <ClInclude Include="include\Renderer\Renderable.h" />
     <ClInclude Include="include\ECS\Components\SceneComponent.h" />
+    <ClInclude Include="include\Math\Vector3f.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Renderer\Camera.cpp" />
     <ClCompile Include="src\Renderer\Renderable.cpp" />
     <ClCompile Include="src\Util\FileReader.cpp" />
     <ClCompile Include="src\Renderer\ForwardRenderer.cpp" />
+    <ClCompile Include="src\MenuState.cpp" />
+    <ClCompile Include="src\ECS\EntityManager.cpp" />
     <ClCompile Include="src\Renderer\Graphics\Loader\ModelLoader.cpp" />
     <ClCompile Include="src\Renderer\Graphics\Loader\TextureLoader.cpp" />
     <ClCompile Include="src\Renderer\Graphics\Models\Material.cpp" />
     <ClCompile Include="src\Renderer\Graphics\Models\Mesh.cpp" />
     <ClCompile Include="src\Renderer\Graphics\Models\Model.cpp" />
     <ClCompile Include="src\Renderer\Graphics\Models\Texture.cpp" />
-    <ClCompile Include="src\MenuState.cpp" />
-    <ClCompile Include="src\ECS\EntityManager.cpp" />
     <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLIndexBuffer.cpp" />
     <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLPipeline.cpp" />
     <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLFragmentShader.cpp" />
@@ -97,6 +101,7 @@
     <ClCompile Include="src\Renderer\Graphics\Loader\StaticMeshLoader.cpp" />
     <ClCompile Include="src\ECS\SystemManager.cpp" />
     <ClCompile Include="src\ECS\Systems\System.cpp" />
+    <ClCompile Include="src\Math\Vector3f.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\glew32.lib" />

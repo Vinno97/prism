@@ -7,6 +7,8 @@ InputManager::InputManager() {
 	keyMap[Key::KEY_A] = SDL_SCANCODE_A;
 	keyMap[Key::KEY_S] = SDL_SCANCODE_S;
 	keyMap[Key::KEY_D] = SDL_SCANCODE_D;
+	keyMap[Key::KEY_Q] = SDL_SCANCODE_Q;
+	keyMap[Key::KEY_E] = SDL_SCANCODE_E;
 }
 
 bool InputManager::isKeyPressed(Key key)
@@ -20,4 +22,4 @@ bool InputManager::isKeyPressed(Key key)
 }
 
 InputManager::~InputManager()
-	= default;
+= default;

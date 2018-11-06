@@ -16,9 +16,8 @@
 #include "Renderer/Graphics/VertexBuffer.h"
 #include "Renderer/Graphics/Loader/ModelLoader.h"
 #include "Renderer/Graphics/Models/Model.h"
-
-using namespace Renderer::Graphics;
-using namespace std;
+#include "Renderer/DirectionalLight.h"
+#include "Renderer/Scene.h"
 
 namespace Renderer {
 	class ForwardRenderer
@@ -29,18 +28,10 @@ namespace Renderer {
 		/// <summary>
 		/// Draws the list of renderables from the viewpoint of a given camera
 		/// </summary>
-		void draw(Camera* camera, vector<Renderable> renderables);
-
-		/// <summary>
-		/// Sets the intensity of the ambient light
-		/// </summary>
-		void setAmbientLightStrength(float strength);
-
+		void draw(Camera* camera, vector<Renderable> renderables, Renderer::Scene& scene);
 		~ForwardRenderer();
 	private: 
 		glm::mat4 projection = glm::mat4(1.0f);
-		float ambientLightStrength;
-
 		unique_ptr<Pipeline> geometryPipeline;
 		RenderDevice* renderDevice;
 	};

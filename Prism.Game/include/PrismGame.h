@@ -14,11 +14,12 @@
 #include "ECS/Components/DragComponent.h"
 #include "ECS/Components/PositionComponent.h"
 #include "ECS/Components/VelocityComponent.h"
+#include "ECS/Components/AppearanceComponent.h"
 #include "ECS/Components/KeyboardInputComponent.h"
 
-using namespace ECS;
-using namespace ECS::Components;
-using namespace ECS::Systems;
+#include "Renderer/Graphics/Loader/ModelLoader.h"
+
+
 class PrismGame : public Game
 {
 public:

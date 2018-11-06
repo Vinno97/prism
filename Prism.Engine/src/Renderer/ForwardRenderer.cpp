@@ -15,14 +15,13 @@
 #include "Util/FileReader.h"
 
 using namespace std;
+using namespace Renderer;
 using namespace Renderer::Graphics;
 using namespace Renderer::Graphics::OpenGL;
 
 namespace Renderer {
-
 	ForwardRenderer::ForwardRenderer(int width, int height)
 	{
-		this->ambientLightStrength = 5.f;
 		renderDevice = OGLRenderDevice::getRenderDevice();
 
 		Util::FileReader fileReader;
@@ -48,7 +47,7 @@ namespace Renderer {
 		renderDevice->setClearColour(0.7f, 0.7f, 0.7f, 1.f);
 	}
 
-	void ForwardRenderer::draw(Camera* camera, vector<Renderable> renderables)
+	void ForwardRenderer::draw(Camera* camera, vector<Renderable> renderables, Scene& scene)
 	{
 		mat4 model;
 		mat4 view = camera->getCameraMatrix();
@@ -62,19 +61,14 @@ namespace Renderer {
 			geometryPipeline->setUniformMatrix4f("proj", projection);
 			geometryPipeline->setUniformMatrix4f("model", model);
 
-			geometryPipeline->setUniformVector("ambientLightColor", 1.f, 1.f, 1.f);
-			geometryPipeline->setUniformFloat("ambientLightStrength", this->ambientLightStrength);
+			geometryPipeline->setUniformVector("ambientLightColor", scene.ambientLightColor.x, scene.ambientLightColor.y, scene.ambientLightColor.z);
+			geometryPipeline->setUniformFloat("ambientLightStrength", scene.ambientLightStrength);
 
 			renderable.model->mesh->vertexArrayObject->bind();
 			renderable.model->mesh->indexBuffer->bind();
 			renderDevice->DrawTrianglesIndexed(0, renderable.model->mesh->indicesLength);
 		}
 		geometryPipeline->stop();
-	}
-
-	void ForwardRenderer::setAmbientLightStrength(float strength)
-	{
-		this->ambientLightStrength = strength;
 	}
 
 	ForwardRenderer::~ForwardRenderer()
