@@ -9,14 +9,14 @@ Math::Vector3f::Vector3f(float x, float y, float z) : x{ x }, y{ y }, z{ z } {
 
 }
 
-Math::Vector3f Math::Vector3f::add(Math::Vector3f vector) {
+Math::Vector3f Math::Vector3f::add(const Math::Vector3f& vector) {
     x += vector.x;
     y += vector.y;
     z += vector.z;
     return *this;
 }
 
-Math::Vector3f Math::Vector3f::substract(Math::Vector3f vector) {
+Math::Vector3f Math::Vector3f::substract(const Math::Vector3f& vector) {
     x += vector.x;
     y += vector.y;
     z += vector.z;
