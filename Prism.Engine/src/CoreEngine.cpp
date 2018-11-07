@@ -12,6 +12,7 @@
 #include "Renderer/Graphics/Models/Model.h"
 #include "ECS/Systems/RenderSystem.h"
 #include "ECS/SystemManager.h"
+#include "MenuBuilder.h"
 
 using namespace std;
 using namespace Renderer::Graphics::Loader;
@@ -24,6 +25,9 @@ const void CoreEngine::InitWindow(const char* title, const int width, const int 
 //Runns the gameloop
 void CoreEngine::Run()
 {
+	//TODO: Uit coreEngine verwijderen?
+	MenuBuilder menuBuilder;
+
 	//Holds the time in which the gameupdate was last called 
 	auto lastTime = std::chrono::system_clock::now();
 	int count = 0;
@@ -41,7 +45,13 @@ void CoreEngine::Run()
 		//Sets the right values in context
 		context.deltaTime = deltaTime.count() / 1000000.f;
 		context.stateMachine->getCurrentState()->onUpdate(context);
+		
+		//TODO: Verplaatsen? In ieder geval aanpassen.
+		menuBuilder.DrawInGameOverlay(context.window->width, context.window->height);
+		// ---
+
 		context.window->swapScreen();
+
 	}
 }
 

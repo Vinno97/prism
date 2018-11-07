@@ -33,6 +33,8 @@
     <ClCompile Include="src\ECS\SystemManager.cpp" />
     <ClCompile Include="src\ECS\Systems\System.cpp" />
     <ClCompile Include="src\Math\Vector3f.cpp" />
+    <ClCompile Include="src\MenuBuilder.cpp" />
+    <ClCompile Include="src\Util\lodepng.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Renderer\Camera.h" />
@@ -84,6 +86,8 @@
     <ClInclude Include="include\Math\Vector3f.h" />
     <ClInclude Include="include\Renderer\DirectionalLight.h" />
     <ClInclude Include="include\Renderer\Scene.h" />
+    <ClInclude Include="include\MenuBuilder.h" />
+    <ClInclude Include="include\Util\lodepng.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\glew32.lib" />
@@ -92,5 +96,8 @@
     <Library Include="lib\SDL2.lib" />
     <Library Include="lib\SDL2main.lib" />
     <Library Include="lib\SDL2test.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="png\healthbar.png" />
   </ItemGroup>
 </Project>
