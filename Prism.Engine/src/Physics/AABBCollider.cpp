@@ -11,7 +11,7 @@ AABBCollider::~AABBCollider()
 }
 
 
-bool AABBCollider::CheckCollision(BoundingBox box1, BoundingBox box2)
+bool AABBCollider::CheckCollision(BoundingBox const &box1, BoundingBox const &box2)
 {
 	float vert1 = (box1.GetNorth() + box1.GetPosY()) - (box2.GetSouth() + box2.GetPosY());
 	float vert2 = (box1.GetSouth() + box1.GetPosY()) - (box2.GetNorth() + box2.GetPosY());

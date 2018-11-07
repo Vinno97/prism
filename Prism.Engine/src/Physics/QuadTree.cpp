@@ -5,10 +5,10 @@
 QuadTree::QuadTree()
 = default;
 
-QuadTree::QuadTree(float width, float Heigt, float x, float y)
+QuadTree::QuadTree(float width, float heigt, float x, float y)
 {
 	float halfwidth = width / 2.0;
-	float halfHeigth = Heigt / 2.0;
+	float halfHeigth = heigt / 2.0;
 	this->bounds = BoundingBox(halfHeigth, halfwidth, -1 * halfHeigth, -1 * halfwidth, x, y);
 	nodes[0] = nullptr;
 	nodes[1] = nullptr;
