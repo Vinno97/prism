@@ -43,7 +43,7 @@ namespace Renderer {
 		renderDevice->setClearColour(0.7f, 0.7f, 0.7f, 1.f);
 	}
 
-	void ForwardRenderer::draw(Camera* camera, vector<Renderable> renderables)
+	void ForwardRenderer::draw(const Camera* camera, const vector<Renderable>& renderables)
 	{
 		mat4 model;
 		mat4 view = camera->getCameraMatrix();
@@ -51,13 +51,8 @@ namespace Renderer {
 		geometryPipeline->run();
 
 		for (auto renderable : renderables) {
-			model = glm::mat4(1.0f);
-			model = glm::translate(model, glm::vec3(get<0>(renderable.position), get<1>(renderable.position), get<2>(renderable.position)));
-			model = glm::scale(model, glm::vec3(get<0>(renderable.scale), get<1>(renderable.scale), get<2>(renderable.scale)));
-			model = glm::rotate(model, radians(get<0>(renderable.rotation)), vec3(1.f, 0.f, 0.f)); //Rotate x
-			model = glm::rotate(model, radians(get<1>(renderable.rotation)), vec3(0.f, 1.f, 0.f)); //Rotate y
-			model = glm::rotate(model, radians(get<2>(renderable.rotation)), vec3(0.f, 0.f, 1.f)); //Rotate z
 
+			model = renderable.getMatrix();
 			geometryPipeline->setUniformMatrix4f("view", view);
 			geometryPipeline->setUniformMatrix4f("proj", projection);
 			geometryPipeline->setUniformMatrix4f("model", model);

@@ -26,7 +26,7 @@ namespace Renderer {
 		/// <summary>
 		/// Draws the list of renderables from the viewpoint of a given camera
 		/// </summary>
-		void draw(Camera* camera, vector<Renderable> renderables);
+		void draw(const Camera* camera, const vector<Renderable>& renderables);
 
 		~ForwardRenderer();
 	private: 

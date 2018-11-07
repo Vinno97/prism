@@ -16,6 +16,7 @@ void PrismGame::onInit(Context & context)
 	registerSystems(context);
 }
 
+
 /// <summar>
 /// register systems in system manager
 /// </summary>
