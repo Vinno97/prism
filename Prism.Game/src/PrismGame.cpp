@@ -9,8 +9,12 @@
 PrismGame::PrismGame() {
 	entityManager = std::make_shared<EntityManager>();
 	systemManager = std::make_shared<SystemManager>();
+}
+
+void PrismGame::onInit(Context & context)
+{
 	createPlayer();
-	registerSystems();
+	registerSystems(context);
 }
 
 /// <summary>
@@ -34,6 +38,7 @@ void PrismGame::createPlayer() {
 	DragComponent drag;
 	drag.force = 5.f;
 	KeyboardInputComponent input;
+	
 	AppearanceComponent appearance;
 	appearance.translationZ = 3;
 	appearance.translationY = -3;
@@ -49,11 +54,10 @@ void PrismGame::createPlayer() {
 /// <summar>
 /// register systems in system manager
 /// </summary>
-void PrismGame::registerSystems()
+void PrismGame::registerSystems(Context &context)
 {
 	MotionSystem motionSystem = MotionSystem(entityManager);
-	// TODO: Maak een initialisatiefunctie waarbij deze waardes uit de context gehaald kunnen worden.
-	RenderSystem renderSystem = RenderSystem(entityManager, 1920, 1080);
+	RenderSystem renderSystem = RenderSystem(entityManager, context.window->width, context.window->height);
 	KeyboardInputSystem inputSystem = KeyboardInputSystem(entityManager);
 	systemManager->registerSystem(motionSystem);
 	systemManager->registerSystem(renderSystem);

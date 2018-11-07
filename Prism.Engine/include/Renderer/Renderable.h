@@ -12,7 +12,7 @@ public:
 	/// <summary>
 	///  returns a mat4 based on the position, rotation and scale
 	/// </summary>
-	glm::mat4 getMatrix();
+	glm::mat4 getMatrix() const;
 	~Renderable();
 
 	std::shared_ptr<Model> model;

@@ -28,7 +28,8 @@ namespace Renderer {
 		/// <summary>
 		/// Draws the list of renderables from the viewpoint of a given camera
 		/// </summary>
-		void draw(Camera& camera, vector<Renderable> &renderables, Renderer::Scene& scene);
+		void draw(const Camera& camera, const vector<Renderable>& renderables, Renderer::Scene& scene);
+
 		~ForwardRenderer();
 	private: 
 		glm::mat4 projection = glm::mat4(1.0f);

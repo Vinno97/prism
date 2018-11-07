@@ -3,7 +3,7 @@
 #include "ECS/Systems/System.h"
 #include "Renderer/ForwardRenderer.h"
 
-using namespace Renderer;
+//using namespace Renderer;
 namespace ECS {
 	namespace Systems {
 		class RenderSystem : public System
@@ -13,8 +13,8 @@ namespace ECS {
 			~RenderSystem();
 			void update(Context context) override;
 		private:
-			std::shared_ptr<ForwardRenderer> forwardRenderer;
-			Camera camera;
+			std::shared_ptr<Renderer::ForwardRenderer> forwardRenderer;
+			Renderer::Camera camera;
 		};
 
 
