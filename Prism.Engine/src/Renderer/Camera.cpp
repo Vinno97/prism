@@ -13,7 +13,7 @@ namespace Renderer {
 		rotation = vec3(0.f, 0.f, -1.f);
 	}
 
-	mat4 Camera::getCameraMatrix()
+	mat4 Camera::getCameraMatrix() const
 	{
 		mat4 cameraMatrix = mat4(1.f);
 		cameraMatrix = translate(cameraMatrix, position);

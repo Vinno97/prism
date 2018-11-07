@@ -1,16 +1,20 @@
 #include "PrismGame.h"
 
+#include "Math/Vector3f.h"
+#include "ECS/Components/SceneComponent.h"
 #include "ECS/Components/PositionComponent.h"
 #include "ECS/Components/VelocityComponent.h"
+
 #include "ECS/Systems/MotionSystem.h"
 #include "ECS/Systems/RenderSystem.h"
 #include "ECS/Systems/KeyboardInputSystem.h"
 #include "ECS/Systems/RestockResourceSystem.h"
 #include "ECS/Systems/AnimationSystem.h"
 
+
 using namespace ECS;
-using namespace ECS::Systems;
 using namespace ECS::Components;
+
 
 /// <summar>
 /// creates new PrismGame object
@@ -25,6 +29,7 @@ void PrismGame::onInit(Context & context)
 	auto player = entityRegister.createPlayer(*entityManager);
 	auto resourcePoint = entityRegister.createResourcePoint(*entityManager);
 	auto enemy = entityRegister.createEnemy(*entityManager);
+	auto scene = entityRegister.createScene(*entityManager);
 
 	for (int i = -4; i < 4; i++) {
 		auto entity = i % 2 == 0 ? entityRegister.createTower(*entityManager) : entityRegister.createWall(*entityManager);
@@ -33,12 +38,18 @@ void PrismGame::onInit(Context & context)
 		position->x = i;
 	}
 
-	auto positions = entityManager->getAllEntitiesWithComponent<PositionComponent>();
-
+	auto positions{ entityManager->getAllEntitiesWithComponent<PositionComponent>()};
 
 	entityManager->getComponent<PositionComponent>(player)->y = 1;
 	entityManager->getComponent<PositionComponent>(resourcePoint)->x = 1;
 	entityManager->getComponent<PositionComponent>(enemy)->x = -1;
+	
+	auto sceneComponent = entityManager->getComponent<SceneComponent>(scene);
+
+	sceneComponent->scene.ambientLightColor = Math::Vector3f{ 1.0f, 1.0f, 1.0f };
+	sceneComponent->scene.ambientLightStrength = 0.5f;
+	sceneComponent->scene.sun.color = Math::Vector3f{ 1.0f, 1.0f, 1.0f };
+	sceneComponent->scene.sun.direction = Math::Vector3f{ 100.f, 50.0f, 100.0f };
 
 	registerSystems(context);
 }

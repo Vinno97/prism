@@ -13,8 +13,8 @@
 #include "Renderer/Graphics/RenderDevice.h"
 #include <vector>
 #include <string>
+#include <memory>
 
-using namespace std;
 using namespace Renderer::Graphics;
 using namespace Renderer::Graphics::Models;
 
@@ -23,12 +23,10 @@ namespace Renderer {
 		namespace Loader {
 			class ModelLoader {
 			public:
-				ModelLoader();
-				Model* loadModel(string path);
+				std::shared_ptr<Model> loadModel(string path);
 
 			private:
 				StaticMeshLoader staticMeshLoader;
-				RenderDevice* renderDevice;
 
 			};
 		}

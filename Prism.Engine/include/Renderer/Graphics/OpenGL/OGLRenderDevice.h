@@ -27,17 +27,17 @@ namespace Renderer {
 				/// </remarks>
 				static RenderDevice* getRenderDevice();
 
-				unique_ptr<VertexShader> createVertexShader(const char* source) override;
-				unique_ptr<FragmentShader> createFragmentShader(const char* source) override;
-				unique_ptr<Pipeline> createPipeline(VertexShader& vs, FragmentShader& fs) override;
-				unique_ptr<VertexBuffer> createVertexBuffer(long size, const void *data) override;
-				unique_ptr<IndexBuffer> createIndexBuffer(long size, const void *data) override;
-				unique_ptr<VertexArrayObject> createVertexArrayobject() override;
+				unique_ptr<VertexShader> createVertexShader(const char* source) const override;
+				unique_ptr<FragmentShader> createFragmentShader(const char* source) const override;
+				unique_ptr<Pipeline> createPipeline(VertexShader& vs, FragmentShader& fs) const override;
+				unique_ptr<VertexBuffer> createVertexBuffer(long size, const void *data) const override;
+				unique_ptr<IndexBuffer> createIndexBuffer(long size, const void *data) const override;
+				unique_ptr<VertexArrayObject> createVertexArrayobject() const override;
 
-				void setClearColour(float r, float g, float b, float w) override;
-				void useDepthTest(bool enable) override;
-				void clearScreen() override;
-				void DrawTrianglesIndexed(long offset, int count) override;
+				void setClearColour(float r, float g, float b, float w) const override;
+				void useDepthTest(bool enable) const override;
+				void clearScreen() const override;
+				void DrawTrianglesIndexed(long offset, int count) const override;
 			private:
 				OGLRenderDevice();
 			};

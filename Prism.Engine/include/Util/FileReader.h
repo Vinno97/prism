@@ -8,7 +8,7 @@ namespace Util {
 	{
 	public:
 		FileReader();
-		string readResourceFileIntoString(string path);
+		string readResourceFileIntoString(string path) const;
 		~FileReader();
 	};
 }

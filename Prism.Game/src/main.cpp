@@ -3,6 +3,26 @@
 #include <crtdbg.h> 
 #include <iostream>
 #include "CoreEngine.h"
+#include "InputManager.h"
+#include "Key.h"
+#include "Window.h"
+#include "ECS/EntityManager.h"
+#include "ECS/Components/Component.h"
+#include "ECS/Components/DragComponent.h"
+#include "ECS/Components/PositionComponent.h"
+#include "ECS/Components/VelocityComponent.h"
+#include "InputManager.h"
+#include "Key.h"
+#include "Game.h"
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+#include <string>
+#include "Context.h"
+#include "StateMachine.h"
+#include "ECS/Components/KeyboardInputComponent.h"
+#include "ECS/Systems/KeyboardInputSystem.h"
+#include "ECS/Systems/MotionSystem.h"
 #include "PrismGame.h"
 
 #define _CRTDBG_MAP_ALLOC
@@ -11,7 +31,6 @@
 void start() {
 	CoreEngine ce = CoreEngine();
 	ce.InitWindow("prism", 1920 / 2, 1080 / 2, 100, 100);
-
 	PrismGame prism;
 	ce.setEntryPoint(prism);
 	ce.Run();

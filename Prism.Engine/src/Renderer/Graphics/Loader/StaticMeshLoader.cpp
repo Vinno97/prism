@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Renderer/Graphics/Loader/StaticMeshLoader.h"
+#include "Renderer/Graphics/OpenGL/OGLRenderDevice.h"
 #include "Renderer/Graphics/Models/Mesh.h"
 #include "Renderer/Graphics/RenderDevice.h"
 #include <assimp/Importer.hpp>
@@ -8,15 +9,19 @@
 #include <assimp/postprocess.h>
 #include <string>
 #include <vector>
+#include <array>
+#include <memory>
 
 using namespace std;
 using namespace Renderer::Graphics::Models;
+using namespace Renderer::Graphics::OpenGL;
 
 namespace Renderer {
 	namespace Graphics {
 		namespace Loader {
 			StaticMeshLoader::StaticMeshLoader()
 			{
+				this->renderDevice = OGLRenderDevice::getRenderDevice();
 			}
 
 			/// <summary>
@@ -24,8 +29,8 @@ namespace Renderer {
 			/// </summary>
 			/// <param name="path">The file path</param>
 			/// <param name="renderDevice">The RenderDevice</param>
-			/// <returns>Mesh*</returns>
-			Mesh* StaticMeshLoader::loadMesh(std::string path, RenderDevice* renderDevice)
+			/// <returns>unique_ptr<Mesh></returns>
+			unique_ptr<Mesh> StaticMeshLoader::loadMesh(string path)
 			{
 				Assimp::Importer importer;
 
@@ -37,14 +42,22 @@ namespace Renderer {
 					auto error = importer.GetErrorString();
 
 					cout << "ERROR::ASSIMP::" << error << endl;
-					throw exception("a");
+					throw exception("Assimp mesh loading.");
 				}
 
 				// Get the first mesh of the scene.  
 				// Needs function to handle all meshes from the scene.
+				// TODO: Function to handle more meshes from a model.
 				aiMesh* mesh = scene->mMeshes[0];
 
 				vector<float> vertices;
+
+				//Scene is empty.
+				if (!mesh)
+				{
+					cout << "No meshes found." << endl;
+					throw exception("Assimp mesh loading.");
+				}
 
 				// iterate over the mesh's vertices and push the 3d coordinates into the vector.
 				for (unsigned int a = 0; a < mesh->mNumVertices; a = a + 1) {
@@ -59,12 +72,49 @@ namespace Renderer {
 
 				unique_ptr<VertexArrayObject> vertexArrayObject = renderDevice->createVertexArrayobject();
 
+
+				if (!vertexArrayObject)
+				{
+					cout << "Renderdevice could not create VAO. No Vertex Array Object found." << endl;
+					throw exception("Assimp mesh loading.");
+				}
+
 				// Get the size of the vertices to provide the VertexBuffer with the right data.
 				auto verticesSize = vertices.size() * sizeof(float);
 
 				unique_ptr<VertexBuffer> vertexBuffer = renderDevice->createVertexBuffer(verticesSize, verticesArray);
 
+				if (!vertexBuffer)
+				{
+					cout << "Renderdevice could not create Vertex Buffer. No Vertex Buffer found." << endl;
+					throw exception("Assimp mesh loading.");
+				}
+
 				vertexArrayObject->addVertexBuffer(move(vertexBuffer), 0, 3 * sizeof(float), 0, 3);
+
+
+				//Load normals
+				vector<float> normals;
+				for (unsigned int a = 0; a < mesh->mNumVertices; a = a + 1) {
+					auto v = mesh->mNormals[a];
+					normals.push_back(v.x);
+					normals.push_back(v.y);
+					normals.push_back(v.z);
+				}
+				// Get the size of the vertices to provide the VertexBuffer with the right data.
+				auto normalsSize = normals.size() * sizeof(float);
+
+				float* normalsArray = normals.data();
+				unique_ptr<VertexBuffer> normalBuffer = renderDevice->createVertexBuffer(normalsSize, normalsArray);
+
+				if (!normalBuffer)
+				{
+					cout << "Renderdevice could not create Vertex Buffer. No Vertex Buffer found." << endl;
+					throw exception("Assimp mesh loading.");
+				}
+
+				vertexArrayObject->addVertexBuffer(move(normalBuffer), 1, 3 * sizeof(float), 0, 3);
+
 
 				/*
 					For each number of primitives (mFace) of the mesh,
@@ -86,14 +136,26 @@ namespace Renderer {
 
 				unique_ptr<IndexBuffer> indexBuffer = renderDevice->createIndexBuffer(indices.size() * sizeof(unsigned int), indicesArray);
 
-				// Unbind VAO to prevent overriding errors
+				if (!indexBuffer)
+				{
+					cout << "Renderdevice could not create IndexBuffer. No Index Buffer found." << endl;
+					throw exception("Assimp mesh loading.");
+				}
+
+				// Vertex Array Object gets unbind for it is no longer needed.
 				vertexArrayObject->unbind();
 
 				// Combine all into a mesh.
-				Mesh* m = new Mesh(move(vertexArrayObject), move(indexBuffer));
-				m->indicesLength = indices.size();
+				unique_ptr<Mesh> combinedMesh = make_unique<Mesh>(move(vertexArrayObject), move(indexBuffer));
+				combinedMesh->indicesLength = indices.size();
 
-				return m;
+				if (!combinedMesh)
+				{
+					cout << "Mesh creation failed. No mesh found." << endl;
+					throw exception("Assimp mesh loading.");
+				}
+
+				return combinedMesh;
 			}
 
 			StaticMeshLoader::~StaticMeshLoader()

@@ -5,6 +5,7 @@
 #include "Renderer/ForwardRenderer.h"
 #include "Renderer/Camera.h"
 #include <tuple>
+#include <memory>
 #include <vector>
 #include "ECS/EntityManager.h"
 #include "ECS/Components/AppearanceComponent.h"
@@ -46,9 +47,7 @@ void CoreEngine::Run()
 		//c.rotate(0.0f, 3.14f, 0.f);
 		//Sets the right values in context
 		context.deltaTime = deltaTime.count() / 1000000.f;
-		auto currentState = context.stateMachine->getCurrentState();
-		currentState->onUpdate(context);
-
+		context.stateMachine->getCurrentState()->onUpdate(context);
 		context.window->swapScreen();
 	}
 }

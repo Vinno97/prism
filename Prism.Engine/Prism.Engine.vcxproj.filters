@@ -32,6 +32,7 @@
     <ClCompile Include="src\Renderer\Graphics\Loader\StaticMeshLoader.cpp" />
     <ClCompile Include="src\ECS\SystemManager.cpp" />
     <ClCompile Include="src\ECS\Systems\System.cpp" />
+    <ClCompile Include="src\Math\Vector3f.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Renderer\Camera.h" />
@@ -79,6 +80,10 @@
     <ClInclude Include="include\Renderer\Graphics\VertexArrayObject.h" />
     <ClInclude Include="include\Renderer\Graphics\Loader\StaticMeshLoader.h" />
     <ClInclude Include="include\Renderer\Renderable.h" />
+    <ClInclude Include="include\ECS\Components\SceneComponent.h" />
+    <ClInclude Include="include\Math\Vector3f.h" />
+    <ClInclude Include="include\Renderer\DirectionalLight.h" />
+    <ClInclude Include="include\Renderer\Scene.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\glew32.lib" />

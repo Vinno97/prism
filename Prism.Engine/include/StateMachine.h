@@ -62,7 +62,7 @@ public:
 	/// Get current state
 	/// </summary>
 	/// <returns>Returns the current state </returns>
-	State *getCurrentState();
+	State *getCurrentState() const;
 
 
 private:
