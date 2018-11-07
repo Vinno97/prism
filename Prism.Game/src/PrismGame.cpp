@@ -1,5 +1,4 @@
 #include "PrismGame.h"
-#include "ECS/Components/HealthComponent.h"
 
 
 /// <summar>
@@ -49,10 +48,12 @@ void PrismGame::registerSystems(Context &context)
 {
 	MotionSystem motionSystem = MotionSystem(entityManager);
 	RenderSystem renderSystem = RenderSystem(entityManager, context.window->width, context.window->height);
+	AttackSystem attackSystem = AttackSystem(entityManager);
 	KeyboardInputSystem inputSystem = KeyboardInputSystem(entityManager);
 	systemManager->registerSystem(motionSystem);
 	systemManager->registerSystem(renderSystem);
 	systemManager->registerSystem(inputSystem);
+	systemManager->registerSystem(attackSystem);
 }
 
 void PrismGame::onUpdate(Context &context)
@@ -60,10 +61,12 @@ void PrismGame::onUpdate(Context &context)
 	auto inputSystem = systemManager->getSystem<KeyboardInputSystem>();
 	auto motionSystem = systemManager->getSystem<MotionSystem>();
 	auto renderSystem = systemManager->getSystem<RenderSystem>();
+	auto attackSystem = systemManager->getSystem<AttackSystem>();
 
 	inputSystem->update(context);
 	motionSystem->update(context);
 	renderSystem->update(context);
+	attackSystem->update(context);
 
 	for (auto &entity : entityManager->getAllEntitiesWithComponent<VelocityComponent>()) {
 		auto velocity = entity.component;

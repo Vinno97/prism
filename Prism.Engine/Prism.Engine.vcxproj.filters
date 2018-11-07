@@ -32,7 +32,6 @@
     <ClCompile Include="src\Renderer\Graphics\Loader\StaticMeshLoader.cpp" />
     <ClCompile Include="src\ECS\SystemManager.cpp" />
     <ClCompile Include="src\ECS\Systems\System.cpp" />
-    <ClCompile Include="src\HealthComponent.cpp" />
     <ClCompile Include="src\ECS\Systems\AttackSystem.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -5,13 +5,17 @@
 #include "ECS/Components/VelocityComponent.h"
 #include "ECS/Components/HealthComponent.h"
 
-ECS::Systems::AttackSystem::AttackSystem(std::shared_ptr<EntityManager> entityManager) : System(entityManager) {}
+namespace ECS {
+	namespace Systems {
+		AttackSystem::AttackSystem(std::shared_ptr<EntityManager> entityManager) : System(entityManager) {
 
-ECS::Systems::AttackSystem::~AttackSystem()
-= default;
+		}
 
-void ECS::Systems::AttackSystem::Attack(Context context)
-{
-	// TODO
+		AttackSystem::~AttackSystem() = default;
 
+		void AttackSystem::update(Context context) {
+
+		}
+	}
 }
+

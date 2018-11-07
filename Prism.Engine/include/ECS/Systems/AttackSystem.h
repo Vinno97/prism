@@ -11,7 +11,7 @@ namespace ECS {
 			AttackSystem(std::shared_ptr<EntityManager> entityManager);
 			~AttackSystem();
 
-			void Attack(Context context);
+			void update(Context context) override;
 		};
 	
 	}
