@@ -8,8 +8,8 @@ EntityRegister::EntityRegister() {
 
 void EntityRegister::RegisterPlayer(std::shared_ptr<EntityManager> entityManager)
 {
-	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
-	Model* model = ml.loadModel("./res/bunny.obj");
+	auto ml = Renderer::Graphics::Loader::ModelLoader();
+	auto model = ml.loadModel("./res/bunny.obj");
 
 	VelocityComponent velocity;
 	PositionComponent position;
