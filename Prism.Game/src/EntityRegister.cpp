@@ -3,15 +3,20 @@
 #include "ECS/Entity.h"
 #include "ECS/Components/Component.h"
 #include "ECS/Components/DragComponent.h"
+#include "ECS/Components/EnemyComponent.h"
+#include "ECS/Components/PlayerComponent.h"
 #include "ECS/Components/PositionComponent.h"
 #include "ECS/Components/VelocityComponent.h"
 #include "ECS/Components/AppearanceComponent.h"
 #include "ECS/Components/KeyboardInputComponent.h"
+#include "ECS/Components/ResourceSpawnComponent.h"
 
 #include "Renderer/Graphics/Loader/ModelLoader.h"
 
 using namespace ECS;
 using namespace ECS::Components;
+
+// TODO: Normaliseer alle modellen zodat ze goed gerendered kunnen worden met een scale van 1.
 
 EntityRegister::EntityRegister() {
 
@@ -33,7 +38,8 @@ int EntityRegister::createPlayer(EntityManager& entityManager)
 		VelocityComponent(),
 		PositionComponent(),
 		DragComponent(5.f),
-		KeyboardInputComponent()
+		KeyboardInputComponent(),
+		PlayerComponent()
 	);
 }
 
@@ -47,7 +53,7 @@ int EntityRegister::createEnemy(EntityManager& entityManager) {
 	appearance.scaleZ = 0.002;
 	appearance.model = model;
 
-	return entityManager.createEntity(VelocityComponent(), PositionComponent(), DragComponent(5.f), appearance);
+	return entityManager.createEntity(VelocityComponent(), PositionComponent(), DragComponent(5.f), EnemyComponent(), appearance);
 
 }
 
@@ -61,7 +67,7 @@ int EntityRegister::createResourcePoint(EntityManager & entityManager)
 	appearance.scaleY = 0.002;
 	appearance.scaleZ = 0.002;
 	appearance.model = model;
-	return entityManager.createEntity(PositionComponent(), appearance);
+	return entityManager.createEntity(PositionComponent(), ResourceSpawnComponent(), appearance);
 
 }
 
