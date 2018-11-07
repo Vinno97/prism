@@ -20,6 +20,7 @@ using namespace Renderer::Graphics::OpenGL;
 
 namespace Renderer {
 
+	
 	ForwardRenderer::ForwardRenderer(int width, int height)
 	{
 		renderDevice = OGLRenderDevice::getRenderDevice();
@@ -42,7 +43,7 @@ namespace Renderer {
 		renderDevice->setClearColour(0.7f, 0.7f, 0.7f, 1.f);
 	}
 
-	void ForwardRenderer::draw(Camera* camera, vector<Renderable> renderables)
+	void ForwardRenderer::draw(const Camera* camera, const vector<Renderable>& renderables)
 	{
 		mat4 model;
 		mat4 view = camera->getCameraMatrix();
@@ -65,5 +66,7 @@ namespace Renderer {
 
 	ForwardRenderer::~ForwardRenderer()
 	{
+		//std::cout << "end";
+		//delete renderDevice;
 	}
 }

@@ -12,18 +12,32 @@
 class CoreEngine
 {
 public:
+
+	CoreEngine()
+	{
+		context.window = new Window();
+		context.stateMachine = new StateMachine();
+		context.inputManager = new InputManager();
+	}
+
 	/// <summary>
 	/// initialize the coreEngine
 	/// </summary>
 	/// <param name="state">The first state</param>
 	template<typename T, typename = std::enable_if < std::is_base_of<State, T>::value>>
-	CoreEngine(T state) 
-	{
-		context.window = new Window();
-		context.stateMachine = new StateMachine();
-		context.inputManager = new InputManager();
-		context.stateMachine->addState(state);
+	void setEntryPoint(T state) {
+		addState(state);
 		context.stateMachine->setState<T>();
+	}
+
+	/// <summary>
+	/// adds a state to the statemachine
+	/// </summary>
+	/// <param name="state">The state that will be added</param>
+	template<typename T, typename = std::enable_if < std::is_base_of<State, T>::value>>
+	void addState(T state) {
+		state.onInit(context);
+		context.stateMachine->addState(state);
 	}
 
 	/// <summary>
@@ -34,7 +48,7 @@ public:
 	/// <param name="height">Height of window</param>
 	/// <param name="x">X position of window</param>
 	/// <param name="y">Y position of window</param>
-	const void CreateWindow(const char* title, const int width, const int height, const int x, const int y);
+	const void InitWindow(const char* title, const int width, const int height, const int x, const int y);
 
 	/// <summary>
 	/// Starts the gameloop 
