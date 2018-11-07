@@ -74,6 +74,13 @@ namespace Renderer {
 				glUniform3f(id, x, y, z);
 				return true;
 			}
+
+			bool OGLPipeline::setUniformFloat(const char * name, float value)
+			{
+				int id = uniforms[name];
+				glUniform1f(id, value);
+				return true;
+			}
 		}
 	}
 }

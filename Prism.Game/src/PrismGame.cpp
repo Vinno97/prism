@@ -1,6 +1,7 @@
 #include "PrismGame.h"
 
-
+#include "Math/Vector3f.h"
+#include "ECS/Components/SceneComponent.h"
 
 /// <summar>
 /// creates new PrismGame object
@@ -22,23 +23,32 @@ void PrismGame::onInit(Context & context)
 void PrismGame::createPlayer() {
 	// TODO: Deze functie moet later verplaatst worden naar een Factory of iets dergelijks.
 
-	auto ml = Renderer::Graphics::Loader::ModelLoader();
-	auto model = ml.loadModel("./res/bunny.obj");
+	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
+	std::shared_ptr<Model> model = ml.loadModel("./res/varyingPlane.obj");
 
 	VelocityComponent velocity;
+	SceneComponent sceneComponent;
+	sceneComponent.scene.ambientLightColor = Math::Vector3f{ 1.0f, 1.0f, 1.0f };
+	sceneComponent.scene.ambientLightStrength = 0.5f;
+
+	sceneComponent.scene.sun.color = Math::Vector3f{ 1.0f, 1.0f, 1.0f };
+	sceneComponent.scene.sun.direction = Math::Vector3f{ 100.f, 50.0f, 100.0f };
+
 	PositionComponent position;
 	DragComponent drag;
 	drag.force = 5.f;
 	KeyboardInputComponent input;
 	
 	AppearanceComponent appearance;
-	appearance.translationZ = 1;
-	appearance.scaleX = 3;
-	appearance.scaleY = 3;
-	appearance.scaleZ = 3;
+	appearance.translationZ = 3;
+	appearance.translationY = -3;
+	appearance.scaleX = 1;
+	appearance.scaleY = 1;
+	appearance.scaleZ = 1;
+	appearance.rotationY = 45;
 	appearance.model = model;
-
 	entityManager->createEntity(velocity, position, drag, input, appearance);
+	entityManager->createEntity(sceneComponent);
 }
 
 /// <summar>
