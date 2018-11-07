@@ -34,6 +34,7 @@
     <ClCompile Include="src\ECS\Systems\System.cpp" />
     <ClCompile Include="src\Physics\AABBCollider.cpp" />
     <ClCompile Include="src\Physics\BoundingBox.cpp" />
+    <ClCompile Include="src\Physics\QuadTree.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Renderer\Camera.h" />
@@ -83,6 +84,7 @@
     <ClInclude Include="include\Renderer\Renderable.h" />
     <ClInclude Include="include\Physics\BoundingBox.h" />
     <ClInclude Include="include\Physics\AABBCollider.h" />
+    <ClInclude Include="include\Physics\QuadTree.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\glew32.lib" />

@@ -1,7 +1,6 @@
 #include "Physics/AABBCollider.h"
 
 
-
 AABBCollider::AABBCollider()
 {
 }
@@ -11,15 +10,16 @@ AABBCollider::~AABBCollider()
 {
 }
 
-bool CheckCollision(BoundingBox box1, BoundingBox box2) 
-{
-	int vert1 = (box1.North + box1.posY) - (box2.South + box2.posY);
-	int vert2 = (box1.South + box1.posY) - (box2.North + box2.posY);
-	int vert = vert1 * vert2;
 
-	int horz1 = (box1.East + box1.posX) - (box2.West + box2.posX);
-	int horz2 = (box1.West + box1.posX) - (box2.East + box2.posX);
-	int horz = vert1 * vert2;
+bool AABBCollider::CheckCollision(BoundingBox box1, BoundingBox box2)
+{
+	float vert1 = (box1.GetNorth() + box1.GetPosY()) - (box2.GetSouth() + box2.GetPosY());
+	float vert2 = (box1.GetSouth() + box1.GetPosY()) - (box2.GetNorth() + box2.GetPosY());
+	float vert = vert1 * vert2;
+
+	float horz1 = (box1.GetEast() + box1.GetPosX()) - (box2.GetWest() + box2.GetPosX());
+	float horz2 = (box1.GetWest() + box1.GetPosX()) - (box2.GetEast() + box2.GetPosX());
+	float horz = horz1 * horz2;
 
 	return vert < 0 && horz < 0;
 }
