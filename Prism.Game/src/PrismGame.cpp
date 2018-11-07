@@ -11,6 +11,7 @@
 #include "ECS/Systems/RestockResourceSystem.h"
 #include "ECS/Systems/AnimationSystem.h"
 
+#include "World/WorldLoader.h"
 
 using namespace ECS;
 using namespace ECS::Components;
@@ -26,6 +27,10 @@ PrismGame::PrismGame() {
 
 void PrismGame::onInit(Context & context)
 {
+	World::WorldLoader loader;
+	// FIXME: Ja ik weet dat dit geen absoluut pad hoort te zijn
+	loader.load("D:\\School\\Vervolgopleiding\\SWAP\\prism\\Prism.Game\\res\\levels\\Sample World.json");
+
 	auto player = entityRegister.createPlayer(*entityManager);
 	auto resourcePoint = entityRegister.createResourcePoint(*entityManager);
 	auto enemy = entityRegister.createEnemy(*entityManager);
