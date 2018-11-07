@@ -50,11 +50,6 @@ void CoreEngine::Run()
 		auto currentState = context.stateMachine->getCurrentState();
 		currentState->onUpdate(context);
 
-// 		context.deltaTime = deltaTime.count();
-
-// 		//Swap the screen buffer
-// 		context.stateMachine->getCurrentState()->onUpdate(context);
-// 		fw->draw(&c, renderables);
 		context.window->swapScreen();
 	}
 }
