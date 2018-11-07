@@ -24,6 +24,8 @@
 #include "ECS/Systems/KeyboardInputSystem.h"
 #include "ECS/Systems/MotionSystem.h"
 #include "PrismGame.h"
+#include "Physics/BoundingBox.h"
+#include "Physics/QuadTree.h"
 
 #define _CRTDBG_MAP_ALLOC
 
@@ -37,9 +39,22 @@ void start() {
 	ce.Run();
 }
 
+void test() {
+	QuadTree q = QuadTree(10, 10, 0, 0);
+	BoundingBox b1 = BoundingBox(2, 3, 3);
+	BoundingBox b2 = BoundingBox(2, 7, 3);
+	q.Insert(b1);
+	q.Insert(b2);
+	q.Insert(b1);
+	q.Retrieve(b1);
+}
+
 int main(int argc, char ** argv) {
 	//_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-	start();
+	//start();
+	test();
+	
+
 
 	_CrtDumpMemoryLeaks();
 	return 0;

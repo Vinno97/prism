@@ -99,6 +99,25 @@ namespace ECS {
 		/// <param name="E">A component to be added to the new entity</param>
 		/// <param name="F">A component to be added to the new entity</param>
 		/// <returns>The ID of the newly created entity.</returns>
+				template<class A, class B, class C, class D, class E, class F>
+				int createEntity(A& c1, B& c2, C& c3, D& c4, E& c5, F& c6) {
+					int entity = createEntity(c1, c2, c3, c4, c5);
+					addComponentToEntity(entity, c6);
+					return entity;
+				}
+
+
+
+		/// <summary>
+		/// Creates a new entity.
+		/// </summary>
+		/// <param name="A">A component to be added to the new entity</param>
+		/// <param name="B">A component to be added to the new entity</param>
+		/// <param name="C">A component to be added to the new entity</param>
+		/// <param name="D">A component to be added to the new entity</param>
+		/// <param name="E">A component to be added to the new entity</param>
+		/// <param name="F">A component to be added to the new entity</param>
+		/// <returns>The ID of the newly created entity.</returns>
 		template<class A, class B, class C, class D, class E, class F, class G>
 		int createEntity(A& c1, B& c2, C& c3, D& c4, E& c5, F& c6, G& c7) {
 			int entity = createEntity(c1, c2, c3, c4, c5, c6);
