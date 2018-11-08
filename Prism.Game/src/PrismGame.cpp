@@ -4,6 +4,9 @@
 #include "ECS/Components/SceneComponent.h"
 #include "ECS/Components/PositionComponent.h"
 #include "ECS/Components/VelocityComponent.h"
+#include "ECS/Components/AppearanceComponent.h"
+#include "ECS/Components/DragComponent.h"
+#include "ECS/Components/KeyboardInputComponent.h"
 
 #include "ECS/Systems/MotionSystem.h"
 #include "ECS/Systems/RenderSystem.h"
@@ -50,22 +53,6 @@ void PrismGame::onInit(Context & context)
 	sceneComponent->scene.ambientLightStrength = 0.65f;
 	sceneComponent->scene.sun.color = Math::Vector3f{ .30f, .30f, .30f };
 	sceneComponent->scene.sun.direction = Math::Vector3f{ 25.f, 150.0f, 100.0f };
-
-	PositionComponent position;
-	DragComponent drag;
-	drag.force = 5.f;
-	KeyboardInputComponent input;
-	
-	AppearanceComponent appearance;
-	appearance.translationZ = 3;
-	appearance.translationY = -3;
-	appearance.scaleX = 1;
-	appearance.scaleY = 1;
-	appearance.scaleZ = 1;
-	appearance.rotationY = 45;
-	appearance.model = model;
-	entityManager->createEntity(velocity, position, drag, input, appearance);
-	entityManager->createEntity(sceneComponent);
 }
 
 /// <summary>

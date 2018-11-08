@@ -16,7 +16,7 @@ namespace ECS {
 			float rotationY = 0;
 			float rotationZ = 0;
 
-			Component* Clone() override
+			Component* Clone() 
 			{
 				AppearanceComponent* appearanceComponent = new AppearanceComponent();
 	
@@ -32,7 +32,7 @@ namespace ECS {
 				appearanceComponent->rotationY = rotationY;
 				appearanceComponent->rotationZ = rotationZ;
 	
-				appearanceComponent->model = make_unique<Model>(model.get());
+				appearanceComponent->model = std::make_unique<Renderer::Graphics::Models::Model>(model.get());
 	
 				return appearanceComponent;
 			}

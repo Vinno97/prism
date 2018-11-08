@@ -66,6 +66,22 @@ namespace ECS {
 		}
 	}
 
+	EntityManager::EntityManager(const EntityManager& other)
+	{
+		lastEntityId = other.lastEntityId;
+		//std::map<std::type_index, std::map<unsigned int, Component*>>::iterator it;
+
+		for (auto it = other.entityComponents.begin(); it != other.entityComponents.end(); it++ )
+		{
+			std::map<unsigned int, Component*> newMap;
+			for (auto itSub = it->second.begin(); itSub != it->second.end(); it++ )
+			{
+				newMap[itSub->first] = itSub->second->Clone();
+			}
+			entityComponents[it->first] = newMap;
+		}
+	}
+
 	std::vector<Entity<Component*>> EntityManager::getAllEntitiesWithComponent(const std::type_index& componentType) const {
 		std::vector<Entity<Component*>> result;
 		try {

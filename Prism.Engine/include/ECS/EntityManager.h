@@ -111,19 +111,19 @@ namespace ECS {
 		/// <param name="entityId">The ID of the entity to be removed.</param>
 		void removeEntity(unsigned int entityId);
 
-	private:
-		unsigned int lastEntityId = 0;
+		EntityManager (const EntityManager &other); 
 
 
 		/// <summary>
 		/// Keeps a list of all instances of each component type.
 		/// </summary>
 		std::map<std::type_index, std::map<unsigned int, Component*>> entityComponents;
+	private:
+		unsigned int lastEntityId = 0;
 
 		/// <summary>
 		/// Keeps a list of all Listeners attached to the EntityManager.
 		/// </summary>
-
 		Component* getComponent(unsigned int entityId, std::type_index componentType) const;
 
 		bool hasComponent(unsigned int entityId, std::type_index componentType) const;
