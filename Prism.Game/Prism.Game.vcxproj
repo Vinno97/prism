@@ -127,14 +127,16 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="include\PrismGame.h" />
+    <ClInclude Include="include\States\PrismGame.h" />
     <ClInclude Include="include\ECS\Components\KeyboardInputComponent.h" />
     <ClInclude Include="include\ECS\Systems\KeyboardInputSystem.h" />
+    <ClInclude Include="include\States\PauseState.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\States\PauseState.cpp" />
     <ClCompile Include="src\ECS\Systems\KeyboardInputSystem.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\PrismGame.cpp" />
+    <ClCompile Include="src\States\PrismGame.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="lib\assimp-vc140-mtd.dll" />

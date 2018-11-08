@@ -1,4 +1,6 @@
-#include "PrismGame.h"
+#include "States/PrismGame.h"
+#include "States/PauseState.h"
+#include "StateMachine.h"
 
 #include "Math/Vector3f.h"
 #include "ECS/Components/SceneComponent.h"
@@ -15,9 +17,11 @@ void PrismGame::onInit(Context & context)
 {
 	createPlayer();
 	registerSystems(context);
+	PauseState ps = PauseState();
+	context.stateMachine->addState(ps);
 }
 
-/// <summary>
+/// <summary>t
 /// create player entity
 /// </summary>
 void PrismGame::createPlayer() {
@@ -66,6 +70,17 @@ void PrismGame::registerSystems(Context &context)
 
 void PrismGame::onUpdate(Context &context)
 {
+
+	auto input = context.inputManager;
+	if (input->isKeyPressed(Key::KEY_ESCAPE) && isPressable) {
+		isPressable = false;
+		context.stateMachine->setState<PauseState>();
+	}
+
+	if (!input->isKeyPressed(Key::KEY_ESCAPE)) {
+		isPressable = true;
+	}
+
 	auto inputSystem = systemManager->getSystem<KeyboardInputSystem>();
 	auto motionSystem = systemManager->getSystem<MotionSystem>();
 	auto renderSystem = systemManager->getSystem<RenderSystem>();
