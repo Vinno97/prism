@@ -1,19 +1,36 @@
 #pragma once
 
 #include <map>
-#include "ObjectProperties.h"
+#include "WorldObject.h"
+#include "EntityConfigurators/EntityConfigurator.h"
 
 namespace World {
 	class EntityAssembler {
 	public:
-		EntityAssembler() = default;
+		EntityAssembler(ECS::EntityManager &entityManager);
 
-		void registerAssembler(int objectId, int(*fun)(void));
+		//void registerCreator(int objectId, int(*fun)(void));
+		//void registerCreator(int objectId, std::function<int()>);
+		void registerCreator(int objectId, std::function<int(ECS::EntityManager)> fun);
+		void registerCreator(int objectId, std::function<int()> fun);
+		//template<typename T, typename = std::enable_if_t<std::is_base_of_v<EntityConfigurators::EntityConfigurator, T>>>
+		//void registerConfigurator(EntityConfigurators::EntityConfigurator& entityConfigurator);
 
-		int assemble(ObjectProperties object) const;
+		//void registerConfigurator(std::unique_ptr<EntityConfigurators::EntityConfigurator> entityConfigurator);
+
+		int assemble(WorldObject object) const;
 
 	private:
-		std::map<int, int(*)(void)> assemblers;
-		std::map<int, int> assemblers2;
+		std::map<int, std::function<int()>> creators;
+
+		//std::vector<void(*)(int, WorldObject&, ECS::EntityManager&)> configurators;
+		//std::vector<EntityConfigurators::EntityConfigurator*> configurators;
+
+		//std::vector<std::unique_ptr<EntityConfigurators::EntityConfigurator>> configurators;
+		
+		int createEntity(WorldObject object) const;
+		int createEntity(int entity, WorldObject object) const;
+
+		ECS::EntityManager &entityManager;
 	};
 }

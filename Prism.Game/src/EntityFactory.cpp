@@ -19,10 +19,6 @@ using namespace ECS::Components;
 
 // TODO: Normaliseer alle modellen zodat ze goed gerendered kunnen worden met een scale van 1.
 
-EntityFactory::EntityFactory() {
-
-}
-
 int EntityFactory::createPlayer(EntityManager& entityManager)
 {
 	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
@@ -118,8 +114,3 @@ int EntityFactory::createScene(EntityManager & entityManager) {
 	
 	return entityManager.createEntity(SceneComponent());
 }
-
-
-
-EntityFactory::~EntityFactory()
-= default;

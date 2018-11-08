@@ -20,6 +20,6 @@ public:
 private:
 	std::shared_ptr<ECS::EntityManager> entityManager;
 	std::shared_ptr<ECS::SystemManager> systemManager;
-	EntityFactory entityRegister;
+	EntityFactory entityFactory;
 	void registerSystems(Context &context);
 };

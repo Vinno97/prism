@@ -9,14 +9,14 @@ namespace World {
 
 	public:
 		WorldLoader() = default;
-		WorldLoader(EntityAssembler &entityAssembler_) : entityAssembler(entityAssembler_) : {}
+		//WorldLoader(EntityAssembler &entityAssembler_) : entityAssembler(entityAssembler_) : {}
 
 		~WorldLoader() = default;
 
-		void load(const char* filename);
+		void load(const char* filename, EntityAssembler& entityAssembler);
 
 	private:
 		std::ifstream readFile(const char* filename);
-		void loadJson(std::ifstream input);
+		void loadJson(std::ifstream input, EntityAssembler& entityAssembler);
 	};
 }

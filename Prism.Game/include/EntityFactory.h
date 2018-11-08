@@ -7,8 +7,6 @@
 
 class EntityFactory {
 public:
-	EntityFactory();
-	~EntityFactory();
 	int createPlayer(ECS::EntityManager& entityManager);
 	int createEnemy(ECS::EntityManager& entityManager);
 	int createResourcePoint(ECS::EntityManager& entityManager);

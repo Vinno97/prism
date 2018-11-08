@@ -12,6 +12,7 @@
 #include "ECS/Systems/AnimationSystem.h"
 
 #include "World/WorldLoader.h"
+#include "World/PrismEntityAssembler.h"
 
 using namespace ECS;
 using namespace ECS::Components;
@@ -28,16 +29,15 @@ PrismGame::PrismGame() {
 void PrismGame::onInit(Context & context)
 {
 	World::WorldLoader loader;
-	// FIXME: Ja ik weet dat dit geen absoluut pad hoort te zijn
-	loader.load("D:\\School\\Vervolgopleiding\\SWAP\\prism\\Prism.Game\\res\\levels\\Sample World.json");
+	World::PrismEntityAssembler assembler{ *entityManager, entityFactory };
 
-	auto player = entityRegister.createPlayer(*entityManager);
-	auto resourcePoint = entityRegister.createResourcePoint(*entityManager);
-	auto enemy = entityRegister.createEnemy(*entityManager);
-	auto scene = entityRegister.createScene(*entityManager);
+	auto player = entityFactory.createPlayer(*entityManager);
+	auto resourcePoint = entityFactory.createResourcePoint(*entityManager);
+	auto enemy = entityFactory.createEnemy(*entityManager);
+	auto scene = entityFactory.createScene(*entityManager);
 
 	for (int i = -4; i < 4; i++) {
-		auto entity = i % 2 == 0 ? entityRegister.createTower(*entityManager) : entityRegister.createWall(*entityManager);
+		auto entity = i % 2 == 0 ? entityFactory.createTower(*entityManager) : entityFactory.createWall(*entityManager);
 		auto position = entityManager->getComponent<PositionComponent>(entity);
 		position->y = -1;
 		position->x = i;
@@ -57,6 +57,12 @@ void PrismGame::onInit(Context & context)
 	sceneComponent->scene.sun.direction = Math::Vector3f{ 25.f, 150.0f, 100.0f };
 
 	registerSystems(context);
+
+
+
+	// FIXME: Ja ik weet dat dit geen absoluut pad hoort te zijn
+	loader.load("D:\\School\\Vervolgopleiding\\SWAP\\Prism3\\Prism.Game\\res\\levels\\Sample World.json", assembler);
+
 }
 
 /// <summary>
