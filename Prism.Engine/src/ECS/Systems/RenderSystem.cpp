@@ -1,10 +1,12 @@
 #include "ECS/Systems/RenderSystem.h"
 #include "ECS/EntityManager.h"
 #include "ECS/Components/AppearanceComponent.h"
+#include "ECS/Components/SceneComponent.h"
 #include "glm/glm.hpp"
 #include <tuple>
 #include "Renderer/Renderable.h"
 #include "Renderer/ForwardRenderer.h"
+#include "Renderer/Scene.h"
 #include "Renderer/Graphics/Loader/ModelLoader.h"
 
 using namespace Renderer;
@@ -24,12 +26,9 @@ namespace ECS {
 
 		void RenderSystem::update(Context context)
 		{
-			//TODO: dit moet niet zo
-			//camera.rotate(-.01f, 0.f, 0.f);
-
-
 			auto appearanceEntities = this->entityManager->getAllEntitiesWithComponent<AppearanceComponent>();
 			vector<Renderable> rendererData;
+			auto sceneEntity = this->entityManager->getAllEntitiesWithComponent<SceneComponent>()[0].component;
 
 			for (unsigned int i = 0; i < appearanceEntities.size(); i++)
 			{
@@ -51,11 +50,10 @@ namespace ECS {
 				get<1>(renderable.rotation) = appearance->rotationY;
 				get<2>(renderable.rotation) = appearance->rotationZ;
 
-
 				rendererData.push_back(renderable);
 			}
 
-			forwardRenderer->draw(&camera, rendererData);
+			forwardRenderer->draw(camera, rendererData, sceneEntity->scene);
 		}
 	}
 }

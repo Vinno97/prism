@@ -10,7 +10,7 @@ StateMachine::~StateMachine() {
 	}
 }
 
-State* StateMachine::getCurrentState()
+State* StateMachine::getCurrentState() const
 {
 	return this->currentState;
 }

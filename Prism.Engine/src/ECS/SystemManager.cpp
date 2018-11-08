@@ -29,10 +29,12 @@ namespace ECS {
 			throw std::runtime_error(std::string("No system of type ") + systemType.name() + " found.");
 		}
 	}
-	void SystemManager::registerSystem(std::type_index systemType, System* system)
+
+	void SystemManager::registerSystem(std::type_index systemType, ECS::Systems::System* system)
 	{
 	}
-	System * SystemManager::getSystem(std::type_index systemType) const
+
+	ECS::Systems::System * SystemManager::getSystem(std::type_index systemType) const
 	{
 		try
 		{

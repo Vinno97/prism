@@ -5,7 +5,7 @@
 #include "ECS/EntityManager.h"
 #include "ECS/SystemManager.h"
 
-#include "EntityRegister.h"
+#include "EntityFactory.h"
 
 class PrismGame : public Game
 {
@@ -18,8 +18,8 @@ public:
 	~PrismGame();
 
 private:
-	std::shared_ptr<EntityManager> entityManager;
-	std::shared_ptr<SystemManager> systemManager;
-	EntityRegister entityRegister;
+	std::shared_ptr<ECS::EntityManager> entityManager;
+	std::shared_ptr<ECS::SystemManager> systemManager;
+	EntityFactory entityRegister;
 	void registerSystems(Context &context);
 };
