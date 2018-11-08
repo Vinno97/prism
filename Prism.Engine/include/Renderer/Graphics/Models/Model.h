@@ -14,6 +14,10 @@ namespace Renderer {
 				public: 
 					Model(std::shared_ptr<Mesh> m);
 					std::shared_ptr<Mesh> mesh;
+					Model(const Model &other);
+					Model& operator=(const Model& other);
+					Model(Model&& other);
+					Model& operator=(Model&& other);
 					//Material material;
 				};
 		}

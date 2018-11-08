@@ -4,8 +4,20 @@
 
 #include "ECS/EntityManager.h"
 #include "ECS/SystemManager.h"
-
 #include "EntityFactory.h"
+
+#include "ECS/Components/SceneComponent.h"
+#include "ECS/Components/PositionComponent.h"
+#include "ECS/Components/VelocityComponent.h"
+#include "ECS/Components/AppearanceComponent.h"
+#include "ECS/Components/DragComponent.h"
+#include "ECS/Components/KeyboardInputComponent.h"
+
+#include "ECS/Systems/MotionSystem.h"
+#include "ECS/Systems/RenderSystem.h"
+#include "ECS/Systems/KeyboardInputSystem.h"
+#include "ECS/Systems/RestockResourceSystem.h"
+#include "ECS/Systems/AnimationSystem.h"
 
 class PrismGame : public Game
 {
@@ -18,8 +30,9 @@ public:
 	~PrismGame();
 
 private:
-	std::shared_ptr<ECS::EntityManager> entityManager;
-	std::shared_ptr<ECS::SystemManager> systemManager;
-	EntityFactory entityRegister;
+	EntityManager entityManager;
+	SystemManager systemManager;
+	EntityFactory entityFactory;
+
 	void registerSystems(Context &context);
 };

@@ -29,7 +29,7 @@ namespace Renderer {
 			/// </summary>
 			/// <param name="path">The file path</param>
 			/// <param name="renderDevice">The RenderDevice</param>
-			/// <returns>unique_ptr<Mesh></returns>
+			/// <returns>shared_ptr<Mesh></returns>
 			shared_ptr<Mesh> StaticMeshLoader::loadMesh(string path)
 			{
 				Assimp::Importer importer;

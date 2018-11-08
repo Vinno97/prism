@@ -15,7 +15,7 @@
 
 namespace ECS {
 	namespace Systems {
-		AnimationSystem::AnimationSystem(std::shared_ptr<EntityManager> entityManager) : System(entityManager) {
+		AnimationSystem::AnimationSystem(EntityManager& entityManager) : System(entityManager) {
 		}
 
 		AnimationSystem::~AnimationSystem()

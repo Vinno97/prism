@@ -3,7 +3,9 @@
 namespace ECS {
 	namespace Components {
 		struct Component {
-			Component* Clone() {};
+			Component* Clone() {
+				return new Component();
+			}
 		};
 	}
 }

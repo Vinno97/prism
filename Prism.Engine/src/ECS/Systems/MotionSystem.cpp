@@ -4,9 +4,13 @@
 #include "ECS/Components/DragComponent.h"
 #include "ECS/Components/PositionComponent.h"
 #include "ECS/Components/VelocityComponent.h"
+#include "ECS/EntityManager.h";
+#include "ECS/SystemManager.h";
 
+using namespace ECS;
+using namespace ECS::Components;
 
-ECS::Systems::MotionSystem::MotionSystem(std::shared_ptr<EntityManager> entityManager) : System(entityManager) {}
+ECS::Systems::MotionSystem::MotionSystem(EntityManager &entityManager) : System(entityManager) {}
 
 ECS::Systems::MotionSystem::~MotionSystem()
 = default;

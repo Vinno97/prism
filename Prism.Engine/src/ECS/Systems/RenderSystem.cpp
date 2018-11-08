@@ -14,7 +14,7 @@ using namespace Renderer;
 namespace ECS {
 	namespace Systems {
 
-		RenderSystem::RenderSystem(std::shared_ptr<EntityManager> entityManager, int windowWidth, int windowHeight)
+		RenderSystem::RenderSystem(EntityManager &entityManager, int windowWidth, int windowHeight)
 			: System(entityManager) {
 			forwardRenderer = std::make_shared<ForwardRenderer>(windowWidth, windowHeight);
 			camera.move(0, 2.f, 3.f);

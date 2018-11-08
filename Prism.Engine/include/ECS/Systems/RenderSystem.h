@@ -9,7 +9,7 @@ namespace ECS {
 		class RenderSystem : public System
 		{
 		public:
-			RenderSystem(std::shared_ptr<EntityManager> entityManager, int windowWidth, int windowHeight);
+			RenderSystem(EntityManager &entityManager, int windowWidth, int windowHeight);
 			~RenderSystem();
 			void update(Context context) override;
 		private:

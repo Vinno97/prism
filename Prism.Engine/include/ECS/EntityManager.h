@@ -18,6 +18,12 @@ namespace ECS {
 	{
 	public:
 		EntityManager();
+		EntityManager(const EntityManager &other);
+		EntityManager& operator=(const EntityManager& other);
+		EntityManager(EntityManager&& other);
+		EntityManager& operator=(EntityManager&& other);
+		
+		
 		~EntityManager();
 
 		///// <summary>
@@ -111,7 +117,6 @@ namespace ECS {
 		/// <param name="entityId">The ID of the entity to be removed.</param>
 		void removeEntity(unsigned int entityId);
 
-		EntityManager (const EntityManager &other); 
 
 
 		/// <summary>

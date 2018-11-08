@@ -5,7 +5,7 @@
 
 namespace ECS {
 	namespace Systems {
-		RestockResourceSystem::RestockResourceSystem(std::shared_ptr<EntityManager> entityManager) : System(entityManager) {
+		RestockResourceSystem::RestockResourceSystem(EntityManager& entityManager) : System(entityManager) {
 		}
 
 		RestockResourceSystem::~RestockResourceSystem()
