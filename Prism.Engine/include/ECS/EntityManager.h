@@ -20,147 +20,14 @@ namespace ECS {
 		EntityManager();
 		~EntityManager();
 
-		/// <summary>
-		/// Creates a new entity.
-		/// </summary>
-		/// <param name="A">A component to be added to the new entity</param>
-		/// <returns>The ID of the newly created entity.</returns>
-		template<class A>
-		int createEntity(A& c1) {
-			addComponentToEntity(lastEntityId, c1);
-			return lastEntityId++;
-		}
-
-		/// <summary>
-		/// Creates a new entity.
-		/// </summary>
-		/// <param name="A">A component to be added to the new entity</param>
-		/// <param name="B">A component to be added to the new entity</param>
-		/// <returns>The ID of the newly created entity.</returns>
-		template<class A, class B>
-		int createEntity(A& c1, B& c2) {
-			int entity = createEntity(c1);
-			addComponentToEntity(entity, c2);
-			return entity;
-		}
-
-		/// <summary>
-		/// Creates a new entity.
-		/// </summary>
-		/// <param name="A">A component to be added to the new entity</param>
-		/// <param name="B">A component to be added to the new entity</param>
-		/// <param name="C">A component to be added to the new entity</param>
-		/// <returns>The ID of the newly created entity.</returns>
-		template<class A, class B, class C>
-		int createEntity(A& c1, B& c2, C& c3) {
-			int entity = createEntity(c1, c2);
-			addComponentToEntity(entity, c3);
-			return entity;
-		}
-
-		/// <summary>
-		/// Creates a new entity.
-		/// </summary>
-		/// <param name="A">A component to be added to the new entity</param>
-		/// <param name="B">A component to be added to the new entity</param>
-		/// <param name="C">A component to be added to the new entity</param>
-		/// <param name="D">A component to be added to the new entity</param>
-		/// <returns>The ID of the newly created entity.</returns>
-		template<class A, class B, class C, class D>
-		int createEntity(A& c1, B& c2, C& c3, D& c4) {
-			int entity = createEntity(c1, c2, c3);
-			addComponentToEntity(entity, c4);
-			return entity;
-		}
-
-		/// <summary>
-		/// Creates a new entity.
-		/// </summary>
-		/// <param name="A">A component to be added to the new entity</param>
-		/// <param name="B">A component to be added to the new entity</param>
-		/// <param name="C">A component to be added to the new entity</param>
-		/// <param name="D">A component to be added to the new entity</param>
-		/// <param name="E">A component to be added to the new entity</param>
-		/// <returns>The ID of the newly created entity.</returns>
-		template<class A, class B, class C, class D, class E>
-		int createEntity(A& c1, B& c2, C& c3, D& c4, E& c5) {
-			int entity = createEntity(c1, c2, c3, c4);
-			addComponentToEntity(entity, c5);
-			return entity;
-		}
-
-		/// <summary>
-		/// Creates a new entity.
-		/// </summary>
-		/// <param name="A">A component to be added to the new entity</param>
-		/// <param name="B">A component to be added to the new entity</param>
-		/// <param name="C">A component to be added to the new entity</param>
-		/// <param name="D">A component to be added to the new entity</param>
-		/// <param name="E">A component to be added to the new entity</param>
-		/// <param name="F">A component to be added to the new entity</param>
-		/// <returns>The ID of the newly created entity.</returns>
-		template<class A, class B, class C, class D, class E, class F, class G>
-		int createEntity(A& c1, B& c2, C& c3, D& c4, E& c5, F& c6, G& c7) {
-			int entity = createEntity(c1, c2, c3, c4, c5, c6);
-			addComponentToEntity(entity, c7);
-			return entity;
-		}
-
-		/// <summary>
-		/// Creates a new entity.
-		/// </summary>
-		/// <param name="A">A component to be added to the new entity</param>
-		/// <param name="B">A component to be added to the new entity</param>
-		/// <param name="C">A component to be added to the new entity</param>
-		/// <param name="D">A component to be added to the new entity</param>
-		/// <param name="E">A component to be added to the new entity</param>
-		/// <param name="F">A component to be added to the new entity</param>
-		/// <param name="G">A component to be added to the new entity</param>
-		/// <returns>The ID of the newly created entity.</returns>
-		template<class A, class B, class C, class D, class E, class F, class G, class H>
-		int createEntity(A& c1, B& c2, C& c3, D& c4, E& c5, F& c6, G& c7, H& c8) {
-			int entity = createEntity(c1, c2, c3, c4, c5, c6, c7);
-			addComponentToEntity(entity, c8);
-			return entity;
-		}
-
-		/// <summary>
-		/// Creates a new entity.
-		/// </summary>
-		/// <param name="A">A component to be added to the new entity</param>
-		/// <param name="B">A component to be added to the new entity</param>
-		/// <param name="C">A component to be added to the new entity</param>
-		/// <param name="D">A component to be added to the new entity</param>
-		/// <param name="E">A component to be added to the new entity</param>
-		/// <param name="F">A component to be added to the new entity</param>
-		/// <param name="G">A component to be added to the new entity</param>
-		/// <param name="H">A component to be added to the new entity</param>
-		/// <returns>The ID of the newly created entity.</returns>
-		template<class A, class B, class C, class D, class E, class F, class G, class H, class I>
-		int createEntity(A& c1, B& c2, C& c3, D& c4, E& c5, F& c6, G& c7, H& c8, I& c9) {
-			int entity = createEntity(c1, c2, c3, c4, c5, c6, c7, c8);
-			addComponentToEntity(entity, c9);
-			return entity;
-		}
-
-		/// <summary>
-		/// Creates a new entity.
-		/// </summary>
-		/// <param name="A">A component to be added to the new entity</param>
-		/// <param name="B">A component to be added to the new entity</param>
-		/// <param name="C">A component to be added to the new entity</param>
-		/// <param name="D">A component to be added to the new entity</param>
-		/// <param name="E">A component to be added to the new entity</param>
-		/// <param name="F">A component to be added to the new entity</param>
-		/// <param name="G">A component to be added to the new entity</param>
-		/// <param name="H">A component to be added to the new entity</param>
-		/// <param name="I">A component to be added to the new entity</param>
-		/// <returns>The ID of the newly created entity.</returns>
-		template<class A, class B, class C, class D, class E, class F, class G, class H, class I, class J>
-		int createEntity(A& c1, B& c2, C& c3, D& c4, E& c5, F& c6, G& c7, H& c8, I& c9, J& c10) {
-			int entity = createEntity(c1, c2, c3, c4, c5, c6, c7, c8, c9);
-			addComponentToEntity(entity, c10);
-			return entity;
+		///// <summary>
+		///// Creates a new entity.
+		///// </summary>
+		///// <param name="fs">Components to be added to the new entity</param>
+		///// <returns>The ID of the newly created entity.</returns>
+		template <typename... Fs>
+		int createEntity(Fs &&... fs) {
+			return buildEntity(std::forward<Fs>(fs)...);
 		}
 
 		/// <summary>
@@ -258,11 +125,24 @@ namespace ECS {
 		/// </summary>
 
 		Component* getComponent(unsigned int entityId, std::type_index componentType) const;
-		
+
 		bool hasComponent(unsigned int entityId, std::type_index componentType) const;
 
 		std::vector<Entity<Component*>> getAllEntitiesWithComponent(const std::type_index& componentType) const;
 
 		void removeComponentFromEntity(unsigned int entityId, std::type_index componentType);
+
+		template <typename F, typename... Fs>
+		int buildEntity(F &&f) {
+			addComponentToEntity(lastEntityId, f);
+			return lastEntityId++;
+		}
+
+		template <typename F, typename... Fs>
+		int buildEntity(F &&f, Fs &&... fs) {
+			int entity = buildEntity(std::forward<Fs>(fs)...);
+			addComponentToEntity(entity, f);
+			return entity;
+		}
 	};
 }

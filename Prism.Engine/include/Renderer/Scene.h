@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Math/Vector3f.h"
+#include "Renderer/DirectionalLight.h"
 
 namespace Renderer {
 	class Scene {
