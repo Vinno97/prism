@@ -2,12 +2,10 @@
 #include "Component.h"
 #include "Renderer/Graphics/Models/Model.h"
 
-//using namespace Renderer::Graphics::Models;
-
 namespace ECS {
 	namespace Components {
 		struct AppearanceComponent : Component {
-			shared_ptr<Renderer::Graphics::Models::Model> model;
+			std::unique_ptr<Renderer::Graphics::Models::Model> model;
 			float translationX = 0;
 			float translationY = 0;
 			float translationZ = 0;
@@ -17,6 +15,27 @@ namespace ECS {
 			float rotationX = 0;
 			float rotationY = 0;
 			float rotationZ = 0;
+
+			Component* Clone() override
+			{
+				AppearanceComponent* appearanceComponent = new AppearanceComponent();
+	
+				appearanceComponent->translationX = translationX;
+				appearanceComponent->translationY = translationY;
+				appearanceComponent->translationZ = translationZ;
+	
+				appearanceComponent->scaleX = scaleX;
+				appearanceComponent->scaleY = scaleY;
+				appearanceComponent->scaleZ = scaleZ;
+	
+				appearanceComponent->rotationX = rotationX;
+				appearanceComponent->rotationY = rotationY;
+				appearanceComponent->rotationZ = rotationZ;
+	
+				appearanceComponent->model = make_unique<Model>(model.get());
+	
+				return appearanceComponent;
+			}
 		};
 	}
 }

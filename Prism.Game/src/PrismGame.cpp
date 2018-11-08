@@ -51,7 +51,21 @@ void PrismGame::onInit(Context & context)
 	sceneComponent->scene.sun.color = Math::Vector3f{ .30f, .30f, .30f };
 	sceneComponent->scene.sun.direction = Math::Vector3f{ 25.f, 150.0f, 100.0f };
 
-	registerSystems(context);
+	PositionComponent position;
+	DragComponent drag;
+	drag.force = 5.f;
+	KeyboardInputComponent input;
+	
+	AppearanceComponent appearance;
+	appearance.translationZ = 3;
+	appearance.translationY = -3;
+	appearance.scaleX = 1;
+	appearance.scaleY = 1;
+	appearance.scaleZ = 1;
+	appearance.rotationY = 45;
+	appearance.model = model;
+	entityManager->createEntity(velocity, position, drag, input, appearance);
+	entityManager->createEntity(sceneComponent);
 }
 
 /// <summary>

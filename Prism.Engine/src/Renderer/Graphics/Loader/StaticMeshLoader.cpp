@@ -30,7 +30,7 @@ namespace Renderer {
 			/// <param name="path">The file path</param>
 			/// <param name="renderDevice">The RenderDevice</param>
 			/// <returns>unique_ptr<Mesh></returns>
-			unique_ptr<Mesh> StaticMeshLoader::loadMesh(string path)
+			shared_ptr<Mesh> StaticMeshLoader::loadMesh(string path)
 			{
 				Assimp::Importer importer;
 
@@ -146,7 +146,7 @@ namespace Renderer {
 				vertexArrayObject->unbind();
 
 				// Combine all into a mesh.
-				unique_ptr<Mesh> combinedMesh = make_unique<Mesh>(move(vertexArrayObject), move(indexBuffer));
+				shared_ptr<Mesh> combinedMesh = make_shared<Mesh>(move(vertexArrayObject), move(indexBuffer));
 				combinedMesh->indicesLength = indices.size();
 
 				if (!combinedMesh)

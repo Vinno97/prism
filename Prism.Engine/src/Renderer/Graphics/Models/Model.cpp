@@ -9,9 +9,7 @@ using namespace std;
 namespace Renderer {
 	namespace Graphics {
 		namespace Models {
-			Model::Model(unique_ptr<Mesh> m) {
-				this->mesh = move(m);
-			}
+			Model::Model(shared_ptr<Mesh> m) : mesh{ m } { }
 		}
 		
 	}

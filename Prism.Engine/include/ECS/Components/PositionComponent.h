@@ -17,6 +17,14 @@ namespace ECS {
 			///	The position in units
 			/// </summary>
 			double y = 0;
+
+
+			Component* Clone() { 
+				PositionComponent* component = new PositionComponent();
+				component->x = x;
+				component->y = y;
+				return component;
+			}
 		};
 	}
 }

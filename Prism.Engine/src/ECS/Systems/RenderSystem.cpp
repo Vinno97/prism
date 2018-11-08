@@ -33,10 +33,10 @@ namespace ECS {
 			for (unsigned int i = 0; i < appearanceEntities.size(); i++)
 			{
 				auto position = this->entityManager->getComponent<PositionComponent>(appearanceEntities[i].id);
-				auto appearance = appearanceEntities[i].component;
+				AppearanceComponent* appearance = appearanceEntities[i].component;
 
 				Renderable renderable;
-				renderable.model = appearanceEntities[i].component->model;
+				renderable.model = appearance->model.get();
 
 				get<0>(renderable.position) = position->x + appearance->translationX;
 				get<1>(renderable.position) = appearance->translationY;
