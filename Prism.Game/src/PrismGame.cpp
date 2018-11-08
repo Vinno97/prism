@@ -2,7 +2,7 @@
 
 
 
-/// <summar>
+/// <summary>
 /// creates new PrismGame object
 /// </summary>
 PrismGame::PrismGame() {
@@ -16,7 +16,7 @@ void PrismGame::onInit(Context & context)
 	registerSystems(context);
 }
 
-/// <summar>
+/// <summary>
 /// register systems in system manager
 /// </summary>
 /// <param name="context">The context that is needed to register the systems</param>

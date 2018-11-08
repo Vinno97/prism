@@ -4,44 +4,44 @@
 class QuadTree
 {
 public:
-	/// <sumary>
+	/// <summary>
 	/// create quadtree
-	/// </sumary>
+	/// </summary>
 	QuadTree();
 
-	/// <sumary>
+	/// <summary>
 	/// create quadtree
-	/// </sumary>
+	/// </summary>
 	/// <param name="width">Total width of the highest level quadtree</param>
 	/// <param name="height">Total height of the highest level quadtree</param>
 	/// <param name="width">The center x coördinate of the highest level quadtree</param>
 	/// <param name="width">Total width of the highest level quadtree</param>
 	QuadTree(float width, float heigt, float x, float y);
 	
-	/// <sumary>
+	/// <summary>
 	/// Destructor of quadtree
-	/// </sumary>
+	/// </summary>
 	~QuadTree();
 
-	/// <sumary>
+	/// <summary>
 	/// Clear the contents of the quadtree
-	/// </sumary>
+	/// </summary>
 	void Clear();
 	
-	/// <sumary>
+	/// <summary>
 	/// Split the quadtree in 4 equal quadtrees
-	/// </sumary>
+	/// </summary>
 	void Split();
 	
-	/// <sumary>
+	/// <summary>
 	/// Insert a new boundingbox in the quadtree
-	/// </sumary>
+	/// </summary>
 	/// <param name="newBox">The boundingbox that needs to be inserted in the quadtree</param>
 	void Insert(BoundingBox const &newBox);
 
-	/// <sumary>
+	/// <summary>
 	/// retrieve a vector with al the boundingboxes that can collide with the given boundingbox
-	/// </sumary>
+	/// </summary>
 	///<param name="searchBox">A vector will be returned that could collide with this boundingbox</param>
 	std::vector<BoundingBox> Retrieve(BoundingBox const &searchBox);
 private:
@@ -55,9 +55,9 @@ private:
 	//3 = North East
 	QuadTree *nodes[4]{ nullptr };
 
-	/// <sumary>
+	/// <summary>
 	/// Get the index of the where the new boundingbox should be placed
-	/// </sumary>
+	/// </summary>
 	/// <param name="box">The boundingbox of which the index is needed</param>
 	int GetIndex(BoundingBox const &box) const;
 };

@@ -4,19 +4,19 @@
 class AABBCollider
 {
 public:
-	/// <sumary>
+	/// <summary>
 	/// create AABBCollider
-	/// </sumary>
+	/// </summary>
 	AABBCollider();
 
-	/// <sumary>
+	/// <summary>
 	/// Deconstruct AABBCollider
-	/// </sumary>
+	/// </summary>
 	~AABBCollider();
 
-	/// <sumary>
+	/// <summary>
 	/// Check whethor or not two boundingboxes are colliding
-	/// </sumary>
+	/// </summary>
 	/// <param name="box1">A boundingbox </param>
 	/// <param name="box2">A boundingbox </param>
 	bool CheckCollision(BoundingBox const &box1, BoundingBox const &box2);
