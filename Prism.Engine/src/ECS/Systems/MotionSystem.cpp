@@ -39,3 +39,9 @@ void ECS::Systems::MotionSystem::update(Context context) {
 	}
 
 }
+
+System * ECS::Systems::MotionSystem::clone()
+{
+	MotionSystem* system = new MotionSystem(*entityManager);
+	return system;
+}

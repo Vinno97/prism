@@ -10,6 +10,7 @@ namespace ECS {
 			RestockResourceSystem(EntityManager& entityManager);
 			~RestockResourceSystem();
 			void update(Context context) override;
+			System* clone() override;
 		};
 	}
 }

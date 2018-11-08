@@ -14,5 +14,9 @@ namespace ECS {
 		void RestockResourceSystem::update(Context context) {
 
 		}
+		System * RestockResourceSystem::clone()
+		{
+			return new RestockResourceSystem(*entityManager);
+		}
 	}
 }

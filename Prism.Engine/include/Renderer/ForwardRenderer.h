@@ -31,6 +31,8 @@ namespace Renderer {
 		void draw(const Camera& camera, const vector<Renderable>& renderables, Renderer::Scene& scene);
 
 		~ForwardRenderer();
+		int width;
+		int height;
 	private: 
 		glm::mat4 projection = glm::mat4(1.0f);
 		unique_ptr<Pipeline> geometryPipeline;

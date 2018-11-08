@@ -32,7 +32,7 @@ namespace ECS {
 				appearanceComponent->rotationY = rotationY;
 				appearanceComponent->rotationZ = rotationZ;
 	
-				appearanceComponent->model = std::make_unique<Renderer::Graphics::Models::Model>(model.get());
+				appearanceComponent->model = std::make_unique<Renderer::Graphics::Models::Model>(*model);
 	
 				return appearanceComponent;
 			}

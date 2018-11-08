@@ -53,7 +53,7 @@ namespace ECS {
 					throw std::runtime_error("Already attached a component of type " + *type.name() + *" to entity " + std::to_string(entityId));
 				}
 			}
-			entityComponents[type][entityId] = new T(component);
+			entityComponents[type][entityId] = component.Clone();//new T(component);
 		}
 
 		/// <summary>
@@ -119,12 +119,13 @@ namespace ECS {
 
 
 
+
+	private:
+		unsigned int lastEntityId = 0;
 		/// <summary>
 		/// Keeps a list of all instances of each component type.
 		/// </summary>
 		std::map<std::type_index, std::map<unsigned int, Component*>> entityComponents;
-	private:
-		unsigned int lastEntityId = 0;
 
 		/// <summary>
 		/// Keeps a list of all Listeners attached to the EntityManager.

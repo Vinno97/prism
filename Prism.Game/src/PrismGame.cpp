@@ -1,8 +1,5 @@
 #include "PrismGame.h"
-
 #include "Math/Vector3f.h"
-
-
 
 using namespace ECS;
 using namespace ECS::Components;
@@ -39,6 +36,8 @@ void PrismGame::onInit(Context & context)
 	sceneComponent->scene.ambientLightStrength = 0.65f;
 	sceneComponent->scene.sun.color = Math::Vector3f{ .30f, .30f, .30f };
 	sceneComponent->scene.sun.direction = Math::Vector3f{ 25.f, 150.0f, 100.0f };
+
+	registerSystems(context);
 }
 
 /// <summary>
@@ -58,7 +57,6 @@ void PrismGame::registerSystems(Context &context)
 	systemManager.registerSystem(inputSystem);
 	systemManager.registerSystem(restockSystem);
 	systemManager.registerSystem(animationSystem);
-	
 }
 
 void PrismGame::onUpdate(Context &context)
@@ -74,7 +72,6 @@ void PrismGame::onUpdate(Context &context)
 	motionSystem->update(context);
 	animationSystem->update(context);
 	renderSystem->update(context);
-
 
 	for (auto &entity : entityManager.getAllEntitiesWithComponent<VelocityComponent>()) {
 		auto velocity = entity.component;

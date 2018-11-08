@@ -55,5 +55,11 @@ namespace ECS {
 
 			forwardRenderer->draw(camera, rendererData, sceneEntity->scene);
 		}
+
+		System * RenderSystem::clone()
+		{
+			RenderSystem* system = new RenderSystem(*entityManager, forwardRenderer->width, forwardRenderer->height);
+			return system;
+		}
 	}
 }

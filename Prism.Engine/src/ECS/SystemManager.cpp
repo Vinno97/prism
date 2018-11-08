@@ -20,7 +20,7 @@ namespace ECS {
 	SystemManager::SystemManager(const SystemManager & other)
 	{
 		for (const auto type : other.systems) {
-			this->systems[type.first] = type.second;
+			this->systems[type.first] = type.second->clone();
 			type.first;
 		};
 
@@ -31,7 +31,10 @@ namespace ECS {
 	SystemManager & SystemManager::operator=(const SystemManager & other)
 	{
 		if (this != &other) {
-			this->systems.insert(other.systems.begin(), other.systems.end());
+			for (const auto type : other.systems) {
+				this->systems[type.first] = type.second->clone();
+				type.first;
+			};
 		}
 		return *this;
 	}

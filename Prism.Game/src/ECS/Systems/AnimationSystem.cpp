@@ -48,5 +48,9 @@ namespace ECS {
 				appearance->scaleZ = absoluteSize + absoluteSize * widthMultiplier * sin;
 			}
 		}
+		System * AnimationSystem::clone()
+		{
+			return new AnimationSystem(*entityManager);
+		}
 	}
 }

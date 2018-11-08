@@ -18,7 +18,6 @@ namespace ECS {
 			/// </summary>
 			double y = 0;
 
-
 			Component* Clone() { 
 				PositionComponent* component = new PositionComponent();
 				component->x = x;
