@@ -11,6 +11,7 @@
 #include "ECS/Systems/RestockResourceSystem.h"
 #include "ECS/Systems/AnimationSystem.h"
 
+#include "World/TerrainGenerator.h"
 
 using namespace ECS;
 using namespace ECS::Components;
@@ -30,7 +31,7 @@ void PrismGame::onInit(Context & context)
 	auto resourcePoint = entityRegister.createResourcePoint(*entityManager);
 	auto enemy = entityRegister.createEnemy(*entityManager);
 	auto scene = entityRegister.createScene(*entityManager);
-	auto floor = entityRegister.createFloor(*entityManager);
+	//auto floor = entityRegister.createFloor(*entityManager);
 
 	for (int i = -4; i < 4; i++) {
 		auto entity = i % 2 == 0 ? entityRegister.createTower(*entityManager) : entityRegister.createWall(*entityManager);
@@ -83,6 +84,9 @@ void PrismGame::onUpdate(Context &context)
 	auto restockSystem = systemManager->getSystem<RestockResourceSystem>();
 	auto animationSystem = systemManager->getSystem<AnimationSystem>();
 
+	World::TerrainGenerator tg;
+	tg.generateTerrain();
+
 	inputSystem->update(context);
 	restockSystem->update(context);
 	motionSystem->update(context);
@@ -93,7 +97,7 @@ void PrismGame::onUpdate(Context &context)
 	for (auto &entity : entityManager->getAllEntitiesWithComponent<VelocityComponent>()) {
 		auto velocity = entity.component;
 		auto position = entityManager->getComponent<PositionComponent>(entity.id);
-		printf("Entity:\t\t%d \nPosition: \tX: %.2f, Y: %.2f\nVelocity:\tdX: %.2f, dY: %.2f\n\n", entity.id, position->x, position->y, velocity->dx, velocity->dy);
+		//printf("Entity:\t\t%d \nPosition: \tX: %.2f, Y: %.2f\nVelocity:\tdX: %.2f, dY: %.2f\n\n", entity.id, position->x, position->y, velocity->dx, velocity->dy);
 	}
 }
 void PrismGame::onEnter() {

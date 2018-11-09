@@ -73,8 +73,13 @@ namespace Renderer {
 			geometryPipeline->setUniformVector("objectColor", renderable.color.x, renderable.color.y, renderable.color.z);
 
 			renderable.model->mesh->vertexArrayObject->bind();
-			renderable.model->mesh->indexBuffer->bind();
-			renderDevice->DrawTrianglesIndexed(0, renderable.model->mesh->indicesLength);
+			if (renderable.model->mesh->isIndiced) {
+				renderable.model->mesh->indexBuffer->bind();
+				renderDevice->DrawTrianglesIndexed(0, renderable.model->mesh->indicesLength);
+			}
+			else {
+				renderDevice->DrawTriangles(0, renderable.model->mesh->verticesLength);
+			}
 		}
 		geometryPipeline->stop();
 	}

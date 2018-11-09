@@ -16,6 +16,12 @@ namespace Renderer {
 			Mesh::Mesh(unique_ptr<VertexArrayObject> vertexArrayObject, unique_ptr<IndexBuffer> indexBuffer) {
 				this->vertexArrayObject = move(vertexArrayObject);
 				this->indexBuffer = move(indexBuffer);
+				isIndiced = true;
+			}
+
+			Mesh::Mesh(unique_ptr<VertexArrayObject> vertexArrayObject)
+			{
+				this->vertexArrayObject = move(vertexArrayObject);
 			}
 		}
 	}

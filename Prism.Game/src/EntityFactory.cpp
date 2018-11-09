@@ -11,7 +11,7 @@
 #include "ECS/Components/AppearanceComponent.h"
 #include "ECS/Components/KeyboardInputComponent.h"
 #include "ECS/Components/ResourceSpawnComponent.h"
-
+#include <World/TerrainGenerator.h>
 #include "Renderer/Graphics/Loader/ModelLoader.h"
 
 using namespace ECS;
@@ -123,15 +123,19 @@ int EntityFactory::createScene(EntityManager & entityManager) {
 int EntityFactory::createFloor(ECS::EntityManager & entityManager)
 {
 	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
-	auto model = ml.loadModel("./res/plane.obj");
+	auto model = World::TerrainGenerator().generateTerrain();
 
 	AppearanceComponent appearance;
-	appearance.scaleX = 5.f;
-	appearance.scaleY = 1.f;
-	appearance.scaleZ = 5.f;
+	appearance.scaleX = 0.2f;
+	appearance.scaleY = 0.2f;
+	appearance.scaleZ = 0.2f;
+	appearance.translationX -= 10;
+	appearance.translationZ -= 10;
 	appearance.color = Math::Vector3f{ 0.90f, 0.90f, 0.90f };
 	appearance.model = model;
-	return entityManager.createEntity(PositionComponent(), appearance);
+	appearance.color = Math::Vector3f{ 0.5f, 0.5f, 0.7f };
+	PositionComponent positionComponent;
+	return entityManager.createEntity(positionComponent, appearance);
 }
 
 
