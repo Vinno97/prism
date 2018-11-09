@@ -94,6 +94,7 @@ void PrismGame::onUpdate(Context &context)
 		auto position = entityManager->getComponent<PositionComponent>(entity.id);
 		printf("Entity:\t\t%d \nPosition: \tX: %.2f, Y: %.2f\nVelocity:\tdX: %.2f, dY: %.2f\n\n", entity.id, position->x, position->y, velocity->dx, velocity->dy);
 	}
+	context.window->swapScreen();
 }
 void PrismGame::onEnter() {
 }
