@@ -27,7 +27,6 @@ public:
 	void onUpdate(Context &context) override;
 	void onEnter() override;
 	void onLeave() override;
-	~PrismGame();
 
 private:
 	EntityManager entityManager;

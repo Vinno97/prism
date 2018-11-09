@@ -83,6 +83,3 @@ void PrismGame::onEnter() {
 }
 void PrismGame::onLeave() {
 }
-
-PrismGame::~PrismGame()
-= default;

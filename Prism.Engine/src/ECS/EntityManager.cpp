@@ -38,14 +38,18 @@ namespace ECS {
 	EntityManager::EntityManager(EntityManager && other)
 	{
 		this->entityComponents = other.entityComponents;
+		this->lastEntityId = other.lastEntityId;
 		other.entityComponents.clear();
+		other.lastEntityId = 0;
 	}
 
 	EntityManager & EntityManager::operator=(EntityManager && other)
 	{
 		if (this != &other) {
 			this->entityComponents = other.entityComponents;
+			this->lastEntityId = other.lastEntityId;
 			other.entityComponents.clear();
+			other.lastEntityId = 0;
 		}
 		return *this;
 	}

@@ -35,7 +35,7 @@ public:
 			throw std::runtime_error("There can only one type of " + *type.name() + *" registered");
 		}
 		//This is copied succesfully
-		existingStates[type] = new T(state);
+		existingStates[type] = new T(std::move(state));
 	}
 
 	/// <summary>
