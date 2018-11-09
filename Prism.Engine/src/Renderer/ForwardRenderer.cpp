@@ -38,6 +38,7 @@ namespace Renderer {
 
 		geometryPipeline->createUniform("ambientLightColor");
 		geometryPipeline->createUniform("ambientLightStrength");
+		geometryPipeline->createUniform("objectColor");
 
 		geometryPipeline->createUniform("sunPosition");
 		geometryPipeline->createUniform("sunColor");
@@ -68,6 +69,8 @@ namespace Renderer {
 
 			geometryPipeline->setUniformVector("sunPosition", scene.sun.direction.x, scene.sun.direction.y, scene.sun.direction.z);
 			geometryPipeline->setUniformVector("sunColor", scene.sun.color.x, scene.sun.color.y, scene.sun.color.z);
+
+			geometryPipeline->setUniformVector("objectColor", renderable.color.x, renderable.color.y, renderable.color.z);
 
 			renderable.model->mesh->vertexArrayObject->bind();
 			renderable.model->mesh->indexBuffer->bind();

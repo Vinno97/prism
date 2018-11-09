@@ -1,6 +1,7 @@
 #pragma once
 #include "Component.h"
 #include "Renderer/Graphics/Models/Model.h"
+#include "Math/Vector3f.h"
 
 //using namespace Renderer::Graphics::Models;
 
@@ -17,6 +18,8 @@ namespace ECS {
 			float rotationX = 0;
 			float rotationY = 0;
 			float rotationZ = 0;
+
+			Math::Vector3f color{ 1.f, 1.f, 1.f };
 		};
 	}
 }
