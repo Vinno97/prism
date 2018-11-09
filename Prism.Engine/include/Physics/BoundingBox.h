@@ -92,21 +92,21 @@ public:
 private:
 
 	//Center x position of the boundingbox 
-	float posX;
+	float posX = 0;
 
 	//Center y position of the boundingbox
-	float posY;
+	float posY = 0;
 
 	//The distance of the northern edges to the center of the boundingbox 
-	float north;
+	float north = 0;
 
 	//The distance of the eastern edges to the center of the boundingbox
-	float east;
+	float east = 0;
 
 	//The distance of the southern edges to the center of the boundingbox
-	float south;
+	float south = 0;
 	
 	//The distance of the western edges to the center of the boundingbox
-	float west;
+	float west = 0;
 };
 
