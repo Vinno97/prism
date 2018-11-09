@@ -332,5 +332,10 @@ ASALocalRun/
 # Local History for Visual Studio
 .localhistory/
 
-# Models
+# Allow .obj model resources
 !Prism.Game/res/**/*.obj
+
+# Allow x64 and x86 libraries
+!Prism.*/lib/x64/
+!Prism.*/lib/x86/
+

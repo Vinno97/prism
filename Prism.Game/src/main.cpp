@@ -14,9 +14,6 @@
 #include "InputManager.h"
 #include "Key.h"
 #include "Game.h"
-#include <assimp/Importer.hpp>
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>
 #include <string>
 #include "Context.h"
 #include "StateMachine.h"
