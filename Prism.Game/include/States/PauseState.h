@@ -14,6 +14,6 @@ public:
 	~PauseState();
 
 private:
-	bool isPressable = false;
+	bool canPressEscape = false;
 };
 

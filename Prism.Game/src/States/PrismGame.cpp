@@ -72,13 +72,13 @@ void PrismGame::onUpdate(Context &context)
 {
 
 	auto input = context.inputManager;
-	if (input->isKeyPressed(Key::KEY_ESCAPE) && isPressable) {
-		isPressable = false;
+	if (input->isKeyPressed(Key::KEY_ESCAPE) && canPressEscape) {
+		canPressEscape = false;
 		context.stateMachine->setState<PauseState>();
 	}
 
 	if (!input->isKeyPressed(Key::KEY_ESCAPE)) {
-		isPressable = true;
+		canPressEscape = true;
 	}
 
 	auto inputSystem = systemManager->getSystem<KeyboardInputSystem>();

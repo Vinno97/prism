@@ -36,5 +36,5 @@ private:
 
 	void registerSystems(Context &context);
 	void createPlayer();
-	bool isPressable = false;
+	bool canPressEscape = false;
 };
