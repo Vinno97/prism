@@ -43,10 +43,10 @@ public:
 	/// retrieve a vector with al the boundingboxes that can collide with the given boundingbox
 	/// </summary>
 	///<param name="searchBox">A vector will be returned that could collide with this boundingbox</param>
-	std::vector<BoundingBox> Retrieve(BoundingBox const &searchBox);
+	std::vector<BoundingBox const *> Retrieve(std::vector<BoundingBox const *> &vector,BoundingBox const &searchBox);
 private:
 	int maxObjects = 2;
-	std::vector<BoundingBox> objects;
+	std::vector<BoundingBox const * > objects;
 	BoundingBox bounds;
 	
 	//0 = North East

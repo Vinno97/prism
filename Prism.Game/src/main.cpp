@@ -45,7 +45,8 @@ void test() {
 	q.Insert(b1);
 	q.Insert(b2);
 	q.Insert(b1);
-	q.Retrieve(b1);
+	std::vector<BoundingBox const *> v;
+	q.Retrieve(v,b1);
 }
 
 int main(int argc, char ** argv) {
