@@ -47,8 +47,8 @@ void PrismGame::onInit(Context & context)
 	auto sceneComponent = entityManager->getComponent<SceneComponent>(scene);
 
 	sceneComponent->scene.ambientLightColor = Math::Vector3f{ 1.0f, 1.0f, 1.0f };
-	sceneComponent->scene.ambientLightStrength = 0.65f;
-	sceneComponent->scene.sun.color = Math::Vector3f{ .30f, .30f, .30f };
+	sceneComponent->scene.ambientLightStrength = 0.95f;
+	sceneComponent->scene.sun.color = Math::Vector3f{ .20f, .20f, .20f };
 	sceneComponent->scene.sun.direction = Math::Vector3f{ 25.f, 150.0f, 100.0f };
 
 	registerSystems(context);
