@@ -7,7 +7,7 @@ namespace World {
 	namespace EntityConfigurators {
 		class EntityConfigurator {
 		public:
-			virtual void configure(int entity, WorldObject &object, ECS::EntityManager &entityManager) = 0;
+			virtual void configure(int entity, const WorldObject &object, ECS::EntityManager &entityManager) const = 0;
 		};
 	}
 }

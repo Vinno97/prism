@@ -6,7 +6,7 @@ namespace World {
 	namespace EntityConfigurators {
 		class ResourceSpawnConfigurator : EntityConfigurator {
 		public:
-			void configure(int entity, WorldObject &object, ECS::EntityManager &entityManager);
+			void configure(int entity, const WorldObject &object, ECS::EntityManager &entityManager) const;
 		};
 	}
 }

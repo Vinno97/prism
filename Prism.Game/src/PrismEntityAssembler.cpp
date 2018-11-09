@@ -12,4 +12,6 @@ World::PrismEntityAssembler::PrismEntityAssembler(ECS::EntityManager &entityMana
 	registerCreator(7, [&]() -> int { return factory.createTower(entityManager_); });
 	// TODO: This is an enemy spawnpoint
 	registerCreator(8, [&]() -> int { return factory.createTower(entityManager_); });
+
+	
 }

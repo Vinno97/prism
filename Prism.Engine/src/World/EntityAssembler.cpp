@@ -1,5 +1,8 @@
 #include "World/EntityAssembler.h"
 
+#include "World/EntityConfigurators/AppearanceConfigurator.h"
+#include "World/EntityConfigurators/PositionConfigurator.h"
+
 namespace World {
 	using namespace EntityConfigurators;
 
@@ -15,6 +18,8 @@ namespace World {
 
 	EntityAssembler::EntityAssembler(ECS::EntityManager &entityManager_) : entityManager(entityManager_)
 	{
+		registerConfigurator([&](int entity, const WorldObject &object) -> void { AppearanceConfigurator().configure(entity, object, entityManager_); });
+		registerConfigurator([&](int entity, const WorldObject &object) -> void { PositionConfigurator().configure(entity, object, entityManager_); });
 	}
 
 	//void EntityAssembler::registerCreator(int objectId, std::function<int(ECS::EntityManager)> fun)
@@ -32,7 +37,19 @@ namespace World {
 		this->configurators.push_back(configurator);
 	}*/
 
-	int EntityAssembler::assemble(WorldObject object) const {
+	void EntityAssembler::registerConfigurator(std::function<void(int, const WorldObject&)> configurator)
+	{
+		this->configurators.push_back(configurator);
+	}
+
+	int EntityAssembler::assemble(const WorldObject& object) const {
+		auto entity = createEntity(object);
+		configureEntity(entity, object);
+		return entity;
+	}
+
+	int EntityAssembler::createEntity(const WorldObject& object) const
+	{
 		try {
 			return creators.at(object.gid)();
 		}
@@ -41,14 +58,11 @@ namespace World {
 		}
 	}
 
-	int EntityAssembler::createEntity(WorldObject object) const
+	void EntityAssembler::configureEntity(int entity, const WorldObject& object) const
 	{
-		return 0;
-	}
-
-	int EntityAssembler::createEntity(int entity, WorldObject object) const
-	{
-		return 0;
+		for (const auto& configurator : configurators) {
+			configurator(entity, object);
+		}
 	}
 
 }
