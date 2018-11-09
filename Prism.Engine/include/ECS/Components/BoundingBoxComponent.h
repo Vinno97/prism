@@ -1,5 +1,5 @@
 #pragma once
-#include "Component.h"
+#include "ECS/Components/Component.h"
 #include "Physics/BoundingBox.h"
 
 struct BoundingBoxComponent : ECS::Components::Component {

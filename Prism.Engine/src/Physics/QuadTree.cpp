@@ -122,18 +122,7 @@ void QuadTree::Insert(BoundingBox const &newBox)
 				else {
 					it++;
 				}
-				/*
-				while (i < objects.size()-1) {
-					int index = GetIndex(objects[i]);
-					if (index != -1) {
-						nodes[index]->Insert(objects[i]);
-						nodes[index]->objects.erase(objects.begin() + i);
-					}
-					else {
-						i++;
-					}
-				}
-				*/
+
 			}
 		}
 	}
