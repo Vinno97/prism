@@ -39,7 +39,7 @@ void WorldLoader::loadJson(std::ifstream input, EntityAssembler& entityAssembler
 				p.width /= tileWidth;
 				p.height /= tileHeight;
 
-				entityAssembler.assemble(object);
+				entityAssembler.assemble(p);
 
 				//json jb = p;
 				//std::cout << jb << std::endl;

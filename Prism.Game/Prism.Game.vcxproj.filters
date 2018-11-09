@@ -71,9 +71,6 @@
     <ClInclude Include="include\ECS\Systems\KeyboardInputSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\ECS\Components\PlayerComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\ECS\Components\ResourceSpawnComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>

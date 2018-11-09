@@ -11,7 +11,7 @@ namespace World {
 			if (entityManager.hasComponent<PositionComponent>(entity)) {
 				auto position = entityManager.getComponent<PositionComponent>(entity);
 				position->x = object.x;
-				position->y = object.x;
+				position->y = object.y;
 			}
 		}
 	}

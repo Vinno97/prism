@@ -31,23 +31,23 @@ void PrismGame::onInit(Context & context)
 	World::WorldLoader loader;
 	World::PrismEntityAssembler assembler{ *entityManager, entityFactory };
 
-	auto player = entityFactory.createPlayer(*entityManager);
-	auto resourcePoint = entityFactory.createResourcePoint(*entityManager);
-	auto enemy = entityFactory.createEnemy(*entityManager);
+	//auto player = entityFactory.createPlayer(*entityManager);
+	//auto resourcePoint = entityFactory.createResourcePoint(*entityManager);
+	//auto enemy = entityFactory.createEnemy(*entityManager);
 	auto scene = entityFactory.createScene(*entityManager);
 
-	for (int i = -4; i < 4; i++) {
-		auto entity = i % 2 == 0 ? entityFactory.createTower(*entityManager) : entityFactory.createWall(*entityManager);
-		auto position = entityManager->getComponent<PositionComponent>(entity);
-		position->y = -1;
-		position->x = i;
-	}
+	//for (int i = -4; i < 4; i++) {
+	//	auto entity = i % 2 == 0 ? entityFactory.createTower(*entityManager) : entityFactory.createWall(*entityManager);
+	//	auto position = entityManager->getComponent<PositionComponent>(entity);
+	//	position->y = -1;
+	//	position->x = i;
+	//}
 
-	auto positions{ entityManager->getAllEntitiesWithComponent<PositionComponent>()};
+	//auto positions{ entityManager->getAllEntitiesWithComponent<PositionComponent>()};
 
-	entityManager->getComponent<PositionComponent>(player)->y = 1;
-	entityManager->getComponent<PositionComponent>(resourcePoint)->x = 1;
-	entityManager->getComponent<PositionComponent>(enemy)->x = -1;
+	//entityManager->getComponent<PositionComponent>(player)->y = 1;
+	//entityManager->getComponent<PositionComponent>(resourcePoint)->x = 1;
+	//entityManager->getComponent<PositionComponent>(enemy)->x = -1;
 	
 	auto sceneComponent = entityManager->getComponent<SceneComponent>(scene);
 
