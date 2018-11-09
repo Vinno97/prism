@@ -17,6 +17,11 @@ namespace ECS {
 			virtual ~System();
 			virtual void update(Context context) = 0;
 			virtual System* clone() = 0;
+
+			System(const System &system) = delete;
+			System(const System &&system) = delete;
+			System &operator=(const System &system) = delete;
+			System &operator=(System &&system) = delete;
 		protected:
 			EntityManager *entityManager;
 		};
