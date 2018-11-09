@@ -1,11 +1,9 @@
 #pragma once
 
 //#include "../Prism.Engine/Game.h"
-	
-class PrismGame
-{
-public:
-	PrismGame();
-	~PrismGame();
-};
 
+class PrismGame {
+ public:
+  PrismGame();
+  ~PrismGame();
+};

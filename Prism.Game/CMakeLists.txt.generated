@@ -1,0 +1,163 @@
+cmake_minimum_required(VERSION 3.0.0 FATAL_ERROR)
+
+include(CMake/Utils.cmake)
+
+################################################################################
+# Set target arch type if empty. Visual studio solution generator provides it.
+################################################################################
+if(NOT CMAKE_VS_PLATFORM_NAME)
+    set(CMAKE_VS_PLATFORM_NAME "x64")
+endif()
+message("${CMAKE_VS_PLATFORM_NAME} architecture in use")
+
+################################################################################
+# Nuget packages function stub.
+################################################################################
+function(use_package TARGET PACKAGE VERSION)
+    message(WARNING "No implementation of use_package. Create yours.")
+endfunction()
+
+project(Prism.Game CXX)
+
+################################################################################
+# Source groups
+################################################################################
+set(no_group_source_files
+    lib/assimp-vc140-mtd.dll
+    lib/glew32.dll
+    lib/SDL2.dll
+)
+source_group("" FILES ${no_group_source_files})
+
+set(Header_Files
+    include/ECS/Components/KeyboardInputComponent.h
+    include/ECS/Systems/KeyboardInputSystem.h
+    include/PrismGame.h
+)
+source_group("Header Files" FILES ${Header_Files})
+
+set(Source_Files
+    src/ECS/Systems/KeyboardInputSystem.cpp
+    src/main.cpp
+    src/PrismGame.cpp
+)
+source_group("Source Files" FILES ${Source_Files})
+
+set(ALL_FILES  ${Header_Files} ${Source_Files} ${no_group_source_files})
+
+################################################################################
+# Target
+################################################################################
+add_executable(${PROJECT_NAME} ${ALL_FILES})
+
+if(NOT ("${CMAKE_VS_PLATFORM_NAME}" STREQUAL "Win32"
+     OR "${CMAKE_VS_PLATFORM_NAME}" STREQUAL "x64"))
+    message(WARNING "${CMAKE_VS_PLATFORM_NAME} arch is not supported!")
+endif()
+
+################################################################################
+# Target name
+################################################################################
+if("${CMAKE_VS_PLATFORM_NAME}" STREQUAL "Win32")
+    string(CONCAT TARGET_NAME
+          $<$<CONFIG:Debug>:${PROJECT_NAME}>
+        $<$<CONFIG:Release>:${PROJECT_NAME}>
+        $<$<NOT:$<OR:$<CONFIG:Debug>,$<CONFIG:Release>>>:${PROJECT_NAME}>
+    )
+elseif("${CMAKE_VS_PLATFORM_NAME}" STREQUAL "x64")
+    string(CONCAT TARGET_NAME
+          $<$<CONFIG:Debug>:${PROJECT_NAME}>
+        $<$<CONFIG:Release>:${PROJECT_NAME}>
+        $<$<NOT:$<OR:$<CONFIG:Debug>,$<CONFIG:Release>>>:${PROJECT_NAME}>
+    )
+endif()
+set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME ${TARGET_NAME})
+
+################################################################################
+# Output directory
+################################################################################
+if("${CMAKE_VS_PLATFORM_NAME}" STREQUAL "Win32")
+    string(CONCAT OUT_DIR
+          $<$<CONFIG:Debug>:${CMAKE_SOURCE_DIR}/${CMAKE_VS_PLATFORM_NAME}/$<CONFIG>/>
+        $<$<CONFIG:Release>:${CMAKE_SOURCE_DIR}/${CMAKE_VS_PLATFORM_NAME}/$<CONFIG>/>
+        $<$<NOT:$<OR:$<CONFIG:Debug>,$<CONFIG:Release>>>:${CMAKE_SOURCE_DIR}/${CMAKE_VS_PLATFORM_NAME}/$<CONFIG>>
+    )
+elseif("${CMAKE_VS_PLATFORM_NAME}" STREQUAL "x64")
+    string(CONCAT OUT_DIR
+          $<$<CONFIG:Debug>:${CMAKE_SOURCE_DIR}/${CMAKE_VS_PLATFORM_NAME}/$<CONFIG>/>
+        $<$<CONFIG:Release>:${CMAKE_SOURCE_DIR}/${CMAKE_VS_PLATFORM_NAME}/$<CONFIG>/>
+        $<$<NOT:$<OR:$<CONFIG:Debug>,$<CONFIG:Release>>>:${CMAKE_SOURCE_DIR}/${CMAKE_VS_PLATFORM_NAME}/$<CONFIG>>
+    )
+endif()
+set_target_properties(${PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${OUT_DIR})
+
+################################################################################
+# Include directories
+################################################################################
+if("${CMAKE_VS_PLATFORM_NAME}" STREQUAL "x64")
+    target_include_directories(${PROJECT_NAME} PUBLIC
+          $<$<CONFIG:Debug>:${CMAKE_SOURCE_DIR}\Prism.Engine/include;${CMAKE_CURRENT_SOURCE_DIR}/include>
+    )
+endif()
+
+################################################################################
+# Compile definitions
+################################################################################
+
+################################################################################
+# Compile and link options
+################################################################################
+if(MSVC)
+    if("${CMAKE_VS_PLATFORM_NAME}" STREQUAL "Win32")
+        target_compile_options(${PROJECT_NAME} PRIVATE
+              $<$<CONFIG:Debug>:/Od;/MDd;/W3;/EHsc>
+            $<$<CONFIG:Release>:/GL;/O2;/Oi;/MD;/Gy;/W3;/EHsc>
+        )
+    elseif("${CMAKE_VS_PLATFORM_NAME}" STREQUAL "x64")
+        target_compile_options(${PROJECT_NAME} PRIVATE
+              $<$<CONFIG:Debug>:/Od;/MDd;/W3;/EHsc>
+            $<$<CONFIG:Release>:/GL;/O2;/Oi;/MD;/Gy;/W3;/EHsc>
+        )
+    endif()
+    if("${CMAKE_VS_PLATFORM_NAME}" STREQUAL "Win32")
+        set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS_DEBUG "/DEBUG:FULL")
+        set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS_RELEASE "/LTCG /DEBUG:FULL")
+    elseif("${CMAKE_VS_PLATFORM_NAME}" STREQUAL "x64")
+        set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS_DEBUG "/DEBUG:FULL")
+        set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS_RELEASE "/LTCG /DEBUG:FULL")
+    endif()
+endif()
+
+################################################################################
+# Post build events
+################################################################################
+if("${CMAKE_VS_PLATFORM_NAME}" STREQUAL "x64")
+    add_custom_command_if(
+        TARGET ${PROJECT_NAME}
+        POST_BUILD
+        COMMANDS
+        COMMAND   $<CONFIG:Debug> xcopy /y "$<SHELL_PATH:${CMAKE_CURRENT_SOURCE_DIR}/>lib\\*.dll" "$<SHELL_PATH:${OUT_DIR}>"
+        COMMAND $<CONFIG:Release> xcopy /y "$<SHELL_PATH:${CMAKE_CURRENT_SOURCE_DIR}/>lib\\*.dll" "$<SHELL_PATH:${OUT_DIR}>"
+    )
+endif()
+
+################################################################################
+# Dependencies
+################################################################################
+add_dependencies(${PROJECT_NAME} Prism.Engine)
+
+# Link with other targets.
+target_link_libraries(${PROJECT_NAME} Prism.Engine)
+
+# Link with other additional libraries.
+if("${CMAKE_VS_PLATFORM_NAME}" STREQUAL "x64")
+    target_link_libraries(${PROJECT_NAME}
+          $<$<CONFIG:Debug>:SDL2$<SEMICOLON>SDL2main$<SEMICOLON>glew32$<SEMICOLON>opengl32$<SEMICOLON>assimp-vc140-mtd>
+    )
+endif()
+if("${CMAKE_VS_PLATFORM_NAME}" STREQUAL "x64")
+    target_link_directories(${PROJECT_NAME}
+        CONDITION   $<CONFIG:Debug> "${CMAKE_SOURCE_DIR}/Prism.Engine/lib" "${CMAKE_SOURCE_DIR}/x64/Debug"
+    )
+endif()
+

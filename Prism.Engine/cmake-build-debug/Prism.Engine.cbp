@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="Prism.Engine"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\..\;CMake Files\..\..\..\..\..\..\;CMake Files\..\..\..\..\..\..\usr\;CMake Files\..\..\..\..\..\..\usr\lib\;CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\;CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\;CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\SDL2\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/vincent/School/SWAP/prism/Prism.Engine/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="install/strip">
+				<Option working_dir="/home/vincent/School/SWAP/prism/Prism.Engine/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 install/strip"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="install/local">
+				<Option working_dir="/home/vincent/School/SWAP/prism/Prism.Engine/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 install/local"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Prism.Engine">
+				<Option output="/home/vincent/School/SWAP/prism/Prism.Engine/cmake-build-debug/libPrism.Engine.so" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/vincent/School/SWAP/prism/Prism.Engine/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/vincent/School/SWAP/prism/Prism.Engine/include"/>
+					<Add directory="/home/vincent/School/SWAP/prism/Prism.Engine/src"/>
+					<Add directory="/usr/include/SDL2"/>
+					<Add directory="/home/vincent/School/SWAP/prism/Prism.Engine/lib/include"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 Prism.Engine"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Prism.Engine/fast">
+				<Option output="/home/vincent/School/SWAP/prism/Prism.Engine/cmake-build-debug/libPrism.Engine.so" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/vincent/School/SWAP/prism/Prism.Engine/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/vincent/School/SWAP/prism/Prism.Engine/include"/>
+					<Add directory="/home/vincent/School/SWAP/prism/Prism.Engine/src"/>
+					<Add directory="/usr/include/SDL2"/>
+					<Add directory="/home/vincent/School/SWAP/prism/Prism.Engine/lib/include"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 Prism.Engine/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="install">
+				<Option working_dir="/home/vincent/School/SWAP/prism/Prism.Engine/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 install"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="list_install_components">
+				<Option working_dir="/home/vincent/School/SWAP/prism/Prism.Engine/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 list_install_components"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/vincent/School/SWAP/prism/Prism.Engine/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/vincent/School/SWAP/prism/Prism.Engine/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Engine/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/vincent/School/SWAP/prism/Prism.Engine/src/Context.cpp">
+			<Option target="Prism.Engine"/>
+		</Unit>
+		<Unit filename="/home/vincent/School/SWAP/prism/Prism.Engine/src/CoreEngine.cpp">
+			<Option target="Prism.Engine"/>
+		</Unit>
+		<Unit filename="/home/vincent/School/SWAP/prism/Prism.Engine/src/ECS/EntityManager.cpp">
+			<Option target="Prism.Engine"/>
+		</Unit>
+		<Unit filename="/home/vincent/School/SWAP/prism/Prism.Engine/src/ECS/SystemManager.cpp">
+			<Option target="Prism.Engine"/>
+		</Unit>
+		<Unit filename="/home/vincent/School/SWAP/prism/Prism.Engine/src/ECS/Systems/RenderSystem.cpp">
+			<Option target="Prism.Engine"/>
+		</Unit>
+		<Unit filename="/home/vincent/School/SWAP/prism/Prism.Engine/src/ECS/Systems/System.cpp">
+			<Option target="Prism.Engine"/>
+		</Unit>
+		<Unit filename="/home/vincent/School/SWAP/prism/Prism.Engine/src/Game.cpp">
+			<Option target="Prism.Engine"/>
+		</Unit>
+		<Unit filename="/home/vincent/School/SWAP/prism/Prism.Engine/src/InputManager.cpp">
+			<Option target="Prism.Engine"/>
+		</Unit>
+		<Unit filename="/home/vincent/School/SWAP/prism/Prism.Engine/src/MenuState.cpp">
+			<Option target="Prism.Engine"/>
+		</Unit>
+		<Unit filename="/home/vincent/School/SWAP/prism/Prism.Engine/src/Renderer/Graphics/OpenGL/OGLFragmentShader.cpp">
+			<Option target="Prism.Engine"/>
+		</Unit>
+		<Unit filename="/home/vincent/School/SWAP/prism/Prism.Engine/src/Renderer/Graphics/OpenGL/OGLIndexBuffer.cpp">
+			<Option target="Prism.Engine"/>
+		</Unit>
+		<Unit filename="/home/vincent/School/SWAP/prism/Prism.Engine/src/Renderer/Graphics/OpenGL/OGLPipeline.cpp">
+			<Option target="Prism.Engine"/>
+		</Unit>
+		<Unit filename="/home/vincent/School/SWAP/prism/Prism.Engine/src/Renderer/Graphics/OpenGL/OGLRenderDevice.cpp">
+			<Option target="Prism.Engine"/>
+		</Unit>
+		<Unit filename="/home/vincent/School/SWAP/prism/Prism.Engine/src/Renderer/Graphics/OpenGL/OGLVertexArrayObject.cpp">
+			<Option target="Prism.Engine"/>
+		</Unit>
+		<Unit filename="/home/vincent/School/SWAP/prism/Prism.Engine/src/Renderer/Graphics/OpenGL/OGLVertexBuffer.cpp">
+			<Option target="Prism.Engine"/>
+		</Unit>
+		<Unit filename="/home/vincent/School/SWAP/prism/Prism.Engine/src/Renderer/Graphics/OpenGL/OGLVertexShader.cpp">
+			<Option target="Prism.Engine"/>
+		</Unit>
+		<Unit filename="/home/vincent/School/SWAP/prism/Prism.Engine/src/Renderer/TestRenderer.cpp">
+			<Option target="Prism.Engine"/>
+		</Unit>
+		<Unit filename="/home/vincent/School/SWAP/prism/Prism.Engine/src/State.cpp">
+			<Option target="Prism.Engine"/>
+		</Unit>
+		<Unit filename="/home/vincent/School/SWAP/prism/Prism.Engine/src/StateMachine.cpp">
+			<Option target="Prism.Engine"/>
+		</Unit>
+		<Unit filename="/home/vincent/School/SWAP/prism/Prism.Engine/src/Window.cpp">
+			<Option target="Prism.Engine"/>
+		</Unit>
+		<Unit filename="/home/vincent/School/SWAP/prism/Prism.Engine/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/vincent/School/SWAP/prism/Prism.Engine/../../../../../../usr/lib/x86_64-linux-gnu/cmake/SDL2/sdl2-config.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\SDL2\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

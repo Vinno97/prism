@@ -1,0 +1,17 @@
+[
+{
+  "directory": "/home/vincent/School/SWAP/prism/Prism.Game/cmake-build-debug",
+  "command": "/usr/bin/c++   -I/home/vincent/School/SWAP/prism/Prism.Game/include -I/home/vincent/School/SWAP/prism/Prism.Game/src  -g   -Wall -Wpedantic -std=gnu++1z -o CMakeFiles/Prism.Game.dir/src/ECS/Systems/KeyboardInputSystem.cpp.o -c /home/vincent/School/SWAP/prism/Prism.Game/src/ECS/Systems/KeyboardInputSystem.cpp",
+  "file": "/home/vincent/School/SWAP/prism/Prism.Game/src/ECS/Systems/KeyboardInputSystem.cpp"
+},
+{
+  "directory": "/home/vincent/School/SWAP/prism/Prism.Game/cmake-build-debug",
+  "command": "/usr/bin/c++   -I/home/vincent/School/SWAP/prism/Prism.Game/include -I/home/vincent/School/SWAP/prism/Prism.Game/src  -g   -Wall -Wpedantic -std=gnu++1z -o CMakeFiles/Prism.Game.dir/src/PrismGame.cpp.o -c /home/vincent/School/SWAP/prism/Prism.Game/src/PrismGame.cpp",
+  "file": "/home/vincent/School/SWAP/prism/Prism.Game/src/PrismGame.cpp"
+},
+{
+  "directory": "/home/vincent/School/SWAP/prism/Prism.Game/cmake-build-debug",
+  "command": "/usr/bin/c++   -I/home/vincent/School/SWAP/prism/Prism.Game/include -I/home/vincent/School/SWAP/prism/Prism.Game/src  -g   -Wall -Wpedantic -std=gnu++1z -o CMakeFiles/Prism.Game.dir/src/main.cpp.o -c /home/vincent/School/SWAP/prism/Prism.Game/src/main.cpp",
+  "file": "/home/vincent/School/SWAP/prism/Prism.Game/src/main.cpp"
+}
+]

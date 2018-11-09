@@ -2,7 +2,7 @@
 #include <SDL2/SDL_opengl.h>
 #include <iostream>
 #include <string>
-#include "Renderer/Graphics/openGL/OGLFragmentShader.h"
+#include "Renderer/Graphics/OpenGL/OGLFragmentShader.h"
 
 using namespace Renderer::Graphics;
 

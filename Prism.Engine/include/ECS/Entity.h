@@ -4,11 +4,12 @@
 #include "ECS/Components/Component.h"
 
 namespace ECS {
-	using namespace Components;
+using namespace Components;
 
-	template<typename T, typename = std::enable_if < std::is_base_of<Component, T>::value>>
-	struct Entity {
-		unsigned int id;
-		T component;
-	};
-}
+template <typename T,
+          typename = std::enable_if<std::is_base_of<Component, T>::value>>
+struct Entity {
+  unsigned int id;
+  T component;
+};
+}  // namespace ECS

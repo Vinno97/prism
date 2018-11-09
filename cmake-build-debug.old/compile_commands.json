@@ -1,0 +1,112 @@
+[
+{
+  "directory": "/home/vincent/School/SWAP/prism/cmake-build-debug/Prism.Engine",
+  "command": "/usr/bin/c++  -DPrism_Engine_EXPORTS -I/home/vincent/School/SWAP/prism/Prism.Engine/include -I/home/vincent/School/SWAP/prism/Prism.Engine/src -I/usr/include/SDL2 -isystem /home/vincent/School/SWAP/prism/Prism.Engine/lib/include  -g -fPIC   -o CMakeFiles/Prism.Engine.dir/src/Context.cpp.o -c /home/vincent/School/SWAP/prism/Prism.Engine/src/Context.cpp",
+  "file": "/home/vincent/School/SWAP/prism/Prism.Engine/src/Context.cpp"
+},
+{
+  "directory": "/home/vincent/School/SWAP/prism/cmake-build-debug/Prism.Engine",
+  "command": "/usr/bin/c++  -DPrism_Engine_EXPORTS -I/home/vincent/School/SWAP/prism/Prism.Engine/include -I/home/vincent/School/SWAP/prism/Prism.Engine/src -I/usr/include/SDL2 -isystem /home/vincent/School/SWAP/prism/Prism.Engine/lib/include  -g -fPIC   -o CMakeFiles/Prism.Engine.dir/src/CoreEngine.cpp.o -c /home/vincent/School/SWAP/prism/Prism.Engine/src/CoreEngine.cpp",
+  "file": "/home/vincent/School/SWAP/prism/Prism.Engine/src/CoreEngine.cpp"
+},
+{
+  "directory": "/home/vincent/School/SWAP/prism/cmake-build-debug/Prism.Engine",
+  "command": "/usr/bin/c++  -DPrism_Engine_EXPORTS -I/home/vincent/School/SWAP/prism/Prism.Engine/include -I/home/vincent/School/SWAP/prism/Prism.Engine/src -I/usr/include/SDL2 -isystem /home/vincent/School/SWAP/prism/Prism.Engine/lib/include  -g -fPIC   -o CMakeFiles/Prism.Engine.dir/src/ECS/EntityManager.cpp.o -c /home/vincent/School/SWAP/prism/Prism.Engine/src/ECS/EntityManager.cpp",
+  "file": "/home/vincent/School/SWAP/prism/Prism.Engine/src/ECS/EntityManager.cpp"
+},
+{
+  "directory": "/home/vincent/School/SWAP/prism/cmake-build-debug/Prism.Engine",
+  "command": "/usr/bin/c++  -DPrism_Engine_EXPORTS -I/home/vincent/School/SWAP/prism/Prism.Engine/include -I/home/vincent/School/SWAP/prism/Prism.Engine/src -I/usr/include/SDL2 -isystem /home/vincent/School/SWAP/prism/Prism.Engine/lib/include  -g -fPIC   -o CMakeFiles/Prism.Engine.dir/src/ECS/SystemManager.cpp.o -c /home/vincent/School/SWAP/prism/Prism.Engine/src/ECS/SystemManager.cpp",
+  "file": "/home/vincent/School/SWAP/prism/Prism.Engine/src/ECS/SystemManager.cpp"
+},
+{
+  "directory": "/home/vincent/School/SWAP/prism/cmake-build-debug/Prism.Engine",
+  "command": "/usr/bin/c++  -DPrism_Engine_EXPORTS -I/home/vincent/School/SWAP/prism/Prism.Engine/include -I/home/vincent/School/SWAP/prism/Prism.Engine/src -I/usr/include/SDL2 -isystem /home/vincent/School/SWAP/prism/Prism.Engine/lib/include  -g -fPIC   -o CMakeFiles/Prism.Engine.dir/src/ECS/Systems/RenderSystem.cpp.o -c /home/vincent/School/SWAP/prism/Prism.Engine/src/ECS/Systems/RenderSystem.cpp",
+  "file": "/home/vincent/School/SWAP/prism/Prism.Engine/src/ECS/Systems/RenderSystem.cpp"
+},
+{
+  "directory": "/home/vincent/School/SWAP/prism/cmake-build-debug/Prism.Engine",
+  "command": "/usr/bin/c++  -DPrism_Engine_EXPORTS -I/home/vincent/School/SWAP/prism/Prism.Engine/include -I/home/vincent/School/SWAP/prism/Prism.Engine/src -I/usr/include/SDL2 -isystem /home/vincent/School/SWAP/prism/Prism.Engine/lib/include  -g -fPIC   -o CMakeFiles/Prism.Engine.dir/src/ECS/Systems/System.cpp.o -c /home/vincent/School/SWAP/prism/Prism.Engine/src/ECS/Systems/System.cpp",
+  "file": "/home/vincent/School/SWAP/prism/Prism.Engine/src/ECS/Systems/System.cpp"
+},
+{
+  "directory": "/home/vincent/School/SWAP/prism/cmake-build-debug/Prism.Engine",
+  "command": "/usr/bin/c++  -DPrism_Engine_EXPORTS -I/home/vincent/School/SWAP/prism/Prism.Engine/include -I/home/vincent/School/SWAP/prism/Prism.Engine/src -I/usr/include/SDL2 -isystem /home/vincent/School/SWAP/prism/Prism.Engine/lib/include  -g -fPIC   -o CMakeFiles/Prism.Engine.dir/src/Game.cpp.o -c /home/vincent/School/SWAP/prism/Prism.Engine/src/Game.cpp",
+  "file": "/home/vincent/School/SWAP/prism/Prism.Engine/src/Game.cpp"
+},
+{
+  "directory": "/home/vincent/School/SWAP/prism/cmake-build-debug/Prism.Engine",
+  "command": "/usr/bin/c++  -DPrism_Engine_EXPORTS -I/home/vincent/School/SWAP/prism/Prism.Engine/include -I/home/vincent/School/SWAP/prism/Prism.Engine/src -I/usr/include/SDL2 -isystem /home/vincent/School/SWAP/prism/Prism.Engine/lib/include  -g -fPIC   -o CMakeFiles/Prism.Engine.dir/src/InputManager.cpp.o -c /home/vincent/School/SWAP/prism/Prism.Engine/src/InputManager.cpp",
+  "file": "/home/vincent/School/SWAP/prism/Prism.Engine/src/InputManager.cpp"
+},
+{
+  "directory": "/home/vincent/School/SWAP/prism/cmake-build-debug/Prism.Engine",
+  "command": "/usr/bin/c++  -DPrism_Engine_EXPORTS -I/home/vincent/School/SWAP/prism/Prism.Engine/include -I/home/vincent/School/SWAP/prism/Prism.Engine/src -I/usr/include/SDL2 -isystem /home/vincent/School/SWAP/prism/Prism.Engine/lib/include  -g -fPIC   -o CMakeFiles/Prism.Engine.dir/src/MenuState.cpp.o -c /home/vincent/School/SWAP/prism/Prism.Engine/src/MenuState.cpp",
+  "file": "/home/vincent/School/SWAP/prism/Prism.Engine/src/MenuState.cpp"
+},
+{
+  "directory": "/home/vincent/School/SWAP/prism/cmake-build-debug/Prism.Engine",
+  "command": "/usr/bin/c++  -DPrism_Engine_EXPORTS -I/home/vincent/School/SWAP/prism/Prism.Engine/include -I/home/vincent/School/SWAP/prism/Prism.Engine/src -I/usr/include/SDL2 -isystem /home/vincent/School/SWAP/prism/Prism.Engine/lib/include  -g -fPIC   -o CMakeFiles/Prism.Engine.dir/src/Renderer/Graphics/OpenGL/OGLFragmentShader.cpp.o -c /home/vincent/School/SWAP/prism/Prism.Engine/src/Renderer/Graphics/OpenGL/OGLFragmentShader.cpp",
+  "file": "/home/vincent/School/SWAP/prism/Prism.Engine/src/Renderer/Graphics/OpenGL/OGLFragmentShader.cpp"
+},
+{
+  "directory": "/home/vincent/School/SWAP/prism/cmake-build-debug/Prism.Engine",
+  "command": "/usr/bin/c++  -DPrism_Engine_EXPORTS -I/home/vincent/School/SWAP/prism/Prism.Engine/include -I/home/vincent/School/SWAP/prism/Prism.Engine/src -I/usr/include/SDL2 -isystem /home/vincent/School/SWAP/prism/Prism.Engine/lib/include  -g -fPIC   -o CMakeFiles/Prism.Engine.dir/src/Renderer/Graphics/OpenGL/OGLIndexBuffer.cpp.o -c /home/vincent/School/SWAP/prism/Prism.Engine/src/Renderer/Graphics/OpenGL/OGLIndexBuffer.cpp",
+  "file": "/home/vincent/School/SWAP/prism/Prism.Engine/src/Renderer/Graphics/OpenGL/OGLIndexBuffer.cpp"
+},
+{
+  "directory": "/home/vincent/School/SWAP/prism/cmake-build-debug/Prism.Engine",
+  "command": "/usr/bin/c++  -DPrism_Engine_EXPORTS -I/home/vincent/School/SWAP/prism/Prism.Engine/include -I/home/vincent/School/SWAP/prism/Prism.Engine/src -I/usr/include/SDL2 -isystem /home/vincent/School/SWAP/prism/Prism.Engine/lib/include  -g -fPIC   -o CMakeFiles/Prism.Engine.dir/src/Renderer/Graphics/OpenGL/OGLPipeline.cpp.o -c /home/vincent/School/SWAP/prism/Prism.Engine/src/Renderer/Graphics/OpenGL/OGLPipeline.cpp",
+  "file": "/home/vincent/School/SWAP/prism/Prism.Engine/src/Renderer/Graphics/OpenGL/OGLPipeline.cpp"
+},
+{
+  "directory": "/home/vincent/School/SWAP/prism/cmake-build-debug/Prism.Engine",
+  "command": "/usr/bin/c++  -DPrism_Engine_EXPORTS -I/home/vincent/School/SWAP/prism/Prism.Engine/include -I/home/vincent/School/SWAP/prism/Prism.Engine/src -I/usr/include/SDL2 -isystem /home/vincent/School/SWAP/prism/Prism.Engine/lib/include  -g -fPIC   -o CMakeFiles/Prism.Engine.dir/src/Renderer/Graphics/OpenGL/OGLRenderDevice.cpp.o -c /home/vincent/School/SWAP/prism/Prism.Engine/src/Renderer/Graphics/OpenGL/OGLRenderDevice.cpp",
+  "file": "/home/vincent/School/SWAP/prism/Prism.Engine/src/Renderer/Graphics/OpenGL/OGLRenderDevice.cpp"
+},
+{
+  "directory": "/home/vincent/School/SWAP/prism/cmake-build-debug/Prism.Engine",
+  "command": "/usr/bin/c++  -DPrism_Engine_EXPORTS -I/home/vincent/School/SWAP/prism/Prism.Engine/include -I/home/vincent/School/SWAP/prism/Prism.Engine/src -I/usr/include/SDL2 -isystem /home/vincent/School/SWAP/prism/Prism.Engine/lib/include  -g -fPIC   -o CMakeFiles/Prism.Engine.dir/src/Renderer/Graphics/OpenGL/OGLVertexArrayObject.cpp.o -c /home/vincent/School/SWAP/prism/Prism.Engine/src/Renderer/Graphics/OpenGL/OGLVertexArrayObject.cpp",
+  "file": "/home/vincent/School/SWAP/prism/Prism.Engine/src/Renderer/Graphics/OpenGL/OGLVertexArrayObject.cpp"
+},
+{
+  "directory": "/home/vincent/School/SWAP/prism/cmake-build-debug/Prism.Engine",
+  "command": "/usr/bin/c++  -DPrism_Engine_EXPORTS -I/home/vincent/School/SWAP/prism/Prism.Engine/include -I/home/vincent/School/SWAP/prism/Prism.Engine/src -I/usr/include/SDL2 -isystem /home/vincent/School/SWAP/prism/Prism.Engine/lib/include  -g -fPIC   -o CMakeFiles/Prism.Engine.dir/src/Renderer/Graphics/OpenGL/OGLVertexBuffer.cpp.o -c /home/vincent/School/SWAP/prism/Prism.Engine/src/Renderer/Graphics/OpenGL/OGLVertexBuffer.cpp",
+  "file": "/home/vincent/School/SWAP/prism/Prism.Engine/src/Renderer/Graphics/OpenGL/OGLVertexBuffer.cpp"
+},
+{
+  "directory": "/home/vincent/School/SWAP/prism/cmake-build-debug/Prism.Engine",
+  "command": "/usr/bin/c++  -DPrism_Engine_EXPORTS -I/home/vincent/School/SWAP/prism/Prism.Engine/include -I/home/vincent/School/SWAP/prism/Prism.Engine/src -I/usr/include/SDL2 -isystem /home/vincent/School/SWAP/prism/Prism.Engine/lib/include  -g -fPIC   -o CMakeFiles/Prism.Engine.dir/src/Renderer/Graphics/OpenGL/OGLVertexShader.cpp.o -c /home/vincent/School/SWAP/prism/Prism.Engine/src/Renderer/Graphics/OpenGL/OGLVertexShader.cpp",
+  "file": "/home/vincent/School/SWAP/prism/Prism.Engine/src/Renderer/Graphics/OpenGL/OGLVertexShader.cpp"
+},
+{
+  "directory": "/home/vincent/School/SWAP/prism/cmake-build-debug/Prism.Engine",
+  "command": "/usr/bin/c++  -DPrism_Engine_EXPORTS -I/home/vincent/School/SWAP/prism/Prism.Engine/include -I/home/vincent/School/SWAP/prism/Prism.Engine/src -I/usr/include/SDL2 -isystem /home/vincent/School/SWAP/prism/Prism.Engine/lib/include  -g -fPIC   -o CMakeFiles/Prism.Engine.dir/src/Renderer/TestRenderer.cpp.o -c /home/vincent/School/SWAP/prism/Prism.Engine/src/Renderer/TestRenderer.cpp",
+  "file": "/home/vincent/School/SWAP/prism/Prism.Engine/src/Renderer/TestRenderer.cpp"
+},
+{
+  "directory": "/home/vincent/School/SWAP/prism/cmake-build-debug/Prism.Engine",
+  "command": "/usr/bin/c++  -DPrism_Engine_EXPORTS -I/home/vincent/School/SWAP/prism/Prism.Engine/include -I/home/vincent/School/SWAP/prism/Prism.Engine/src -I/usr/include/SDL2 -isystem /home/vincent/School/SWAP/prism/Prism.Engine/lib/include  -g -fPIC   -o CMakeFiles/Prism.Engine.dir/src/State.cpp.o -c /home/vincent/School/SWAP/prism/Prism.Engine/src/State.cpp",
+  "file": "/home/vincent/School/SWAP/prism/Prism.Engine/src/State.cpp"
+},
+{
+  "directory": "/home/vincent/School/SWAP/prism/cmake-build-debug/Prism.Engine",
+  "command": "/usr/bin/c++  -DPrism_Engine_EXPORTS -I/home/vincent/School/SWAP/prism/Prism.Engine/include -I/home/vincent/School/SWAP/prism/Prism.Engine/src -I/usr/include/SDL2 -isystem /home/vincent/School/SWAP/prism/Prism.Engine/lib/include  -g -fPIC   -o CMakeFiles/Prism.Engine.dir/src/StateMachine.cpp.o -c /home/vincent/School/SWAP/prism/Prism.Engine/src/StateMachine.cpp",
+  "file": "/home/vincent/School/SWAP/prism/Prism.Engine/src/StateMachine.cpp"
+},
+{
+  "directory": "/home/vincent/School/SWAP/prism/cmake-build-debug/Prism.Engine",
+  "command": "/usr/bin/c++  -DPrism_Engine_EXPORTS -I/home/vincent/School/SWAP/prism/Prism.Engine/include -I/home/vincent/School/SWAP/prism/Prism.Engine/src -I/usr/include/SDL2 -isystem /home/vincent/School/SWAP/prism/Prism.Engine/lib/include  -g -fPIC   -o CMakeFiles/Prism.Engine.dir/src/Window.cpp.o -c /home/vincent/School/SWAP/prism/Prism.Engine/src/Window.cpp",
+  "file": "/home/vincent/School/SWAP/prism/Prism.Engine/src/Window.cpp"
+},
+{
+  "directory": "/home/vincent/School/SWAP/prism/cmake-build-debug/Prism.Game",
+  "command": "/usr/bin/c++   -I/home/vincent/School/SWAP/prism/Prism.Game/include -I/home/vincent/School/SWAP/prism/Prism.Game/src -I/home/vincent/School/SWAP/prism/Prism.Engine/include -isystem /home/vincent/School/SWAP/prism/Prism.Game/../Prism.Engine/lib/include  -g   -Wall -Wpedantic -std=gnu++1z -o CMakeFiles/Prism.Game.dir/src/PrismGame.cpp.o -c /home/vincent/School/SWAP/prism/Prism.Game/src/PrismGame.cpp",
+  "file": "/home/vincent/School/SWAP/prism/Prism.Game/src/PrismGame.cpp"
+},
+{
+  "directory": "/home/vincent/School/SWAP/prism/cmake-build-debug/Prism.Game",
+  "command": "/usr/bin/c++   -I/home/vincent/School/SWAP/prism/Prism.Game/include -I/home/vincent/School/SWAP/prism/Prism.Game/src -I/home/vincent/School/SWAP/prism/Prism.Engine/include -isystem /home/vincent/School/SWAP/prism/Prism.Game/../Prism.Engine/lib/include  -g   -Wall -Wpedantic -std=gnu++1z -o CMakeFiles/Prism.Game.dir/src/main.cpp.o -c /home/vincent/School/SWAP/prism/Prism.Game/src/main.cpp",
+  "file": "/home/vincent/School/SWAP/prism/Prism.Game/src/main.cpp"
+}
+]

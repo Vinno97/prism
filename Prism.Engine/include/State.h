@@ -4,7 +4,7 @@
 class State {
  public:
   State();
-  ~State();
+  virtual ~State();
 
   virtual void onUpdate(Context context);
   virtual void onEnter();

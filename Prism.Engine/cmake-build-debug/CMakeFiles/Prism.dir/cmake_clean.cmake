@@ -1,0 +1,42 @@
+file(REMOVE_RECURSE
+  "CMakeFiles/Prism.dir/src/Context.cpp.o"
+  "CMakeFiles/Prism.dir/src/CoreEngine.cpp.o"
+  "CMakeFiles/Prism.dir/src/ECS/EntityManager.cpp.o"
+  "CMakeFiles/Prism.dir/src/ECS/SystemManager.cpp.o"
+  "CMakeFiles/Prism.dir/src/ECS/Systems/MotionSystem.cpp.o"
+  "CMakeFiles/Prism.dir/src/ECS/Systems/RenderSystem.cpp.o"
+  "CMakeFiles/Prism.dir/src/ECS/Systems/System.cpp.o"
+  "CMakeFiles/Prism.dir/src/Game.cpp.o"
+  "CMakeFiles/Prism.dir/src/InputManager.cpp.o"
+  "CMakeFiles/Prism.dir/src/MenuState.cpp.o"
+  "CMakeFiles/Prism.dir/src/Renderer/Camera.cpp.o"
+  "CMakeFiles/Prism.dir/src/Renderer/ForwardRenderer.cpp.o"
+  "CMakeFiles/Prism.dir/src/Renderer/Graphics/Loader/ModelLoader.cpp.o"
+  "CMakeFiles/Prism.dir/src/Renderer/Graphics/Loader/StaticMeshLoader.cpp.o"
+  "CMakeFiles/Prism.dir/src/Renderer/Graphics/Loader/TextureLoader.cpp.o"
+  "CMakeFiles/Prism.dir/src/Renderer/Graphics/Models/Material.cpp.o"
+  "CMakeFiles/Prism.dir/src/Renderer/Graphics/Models/Mesh.cpp.o"
+  "CMakeFiles/Prism.dir/src/Renderer/Graphics/Models/Model.cpp.o"
+  "CMakeFiles/Prism.dir/src/Renderer/Graphics/Models/Texture.cpp.o"
+  "CMakeFiles/Prism.dir/src/Renderer/Graphics/OpenGL/OGLFragmentShader.cpp.o"
+  "CMakeFiles/Prism.dir/src/Renderer/Graphics/OpenGL/OGLIndexBuffer.cpp.o"
+  "CMakeFiles/Prism.dir/src/Renderer/Graphics/OpenGL/OGLPipeline.cpp.o"
+  "CMakeFiles/Prism.dir/src/Renderer/Graphics/OpenGL/OGLRenderDevice.cpp.o"
+  "CMakeFiles/Prism.dir/src/Renderer/Graphics/OpenGL/OGLVertexArrayObject.cpp.o"
+  "CMakeFiles/Prism.dir/src/Renderer/Graphics/OpenGL/OGLVertexBuffer.cpp.o"
+  "CMakeFiles/Prism.dir/src/Renderer/Graphics/OpenGL/OGLVertexShader.cpp.o"
+  "CMakeFiles/Prism.dir/src/Renderer/Renderable.cpp.o"
+  "CMakeFiles/Prism.dir/src/State.cpp.o"
+  "CMakeFiles/Prism.dir/src/StateMachine.cpp.o"
+  "CMakeFiles/Prism.dir/src/Util/FileReader.cpp.o"
+  "CMakeFiles/Prism.dir/src/Window.cpp.o"
+  "libPrism.pdb"
+  "libPrism.so.0.0.1"
+  "libPrism.so"
+  "libPrism.so.1"
+)
+
+# Per-language clean rules from dependency scanning.
+foreach(lang CXX)
+  include(CMakeFiles/Prism.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

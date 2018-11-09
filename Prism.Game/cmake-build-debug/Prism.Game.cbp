@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="Prism.Game"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/vincent/School/SWAP/prism/Prism.Game/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Game/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Game/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Game/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Game/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/vincent/School/SWAP/prism/Prism.Game/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Game/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Game/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Game/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Game/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/vincent/School/SWAP/prism/Prism.Game/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Game/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Game/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Game/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Game/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Prism.Game">
+				<Option output="/home/vincent/School/SWAP/prism/Prism.Game/cmake-build-debug/Prism.Game" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/vincent/School/SWAP/prism/Prism.Game/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/vincent/School/SWAP/prism/Prism.Game/include"/>
+					<Add directory="/home/vincent/School/SWAP/prism/Prism.Game/src"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Game/cmake-build-debug/Makefile&quot;  VERBOSE=1 Prism.Game"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Game/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Game/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Game/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Prism.Game/fast">
+				<Option output="/home/vincent/School/SWAP/prism/Prism.Game/cmake-build-debug/Prism.Game" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/vincent/School/SWAP/prism/Prism.Game/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/vincent/School/SWAP/prism/Prism.Game/include"/>
+					<Add directory="/home/vincent/School/SWAP/prism/Prism.Game/src"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Game/cmake-build-debug/Makefile&quot;  VERBOSE=1 Prism.Game/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Game/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Game/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/vincent/School/SWAP/prism/Prism.Game/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/vincent/School/SWAP/prism/Prism.Game/src/ECS/Systems/KeyboardInputSystem.cpp">
+			<Option target="Prism.Game"/>
+		</Unit>
+		<Unit filename="/home/vincent/School/SWAP/prism/Prism.Game/src/PrismGame.cpp">
+			<Option target="Prism.Game"/>
+		</Unit>
+		<Unit filename="/home/vincent/School/SWAP/prism/Prism.Game/src/main.cpp">
+			<Option target="Prism.Game"/>
+		</Unit>
+		<Unit filename="/home/vincent/School/SWAP/prism/Prism.Game/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

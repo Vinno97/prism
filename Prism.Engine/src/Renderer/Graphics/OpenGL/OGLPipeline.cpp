@@ -10,66 +10,61 @@
 #include <string>
 
 namespace Renderer {
-	namespace Graphics {
-		namespace OpenGL {
-			OGLPipeline::OGLPipeline(VertexShader* vs, FragmentShader* fs)
-			{
-				pipelineID = glCreateProgram();
-				glAttachShader(pipelineID, vs->vertexID);
-				glAttachShader(pipelineID, fs->fragmentID);
-				glLinkProgram(pipelineID);
-				GLint programSuccess = GL_TRUE;
-				glGetProgramiv(pipelineID, GL_LINK_STATUS, &programSuccess);
+namespace Graphics {
+namespace OpenGL {
+OGLPipeline::OGLPipeline(VertexShader* vs, FragmentShader* fs) {
+  pipelineID = glCreateProgram();
+  glAttachShader(pipelineID, vs->vertexID);
+  glAttachShader(pipelineID, fs->fragmentID);
+  glLinkProgram(pipelineID);
+  GLint programSuccess = GL_TRUE;
+  glGetProgramiv(pipelineID, GL_LINK_STATUS, &programSuccess);
 
-				if (programSuccess != GL_TRUE)
-				{
-					int infologLength = 0;
+  if (programSuccess != GL_TRUE) {
+    int infologLength = 0;
 
-					int charsWritten  = 0;
-					char *infoLog;
+    int charsWritten = 0;
+    char* infoLog;
 
-					glGetProgramiv(pipelineID, GL_INFO_LOG_LENGTH,&infologLength);
+    glGetProgramiv(pipelineID, GL_INFO_LOG_LENGTH, &infologLength);
 
-					infoLog = static_cast<char *>(malloc(infologLength));
-					glGetProgramInfoLog(pipelineID, infologLength, &charsWritten, infoLog);
+    infoLog = static_cast<char*>(malloc(infologLength));
+    glGetProgramInfoLog(pipelineID, infologLength, &charsWritten, infoLog);
 
-					std::string log = infoLog;
+    std::string log = infoLog;
 
-					std::cerr << "Unable to link pipeline" << log;
-					throw std::runtime_error("Pipeline cannot be linked");
-				}
-			}
+    std::cerr << "Unable to link pipeline" << log;
+    throw std::runtime_error("Pipeline cannot be linked");
+  }
+}
 
-			OGLPipeline::~OGLPipeline()
-			= default;
+OGLPipeline::~OGLPipeline() = default;
 
-			void OGLPipeline::run()
-			{
-				glUseProgram(pipelineID);
-			}
-			void OGLPipeline::stop()
-			{
-				glUseProgram(NULL);
-			}
-			bool OGLPipeline::createUniform(const char * name)
-			{
-				int uniColor = glGetUniformLocation(pipelineID, name);
-				uniforms[name] = uniColor;
-				return true;
-			}
-			bool OGLPipeline::setUniformMatrix4f(const char * name, glm::mat4 matrix)
-			{
-				int id = uniforms[name];
-				glUniformMatrix4fv(id, 1, GL_FALSE, glm::value_ptr(matrix));
-				return true;
-			}
+void OGLPipeline::run() {
+  glUseProgram(pipelineID);
+}
+void OGLPipeline::stop() {
+  glUseProgram(NULL);
+}
+bool OGLPipeline::createUniform(const char* name) {
+  int uniColor = glGetUniformLocation(pipelineID, name);
+  uniforms[name] = uniColor;
+  return true;
+}
+bool OGLPipeline::setUniformMatrix4f(const char* name, glm::mat4 matrix) {
+  int id = uniforms[name];
+  glUniformMatrix4fv(id, 1, GL_FALSE, glm::value_ptr(matrix));
+  return true;
+}
 
-			bool OGLPipeline::setUniformVector(const char * name, float x, float y, float z)
-			{
-				int id = uniforms[name];
-				glUniform3f(id, x, y, z);
-				return true;
-			}
-		}  // namespace OpenGL
-	}  // namespace Graphics
+bool OGLPipeline::setUniformVector(const char* name,
+                                   float x,
+                                   float y,
+                                   float z) {
+  int id = uniforms[name];
+  glUniform3f(id, x, y, z);
+  return true;
+}
+}  // namespace OpenGL
+}  // namespace Graphics
 }  // namespace Renderer

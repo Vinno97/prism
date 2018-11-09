@@ -1,0 +1,58 @@
+C:\Users\vince\.CLion2018.2\system\cygwin_cmake\bin\cmake.exe -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /cygdrive/d/School/Vervolgopleiding/SWAP/Prism
+-- The C compiler identification is GNU 7.3.0
+-- The CXX compiler identification is GNU 7.3.0
+CMake Warning at /cygdrive/c/Users/vince/.CLion2018.2/system/cygwin_cmake/share/cmake-3.12.0/Modules/Platform/CYGWIN.cmake:15 (message):
+  CMake no longer defines WIN32 on Cygwin!
+
+  (1) If you are just trying to build this project, ignore this warning or
+  quiet it by setting CMAKE_LEGACY_CYGWIN_WIN32=0 in your environment or in
+  the CMake cache.  If later configuration or build errors occur then this
+  project may have been written under the assumption that Cygwin is WIN32.
+  In that case, set CMAKE_LEGACY_CYGWIN_WIN32=1 instead.
+
+  (2) If you are developing this project, add the line
+
+    set(CMAKE_LEGACY_CYGWIN_WIN32 0) # Remove when CMake >= 2.8.4 is required
+
+  at the top of your top-level CMakeLists.txt file or set the minimum
+  required version of CMake to 2.8.4 or higher.  Then teach your project to
+  build on Cygwin without WIN32.
+Call Stack (most recent call first):
+  /cygdrive/c/Users/vince/.CLion2018.2/system/cygwin_cmake/share/cmake-3.12.0/Modules/CMakeSystemSpecificInformation.cmake:26 (include)
+
+
+-- Check for working C compiler: /usr/bin/cc
+-- Check for working C compiler: /usr/bin/cc -- works
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Check for working CXX compiler: /usr/bin/c++.exe
+-- Check for working CXX compiler: /usr/bin/c++.exe -- works
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found PkgConfig: /usr/bin/pkg-config.exe (found version "0.29.1") 
+-- Checking for module 'SDL2_image'
+--   Found SDL2_image, version 2.0.2
+-- Found OpenGL: /usr/lib/w32api/libopengl32.a   
+CMake Error at Prism.Engine/CMakeLists.txt:28 (find_package):
+  By not providing "FindAssimp.cmake" in CMAKE_MODULE_PATH this project has
+  asked CMake to find a package configuration file provided by "Assimp", but
+  CMake did not find one.
+
+  Could not find a package configuration file provided by "Assimp" with any
+  of the following names:
+
+    AssimpConfig.cmake
+    assimp-config.cmake
+
+  Add the installation prefix of "Assimp" to CMAKE_PREFIX_PATH or set
+  "Assimp_DIR" to a directory containing one of the above files.  If "Assimp"
+  provides a separate development package or SDK, be sure it has been
+  installed.
+
+
+-- Configuring incomplete, errors occurred!
+See also "/cygdrive/d/School/Vervolgopleiding/SWAP/Prism/cmake-build-debug/CMakeFiles/CMakeOutput.log".

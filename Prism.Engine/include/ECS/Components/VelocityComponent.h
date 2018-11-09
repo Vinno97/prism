@@ -3,10 +3,10 @@
 #include "Component.h"
 
 namespace ECS {
-	namespace Components {
-		struct VelocityComponent : Component {
-			float dx;
-			float dy;
-		};
-	}
-}
+namespace Components {
+struct VelocityComponent : Component {
+  float dx;
+  float dy;
+};
+}  // namespace Components
+}  // namespace ECS

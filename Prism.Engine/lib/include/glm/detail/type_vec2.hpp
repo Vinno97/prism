@@ -31,7 +31,7 @@ namespace glm
 			{
 				struct{ T x, y; };
 				struct{ T r, g; };
-				struct{ T s, t; };
+					struct{ T s, t; };
 
 				typename detail::storage<2, T, detail::is_aligned<Q>::value>::type data;
 

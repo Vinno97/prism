@@ -1,5 +1,5 @@
 ---
-Checks:          'clang-diagnostic-*,clang-analyzer-*,cppcoreguidelines-*,clang-analyzer-*,-clang-analyzer-osx.*,bugprone-*,readability-*,performance-*,modernize-*,llvm-*,-llvm-include-order'
+Checks:          'clang-diagnostic-*,clang-analyzer-*,cppcoreguidelines-*,clang-analyzer-*,-clang-analyzer-osx.*,bugprone-*,readability-*,performance-*,modernize-*,llvm-*,-llvm-header-guard,-llvm-include-order'
 WarningsAsErrors: ''
 HeaderFilterRegex: ''
 AnalyzeTemporaryDtors: false

@@ -1,0 +1,2 @@
+/usr/bin/ar qc libPrism.Game.a  CMakeFiles/Prism.Game.dir/src/PrismGame.cpp.o CMakeFiles/Prism.Game.dir/src/main.cpp.o
+/usr/bin/ranlib libPrism.Game.a
