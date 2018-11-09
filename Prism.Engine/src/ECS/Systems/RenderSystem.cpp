@@ -1,6 +1,7 @@
 #include "ECS/Systems/RenderSystem.h"
 #include "ECS/EntityManager.h"
 #include "ECS/Components/AppearanceComponent.h"
+#include "ECS/Components/PlayerComponent.h"
 #include "ECS/Components/SceneComponent.h"
 #include "glm/glm.hpp"
 #include <tuple>
@@ -17,8 +18,8 @@ namespace ECS {
 		RenderSystem::RenderSystem(std::shared_ptr<EntityManager> entityManager, int windowWidth, int windowHeight)
 			: System(entityManager) {
 			forwardRenderer = std::make_shared<ForwardRenderer>(windowWidth, windowHeight);
-			camera.move(0, 2.f, 3.f);
-			camera.rotate(-35.f, 0.f, 0.f);
+			camera.move(0, 3.f, 4.f);
+			camera.rotate(-25.f, 0.f, 0.f);
 		}
 
 		ECS::Systems::RenderSystem::~RenderSystem()
@@ -29,6 +30,13 @@ namespace ECS {
 			auto appearanceEntities = this->entityManager->getAllEntitiesWithComponent<AppearanceComponent>();
 			vector<Renderable> rendererData;
 			auto sceneEntity = this->entityManager->getAllEntitiesWithComponent<SceneComponent>()[0].component;
+
+			// TODO: Maak dit netter (nu enkel voor testdoeleinden)
+			auto player = entityManager->getAllEntitiesWithComponent<PlayerComponent>()[0].id;
+			auto playerPosition = entityManager->getComponent<PositionComponent>(player);
+			
+			camera.position.x = playerPosition->x;
+			camera.position.z = playerPosition->y + 4.f;
 
 			for (unsigned int i = 0; i < appearanceEntities.size(); i++)
 			{
