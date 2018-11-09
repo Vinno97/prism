@@ -120,6 +120,20 @@ int EntityFactory::createScene(EntityManager & entityManager) {
 	return entityManager.createEntity(SceneComponent());
 }
 
+int EntityFactory::createFloor(ECS::EntityManager & entityManager)
+{
+	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
+	auto model = ml.loadModel("./res/plane.obj");
+
+	AppearanceComponent appearance;
+	appearance.scaleX = 5.f;
+	appearance.scaleY = 1.f;
+	appearance.scaleZ = 5.f;
+	appearance.color = Math::Vector3f{ 0.90f, 0.90f, 0.90f };
+	appearance.model = model;
+	return entityManager.createEntity(PositionComponent(), appearance);
+}
+
 
 
 EntityFactory::~EntityFactory()

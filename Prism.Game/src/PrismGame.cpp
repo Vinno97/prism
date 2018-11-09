@@ -30,6 +30,7 @@ void PrismGame::onInit(Context & context)
 	auto resourcePoint = entityRegister.createResourcePoint(*entityManager);
 	auto enemy = entityRegister.createEnemy(*entityManager);
 	auto scene = entityRegister.createScene(*entityManager);
+	auto floor = entityRegister.createFloor(*entityManager);
 
 	for (int i = -4; i < 4; i++) {
 		auto entity = i % 2 == 0 ? entityRegister.createTower(*entityManager) : entityRegister.createWall(*entityManager);
