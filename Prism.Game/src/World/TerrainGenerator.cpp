@@ -25,17 +25,17 @@ namespace World {
 		std::default_random_engine generator;
 		std::uniform_real_distribution<float> distribution(0.0,3.0);
 
-		heightMap.resize(30, std::vector<float>(30, -1));
+		heightMap.resize(100, std::vector<float>(100, -1));
 		//Fill height map
 		float i = 0;
-		for (int y = 0; y < 30; y++) {
-			for (int x = 0; x < 30; x++) {
+		for (int y = 0; y < 100; y++) {
+			for (int x = 0; x < 100; x++) {
 				heightMap[y][x] = distribution(generator)/10;
 			}
 		}
 
-		for(int y = 0; y < 29; y++) {
-			for(int x = 0; x < 29; x++) {
+		for(int y = 0; y < 99; y++) {
+			for(int x = 0; x < 99; x++) {
 				if(heightMap.size()-1 == y) {
 					continue;
 				}

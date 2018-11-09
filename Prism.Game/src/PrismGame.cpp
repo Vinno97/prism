@@ -31,7 +31,7 @@ void PrismGame::onInit(Context & context)
 	auto resourcePoint = entityRegister.createResourcePoint(*entityManager);
 	auto enemy = entityRegister.createEnemy(*entityManager);
 	auto scene = entityRegister.createScene(*entityManager);
-	//auto floor = entityRegister.createFloor(*entityManager);
+	auto floor = entityRegister.createFloor(*entityManager);
 
 	for (int i = -4; i < 4; i++) {
 		auto entity = i % 2 == 0 ? entityRegister.createTower(*entityManager) : entityRegister.createWall(*entityManager);
@@ -84,15 +84,11 @@ void PrismGame::onUpdate(Context &context)
 	auto restockSystem = systemManager->getSystem<RestockResourceSystem>();
 	auto animationSystem = systemManager->getSystem<AnimationSystem>();
 
-	World::TerrainGenerator tg;
-	tg.generateTerrain();
-
 	inputSystem->update(context);
 	restockSystem->update(context);
 	motionSystem->update(context);
 	animationSystem->update(context);
 	renderSystem->update(context);
-
 
 	for (auto &entity : entityManager->getAllEntitiesWithComponent<VelocityComponent>()) {
 		auto velocity = entity.component;
