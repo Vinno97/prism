@@ -1,77 +1,70 @@
 #include "States/PrismGame.h"
-#include "States/PauseState.h"
-#include "StateMachine.h"
-
 #include "Math/Vector3f.h"
-#include "ECS/Components/SceneComponent.h"
+#include "StateMachine.h"
+#include "States/PauseState.h"
 
 namespace States {
-	/// <summar>
+	using namespace ECS;
+	using namespace ECS::Components;
+	/// <summary>
 	/// creates new PrismGame object
 	/// </summary>
-	PrismGame::PrismGame() {
-		entityManager = std::make_shared<EntityManager>();
-		systemManager = std::make_shared<SystemManager>();
-	}
+	PrismGame::PrismGame()
+		= default;
 
 	void PrismGame::onInit(Context & context)
 	{
-		createPlayer();
+		auto player = entityFactory.createPlayer(entityManager);
+		auto resourcePoint = entityFactory.createResourcePoint(entityManager);
+		auto enemy = entityFactory.createEnemy(entityManager);
+		auto scene = entityFactory.createScene(entityManager);
+
+		for (int i = -4; i < 4; i++) {
+			auto entity = i % 2 == 0 ? entityFactory.createTower(entityManager) : entityFactory.createWall(entityManager);
+			auto position = entityManager.getComponent<PositionComponent>(entity);
+			position->y = -1;
+			position->x = i;
+		}
+
+		auto positions{ entityManager.getAllEntitiesWithComponent<PositionComponent>() };
+
+		entityManager.getComponent<PositionComponent>(player)->y = 1;
+		entityManager.getComponent<PositionComponent>(resourcePoint)->x = 1;
+		entityManager.getComponent<PositionComponent>(enemy)->x = -1;
+
+		auto sceneComponent = entityManager.getComponent<SceneComponent>(scene);
+
+		sceneComponent->scene.ambientLightColor = Math::Vector3f{ 1.0f, 1.0f, 1.0f };
+		sceneComponent->scene.ambientLightStrength = 0.65f;
+		sceneComponent->scene.sun.color = Math::Vector3f{ .30f, .30f, .30f };
+		sceneComponent->scene.sun.direction = Math::Vector3f{ 25.f, 150.0f, 100.0f };
+
 		registerSystems(context);
 		PauseState ps = PauseState();
 		context.stateMachine->addState(ps);
 	}
 
-	/// <summary>t
-	/// create player entity
-	/// </summary>
-	void PrismGame::createPlayer() {
-		// TODO: Deze functie moet later verplaatst worden naar een Factory of iets dergelijks.
-
-		Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
-		std::shared_ptr<Model> model = ml.loadModel("./res/varyingPlane.obj");
-
-		VelocityComponent velocity;
-		SceneComponent sceneComponent;
-		sceneComponent.scene.ambientLightColor = Math::Vector3f{ 1.0f, 1.0f, 1.0f };
-		sceneComponent.scene.ambientLightStrength = 0.5f;
-
-		sceneComponent.scene.sun.color = Math::Vector3f{ 1.0f, 1.0f, 1.0f };
-		sceneComponent.scene.sun.direction = Math::Vector3f{ 100.f, 50.0f, 100.0f };
-
-		PositionComponent position;
-		DragComponent drag;
-		drag.force = 5.f;
-		KeyboardInputComponent input;
-
-		AppearanceComponent appearance;
-		appearance.translationZ = 3;
-		appearance.translationY = -3;
-		appearance.scaleX = 1;
-		appearance.scaleY = 1;
-		appearance.scaleZ = 1;
-		appearance.rotationY = 45;
-		appearance.model = model;
-		entityManager->createEntity(velocity, position, drag, input, appearance);
-		entityManager->createEntity(sceneComponent);
-	}
-
-	/// <summar>
+	/// <summary>
 	/// register systems in system manager
 	/// </summary>
+	/// <param name="context">The context that is needed to register the systems</param>
 	void PrismGame::registerSystems(Context &context)
 	{
 		MotionSystem motionSystem = MotionSystem(entityManager);
 		RenderSystem renderSystem = RenderSystem(entityManager, context.window->width, context.window->height);
 		KeyboardInputSystem inputSystem = KeyboardInputSystem(entityManager);
-		systemManager->registerSystem(motionSystem);
-		systemManager->registerSystem(renderSystem);
-		systemManager->registerSystem(inputSystem);
+		RestockResourceSystem restockSystem = RestockResourceSystem(entityManager);
+		AnimationSystem animationSystem = AnimationSystem(entityManager);
+
+		systemManager.registerSystem(motionSystem);
+		systemManager.registerSystem(renderSystem);
+		systemManager.registerSystem(inputSystem);
+		systemManager.registerSystem(restockSystem);
+		systemManager.registerSystem(animationSystem);
 	}
 
 	void PrismGame::onUpdate(Context &context)
 	{
-
 		auto input = context.inputManager;
 		if (input->isKeyPressed(Key::KEY_ESCAPE) && canPressEscape) {
 			canPressEscape = false;
@@ -82,26 +75,28 @@ namespace States {
 			canPressEscape = true;
 		}
 
-		auto inputSystem = systemManager->getSystem<KeyboardInputSystem>();
-		auto motionSystem = systemManager->getSystem<MotionSystem>();
-		auto renderSystem = systemManager->getSystem<RenderSystem>();
+		auto inputSystem = systemManager.getSystem<KeyboardInputSystem>();
+		auto motionSystem = systemManager.getSystem<MotionSystem>();
+		auto renderSystem = systemManager.getSystem<RenderSystem>();
+		auto restockSystem = systemManager.getSystem<RestockResourceSystem>();
+		auto animationSystem = systemManager.getSystem<AnimationSystem>();
 
 		inputSystem->update(context);
+		restockSystem->update(context);
 		motionSystem->update(context);
+		animationSystem->update(context);
 		renderSystem->update(context);
 
-		for (auto &entity : entityManager->getAllEntitiesWithComponent<VelocityComponent>()) {
+		for (auto &entity : entityManager.getAllEntitiesWithComponent<VelocityComponent>()) {
 			auto velocity = entity.component;
-			auto position = entityManager->getComponent<PositionComponent>(entity.id);
+			auto position = entityManager.getComponent<PositionComponent>(entity.id);
 			printf("Entity:\t\t%d \nPosition: \tX: %.2f, Y: %.2f\nVelocity:\tdX: %.2f, dY: %.2f\n\n", entity.id, position->x, position->y, velocity->dx, velocity->dy);
 		}
+
 		context.window->swapScreen();
 	}
 	void PrismGame::onEnter() {
 	}
 	void PrismGame::onLeave() {
 	}
-
-	PrismGame::~PrismGame()
-		= default;
 }

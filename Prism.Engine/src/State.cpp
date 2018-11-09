@@ -6,6 +6,10 @@ State::State()
 State::~State()
 = default;
 
+void State::onInit(Context &context)
+{
+}
+
 void State::onEnter()
 {
 }

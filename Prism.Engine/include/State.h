@@ -13,7 +13,7 @@ public:
 	/// Method to initialize the state
 	/// </summary>
 	/// <param name="context">Contains context</param>
-	virtual void onInit(Context &context) = 0;
+	virtual void onInit(Context &context);
 
 	/// <summary>
 	/// Method to update the state
