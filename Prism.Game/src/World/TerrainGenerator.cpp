@@ -68,9 +68,8 @@ namespace World {
 		vertexArrayObject->addVertexBuffer(move(normalBuffer), 1, 3 * sizeof(float), 0, 3);
 
 		shared_ptr<Mesh> mesh = make_shared<Mesh>(move(vertexArrayObject));
-		int a = positions.size();
 		mesh->isIndiced = false;
-		mesh->verticesLength = a/3;
+		mesh->verticesLength = positions.size() / 3;
 
 		unique_ptr<Model> model = make_unique<Model>(mesh);
 
