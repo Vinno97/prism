@@ -72,7 +72,6 @@ namespace Renderer {
 
 				unique_ptr<VertexArrayObject> vertexArrayObject = renderDevice->createVertexArrayobject();
 
-
 				if (!vertexArrayObject)
 				{
 					cout << "Renderdevice could not create VAO. No Vertex Array Object found." << endl;
@@ -148,7 +147,7 @@ namespace Renderer {
 				// Combine all into a mesh.
 				unique_ptr<Mesh> combinedMesh = make_unique<Mesh>(move(vertexArrayObject), move(indexBuffer));
 				combinedMesh->indicesLength = indices.size();
-
+				combinedMesh->isIndiced = true;
 				if (!combinedMesh)
 				{
 					cout << "Mesh creation failed. No mesh found." << endl;

@@ -21,21 +21,21 @@ namespace World {
 	{
 	}
 
-	std::shared_ptr<Model> TerrainGenerator::generateTerrain() {
+	std::shared_ptr<Model> TerrainGenerator::generateTerrain(int width, int height) {
 		std::default_random_engine generator;
 		std::uniform_real_distribution<float> distribution(0.0,3.0);
 
-		heightMap.resize(100, std::vector<float>(100, -1));
+		heightMap.resize(height, std::vector<float>(width, -1));
 		//Fill height map
 		float i = 0;
-		for (int y = 0; y < 100; y++) {
-			for (int x = 0; x < 100; x++) {
+		for (int y = 0; y < height; y++) {
+			for (int x = 0; x < width; x++) {
 				heightMap[y][x] = distribution(generator)/10;
 			}
 		}
 
-		for(int y = 0; y < 99; y++) {
-			for(int x = 0; x < 99; x++) {
+		for(int y = 0; y < height-1; y++) {
+			for(int x = 0; x < width-1; x++) {
 				if(heightMap.size()-1 == y) {
 					continue;
 				}
@@ -68,9 +68,12 @@ namespace World {
 		vertexArrayObject->addVertexBuffer(move(normalBuffer), 1, 3 * sizeof(float), 0, 3);
 
 		unique_ptr<Mesh> mesh = make_unique<Mesh>(move(vertexArrayObject));
-		mesh->verticesLength = positions.size();
+		int a = positions.size();
+		mesh->isIndiced = false;
+		mesh->verticesLength = a/3;
 
 		shared_ptr<Model> model = make_shared<Model>(move(mesh));
+
 		return model;
 	}
 	void TerrainGenerator::packTriangle(Vector3f v1, Vector3f v2, Vector3f v3)

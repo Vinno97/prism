@@ -10,7 +10,7 @@ namespace World {
 	{
 	public:
 		TerrainGenerator();
-		std::shared_ptr<Renderer::Graphics::Models::Model> generateTerrain();
+		std::shared_ptr<Renderer::Graphics::Models::Model> generateTerrain(int width, int height);
 	private:
 		std::vector<float> positions;
 		std::vector<float> colours;

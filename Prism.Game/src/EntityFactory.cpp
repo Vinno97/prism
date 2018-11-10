@@ -123,14 +123,16 @@ int EntityFactory::createScene(EntityManager & entityManager) {
 int EntityFactory::createFloor(ECS::EntityManager & entityManager)
 {
 	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
-	auto model = World::TerrainGenerator().generateTerrain();
+	auto model = World::TerrainGenerator().generateTerrain(100, 100);
 
 	AppearanceComponent appearance;
-	appearance.scaleX = 0.2f;
-	appearance.scaleY = 0.2f;
-	appearance.scaleZ = 0.2f;
-	appearance.translationX -= 10;
-	appearance.translationZ -= 10;
+	appearance.translationX -= 6.25;
+	appearance.translationZ -= 6.25;
+
+	appearance.scaleX = 0.25;
+	appearance.scaleY = 0.25;
+	appearance.scaleZ = 0.25;
+
 	appearance.color = Math::Vector3f{ 0.90f, 0.90f, 0.90f };
 	appearance.model = model;
 	appearance.color = Math::Vector3f{ 0.5f, 0.5f, 0.7f };
