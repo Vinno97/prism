@@ -21,7 +21,7 @@ namespace World {
 	{
 	}
 
-	std::shared_ptr<Model> TerrainGenerator::generateTerrain(int width, int height) {
+	std::unique_ptr<Model> TerrainGenerator::generateTerrain(int width, int height) {
 		std::default_random_engine generator;
 		std::uniform_real_distribution<float> distribution(0.0,3.0);
 
@@ -67,12 +67,12 @@ namespace World {
 		unique_ptr<VertexBuffer> normalBuffer = renderDevice->createVertexBuffer(normalsSize, normalsArray);
 		vertexArrayObject->addVertexBuffer(move(normalBuffer), 1, 3 * sizeof(float), 0, 3);
 
-		unique_ptr<Mesh> mesh = make_unique<Mesh>(move(vertexArrayObject));
+		shared_ptr<Mesh> mesh = make_shared<Mesh>(move(vertexArrayObject));
 		int a = positions.size();
 		mesh->isIndiced = false;
 		mesh->verticesLength = a/3;
 
-		shared_ptr<Model> model = make_shared<Model>(move(mesh));
+		unique_ptr<Model> model = make_unique<Model>(mesh);
 
 		return model;
 	}

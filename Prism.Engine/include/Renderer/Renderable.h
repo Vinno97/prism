@@ -16,7 +16,7 @@ public:
 	glm::mat4 getMatrix() const;
 	~Renderable();
 
-	std::shared_ptr<Model> model;
+	Model* model;
 	tuple<float, float, float> position;
 	tuple<float, float, float> rotation;
 	tuple<float, float, float> scale;

@@ -3,12 +3,10 @@
 #include "Renderer/Graphics/Models/Model.h"
 #include "Math/Vector3f.h"
 
-//using namespace Renderer::Graphics::Models;
-
 namespace ECS {
 	namespace Components {
 		struct AppearanceComponent : Component {
-			shared_ptr<Renderer::Graphics::Models::Model> model;
+			std::unique_ptr<Renderer::Graphics::Models::Model> model;
 			float translationX = 0;
 			float translationY = 0;
 			float translationZ = 0;
@@ -18,8 +16,32 @@ namespace ECS {
 			float rotationX = 0;
 			float rotationY = 0;
 			float rotationZ = 0;
-
+			
 			Math::Vector3f color{ 1.f, 1.f, 1.f };
+
+			Component* Clone() 
+			{
+				AppearanceComponent* appearanceComponent = new AppearanceComponent();
+	
+				appearanceComponent->translationX = translationX;
+				appearanceComponent->translationY = translationY;
+				appearanceComponent->translationZ = translationZ;
+	
+				appearanceComponent->scaleX = scaleX;
+				appearanceComponent->scaleY = scaleY;
+				appearanceComponent->scaleZ = scaleZ;
+	
+				appearanceComponent->rotationX = rotationX;
+				appearanceComponent->rotationY = rotationY;
+				appearanceComponent->rotationZ = rotationZ;
+				
+				appearanceComponent->color = color;
+	
+				appearanceComponent->model = std::make_unique<Renderer::Graphics::Models::Model>(*model);
+	
+				return appearanceComponent;
+			}
+
 		};
 	}
 }
