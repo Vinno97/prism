@@ -11,6 +11,7 @@
 #include "ECS/Components/AppearanceComponent.h"
 #include "ECS/Components/KeyboardInputComponent.h"
 #include "ECS/Components/ResourceSpawnComponent.h"
+#include "ECS/Components/BoundingBoxComponent.h"
 
 #include "Renderer/Graphics/Loader/ModelLoader.h"
 
@@ -40,6 +41,7 @@ int EntityFactory::createPlayer(EntityManager& entityManager)
 		PositionComponent(),
 		DragComponent(5.f),
 		KeyboardInputComponent(),
+		BoundingBoxComponent(0.2, 0.2),
 		PlayerComponent()
 	);
 }
@@ -54,8 +56,13 @@ int EntityFactory::createEnemy(EntityManager& entityManager) {
 	appearance.scaleZ = 0.002f;
 	appearance.model = model;
 
-	return entityManager.createEntity(VelocityComponent(), PositionComponent(), DragComponent(5.f), EnemyComponent(), appearance);
-
+	return entityManager.createEntity(
+		VelocityComponent(), 
+		PositionComponent(), 
+		DragComponent(5.f), 
+		EnemyComponent(), 
+		BoundingBoxComponent(0.2, 0.2),
+		appearance);
 }
 
 int EntityFactory::createResourcePoint(EntityManager & entityManager)

@@ -10,6 +10,7 @@
 #include "ECS/Systems/KeyboardInputSystem.h"
 #include "ECS/Systems/RestockResourceSystem.h"
 #include "ECS/Systems/AnimationSystem.h"
+#include "ECS/Systems/CollisionSystem.h"
 
 
 using namespace ECS;
@@ -65,12 +66,14 @@ void PrismGame::registerSystems(Context &context)
 	KeyboardInputSystem inputSystem = KeyboardInputSystem(entityManager);
 	RestockResourceSystem restockSystem = RestockResourceSystem(entityManager);
 	AnimationSystem animationSystem = AnimationSystem(entityManager);
+	CollisionSystem collisionSystem = CollisionSystem(entityManager,context.window->width,context.window->height,0,0);
 	
 	systemManager->registerSystem(motionSystem);
 	systemManager->registerSystem(renderSystem);
 	systemManager->registerSystem(inputSystem);
 	systemManager->registerSystem(restockSystem);
 	systemManager->registerSystem(animationSystem);
+	systemManager->registerSystem(collisionSystem);
 	
 }
 
@@ -81,12 +84,15 @@ void PrismGame::onUpdate(Context &context)
 	auto renderSystem = systemManager->getSystem<RenderSystem>();
 	auto restockSystem = systemManager->getSystem<RestockResourceSystem>();
 	auto animationSystem = systemManager->getSystem<AnimationSystem>();
+	auto collisionSystem = systemManager->getSystem<CollisionSystem>();
 
 	inputSystem->update(context);
 	restockSystem->update(context);
 	motionSystem->update(context);
+	collisionSystem->update(context);
 	animationSystem->update(context);
 	renderSystem->update(context);
+	
 
 
 	for (auto &entity : entityManager->getAllEntitiesWithComponent<VelocityComponent>()) {

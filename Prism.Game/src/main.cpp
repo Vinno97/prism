@@ -47,12 +47,14 @@ void test() {
 	q.Insert(b1);
 	std::vector<BoundingBox const *> v;
 	q.Retrieve(v,b1);
+	q.Clear();
+	q.Insert(b1);
 }
 
 int main(int argc, char ** argv) {
 	//_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-	//start();
-	test();
+	start();
+	//test();
 	
 
 

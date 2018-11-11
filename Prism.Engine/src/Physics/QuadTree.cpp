@@ -24,11 +24,13 @@ QuadTree::~QuadTree()
 
 void QuadTree::Clear()
 {
-	for (QuadTree *node : nodes) {
-		if (node != nullptr) {
-			delete node;
+	for (auto i = 0;i < 4; i++) {
+		if (nodes[i] != nullptr) {
+			objects.clear();
+			nodes[i] = nullptr;
 		}
 	}
+	objects.clear();
 }
 
 void QuadTree::Split()
@@ -42,10 +44,10 @@ void QuadTree::Split()
 	float north = halfHeight + bounds.GetPosY();
 	float south = (-1 * halfHeight) + bounds.GetPosY();
 
-	nodes[0] = new QuadTree(width, height, east, north);
-	nodes[1] = new QuadTree(width, height, east, south);
-	nodes[2] = new QuadTree(width, height, west, south);
-	nodes[3] = new QuadTree(width, height, west, north);
+	nodes[0] = &QuadTree(width, height, east, north);
+	nodes[1] = &QuadTree(width, height, east, south);
+	nodes[2] = &QuadTree(width, height, west, south);
+	nodes[3] = &QuadTree(width, height, west, north);
 
 	for (auto it = objects.begin(); it != objects.end();) {
 		int index = GetIndex(*(*it));
@@ -101,7 +103,6 @@ int QuadTree::GetIndex(BoundingBox const &box) const
 			index = 2;
 		}
 	}
-
 	return index;
 }
 

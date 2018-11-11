@@ -20,5 +20,6 @@ public:
 	/// <param name="box1">A boundingbox </param>
 	/// <param name="box2">A boundingbox </param>
 	bool CheckCollision(BoundingBox const &box1, BoundingBox const &box2);
+	int GetCollideSide(BoundingBox const &box1, BoundingBox const &box2);
 };
 
