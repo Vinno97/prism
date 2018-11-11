@@ -3,8 +3,6 @@
 
 #include "ECS/EntityManager.h"
 
-
-
 class EntityFactory {
 public:
 	EntityFactory();

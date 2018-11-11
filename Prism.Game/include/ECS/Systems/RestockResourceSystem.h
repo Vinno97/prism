@@ -7,9 +7,10 @@ namespace ECS {
 		class RestockResourceSystem : public System
 		{
 		public:
-			RestockResourceSystem(std::shared_ptr<EntityManager> entityManager);
+			RestockResourceSystem(EntityManager& entityManager);
 			~RestockResourceSystem();
 			void update(Context context) override;
+			System* clone() override;
 		};
 	}
 }
