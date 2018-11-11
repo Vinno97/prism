@@ -42,7 +42,7 @@ namespace Renderer {
 					auto error = importer.GetErrorString();
 
 					cout << "ERROR::ASSIMP::" << error << endl;
-					throw exception("Assimp mesh loading.");
+					throw std::runtime_error("Assimp mesh loading.");
 				}
 
 				// Get the first mesh of the scene.  
@@ -56,7 +56,7 @@ namespace Renderer {
 				if (!mesh)
 				{
 					cout << "No meshes found." << endl;
-					throw exception("Assimp mesh loading.");
+					throw std::runtime_error("Assimp mesh loading.");
 				}
 
 				// iterate over the mesh's vertices and push the 3d coordinates into the vector.
@@ -76,7 +76,7 @@ namespace Renderer {
 				if (!vertexArrayObject)
 				{
 					cout << "Renderdevice could not create VAO. No Vertex Array Object found." << endl;
-					throw exception("Assimp mesh loading.");
+					throw std::runtime_error("Assimp mesh loading.");
 				}
 
 				// Get the size of the vertices to provide the VertexBuffer with the right data.
@@ -87,7 +87,7 @@ namespace Renderer {
 				if (!vertexBuffer)
 				{
 					cout << "Renderdevice could not create Vertex Buffer. No Vertex Buffer found." << endl;
-					throw exception("Assimp mesh loading.");
+					throw std::runtime_error("Assimp mesh loading.");
 				}
 
 				vertexArrayObject->addVertexBuffer(move(vertexBuffer), 0, 3 * sizeof(float), 0, 3);
@@ -110,7 +110,7 @@ namespace Renderer {
 				if (!normalBuffer)
 				{
 					cout << "Renderdevice could not create Vertex Buffer. No Vertex Buffer found." << endl;
-					throw exception("Assimp mesh loading.");
+					throw std::runtime_error("Assimp mesh loading.");
 				}
 
 				vertexArrayObject->addVertexBuffer(move(normalBuffer), 1, 3 * sizeof(float), 0, 3);
@@ -139,7 +139,7 @@ namespace Renderer {
 				if (!indexBuffer)
 				{
 					cout << "Renderdevice could not create IndexBuffer. No Index Buffer found." << endl;
-					throw exception("Assimp mesh loading.");
+					throw std::runtime_error("Assimp mesh loading.");
 				}
 
 				// Vertex Array Object gets unbind for it is no longer needed.
@@ -152,7 +152,7 @@ namespace Renderer {
 				if (!combinedMesh)
 				{
 					cout << "Mesh creation failed. No mesh found." << endl;
-					throw exception("Assimp mesh loading.");
+					throw std::runtime_error("Assimp mesh loading.");
 				}
 
 				return combinedMesh;
