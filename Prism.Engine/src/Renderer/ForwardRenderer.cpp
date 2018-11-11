@@ -20,7 +20,7 @@ using namespace Renderer::Graphics;
 using namespace Renderer::Graphics::OpenGL;
 
 namespace Renderer {
-	ForwardRenderer::ForwardRenderer(int width, int height)
+	ForwardRenderer::ForwardRenderer(int width, int height) : width{width}, height{height}
 	{
 		renderDevice = OGLRenderDevice::getRenderDevice();
 
