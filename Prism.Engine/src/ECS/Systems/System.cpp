@@ -9,9 +9,8 @@
 
 namespace ECS {
 	namespace Systems {
-		System::System(std::shared_ptr<EntityManager> entityManager) {
-			this->entityManager = entityManager;
-		}
+		System::System(EntityManager &entityManager_) : entityManager(&entityManager_) {
+		};
 
 		System::~System()
 		= default;

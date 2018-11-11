@@ -5,7 +5,7 @@
 
 namespace ECS {
 	namespace Systems {
-		RestockResourceSystem::RestockResourceSystem(std::shared_ptr<EntityManager> entityManager) : System(entityManager) {
+		RestockResourceSystem::RestockResourceSystem(EntityManager& entityManager) : System(entityManager) {
 		}
 
 		RestockResourceSystem::~RestockResourceSystem()
@@ -13,6 +13,10 @@ namespace ECS {
 
 		void RestockResourceSystem::update(Context context) {
 
+		}
+		System * RestockResourceSystem::clone()
+		{
+			return new RestockResourceSystem(*entityManager);
 		}
 	}
 }
