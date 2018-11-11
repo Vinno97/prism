@@ -27,3 +27,5 @@ target_include_directories(Prism.Game PRIVATE src)
 
 #add_custom_target(resources ALL
 #        COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_CURRENT_SOURCE_DIR}/resources" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/resources")
+
+add_custom_command(TARGET Prism.Game POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/res "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/res")
