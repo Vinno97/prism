@@ -3,7 +3,7 @@
 #include "ECS/Components/VelocityComponent.h"
 #include "ECS/Components/PositionComponent.h"
 
-CollisionSystem::CollisionSystem(std::shared_ptr<ECS::EntityManager> entityManager,float width, float height, float posX, float posY) : System(entityManager)
+CollisionSystem::CollisionSystem(ECS::EntityManager &entityManager,float width, float height, float posX, float posY) : System(entityManager)
 {
 	quadTree = QuadTree(width, height, posX, posY);
 }
@@ -63,4 +63,13 @@ void CollisionSystem::update(Context context)
 		}
 		quadTree.Clear();
 	}
+}
+
+ECS::Systems::System* CollisionSystem::clone()
+{
+	BoundingBox b = quadTree.GetBounds();
+	float width = b.GetEast() - b.GetWest();
+	float height = b.GetNorth() - b.GetSouth();
+
+	return &CollisionSystem(*entityManager,width,height,b.GetPosX(),b.GetPosY());
 }

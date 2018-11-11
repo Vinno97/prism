@@ -40,10 +40,15 @@ public:
 	void Insert(BoundingBox const &newBox);
 
 	/// <summary>
-	/// retrieve a vector with al the boundingboxes that can collide with the given boundingbox
+	/// Retrieve a vector with al the boundingboxes that can collide with the given boundingbox
 	/// </summary>
 	///<param name="searchBox">A vector will be returned that could collide with this boundingbox</param>
 	std::vector<BoundingBox const *> Retrieve(std::vector<BoundingBox const *> &vector,BoundingBox const &searchBox);
+
+	/// <summary>
+	/// Get the bounds of the quadtree;
+	/// </summary>
+	const BoundingBox GetBounds() const;
 private:
 	int maxObjects = 2;
 	std::vector<BoundingBox const * > objects;

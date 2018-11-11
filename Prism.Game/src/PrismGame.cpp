@@ -58,6 +58,7 @@ void PrismGame::registerSystems(Context &context)
 	systemManager.registerSystem(inputSystem);
 	systemManager.registerSystem(restockSystem);
 	systemManager.registerSystem(animationSystem);
+	systemManager.registerSystem(collisionSystem);
 }
 
 void PrismGame::onUpdate(Context &context)
@@ -67,6 +68,7 @@ void PrismGame::onUpdate(Context &context)
 	auto renderSystem = systemManager.getSystem<RenderSystem>();
 	auto restockSystem = systemManager.getSystem<RestockResourceSystem>();
 	auto animationSystem = systemManager.getSystem<AnimationSystem>();
+	auto collisionSystem = systemManager.getSystem<CollisionSystem>();
 
 	inputSystem->update(context);
 	restockSystem->update(context);

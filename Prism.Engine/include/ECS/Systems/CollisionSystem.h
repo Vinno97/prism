@@ -7,9 +7,10 @@
 
 class CollisionSystem : public ECS::Systems::System{
 public:
-	CollisionSystem(std::shared_ptr<ECS::EntityManager> entityManager, float width, float height, float posX, float posY);
+	CollisionSystem(ECS::EntityManager &entityManager, float width, float height, float posX, float posY);
 	~CollisionSystem();
 	void update(Context context) override;
+	ECS::Systems::System* clone() override;
 private:
 	QuadTree quadTree;
 	AABBCollider aabbCollider;

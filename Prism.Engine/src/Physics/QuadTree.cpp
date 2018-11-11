@@ -137,3 +137,8 @@ std::vector<BoundingBox const *> QuadTree::Retrieve(std::vector<BoundingBox cons
 	vector.insert(vector.end(),objects.begin(), objects.end());
 	return vector;
 }
+
+const BoundingBox QuadTree::GetBounds() const
+{
+	return bounds;
+}
