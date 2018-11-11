@@ -3,6 +3,7 @@
 #include <string>
 #include <map>
 #include "nlohmann/json.hpp"
+#include "ECS/EntityManager.h"
 
 #include "AdditionalObjectProperties.h"
 
@@ -21,7 +22,11 @@ namespace World {
 		std::map<std::string, AdditionalObjectProperties> additionalProperties;
 	};
 
-	void to_json(nlohmann::json& j, const WorldObject& p);
+	void to_json(nlohmann::json& j, const WorldObject& o);
 
-	void from_json(const nlohmann::json& j, WorldObject& p);
+	void from_json(const nlohmann::json& j, WorldObject& o);
+
+	void to_entitymanager(ECS::EntityManager& entityManager, const WorldObject& p);
+
+	void from_entitymanager(const ECS::EntityManager& entityManager, WorldObject& o);
 }

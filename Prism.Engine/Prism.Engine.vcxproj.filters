@@ -39,6 +39,7 @@
     <ClCompile Include="src\World\EntityConfigurators\PositionConfigurator.cpp" />
     <ClCompile Include="src\World\EntityConfigurators\AppearanceConfigurator.cpp" />
     <ClCompile Include="src\World\WorldObject.cpp" />
+    <ClCompile Include="src\World\JSONSerializer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Renderer\Camera.h" />
@@ -101,6 +102,9 @@
     <ClInclude Include="include\World\EntityConfigurators\AppearanceConfigurator.h" />
     <ClInclude Include="include\World\WorldObject.h" />
     <ClInclude Include="include\ECS\Components\PlayerComponent.h" />
+    <ClInclude Include="include\World\JSONSerializer.h" />
+    <ClInclude Include="include\World\LevelSerializer.h" />
+    <ClInclude Include="include\World\EntityDisassembler.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\glew32.lib" />

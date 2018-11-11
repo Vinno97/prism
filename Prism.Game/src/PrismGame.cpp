@@ -28,27 +28,8 @@ PrismGame::PrismGame() {
 
 void PrismGame::onInit(Context & context)
 {
-	World::WorldLoader loader;
-	World::PrismEntityAssembler assembler{ *entityManager, entityFactory };
-
-	//auto player = entityFactory.createPlayer(*entityManager);
-	//auto resourcePoint = entityFactory.createResourcePoint(*entityManager);
-	//auto enemy = entityFactory.createEnemy(*entityManager);
 	auto scene = entityFactory.createScene(*entityManager);
 
-	//for (int i = -4; i < 4; i++) {
-	//	auto entity = i % 2 == 0 ? entityFactory.createTower(*entityManager) : entityFactory.createWall(*entityManager);
-	//	auto position = entityManager->getComponent<PositionComponent>(entity);
-	//	position->y = -1;
-	//	position->x = i;
-	//}
-
-	//auto positions{ entityManager->getAllEntitiesWithComponent<PositionComponent>()};
-
-	//entityManager->getComponent<PositionComponent>(player)->y = 1;
-	//entityManager->getComponent<PositionComponent>(resourcePoint)->x = 1;
-	//entityManager->getComponent<PositionComponent>(enemy)->x = -1;
-	
 	auto sceneComponent = entityManager->getComponent<SceneComponent>(scene);
 
 	sceneComponent->scene.ambientLightColor = Math::Vector3f{ 1.0f, 1.0f, 1.0f };
@@ -56,12 +37,13 @@ void PrismGame::onInit(Context & context)
 	sceneComponent->scene.sun.color = Math::Vector3f{ .30f, .30f, .30f };
 	sceneComponent->scene.sun.direction = Math::Vector3f{ 25.f, 150.0f, 100.0f };
 
-	registerSystems(context);
+	World::PrismEntityAssembler assembler{ *entityManager, entityFactory };
 
-
-
+	World::LevelManager loader;
 	// FIXME: Ja ik weet dat dit geen absoluut pad hoort te zijn
-	loader.load("D:\\School\\Vervolgopleiding\\SWAP\\Prism3\\Prism.Game\\res\\levels\\Sample World.json", assembler);
+	loader.load("D:\\School\\Vervolgopleiding\\SWAP\\Prism\\Prism.Game\\res\\levels\\Sample World.json", *entityManager);
+
+	registerSystems(context);
 
 }
 

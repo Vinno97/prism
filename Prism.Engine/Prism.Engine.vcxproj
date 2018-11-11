@@ -77,10 +77,14 @@
     <ClInclude Include="include\ECS\Components\SceneComponent.h" />
     <ClInclude Include="include\Math\Vector3f.h" />
     <ClInclude Include="include\World\AdditionalObjectProperties.h" />
+    <ClInclude Include="include\World\EntityDisassembler.h" />
+    <ClInclude Include="include\World\LevelSerializer.h" />
+    <ClInclude Include="include\World\JSONSerializer.h" />
     <ClInclude Include="include\World\WorldObject.h" />
     <ClInclude Include="include\World\WorldLoader.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\World\JSONSerializer.cpp" />
     <ClCompile Include="src\Renderer\Camera.cpp" />
     <ClCompile Include="src\Renderer\Renderable.cpp" />
     <ClCompile Include="src\Util\FileReader.cpp" />

@@ -2,21 +2,30 @@
 
 #include <fstream>
 #include "EntityAssembler.h"
+#include "ECS/EntityManager.h"
+#include "World/LevelSerializer.h"
+#include <memory>
 
 namespace World {
-	class WorldLoader
+	// TODO: Verzin een naam die zowel "LevelLoader", als "LevelSaver" betekent of insinueert.
+	class LevelManager
 	{
 
 	public:
-		WorldLoader() = default;
-		//WorldLoader(EntityAssembler &entityAssembler_) : entityAssembler(entityAssembler_) : {}
+		LevelManager();
+		//LevelManager(EntityAssembler &entityAssembler_) : entityAssembler(entityAssembler_) : {}
 
-		~WorldLoader() = default;
+		~LevelManager() = default;
 
-		void load(const char* filename, EntityAssembler& entityAssembler);
+		void load(const char* filename, ECS::EntityManager& entityManager);
+		void save(const char* filename, ECS::EntityManager& entityManager);
 
+		void setSerializer(std::unique_ptr<LevelSerializer> serializer_) {
+			serializer = std::move(serializer_);
+		}
 	private:
 		std::ifstream readFile(const char* filename);
-		void loadJson(std::ifstream input, EntityAssembler& entityAssembler);
+		std::unique_ptr<LevelSerializer> serializer;
+		//void loadJson(std::ifstream input, EntityAssembler& entityAssembler);
 	};
 }
