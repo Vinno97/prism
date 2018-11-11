@@ -1,9 +1,9 @@
-resources:
-  containers:
+# resources:
+  # containers:
   # - container: nix
   #   image: nixos/nix:latest
-  - container: nix
-    image: ubuntu:latest
+  # - container: nix
+  #   image: ubuntu:latest
     
 # - repo: self
 
@@ -18,25 +18,36 @@ jobs:
   - bash: find . -type f -name '*.cpp' ! -path './Prism.*/src/*' ! -path './Prism.Engine/lib/include/glm/*' -exec false {} +
     displayName: Source files are only in the 'src' directories
 
-# - job: Windows
-#   pool:
-#     vmImage: 'vs2017-win2016'
-#   steps:
-#   - task: VSBuild@1
-#     displayName: 'Build solution **\*.sln'
-#     inputs:
-#       vsVersion: 15.0
-#       platform: x64
-#       configuration: debug
-#       msbuildArchitecture: x64
+  - bash: curl https://nixos.org/nix/install | sh;
+    displayName: 'Install Nix environment'
+
+  - bash: source ~/.profile && nix-shell --pure --run true;
+    displayName: 'Configure Nix environment'
+
+- job: Windows
+  pool:
+    vmImage: 'vs2017-win2016'
+  dependsOn: StaticAnalysis
+  steps:
+  - task: VSBuild@1
+    displayName: 'Build solution **\*.sln'
+    inputs:
+      vsVersion: 15.0
+      platform: x64
+      configuration: debug
+      msbuildArchitecture: x64
 
 - job: Linux
   pool:
     vmImage: ubuntu-16.04
-  # container: nix
+  dependsOn: StaticAnalysis
   steps:
   - bash: curl https://nixos.org/nix/install | sh;
-    displayName: 'Set up Nix environment'
+    displayName: 'Install Nix environment'
+
+  # - bash: source ~/.profile && NIXPKGS_ALLOW_BROKEN=1 NIXPKGS_ALLOW_INSECURE=1 nix-env --install;
+  - bash: source ~/.profile && nix-shell --pure --run true;
+    displayName: 'Configure Nix environment'
 
   - bash: source ~/.profile && nix-shell --pure --run 'cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" .'
     displayName: 'Configure CMake project'
