@@ -130,7 +130,6 @@ int EntityFactory::createFloor(ECS::EntityManager & entityManager)
 	appearance.scaleY = 0.25;
 	appearance.scaleZ = 0.25;
 
-	appearance.color = Math::Vector3f{ 0.90f, 0.90f, 0.90f };
 	appearance.model = std::move(model);
 	appearance.color = Math::Vector3f{ 0.8f, 0.8f, 0.8f };
 	PositionComponent positionComponent;
