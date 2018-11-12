@@ -33,8 +33,6 @@ public:
 	/// <param name="state">The state that will be added</param>
 	template<typename T, typename = std::enable_if_t < std::is_base_of<State, T>::type::value>>
 	void addState(T& state) {
-		state.onInit(context);
-
 		context.stateMachine->addState(state);
 		context.stateMachine->getState<T>()->onInit(context);
 	}
