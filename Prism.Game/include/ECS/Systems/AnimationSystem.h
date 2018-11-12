@@ -5,13 +5,15 @@
 
 namespace ECS {
 	namespace Systems {
-		class KeyboardInputSystem : public System
+		class AnimationSystem : public System
 		{
 		public:
-			KeyboardInputSystem(EntityManager &entityManager);
-			~KeyboardInputSystem();
+			AnimationSystem(EntityManager& entityManager);
+			~AnimationSystem();
 			void update(Context context) override;
 			System* clone() override;
+		private:
+			long double absoluteTime = 0;
 		};
 	}
 }

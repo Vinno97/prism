@@ -14,7 +14,7 @@ namespace Renderer {
 			public:
 				StaticMeshLoader();
 
-				unique_ptr<Mesh> loadMesh(string path);
+				std::shared_ptr<Mesh> loadMesh(string path);
 
 				~StaticMeshLoader();
 
