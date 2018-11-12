@@ -13,6 +13,10 @@ namespace ECS {
 	public:
 		SystemManager();
 		~SystemManager();
+		SystemManager(const SystemManager&other);
+		SystemManager& operator=(const SystemManager& other);
+		SystemManager(SystemManager&& other);
+		SystemManager& operator=(SystemManager&& other);
 
 		/// <summary>
 		/// Unregisters a System of a certain type.

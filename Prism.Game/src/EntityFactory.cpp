@@ -32,7 +32,7 @@ int EntityFactory::createPlayer(EntityManager& entityManager)
 	appearance.scaleX = 0.002f;
 	appearance.scaleY = 0.002f;
 	appearance.scaleZ = 0.002f;
-	appearance.model = model;
+	appearance.model = std::move(model);
 
 
 	return entityManager.createEntity(appearance,
@@ -52,7 +52,7 @@ int EntityFactory::createEnemy(EntityManager& entityManager) {
 	appearance.scaleX = 0.002f;
 	appearance.scaleY = 0.002f;
 	appearance.scaleZ = 0.002f;
-	appearance.model = model;
+	appearance.model = std::move(model);
 
 	return entityManager.createEntity(VelocityComponent(), PositionComponent(), DragComponent(5.f), EnemyComponent(), appearance);
 
@@ -67,7 +67,7 @@ int EntityFactory::createResourcePoint(EntityManager & entityManager)
 	appearance.scaleX = 0.002f;
 	appearance.scaleY = 0.002f;
 	appearance.scaleZ = 0.002f;
-	appearance.model = model;
+	appearance.model = std::move(model);
 	return entityManager.createEntity(PositionComponent(), ResourceSpawnComponent(), appearance);
 
 }
@@ -81,7 +81,7 @@ int EntityFactory::createTower(EntityManager & entityManager)
 	appearance.scaleX = 0.005f;
 	appearance.scaleY = 0.005f;
 	appearance.scaleZ = 0.005f;
-	appearance.model = model;
+	appearance.model = std::move(model);
 	return entityManager.createEntity(PositionComponent(), appearance);
 }
 
@@ -94,7 +94,7 @@ int EntityFactory::createWall(EntityManager & entityManager)
 	appearance.scaleX = 0.005f;
 	appearance.scaleY = 0.005f;
 	appearance.scaleZ = 0.005f;
-	appearance.model = model;
+	appearance.model = std::move(model);
 
 	return entityManager.createEntity(PositionComponent(), appearance);
 }
@@ -108,14 +108,11 @@ int EntityFactory::createMine(EntityManager & entityManager)
 	appearance.scaleX = 0.005f;
 	appearance.scaleY = 0.005f;
 	appearance.scaleZ = 0.005f;
-	appearance.model = model;
+	appearance.model = std::move(model);
 	return entityManager.createEntity(PositionComponent(), appearance);
 }
 
 int EntityFactory::createScene(EntityManager & entityManager) {
-	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
-	std::shared_ptr<Model> model = ml.loadModel("./res/varyingPlane.obj");
-	
 	return entityManager.createEntity(SceneComponent());
 }
 

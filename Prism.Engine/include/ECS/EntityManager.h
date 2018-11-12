@@ -18,6 +18,12 @@ namespace ECS {
 	{
 	public:
 		EntityManager();
+		EntityManager(const EntityManager &other);
+		EntityManager& operator=(const EntityManager& other);
+		EntityManager(EntityManager&& other);
+		EntityManager& operator=(EntityManager&& other);
+		
+		
 		~EntityManager();
 
 		///// <summary>
@@ -47,7 +53,7 @@ namespace ECS {
 					throw std::runtime_error("Already attached a component of type " + *type.name() + *" to entity " + std::to_string(entityId));
 				}
 			}
-			entityComponents[type][entityId] = new T(component);
+			entityComponents[type][entityId] = component.Clone();//new T(component);
 		}
 
 		/// <summary>
@@ -111,10 +117,11 @@ namespace ECS {
 		/// <param name="entityId">The ID of the entity to be removed.</param>
 		void removeEntity(unsigned int entityId);
 
+
+
+
 	private:
 		unsigned int lastEntityId = 0;
-
-
 		/// <summary>
 		/// Keeps a list of all instances of each component type.
 		/// </summary>
@@ -123,7 +130,6 @@ namespace ECS {
 		/// <summary>
 		/// Keeps a list of all Listeners attached to the EntityManager.
 		/// </summary>
-
 		Component* getComponent(unsigned int entityId, std::type_index componentType) const;
 
 		bool hasComponent(unsigned int entityId, std::type_index componentType) const;
