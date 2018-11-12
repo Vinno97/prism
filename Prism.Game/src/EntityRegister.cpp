@@ -1,8 +1,5 @@
 #include "EntityRegister.h"
-
-///<sumary>
-
-
+	
 EntityRegister::EntityRegister() {
 }
 
