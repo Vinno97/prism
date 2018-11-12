@@ -12,9 +12,10 @@
 #include "Renderer/Graphics/Models/Model.h"
 #include "ECS/Systems/RenderSystem.h"
 #include "ECS/SystemManager.h"
-#include "MenuBuilder.h"
+#include "Menu/MenuBuilder.h"
 
 using namespace std;
+using namespace Menu;
 using namespace Renderer::Graphics::Loader;
 
 const void CoreEngine::InitWindow(const char* title, const int width, const int height, const int x, const int y) {

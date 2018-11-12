@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\Menu\Control.h" />
     <ClInclude Include="include\Renderer\DirectionalLight.h" />
     <ClInclude Include="include\Renderer\Camera.h" />
     <ClInclude Include="include\Renderer\Scene.h" />
@@ -69,10 +70,15 @@
     <ClInclude Include="include\Renderer\Renderable.h" />
     <ClInclude Include="include\ECS\Components\SceneComponent.h" />
     <ClInclude Include="include\Math\Vector3f.h" />
-    <ClInclude Include="include\MenuBuilder.h" />
+    <ClInclude Include="include\Menu\MenuBuilder.h" />
+    <ClInclude Include="include\Menu\MenuRenderer.h" />
+    <ClInclude Include="include\Menu\Menu.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\MenuBuilder.cpp" />
+    <ClCompile Include="src\Menu\Menu.cpp" />
+    <ClCompile Include="src\Menu\MenuRenderer.cpp" />
+    <ClCompile Include="src\Menu\Control.cpp" />
+    <ClCompile Include="src\Menu\MenuBuilder.cpp" />
     <ClCompile Include="src\Renderer\Camera.cpp" />
     <ClCompile Include="src\Renderer\Renderable.cpp" />
     <ClCompile Include="src\Util\FileReader.cpp" />
