@@ -128,9 +128,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="include\ECS\Components\EnemyComponent.h" />
+    <ClInclude Include="include\ECS\Components\EnemySpawnComponent.h" />
     <ClInclude Include="include\ECS\Systems\AnimationSystem.h" />
     <ClInclude Include="include\ECS\Components\PlayerComponent.h" />
     <ClInclude Include="include\ECS\Components\ResourceSpawnComponent.h" />
+    <ClInclude Include="include\ECS\Systems\EnemySpawnSystem.h" />
     <ClInclude Include="include\EntityFactory.h" />
     <ClInclude Include="include\PrismGame.h" />
     <ClInclude Include="include\ECS\Components\KeyboardInputComponent.h" />
@@ -139,6 +141,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ECS\Systems\AnimationSystem.cpp" />
+    <ClCompile Include="src\ECS\Systems\EnemySpawnSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\RestockResourceSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\KeyboardInputSystem.cpp" />
     <ClCompile Include="src\EntityFactory.cpp" />

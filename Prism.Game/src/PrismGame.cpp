@@ -16,6 +16,7 @@ void PrismGame::onInit(Context & context)
 	auto resourcePoint = entityFactory.createResourcePoint(entityManager);
 	auto enemy = entityFactory.createEnemy(entityManager);
 	auto scene = entityFactory.createScene(entityManager);
+	auto spawn = entityFactory.createEnemySpawn(entityManager);
 
 	for (int i = -4; i < 4; i++) {
 		auto entity = i % 2 == 0 ? entityFactory.createTower(entityManager) : entityFactory.createWall(entityManager);
@@ -51,12 +52,14 @@ void PrismGame::registerSystems(Context &context)
 	KeyboardInputSystem inputSystem = KeyboardInputSystem(entityManager);
 	RestockResourceSystem restockSystem = RestockResourceSystem(entityManager);
 	AnimationSystem animationSystem = AnimationSystem(entityManager);
+	EnemySpawnSystem enemySpawnSystem = EnemySpawnSystem(entityManager);
 	
 	systemManager.registerSystem(motionSystem);
 	systemManager.registerSystem(renderSystem);
 	systemManager.registerSystem(inputSystem);
 	systemManager.registerSystem(restockSystem);
 	systemManager.registerSystem(animationSystem);
+	systemManager.registerSystem(enemySpawnSystem);
 }
 
 void PrismGame::onUpdate(Context &context)
@@ -66,12 +69,14 @@ void PrismGame::onUpdate(Context &context)
 	auto renderSystem = systemManager.getSystem<RenderSystem>();
 	auto restockSystem = systemManager.getSystem<RestockResourceSystem>();
 	auto animationSystem = systemManager.getSystem<AnimationSystem>();
+	auto enemySpawnSystem = systemManager.getSystem<EnemySpawnSystem>();
 
 	inputSystem->update(context);
 	restockSystem->update(context);
 	motionSystem->update(context);
 	animationSystem->update(context);
 	renderSystem->update(context);
+	enemySpawnSystem->update(context);
 
 	for (auto &entity : entityManager.getAllEntitiesWithComponent<VelocityComponent>()) {
 		auto velocity = entity.component;

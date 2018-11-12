@@ -11,6 +11,7 @@
 #include "ECS/Components/AppearanceComponent.h"
 #include "ECS/Components/KeyboardInputComponent.h"
 #include "ECS/Components/ResourceSpawnComponent.h"
+#include "ECS/Components/EnemySpawnComponent.h"
 
 #include "Renderer/Graphics/Loader/ModelLoader.h"
 
@@ -114,6 +115,19 @@ int EntityFactory::createMine(EntityManager & entityManager)
 
 int EntityFactory::createScene(EntityManager & entityManager) {
 	return entityManager.createEntity(SceneComponent());
+}
+
+int EntityFactory::createEnemySpawn(ECS::EntityManager & entityManager)
+{
+	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
+	auto model = ml.loadModel("./res/tower-cross.obj");
+
+	AppearanceComponent appearance;
+	appearance.scaleX = 0.005f;
+	appearance.scaleY = 0.005f;
+	appearance.scaleZ = 0.005f;
+	appearance.model = std::move(model);
+	return entityManager.createEntity(PositionComponent(), EnemySpawnComponent(), appearance);
 }
 
 

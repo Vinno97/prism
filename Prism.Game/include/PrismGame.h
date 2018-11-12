@@ -18,6 +18,7 @@
 #include "ECS/Systems/KeyboardInputSystem.h"
 #include "ECS/Systems/RestockResourceSystem.h"
 #include "ECS/Systems/AnimationSystem.h"
+#include "ECS/Systems/EnemySpawnSystem.h"
 
 class PrismGame : public Game
 {

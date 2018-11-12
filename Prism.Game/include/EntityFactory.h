@@ -14,6 +14,7 @@ public:
 	int createWall(ECS::EntityManager& entityManager);
 	int createMine(ECS::EntityManager& entityManager);
 	int createScene(ECS::EntityManager & entityManager);
+	int createEnemySpawn(ECS::EntityManager & entityManager);
 private:
 	//map<std::string, Model> modelCache; // TODO: Use this cache to cache the models to optimize memory usage.
 };
