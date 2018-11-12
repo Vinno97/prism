@@ -5,6 +5,10 @@ using namespace Physics;
 QuadTree::QuadTree()
 = default;
 
+QuadTree::~QuadTree() {
+	Clear();
+}
+
 QuadTree::QuadTree(float width, float heigt, float x, float y, unsigned int maxObjects)
 {
 	float halfwidth = width / 2.0;
@@ -19,9 +23,11 @@ QuadTree::QuadTree(float width, float heigt, float x, float y, unsigned int maxO
 
 void QuadTree::Clear()
 {
-	for (auto i = 0;i < 4; i++) {
-		objects.clear();
-		nodes[i] = nullptr;
+	if (nodes[0] != nullptr) {
+		for (auto i = 0;i < 4; i++) {
+			delete nodes[i];
+			nodes[i] = nullptr;
+		}
 	}
 	objects.clear();
 }
@@ -37,10 +43,10 @@ void QuadTree::Split()
 	float north = halfHeight + bounds.GetPosY();
 	float south = (-1 * halfHeight) + bounds.GetPosY();
 
-	nodes[0] = &QuadTree(width, height, east, north, maxObjects);
-	nodes[1] = &QuadTree(width, height, east, south, maxObjects);
-	nodes[2] = &QuadTree(width, height, west, south, maxObjects);
-	nodes[3] = &QuadTree(width, height, west, north, maxObjects);
+	nodes[0] = new QuadTree(width, height, east, north, maxObjects);
+	nodes[1] = new QuadTree(width, height, east, south, maxObjects);
+	nodes[2] = new QuadTree(width, height, west, south, maxObjects);
+	nodes[3] = new QuadTree(width, height, west, north, maxObjects);
 	
 	for (auto it = objects.begin(); it != objects.end();) {
 		int index = GetIndex(*(*it));

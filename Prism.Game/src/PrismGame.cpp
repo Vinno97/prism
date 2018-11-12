@@ -23,6 +23,9 @@ void PrismGame::onInit(Context & context)
 		auto position = entityManager.getComponent<PositionComponent>(entity);
 		position->y = -1;
 		position->x = i;
+		if (entityManager.hasComponent<VelocityComponent>(entity)) {
+			std::cout << "what???????????????????";
+		}
 	}
 
 	auto positions{ entityManager.getAllEntitiesWithComponent<PositionComponent>()};

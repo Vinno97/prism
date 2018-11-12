@@ -35,10 +35,10 @@ void CollisionSystem::update(Context context)
 			&& entityManager->hasComponent<VelocityComponent>(entity.id)) {
 			
 			auto boundingBox = &entityManager->getComponent<BoundingBoxComponent>(entity.id)->boundingBox;
-			auto Position = entityManager->getComponent<PositionComponent>(entity.id);
-			auto Velocity = entityManager->getComponent<VelocityComponent>(entity.id);
+			auto position = entityManager->getComponent<PositionComponent>(entity.id);
+			auto velocity = entityManager->getComponent<VelocityComponent>(entity.id);
 
-			boundingBox->SetPosXY(Position->x, Position->y);
+			boundingBox->SetPosXY(position->x, position->y);
 			std::vector<BoundingBox const *> vector;
 			quadTree.Retrieve(vector, *boundingBox);
 
@@ -47,20 +47,21 @@ void CollisionSystem::update(Context context)
 				if (otherBox != boundingBox) {
 
 					BoundingBox testBox(*boundingBox);
-					float x = boundingBox->GetPosX();
-					float y = boundingBox->GetPosY();
+					float x = position->x;
+					float y = position->y;
 
-					testBox.SetPosXY(x -= Velocity->dx*context.deltaTime, y);
+					testBox.SetPosXY(x -= velocity->dx*context.deltaTime, y);
 					if (!aabbCollider.CheckCollision(*otherBox, testBox) && aabbCollider.CheckCollision(*otherBox, *boundingBox)) {
-						Position->x -= Velocity->dx*context.deltaTime;
-						Velocity->dx = 0;
-						boundingBox->SetPosXY(Position->x, y);
+						position->x -= velocity->dx*context.deltaTime;
+						velocity->dx = 0;
+						boundingBox->SetPosXY(position->x, position->y);
 					}
 
-					testBox.SetPosXY(x, y -= Velocity->dy*context.deltaTime);
+					testBox.SetPosXY(x, y -= velocity->dy*context.deltaTime);
 					if (!aabbCollider.CheckCollision(*otherBox, testBox) && aabbCollider.CheckCollision(*otherBox, *boundingBox)) {
-						Position->y -= Velocity->dy*context.deltaTime;
-						Velocity->dy = 0;
+						position->y -= velocity->dy*context.deltaTime;
+						velocity->dy = 0;
+						boundingBox->SetPosXY(position->x, position->y);
 					}
 				}
 			}

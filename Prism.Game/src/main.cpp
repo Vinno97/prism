@@ -38,11 +38,21 @@ void start() {
 	ce.Run();
 }
 
+void test() {
+	Physics::QuadTree q = Physics::QuadTree(50,50,0,0,2);
+	q.Insert(Physics::BoundingBox(2, 0, 0));
+	q.Insert(Physics::BoundingBox(2, 1, 1));
+	q.Insert(Physics::BoundingBox(2, 40, 40));
+	q.Insert(Physics::BoundingBox(2, 30, 30));
+	q.Insert(Physics::BoundingBox(2, 20, 20));
+	q.Insert(Physics::BoundingBox(2, 10, 10));
+
+}
+
 int main(int argc, char ** argv) {
 	//_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	start();
 	//test();
-	
 
 
 	_CrtDumpMemoryLeaks();

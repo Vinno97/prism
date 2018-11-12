@@ -41,7 +41,7 @@ int EntityFactory::createPlayer(EntityManager& entityManager)
 		PositionComponent(),
 		DragComponent(5.f),
 		KeyboardInputComponent(),
-		BoundingBoxComponent(0.2, 0.2),
+		BoundingBoxComponent(0.3, 0.3),
 		PlayerComponent()
 	);
 }
@@ -61,7 +61,7 @@ int EntityFactory::createEnemy(EntityManager& entityManager) {
 		PositionComponent(), 
 		DragComponent(5.f), 
 		EnemyComponent(), 
-		BoundingBoxComponent(0.2, 0.2),
+		BoundingBoxComponent(0.3, 0.3),
 		appearance);
 }
 
@@ -89,7 +89,7 @@ int EntityFactory::createTower(EntityManager & entityManager)
 	appearance.scaleY = 0.005f;
 	appearance.scaleZ = 0.005f;
 	appearance.model = std::move(model);
-	return entityManager.createEntity(PositionComponent(), appearance);
+	return entityManager.createEntity(PositionComponent(), appearance, BoundingBoxComponent(1.0, 1.0));
 }
 
 int EntityFactory::createWall(EntityManager & entityManager)
@@ -103,7 +103,7 @@ int EntityFactory::createWall(EntityManager & entityManager)
 	appearance.scaleZ = 0.005f;
 	appearance.model = std::move(model);
 
-	return entityManager.createEntity(PositionComponent(), appearance);
+	return entityManager.createEntity(PositionComponent(), appearance, BoundingBoxComponent(1.0, 1.0));
 }
 
 int EntityFactory::createMine(EntityManager & entityManager)

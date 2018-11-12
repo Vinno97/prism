@@ -11,6 +11,8 @@ namespace Physics {
 		/// </summary>
 		QuadTree();
 
+		~QuadTree();
+
 		/// <summary>
 		/// create quadtree
 		/// </summary>
