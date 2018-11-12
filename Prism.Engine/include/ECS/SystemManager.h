@@ -22,7 +22,7 @@ namespace ECS {
 		/// Unregisters a System of a certain type.
 		/// </summary>
 		/// <param name"system">The system that needs to be unregisterd </param>
-		template<typename T, typename = std::enable_if_t < std::is_base_of<System, T>::value>>
+		template<typename T, typename = std::enable_if_t < std::is_base_of<System, T>::type::value>>
 		void unRegisterSystem(T& system) {
 
 			const std::type_index type = std::type_index(typeid(system));
