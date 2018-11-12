@@ -11,6 +11,12 @@ namespace ECS {
 			///	The amount of drag in units/second^2
 			/// </summary>
 			double force = 0;
+
+			Component* Clone() override {
+				DragComponent* component = new DragComponent();
+				component->force = force;
+				return component;
+			}
 		};
 	}
 }

@@ -16,7 +16,7 @@ public:
 	/// <summary>
 	/// Set currentSate
 	/// </summary>
-	template<class T, typename = std::enable_if < std::is_base_of<State, T>::value>>
+	template<class T, typename = std::enable_if_t < std::is_base_of<State, T>::type::value>>
 	void setState()
 	{
 		const std::type_index type{ std::type_index(typeid(T)) };
@@ -34,15 +34,15 @@ public:
 		if (hasState(type)) {
 			throw std::runtime_error("There can only one type of " + *type.name() + *" registered");
 		}
-
-		existingStates[type] = new T(state);
+		//This is copied succesfully
+		existingStates[type] = new T(std::move(state));
 	}
 
 	/// <summary>
 	/// Get specific state
 	/// </summary>
 	/// <returns>Returns state </returns>
-	template<typename T, typename = std::enable_if < std::is_base_of<State, T>::value>>
+	template<typename T, typename = std::enable_if_t < std::is_base_of<State, T>::type::value>>
 	T* getState() const {
 		const std::type_index type{ std::type_index(typeid(T)) };
 		return static_cast<T*>(getState(type));

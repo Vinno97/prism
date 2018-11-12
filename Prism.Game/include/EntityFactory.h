@@ -3,8 +3,6 @@
 
 #include "ECS/EntityManager.h"
 
-
-
 class EntityFactory {
 public:
 	int createPlayer(ECS::EntityManager& entityManager);

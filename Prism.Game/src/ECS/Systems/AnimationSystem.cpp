@@ -15,7 +15,7 @@
 
 namespace ECS {
 	namespace Systems {
-		AnimationSystem::AnimationSystem(std::shared_ptr<EntityManager> entityManager) : System(entityManager) {
+		AnimationSystem::AnimationSystem(EntityManager& entityManager) : System(entityManager) {
 		}
 
 		AnimationSystem::~AnimationSystem()
@@ -47,6 +47,10 @@ namespace ECS {
 				appearance->scaleY = absoluteSize + absoluteSize * heightMultiplier * sin;
 				appearance->scaleZ = absoluteSize + absoluteSize * widthMultiplier * sin;
 			}
+		}
+		System * AnimationSystem::clone()
+		{
+			return new AnimationSystem(*entityManager);
 		}
 	}
 }

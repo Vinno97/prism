@@ -23,7 +23,7 @@ namespace Renderer {
 		namespace Loader {
 			class ModelLoader {
 			public:
-				std::shared_ptr<Model> loadModel(string path);
+				std::unique_ptr<Model> loadModel(string path);
 
 			private:
 				StaticMeshLoader staticMeshLoader;

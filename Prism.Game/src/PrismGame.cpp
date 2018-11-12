@@ -1,9 +1,5 @@
 #include "PrismGame.h"
-
 #include "Math/Vector3f.h"
-#include "ECS/Components/SceneComponent.h"
-#include "ECS/Components/PositionComponent.h"
-#include "ECS/Components/VelocityComponent.h"
 
 #include "ECS/Systems/MotionSystem.h"
 #include "ECS/Systems/RenderSystem.h"
@@ -17,34 +13,30 @@
 using namespace ECS;
 using namespace ECS::Components;
 
-
 /// <summary>
 /// creates new PrismGame object
 /// </summary>
-PrismGame::PrismGame() {
-	entityManager = std::make_shared<EntityManager>();
-	systemManager = std::make_shared<SystemManager>();
-}
+PrismGame::PrismGame()
+= default;
 
 void PrismGame::onInit(Context & context)
 {
-	auto scene = entityFactory.createScene(*entityManager);
+	auto scene = entityFactory.createScene(entityManager);
 
-	auto sceneComponent = entityManager->getComponent<SceneComponent>(scene);
+	auto sceneComponent = entityManager.getComponent<SceneComponent>(scene);
 
 	sceneComponent->scene.ambientLightColor = Math::Vector3f{ 1.0f, 1.0f, 1.0f };
 	sceneComponent->scene.ambientLightStrength = 0.65f;
 	sceneComponent->scene.sun.color = Math::Vector3f{ .30f, .30f, .30f };
 	sceneComponent->scene.sun.direction = Math::Vector3f{ 25.f, 150.0f, 100.0f };
 
-	World::PrismEntityAssembler assembler{ *entityManager, entityFactory };
+	World::PrismEntityAssembler assembler{ entityManager, entityFactory };
 
 	World::LevelManager loader;
 	// FIXME: Ja ik weet dat dit geen absoluut pad hoort te zijn
-	loader.load("Sample World", *entityManager);
+	loader.load("Sample World", entityManager);
 
 	registerSystems(context);
-
 }
 
 /// <summary>
@@ -59,21 +51,20 @@ void PrismGame::registerSystems(Context &context)
 	RestockResourceSystem restockSystem = RestockResourceSystem(entityManager);
 	AnimationSystem animationSystem = AnimationSystem(entityManager);
 	
-	systemManager->registerSystem(motionSystem);
-	systemManager->registerSystem(renderSystem);
-	systemManager->registerSystem(inputSystem);
-	systemManager->registerSystem(restockSystem);
-	systemManager->registerSystem(animationSystem);
-	
+	systemManager.registerSystem(motionSystem);
+	systemManager.registerSystem(renderSystem);
+	systemManager.registerSystem(inputSystem);
+	systemManager.registerSystem(restockSystem);
+	systemManager.registerSystem(animationSystem);
 }
 
 void PrismGame::onUpdate(Context &context)
 {
-	auto inputSystem = systemManager->getSystem<KeyboardInputSystem>();
-	auto motionSystem = systemManager->getSystem<MotionSystem>();
-	auto renderSystem = systemManager->getSystem<RenderSystem>();
-	auto restockSystem = systemManager->getSystem<RestockResourceSystem>();
-	auto animationSystem = systemManager->getSystem<AnimationSystem>();
+	auto inputSystem = systemManager.getSystem<KeyboardInputSystem>();
+	auto motionSystem = systemManager.getSystem<MotionSystem>();
+	auto renderSystem = systemManager.getSystem<RenderSystem>();
+	auto restockSystem = systemManager.getSystem<RestockResourceSystem>();
+	auto animationSystem = systemManager.getSystem<AnimationSystem>();
 
 	inputSystem->update(context);
 	restockSystem->update(context);
@@ -81,17 +72,14 @@ void PrismGame::onUpdate(Context &context)
 	animationSystem->update(context);
 	renderSystem->update(context);
 
-
-	for (auto &entity : entityManager->getAllEntitiesWithComponent<VelocityComponent>()) {
+	for (auto &entity : entityManager.getAllEntitiesWithComponent<VelocityComponent>()) {
 		auto velocity = entity.component;
-		auto position = entityManager->getComponent<PositionComponent>(entity.id);
+		auto position = entityManager.getComponent<PositionComponent>(entity.id);
 		printf("Entity:\t\t%d \nPosition: \tX: %.2f, Y: %.2f\nVelocity:\tdX: %.2f, dY: %.2f\n\n", entity.id, position->x, position->y, velocity->dx, velocity->dy);
 	}
 }
 void PrismGame::onEnter() {
+
 }
 void PrismGame::onLeave() {
 }
-
-PrismGame::~PrismGame()
-= default;

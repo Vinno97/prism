@@ -15,7 +15,7 @@ using namespace Renderer;
 namespace ECS {
 	namespace Systems {
 
-		RenderSystem::RenderSystem(std::shared_ptr<EntityManager> entityManager, int windowWidth, int windowHeight)
+		RenderSystem::RenderSystem(EntityManager &entityManager, int windowWidth, int windowHeight)
 			: System(entityManager) {
 			forwardRenderer = std::make_shared<ForwardRenderer>(windowWidth, windowHeight);
 			camera.move(0, 3.f, 4.f);
@@ -41,10 +41,10 @@ namespace ECS {
 			for (unsigned int i = 0; i < appearanceEntities.size(); i++)
 			{
 				auto position = this->entityManager->getComponent<PositionComponent>(appearanceEntities[i].id);
-				auto appearance = appearanceEntities[i].component;
+				AppearanceComponent* appearance = appearanceEntities[i].component;
 
 				Renderable renderable;
-				renderable.model = appearanceEntities[i].component->model;
+				renderable.model = appearance->model.get();
 
 				get<0>(renderable.position) = position->x + appearance->translationX;
 				get<1>(renderable.position) = appearance->translationY;
@@ -62,6 +62,12 @@ namespace ECS {
 			}
 
 			forwardRenderer->draw(camera, rendererData, sceneEntity->scene);
+		}
+
+		System * RenderSystem::clone()
+		{
+			RenderSystem* system = new RenderSystem(*entityManager, forwardRenderer->width, forwardRenderer->height);
+			return system;
 		}
 	}
 }

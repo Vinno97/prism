@@ -8,9 +8,10 @@ namespace ECS {
 		class KeyboardInputSystem : public System
 		{
 		public:
-			KeyboardInputSystem(std::shared_ptr<EntityManager> entityManager);
+			KeyboardInputSystem(EntityManager &entityManager);
 			~KeyboardInputSystem();
 			void update(Context context) override;
+			System* clone() override;
 		};
 	}
 }
