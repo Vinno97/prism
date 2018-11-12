@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\ECS\Components\BoundingBoxComponent.h" />
     <ClInclude Include="include\Physics\AABBCollider.h" />
     <ClInclude Include="include\Physics\BoundingBox.h" />
     <ClInclude Include="include\Physics\QuadTree.h" />
@@ -72,6 +71,7 @@
     <ClInclude Include="include\Renderer\Renderable.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\HealthComponent.cpp" />
     <ClCompile Include="src\Physics\AABBCollider.cpp" />
     <ClCompile Include="src\Physics\BoundingBox.cpp" />
     <ClCompile Include="src\Physics\QuadTree.cpp" />

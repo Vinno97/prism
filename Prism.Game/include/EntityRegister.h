@@ -12,7 +12,6 @@
 #include "ECS/Components/Component.h"
 #include "ECS/Components/DragComponent.h"
 #include "ECS/Components/PositionComponent.h"
-#include "ECS/Components/BoundingBoxComponent.h"
 #include "ECS/Components/HealthComponent.h"
 #include "ECS/Components/VelocityComponent.h"
 #include "ECS/Components/AppearanceComponent.h"
