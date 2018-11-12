@@ -16,7 +16,7 @@ namespace ECS {
 			float rotationY = 0;
 			float rotationZ = 0;
 
-			Component* Clone() 
+			Component* Clone() override
 			{
 				AppearanceComponent* appearanceComponent = new AppearanceComponent();
 	
