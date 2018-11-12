@@ -76,7 +76,7 @@
     <ClInclude Include="include\Renderer\Renderable.h" />
     <ClInclude Include="include\ECS\Components\SceneComponent.h" />
     <ClInclude Include="include\Math\Vector3f.h" />
-    <ClInclude Include="include\World\AdditionalObjectProperties.h" />
+    <ClInclude Include="include\World\ObjectProperties.h" />
     <ClInclude Include="include\World\EntityDisassembler.h" />
     <ClInclude Include="include\World\LevelSerializer.h" />
     <ClInclude Include="include\World\JSONSerializer.h" />
@@ -117,7 +117,7 @@
     <ClCompile Include="src\ECS\SystemManager.cpp" />
     <ClCompile Include="src\ECS\Systems\System.cpp" />
     <ClCompile Include="src\Math\Vector3f.cpp" />
-    <ClCompile Include="src\World\AdditionalObjectProperties.cpp" />
+    <ClCompile Include="src\World\ObjectProperties.cpp" />
     <ClCompile Include="src\World\EntityAssembler.cpp" />
     <ClCompile Include="src\World\EntityConfigurators\AppearanceConfigurator.cpp" />
     <ClCompile Include="src\World\EntityConfigurators\PositionConfigurator.cpp" />

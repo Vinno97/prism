@@ -41,7 +41,7 @@ void PrismGame::onInit(Context & context)
 
 	World::LevelManager loader;
 	// FIXME: Ja ik weet dat dit geen absoluut pad hoort te zijn
-	loader.load("D:\\School\\Vervolgopleiding\\SWAP\\Prism\\Prism.Game\\res\\levels\\Sample World.json", *entityManager);
+	loader.load("Sample World", *entityManager);
 
 	registerSystems(context);
 

@@ -1,5 +1,4 @@
 #include "Util/FileReader.h"
-#include <fstream>
 #include <streambuf>
 #include <windows.h>
 #include <iostream>
@@ -9,20 +8,26 @@ namespace Util {
 	{
 	}
 
-	string FileReader::readResourceFileIntoString(string path) const
-	{
+	std::ifstream FileReader::readResourceIntoStream(std::string path) const {
 		char buf[256];
-        GetCurrentDirectoryA(256, buf);
-        string pwd = string(buf)+"/res";
+		GetCurrentDirectoryA(256, buf);
+		std::string pwd = std::string(buf) + "/res/";
 
-		ifstream file(pwd+path);
+		//std::ifstream file{ pwd + path };
+		auto file = std::ifstream(pwd + path);
 		if (!file) {
-			cout << "Resource file could not be opened: " << pwd + path << endl;
-			throw exception("Resource file could not be opened");
+			std::cout << "Resource file could not be opened: " << pwd + path << std::endl;
+			throw std::exception("Resource file could not be opened");
 		}
 
-		string str((istreambuf_iterator<char>(file)),
-					istreambuf_iterator<char>());
+		return file;
+	}
+	std::string FileReader::readResourceFileIntoString(std::string path) const
+	{
+		auto file = readResourceIntoStream(path);
+
+		std::string str((std::istreambuf_iterator<char>(file)),
+			std::istreambuf_iterator<char>());
 
 		return str;
 	}

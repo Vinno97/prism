@@ -17,15 +17,15 @@ namespace World {
 
 		~LevelManager() = default;
 
-		void load(const char* filename, ECS::EntityManager& entityManager);
-		void save(const char* filename, ECS::EntityManager& entityManager);
-
+		void load(const std::string& worldName, ECS::EntityManager& entityManager);
+		void save(const std::string& worldName, ECS::EntityManager& entityManager);
+		
 		void setSerializer(std::unique_ptr<LevelSerializer> serializer_) {
 			serializer = std::move(serializer_);
 		}
 	private:
-		std::ifstream readFile(const char* filename);
 		std::unique_ptr<LevelSerializer> serializer;
+		//std::ifstream readFile(const char* filename);
 		//void loadJson(std::ifstream input, EntityAssembler& entityAssembler);
 	};
 }

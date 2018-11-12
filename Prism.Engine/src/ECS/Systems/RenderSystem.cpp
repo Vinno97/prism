@@ -31,12 +31,12 @@ namespace ECS {
 			vector<Renderable> rendererData;
 			auto sceneEntity = this->entityManager->getAllEntitiesWithComponent<SceneComponent>()[0].component;
 
-			// TODO: Maak dit netter (nu enkel voor testdoeleinden)
-			auto player = entityManager->getAllEntitiesWithComponent<PlayerComponent>()[0].id;
-			auto playerPosition = entityManager->getComponent<PositionComponent>(player);
-			
-			camera.position.x = playerPosition->x;
-			camera.position.z = playerPosition->y + 4.f;
+			auto players = entityManager->getAllEntitiesWithComponent<PlayerComponent>();
+			if (!players.empty()) {
+				auto playerPosition = entityManager->getComponent<PositionComponent>(players.front().id);
+				camera.position.x -= (camera.position.x - playerPosition->x) * context.deltaTime * 2;
+				camera.position.z -= (camera.position.z - 4.f - playerPosition->y) * context.deltaTime * 2;
+			}			
 
 			for (unsigned int i = 0; i < appearanceEntities.size(); i++)
 			{

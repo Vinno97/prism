@@ -5,7 +5,7 @@
 #include "nlohmann/json.hpp"
 #include "ECS/EntityManager.h"
 
-#include "AdditionalObjectProperties.h"
+#include "ObjectProperties.h"
 
 namespace World {
 	struct WorldObject {
@@ -19,7 +19,7 @@ namespace World {
 		int y;
 		std::string name;
 		std::string type;
-		std::map<std::string, AdditionalObjectProperties> additionalProperties;
+		std::map<std::string, ObjectProperties> additionalProperties;
 	};
 
 	void to_json(nlohmann::json& j, const WorldObject& o);
