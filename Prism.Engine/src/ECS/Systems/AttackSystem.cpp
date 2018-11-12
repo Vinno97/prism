@@ -40,10 +40,8 @@ void ECS::Systems::AttackSystem::update(Context context) {
 			std::vector<BoundingBox const *> vec;
 			quadTree.Retrieve(vec, *boundingBox);
 
-			int count = 0;
 
 			for (auto otherBox : vec) {
-				count++;
 				if (otherBox != boundingBox) {
 					float x = boundingBox->GetPosX();
 					float y = boundingBox->GetPosY();
@@ -61,7 +59,6 @@ void ECS::Systems::AttackSystem::update(Context context) {
 							std::cout << "Speler: " << currentComponent->health << std::endl;
 						}
 						else if (entityManager->hasComponent<EnemyComponent>(entity.id)) {
-							auto currentComponent = entityManager->getComponent<HealthComponent>(entity.id);
 							entityManager->removeEntity(entity.id);				
 							
 							std::cout << "Enemy is exploded" << std::endl;
