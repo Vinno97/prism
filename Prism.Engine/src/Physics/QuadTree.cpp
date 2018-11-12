@@ -5,7 +5,7 @@ using namespace Physics;
 QuadTree::QuadTree()
 = default;
 
-QuadTree::QuadTree(float width, float heigt, float x, float y)
+QuadTree::QuadTree(float width, float heigt, float x, float y, unsigned int maxObjects)
 {
 	float halfwidth = width / 2.0;
 	float halfHeigth = heigt / 2.0;
@@ -14,12 +14,7 @@ QuadTree::QuadTree(float width, float heigt, float x, float y)
 	nodes[1] = nullptr;
 	nodes[2] = nullptr;
 	nodes[3] = nullptr;
-}
-
-
-QuadTree::~QuadTree()
-{
-	Clear();
+	this->maxObjects = maxObjects;
 }
 
 void QuadTree::Clear()
@@ -44,11 +39,11 @@ void QuadTree::Split()
 	float north = halfHeight + bounds.GetPosY();
 	float south = (-1 * halfHeight) + bounds.GetPosY();
 
-	nodes[0] = &QuadTree(width, height, east, north);
-	nodes[1] = &QuadTree(width, height, east, south);
-	nodes[2] = &QuadTree(width, height, west, south);
-	nodes[3] = &QuadTree(width, height, west, north);
-
+	nodes[0] = &QuadTree(width, height, east, north, maxObjects);
+	nodes[1] = &QuadTree(width, height, east, south, maxObjects);
+	nodes[2] = &QuadTree(width, height, west, south, maxObjects);
+	nodes[3] = &QuadTree(width, height, west, north, maxObjects);
+	
 	for (auto it = objects.begin(); it != objects.end();) {
 		int index = GetIndex(*(*it));
 		if (index != -1) {
@@ -141,4 +136,9 @@ std::vector<BoundingBox const *> QuadTree::Retrieve(std::vector<BoundingBox cons
 const BoundingBox QuadTree::GetBounds() const
 {
 	return bounds;
+}
+
+unsigned int QuadTree::GetMaxObject() const
+{
+	return maxObjects;
 }

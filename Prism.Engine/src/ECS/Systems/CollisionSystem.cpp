@@ -8,9 +8,9 @@ using namespace ECS::Components;
 using namespace ECS::Systems;
 using namespace Physics;
 
-CollisionSystem::CollisionSystem(EntityManager &entityManager,float width, float height, float posX, float posY) : System(entityManager)
+CollisionSystem::CollisionSystem(EntityManager &entityManager,float width, float height, float posX, float posY, unsigned int maxObject) : System(entityManager)
 {
-	quadTree = QuadTree(width, height, posX, posY);
+	quadTree = QuadTree(width, height, posX, posY, maxObject);
 }
 
 CollisionSystem::~CollisionSystem()
@@ -75,5 +75,5 @@ ECS::Systems::System* CollisionSystem::clone()
 	float width = b.GetEast() - b.GetWest();
 	float height = b.GetNorth() - b.GetSouth();
 
-	return new CollisionSystem(*entityManager,width,height,b.GetPosX(),b.GetPosY());
+	return new CollisionSystem(*entityManager,width,height,b.GetPosX(),b.GetPosY(),quadTree.GetMaxObject());
 }

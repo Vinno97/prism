@@ -18,12 +18,7 @@ namespace Physics {
 		/// <param name="height">Total height of the highest level quadtree</param>
 		/// <param name="width">The center x coördinate of the highest level quadtree</param>
 		/// <param name="width">Total width of the highest level quadtree</param>
-		QuadTree(float width, float heigt, float x, float y);
-
-		/// <summary>
-		/// Destructor of quadtree
-		/// </summary>
-		~QuadTree();
+		QuadTree(float width, float heigt, float x, float y, unsigned int maxObject);
 
 		/// <summary>
 		/// Clear the contents of the quadtree
@@ -51,8 +46,13 @@ namespace Physics {
 		/// Get the bounds of the quadtree;
 		/// </summary>
 		const BoundingBox GetBounds() const;
+
+		///<summary>///
+		/// Get max amount of object before the quadtree splits
+		///</summary>///
+		unsigned int GetMaxObject() const;
 	private:
-		int maxObjects = 2;
+		unsigned int maxObjects;
 		std::vector<BoundingBox const * > objects;
 		Physics::BoundingBox bounds;
 

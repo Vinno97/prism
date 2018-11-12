@@ -52,7 +52,7 @@ void PrismGame::registerSystems(Context &context)
 	KeyboardInputSystem inputSystem = KeyboardInputSystem(entityManager);
 	RestockResourceSystem restockSystem = RestockResourceSystem(entityManager);
 	AnimationSystem animationSystem = AnimationSystem(entityManager);
-	CollisionSystem collisionSystem = CollisionSystem(entityManager,context.window->width,context.window->height,0,0);
+	CollisionSystem collisionSystem = CollisionSystem(entityManager,context.window->width,context.window->height,0,0,2);
 	
 	systemManager.registerSystem(motionSystem);
 	systemManager.registerSystem(renderSystem);
