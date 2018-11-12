@@ -14,10 +14,10 @@ CollisionSystem::~CollisionSystem()
 
 void CollisionSystem::update(Context context)
 {
-	for (auto entity : entityManager->getAllEntitiesWithComponent<BoundingBoxComponent>())
+	for (auto entity : entityManager->getAllEntitiesWithComponent<ECS::Components::BoundingBoxComponent>())
 	{
 		if (entityManager->hasComponent<ECS::Components::PositionComponent>(entity.id)) {
-			auto boundingBox = entityManager->getComponent<BoundingBoxComponent>(entity.id)->boundingBox;
+			auto boundingBox = entityManager->getComponent<ECS::Components::BoundingBoxComponent>(entity.id)->boundingBox;
 			auto Position = entityManager->getComponent<ECS::Components::PositionComponent>(entity.id);
 
 			boundingBox.SetPosXY(Position->x, Position->y);
@@ -25,12 +25,12 @@ void CollisionSystem::update(Context context)
 		}
 	}
 	
-	for (auto entity : entityManager->getAllEntitiesWithComponent<BoundingBoxComponent>())
+	for (auto entity : entityManager->getAllEntitiesWithComponent<ECS::Components::BoundingBoxComponent>())
 	{
 		if (entityManager->hasComponent<ECS::Components::PositionComponent>(entity.id) 
 			&& entityManager->hasComponent<ECS::Components::VelocityComponent>(entity.id)) {
 			
-			auto boundingBox = entityManager->getComponent<BoundingBoxComponent>(entity.id)->boundingBox;
+			auto boundingBox = entityManager->getComponent<ECS::Components::BoundingBoxComponent>(entity.id)->boundingBox;
 			auto Position = entityManager->getComponent<ECS::Components::PositionComponent>(entity.id);
 			auto Velocity = entityManager->getComponent<ECS::Components::VelocityComponent>(entity.id);
 

@@ -15,6 +15,7 @@ void PrismGame::onInit(Context & context)
 	auto player = entityFactory.createPlayer(entityManager);
 	auto resourcePoint = entityFactory.createResourcePoint(entityManager);
 	auto enemy = entityFactory.createEnemy(entityManager);
+
 	auto scene = entityFactory.createScene(entityManager);
 
 	for (int i = -4; i < 4; i++) {
@@ -29,6 +30,7 @@ void PrismGame::onInit(Context & context)
 	entityManager.getComponent<PositionComponent>(player)->y = 1;
 	entityManager.getComponent<PositionComponent>(resourcePoint)->x = 1;
 	entityManager.getComponent<PositionComponent>(enemy)->x = -1;
+
 	
 	auto sceneComponent = entityManager.getComponent<SceneComponent>(scene);
 
@@ -50,7 +52,7 @@ void PrismGame::registerSystems(Context &context)
 	RenderSystem renderSystem = RenderSystem(entityManager, context.window->width, context.window->height);
 	KeyboardInputSystem inputSystem = KeyboardInputSystem(entityManager);
 	RestockResourceSystem restockSystem = RestockResourceSystem(entityManager);
-	AttackSystem attackSystem = AttackSystem(attackSystem);
+	AttackSystem attackSystem = AttackSystem(entityManager);
 	AnimationSystem animationSystem = AnimationSystem(entityManager);
 	CollisionSystem collisionSystem = CollisionSystem(entityManager,context.window->width,context.window->height,0,0);
 	
@@ -67,6 +69,7 @@ void PrismGame::onUpdate(Context &context)
 {
 	auto inputSystem = systemManager.getSystem<KeyboardInputSystem>();
 	auto motionSystem = systemManager.getSystem<MotionSystem>();
+	auto attackSystem = systemManager.getSystem<AttackSystem>();
 	auto collisionSystem = systemManager.getSystem<CollisionSystem>();
 	auto renderSystem = systemManager.getSystem<RenderSystem>();
 	auto restockSystem = systemManager.getSystem<RestockResourceSystem>();
@@ -75,6 +78,7 @@ void PrismGame::onUpdate(Context &context)
 	inputSystem->update(context);
 	restockSystem->update(context);
 	motionSystem->update(context);
+	attackSystem->update(context);
 	collisionSystem->update(context);
 	animationSystem->update(context);
 	renderSystem->update(context);

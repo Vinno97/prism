@@ -12,6 +12,7 @@
 #include "ECS/Components/KeyboardInputComponent.h"
 #include "ECS/Components/ResourceSpawnComponent.h"
 #include "ECS/Components/BoundingBoxComponent.h"
+#include "ECS/Components/HealthComponent.h"
 
 #include "Renderer/Graphics/Loader/ModelLoader.h"
 
@@ -35,9 +36,9 @@ int EntityFactory::createPlayer(EntityManager& entityManager)
 	appearance.scaleZ = 0.002f;
 	appearance.model = std::move(model);
 
-
 	return entityManager.createEntity(appearance,
 		VelocityComponent(),
+		HealthComponent(),
 		PositionComponent(),
 		DragComponent(5.f),
 		KeyboardInputComponent(),
@@ -58,12 +59,14 @@ int EntityFactory::createEnemy(EntityManager& entityManager) {
 
 	return entityManager.createEntity(
 		VelocityComponent(), 
+		HealthComponent(),
 		PositionComponent(), 
 		DragComponent(5.f), 
 		EnemyComponent(), 
 		BoundingBoxComponent(0.2, 0.2),
 		appearance);
 }
+
 
 int EntityFactory::createResourcePoint(EntityManager & entityManager)
 {

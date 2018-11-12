@@ -1,18 +1,26 @@
 #pragma once
-#include "ECS/Systems/System.h"
-#include "Renderer/ForwardRenderer.h"
 
-using namespace Renderer;
+#include "Context.h"
+#include "ECS/Systems/System.h"
+#include "Physics/QuadTree.h"
+#include "Physics/AABBCollider.h"
+
+using namespace ECS;
+using namespace ECS::Components;
+using namespace ECS::Systems;
+
 namespace ECS {
 	namespace Systems {
-		class AttackSystem : public System
-		{
+		class AttackSystem : public System {
 		public:
-			AttackSystem(std::shared_ptr<EntityManager> entityManager);
+			AttackSystem(EntityManager &entityManager);
 			~AttackSystem();
-
 			void update(Context context) override;
+			System* clone() override;
+		private:
+			QuadTree quadTree;
+			AABBCollider aabbCollider;
 		};
-	
 	}
 }
+
