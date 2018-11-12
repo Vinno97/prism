@@ -50,6 +50,7 @@ void PrismGame::registerSystems(Context &context)
 	RenderSystem renderSystem = RenderSystem(entityManager, context.window->width, context.window->height);
 	KeyboardInputSystem inputSystem = KeyboardInputSystem(entityManager);
 	RestockResourceSystem restockSystem = RestockResourceSystem(entityManager);
+	AttackSystem attackSystem = AttackSystem(attackSystem);
 	AnimationSystem animationSystem = AnimationSystem(entityManager);
 	CollisionSystem collisionSystem = CollisionSystem(entityManager,context.window->width,context.window->height,0,0);
 	
@@ -58,6 +59,7 @@ void PrismGame::registerSystems(Context &context)
 	systemManager.registerSystem(inputSystem);
 	systemManager.registerSystem(restockSystem);
 	systemManager.registerSystem(animationSystem);
+	systemManager.registerSystem(attackSystem);
 	systemManager.registerSystem(collisionSystem);
 }
 
@@ -81,7 +83,7 @@ void PrismGame::onUpdate(Context &context)
 	for (auto &entity : entityManager.getAllEntitiesWithComponent<VelocityComponent>()) {
 		auto velocity = entity.component;
 		auto position = entityManager.getComponent<PositionComponent>(entity.id);
-		printf("Entity:\t\t%d \nPosition: \tX: %.2f, Y: %.2f\nVelocity:\tdX: %.2f, dY: %.2f\n\n", entity.id, position->x, position->y, velocity->dx, velocity->dy);
+//		printf("Entity:\t\t%d \nPosition: \tX: %.2f, Y: %.2f\nVelocity:\tdX: %.2f, dY: %.2f\n\n", entity.id, position->x, position->y, velocity->dx, velocity->dy);
 	}
 }
 void PrismGame::onEnter() {
