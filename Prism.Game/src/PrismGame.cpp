@@ -65,10 +65,10 @@ void PrismGame::onUpdate(Context &context)
 {
 	auto inputSystem = systemManager.getSystem<KeyboardInputSystem>();
 	auto motionSystem = systemManager.getSystem<MotionSystem>();
+	auto collisionSystem = systemManager.getSystem<CollisionSystem>();
 	auto renderSystem = systemManager.getSystem<RenderSystem>();
 	auto restockSystem = systemManager.getSystem<RestockResourceSystem>();
 	auto animationSystem = systemManager.getSystem<AnimationSystem>();
-	auto collisionSystem = systemManager.getSystem<CollisionSystem>();
 
 	inputSystem->update(context);
 	restockSystem->update(context);

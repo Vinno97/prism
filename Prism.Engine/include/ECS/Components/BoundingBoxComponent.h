@@ -10,4 +10,9 @@ struct BoundingBoxComponent : ECS::Component{
 	///	The boundingbox
 	/// </summary>
 	BoundingBox boundingBox;
+	Component* Clone() override
+	{
+		auto b = new BoundingBoxComponent(boundingBox.GetEast() - boundingBox.GetWest(), boundingBox.GetNorth() - boundingBox.GetSouth());
+		return b;
+	}
 };

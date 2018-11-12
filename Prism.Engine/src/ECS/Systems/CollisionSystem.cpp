@@ -71,5 +71,5 @@ ECS::Systems::System* CollisionSystem::clone()
 	float width = b.GetEast() - b.GetWest();
 	float height = b.GetNorth() - b.GetSouth();
 
-	return &CollisionSystem(*entityManager,width,height,b.GetPosX(),b.GetPosY());
+	return new CollisionSystem(*entityManager,width,height,b.GetPosX(),b.GetPosY());
 }
