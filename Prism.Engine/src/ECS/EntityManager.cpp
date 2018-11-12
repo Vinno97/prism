@@ -37,7 +37,19 @@ namespace ECS {
 
 	EntityManager::EntityManager(EntityManager && other)
 	{
-		this->entityComponents = other.entityComponents;
+		std::map<std::type_index, std::map<unsigned int, Component*>>::const_iterator it;
+		for (it = other.entityComponents.begin(); it != other.entityComponents.end(); it++)
+		{
+			std::map<unsigned int, Component*> newMap;
+			for (auto itSub = it->second.begin(); itSub != it->second.end(); itSub++)
+			{
+				newMap[itSub->first] = itSub->second->Clone();
+			}
+			this->entityComponents[it->first] = newMap;
+
+			this->entityComponents.insert(other.entityComponents.begin(), other.entityComponents.end());
+		}
+
 		this->lastEntityId = other.lastEntityId;
 		other.entityComponents.clear();
 		other.lastEntityId = 0;
@@ -46,7 +58,18 @@ namespace ECS {
 	EntityManager & EntityManager::operator=(EntityManager && other)
 	{
 		if (this != &other) {
-			this->entityComponents = other.entityComponents;
+			std::map<std::type_index, std::map<unsigned int, Component*>>::const_iterator it;
+			for (it = other.entityComponents.begin(); it != other.entityComponents.end(); it++)
+			{
+				std::map<unsigned int, Component*> newMap;
+				for (auto itSub = it->second.begin(); itSub != it->second.end(); itSub++)
+				{
+					newMap[itSub->first] = itSub->second->Clone();
+				}
+				this->entityComponents[it->first] = newMap;
+
+				this->entityComponents.insert(other.entityComponents.begin(), other.entityComponents.end());
+			}
 			this->lastEntityId = other.lastEntityId;
 			other.entityComponents.clear();
 			other.lastEntityId = 0;
