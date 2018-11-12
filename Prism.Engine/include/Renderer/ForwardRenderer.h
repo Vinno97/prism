@@ -16,6 +16,8 @@
 #include "Renderer/Graphics/VertexBuffer.h"
 #include "Renderer/Graphics/Loader/ModelLoader.h"
 #include "Renderer/Graphics/Models/Model.h"
+#include "Renderer/DirectionalLight.h"
+#include "Renderer/Scene.h"
 
 namespace Renderer {
 	class ForwardRenderer
@@ -26,12 +28,13 @@ namespace Renderer {
 		/// <summary>
 		/// Draws the list of renderables from the viewpoint of a given camera
 		/// </summary>
-		void draw(const Camera* camera, const vector<Renderable>& renderables);
+		void draw(const Camera& camera, const vector<Renderable>& renderables, Renderer::Scene& scene);
 
 		~ForwardRenderer();
+		int width;
+		int height;
 	private: 
 		glm::mat4 projection = glm::mat4(1.0f);
-
 		unique_ptr<Pipeline> geometryPipeline;
 		RenderDevice* renderDevice;
 	};

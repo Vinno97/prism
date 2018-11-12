@@ -35,6 +35,8 @@
     <ClCompile Include="src\Physics\AABBCollider.cpp" />
     <ClCompile Include="src\Physics\BoundingBox.cpp" />
     <ClCompile Include="src\Physics\QuadTree.cpp" />
+    <ClCompile Include="src\Math\Vector3f.cpp" />
+    <ClCompile Include="src\ECS\Systems\CollisionSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\AttackSystem.cpp" />
     <ClCompile Include="src\HealthComponent.cpp" />
   </ItemGroup>
@@ -84,11 +86,17 @@
     <ClInclude Include="include\Renderer\Graphics\VertexArrayObject.h" />
     <ClInclude Include="include\Renderer\Graphics\Loader\StaticMeshLoader.h" />
     <ClInclude Include="include\Renderer\Renderable.h" />
+    <ClInclude Include="include\ECS\Components\SceneComponent.h" />
+    <ClInclude Include="include\Math\Vector3f.h" />
+    <ClInclude Include="include\Renderer\DirectionalLight.h" />
+    <ClInclude Include="include\Renderer\Scene.h" />
     <ClInclude Include="include\Physics\BoundingBox.h" />
     <ClInclude Include="include\Physics\AABBCollider.h" />
     <ClInclude Include="include\Physics\QuadTree.h" />
     <ClInclude Include="include\ECS\Components\HealthComponent.h" />
     <ClInclude Include="include\ECS\Systems\AttackSystem.h" />
+    <ClInclude Include="include\ECS\Components\BoundingBoxComponent.h" />
+    <ClInclude Include="include\ECS\Systems\CollisionSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\glew32.lib" />

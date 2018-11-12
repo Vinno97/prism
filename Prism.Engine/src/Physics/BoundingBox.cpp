@@ -4,9 +4,9 @@
 BoundingBox::BoundingBox()
 = default;
 
-BoundingBox::BoundingBox(float radius, float x, float y)
+BoundingBox::BoundingBox(float radius, float posX, float posY)
 {
-	SetPosXY(x, y);
+	SetPosXY(posX, posY);
 	SetBounds(radius, radius, -1 * radius, -1 * radius);
 }
 
@@ -27,10 +27,10 @@ BoundingBox::~BoundingBox()
 {
 }
 
-void BoundingBox::SetPosXY(float x, float y)
+void BoundingBox::SetPosXY(float posX, float posY)
 {
-	this->posX = x;
-	this->posY = y;
+	this->posX = posX;
+	this->posY = posY;
 }
 
 void BoundingBox::SetBounds(float north, float east, float south, float west)
