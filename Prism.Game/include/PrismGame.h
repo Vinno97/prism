@@ -30,8 +30,8 @@ public:
 	void onLeave() override;
 
 private:
-	EntityManager entityManager;
-	SystemManager systemManager;
+	ECS::EntityManager entityManager;
+	ECS::SystemManager systemManager;
 	EntityFactory entityFactory;
 
 	void registerSystems(Context &context);

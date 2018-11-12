@@ -38,19 +38,6 @@ void start() {
 	ce.Run();
 }
 
-void test() {
-	QuadTree q = QuadTree(10, 10, 0, 0);
-	BoundingBox b1 = BoundingBox(2, 3, 3);
-	BoundingBox b2 = BoundingBox(2, 7, 3);
-	q.Insert(b1);
-	q.Insert(b2);
-	q.Insert(b1);
-	std::vector<BoundingBox const *> v;
-	q.Retrieve(v,b1);
-	q.Clear();
-	q.Insert(b1);
-}
-
 int main(int argc, char ** argv) {
 	//_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	start();

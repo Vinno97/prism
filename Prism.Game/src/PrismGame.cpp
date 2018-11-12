@@ -3,6 +3,7 @@
 
 using namespace ECS;
 using namespace ECS::Components;
+using namespace ECS::Systems;
 
 /// <summary>
 /// creates new PrismGame object

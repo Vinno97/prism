@@ -1,15 +1,12 @@
 #include "Physics/AABBCollider.h"
 
+using namespace Physics;
 
 AABBCollider::AABBCollider()
-{
-}
-
+= default;
 
 AABBCollider::~AABBCollider()
-{
-}
-
+= default;
 
 bool AABBCollider::CheckCollision(BoundingBox const &box1, BoundingBox const &box2)
 {

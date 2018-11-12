@@ -1,6 +1,6 @@
 #include "Physics/QuadTree.h"
 
-
+using namespace Physics;
 
 QuadTree::QuadTree()
 = default;
