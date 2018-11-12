@@ -24,11 +24,11 @@ namespace Renderer {
 	namespace Graphics {
 		namespace Loader {
 
-			shared_ptr<Model> ModelLoader::loadModel(string path)
+			unique_ptr<Model> ModelLoader::loadModel(string path)
 			{
 				StaticMeshLoader staticMeshLoader = StaticMeshLoader();
-				unique_ptr<Mesh> m = staticMeshLoader.loadMesh(path);
-				shared_ptr<Model> model = make_shared<Model>(move(m));
+				shared_ptr<Mesh> m = staticMeshLoader.loadMesh(path);
+				unique_ptr<Model> model = make_unique<Model>(m);
 				return model;
 			}
 		}

@@ -18,17 +18,22 @@ namespace ECS {
 	{
 	public:
 		EntityManager();
+		EntityManager(const EntityManager &other);
+		EntityManager& operator=(const EntityManager& other);
+		EntityManager(EntityManager&& other);
+		EntityManager& operator=(EntityManager&& other);
+		
+		
 		~EntityManager();
 
-		/// <summary>
-		/// Creates a new entity.
-		/// </summary>
-		/// <param name="A">A component to be added to the new entity</param>
-		/// <returns>The ID of the newly created entity.</returns>
-		template<class A>
-		int createEntity(A& c1) {
-			addComponentToEntity(lastEntityId, c1);
-			return lastEntityId++;
+		///// <summary>
+		///// Creates a new entity.
+		///// </summary>
+		///// <param name="fs">Components to be added to the new entity</param>
+		///// <returns>The ID of the newly created entity.</returns>
+		template <typename... Fs>
+		int createEntity(Fs &&... fs) {
+			return buildEntity(std::forward<Fs>(fs)...);
 		}
 
 		/// <summary>
@@ -199,7 +204,7 @@ namespace ECS {
 					throw std::runtime_error("Already attached a component of type " + *type.name() + *" to entity " + std::to_string(entityId));
 				}
 			}
-			entityComponents[type][entityId] = new T(component);
+			entityComponents[type][entityId] = component.Clone();//new T(component);
 		}
 
 		/// <summary>
@@ -263,10 +268,11 @@ namespace ECS {
 		/// <param name="entityId">The ID of the entity to be removed.</param>
 		void removeEntity(unsigned int entityId);
 
+
+
+
 	private:
 		unsigned int lastEntityId = 0;
-
-
 		/// <summary>
 		/// Keeps a list of all instances of each component type.
 		/// </summary>
@@ -275,13 +281,25 @@ namespace ECS {
 		/// <summary>
 		/// Keeps a list of all Listeners attached to the EntityManager.
 		/// </summary>
-
 		Component* getComponent(unsigned int entityId, std::type_index componentType) const;
-		
+
 		bool hasComponent(unsigned int entityId, std::type_index componentType) const;
 
 		std::vector<Entity<Component*>> getAllEntitiesWithComponent(const std::type_index& componentType) const;
 
 		void removeComponentFromEntity(unsigned int entityId, std::type_index componentType);
+
+		template <typename F, typename... Fs>
+		int buildEntity(F &&f) {
+			addComponentToEntity(lastEntityId, f);
+			return lastEntityId++;
+		}
+
+		template <typename F, typename... Fs>
+		int buildEntity(F &&f, Fs &&... fs) {
+			int entity = buildEntity(std::forward<Fs>(fs)...);
+			addComponentToEntity(entity, f);
+			return entity;
+		}
 	};
 }

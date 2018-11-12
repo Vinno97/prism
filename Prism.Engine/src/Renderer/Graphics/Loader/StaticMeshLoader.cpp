@@ -29,8 +29,8 @@ namespace Renderer {
 			/// </summary>
 			/// <param name="path">The file path</param>
 			/// <param name="renderDevice">The RenderDevice</param>
-			/// <returns>unique_ptr<Mesh></returns>
-			unique_ptr<Mesh> StaticMeshLoader::loadMesh(string path)
+			/// <returns>shared_ptr<Mesh></returns>
+			shared_ptr<Mesh> StaticMeshLoader::loadMesh(string path)
 			{
 				Assimp::Importer importer;
 
@@ -92,6 +92,30 @@ namespace Renderer {
 
 				vertexArrayObject->addVertexBuffer(move(vertexBuffer), 0, 3 * sizeof(float), 0, 3);
 
+
+				//Load normals
+				vector<float> normals;
+				for (unsigned int a = 0; a < mesh->mNumVertices; a = a + 1) {
+					auto v = mesh->mNormals[a];
+					normals.push_back(v.x);
+					normals.push_back(v.y);
+					normals.push_back(v.z);
+				}
+				// Get the size of the vertices to provide the VertexBuffer with the right data.
+				auto normalsSize = normals.size() * sizeof(float);
+
+				float* normalsArray = normals.data();
+				unique_ptr<VertexBuffer> normalBuffer = renderDevice->createVertexBuffer(normalsSize, normalsArray);
+
+				if (!normalBuffer)
+				{
+					cout << "Renderdevice could not create Vertex Buffer. No Vertex Buffer found." << endl;
+					throw exception("Assimp mesh loading.");
+				}
+
+				vertexArrayObject->addVertexBuffer(move(normalBuffer), 1, 3 * sizeof(float), 0, 3);
+
+
 				/*
 					For each number of primitives (mFace) of the mesh,
 					iterate over each and push the indices into the indices vector.
@@ -122,7 +146,7 @@ namespace Renderer {
 				vertexArrayObject->unbind();
 
 				// Combine all into a mesh.
-				unique_ptr<Mesh> combinedMesh = make_unique<Mesh>(move(vertexArrayObject), move(indexBuffer));
+				shared_ptr<Mesh> combinedMesh = make_shared<Mesh>(move(vertexArrayObject), move(indexBuffer));
 				combinedMesh->indicesLength = indices.size();
 
 				if (!combinedMesh)

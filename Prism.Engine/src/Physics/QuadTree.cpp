@@ -5,10 +5,10 @@
 QuadTree::QuadTree()
 = default;
 
-QuadTree::QuadTree(float width, float Heigt, float x, float y)
+QuadTree::QuadTree(float width, float heigt, float x, float y)
 {
 	float halfwidth = width / 2.0;
-	float halfHeigth = Heigt / 2.0;
+	float halfHeigth = heigt / 2.0;
 	this->bounds = BoundingBox(halfHeigth, halfwidth, -1 * halfHeigth, -1 * halfwidth, x, y);
 	nodes[0] = nullptr;
 	nodes[1] = nullptr;
@@ -24,11 +24,13 @@ QuadTree::~QuadTree()
 
 void QuadTree::Clear()
 {
-	for (QuadTree *node : nodes) {
-		if (node != nullptr) {
-			delete node;
+	for (auto i = 0;i < 4; i++) {
+		if (nodes[i] != nullptr) {
+			objects.clear();
+			nodes[i] = nullptr;
 		}
 	}
+	objects.clear();
 }
 
 void QuadTree::Split()
@@ -42,10 +44,21 @@ void QuadTree::Split()
 	float north = halfHeight + bounds.GetPosY();
 	float south = (-1 * halfHeight) + bounds.GetPosY();
 
-	nodes[0] = new QuadTree(width, height, east, north);
-	nodes[1] = new QuadTree(width, height, east, south);
-	nodes[2] = new QuadTree(width, height, west, south);
-	nodes[3] = new QuadTree(width, height, west, north);
+	nodes[0] = &QuadTree(width, height, east, north);
+	nodes[1] = &QuadTree(width, height, east, south);
+	nodes[2] = &QuadTree(width, height, west, south);
+	nodes[3] = &QuadTree(width, height, west, north);
+
+	for (auto it = objects.begin(); it != objects.end();) {
+		int index = GetIndex(*(*it));
+		if (index != -1) {
+			nodes[index]->Insert(*(*it));
+			it = objects.erase(it);
+		}
+		else {
+			it++;
+		}
+	}
 }
 
 int QuadTree::GetIndex(BoundingBox const &box) const
@@ -90,7 +103,6 @@ int QuadTree::GetIndex(BoundingBox const &box) const
 			index = 2;
 		}
 	}
-
 	return index;
 }
 
@@ -106,44 +118,27 @@ void QuadTree::Insert(BoundingBox const &newBox)
 		}
 	}
 
-	objects.push_back(newBox);
+	objects.push_back(&newBox);
 
 	if (objects.size() > maxObjects) {
 		if (nodes[0] == nullptr) {
 			Split();
-
-			//TODO: put in split functies
-			for (auto it = objects.begin(); it != objects.end();) {
-				int index = GetIndex(*it);
-				if (index != -1) {
-					nodes[index]->Insert(*it);
-					it = objects.erase(it);
-				}
-				else {
-					it++;
-				}
-				/*
-				while (i < objects.size()-1) {
-					int index = GetIndex(objects[i]);
-					if (index != -1) {
-						nodes[index]->Insert(objects[i]);
-						nodes[index]->objects.erase(objects.begin() + i);
-					}
-					else {
-						i++;
-					}
-				}
-				*/
-			}
+			
 		}
 	}
 }
 
-std::vector<BoundingBox> QuadTree::Retrieve(BoundingBox const &searchBox)
+std::vector<BoundingBox const *> QuadTree::Retrieve(std::vector<BoundingBox const *> &vector,BoundingBox const &searchBox)
 {
 	int index = GetIndex(searchBox);
 	if (index != -1 && nodes[0] != nullptr) {
-		return nodes[index]->Retrieve(searchBox);
+		nodes[index]->Retrieve(vector,searchBox);
 	}
-	return objects;
+	vector.insert(vector.end(),objects.begin(), objects.end());
+	return vector;
+}
+
+const BoundingBox QuadTree::GetBounds() const
+{
+	return bounds;
 }

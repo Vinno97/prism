@@ -4,6 +4,7 @@
 
 #include "ECS/EntityManager.h"
 #include "ECS/SystemManager.h"
+#include "EntityFactory.h"
 
 #include "EntityRegister.h"
 #include "ECS/Systems/MotionSystem.h"
@@ -30,11 +31,11 @@ public:
 	void onUpdate(Context &context) override;
 	void onEnter() override;
 	void onLeave() override;
-	~PrismGame();
 
 private:
-	std::shared_ptr<EntityManager> entityManager;
-	std::shared_ptr<SystemManager> systemManager;
-	EntityRegister entityRegister;
+	EntityManager entityManager;
+	SystemManager systemManager;
+	EntityFactory entityFactory;
+
 	void registerSystems(Context &context);
 };

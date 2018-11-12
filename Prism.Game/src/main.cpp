@@ -33,7 +33,6 @@
 void start() {
 	CoreEngine ce = CoreEngine();
 	ce.InitWindow("prism", 1920 / 2, 1080 / 2, 100, 100);
-
 	PrismGame prism;
 	ce.setEntryPoint(prism);
 	ce.Run();
@@ -46,7 +45,10 @@ void test() {
 	q.Insert(b1);
 	q.Insert(b2);
 	q.Insert(b1);
-	q.Retrieve(b1);
+	std::vector<BoundingBox const *> v;
+	q.Retrieve(v,b1);
+	q.Clear();
+	q.Insert(b1);
 }
 
 int main(int argc, char ** argv) {
