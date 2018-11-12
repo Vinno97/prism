@@ -11,7 +11,7 @@ namespace Physics {
 		AABBCollider();
 
 		/// <summary>
-		/// Check whethor or not two boundingboxes are colliding
+		/// Check whether or not two boundingboxes are colliding
 		/// </summary>
 		/// <param name="box1">A boundingbox </param>
 		/// <param name="box2">A boundingbox </param>

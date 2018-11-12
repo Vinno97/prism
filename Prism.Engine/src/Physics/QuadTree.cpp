@@ -20,10 +20,8 @@ QuadTree::QuadTree(float width, float heigt, float x, float y, unsigned int maxO
 void QuadTree::Clear()
 {
 	for (auto i = 0;i < 4; i++) {
-		if (nodes[i] != nullptr) {
-			objects.clear();
-			nodes[i] = nullptr;
-		}
+		objects.clear();
+		nodes[i] = nullptr;
 	}
 	objects.clear();
 }
