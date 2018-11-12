@@ -45,7 +45,7 @@ void PrismGame::onInit(Context & context)
 	sceneComponent->scene.ambientLightStrength = 0.95f;
 	sceneComponent->scene.sun.color = Math::Vector3f{ .20f, .20f, .20f };
 	sceneComponent->scene.sun.direction = Math::Vector3f{ 25.f, 150.0f, 100.0f };
-
+//
 	registerSystems(context);
 }
 
@@ -89,6 +89,7 @@ void PrismGame::onUpdate(Context &context)
 	}
 }
 void PrismGame::onEnter() {
+
 }
 void PrismGame::onLeave() {
 }

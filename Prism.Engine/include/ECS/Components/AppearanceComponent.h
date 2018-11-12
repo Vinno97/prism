@@ -19,7 +19,7 @@ namespace ECS {
 			
 			Math::Vector3f color{ 1.f, 1.f, 1.f };
 
-			Component* Clone() 
+			Component* Clone() override
 			{
 				AppearanceComponent* appearanceComponent = new AppearanceComponent();
 	

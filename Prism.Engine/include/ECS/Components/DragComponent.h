@@ -12,7 +12,7 @@ namespace ECS {
 			/// </summary>
 			double force = 0;
 
-			Component* Clone() {
+			Component* Clone() override {
 				DragComponent* component = new DragComponent();
 				component->force = force;
 				return component;
