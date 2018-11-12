@@ -35,7 +35,7 @@ namespace ECS {
 		/// </summary>
 		/// <param name="entityId">The ID of the entity to add the component to.</param>
 		/// <param name="entityId">The component to add to the entity.</param>
-		template<class T, typename = std::enable_if < std::is_base_of<Component, T>::value>>
+		template<class T, typename = std::enable_if_t < std::is_base_of<Component, T>::type::value>>
 		void addComponentToEntity(unsigned int entityId, T& component)
 		{
 			const std::type_index type = std::type_index(typeid(component));
@@ -54,7 +54,7 @@ namespace ECS {
 		/// Removes a component from a given entiy.
 		/// </summary>
 		/// <param name="entityId">The ID of the entity to remove the component from.</param>
-		template<typename T, typename = std::enable_if < std::is_base_of<Component, T>::value>>
+		template<typename T, typename = std::enable_if_t < std::is_base_of<Component, T>::type::value>>
 		void removeComponentFromEntity(unsigned int entityId) {
 			const std::type_index type{ std::type_index(typeid(T)) };
 			removeComponentFromEntity(entityId, type);
@@ -65,7 +65,7 @@ namespace ECS {
 		/// </summary>
 		/// <param name="entityId">The ID of the entity to get the component from.</param>
 		/// <returns>A pointer to the component belonging to the entity.</returns>
-		template<typename T, typename = std::enable_if < std::is_base_of<Component, T>::value>>
+		template<typename T, typename = std::enable_if_t < std::is_base_of<Component, T>::type::value>>
 		T* getComponent(unsigned int entityId) const {
 			const std::type_index type{ std::type_index(typeid(T)) };
 			return static_cast<T*>(getComponent(entityId, type));
@@ -77,7 +77,7 @@ namespace ECS {
 		/// </summary>
 		/// <param name="entityId">The ID of the entity to get the component from.</param>
 		/// <returns>A boolean indicator whether the entity has the component.</returns>
-		template<typename T, typename = std::enable_if < std::is_base_of<Component, T>::value>>
+		template<typename T, typename = std::enable_if_t < std::is_base_of<Component, T>::type::value>>
 		bool hasComponent(unsigned int entityId) const {
 			const std::type_index type{ std::type_index(typeid(T)) };
 			return hasComponent(entityId, type);
@@ -87,7 +87,7 @@ namespace ECS {
 		/// Retrieves all entities with a certain component type.
 		/// </summary>
 		/// <returns>A vector containing combinations of entities and the matching component.</returns>
-		template<typename T, typename = std::enable_if < std::is_base_of<Component, T>::value>>
+		template<typename T, typename = std::enable_if_t < std::is_base_of<Component, T>::type::value>>
 		std::vector<Entity<T*>> getAllEntitiesWithComponent() const {
 			auto const type = std::type_index(typeid(T));
 
