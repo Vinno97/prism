@@ -33,6 +33,10 @@ namespace Menu {
 		Control control{x, y, width, height};
 		menu.controls.push_back(control);
 	}
+	Menu MenuBuilder::buildMenu()
+	{
+		return menu;
+	}
 }
 
 

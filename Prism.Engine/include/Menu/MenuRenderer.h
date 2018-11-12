@@ -10,8 +10,8 @@ namespace Menu {
 	class MenuRenderer
 	{
 	public:
-		MenuRenderer()=default;
-		void renderMenu();
+		MenuRenderer();
+		void renderMenu(Menu& menu);
 	private:
 		Renderer::Graphics::RenderDevice* renderDevice;
 		std::unique_ptr<Renderer::Graphics::Pipeline> menuPipeline;

@@ -13,6 +13,8 @@
 #include "ECS/Systems/RenderSystem.h"
 #include "ECS/SystemManager.h"
 #include "Menu/MenuBuilder.h"
+#include "Menu/Menu.h"
+#include "Menu/MenuRenderer.h"
 
 using namespace std;
 using namespace Menu;
@@ -55,8 +57,12 @@ void CoreEngine::Run()
 		context.stateMachine->getCurrentState()->onUpdate(context);
 		
 		//TODO: Verplaatsen? In ieder geval aanpassen.
-		menuBuilder.DrawInGameOverlay(context.window->width, context.window->height);
+		//menuBuilder.DrawInGameOverlay(context.window->width, context.window->height);
 		// ---
+		menuBuilder.addControl(0, 0, 20, 20);
+		auto menu = menuBuilder.buildMenu();
+		MenuRenderer renderer;
+		renderer.renderMenu(menu);
 
 		context.window->swapScreen();
 

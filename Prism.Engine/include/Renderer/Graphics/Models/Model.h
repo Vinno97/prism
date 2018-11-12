@@ -12,6 +12,7 @@ namespace Renderer {
 
 			class Model {
 				public: 
+					Model() = default;
 					Model(std::shared_ptr<Mesh> m);
 					std::shared_ptr<Mesh> mesh;
 					Model(const Model &other);

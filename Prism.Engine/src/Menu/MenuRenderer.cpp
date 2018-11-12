@@ -18,7 +18,7 @@ using namespace Renderer::Graphics;
 using namespace Renderer::Graphics::OpenGL;
 
 namespace Menu {
-	void MenuRenderer::renderMenu()
+	MenuRenderer::MenuRenderer()
 	{
 		renderDevice = OGLRenderDevice::getRenderDevice();
 		Util::FileReader fileReader;
@@ -28,5 +28,14 @@ namespace Menu {
 		std::unique_ptr<VertexShader> vertexShader = renderDevice->createVertexShader(vertexSource.c_str());
 		std::unique_ptr<FragmentShader> fragmentShader = renderDevice->createFragmentShader(fragmentSource.c_str());
 		menuPipeline = move(renderDevice->createPipeline(*vertexShader, *fragmentShader));
+	}
+	void MenuRenderer::renderMenu(Menu& menu)
+	{
+		menuPipeline->run();
+		for (auto& control : menu.controls) {
+			control.model.mesh->vertexArrayObject->bind();
+			renderDevice->DrawTriangles(0, control.model.mesh->verticesLength);
+		}
+		menuPipeline->stop();
 	}
 }

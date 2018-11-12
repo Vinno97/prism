@@ -25,7 +25,7 @@ namespace Renderer {
 				OGLVertexBuffer *oglVertexBuffer = reinterpret_cast<OGLVertexBuffer *>(buffer);
 				oglVertexBuffer->bind();
 				glEnableVertexAttribArray(index);
-				glVertexAttribPointer(index, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (void*)0);
+				glVertexAttribPointer(index, stride, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (void*)0);
 
 				unbind();
 			}
