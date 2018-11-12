@@ -61,7 +61,7 @@ void PrismGame::onInit(Context & context)
 
 
 	// FIXME: Ja ik weet dat dit geen absoluut pad hoort te zijn
-	loader.load("D:\\School\\Vervolgopleiding\\SWAP\\Prism3\\Prism.Game\\res\\levels\\Sample World.json", assembler);
+	loader.load("Sample World", assembler);
 
 }
 

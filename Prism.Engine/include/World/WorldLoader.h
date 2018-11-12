@@ -13,10 +13,10 @@ namespace World {
 
 		~WorldLoader() = default;
 
-		void load(const char* filename, EntityAssembler& entityAssembler);
+		void load(const std::string& worldName, EntityAssembler& entityAssembler);
 
 	private:
 		std::ifstream readFile(const char* filename);
-		void loadJson(std::ifstream input, EntityAssembler& entityAssembler);
+		void loadJson(std::ifstream& input, EntityAssembler& entityAssembler);
 	};
 }

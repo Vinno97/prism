@@ -4,14 +4,15 @@
 #include "nlohmann/json.hpp"
 
 #include "World/WorldObject.h"
-
+#include "Util/FileReader.h"
 
 using namespace nlohmann;
 using namespace World;
 
-void WorldLoader::load(const char * filename, EntityAssembler& entityAssembler)
+void WorldLoader::load(const std::string& worldName, EntityAssembler& entityAssembler)
 {
-	loadJson(readFile(filename), entityAssembler);
+	auto stream = Util::FileReader().readResourceIntoStream("levels/" + worldName + ".json");
+	loadJson(stream, entityAssembler);
 }
 
 std::ifstream WorldLoader::readFile(const char * filename)
@@ -19,7 +20,7 @@ std::ifstream WorldLoader::readFile(const char * filename)
 	return std::ifstream(filename);
 }
 
-void WorldLoader::loadJson(std::ifstream input, EntityAssembler& entityAssembler)
+void WorldLoader::loadJson(std::ifstream& input, EntityAssembler& entityAssembler)
 {
 	json j;
 	input >> j;

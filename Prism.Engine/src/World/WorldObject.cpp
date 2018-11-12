@@ -30,9 +30,8 @@ namespace World {
 		j.at("y").get_to(p.y);
 		if (j.find("properties") != j.end())
 		{
-			for (const AdditionalObjectProperties &ap : j.at("properties")) {
+			for (const ObjectProperties &ap : j.at("properties")) {
 				p.additionalProperties[ap.name] = ap;
-				//p.additionalProperties.push_back(ap);
 			}
 		}
 	}

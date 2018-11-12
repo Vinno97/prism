@@ -1,14 +1,14 @@
 #pragma once
 #include <string>
-
-using namespace std;
+#include <fstream>
 
 namespace Util {
 	class FileReader
 	{
 	public:
 		FileReader();
-		string readResourceFileIntoString(string path) const;
+		std::ifstream readResourceIntoStream(std::string path) const;
+		std::string readResourceFileIntoString(std::string path) const;
 		~FileReader();
 	};
 }
