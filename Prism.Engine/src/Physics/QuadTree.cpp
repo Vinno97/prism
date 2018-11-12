@@ -21,6 +21,81 @@ QuadTree::QuadTree(float width, float heigt, float x, float y, unsigned int maxO
 	this->maxObjects = maxObjects;
 }
 
+QuadTree::QuadTree(const QuadTree& other)
+{
+	this->maxObjects = other.maxObjects;
+	this->objects = other.objects;
+	this->bounds = other.bounds;
+	if (other.nodes[0] != nullptr) {
+		for (int i = 0; i < 4;i++) {
+			nodes[i] = new QuadTree();
+			*nodes[i] = *other.nodes[i];
+		}
+	}
+}
+
+QuadTree & QuadTree::operator=(const QuadTree& other)
+{
+	if (this != &other) {
+		this->maxObjects = other.maxObjects;
+		this->objects = other.objects;
+		this->bounds = other.bounds;
+		if (other.nodes[0] != nullptr) {
+			for (int i = 0; i < 4;i++) {
+				nodes[i] = new QuadTree();
+				*nodes[i] = *other.nodes[i];
+			}
+		}
+		return *this;
+	}
+}
+
+QuadTree::QuadTree(QuadTree&& other)
+{
+	this->maxObjects = other.maxObjects;
+	other.maxObjects = 0;
+	this->objects = other.objects;
+	other.objects.clear();
+	this->bounds = other.bounds;
+	other.bounds = BoundingBox();
+	for (int i = 0; i < 4;i++) {
+		nodes[i] = other.nodes[i];
+		other.nodes[i] = nullptr;
+	}
+}
+
+QuadTree & QuadTree::operator=(QuadTree&& other)
+{
+	if (this != &other) {
+		this->maxObjects = other.maxObjects;
+		other.maxObjects = 0;
+		this->objects = other.objects;
+		other.objects.clear();
+		this->bounds = other.bounds;
+		other.bounds = BoundingBox();
+		for (int i = 0; i < 4;i++) {
+			nodes[i] = other.nodes[i];
+			other.nodes[i] = nullptr;
+		}
+	}
+	return *this;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 void QuadTree::Clear()
 {
 	if (nodes[0] != nullptr) {

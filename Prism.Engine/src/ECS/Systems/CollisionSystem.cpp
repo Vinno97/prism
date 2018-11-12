@@ -42,7 +42,35 @@ void CollisionSystem::update(Context context)
 			std::vector<BoundingBox const *> vector;
 			quadTree.Retrieve(vector, *boundingBox);
 
+			if (AmountCollisions(*boundingBox, *boundingBox,vector) > 0) {
+				BoundingBox testBox1(*boundingBox);
+				BoundingBox testBox2(*boundingBox);
+				float x = position->x;
+				float y = position->y;
 
+				testBox1.SetPosXY(x -= velocity->dx*context.deltaTime, y);
+				testBox2.SetPosXY(x, y -= velocity->dy*context.deltaTime);
+
+				if (AmountCollisions(testBox1, *boundingBox,vector) == 0) {
+					position->x -= velocity->dx*context.deltaTime;
+					velocity->dx = 0;
+					boundingBox->SetPosXY(position->x, position->y);
+				}
+				else if (AmountCollisions(testBox2, *boundingBox,vector) == 0) {
+					position->y -= velocity->dy*context.deltaTime;
+					velocity->dy = 0;
+					boundingBox->SetPosXY(position->x, position->y);
+				}
+				else {
+					position->x -= velocity->dx*context.deltaTime;
+					velocity->dx = 0;
+					position->y -= velocity->dy*context.deltaTime;
+					velocity->dy = 0;
+					boundingBox->SetPosXY(position->x, position->y);
+				}
+			}
+
+			/*
 			for (auto otherBox : vector) {
 				if (otherBox != boundingBox) {
 
@@ -65,6 +93,7 @@ void CollisionSystem::update(Context context)
 					}
 				}
 			}
+			*/
 		}
 	}
 	quadTree.Clear();
@@ -77,4 +106,15 @@ ECS::Systems::System* CollisionSystem::clone()
 	float height = b.GetNorth() - b.GetSouth();
 
 	return new CollisionSystem(*entityManager,width,height,b.GetPosX(),b.GetPosY(),quadTree.GetMaxObject());
+}
+
+int ECS::Systems::CollisionSystem::AmountCollisions(BoundingBox &box1, BoundingBox &adress, std::vector<const BoundingBox*> &vector)
+{
+	int count = 0;
+	for (int i = 0; i < vector.size();i++) {
+		if (&adress != vector[i] && aabbCollider.CheckCollision(box1, *(vector[i]))) {
+			count++;
+		}
+	}
+	return count;
 }

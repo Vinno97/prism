@@ -11,6 +11,12 @@ namespace Physics {
 		/// </summary>
 		QuadTree();
 
+		QuadTree(const QuadTree& other);
+		QuadTree & operator=(const QuadTree& other);
+
+		QuadTree(QuadTree&& other);
+		QuadTree & operator=(QuadTree&& other);
+
 		~QuadTree();
 
 		/// <summary>
