@@ -11,6 +11,9 @@ namespace ECS {
 			std::string resourceType{};
 			int maximumStock = 0;
 			int currentStock = 0;
+			Component* Clone() override {
+				return new ResourceSpawnComponent();
+			}
 		};
 	}
 }
