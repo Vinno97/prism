@@ -38,7 +38,6 @@ namespace ECS {
 	EntityManager::EntityManager(EntityManager && other)
 	{
 		std::map<std::type_index, std::map<unsigned int, Component*>>::const_iterator it;
-		//TODO: Actually delete data from other
 		for (it = other.entityComponents.begin(); it != other.entityComponents.end(); it++)
 		{
 			std::map<unsigned int, Component*> newMap;
@@ -60,7 +59,6 @@ namespace ECS {
 	{
 		if (this != &other) {
 			std::map<std::type_index, std::map<unsigned int, Component*>>::const_iterator it;
-			//TODO: Actually delete data from other
 			for (it = other.entityComponents.begin(); it != other.entityComponents.end(); it++)
 			{
 				std::map<unsigned int, Component*> newMap;
