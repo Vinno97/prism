@@ -6,22 +6,19 @@
 #include "ECS/SystemManager.h"
 #include "EntityFactory.h"
 
-#include "EntityRegister.h"
-#include "ECS/Systems/MotionSystem.h"
-#include "ECS/Systems/KeyboardInputSystem.h"
-#include "ECS/Systems/RenderSystem.h"
-#include "ECS/Systems/AttackSystem.h"
-
-#include "ECS/Components/Component.h"
-#include "ECS/Components/DragComponent.h"
+#include "ECS/Components/SceneComponent.h"
 #include "ECS/Components/PositionComponent.h"
 #include "ECS/Components/VelocityComponent.h"
 #include "ECS/Components/AppearanceComponent.h"
-#include "ECS/Components/HealthComponent.h"
+#include "ECS/Components/DragComponent.h"
 #include "ECS/Components/KeyboardInputComponent.h"
 
-#include "Renderer/Graphics/Loader/ModelLoader.h"
-
+#include "ECS/Systems/MotionSystem.h"
+#include "ECS/Systems/RenderSystem.h"
+#include "ECS/Systems/KeyboardInputSystem.h"
+#include "ECS/Systems/RestockResourceSystem.h"
+#include "ECS/Systems/AnimationSystem.h"
+#include "ECS/Systems/CollisionSystem.h"
 
 class PrismGame : public Game
 {
