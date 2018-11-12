@@ -68,7 +68,7 @@ int EntityFactory::createResourcePoint(EntityManager & entityManager)
 	appearance.scaleY = 0.002f;
 	appearance.scaleZ = 0.002f;
 	appearance.model = std::move(model);
-	return entityManager.createEntity(PositionComponent(), ResourceSpawnComponent(), appearance);
+	return entityManager.createEntity(PositionComponent(), ResourceSpawnComponent(1000, 1000, "red"), appearance);
 
 }
 
