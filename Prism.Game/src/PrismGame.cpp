@@ -16,31 +16,9 @@ void PrismGame::onInit(Context & context)
 	auto resourcePoint = entityFactory.createResourcePoint(entityManager);
 	auto enemy = entityFactory.createEnemy(entityManager);
 	auto scene = entityFactory.createScene(entityManager);
-
-	for (int i = -4; i < 4; i++) {
-		auto entity = i % 2 == 0 ? entityFactory.createTower(entityManager) : entityFactory.createWall(entityManager);
-		auto position = entityManager.getComponent<PositionComponent>(entity);
-		position->y = -1;
-		position->x = i;
-	}
-
-	auto positions{ entityManager.getAllEntitiesWithComponent<PositionComponent>()};
-
-	entityManager.getComponent<PositionComponent>(player)->y = 1;
-	entityManager.getComponent<PositionComponent>(resourcePoint)->x = 1;
-	entityManager.getComponent<PositionComponent>(enemy)->x = -1;
 	
-	auto sceneComponent = entityManager.getComponent<SceneComponent>(scene);
-
-	sceneComponent->scene.ambientLightColor = Math::Vector3f{ 1.0f, 1.0f, 1.0f };
-	sceneComponent->scene.ambientLightStrength = 0.65f;
-	sceneComponent->scene.sun.color = Math::Vector3f{ .30f, .30f, .30f };
-	sceneComponent->scene.sun.direction = Math::Vector3f{ 25.f, 150.0f, 100.0f };
-
-	registerSystems(context);
 }
-
-/// <summary>
+/// <summar>
 /// register systems in system manager
 /// </summary>
 /// <param name="context">The context that is needed to register the systems</param>
@@ -48,27 +26,25 @@ void PrismGame::registerSystems(Context &context)
 {
 	MotionSystem motionSystem = MotionSystem(entityManager);
 	RenderSystem renderSystem = RenderSystem(entityManager, context.window->width, context.window->height);
+	AttackSystem attackSystem = AttackSystem(entityManager);
 	KeyboardInputSystem inputSystem = KeyboardInputSystem(entityManager);
-	RestockResourceSystem restockSystem = RestockResourceSystem(entityManager);
-	AnimationSystem animationSystem = AnimationSystem(entityManager);
+	systemManager->registerSystem(motionSystem);
+	systemManager->registerSystem(renderSystem);
+	systemManager->registerSystem(inputSystem);
+	systemManager->registerSystem(attackSystem);
 	CollisionSystem collisionSystem = CollisionSystem(entityManager,context.window->width,context.window->height,0,0);
-	
 	systemManager.registerSystem(motionSystem);
 	systemManager.registerSystem(renderSystem);
 	systemManager.registerSystem(inputSystem);
-	systemManager.registerSystem(restockSystem);
-	systemManager.registerSystem(animationSystem);
 	systemManager.registerSystem(collisionSystem);
 }
 
 void PrismGame::onUpdate(Context &context)
 {
-	auto inputSystem = systemManager.getSystem<KeyboardInputSystem>();
-	auto motionSystem = systemManager.getSystem<MotionSystem>();
-	auto renderSystem = systemManager.getSystem<RenderSystem>();
-	auto restockSystem = systemManager.getSystem<RestockResourceSystem>();
-	auto animationSystem = systemManager.getSystem<AnimationSystem>();
-	auto collisionSystem = systemManager.getSystem<CollisionSystem>();
+	auto inputSystem = systemManager->getSystem<KeyboardInputSystem>();
+	auto motionSystem = systemManager->getSystem<MotionSystem>();
+	auto renderSystem = systemManager->getSystem<RenderSystem>();
+	auto attackSystem = systemManager->getSystem<AttackSystem>();
 
 	inputSystem->update(context);
 	restockSystem->update(context);
@@ -76,7 +52,7 @@ void PrismGame::onUpdate(Context &context)
 	collisionSystem->update(context);
 	animationSystem->update(context);
 	renderSystem->update(context);
-	
+	attackSystem->update(context);
 
 	for (auto &entity : entityManager.getAllEntitiesWithComponent<VelocityComponent>()) {
 		auto velocity = entity.component;
