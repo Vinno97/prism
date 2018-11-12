@@ -13,36 +13,40 @@ using namespace Renderer::Graphics::OpenGL;
 using namespace Renderer::Graphics::Models;
 
 namespace Menu {
-	Control::Control(int x, int y, int width, int height)
+	Control::Control(float x, float y, float width, float height)
 	{
+
+		position = Math::Vector3f{ x, y, 0 };
+
 		RenderDevice* renderDevice = OGLRenderDevice::getRenderDevice();
 
-		std::vector<float> vertices;
-		vertices.push_back(-0.5f);
-		vertices.push_back(-0.5f);
-		vertices.push_back(0.5f);
-		vertices.push_back(-0.5f);
-		vertices.push_back(0.f);
-		vertices.push_back(0.5f);
+		float vertices[] = {
+			 0.5f,  0.5f, 0.0f,  // top right
+			 0.5f, -0.5f, 0.0f,  // bottom right
+			-0.5f, -0.5f, 0.0f,  // bottom left
+			-0.5f,  0.5f, 0.0f   // top left 
+		};
+		unsigned int indices[] = {  // note that we start from 0!
+			0, 1, 3,   // first triangle
+			1, 2, 3    // second triangle
+		};
 
+		float* verticesArray = vertices;
+		unsigned int* indicesArray = indices;
 
-	//	vertices.push_back(0.5f);
-	//	vertices.push_back(-0.5f);
-	//	vertices.push_back(-0.5f);
-	//	vertices.push_back(-0.5f);
-	//	vertices.push_back(-0.5f);
-	//	vertices.push_back(0.5f);
-
-		float* verticesArray = vertices.data();
-
-		auto verticesSize = vertices.size() * sizeof(float);
+		auto verticesSize = 12 * sizeof(float);
 
 		unique_ptr<VertexBuffer> vertexBuffer = renderDevice->createVertexBuffer(verticesSize, verticesArray);
 
 		std::unique_ptr<VertexArrayObject> vertexArrayObject = renderDevice->createVertexArrayobject();
-		vertexArrayObject->addVertexBuffer(move(vertexBuffer), 0, 3 * sizeof(float), 0, vertices.size()/2);
-		shared_ptr<Mesh> mesh = make_shared<Mesh>(move(vertexArrayObject));
-		mesh->verticesLength = vertices.size();
+		vertexArrayObject->addVertexBuffer(move(vertexBuffer), 0, 2 * sizeof(float), 0, 2);
+
+		unique_ptr<IndexBuffer> indexBuffer = renderDevice->createIndexBuffer(6 * sizeof(unsigned int), indicesArray);
+
+		shared_ptr<Mesh> mesh = make_shared<Mesh>(move(vertexArrayObject), move(indexBuffer));
+
+		mesh->isIndiced = true;
+		mesh->indicesLength = 6;
 		model = Model{ mesh };
 	}
 }

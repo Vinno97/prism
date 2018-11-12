@@ -54,12 +54,12 @@ void CoreEngine::Run()
 		//c.rotate(0.0f, 3.14f, 0.f);
 		//Sets the right values in context
 		context.deltaTime = deltaTime.count() / 1000000.f;
-		context.stateMachine->getCurrentState()->onUpdate(context);
+		//context.stateMachine->getCurrentState()->onUpdate(context);
 		
 		//TODO: Verplaatsen? In ieder geval aanpassen.
 		//menuBuilder.DrawInGameOverlay(context.window->width, context.window->height);
 		// ---
-		menuBuilder.addControl(0, 0, 20, 20);
+		menuBuilder.addControl(200, 200, 200, 200);
 		auto menu = menuBuilder.buildMenu();
 		MenuRenderer renderer;
 		renderer.renderMenu(menu);

@@ -1,8 +1,5 @@
 #include "Menu/MenuRenderer.h"
 #include <string>
-#include <glm/glm.hpp>
-#include <glm/gtc/type_ptr.hpp>
-#include <glm/gtc/type_ptr.hpp>
 #include "Renderer/Graphics/RenderDevice.h"
 #include "Renderer/Graphics/VertexShader.h"
 #include "Renderer/Graphics/OpenGL/OGLRenderDevice.h"
@@ -28,13 +25,29 @@ namespace Menu {
 		std::unique_ptr<VertexShader> vertexShader = renderDevice->createVertexShader(vertexSource.c_str());
 		std::unique_ptr<FragmentShader> fragmentShader = renderDevice->createFragmentShader(fragmentSource.c_str());
 		menuPipeline = move(renderDevice->createPipeline(*vertexShader, *fragmentShader));
+
+		menuPipeline->createUniform("view");
+		menuPipeline->createUniform("model");
+
+		projection = glm::ortho(0.0f, (float)1920/2, (float)1080/2, .0f, -1.0f, 1.0f);
 	}
 	void MenuRenderer::renderMenu(Menu& menu)
 	{
 		menuPipeline->run();
+		menuPipeline->setUniformMatrix4f("view", projection);
 		for (auto& control : menu.controls) {
+
+			auto pos = control.position;
+			glm::mat4 model = glm::mat4(1.0f);
+			model = glm::translate(model, glm::vec3(pos.x, pos.y, 0.0f));
+			model = glm::translate(model, glm::vec3(0.5f * 200, 0.5f * 200, 0.0f));
+			model = glm::translate(model, glm::vec3(-0.5f * 200, -0.5f * 200, 0.0f));
+			model = glm::scale(model, glm::vec3(200, 200, 1.0f));
+
+			menuPipeline->setUniformMatrix4f("model", model);
 			control.model.mesh->vertexArrayObject->bind();
-			renderDevice->DrawTriangles(0, control.model.mesh->verticesLength);
+			control.model.mesh->indexBuffer->bind();
+			renderDevice->DrawTrianglesIndexed(0, control.model.mesh->indicesLength);
 		}
 		menuPipeline->stop();
 	}

@@ -28,7 +28,7 @@ namespace Menu {
 		glEnd();
 	}
 
-	void MenuBuilder::addControl(int x, int y, int width, int height)
+	void MenuBuilder::addControl(float x, float y, float width, float height)
 	{
 		Control control{x, y, width, height};
 		menu.controls.push_back(control);
