@@ -9,9 +9,10 @@ namespace ECS {
 			BoundingBoxComponent(float width, float height) : boundingBox(height / 2.0, width / 2.0, -1 * height / 2.0, -1 * width / 2.0) {};
 
 			Physics::BoundingBox boundingBox;
-
 			bool didCollide = false;
+
 			std::vector<Physics::BoundingBox const *> collidesWith;
+			
 			Component* Clone() override
 			{
 				auto newComponent = new BoundingBoxComponent(boundingBox.GetEast() - boundingBox.GetWest(), boundingBox.GetNorth() - boundingBox.GetSouth());

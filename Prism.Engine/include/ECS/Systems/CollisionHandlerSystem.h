@@ -15,7 +15,6 @@ namespace ECS {
 			System* clone() override;
 		private:
 			Physics::AABBCollider aabbCollider;
-			int AmountCollisions(Physics::BoundingBox &box1, Physics::BoundingBox &adress,std::vector<const Physics::BoundingBox *> &vector);
 		};
 	}
 }
