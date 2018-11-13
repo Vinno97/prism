@@ -25,6 +25,16 @@ namespace Menu {
 			std::cout << "Error Cannot load image";
 		}
 
+		unsigned int texture;
+		glGenTextures(1, &texture);
+		glBindTexture(GL_TEXTURE_2D, texture);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, this->surface->w, this->surface->h, 0, GL_RGB, GL_UNSIGNED_BYTE, surface->pixels); //GL_BITMAP
+
 		this->xPos = x;
 		this->yPos = y;
 
@@ -57,7 +67,7 @@ namespace Menu {
 		unique_ptr<IndexBuffer> indexBuffer = renderDevice->createIndexBuffer(6 * sizeof(unsigned int), indicesArray);
 
 		shared_ptr<Mesh> mesh = make_shared<Mesh>(move(vertexArrayObject), move(indexBuffer));
-
+		glBindTexture(GL_TEXTURE_2D, texture);
 		mesh->isIndiced = true;
 		mesh->indicesLength = 6;
 		model = Model{ mesh };

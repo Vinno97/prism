@@ -22,6 +22,7 @@
     <ClInclude Include="include\Menu\Control.h" />
     <ClInclude Include="include\Renderer\DirectionalLight.h" />
     <ClInclude Include="include\Renderer\Camera.h" />
+    <ClInclude Include="include\Renderer\Graphics\Texture.h" />
     <ClInclude Include="include\Renderer\Scene.h" />
     <ClInclude Include="include\Util\FileReader.h" />
     <ClInclude Include="include\Renderer\ForwardRenderer.h" />
@@ -73,8 +74,10 @@
     <ClInclude Include="include\Menu\MenuBuilder.h" />
     <ClInclude Include="include\Menu\MenuRenderer.h" />
     <ClInclude Include="include\Menu\Menu.h" />
+    <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLTexture.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLTexture.cpp" />
     <ClCompile Include="src\Menu\Menu.cpp" />
     <ClCompile Include="src\Menu\MenuRenderer.cpp" />
     <ClCompile Include="src\Menu\Control.cpp" />
