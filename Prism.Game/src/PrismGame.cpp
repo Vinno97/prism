@@ -1,6 +1,7 @@
 #include "PrismGame.h"
 #include "Math/Vector3f.h"
 #include "ECS/Systems/ShootingSystem.h"
+#include "ECS/Systems/ProjectileAttackSystem.h"
 
 using namespace ECS;
 using namespace ECS::Components;
@@ -53,23 +54,21 @@ void PrismGame::registerSystems(Context &context)
 	KeyboardInputSystem inputSystem = KeyboardInputSystem(entityManager);
 	RestockResourceSystem restockSystem = RestockResourceSystem(entityManager);
 	AnimationSystem animationSystem = AnimationSystem(entityManager);
-
 	ShootingSystem shootingSystem = ShootingSystem(entityManager);
-
 	CollisionHandlerSystem collisionHandlerSystem = CollisionHandlerSystem(entityManager);
 	CollisionSystem collisionSystem = CollisionSystem(entityManager, context.window->width, context.window->height, 0, 0, 2);
+	ProjectileAttackSystem projectileAttackSystem = ProjectileAttackSystem(entityManager);
 
 	systemManager.registerSystem(motionSystem);
 	systemManager.registerSystem(renderSystem);
 	systemManager.registerSystem(inputSystem);
 	systemManager.registerSystem(restockSystem);
 	systemManager.registerSystem(animationSystem);
-
 	systemManager.registerSystem(shootingSystem);
-
-	systemManager.registerSystem(collisionHandlerSystem);
-
 	systemManager.registerSystem(collisionSystem);
+	systemManager.registerSystem(projectileAttackSystem);
+	systemManager.registerSystem(collisionHandlerSystem);
+	
 }
 
 void PrismGame::onUpdate(Context &context)
@@ -82,15 +81,18 @@ void PrismGame::onUpdate(Context &context)
 	auto restockSystem = systemManager.getSystem<RestockResourceSystem>();
 	auto animationSystem = systemManager.getSystem<AnimationSystem>();
 	auto shootingSystem = systemManager.getSystem<ShootingSystem>();
+	auto projectileAttackSystem = systemManager.getSystem<ProjectileAttackSystem>();
 
 	inputSystem->update(context);
 	restockSystem->update(context);
 	motionSystem->update(context);
 	collisionSystem->update(context);
+	projectileAttackSystem->update(context);
 	collisionHandlerSystem->update(context);
 	animationSystem->update(context);
 	renderSystem->update(context);
 	shootingSystem->update(context);
+	
 
 	for (auto &entity : entityManager.getAllEntitiesWithComponent<VelocityComponent>()) {
 		auto velocity = entity.component;

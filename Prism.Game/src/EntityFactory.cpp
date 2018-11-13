@@ -14,6 +14,7 @@
 #include "ECS/Components/ShootingComponent.h"
 #include "ECS/Components/BulletComponent.h"
 #include "ECS/Components/BoundingBoxComponent.h"
+#include "ECS/Components/ProjectileAttackComponent.h"
 
 
 #include "Renderer/Graphics/Loader/ModelLoader.h"
@@ -138,8 +139,7 @@ int EntityFactory::createProjectile(EntityManager & entityManager) {
 	appearance.scaleZ = 0.002f;
 	appearance.model = std::move(model);
 
-	//TODO: boundingbox toevoegen
-	return entityManager.createEntity(VelocityComponent(), PositionComponent(), BulletComponent() , appearance);
+	return entityManager.createEntity(VelocityComponent(), PositionComponent(), BulletComponent(), BoundingBoxComponent(0.5,0.5), ProjectileAttackComponent(), appearance);
 
 }
 

@@ -48,7 +48,10 @@
     <ClCompile Include="src\EntityFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ShootingSystem.cpp">
+    <ClCompile Include="src\ECS\Systems\ShootingSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ECS\Systems\ProjectileAttackSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -86,10 +89,19 @@
     <ClInclude Include="include\EntityFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ShootingSystem.h">
+    <ClInclude Include="include\ECS\Components\ShootingComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ShootingComponent.h">
+    <ClInclude Include="include\ECS\Systems\ShootingSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ECS\Systems\ProjectileAttackSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ECS\Components\BulletComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ECS\Components\ProjectileAttackComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

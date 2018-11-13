@@ -12,7 +12,7 @@ namespace ECS {
 
 			bool didCollide = false;
 			std::vector<Physics::BoundingBox const *> collidesWith;
-			Component* Clone() override
+			BoundingBoxComponent* Clone() override
 			{
 				auto newComponent = new BoundingBoxComponent(boundingBox.GetEast() - boundingBox.GetWest(), boundingBox.GetNorth() - boundingBox.GetSouth());
 				newComponent->didCollide = this->didCollide;
