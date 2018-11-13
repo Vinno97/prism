@@ -14,10 +14,13 @@ namespace Menu {
 	{
 	public:
 		Control() = default;
-		Control(float x, float y, float width, float height);
+		Control(float x, float y, float width, float height, SDL_Window *window);
+		SDL_Window *window;
+		SDL_Texture* texture;
+		SDL_Renderer *renderer;
 		void DrawTexture();
 		void UpdateTexture(const char *path);
-		SDL_Surface* Surface;
+		SDL_Texture* Surface;
 		Renderer::Graphics::Models::Model model;
 		Math::Vector3f position;
 		Math::Vector3f size;

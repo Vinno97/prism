@@ -3,6 +3,7 @@
 #include <SDL2/SDL.h>
 #include <vector>
 
+
 using namespace std;
 
 namespace Menu {
@@ -28,9 +29,9 @@ namespace Menu {
 		glEnd();
 	}
 
-	void MenuBuilder::addControl(float x, float y, float width, float height)
+	void MenuBuilder::addControl(float x, float y, float width, float height, SDL_Window *window)
 	{
-		Control control{x, y, width, height};
+		Control control{x, y, width, height, window};
 		menu.controls.push_back(control);
 	}
 	Menu MenuBuilder::buildMenu()

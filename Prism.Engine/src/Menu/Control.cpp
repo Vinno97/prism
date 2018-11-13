@@ -15,14 +15,20 @@ using namespace Renderer::Graphics::OpenGL;
 using namespace Renderer::Graphics::Models;
 
 namespace Menu {
-	Control::Control(float x, float y, float width, float height)
+	Control::Control(float x, float y, float width, float height, SDL_Window *window)
 	{
-		GLuint TextureID = 0;
+		this->window = window;
+		this->renderer = SDL_CreateRenderer(this->window, -1, SDL_RENDERER_ACCELERATED);
+		this->texture = IMG_LoadTexture(renderer, "c:\\prism\\someimage.png");
+		/*GLuint TextureID = 0;
 
 		glGenTextures(1, &TextureID);
 		glBindTexture(GL_TEXTURE_2D, TextureID);
+		SDL_Renderer* renderer;
+		SDL_Surface* image = IMG_Load("yourimage.png");
+		Surface = SDL_CreateTextureFromSurface(renderer, image);
+		SDL_FreeSurface(image);
 
-		Surface = IMG_Load("C:\\prism\\someimage.png");
 		if (Surface == nullptr)
 		{
 			std::string errorMessage = "error";
@@ -38,7 +44,7 @@ namespace Menu {
 		glTexImage2D(GL_TEXTURE_2D, 0, Mode, Surface->w, Surface->h, 0, Mode, GL_UNSIGNED_BYTE, Surface->pixels);
 
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);*/
 
 
 		position = Math::Vector3f{ x, y, 0 };
@@ -78,23 +84,34 @@ namespace Menu {
 
 	void Control::UpdateTexture(const char *path)
 	{
-		Surface = IMG_Load(path);
+		//Surface = IMG_Load(path);
 	}
 	//menuBuilder.addControl(20, 865, 300, 75);
 
 	void Control::DrawTexture()
 	{
-		// For Ortho mode, of course
-		int X = 20;
-		int Y = 865;
-		int Width = 300;
-		int Height = 75;
+		SDL_Rect texture_rect;
+		texture_rect.x = 0;  //the x coordinate
+		texture_rect.y = 0; // the y coordinate
+		texture_rect.w = 50; //the width of the texture
+		texture_rect.h = 50; //the height of the texture
 
-		glBegin(GL_QUADS);
-			glTexCoord2f(0, 0); glVertex3f(X, Y, 0);
-			glTexCoord2f(1, 0); glVertex3f(X + Width, Y, 0);
-			glTexCoord2f(1, 1); glVertex3f(X + Width, Y + Height, 0);
-			glTexCoord2f(0, 1); glVertex3f(X, Y + Height, 0);
-		glEnd();
+		SDL_RenderCopy(this->renderer, this->texture, NULL, &texture_rect);
+
+		SDL_RenderPresent(this->renderer); //updates the renderer
+
+
+		// For Ortho mode, of course
+		//int X = 20;
+		//int Y = 865;
+		//int Width = 300;
+		//int Height = 75;
+
+		//glBegin(GL_QUADS);
+		//	glTexCoord2f(0, 0); glVertex3f(X, Y, 0);
+		//	glTexCoord2f(1, 0); glVertex3f(X + Width, Y, 0);
+		//	glTexCoord2f(1, 1); glVertex3f(X + Width, Y + Height, 0);
+		//	glTexCoord2f(0, 1); glVertex3f(X, Y + Height, 0);
+		//glEnd();
 	}
 }

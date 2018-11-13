@@ -38,22 +38,22 @@ namespace Menu {
 	}
 	void MenuRenderer::renderMenu(Menu& menu)
 	{
-		menuPipeline->run();
-		menuPipeline->setUniformMatrix4f("view", projection);
+		//menuPipeline->run();
+		//menuPipeline->setUniformMatrix4f("view", projection);
 		for (auto& control : menu.controls) {
 
-			auto pos = control.position;
-			glm::mat4 model = glm::mat4(1.0f);
-			model = glm::translate(model, glm::vec3(pos.x, pos.y, 0.0f));
-			model = glm::scale(model, glm::vec3(control.size.x, control.size.y, 1.0f));
+			//auto pos = control.position;
+			//glm::mat4 model = glm::mat4(1.0f);
+			//model = glm::translate(model, glm::vec3(pos.x, pos.y, 0.0f));
+			//model = glm::scale(model, glm::vec3(control.size.x, control.size.y, 1.0f));
 
-			menuPipeline->setUniformMatrix4f("model", model);
-			control.model.mesh->vertexArrayObject->bind();
-			control.model.mesh->indexBuffer->bind();
-			renderDevice->DrawTrianglesIndexed(0, control.model.mesh->indicesLength);
-
+			//menuPipeline->setUniformMatrix4f("model", model);
+			//control.model.mesh->vertexArrayObject->bind();
+			//control.model.mesh->indexBuffer->bind();
+			//renderDevice->DrawTrianglesIndexed(0, control.model.mesh->indicesLength);
+			
 			control.DrawTexture();
 		}
-		menuPipeline->stop();
+		//menuPipeline->stop();
 	}
 }
