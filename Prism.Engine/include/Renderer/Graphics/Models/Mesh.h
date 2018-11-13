@@ -11,10 +11,13 @@ namespace Renderer {
 			class Mesh {
 			public:
 				Mesh(unique_ptr<VertexArrayObject> vertexArrayObject, unique_ptr<IndexBuffer> indexBuffer);
+				Mesh(unique_ptr<VertexArrayObject> vertexArrayObject);
 
 				unique_ptr<VertexArrayObject> vertexArrayObject;
 				unique_ptr<IndexBuffer> indexBuffer;
 				int indicesLength;
+				int verticesLength;
+				bool isIndiced = false;
 			};
 		}
 	}

@@ -48,7 +48,6 @@ void CoreEngine::Run()
 		//Sets the right values in context
 		context.deltaTime = deltaTime.count() / 1000000.f;
 		context.stateMachine->getCurrentState()->onUpdate(context);
-		context.window->swapScreen();
 	}
 }
 
