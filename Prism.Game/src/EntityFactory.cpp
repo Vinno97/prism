@@ -11,6 +11,8 @@
 #include "ECS/Components/AppearanceComponent.h"
 #include "ECS/Components/KeyboardInputComponent.h"
 #include "ECS/Components/ResourceSpawnComponent.h"
+#include "ECS/Components/ShootingComponent.h"
+#include "ECS/Components/BulletComponent.h"
 
 #include "Renderer/Graphics/Loader/ModelLoader.h"
 
@@ -40,7 +42,8 @@ int EntityFactory::createPlayer(EntityManager& entityManager)
 		PositionComponent(),
 		DragComponent(5.f),
 		KeyboardInputComponent(),
-		PlayerComponent()
+		PlayerComponent(),
+		ShootingComponent()
 	);
 }
 
@@ -114,6 +117,21 @@ int EntityFactory::createMine(EntityManager & entityManager)
 
 int EntityFactory::createScene(EntityManager & entityManager) {
 	return entityManager.createEntity(SceneComponent());
+}
+
+int EntityFactory::createProjectile(EntityManager & entityManager) {
+	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
+	auto model = ml.loadModel("./res/uglyenemy.obj");
+
+	AppearanceComponent appearance;
+	appearance.scaleX = 0.002f;
+	appearance.scaleY = 0.002f;
+	appearance.scaleZ = 0.002f;
+	appearance.model = std::move(model);
+
+	//TODO: boundingbox toevoegen
+	return entityManager.createEntity(VelocityComponent(), PositionComponent(), BulletComponent() , appearance);
+
 }
 
 

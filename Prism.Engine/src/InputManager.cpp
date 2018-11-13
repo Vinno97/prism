@@ -9,6 +9,10 @@ InputManager::InputManager() {
 	keyMap[Key::KEY_D] = SDL_SCANCODE_D;
 	keyMap[Key::KEY_Q] = SDL_SCANCODE_Q;
 	keyMap[Key::KEY_E] = SDL_SCANCODE_E;
+	keyMap[Key::KEY_UP] = SDL_SCANCODE_UP;
+	keyMap[Key::KEY_DOWN] = SDL_SCANCODE_DOWN;
+	keyMap[Key::KEY_LEFT] = SDL_SCANCODE_LEFT;
+	keyMap[Key::KEY_RIGHT] = SDL_SCANCODE_RIGHT;
 }
 
 bool InputManager::isKeyPressed(Key key) const

@@ -136,8 +136,11 @@
     <ClInclude Include="include\ECS\Components\KeyboardInputComponent.h" />
     <ClInclude Include="include\ECS\Systems\KeyboardInputSystem.h" />
     <ClInclude Include="include\ECS\Systems\RestockResourceSystem.h" />
+    <ClInclude Include="include\ECS\Components\ShootingComponent.h" />
+    <ClInclude Include="include\ECS\Systems\ShootingSystem.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\ECS\Systems\ShootingSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\AnimationSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\RestockResourceSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\KeyboardInputSystem.cpp" />

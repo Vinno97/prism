@@ -1,5 +1,6 @@
 #include "PrismGame.h"
 #include "Math/Vector3f.h"
+#include "ECS/Systems/ShootingSystem.h"
 
 using namespace ECS;
 using namespace ECS::Components;
@@ -51,12 +52,14 @@ void PrismGame::registerSystems(Context &context)
 	KeyboardInputSystem inputSystem = KeyboardInputSystem(entityManager);
 	RestockResourceSystem restockSystem = RestockResourceSystem(entityManager);
 	AnimationSystem animationSystem = AnimationSystem(entityManager);
+	ShootingSystem shootingSystem = ShootingSystem(entityManager);
 	
 	systemManager.registerSystem(motionSystem);
 	systemManager.registerSystem(renderSystem);
 	systemManager.registerSystem(inputSystem);
 	systemManager.registerSystem(restockSystem);
 	systemManager.registerSystem(animationSystem);
+	systemManager.registerSystem(shootingSystem);
 }
 
 void PrismGame::onUpdate(Context &context)
@@ -66,12 +69,14 @@ void PrismGame::onUpdate(Context &context)
 	auto renderSystem = systemManager.getSystem<RenderSystem>();
 	auto restockSystem = systemManager.getSystem<RestockResourceSystem>();
 	auto animationSystem = systemManager.getSystem<AnimationSystem>();
+	auto shootingSystem = systemManager.getSystem<ShootingSystem>();
 
 	inputSystem->update(context);
 	restockSystem->update(context);
 	motionSystem->update(context);
 	animationSystem->update(context);
 	renderSystem->update(context);
+	shootingSystem->update(context);
 
 	for (auto &entity : entityManager.getAllEntitiesWithComponent<VelocityComponent>()) {
 		auto velocity = entity.component;
