@@ -11,12 +11,12 @@ namespace World {
 	struct WorldObject {
 		int id;
 		int gid;
-		int visible;
-		int width;
-		int height;
-		int rotation;
-		int x;
-		int y;
+		bool visible;
+		float width;
+		float height;
+		float rotation;
+		float x;
+		float y;
 		std::string name;
 		std::string type;
 		std::map<std::string, ObjectProperties> additionalProperties;

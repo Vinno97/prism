@@ -51,7 +51,22 @@
     <ClCompile Include="src\World\EntityConfigurators\ResourceSpawnConfigurator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\PrismEntityAssembler.cpp">
+    <ClCompile Include="src\World\EntityAssemblers\PlayerAssembler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\World\EntityAssemblers\EnemyAssembler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\World\EntityAssemblers\ResourceSpawnAssembler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\World\EntityAssemblers\TowerAssembler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\World\EntityAssemblers\WallAssembler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\World\EntityAssemblers\PrismEntityAssembler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -89,7 +104,28 @@
     <ClInclude Include="include\World\EntityConfigurators\ResourceSpawnConfigurator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\World\PrismEntityAssembler.h">
+    <ClInclude Include="include\World\Assemblers\EnemyAssembler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\World\Assemblers\PlayerAssembler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\World\Assemblers\ResourceSpawnAssembler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\World\Assemblers\TowerAssembler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\World\Assemblers\WallAssembler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ECS\Components\WallComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ECS\Components\TowerComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\World\Assemblers\PrismEntityAssembler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

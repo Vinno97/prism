@@ -8,10 +8,11 @@
 #include "ECS/Systems/AnimationSystem.h"
 
 #include "World/WorldLoader.h"
-#include "World/PrismEntityAssembler.h"
+#include "World/Assemblers/PrismEntityAssembler.h"
 
 using namespace ECS;
 using namespace ECS::Components;
+using namespace World::Assemblers;
 
 /// <summary>
 /// creates new PrismGame object
@@ -30,11 +31,12 @@ void PrismGame::onInit(Context & context)
 	sceneComponent->scene.sun.color = Math::Vector3f{ .30f, .30f, .30f };
 	sceneComponent->scene.sun.direction = Math::Vector3f{ 25.f, 150.0f, 100.0f };
 
-	World::PrismEntityAssembler assembler{ entityManager, entityFactory };
+	//World::PrismEntityAssembler assembler{ entityManager, entityFactory };
 
-	World::LevelManager loader;
-	// FIXME: Ja ik weet dat dit geen absoluut pad hoort te zijn
+	World::LevelManager loader{ std::make_unique<PrismEntityAssembler>() };
+
 	loader.load("Sample World", entityManager);
+	loader.save("Sample Save", entityManager);
 
 	registerSystems(context);
 }
@@ -50,7 +52,7 @@ void PrismGame::registerSystems(Context &context)
 	KeyboardInputSystem inputSystem = KeyboardInputSystem(entityManager);
 	RestockResourceSystem restockSystem = RestockResourceSystem(entityManager);
 	AnimationSystem animationSystem = AnimationSystem(entityManager);
-	
+
 	systemManager.registerSystem(motionSystem);
 	systemManager.registerSystem(renderSystem);
 	systemManager.registerSystem(inputSystem);

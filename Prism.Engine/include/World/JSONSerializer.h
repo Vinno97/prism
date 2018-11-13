@@ -1,7 +1,7 @@
 #pragma once
 
 #include "World/LevelSerializer.h"
-#include "EntityAssembler.h"
+#include "World/Assemblers/EntityAssembler.h"
 
 namespace World {
 	class JSONSerializer : public LevelSerializer {

@@ -12,20 +12,26 @@ using namespace World;
 
 void LevelManager::load(const std::string& worldName, ECS::EntityManager &entityManager)
 {
-	auto stream = Util::FileReader().readResourceIntoStream("levels/" + worldName + ".json");
-	serializer->deserialize(stream);
+	auto stream{ Util::FileReader().readResourceIntoStream("levels/" + worldName + ".json") };
+	auto worldObjects{ serializer->deserialize(stream) };
+	for (const auto& object : worldObjects) {
+		int entity = entityManager.createEntity();
+		entityAssembler->assemble(entity, object, entityManager);
+	}
 }
 
 void World::LevelManager::save(const std::string& worldName, ECS::EntityManager &entityManager)
 {	
-	auto output = std::ofstream(worldName);
-	std::vector<WorldObject> test;
-	serializer->serialize(test, output);
-}
+	std::vector<WorldObject> objects;
 
-World::LevelManager::LevelManager()
-{
-	serializer = std::make_unique<JSONSerializer>();
+	auto entities = entityManager.getAllEntities();
+	for (const auto& entity : entities) {
+		WorldObject object;
+		entityAssembler->disassemble(entity, object, entityManager);
+		objects.push_back(object);
+	}
+	std::ofstream output{ worldName };
+	serializer->serialize(objects, output);
 }
 
 //void LevelManager::loadJson(std::ifstream input, EntityAssembler& entityAssembler)

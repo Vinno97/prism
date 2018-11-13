@@ -3,7 +3,6 @@
 #include <math.h>
 #include <chrono>
 
-
 #include "Context.h"
 #include "InputManager.h"
 
