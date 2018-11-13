@@ -19,6 +19,10 @@ namespace ECS {
 
 			for (const auto& spawnPoint : entityManager->getAllEntitiesWithComponent<EnemySpawnComponent>()) {
 				auto component = spawnPoint.component;
+
+				if (!component->enabled)
+					return;
+
 				auto position = entityManager->getComponent<PositionComponent>(spawnPoint.id);
 
 				component->timeSinceLastSpawn += time;
