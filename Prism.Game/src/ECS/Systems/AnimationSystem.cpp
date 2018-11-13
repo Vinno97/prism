@@ -61,7 +61,6 @@ namespace ECS {
 				auto x = sin / (1 - (-1));
 				auto result = 0 + (360 - 0) * x;
 
-				std::cout << sin << std::endl;
 				appearance->rotationY= result;
 			}
 		}
