@@ -3,8 +3,11 @@
 #include "ECS/Entity.h"
 #include "ECS/Components/Component.h"
 #include "ECS/Components/DragComponent.h"
+#include "ECS/Components/WallComponent.h"
+#include "ECS/Components/MineComponent.h"
 #include "ECS/Components/SceneComponent.h"
 #include "ECS/Components/EnemyComponent.h"
+#include "ECS/Components/TowerComponent.h"
 #include "ECS/Components/PlayerComponent.h"
 #include "ECS/Components/PositionComponent.h"
 #include "ECS/Components/VelocityComponent.h"
@@ -103,6 +106,7 @@ int EntityFactory::createTower(int entity, EntityManager & entityManager)
 	appearance.scaleZ = 0.005f;
 	appearance.model = std::move(model);
 
+	entityManager.addComponentToEntity(entity, TowerComponent());
 	entityManager.addComponentToEntity(entity, PositionComponent());
 	entityManager.addComponentToEntity(entity, appearance);
 	return entity;
@@ -123,6 +127,7 @@ int EntityFactory::createWall(int entity, EntityManager & entityManager)
 	appearance.scaleZ = 0.005f;
 	appearance.model = std::move(model);
 
+	entityManager.addComponentToEntity(entity, WallComponent());
 	entityManager.addComponentToEntity(entity, PositionComponent());
 	entityManager.addComponentToEntity(entity, appearance);
 	return entity;
@@ -143,7 +148,10 @@ int EntityFactory::createMine(int entity, EntityManager & entityManager)
 	appearance.scaleY = 0.005f;
 	appearance.scaleZ = 0.005f;
 	appearance.model = std::move(model);
-	return entityManager.createEntity(PositionComponent(), appearance);
+
+	entityManager.addComponentToEntity(entity, MineComponent());
+	entityManager.addComponentToEntity(entity, PositionComponent());
+	entityManager.addComponentToEntity(entity, appearance);
 	return entity;
 }
 

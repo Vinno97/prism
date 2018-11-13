@@ -6,9 +6,10 @@ namespace Util {
 	class FileReader
 	{
 	public:
-		FileReader();
+		FileReader() = default;
+		~FileReader() = default;
 		std::ifstream readResourceIntoStream(std::string path) const;
 		std::string readResourceFileIntoString(std::string path) const;
-		~FileReader();
+		void saveStringIntoResource(std::string path, std::string data) const;
 	};
 }

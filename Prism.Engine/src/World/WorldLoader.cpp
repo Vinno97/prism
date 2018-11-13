@@ -5,14 +5,15 @@
 
 #include "World/WorldObject.h"
 #include "World/JSONSerializer.h"
-#include "Util/FileReader.h"
+#include "Util/FileSystem.h"
+#include <sstream>
 
 using namespace nlohmann;
 using namespace World;
 
 void LevelManager::load(const std::string& worldName, ECS::EntityManager &entityManager)
 {
-	auto stream{ Util::FileReader().readResourceIntoStream("levels/" + worldName + ".json") };
+	auto stream{ Util::FileReader().readResourceIntoStream(worldName + ".json") };
 	auto worldObjects{ serializer->deserialize(stream) };
 	for (const auto& object : worldObjects) {
 		int entity = entityManager.createEntity();
@@ -30,8 +31,13 @@ void World::LevelManager::save(const std::string& worldName, ECS::EntityManager 
 		entityAssembler->disassemble(entity, object, entityManager);
 		objects.push_back(object);
 	}
-	std::ofstream output{ worldName };
+	//std::ofstream output{ worldName };
+
+	std::stringstream output;
 	serializer->serialize(objects, output);
+	std::string buffer;
+	output >> buffer;
+	Util::FileReader().saveStringIntoResource(worldName + ".json", buffer);
 }
 
 //void LevelManager::loadJson(std::ifstream input, EntityAssembler& entityAssembler)

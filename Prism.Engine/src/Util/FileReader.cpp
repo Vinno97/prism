@@ -1,13 +1,10 @@
-#include "Util/FileReader.h"
+#include "Util/FileSystem.h"
 #include <streambuf>
 #include <windows.h>
 #include <iostream>
+#include <sstream>
 
 namespace Util {
-	FileReader::FileReader()
-	{
-	}
-
 	std::ifstream FileReader::readResourceIntoStream(std::string path) const {
 		char buf[256];
 		GetCurrentDirectoryA(256, buf);
@@ -32,8 +29,17 @@ namespace Util {
 		return str;
 	}
 
-
-	FileReader::~FileReader()
+	void FileReader::saveStringIntoResource(std::string path, std::string data) const
 	{
+		std::stringstream stream;
+		stream << data;
+
+		char buf[256];
+		GetCurrentDirectoryA(256, buf);
+		std::string pwd = std::string(buf) + "/res/";
+
+		std::fstream outfile(pwd + path);
+		outfile << data;
+		outfile.close();
 	}
 }

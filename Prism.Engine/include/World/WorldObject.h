@@ -9,16 +9,16 @@
 
 namespace World {
 	struct WorldObject {
-		int id;
-		int gid;
-		bool visible;
-		float width;
-		float height;
-		float rotation;
-		float x;
-		float y;
-		std::string name;
-		std::string type;
+		int id = 0;
+		int gid = 0;
+		bool visible = false;
+		float width = 1;
+		float height = 1;
+		float rotation = 0;
+		float x = 0;
+		float y = 0;
+		std::string name = "";
+		std::string type = "";
 		std::map<std::string, ObjectProperties> additionalProperties;
 	};
 

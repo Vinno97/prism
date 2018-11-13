@@ -31,7 +31,7 @@
     <ClInclude Include="include\Renderer\DirectionalLight.h" />
     <ClInclude Include="include\Renderer\Camera.h" />
     <ClInclude Include="include\Renderer\Scene.h" />
-    <ClInclude Include="include\Util\FileReader.h" />
+    <ClInclude Include="include\Util\FileSystem.h" />
     <ClInclude Include="include\Renderer\ForwardRenderer.h" />
     <ClInclude Include="include\ECS\Components\AppearanceComponent.h" />
     <ClInclude Include="include\ECS\Components\Component.h" />

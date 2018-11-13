@@ -128,5 +128,8 @@
     <ClInclude Include="include\World\Assemblers\PrismEntityAssembler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\ECS\Components\MineComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

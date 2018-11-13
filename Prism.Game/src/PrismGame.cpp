@@ -31,12 +31,12 @@ void PrismGame::onInit(Context & context)
 	sceneComponent->scene.sun.color = Math::Vector3f{ .30f, .30f, .30f };
 	sceneComponent->scene.sun.direction = Math::Vector3f{ 25.f, 150.0f, 100.0f };
 
-	//World::PrismEntityAssembler assembler{ entityManager, entityFactory };
-
 	World::LevelManager loader{ std::make_unique<PrismEntityAssembler>() };
 
-	loader.load("Sample World", entityManager);
-	loader.save("Sample Save", entityManager);
+	loader.load("levels/Sample World", entityManager);
+	// Dit is hoe een wereld zou worden opgeslagen en weer ingeladen.
+	//loader.load("saves/Sample Save", entityManager);
+	//loader.save("saves/Sample Save", entityManager);
 
 	registerSystems(context);
 }

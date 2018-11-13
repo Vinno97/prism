@@ -44,6 +44,7 @@ void World::JSONSerializer::serialize(std::vector<WorldObject> worldObjects, std
 	j["layers"] = json::array();
 	j["layers"][0]["id"] = 1;
 	j["layers"][0]["name"] = "Objects";
+	j["layers"][0]["type"] = "objectgroup";
 	j["layers"][0]["objects"] = worldObjects;
 
 	//auto layers = j["layers"];
