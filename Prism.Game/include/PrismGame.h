@@ -19,7 +19,7 @@
 #include "ECS/Systems/RestockResourceSystem.h"
 #include "ECS/Systems/AnimationSystem.h"
 #include "ECS/Systems/CollisionSystem.h"
-#include "ECS/Systems/CollisionHandlerSystem.h"
+#include "ECS/Systems/BumbSystem.h"
 
 class PrismGame : public Game
 {

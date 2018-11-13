@@ -1,4 +1,4 @@
-#include "ECS/Systems/CollisionHandlerSystem.h"
+#include "ECS/Systems/BumbSystem.h"
 #include "ECS/Components/BoundingBoxComponent.h"
 #include "ECS/Components/VelocityComponent.h"
 #include "ECS/Components/PositionComponent.h"
@@ -8,12 +8,12 @@ using namespace ECS::Components;
 using namespace ECS::Systems;
 using namespace Physics;
 
-CollisionHandlerSystem::CollisionHandlerSystem(EntityManager &entityManager) : System(entityManager) {}
+BumbSystem::BumbSystem(EntityManager &entityManager) : System(entityManager) {}
 
-CollisionHandlerSystem::~CollisionHandlerSystem()
+BumbSystem::~BumbSystem()
 = default;
 
-void CollisionHandlerSystem::update(Context context)
+void BumbSystem::update(Context context)
 {
 	for (auto entity : entityManager->getAllEntitiesWithComponent<BoundingBoxComponent>()) {
 		auto boundingBoxComponent = entityManager->getComponent<BoundingBoxComponent>(entity.id);
@@ -57,9 +57,9 @@ void CollisionHandlerSystem::update(Context context)
 	}
 }
 
-ECS::Systems::System* CollisionHandlerSystem::clone()
+ECS::Systems::System* BumbSystem::clone()
 {
-	return new CollisionHandlerSystem(*entityManager);
+	return new BumbSystem(*entityManager);
 }
 
 

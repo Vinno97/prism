@@ -61,7 +61,7 @@ void PrismGame::registerSystems(Context &context)
 	KeyboardInputSystem inputSystem = KeyboardInputSystem(entityManager);
 	RestockResourceSystem restockSystem = RestockResourceSystem(entityManager);
 	AnimationSystem animationSystem = AnimationSystem(entityManager);
-	CollisionHandlerSystem collisionHandlerSystem = CollisionHandlerSystem(entityManager);
+	BumbSystem bumbSystem = BumbSystem(entityManager);
 	CollisionSystem collisionSystem = CollisionSystem(entityManager, context.window->width, context.window->height, 0, 0, 2);
 
 
@@ -70,15 +70,15 @@ void PrismGame::registerSystems(Context &context)
 	systemManager.registerSystem(inputSystem);
 	systemManager.registerSystem(restockSystem);
 	systemManager.registerSystem(animationSystem);
-	systemManager.registerSystem(collisionHandlerSystem);
 	systemManager.registerSystem(collisionSystem);
+	systemManager.registerSystem(bumbSystem);
 }
 
 void PrismGame::onUpdate(Context &context)
 {
 	auto inputSystem = systemManager.getSystem<KeyboardInputSystem>();
 	auto motionSystem = systemManager.getSystem<MotionSystem>();
-	auto collisionHandlerSystem = systemManager.getSystem<CollisionHandlerSystem>();
+	auto collisionHandlerSystem = systemManager.getSystem<BumbSystem>();
 	auto collisionSystem = systemManager.getSystem<CollisionSystem>();
 	auto renderSystem = systemManager.getSystem<RenderSystem>();
 	auto restockSystem = systemManager.getSystem<RestockResourceSystem>();
