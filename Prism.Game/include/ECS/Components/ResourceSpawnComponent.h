@@ -6,13 +6,14 @@ namespace ECS {
 	namespace Components {
 		struct ResourceSpawnComponent : Component {
 			ResourceSpawnComponent() = default;
-			ResourceSpawnComponent(int maximumStock_, int currentStock_, std::string type_) : maximumStock(maximumStock_), currentStock(currentStock_), resourceType(type_){};
+			ResourceSpawnComponent(int gatherRate_, std::string type_) : 
+				gatherRate(gatherRate_), resourceType(type_){};
 
 			std::string resourceType{};
-			int maximumStock = 0;
-			int currentStock = 0;
+
+			int gatherRate = 0;
 			Component* Clone() override {
-				return new ResourceSpawnComponent();
+				return new ResourceSpawnComponent(gatherRate, resourceType);
 			}
 		};
 	}

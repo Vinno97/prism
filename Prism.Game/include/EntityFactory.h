@@ -9,7 +9,7 @@ public:
 	~EntityFactory();
 	int createPlayer(ECS::EntityManager& entityManager);
 	int createEnemy(ECS::EntityManager& entityManager);
-	int createResourcePoint(ECS::EntityManager& entityManager);
+	int createResourcePoint(ECS::EntityManager& entityManager, std::string type, int gatherRate);
 	int createTower(ECS::EntityManager& entityManager);
 	int createWall(ECS::EntityManager& entityManager);
 	int createMine(ECS::EntityManager& entityManager);

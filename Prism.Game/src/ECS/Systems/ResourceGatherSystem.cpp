@@ -3,8 +3,7 @@
 #include "Context.h"
 
 #include "ECS/Systems/ResourceGatherSystem.h"
-#include "ECS/Components/PlayerComponent.h"
-#include "ECS/Components/ResourceSpawnComponent.h"
+
 
 namespace ECS {
 	namespace Systems {
@@ -21,14 +20,16 @@ namespace ECS {
 
 			for (auto player : players) {
 				auto playerPosition = entityManager->getComponent<PositionComponent>(player.id);
+				auto playerInventory = entityManager->getComponent<InventoryComponent>(player.id);
 
 				for (auto resourcePoint : resourcePoints) {
 					auto resourcePointPosition = entityManager->getComponent<PositionComponent>(resourcePoint.id);
 					
 					if (ResourceGatherSystem::shouldIncreaseResources(*playerPosition, *resourcePointPosition)) {
-						auto resource = entityManager->getComponent<ResourceSpawnComponent>(resourcePoint.id);
-						resource->currentStock -= 10;
 						
+						auto resource = entityManager->getComponent<ResourceSpawnComponent>(resourcePoint.id);
+						
+						increateResource(resource->resourceType, *playerInventory, resource->gatherRate);
 					}
 				}
 			}
@@ -45,5 +46,25 @@ namespace ECS {
 			}
 			return false;
 		}
+
+		void ResourceGatherSystem::increateResource(std::string resourceType, InventoryComponent& playerInventory, int gatherRate)
+		{
+			if (resourceType == "red") {
+				playerInventory.redResource += gatherRate;
+				std::cout << "type " << resourceType << "- amount " << playerInventory.redResource << std::endl;
+			}
+			
+			if (resourceType == "blue") {
+				playerInventory.blueResource += gatherRate;
+				std::cout << "type " << resourceType << "- amount " << playerInventory.blueResource << std::endl;
+			}
+			
+			if (resourceType == "green") {
+				playerInventory.greenResource += gatherRate;
+				std::cout << "type " << resourceType << "- amount " << playerInventory.greenResource << std::endl;
+			}
+		}
+
+
 	}
 }

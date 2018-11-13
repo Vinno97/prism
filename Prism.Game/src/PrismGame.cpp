@@ -13,7 +13,10 @@ PrismGame::PrismGame()
 void PrismGame::onInit(Context & context)
 {
 	auto player = entityFactory.createPlayer(entityManager);
-	auto resourcePoint = entityFactory.createResourcePoint(entityManager);
+	auto redResourcePoint = entityFactory.createResourcePoint(entityManager, "red", 1);
+	auto greenResourcePoint = entityFactory.createResourcePoint(entityManager, "green", 2);
+	auto blueResourcePoint = entityFactory.createResourcePoint(entityManager, "blue", 3);
+
 	auto enemy = entityFactory.createEnemy(entityManager);
 	auto scene = entityFactory.createScene(entityManager);
 
@@ -27,7 +30,10 @@ void PrismGame::onInit(Context & context)
 	auto positions{ entityManager.getAllEntitiesWithComponent<PositionComponent>()};
 
 	entityManager.getComponent<PositionComponent>(player)->y = 1;
-	entityManager.getComponent<PositionComponent>(resourcePoint)->x = 1;
+	entityManager.getComponent<PositionComponent>(redResourcePoint)->x = 1;
+	entityManager.getComponent<PositionComponent>(greenResourcePoint)->x = 2;
+	entityManager.getComponent<PositionComponent>(blueResourcePoint)->x = 1;
+	entityManager.getComponent<PositionComponent>(blueResourcePoint)->y = 1;
 	entityManager.getComponent<PositionComponent>(enemy)->x = -1;
 	
 	auto sceneComponent = entityManager.getComponent<SceneComponent>(scene);

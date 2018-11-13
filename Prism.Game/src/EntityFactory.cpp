@@ -11,6 +11,7 @@
 #include "ECS/Components/AppearanceComponent.h"
 #include "ECS/Components/KeyboardInputComponent.h"
 #include "ECS/Components/ResourceSpawnComponent.h"
+#include "ECS/Components/InventoryComponent.h"
 
 #include "Renderer/Graphics/Loader/ModelLoader.h"
 
@@ -40,7 +41,8 @@ int EntityFactory::createPlayer(EntityManager& entityManager)
 		PositionComponent(),
 		DragComponent(5.f),
 		KeyboardInputComponent(),
-		PlayerComponent()
+		PlayerComponent(),
+		InventoryComponent()
 	);
 }
 
@@ -58,7 +60,7 @@ int EntityFactory::createEnemy(EntityManager& entityManager) {
 
 }
 
-int EntityFactory::createResourcePoint(EntityManager & entityManager)
+int EntityFactory::createResourcePoint(EntityManager & entityManager, std::string type, int gatherRate)
 {
 	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
 	auto model = ml.loadModel("./res/resource2.obj");
@@ -68,7 +70,7 @@ int EntityFactory::createResourcePoint(EntityManager & entityManager)
 	appearance.scaleY = 0.002f;
 	appearance.scaleZ = 0.002f;
 	appearance.model = std::move(model);
-	return entityManager.createEntity(PositionComponent(), ResourceSpawnComponent(1000, 1000, "red"), appearance);
+	return entityManager.createEntity(PositionComponent(), ResourceSpawnComponent(gatherRate, type), appearance);
 
 }
 
