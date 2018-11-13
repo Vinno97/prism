@@ -40,30 +40,13 @@ void ECS::Systems::AttackSystem::update(Context context) {
 			std::vector<BoundingBox const *> vec;
 			quadTree.Retrieve(vec, *boundingBox);
 
-
 			for (auto otherBox : vec) {
 				if (otherBox != boundingBox) {
 					float x = boundingBox->GetPosX();
 					float y = boundingBox->GetPosY();
 
 					if (aabbCollider.CheckCollision(*otherBox, *boundingBox)) {
-						if (entityManager->hasComponent<PlayerComponent>(entity.id)) {
-							auto currentComponent = entityManager->getComponent<HealthComponent>(entity.id);
-							currentComponent->health -= 10;
-
-							if (currentComponent->health == 0) {
-								std::cout << "Player is dead" << std::endl;
-								entityManager->removeEntity(entity.id);
-							}
-							// Print health (Test)
-							std::cout << "Speler: " << currentComponent->health << std::endl;
-						}
-						else if (entityManager->hasComponent<EnemyComponent>(entity.id)) {
-							entityManager->removeEntity(entity.id);				
-							
-							std::cout << "Enemy is exploded" << std::endl;
-						
-						}
+						updateEntity(entity.id);
 					}
 				}
 			}
@@ -71,6 +54,28 @@ void ECS::Systems::AttackSystem::update(Context context) {
 	}
 	quadTree.Clear();
 }
+
+void ECS::Systems::AttackSystem::updateEntity(int id) {
+	if (entityManager->hasComponent<PlayerComponent>(id)) {
+		auto currentComponent = entityManager->getComponent<HealthComponent>(id);
+		currentComponent->health -= 10;
+
+		if (currentComponent->health == 0) {
+
+			// Print (Remove after review)
+			std::cout << "Player is dead" << std::endl;
+			entityManager->removeEntity(id);
+		}
+		// Print (Remove after review)
+		std::cout << "Speler: " << currentComponent->health << std::endl;
+	}
+	else if (entityManager->hasComponent<EnemyComponent>(id)) {
+		entityManager->removeEntity(id);
+		// Print (Remove after review)
+		std::cout << "Enemy is exploded" << std::endl;
+	}
+}
+
 
 System * ECS::Systems::AttackSystem::clone()
 {

@@ -17,6 +17,7 @@ namespace ECS {
 			~AttackSystem();
 			void update(Context context) override;
 			System* clone() override;
+			void updateEntity(int id);
 		private:
 			QuadTree quadTree;
 			AABBCollider aabbCollider;

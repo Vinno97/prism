@@ -75,6 +75,7 @@ void PrismGame::onUpdate(Context &context)
 	auto restockSystem = systemManager.getSystem<RestockResourceSystem>();
 	auto animationSystem = systemManager.getSystem<AnimationSystem>();
 
+
 	inputSystem->update(context);
 	restockSystem->update(context);
 	motionSystem->update(context);
@@ -82,7 +83,6 @@ void PrismGame::onUpdate(Context &context)
 	collisionSystem->update(context);
 	animationSystem->update(context);
 	renderSystem->update(context);
-	
 
 	for (auto &entity : entityManager.getAllEntitiesWithComponent<VelocityComponent>()) {
 		auto velocity = entity.component;
