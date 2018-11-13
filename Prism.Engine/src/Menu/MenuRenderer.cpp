@@ -28,8 +28,13 @@ namespace Menu {
 
 		menuPipeline->createUniform("view");
 		menuPipeline->createUniform("model");
+			
+		float width = 1080 / 2;
+		float height = 1920 / 2;
 
-		projection = glm::ortho(0.0f, (float)1920/2, (float)1080/2, .0f, -1.0f, 1.0f);
+		float aspect = float(1920)/float(1080);
+
+		projection = glm::ortho(0.f, height*aspect, 0.f, height, -1.0f, 1.0f);
 	}
 	void MenuRenderer::renderMenu(Menu& menu)
 	{
@@ -40,9 +45,7 @@ namespace Menu {
 			auto pos = control.position;
 			glm::mat4 model = glm::mat4(1.0f);
 			model = glm::translate(model, glm::vec3(pos.x, pos.y, 0.0f));
-			model = glm::translate(model, glm::vec3(0.5f * 200, 0.5f * 200, 0.0f));
-			model = glm::translate(model, glm::vec3(-0.5f * 200, -0.5f * 200, 0.0f));
-			model = glm::scale(model, glm::vec3(200, 200, 1.0f));
+			model = glm::scale(model, glm::vec3(control.size.x, control.size.y, 1.0f));
 
 			menuPipeline->setUniformMatrix4f("model", model);
 			control.model.mesh->vertexArrayObject->bind();

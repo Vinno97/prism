@@ -15,5 +15,6 @@ namespace Menu {
 		Control(float x, float y, float width, float height);
 		Renderer::Graphics::Models::Model model;
 		Math::Vector3f position;
+		Math::Vector3f size;
 	};
 }

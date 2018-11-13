@@ -37,6 +37,10 @@ void CoreEngine::Run()
 {
 	//TODO: Uit coreEngine verwijderen?
 	MenuBuilder menuBuilder;
+	MenuRenderer renderer;
+	menuBuilder.addControl(10, 10, 200, 200);
+	menuBuilder.addControl(400, 400, 200, 250);
+	auto menu = menuBuilder.buildMenu();
 
 	//Holds the time in which the gameupdate was last called 
 	auto lastTime = std::chrono::system_clock::now();
@@ -54,14 +58,12 @@ void CoreEngine::Run()
 		//c.rotate(0.0f, 3.14f, 0.f);
 		//Sets the right values in context
 		context.deltaTime = deltaTime.count() / 1000000.f;
-		//context.stateMachine->getCurrentState()->onUpdate(context);
+		context.stateMachine->getCurrentState()->onUpdate(context);
 		
 		//TODO: Verplaatsen? In ieder geval aanpassen.
 		//menuBuilder.DrawInGameOverlay(context.window->width, context.window->height);
 		// ---
-		menuBuilder.addControl(200, 200, 200, 200);
-		auto menu = menuBuilder.buildMenu();
-		MenuRenderer renderer;
+
 		renderer.renderMenu(menu);
 
 		context.window->swapScreen();
