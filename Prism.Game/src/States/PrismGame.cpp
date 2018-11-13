@@ -1,15 +1,12 @@
-#include "PrismGame.h"
+#include "States/PrismGame.h"
 #include "Math/Vector3f.h"
-
-#include "ECS/Systems/MotionSystem.h"
-#include "ECS/Systems/RenderSystem.h"
-#include "ECS/Systems/KeyboardInputSystem.h"
-#include "ECS/Systems/RestockResourceSystem.h"
-#include "ECS/Systems/AnimationSystem.h"
+#include "StateMachine.h"
+#include "States/PauseState.h"
 
 #include "World/WorldLoader.h"
 #include "World/Assemblers/PrismEntityAssembler.h"
 
+using namespace States;
 using namespace ECS;
 using namespace ECS::Components;
 using namespace World::Assemblers;
@@ -18,17 +15,17 @@ using namespace World::Assemblers;
 /// creates new PrismGame object
 /// </summary>
 PrismGame::PrismGame()
-= default;
+	= default;
 
 void PrismGame::onInit(Context & context)
 {
+	auto floor = entityFactory.createFloor(entityManager);
 	auto scene = entityFactory.createScene(entityManager);
-
 	auto sceneComponent = entityManager.getComponent<SceneComponent>(scene);
 
 	sceneComponent->scene.ambientLightColor = Math::Vector3f{ 1.0f, 1.0f, 1.0f };
-	sceneComponent->scene.ambientLightStrength = 0.65f;
-	sceneComponent->scene.sun.color = Math::Vector3f{ .30f, .30f, .30f };
+	sceneComponent->scene.ambientLightStrength = 0.95f;
+	sceneComponent->scene.sun.color = Math::Vector3f{ .20f, .20f, .20f };
 	sceneComponent->scene.sun.direction = Math::Vector3f{ 25.f, 150.0f, 100.0f };
 
 	World::LevelManager loader{ std::make_unique<PrismEntityAssembler>() };
@@ -39,6 +36,8 @@ void PrismGame::onInit(Context & context)
 	//loader.save("saves/Sample Save", entityManager);
 
 	registerSystems(context);
+	PauseState ps = PauseState();
+	context.stateMachine->addState(ps);
 }
 
 /// <summary>
@@ -62,6 +61,16 @@ void PrismGame::registerSystems(Context &context)
 
 void PrismGame::onUpdate(Context &context)
 {
+	auto input = context.inputManager;
+	if (input->isKeyPressed(Key::KEY_ESCAPE) && canPressEscape) {
+		canPressEscape = false;
+		context.stateMachine->setState<PauseState>();
+	}
+
+	if (!input->isKeyPressed(Key::KEY_ESCAPE)) {
+		canPressEscape = true;
+	}
+
 	auto inputSystem = systemManager.getSystem<KeyboardInputSystem>();
 	auto motionSystem = systemManager.getSystem<MotionSystem>();
 	auto renderSystem = systemManager.getSystem<RenderSystem>();
@@ -79,9 +88,10 @@ void PrismGame::onUpdate(Context &context)
 		auto position = entityManager.getComponent<PositionComponent>(entity.id);
 		printf("Entity:\t\t%d \nPosition: \tX: %.2f, Y: %.2f\nVelocity:\tdX: %.2f, dY: %.2f\n\n", entity.id, position->x, position->y, velocity->dx, velocity->dy);
 	}
+
+	context.window->swapScreen();
 }
 void PrismGame::onEnter() {
-
 }
 void PrismGame::onLeave() {
 }

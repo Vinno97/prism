@@ -33,9 +33,6 @@
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\PrismGame.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\ECS\Systems\KeyboardInputSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -69,6 +66,15 @@
     <ClCompile Include="src\World\EntityAssemblers\PrismEntityAssembler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\States\PauseState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\States\PrismGame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\World\TerrainGenerator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="lib\SDL2.dll" />
@@ -77,9 +83,6 @@
     <None Include="lib\glew32.dll" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\PrismGame.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\ECS\Components\KeyboardInputComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -99,6 +102,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\EntityFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\World\TerrainGenerator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\States\PrismGame.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\States\PauseState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\World\EntityConfigurators\ResourceSpawnConfigurator.h">
@@ -129,6 +141,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\ECS\Components\MineComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PrismGame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

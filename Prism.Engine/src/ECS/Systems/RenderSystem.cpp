@@ -58,6 +58,8 @@ namespace ECS {
 				get<1>(renderable.rotation) = appearance->rotationY;
 				get<2>(renderable.rotation) = appearance->rotationZ;
 
+				renderable.color = appearance->color;
+
 				rendererData.push_back(renderable);
 			}
 

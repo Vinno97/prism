@@ -14,7 +14,7 @@
 #include "ECS/Components/AppearanceComponent.h"
 #include "ECS/Components/KeyboardInputComponent.h"
 #include "ECS/Components/ResourceSpawnComponent.h"
-
+#include <World/TerrainGenerator.h>
 #include "Renderer/Graphics/Loader/ModelLoader.h"
 
 using namespace ECS;
@@ -35,6 +35,7 @@ int EntityFactory::createPlayer(int entity, EntityManager& entityManager) {
 	appearance.scaleY = 0.002f;
 	appearance.scaleZ = 0.002f;
 	appearance.model = std::move(model);
+	appearance.color = Math::Vector3f{ 1.0f, 0.5f, 0.5f };
 
 
 	entityManager.addComponentToEntity(entity, appearance);
@@ -84,6 +85,7 @@ int EntityFactory::createResourcePoint(int entity, EntityManager & entityManager
 	appearance.scaleY = 0.002f;
 	appearance.scaleZ = 0.002f;
 	appearance.model = std::move(model);
+	appearance.color = Math::Vector3f{ 0.6f, 0.6f, 1.0f };
 
 	entityManager.addComponentToEntity(entity, PositionComponent());
 	entityManager.addComponentToEntity(entity, ResourceSpawnComponent());
@@ -161,5 +163,37 @@ int EntityFactory::createScene(EntityManager & entityManager) {
 
 int EntityFactory::createScene(int entity, EntityManager & entityManager) {
 	entityManager.addComponentToEntity(entity, SceneComponent());
+	return entity;
+}
+
+int EntityFactory::createFloor(ECS::EntityManager & entityManager)
+{
+    return createFloor(entityManager.createEntity(), entityManager);
+}
+
+int EntityFactory::createFloor(int entity, EntityManager & entityManager) {
+	int width = 100;
+	int height = 100;
+	float scale = 0.125;
+
+	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
+	auto model = World::TerrainGenerator().generateTerrain(width / 0.125, height / 0.125);
+
+	AppearanceComponent appearance;
+	appearance.translationX -= 6.25;
+	appearance.translationZ -= 6.25;
+
+	appearance.scaleX = scale;
+	appearance.scaleY = scale;
+	appearance.scaleZ = scale;
+
+	appearance.translationX = -width / 2;
+	appearance.translationZ = -height / 2;
+
+	appearance.model = std::move(model);
+	appearance.color = Math::Vector3f{ 0.87f, 0.87f, 0.87f };
+	
+	entityManager.addComponentToEntity(entity, PositionComponent());
+	entityManager.addComponentToEntity(entity, appearance);
 	return entity;
 }
