@@ -38,6 +38,7 @@ namespace Renderer {
 				void useDepthTest(bool enable) const override;
 				void clearScreen() const override;
 				void DrawTrianglesIndexed(long offset, int count) const override;
+				void DrawTriangles(long offset, int count) const override;
 			private:
 				OGLRenderDevice();
 			};
