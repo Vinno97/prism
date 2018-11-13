@@ -1,6 +1,7 @@
 #pragma once
 #include "Component.h"
 #include "Renderer/Graphics/Models/Model.h"
+#include "Math/Vector3f.h"
 
 namespace ECS {
 	namespace Components {
@@ -15,6 +16,8 @@ namespace ECS {
 			float rotationX = 0;
 			float rotationY = 0;
 			float rotationZ = 0;
+			
+			Math::Vector3f color{ 1.f, 1.f, 1.f };
 
 			Component* Clone() override
 			{
@@ -31,11 +34,14 @@ namespace ECS {
 				appearanceComponent->rotationX = rotationX;
 				appearanceComponent->rotationY = rotationY;
 				appearanceComponent->rotationZ = rotationZ;
+				
+				appearanceComponent->color = color;
 	
 				appearanceComponent->model = std::make_unique<Renderer::Graphics::Models::Model>(*model);
 	
 				return appearanceComponent;
 			}
+
 		};
 	}
 }
