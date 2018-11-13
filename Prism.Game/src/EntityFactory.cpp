@@ -11,6 +11,7 @@
 #include "ECS/Components/AppearanceComponent.h"
 #include "ECS/Components/KeyboardInputComponent.h"
 #include "ECS/Components/ResourceSpawnComponent.h"
+#include <World/TerrainGenerator.h>
 #include "ECS/Components/InventoryComponent.h"
 
 #include "Renderer/Graphics/Loader/ModelLoader.h"
@@ -34,7 +35,7 @@ int EntityFactory::createPlayer(EntityManager& entityManager)
 	appearance.scaleY = 0.002f;
 	appearance.scaleZ = 0.002f;
 	appearance.model = std::move(model);
-
+	appearance.color = Math::Vector3f{ 1.0f, 0.5f, 0.5f };
 
 	return entityManager.createEntity(appearance,
 		VelocityComponent(),
@@ -70,6 +71,16 @@ int EntityFactory::createResourcePoint(EntityManager & entityManager, std::strin
 	appearance.scaleY = 0.002f;
 	appearance.scaleZ = 0.002f;
 	appearance.model = std::move(model);
+
+	if (type == "blue") {
+		appearance.color = Math::Vector3f{ 0.6f, 0.6f, 1.0f };
+	}
+	if (type == "red") {
+		appearance.color = Math::Vector3f{ 1.0f, 0.6f, 0.6f };
+	}
+	if (type == "green") {
+		appearance.color = Math::Vector3f{ 0.6f, 1.0f, 0.6f };
+	}
 	return entityManager.createEntity(PositionComponent(), ResourceSpawnComponent(gatherRate, type), appearance);
 
 }
@@ -116,6 +127,25 @@ int EntityFactory::createMine(EntityManager & entityManager)
 
 int EntityFactory::createScene(EntityManager & entityManager) {
 	return entityManager.createEntity(SceneComponent());
+}
+
+int EntityFactory::createFloor(ECS::EntityManager & entityManager)
+{
+	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
+	auto model = World::TerrainGenerator().generateTerrain(100, 100);
+
+	AppearanceComponent appearance;
+	appearance.translationX -= 6.25;
+	appearance.translationZ -= 6.25;
+
+	appearance.scaleX = 0.125;
+	appearance.scaleY = 0.125;
+	appearance.scaleZ = 0.125;
+
+	appearance.model = std::move(model);
+	appearance.color = Math::Vector3f{ 0.87f, 0.87f, 0.87f };
+	PositionComponent positionComponent;
+	return entityManager.createEntity(positionComponent, appearance);
 }
 
 

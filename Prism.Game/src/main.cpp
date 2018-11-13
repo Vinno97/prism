@@ -23,7 +23,7 @@
 #include "ECS/Components/KeyboardInputComponent.h"
 #include "ECS/Systems/KeyboardInputSystem.h"
 #include "ECS/Systems/MotionSystem.h"
-#include "PrismGame.h"
+#include "States/PrismGame.h"
 
 #define _CRTDBG_MAP_ALLOC
 
@@ -31,7 +31,7 @@
 void start() {
 	CoreEngine ce = CoreEngine();
 	ce.InitWindow("prism", 1920 / 2, 1080 / 2, 100, 100);
-	PrismGame prism;
+	States::PrismGame prism;
 	ce.setEntryPoint(prism);
 	ce.Run();
 }
