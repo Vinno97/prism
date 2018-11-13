@@ -1,4 +1,5 @@
 #include "Physics/QuadTree.h"
+#include <iostream>
 
 using namespace Physics;
 
@@ -19,6 +20,66 @@ QuadTree::QuadTree(float width, float heigt, float x, float y, unsigned int maxO
 	nodes[2] = nullptr;
 	nodes[3] = nullptr;
 	this->maxObjects = maxObjects;
+}
+
+QuadTree::QuadTree(const QuadTree& other)
+{
+	this->maxObjects = other.maxObjects;
+	this->objects = other.objects;
+	this->bounds = other.bounds;
+	if (other.nodes[0] != nullptr) {
+		for (int i = 0; i < 4;i++) {
+			nodes[i] = new QuadTree();
+			*nodes[i] = *other.nodes[i];
+		}
+	}
+}
+
+QuadTree & QuadTree::operator=(const QuadTree& other)
+{
+	if (this != &other) {
+		this->maxObjects = other.maxObjects;
+		this->objects = other.objects;
+		this->bounds = other.bounds;
+		if (other.nodes[0] != nullptr) {
+			for (int i = 0; i < 4;i++) {
+				nodes[i] = new QuadTree();
+				*nodes[i] = *other.nodes[i];
+			}
+		}
+		return *this;
+	}
+}
+
+QuadTree::QuadTree(QuadTree&& other)
+{
+	this->maxObjects = other.maxObjects;
+	other.maxObjects = 0;
+	this->objects = other.objects;
+	other.objects.clear();
+	this->bounds = other.bounds;
+	other.bounds = BoundingBox();
+	for (int i = 0; i < 4;i++) {
+		nodes[i] = other.nodes[i];
+		other.nodes[i] = nullptr;
+	}
+}
+
+QuadTree & QuadTree::operator=(QuadTree&& other)
+{
+	if (this != &other) {
+		this->maxObjects = other.maxObjects;
+		other.maxObjects = 0;
+		this->objects = other.objects;
+		other.objects.clear();
+		this->bounds = other.bounds;
+		other.bounds = BoundingBox();
+		for (int i = 0; i < 4;i++) {
+			nodes[i] = other.nodes[i];
+			other.nodes[i] = nullptr;
+		}
+	}
+	return *this;
 }
 
 void QuadTree::Clear()
@@ -127,11 +188,30 @@ void QuadTree::Insert(BoundingBox const &newBox)
 	}
 }
 
-std::vector<BoundingBox const *> QuadTree::Retrieve(std::vector<BoundingBox const *> &vector,BoundingBox const &searchBox)
+/*
+std::vector<BoundingBox const *> QuadTree::RetrieveSelected(std::vector<BoundingBox const *> &vector, BoundingBox const &searchBox)
 {
 	int index = GetIndex(searchBox);
 	if (index != -1 && nodes[0] != nullptr) {
-		nodes[index]->Retrieve(vector,searchBox);
+		nodes[index]->RetrieveAll(vector, searchBox);
+	}
+	for (int i = 0; i < objects.size();i++) {
+		if (objects[i] != &searchBox) {
+			vector.push_back(objects[i]);
+			if (vector.size()>=3) {
+				std::cout << "what??????????????";
+			}
+		}
+	}
+	return vector;
+}
+*/
+
+std::vector<BoundingBox const *> QuadTree::RetrieveAll(std::vector<BoundingBox const *> &vector,BoundingBox const &searchBox)
+{
+	int index = GetIndex(searchBox);
+	if (index != -1 && nodes[0] != nullptr) {
+		nodes[index]->RetrieveAll(vector,searchBox);
 	}
 	vector.insert(vector.end(),objects.begin(), objects.end());
 	return vector;

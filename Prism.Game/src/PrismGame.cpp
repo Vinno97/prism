@@ -24,9 +24,6 @@ void PrismGame::onInit(Context & context)
 		auto position = entityManager.getComponent<PositionComponent>(entity);
 		position->y = -1;
 		position->x = i;
-		if (entityManager.hasComponent<VelocityComponent>(entity)) {
-			std::cout << "what???????????????????";
-		}
 	}
 
 	auto positions{ entityManager.getAllEntitiesWithComponent<PositionComponent>()};
@@ -56,16 +53,22 @@ void PrismGame::registerSystems(Context &context)
 	KeyboardInputSystem inputSystem = KeyboardInputSystem(entityManager);
 	RestockResourceSystem restockSystem = RestockResourceSystem(entityManager);
 	AnimationSystem animationSystem = AnimationSystem(entityManager);
-	ShootingSystem shootingSystem = ShootingSystem(entityManager);
-	CollisionSystem collisionSystem = CollisionSystem(entityManager,context.window->width,context.window->height,0,0,2);
 
-	
+	ShootingSystem shootingSystem = ShootingSystem(entityManager);
+
+	CollisionHandlerSystem collisionHandlerSystem = CollisionHandlerSystem(entityManager);
+	CollisionSystem collisionSystem = CollisionSystem(entityManager, context.window->width, context.window->height, 0, 0, 2);
+
 	systemManager.registerSystem(motionSystem);
 	systemManager.registerSystem(renderSystem);
 	systemManager.registerSystem(inputSystem);
 	systemManager.registerSystem(restockSystem);
 	systemManager.registerSystem(animationSystem);
+
 	systemManager.registerSystem(shootingSystem);
+
+	systemManager.registerSystem(collisionHandlerSystem);
+
 	systemManager.registerSystem(collisionSystem);
 }
 
@@ -73,6 +76,7 @@ void PrismGame::onUpdate(Context &context)
 {
 	auto inputSystem = systemManager.getSystem<KeyboardInputSystem>();
 	auto motionSystem = systemManager.getSystem<MotionSystem>();
+	auto collisionHandlerSystem = systemManager.getSystem<CollisionHandlerSystem>();
 	auto collisionSystem = systemManager.getSystem<CollisionSystem>();
 	auto renderSystem = systemManager.getSystem<RenderSystem>();
 	auto restockSystem = systemManager.getSystem<RestockResourceSystem>();
@@ -83,6 +87,7 @@ void PrismGame::onUpdate(Context &context)
 	restockSystem->update(context);
 	motionSystem->update(context);
 	collisionSystem->update(context);
+	collisionHandlerSystem->update(context);
 	animationSystem->update(context);
 	renderSystem->update(context);
 	shootingSystem->update(context);

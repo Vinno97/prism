@@ -7,14 +7,13 @@
 
 namespace ECS {
 	namespace Systems {
-		class CollisionSystem : public System {
+		class CollisionHandlerSystem : public System {
 		public:
-			CollisionSystem(ECS::EntityManager &entityManager, float width, float height, float posX, float posY,unsigned int maxObjects);
-			~CollisionSystem();
+			CollisionHandlerSystem(ECS::EntityManager &entityManager);
+			~CollisionHandlerSystem();
 			void update(Context context) override;
 			System* clone() override;
 		private:
-			Physics::QuadTree quadTree;
 			Physics::AABBCollider aabbCollider;
 			int AmountCollisions(Physics::BoundingBox &box1, Physics::BoundingBox &adress,std::vector<const Physics::BoundingBox *> &vector);
 		};

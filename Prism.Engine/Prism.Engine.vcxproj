@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ECS\Components\BoundingBoxComponent.h" />
+    <ClInclude Include="include\ECS\Systems\CollisionHandlerSystem.h" />
     <ClInclude Include="include\ECS\Systems\CollisionSystem.h" />
     <ClInclude Include="include\Renderer\DirectionalLight.h" />
     <ClInclude Include="include\Physics\AABBCollider.h" />
@@ -75,6 +76,7 @@
     <ClInclude Include="include\Math\Vector3f.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\ECS\Systems\CollisionHandlerSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\CollisionSystem.cpp" />
     <ClCompile Include="src\Physics\AABBCollider.cpp" />
     <ClCompile Include="src\Physics\BoundingBox.cpp" />

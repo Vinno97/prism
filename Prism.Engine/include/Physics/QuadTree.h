@@ -11,6 +11,12 @@ namespace Physics {
 		/// </summary>
 		QuadTree();
 
+		QuadTree(const QuadTree& other);
+		QuadTree & operator=(const QuadTree& other);
+
+		QuadTree(QuadTree&& other);
+		QuadTree & operator=(QuadTree&& other);
+
 		~QuadTree();
 
 		/// <summary>
@@ -39,10 +45,11 @@ namespace Physics {
 		void Insert(BoundingBox const &newBox);
 
 		/// <summary>
-		/// Retrieve a vector with al the boundingboxes that can collide with the given boundingbox
+		/// Retrieve a vector with all the boundingboxes that can collide with the given boundingbox
 		/// </summary>
 		///<param name="searchBox">A vector will be returned that could collide with this boundingbox</param>
-		std::vector<BoundingBox const *> Retrieve(std::vector<BoundingBox const *> &vector, BoundingBox const &searchBox);
+		std::vector<BoundingBox const *> RetrieveAll(std::vector<BoundingBox const *> &vector, BoundingBox const &searchBox);
+
 
 		/// <summary>
 		/// Get the bounds of the quadtree;
