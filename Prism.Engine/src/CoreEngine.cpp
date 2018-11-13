@@ -38,8 +38,8 @@ void CoreEngine::Run()
 	//TODO: Uit coreEngine verwijderen?
 	MenuBuilder menuBuilder;
 	MenuRenderer renderer;
-	menuBuilder.addControl(10, 10, 200, 200);
-	menuBuilder.addControl(400, 400, 200, 250);
+	menuBuilder.addControl(20, 865, 300, 75);
+	menuBuilder.addControl(context.window->width + 220, 865, 500, 75);
 	auto menu = menuBuilder.buildMenu();
 
 	//Holds the time in which the gameupdate was last called 

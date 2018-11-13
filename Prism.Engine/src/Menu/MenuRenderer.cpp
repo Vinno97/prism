@@ -51,6 +51,8 @@ namespace Menu {
 			control.model.mesh->vertexArrayObject->bind();
 			control.model.mesh->indexBuffer->bind();
 			renderDevice->DrawTrianglesIndexed(0, control.model.mesh->indicesLength);
+
+			control.DrawTexture();
 		}
 		menuPipeline->stop();
 	}
