@@ -9,6 +9,7 @@
 
 using namespace ECS;
 using namespace ECS::Components;
+using namespace ECS::Systems;
 
 ECS::Systems::MotionSystem::MotionSystem(EntityManager &entityManager) : System(entityManager) {}
 

@@ -13,6 +13,8 @@
 #include "ECS/Components/ResourceSpawnComponent.h"
 #include "ECS/Components/ShootingComponent.h"
 #include "ECS/Components/BulletComponent.h"
+#include "ECS/Components/BoundingBoxComponent.h"
+
 
 #include "Renderer/Graphics/Loader/ModelLoader.h"
 
@@ -43,7 +45,9 @@ int EntityFactory::createPlayer(EntityManager& entityManager)
 		DragComponent(5.f),
 		KeyboardInputComponent(),
 		PlayerComponent(),
-		ShootingComponent()
+		ShootingComponent(),
+		BoundingBoxComponent(0.3, 0.3)
+
 	);
 }
 
@@ -57,8 +61,13 @@ int EntityFactory::createEnemy(EntityManager& entityManager) {
 	appearance.scaleZ = 0.002f;
 	appearance.model = std::move(model);
 
-	return entityManager.createEntity(VelocityComponent(), PositionComponent(), DragComponent(5.f), EnemyComponent(), appearance);
-
+	return entityManager.createEntity(
+		VelocityComponent(), 
+		PositionComponent(), 
+		DragComponent(5.f), 
+		EnemyComponent(), 
+		BoundingBoxComponent(0.3, 0.3),
+		appearance);
 }
 
 int EntityFactory::createResourcePoint(EntityManager & entityManager)
@@ -85,7 +94,7 @@ int EntityFactory::createTower(EntityManager & entityManager)
 	appearance.scaleY = 0.005f;
 	appearance.scaleZ = 0.005f;
 	appearance.model = std::move(model);
-	return entityManager.createEntity(PositionComponent(), appearance);
+	return entityManager.createEntity(PositionComponent(), appearance, BoundingBoxComponent(1.0, 1.0));
 }
 
 int EntityFactory::createWall(EntityManager & entityManager)
@@ -99,7 +108,7 @@ int EntityFactory::createWall(EntityManager & entityManager)
 	appearance.scaleZ = 0.005f;
 	appearance.model = std::move(model);
 
-	return entityManager.createEntity(PositionComponent(), appearance);
+	return entityManager.createEntity(PositionComponent(), appearance, BoundingBoxComponent(1.0, 1.0));
 }
 
 int EntityFactory::createMine(EntityManager & entityManager)

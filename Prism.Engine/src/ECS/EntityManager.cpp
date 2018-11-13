@@ -101,6 +101,7 @@ namespace ECS {
 	bool EntityManager::hasComponent(unsigned int entityId, std::type_index componentType) const
 	{
 
+
 		auto entities = getAllEntitiesWithComponent(componentType);
 		bool found = false;
 

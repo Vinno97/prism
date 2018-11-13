@@ -4,6 +4,7 @@
 
 using namespace ECS;
 using namespace ECS::Components;
+using namespace ECS::Systems;
 
 /// <summary>
 /// creates new PrismGame object
@@ -23,6 +24,9 @@ void PrismGame::onInit(Context & context)
 		auto position = entityManager.getComponent<PositionComponent>(entity);
 		position->y = -1;
 		position->x = i;
+		if (entityManager.hasComponent<VelocityComponent>(entity)) {
+			std::cout << "what???????????????????";
+		}
 	}
 
 	auto positions{ entityManager.getAllEntitiesWithComponent<PositionComponent>()};
@@ -53,6 +57,8 @@ void PrismGame::registerSystems(Context &context)
 	RestockResourceSystem restockSystem = RestockResourceSystem(entityManager);
 	AnimationSystem animationSystem = AnimationSystem(entityManager);
 	ShootingSystem shootingSystem = ShootingSystem(entityManager);
+	CollisionSystem collisionSystem = CollisionSystem(entityManager,context.window->width,context.window->height,0,0,2);
+
 	
 	systemManager.registerSystem(motionSystem);
 	systemManager.registerSystem(renderSystem);
@@ -60,12 +66,14 @@ void PrismGame::registerSystems(Context &context)
 	systemManager.registerSystem(restockSystem);
 	systemManager.registerSystem(animationSystem);
 	systemManager.registerSystem(shootingSystem);
+	systemManager.registerSystem(collisionSystem);
 }
 
 void PrismGame::onUpdate(Context &context)
 {
 	auto inputSystem = systemManager.getSystem<KeyboardInputSystem>();
 	auto motionSystem = systemManager.getSystem<MotionSystem>();
+	auto collisionSystem = systemManager.getSystem<CollisionSystem>();
 	auto renderSystem = systemManager.getSystem<RenderSystem>();
 	auto restockSystem = systemManager.getSystem<RestockResourceSystem>();
 	auto animationSystem = systemManager.getSystem<AnimationSystem>();
@@ -74,6 +82,7 @@ void PrismGame::onUpdate(Context &context)
 	inputSystem->update(context);
 	restockSystem->update(context);
 	motionSystem->update(context);
+	collisionSystem->update(context);
 	animationSystem->update(context);
 	renderSystem->update(context);
 	shootingSystem->update(context);
