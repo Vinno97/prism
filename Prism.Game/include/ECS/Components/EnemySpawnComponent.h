@@ -6,9 +6,10 @@ namespace ECS {
 	namespace Components {
 		struct EnemySpawnComponent : Component {
 			EnemySpawnComponent() = default;
-			EnemySpawnComponent(int interval) : spawnInterval{ interval } {};
+			EnemySpawnComponent(float interval) : spawnInterval{ interval } {};
 
-			int spawnInterval = 0; // Spawn a new enemy when this time has passed (in seconds)
+			float spawnInterval = 10; // Spawn a new enemy when this time has passed (in seconds)
+			float timeSinceLastSpawn = 0;
 
 			Component* Clone() override {
 				return new EnemySpawnComponent{ spawnInterval };

@@ -1,6 +1,14 @@
 #include "PrismGame.h"
 #include "Math/Vector3f.h"
 
+#include "ECS/Systems/MotionSystem.h"
+#include "ECS/Systems/RenderSystem.h"
+#include "ECS/Systems/KeyboardInputSystem.h"
+#include "ECS/Systems/RestockResourceSystem.h"
+#include "ECS/Systems/AnimationSystem.h"
+
+#include "World/TerrainGenerator.h"
+
 using namespace ECS;
 using namespace ECS::Components;
 
@@ -11,11 +19,12 @@ PrismGame::PrismGame()
 = default;
 
 void PrismGame::onInit(Context & context)
-{
+{	
 	auto player = entityFactory.createPlayer(entityManager);
 	auto resourcePoint = entityFactory.createResourcePoint(entityManager);
 	auto enemy = entityFactory.createEnemy(entityManager);
 	auto scene = entityFactory.createScene(entityManager);
+	auto floor = entityFactory.createFloor(entityManager);
 	auto spawn = entityFactory.createEnemySpawn(entityManager);
 
 	for (int i = -4; i < 4; i++) {
@@ -34,8 +43,8 @@ void PrismGame::onInit(Context & context)
 	auto sceneComponent = entityManager.getComponent<SceneComponent>(scene);
 
 	sceneComponent->scene.ambientLightColor = Math::Vector3f{ 1.0f, 1.0f, 1.0f };
-	sceneComponent->scene.ambientLightStrength = 0.65f;
-	sceneComponent->scene.sun.color = Math::Vector3f{ .30f, .30f, .30f };
+	sceneComponent->scene.ambientLightStrength = 0.95f;
+	sceneComponent->scene.sun.color = Math::Vector3f{ .20f, .20f, .20f };
 	sceneComponent->scene.sun.direction = Math::Vector3f{ 25.f, 150.0f, 100.0f };
 //
 	registerSystems(context);
