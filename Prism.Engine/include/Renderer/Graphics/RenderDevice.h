@@ -73,6 +73,13 @@ namespace Renderer {
 			/// <param name="offset">Offset of the drawing call</param>
 			/// <param name="count">Amount of indices that are going to be drawn</param>
 			virtual void DrawTrianglesIndexed(long offset, int count) const = 0;
+
+			/// <summary>
+			/// Draw the currently bound VBO's
+			/// </summary>
+			/// <param name="offset">Offset of the drawing call</param>
+			/// <param name="count">Amount of vertices that are going to be drawn</param>
+			virtual void DrawTriangles(long offset, int count) const = 0;
 		};
 	}
 }

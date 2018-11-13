@@ -84,6 +84,10 @@ namespace Renderer {
 			{
 				glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, reinterpret_cast<const void *>(offset));
 			}
+			void OGLRenderDevice::DrawTriangles(long offset, int count) const
+			{
+				glDrawArrays(GL_TRIANGLES, 0, count);
+			}
 		}
 	}
 }
