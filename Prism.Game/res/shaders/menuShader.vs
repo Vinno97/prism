@@ -7,5 +7,4 @@ uniform mat4 model;
 void main()
 {
     gl_Position = view * model * vec4(aPos.x, aPos.y, 0.0, 1.0);
-	textureCoords = vec2((aPos.x+1.0)/2.0, 1 - (position.y+1.0/2.0)
 }
