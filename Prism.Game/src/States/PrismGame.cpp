@@ -18,6 +18,7 @@ namespace States {
 		auto resourcePoint = entityFactory.createResourcePoint(entityManager);
 		auto enemy = entityFactory.createEnemy(entityManager);
 		auto scene = entityFactory.createScene(entityManager);
+		auto floor = entityFactory.createFloor(entityManager);
 
 		for (int i = -4; i < 4; i++) {
 			auto entity = i % 2 == 0 ? entityFactory.createTower(entityManager) : entityFactory.createWall(entityManager);
