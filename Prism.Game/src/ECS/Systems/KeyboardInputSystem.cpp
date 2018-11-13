@@ -47,10 +47,14 @@ namespace ECS {
 				//TODO MOET WAARSCHIJNLIJK ANDERS
 				if (input->isMouseButtonPressed(Key::MOUSE_BUTTON_LEFT))
 				{
-					auto test = entityManager->getComponent<PositionComponent>(entity.id);
+					auto position = entityManager->getComponent<PositionComponent>(entity.id);
 					std::vector<int> pos = input->GetMousePoisiton();
-					test->x = (pos[0] - context.window->width / 2.0)*0.005;
-					test->y = (pos[1] - context.window->height / 2.0)*0.005;
+					float x = (pos[0] - context.window->width / 2.0)*0.006;
+					float y = (pos[1] - context.window->height / 2.0)*0.006;
+					velocity->dx = -1 * (position->x - x);
+					velocity->dy = -1 * (position->y - y);
+					//position->x = x;
+					//position->y = y;
 				}
 
 
