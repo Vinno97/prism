@@ -9,6 +9,9 @@
 #include "Renderer/Graphics/VertexBuffer.h"
 #include "Util/FileReader.h"
 
+#include <random>
+#include <functional>
+
 using namespace std;
 using namespace Renderer;
 using namespace Renderer::Graphics;
@@ -38,22 +41,22 @@ namespace Menu {
 	}
 	void MenuRenderer::renderMenu(Menu& menu)
 	{
-		//menuPipeline->run();
-		//menuPipeline->setUniformMatrix4f("view", projection);
-		for (auto& control : menu.controls) {
-
-			//auto pos = control.position;
-			//glm::mat4 model = glm::mat4(1.0f);
-			//model = glm::translate(model, glm::vec3(pos.x, pos.y, 0.0f));
-			//model = glm::scale(model, glm::vec3(control.size.x, control.size.y, 1.0f));
-
-			//menuPipeline->setUniformMatrix4f("model", model);
-			//control.model.mesh->vertexArrayObject->bind();
-			//control.model.mesh->indexBuffer->bind();
-			//renderDevice->DrawTrianglesIndexed(0, control.model.mesh->indicesLength);
+		menuPipeline->run();
+		menuPipeline->setUniformMatrix4f("view", projection);
+		for (auto& control : menu.controls) 
+		{
+			auto pos = control.position;
+			glm::mat4 model = glm::mat4(1.0f);
+			model = glm::translate(model, glm::vec3(pos.x, pos.y, 0.0f));
+			model = glm::scale(model, glm::vec3(control.size.x, control.size.y, 1.0f));
 			
-			control.DrawTexture();
+			menuPipeline->setUniformMatrix4f("model", model);
+			control.model.mesh->vertexArrayObject->bind();
+			control.model.mesh->indexBuffer->bind();
+			renderDevice->DrawTrianglesIndexed(0, control.model.mesh->indicesLength);
+			//
+			//control.DrawTexture();
 		}
-		//menuPipeline->stop();
+		menuPipeline->stop();
 	}
 }

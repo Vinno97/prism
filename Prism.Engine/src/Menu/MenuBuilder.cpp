@@ -29,9 +29,9 @@ namespace Menu {
 		glEnd();
 	}
 
-	void MenuBuilder::addControl(float x, float y, float width, float height, SDL_Window *window)
+	void MenuBuilder::addControl(float x, float y, float width, float height, const char *path)
 	{
-		Control control{x, y, width, height, window};
+		Control control{x, y, width, height, path};
 		menu.controls.push_back(control);
 	}
 	Menu MenuBuilder::buildMenu()

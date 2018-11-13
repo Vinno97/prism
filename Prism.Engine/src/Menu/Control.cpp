@@ -15,39 +15,20 @@ using namespace Renderer::Graphics::OpenGL;
 using namespace Renderer::Graphics::Models;
 
 namespace Menu {
-	Control::Control(float x, float y, float width, float height, SDL_Window *window)
+	Control::Control(float x, float y, float width, float height, const char *path)
 	{
-		this->window = window;
-		this->renderer = SDL_CreateRenderer(this->window, -1, SDL_RENDERER_ACCELERATED);
-		this->texture = IMG_LoadTexture(renderer, "c:\\prism\\someimage.png");
-		/*GLuint TextureID = 0;
+		// Image is SDL_surface
+		this->surface = IMG_Load(path);
 
-		glGenTextures(1, &TextureID);
-		glBindTexture(GL_TEXTURE_2D, TextureID);
-		SDL_Renderer* renderer;
-		SDL_Surface* image = IMG_Load("yourimage.png");
-		Surface = SDL_CreateTextureFromSurface(renderer, image);
-		SDL_FreeSurface(image);
-
-		if (Surface == nullptr)
+		if (!surface)
 		{
-			std::string errorMessage = "error";
-			throw std::runtime_error(errorMessage);
+			std::cout << "Error Cannot load image";
 		}
 
-		int Mode = GL_RGB;
+		this->xPos = x;
+		this->yPos = y;
 
-		if (Surface->format->BytesPerPixel == 4) {
-			Mode = GL_RGBA;
-		}
-
-		glTexImage2D(GL_TEXTURE_2D, 0, Mode, Surface->w, Surface->h, 0, Mode, GL_UNSIGNED_BYTE, Surface->pixels);
-
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);*/
-
-
-		position = Math::Vector3f{ x, y, 0 };
+		position = Math::Vector3f{ this->xPos, this->yPos, 0 };
 		size = Math::Vector3f{width, height, 0};
 
 		RenderDevice* renderDevice = OGLRenderDevice::getRenderDevice();
@@ -82,36 +63,58 @@ namespace Menu {
 		model = Model{ mesh };
 	}
 
-	void Control::UpdateTexture(const char *path)
-	{
-		//Surface = IMG_Load(path);
-	}
-	//menuBuilder.addControl(20, 865, 300, 75);
-
 	void Control::DrawTexture()
 	{
-		SDL_Rect texture_rect;
-		texture_rect.x = 0;  //the x coordinate
-		texture_rect.y = 0; // the y coordinate
-		texture_rect.w = 50; //the width of the texture
-		texture_rect.h = 50; //the height of the texture
+		glPushMatrix(); //Start phase
 
-		SDL_RenderCopy(this->renderer, this->texture, NULL, &texture_rect);
-
-		SDL_RenderPresent(this->renderer); //updates the renderer
+		glOrtho(0, 720, 480, 0, -1, 1); //Set the matrix
 
 
-		// For Ortho mode, of course
-		//int X = 20;
-		//int Y = 865;
-		//int Width = 300;
-		//int Height = 75;
+		GLuint mTextureWidth = this->surface->w;
+		GLuint mTextureHeight = this->surface->h;
 
-		//glBegin(GL_QUADS);
-		//	glTexCoord2f(0, 0); glVertex3f(X, Y, 0);
-		//	glTexCoord2f(1, 0); glVertex3f(X + Width, Y, 0);
-		//	glTexCoord2f(1, 1); glVertex3f(X + Width, Y + Height, 0);
-		//	glTexCoord2f(0, 1); glVertex3f(X, Y + Height, 0);
-		//glEnd();
+		glEnable(GL_TEXTURE_2D);
+
+		//glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+		GLuint textures;
+		glGenTextures(1, &textures); //Number of textures stored in array name specified
+
+		glBindTexture(GL_TEXTURE_2D, textures);
+
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+		// Map the surface to the texture in video memory
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, this->surface->w, this->surface->h, 0, GL_RGB, GL_UNSIGNED_BYTE, surface->pixels); //GL_BITMAP
+		//SDL_FreeSurface(image);
+
+
+		glBindTexture(GL_TEXTURE_2D, textures);
+
+		//Render texture quad
+		glBegin(GL_QUADS);
+			glTexCoord2f(0.f, 0.f); glVertex2f(this->xPos, this->yPos); //Bottom left
+			glTexCoord2f(1.f, 0.f); glVertex2f(this->xPos + this->surface->w, this->yPos); //Bottom right
+			glTexCoord2f(1.f, 1.f); glVertex2f(this->xPos + this->surface->w, this->yPos + this->surface->h); //Top right
+			glTexCoord2f(0.f, 1.f); glVertex2f(this->xPos, this->yPos + this->surface->h); //Top left
+		glEnd();
+
+		glDisable(GL_TEXTURE_2D);
+
+
+		glPopMatrix(); //End rendering phase
+	}
+
+	void Control::UpdateTexture(const char *path)
+	{
+		this->surface = IMG_Load(path);
+
+		if (!surface)
+		{
+			std::cout << "Error Cannot load image";
+		}
+
 	}
 }

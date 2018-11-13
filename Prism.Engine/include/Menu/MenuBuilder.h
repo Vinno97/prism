@@ -8,7 +8,7 @@ namespace Menu {
 	public:
 		MenuBuilder();
 		void DrawInGameOverlay(int screenWidth, int screenHeight);
-		void addControl(float x, float y, float width, float height, SDL_Window *window);
+		void addControl(float x, float y, float width, float height, const char *path);
 		Menu buildMenu();
 	private:
 		Menu menu;
