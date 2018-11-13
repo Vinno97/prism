@@ -120,12 +120,12 @@ int EntityFactory::createScene(EntityManager & entityManager) {
 int EntityFactory::createEnemySpawn(ECS::EntityManager & entityManager)
 {
 	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
-	auto model = ml.loadModel("./res/tower-cross.obj");
+	auto model = ml.loadModel("./res/spawner.obj");
 
 	AppearanceComponent appearance;
-	appearance.scaleX = 0.005f;
-	appearance.scaleY = 0.005f;
-	appearance.scaleZ = 0.005f;
+	appearance.scaleX = 0.15f;
+	appearance.scaleY = 0.15f;
+	appearance.scaleZ = 0.15f;
 	appearance.model = std::move(model);
 	return entityManager.createEntity(PositionComponent(), EnemySpawnComponent(), appearance);
 }
