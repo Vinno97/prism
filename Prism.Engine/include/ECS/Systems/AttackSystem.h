@@ -17,6 +17,11 @@ namespace ECS {
 			~AttackSystem();
 			void update(Context context) override;
 			System* clone() override;
+
+			///<summary>
+			/// Method to update the entity when collision is detected
+			///<param name="id">The ID of the Entity to update
+			///</summary>
 			void updateEntity(int id);
 		private:
 			QuadTree quadTree;
