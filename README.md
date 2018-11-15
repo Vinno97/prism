@@ -18,12 +18,12 @@ $ ./Prism.Game
 </p>
 <h4>Fixes for known errors</h4>
 <p>
-```terminal
+```
 [dependency name] is not installed.
 ```
 Follow terminal instructions. Probably just a sudo apt-get.
 <br>
-```terminal
+```
 Could not open OpenGL - glxbadfbconfig.
 ```
 <br>Go to Software & Updates.
