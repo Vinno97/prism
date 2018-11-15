@@ -5,7 +5,7 @@
 <h4>Basic installation</h4>
 <p>
 
-Clone the repository
+Clone the repository, open a terminal and follow the instructions below.
 ```terminal
 $ sudo apt-get cmake
 $ sudo apt install libsdl2-dev libsdl2-image-dev libassimp-dev libglew-dev 
@@ -18,10 +18,14 @@ $ ./Prism.Game
 </p>
 <h4>Fixes for known errors</h4>
 <p>
-<strong>[dependency name] is not installed.</strong>
-<br>Follow terminal instructions. Probably just a sudo apt-get.
+```terminal
+[dependency name] is not installed.
+```
+Follow terminal instructions. Probably just a sudo apt-get.
 <br>
-<br><strong>Could not open OpenGL - glxbadfbconfig</strong>
+```terminal
+Could not open OpenGL - glxbadfbconfig.
+```
 <br>Go to Software & Updates.
 <br>Go to Additional Drivers tab.
 <br>Press 'Using Nvidia driver Metapackage'.
