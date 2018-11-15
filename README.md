@@ -4,14 +4,17 @@
 <h3>Unix</h3>
 <h4>Basic installation</h4>
 <p>
-1. Clone the repository
-<br>2. $ sudo apt-get cmake
-<br>3. $ sudo apt install libsdl2-dev libsdl2-image-dev libassimp-dev libglew-dev 
-<br>4. $ cd "projectfolder" 
-<br>5. $ cmake .
-<br>6. $ cmake --build .
-<br>7. $ cd out
-<br>8. $ ./Prism.Game
+
+Clone the repository
+```terminal
+$ sudo apt-get cmake
+$ sudo apt install libsdl2-dev libsdl2-image-dev libassimp-dev libglew-dev 
+$ cd "projectfolder" 
+$ cmake .
+$ cmake --build .
+$ cd out
+$ ./Prism.Game
+```
 </p>
 <h4>Fixes for known errors</h4>
 <p>
