@@ -7,7 +7,7 @@
 1. Clone the repository
 <br>2. $ sudo apt-get cmake
 <br>3. $ sudo apt install libsdl2-dev libsdl2-image-dev libassimp-dev libglew-dev 
-<br>4. $ cd \<projectfolder\> 
+<br>4. $ cd "projectfolder" 
 <br>5. $ cmake .
 <br>6. $ cmake --build .
 <br>7. $ cd out
