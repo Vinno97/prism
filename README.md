@@ -18,14 +18,10 @@ $ ./Prism.Game
 </p>
 <h4>Fixes for known errors</h4>
 <p>
-```terminal
-$ [dependency name] is not installed.
-```
-Follow terminal instructions. Probably just a sudo apt-get.
+<h3>[dependency name] is not installed.</h3>
+<br>Follow terminal instructions. Probably just a sudo apt-get.
 <br>
-```terminal
-$ Could not open OpenGL - glxbadfbconfig.
-```
+<h3>Could not open OpenGL - glxbadfbconfig.</h3>
 <br>Go to Software & Updates.
 <br>Go to Additional Drivers tab.
 <br>Press 'Using Nvidia driver Metapackage'.
