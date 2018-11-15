@@ -5,25 +5,25 @@
 <h4>Basic installation</h4>
 <p>
 1. Clone the repository
-2. $ sudo apt-get cmake
-3. $ sudo apt install libsdl2-dev libsdl2-image-dev libassimp-dev libglew-dev 
-4. $ cd \<projectfolder\> 
-5. $ cmake .
-6. $ cmake --build .
-7. $ cd out
-8. $ ./Prism.Game
+<br>2. $ sudo apt-get cmake
+<br>3. $ sudo apt install libsdl2-dev libsdl2-image-dev libassimp-dev libglew-dev 
+<br>4. $ cd \<projectfolder\> 
+<br>5. $ cmake .
+<br>6. $ cmake --build .
+<br>7. $ cd out
+<br>8. $ ./Prism.Game
 </p>
 <h4>Fixes for known errors</h4>
 <p>
 <strong>[dependency name] is not installed.</strong>
-Follow terminal instructions. Probably just a sudo apt-get.
+<br>Follow terminal instructions. Probably just a sudo apt-get.
+<br>
+<br><strong>Could not open OpenGL - glxbadfbconfig</strong>
+<br>Go to Software & Updates.
+<br>Go to Additional Drivers tab.
+<br>Press 'Using Nvidia driver Metapackage'.
+<br>Reboot.
 
-<strong>Could not open OpenGL - glxbadfbconfig</strong>
-Go to Software & Updates.
-Go to Additional Drivers tab.
-Press 'Using Nvidia driver Metapackage'.
-Reboot.
-
-Still doesn't work?
-Disable Secure Boot in BIOS.
+<br>Still doesn't work?
+<br>Disable Secure Boot in BIOS.
 </p>
