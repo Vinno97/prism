@@ -18,6 +18,9 @@
 #include "ECS/Systems/KeyboardInputSystem.h"
 #include "ECS/Systems/RestockResourceSystem.h"
 #include "ECS/Systems/AnimationSystem.h"
+#include "ECS/Systems/CollisionSystem.h"
+#include "ECS/Systems/MousePointSystem.h"
+#include "ECS/Systems/BumbSystem.h"
 
 namespace States {
 	class PrismGame : public Game
@@ -29,13 +32,12 @@ namespace States {
 		void onEnter() override;
 		void onLeave() override;
 
-	private:
-		EntityManager entityManager;
-		SystemManager systemManager;
-		EntityFactory entityFactory;
+private:
+	ECS::EntityManager entityManager;
+	ECS::SystemManager systemManager;
+	EntityFactory entityFactory;
 
-		void registerSystems(Context &context);
-
-		bool canPressEscape;
+	void registerSystems(Context &context);
+	bool canPressEscape;
 	};
 }

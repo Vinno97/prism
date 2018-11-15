@@ -27,8 +27,8 @@ namespace Renderer {
 		/// </summary>
 		void rotate(float x, float y, float z);
 		~Camera();
-	private:
 		vec3 position;
 		vec3 rotation;
+	private:
 	};
 }

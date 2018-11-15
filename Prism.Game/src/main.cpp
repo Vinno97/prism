@@ -23,6 +23,8 @@
 #include "ECS/Components/KeyboardInputComponent.h"
 #include "ECS/Systems/KeyboardInputSystem.h"
 #include "ECS/Systems/MotionSystem.h"
+#include "Physics/BoundingBox.h"
+#include "Physics/QuadTree.h"
 #include "States/PrismGame.h"
 
 #define _CRTDBG_MAP_ALLOC
@@ -38,8 +40,8 @@ void start() {
 
 int main(int argc, char ** argv) {
 	//_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	
 	start();
-
 	_CrtDumpMemoryLeaks();
 	return 0;
 }

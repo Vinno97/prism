@@ -7,4 +7,5 @@ enum class Key {
 	KEY_Q,
 	KEY_E,
 	KEY_ESCAPE,
+	MOUSE_BUTTON_LEFT,
 };

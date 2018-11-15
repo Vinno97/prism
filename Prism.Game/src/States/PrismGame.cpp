@@ -18,6 +18,7 @@ namespace States {
 		auto resourcePoint = entityFactory.createResourcePoint(entityManager);
 		auto enemy = entityFactory.createEnemy(entityManager);
 		auto scene = entityFactory.createScene(entityManager);
+		auto camera = entityFactory.createCamera(entityManager);
 
 		for (int i = -4; i < 4; i++) {
 			auto entity = i % 2 == 0 ? entityFactory.createTower(entityManager) : entityFactory.createWall(entityManager);
@@ -55,12 +56,14 @@ namespace States {
 		KeyboardInputSystem inputSystem = KeyboardInputSystem(entityManager);
 		RestockResourceSystem restockSystem = RestockResourceSystem(entityManager);
 		AnimationSystem animationSystem = AnimationSystem(entityManager);
+		MousePointSystem pointSystem = MousePointSystem(entityManager);
 
 		systemManager.registerSystem(motionSystem);
 		systemManager.registerSystem(renderSystem);
 		systemManager.registerSystem(inputSystem);
 		systemManager.registerSystem(restockSystem);
 		systemManager.registerSystem(animationSystem);
+		systemManager.registerSystem(pointSystem);
 	}
 
 	void PrismGame::onUpdate(Context &context)
@@ -80,12 +83,14 @@ namespace States {
 		auto renderSystem = systemManager.getSystem<RenderSystem>();
 		auto restockSystem = systemManager.getSystem<RestockResourceSystem>();
 		auto animationSystem = systemManager.getSystem<AnimationSystem>();
+		auto pointSystem = systemManager.getSystem<MousePointSystem>();
 
 		inputSystem->update(context);
 		restockSystem->update(context);
 		motionSystem->update(context);
 		animationSystem->update(context);
 		renderSystem->update(context);
+		pointSystem->update(context);
 
 		for (auto &entity : entityManager.getAllEntitiesWithComponent<VelocityComponent>()) {
 			auto velocity = entity.component;

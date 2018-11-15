@@ -2,6 +2,7 @@
 #include "ECS/EntityManager.h"
 #include "ECS/Components/AppearanceComponent.h"
 #include "ECS/Components/SceneComponent.h"
+#include "ECS/Components/CameraComponent.h"
 #include "glm/glm.hpp"
 #include <tuple>
 #include "Renderer/Renderable.h"
@@ -17,8 +18,6 @@ namespace ECS {
 		RenderSystem::RenderSystem(EntityManager &entityManager, int windowWidth, int windowHeight)
 			: System(entityManager) {
 			forwardRenderer = std::make_shared<ForwardRenderer>(windowWidth, windowHeight);
-			camera.move(0, 2.f, 3.f);
-			camera.rotate(-35.f, 0.f, 0.f);
 		}
 
 		ECS::Systems::RenderSystem::~RenderSystem()
@@ -29,6 +28,7 @@ namespace ECS {
 			auto appearanceEntities = this->entityManager->getAllEntitiesWithComponent<AppearanceComponent>();
 			vector<Renderable> rendererData;
 			auto sceneEntity = this->entityManager->getAllEntitiesWithComponent<SceneComponent>()[0].component;
+			auto cameraEntity = this->entityManager->getAllEntitiesWithComponent<CameraComponent>()[0].component;
 
 			for (unsigned int i = 0; i < appearanceEntities.size(); i++)
 			{
@@ -55,7 +55,7 @@ namespace ECS {
 				rendererData.push_back(renderable);
 			}
 
-			forwardRenderer->draw(camera, rendererData, sceneEntity->scene);
+			forwardRenderer->draw(cameraEntity->camera, rendererData, sceneEntity->scene);
 		}
 
 		System * RenderSystem::clone()

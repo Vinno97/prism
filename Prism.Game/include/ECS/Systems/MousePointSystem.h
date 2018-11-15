@@ -13,6 +13,8 @@ namespace ECS {
 			~MousePointSystem();
 			void update(Context context) override;
 			System* clone() override;
+
+			int enemy;
 		};
 	}
 }

@@ -11,8 +11,12 @@
 #include "ECS/Components/AppearanceComponent.h"
 #include "ECS/Components/KeyboardInputComponent.h"
 #include "ECS/Components/ResourceSpawnComponent.h"
+#include "ECS/Components/BoundingBoxComponent.h"
+#include "ECS/Components/CameraComponent.h"
+#include "ECS/Components/MousePointerComponent.h"
 #include <World/TerrainGenerator.h>
 #include "Renderer/Graphics/Loader/ModelLoader.h"
+#include "Renderer/Camera.h"
 
 using namespace ECS;
 using namespace ECS::Components;
@@ -40,6 +44,7 @@ int EntityFactory::createPlayer(EntityManager& entityManager)
 		PositionComponent(),
 		DragComponent(5.f),
 		KeyboardInputComponent(),
+		BoundingBoxComponent(0.3, 0.3),
 		PlayerComponent()
 	);
 }
@@ -54,8 +59,13 @@ int EntityFactory::createEnemy(EntityManager& entityManager) {
 	appearance.scaleZ = 0.002f;
 	appearance.model = std::move(model);
 
-	return entityManager.createEntity(VelocityComponent(), PositionComponent(), DragComponent(5.f), EnemyComponent(), appearance);
-
+	return entityManager.createEntity(
+		VelocityComponent(), 
+		PositionComponent(), 
+		DragComponent(5.f), 
+		EnemyComponent(), 
+		BoundingBoxComponent(0.3, 0.3),
+		appearance);
 }
 
 int EntityFactory::createResourcePoint(EntityManager & entityManager)
@@ -83,7 +93,7 @@ int EntityFactory::createTower(EntityManager & entityManager)
 	appearance.scaleY = 0.005f;
 	appearance.scaleZ = 0.005f;
 	appearance.model = std::move(model);
-	return entityManager.createEntity(PositionComponent(), appearance);
+	return entityManager.createEntity(PositionComponent(), appearance, BoundingBoxComponent(1.0, 1.0));
 }
 
 int EntityFactory::createWall(EntityManager & entityManager)
@@ -97,7 +107,7 @@ int EntityFactory::createWall(EntityManager & entityManager)
 	appearance.scaleZ = 0.005f;
 	appearance.model = std::move(model);
 
-	return entityManager.createEntity(PositionComponent(), appearance);
+	return entityManager.createEntity(PositionComponent(), appearance, BoundingBoxComponent(1.0, 1.0));
 }
 
 int EntityFactory::createMine(EntityManager & entityManager)
@@ -136,6 +146,23 @@ int EntityFactory::createFloor(ECS::EntityManager & entityManager)
 	return entityManager.createEntity(positionComponent, appearance);
 }
 
+int EntityFactory::createCamera(ECS::EntityManager & entityManager)
+{
+	Renderer::Camera camera;
+
+	camera.move(0, 2.f, 3.f);
+	camera.rotate(-35.f, 0.f, 0.f);
+
+	CameraComponent component;
+	component.camera = camera;
+	return entityManager.createEntity(component);
+}
+
+int EntityFactory::createMousePointer(ECS::EntityManager & entityManager)
+{
+	MousePointerComponent component;;
+	return entityManager.createEntity(component, new PositionComponent());
+}
 
 
 EntityFactory::~EntityFactory()
