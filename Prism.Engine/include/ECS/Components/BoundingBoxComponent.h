@@ -1,5 +1,5 @@
 #pragma once
-#include "ECS/Components/Component.h"
+#include "Component.h"
 #include "Physics/BoundingBox.h"
 #include <vector>
 
@@ -25,3 +25,4 @@ namespace ECS {
 		};
 	}
 }
+

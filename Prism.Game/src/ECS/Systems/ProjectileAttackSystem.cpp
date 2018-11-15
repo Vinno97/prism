@@ -2,6 +2,7 @@
 #include "ECS/Components/ProjectileAttackComponent.h"
 #include "ECS/Components/BoundingBoxComponent.h"
 #include "ECS/Components/EnemyComponent.h"
+#include "ECS/Components/HealthComponent.h"
 
 namespace ECS {
 	namespace Systems {
@@ -26,10 +27,22 @@ namespace ECS {
 						for (auto enemy : entityManager->getAllEntitiesWithComponent<EnemyComponent>()) {
 							auto other = entityManager->getComponent<BoundingBoxComponent>(enemy.id);
 							if (std::addressof(*collider) == std::addressof(other->boundingBox)){
-								boundingBoxComponent->didCollide = false;
-								boundingBoxComponent->collidesWith.clear();
-								entityManager->removeEntity(entity.id);
-								entityManager->removeEntity(enemy.id);
+								if (entityManager->hasComponent<HealthComponent>(entity.id)) {
+									auto health = entityManager->getComponent<HealthComponent>(entity.id);
+									boundingBoxComponent->didCollide = false;
+									boundingBoxComponent->collidesWith.clear();
+									if (health->health <= 0) {
+										entityManager->removeEntity(entity.id);
+										
+									}
+								}
+								if (entityManager->hasComponent<HealthComponent>(enemy.id)) {
+									auto health = entityManager->getComponent<HealthComponent>(enemy.id);
+									if (health->health <= 0) {
+										
+										entityManager->removeEntity(enemy.id);
+									}
+								}
 							}
 						}
 						

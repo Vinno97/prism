@@ -100,8 +100,6 @@ namespace ECS {
 
 	bool EntityManager::hasComponent(unsigned int entityId, std::type_index componentType) const
 	{
-
-
 		auto entities = getAllEntitiesWithComponent(componentType);
 		bool found = false;
 
@@ -111,7 +109,6 @@ namespace ECS {
 			}
 		}
 		return found;
-		//return entityComponents.find(componentType) != entityComponents.end();
 	}
 
 	void EntityManager::removeComponentFromEntity(unsigned int entityId, std::type_index componentType)
@@ -140,6 +137,8 @@ namespace ECS {
 				++itr;
 			}
 		}
+
+		
 	}
 
 	EntityManager::EntityManager(const EntityManager& other)
@@ -164,6 +163,7 @@ namespace ECS {
 			auto const entities = entityComponents.at(componentType);
 
 			result.reserve(entities.size());
+
 			for (auto const& entry : entities) {
 				Entity<Component*> entity;
 				entity.id = entry.first;
@@ -171,13 +171,12 @@ namespace ECS {
 
 				result.push_back(entity);
 			}
-
+		
 			return result;
 		}
 		catch (const std::out_of_range&) {} // No entities found, returning an empty array.
 		return result;
 	}
-
 
 
 }

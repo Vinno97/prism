@@ -13,6 +13,7 @@ InputManager::InputManager() {
 	keyMap[Key::KEY_DOWN] = SDL_SCANCODE_DOWN;
 	keyMap[Key::KEY_LEFT] = SDL_SCANCODE_LEFT;
 	keyMap[Key::KEY_RIGHT] = SDL_SCANCODE_RIGHT;
+	keyMap[Key::KEY_ESCAPE] = SDL_SCANCODE_ESCAPE;
 }
 
 bool InputManager::isKeyPressed(Key key) const

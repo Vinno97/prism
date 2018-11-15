@@ -15,7 +15,9 @@
 #include "ECS/Components/BulletComponent.h"
 #include "ECS/Components/BoundingBoxComponent.h"
 #include "ECS/Components/ProjectileAttackComponent.h"
-
+#include <World/TerrainGenerator.h>
+#include "ECS/Components/BoundingBoxComponent.h"
+#include "ECS/Components/HealthComponent.h"
 
 #include "Renderer/Graphics/Loader/ModelLoader.h"
 
@@ -38,7 +40,7 @@ int EntityFactory::createPlayer(EntityManager& entityManager)
 	appearance.scaleY = 0.002f;
 	appearance.scaleZ = 0.002f;
 	appearance.model = std::move(model);
-
+	appearance.color = Math::Vector3f{ 1.0f, 0.5f, 0.5f };
 
 	return entityManager.createEntity(appearance,
 		VelocityComponent(),
@@ -47,6 +49,7 @@ int EntityFactory::createPlayer(EntityManager& entityManager)
 		KeyboardInputComponent(),
 		PlayerComponent(),
 		ShootingComponent(),
+		HealthComponent(100),
 		BoundingBoxComponent(0.3, 0.3)
 
 	);
@@ -64,12 +67,14 @@ int EntityFactory::createEnemy(EntityManager& entityManager) {
 
 	return entityManager.createEntity(
 		VelocityComponent(), 
+		HealthComponent(10),
 		PositionComponent(), 
 		DragComponent(5.f), 
-		EnemyComponent(), 
+		EnemyComponent(),
 		BoundingBoxComponent(0.3, 0.3),
 		appearance);
 }
+
 
 int EntityFactory::createResourcePoint(EntityManager & entityManager)
 {
@@ -81,6 +86,7 @@ int EntityFactory::createResourcePoint(EntityManager & entityManager)
 	appearance.scaleY = 0.002f;
 	appearance.scaleZ = 0.002f;
 	appearance.model = std::move(model);
+	appearance.color = Math::Vector3f{ 0.6f, 0.6f, 1.0f };
 	return entityManager.createEntity(PositionComponent(), ResourceSpawnComponent(), appearance);
 
 }
@@ -139,8 +145,32 @@ int EntityFactory::createProjectile(EntityManager & entityManager) {
 	appearance.scaleZ = 0.002f;
 	appearance.model = std::move(model);
 
-	return entityManager.createEntity(VelocityComponent(), PositionComponent(), BulletComponent(), BoundingBoxComponent(0.5,0.5), ProjectileAttackComponent(), appearance);
+	return entityManager.createEntity(
+		VelocityComponent(), 
+		PositionComponent(), 
+		BulletComponent(),
+		HealthComponent(15),
+		BoundingBoxComponent(0.5, 0.5), 
+		ProjectileAttackComponent(), appearance);
+}
 
+int EntityFactory::createFloor(ECS::EntityManager & entityManager)
+{
+	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
+	auto model = World::TerrainGenerator().generateTerrain(100, 100);
+
+	AppearanceComponent appearance;
+	appearance.translationX -= 6.25;
+	appearance.translationZ -= 6.25;
+
+	appearance.scaleX = 0.125;
+	appearance.scaleY = 0.125;
+	appearance.scaleZ = 0.125;
+
+	appearance.model = std::move(model);
+	appearance.color = Math::Vector3f{ 0.87f, 0.87f, 0.87f };
+	PositionComponent positionComponent;
+	return entityManager.createEntity(positionComponent, appearance);
 }
 
 

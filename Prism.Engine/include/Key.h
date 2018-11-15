@@ -10,4 +10,5 @@ enum class Key {
 	KEY_DOWN,
 	KEY_LEFT,
 	KEY_RIGHT,
+	KEY_ESCAPE,
 };

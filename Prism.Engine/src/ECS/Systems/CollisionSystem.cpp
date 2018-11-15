@@ -18,19 +18,19 @@ CollisionSystem::~CollisionSystem()
 
 void CollisionSystem::update(Context context)
 {
-	for (auto entity : entityManager->getAllEntitiesWithComponent<BoundingBoxComponent>())
+	for (auto entity : entityManager->getAllEntitiesWithComponent<ECS::Components::BoundingBoxComponent>())
 	{
 		if (entityManager->hasComponent<PositionComponent>(entity.id)) {
 			auto boundingBox = &entityManager->getComponent<BoundingBoxComponent>(entity.id)->boundingBox;
 			auto position = entityManager->getComponent<PositionComponent>(entity.id);
-
 			boundingBox->SetPosXY(position->x, position->y);
 			quadTree.Insert(*boundingBox);
 		}
 	}
 	
-	for (auto entity : entityManager->getAllEntitiesWithComponent<BoundingBoxComponent>())
+	for (auto entity : entityManager->getAllEntitiesWithComponent<ECS::Components::BoundingBoxComponent>())
 	{
+
 		if (entityManager->hasComponent<PositionComponent>(entity.id)) {
 			auto positionComponent = entityManager->getComponent<PositionComponent>(entity.id);
 			auto boundingBoxComponent = entityManager->getComponent<BoundingBoxComponent>(entity.id);
