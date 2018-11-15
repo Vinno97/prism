@@ -57,6 +57,17 @@ void BumpSystem::update(Context context)
 	}
 }
 
+int BumpSystem::AmountCollisions(BoundingBox &box1, BoundingBox &adress, std::vector<const BoundingBox*> &vector)
+{
+	int count = 0;
+	for (int i = 0; i < vector.size();i++) {
+		if (aabbCollider.CheckCollision(box1, *(vector[i]))) {
+			count++;
+		}
+	}
+	return count;
+}
+
 ECS::Systems::System* BumpSystem::clone()
 {
 	return new BumpSystem(*entityManager);

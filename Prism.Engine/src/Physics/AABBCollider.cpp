@@ -17,14 +17,3 @@ bool AABBCollider::CheckCollision(BoundingBox const &box1, BoundingBox const &bo
 
 	return vert < 0 && horz < 0;
 }
-
-int AABBCollider::AmountCollisions(BoundingBox &box1, BoundingBox &adress, std::vector<const BoundingBox*> &vector)
-{
-	int count = 0;
-	for (int i = 0; i < vector.size();i++) {
-		if (CheckCollision(box1, *(vector[i]))) {
-			count++;
-		}
-	}
-	return count;
-}
