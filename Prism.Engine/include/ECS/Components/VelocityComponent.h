@@ -17,6 +17,13 @@ namespace ECS {
 			///	The amount of delta Y in units/second
 			/// </summary>
 			double dy = 0;
+
+			Component* Clone() override { 
+				VelocityComponent* component = new VelocityComponent();
+				component->dx = dx;
+				component->dy = dy;
+				return component;
+			}
 		};
 	}
 }

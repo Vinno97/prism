@@ -19,19 +19,23 @@
 #include "ECS/Systems/RestockResourceSystem.h"
 #include "ECS/Systems/AnimationSystem.h"
 
-class PrismGame : public Game
-{
-public:
-	PrismGame();
-	void onInit(Context &context) override;
-	void onUpdate(Context &context) override;
-	void onEnter() override;
-	void onLeave() override;
+namespace States {
+	class PrismGame : public Game
+	{
+	public:
+		PrismGame();
+		void onInit(Context &context) override;
+		void onUpdate(Context &context) override;
+		void onEnter() override;
+		void onLeave() override;
 
-private:
-	EntityManager entityManager;
-	SystemManager systemManager;
-	EntityFactory entityFactory;
+	private:
+		EntityManager entityManager;
+		SystemManager systemManager;
+		EntityFactory entityFactory;
 
-	void registerSystems(Context &context);
-};
+		void registerSystems(Context &context);
+
+		bool canPressEscape;
+	};
+}

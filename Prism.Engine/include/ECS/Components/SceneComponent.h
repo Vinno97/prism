@@ -8,7 +8,7 @@ namespace ECS {
 		struct SceneComponent: Component {
 			Renderer::Scene scene;
 
-			Component* Clone() { 
+			Component* Clone() override { 
 				SceneComponent* component = new SceneComponent();
 				component->scene = scene;
 				return component;

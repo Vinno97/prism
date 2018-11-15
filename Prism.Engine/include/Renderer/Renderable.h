@@ -1,6 +1,7 @@
 #pragma once
 #include <glm/glm.hpp>
 #include <tuple>
+#include "Math/Vector3f.h"
 #include "Renderer/Graphics/Models/Model.h"
 
 using namespace Renderer::Graphics::Models;
@@ -19,5 +20,6 @@ public:
 	tuple<float, float, float> position;
 	tuple<float, float, float> rotation;
 	tuple<float, float, float> scale;
+	Math::Vector3f color;
 };
 
