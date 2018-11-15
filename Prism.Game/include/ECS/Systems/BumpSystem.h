@@ -7,10 +7,10 @@
 
 namespace ECS {
 	namespace Systems {
-		class BumbSystem : public System {
+		class BumpSystem : public System {
 		public:
-			BumbSystem(ECS::EntityManager &entityManager);
-			~BumbSystem();
+			BumpSystem(ECS::EntityManager &entityManager);
+			~BumpSystem();
 			void update(Context context) override;
 			System* clone() override;
 		private:
