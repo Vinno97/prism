@@ -147,7 +147,6 @@
     <ClInclude Include="include\ECS\Systems\RestockResourceSystem.h" />
     <ClInclude Include="include\States\PauseState.h" />
     <ClInclude Include="include\World\TerrainGenerator.h" />
-    <ClInclude Include="include\World\EntityConfigurators\ResourceSpawnConfigurator.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ECS\Systems\AnimationSystem.cpp" />
@@ -157,13 +156,12 @@
     <ClCompile Include="src\EntityFactory.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\States\PrismGame.cpp" />
-    <ClCompile Include="src\World\EntityAssemblers\PrismEntityAssembler.cpp" />
-    <ClCompile Include="src\World\EntityAssemblers\EnemyAssembler.cpp" />
-    <ClCompile Include="src\World\EntityAssemblers\PlayerAssembler.cpp" />
-    <ClCompile Include="src\World\EntityAssemblers\ResourceSpawnAssembler.cpp" />
-    <ClCompile Include="src\World\EntityAssemblers\TowerAssembler.cpp" />
-    <ClCompile Include="src\World\EntityConfigurators\ResourceSpawnConfigurator.cpp" />
-    <ClCompile Include="src\World\EntityAssemblers\WallAssembler.cpp" />
+    <ClCompile Include="src\World\Assemblers\PrismEntityAssembler.cpp" />
+    <ClCompile Include="src\World\Assemblers\EnemyAssembler.cpp" />
+    <ClCompile Include="src\World\Assemblers\PlayerAssembler.cpp" />
+    <ClCompile Include="src\World\Assemblers\ResourceSpawnAssembler.cpp" />
+    <ClCompile Include="src\World\Assemblers\TowerAssembler.cpp" />
+    <ClCompile Include="src\World\Assemblers\WallAssembler.cpp" />
     <ClCompile Include="src\World\TerrainGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>

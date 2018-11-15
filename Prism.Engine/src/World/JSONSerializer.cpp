@@ -47,22 +47,5 @@ void World::JSONSerializer::serialize(std::vector<WorldObject> worldObjects, std
 	j["layers"][0]["type"] = "objectgroup";
 	j["layers"][0]["objects"] = worldObjects;
 
-	//auto layers = j["layers"];
-	//for (const auto &layer : layers)
-	//{
-	//	if (layer["type"] == "objectgroup") {
-	//		for (const auto &object : layer["objects"])
-	//		{
-	//			WorldObject wo = object;
-	//			wo.x;
-	//			wo.y;
-	//			wo.width;
-	//			wo.height;
-
-	//			objects.push_back(wo);
-	//		}
-	//	}
-	//}
-
 	output << j;
 }

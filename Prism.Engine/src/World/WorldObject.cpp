@@ -35,11 +35,4 @@ namespace World {
 			}
 		}
 	}
-	void to_entitymanager(ECS::EntityManager & entityManager, const WorldObject & p)
-	{
-
-	}
-	void from_entitymanager(const ECS::EntityManager & entityManager, WorldObject & o)
-	{
-	}
 }

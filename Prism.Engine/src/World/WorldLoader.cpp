@@ -31,7 +31,6 @@ void World::LevelManager::save(const std::string& worldName, ECS::EntityManager 
 		entityAssembler->disassemble(entity, object, entityManager);
 		objects.push_back(object);
 	}
-	//std::ofstream output{ worldName };
 
 	std::stringstream output;
 	serializer->serialize(objects, output);
@@ -39,36 +38,3 @@ void World::LevelManager::save(const std::string& worldName, ECS::EntityManager 
 	output >> buffer;
 	Util::FileReader().saveStringIntoResource(worldName + ".json", buffer);
 }
-
-//void LevelManager::loadJson(std::ifstream input, EntityAssembler& entityAssembler)
-//{
-//	json j;
-//	input >> j;
-//
-//	int tileHeight = j["tileheight"];
-//	int tileWidth = j["tilewidth"];
-//
-//
-//
-//	auto layers = j["layers"];
-//	for (const auto &layer : layers)
-//	{
-//		if (layer["type"] == "objectgroup") {
-//			for (const auto &object : layer["objects"])
-//			{
-//				WorldObject p = object;
-//				p.x /= tileWidth;
-//				p.y /= tileHeight;
-//				p.width /= tileWidth;
-//				p.height /= tileHeight;
-//
-//				entityAssembler.assemble(p);
-//
-//				//json jb = p;
-//				//std::cout << jb << std::endl;
-//			}
-//		}
-//	}
-//
-//	std::cout << std::endl;
-//}

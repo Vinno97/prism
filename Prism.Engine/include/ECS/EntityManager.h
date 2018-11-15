@@ -149,14 +149,14 @@ namespace ECS {
 
 		template <typename F, typename... Fs>
 		int buildEntity(F &&f) {
-			//addComponentToEntity(lastEntityId, f);
+			addComponentToEntity(lastEntityId, f);
 			return buildEntity();
 		}
 
 		template <typename F, typename... Fs>
 		int buildEntity(F &&f, Fs &&... fs) {
 			int entity = buildEntity(std::forward<Fs>(fs)...);
-			//addComponentToEntity(entity, f);
+			addComponentToEntity(entity, f);
 			return entity;
 		}
 	};
