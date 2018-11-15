@@ -37,6 +37,7 @@
     <ClCompile Include="src\Physics\QuadTree.cpp" />
     <ClCompile Include="src\Math\Vector3f.cpp" />
     <ClCompile Include="src\ECS\Systems\CollisionSystem.cpp" />
+    <ClCompile Include="src\ECS\Systems\MousePointSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Renderer\Camera.h" />
@@ -95,6 +96,7 @@
     <ClInclude Include="include\ECS\Systems\CollisionSystem.h" />
     <ClInclude Include="include\ECS\Components\CameraComponent.h" />
     <ClInclude Include="include\ECS\Components\MousePointerComponent.h" />
+    <ClInclude Include="include\ECS\Systems\MousePointSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\glew32.lib" />

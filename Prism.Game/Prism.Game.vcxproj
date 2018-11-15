@@ -141,7 +141,6 @@
     <ClInclude Include="include\World\TerrainGenerator.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\ECS\MousePointSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\AnimationSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\BumbSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\RestockResourceSystem.cpp" />

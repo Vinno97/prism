@@ -3,14 +3,12 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include "Context.h"
-#include "EntityFactory.h"
 #include "ECS/Components/CameraComponent.h"
 
 namespace ECS {
 	namespace Systems {
 		MousePointSystem::MousePointSystem(EntityManager& entityManager) : System(entityManager) {
-			EntityFactory factory;
-			enemy = factory.createEnemy(entityManager);
+			
 		}
 
 		MousePointSystem::~MousePointSystem()
@@ -20,6 +18,8 @@ namespace ECS {
 			auto input = context.inputManager;
 
 			auto cameraEntity = this->entityManager->getAllEntitiesWithComponent<CameraComponent>()[0].component;
+
+			cameraEntity->camera;
 
 			if (input->isMouseButtonPressed(Key::MOUSE_BUTTON_LEFT))
 			{
@@ -37,23 +37,30 @@ namespace ECS {
 
 				glm::vec3 normal{ 0, 1, 0 };//Direction of plane
 
-				auto invertedCamera = glm::inverse(cameraEntity->camera.getCameraMatrix());
+				glm::mat4 matrix = cameraEntity->camera.getCameraMatrix();
+				auto invertedCamera = glm::inverse(matrix);
 				glm::vec3 ray_wor = invertedCamera * eye_coords; 
 				ray_wor = glm::normalize(ray_wor);
 
 		    	float denom = glm::dot(normal, ray_wor);
 				glm::vec3 ray_org = cameraEntity->camera.position;
+
+		
+
 		    	if (abs(denom) > 0.0001f) // your favorite epsilon
 		    	{						// this is the position of the plane
+					auto entities = entityManager->getAllEntitiesWithComponent<MousePointerComponent>();
+					if (entities.size() <= 0)
+						return;
+
+					auto mouseEntityID = entities[0];
 					float t = glm::dot((vec3(0, 0, 0) - ray_org), normal) / denom;
 					if (t >= 0) {
-						glm::vec3();
-
+						auto mousePosition3D = entityManager->getComponent<PositionComponent>(mouseEntityID.id);
 						glm::vec3 intersection = ray_org + (ray_wor * t);
 
-						auto position = entityManager->getComponent<PositionComponent>(enemy);
-						position->y = intersection.z;
-						position->x = intersection.x;
+						mousePosition3D->y = intersection.z;
+						mousePosition3D->x = intersection.x;
 					}
 		    	}
 			}

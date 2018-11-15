@@ -158,10 +158,9 @@ int EntityFactory::createCamera(ECS::EntityManager & entityManager)
 	return entityManager.createEntity(component);
 }
 
-int EntityFactory::createMousePointer(ECS::EntityManager & entityManager)
+int EntityFactory::createCameraPointer(ECS::EntityManager & entityManager)
 {
-	MousePointerComponent component;;
-	return entityManager.createEntity(component, new PositionComponent());
+	return entityManager.createEntity(MousePointerComponent(), PositionComponent());
 }
 
 

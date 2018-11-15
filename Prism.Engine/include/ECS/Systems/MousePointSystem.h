@@ -3,6 +3,7 @@
 
 #include "Context.h"
 #include "ECS/Systems/System.h"
+#include "ECS/Components/MousePointerComponent.h"
 
 namespace ECS {
 	namespace Systems {
@@ -14,7 +15,7 @@ namespace ECS {
 			void update(Context context) override;
 			System* clone() override;
 
-			int enemy;
+			int mouseEntityID;
 		};
 	}
 }
