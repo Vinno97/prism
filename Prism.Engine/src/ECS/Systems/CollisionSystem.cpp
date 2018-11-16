@@ -36,6 +36,9 @@ void CollisionSystem::update(Context context)
 			auto boundingBoxComponent = entityManager->getComponent<BoundingBoxComponent>(entity.id);
 			boundingBoxComponent->boundingBox.SetPosXY(positionComponent->x, positionComponent->y);
 
+			boundingBoxComponent->didCollide = false;
+			boundingBoxComponent->collidesWith.clear();
+
 			std::vector<Physics::BoundingBox const *> vector;
 			quadTree.RetrieveAll(vector,boundingBoxComponent->boundingBox);
 			for (int i = 0;i < vector.size();i++) {
