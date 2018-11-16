@@ -131,6 +131,7 @@
     <ClInclude Include="include\ECS\Systems\AnimationSystem.h" />
     <ClInclude Include="include\ECS\Components\PlayerComponent.h" />
     <ClInclude Include="include\ECS\Components\ResourceSpawnComponent.h" />
+    <ClInclude Include="include\ECS\Systems\PathFindingSystem.h" />
     <ClInclude Include="include\EntityFactory.h" />
     <ClInclude Include="include\States\PrismGame.h" />
     <ClInclude Include="include\ECS\Components\KeyboardInputComponent.h" />

@@ -98,5 +98,8 @@
     <ClInclude Include="include\States\PauseState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\ECS\Systems\PathFindingSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
