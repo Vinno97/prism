@@ -141,6 +141,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ECS\Systems\AnimationSystem.cpp" />
+    <ClCompile Include="src\ECS\Systems\PathFindingSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\RestockResourceSystem.cpp" />
     <ClCompile Include="src\States\PauseState.cpp" />
     <ClCompile Include="src\ECS\Systems\KeyboardInputSystem.cpp" />
