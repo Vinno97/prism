@@ -40,10 +40,10 @@ void PrismGame::onInit(Context & context)
 	context.stateMachine->addState(ps);
 }
 
-/// <summary>
-/// register systems in system manager
-/// </summary>
-/// <param name="context">The context that is needed to register the systems</param>
+	/// <summary>
+	/// register systems in system manager
+	/// </summary>
+	/// <param name="context">The context that is needed to register the systems</param>
 void PrismGame::registerSystems(Context &context)
 {
 	MotionSystem motionSystem = MotionSystem(entityManager);
@@ -51,12 +51,16 @@ void PrismGame::registerSystems(Context &context)
 	KeyboardInputSystem inputSystem = KeyboardInputSystem(entityManager);
 	RestockResourceSystem restockSystem = RestockResourceSystem(entityManager);
 	AnimationSystem animationSystem = AnimationSystem(entityManager);
+	CollisionSystem collisionSystem = CollisionSystem(entityManager, context.window->width, context.window->height, 0, 0, 2);
+	BumpSystem bumpSystem = BumpSystem(entityManager);
 
 	systemManager.registerSystem(motionSystem);
 	systemManager.registerSystem(renderSystem);
 	systemManager.registerSystem(inputSystem);
 	systemManager.registerSystem(restockSystem);
 	systemManager.registerSystem(animationSystem);
+	systemManager.registerSystem(collisionSystem);
+	systemManager.registerSystem(bumpSystem);
 }
 
 void PrismGame::onUpdate(Context &context)
@@ -77,12 +81,16 @@ void PrismGame::onUpdate(Context &context)
 	auto restockSystem = systemManager.getSystem<RestockResourceSystem>();
 	auto animationSystem = systemManager.getSystem<AnimationSystem>();
 
-	inputSystem->update(context);
-	restockSystem->update(context);
-	motionSystem->update(context);
-	animationSystem->update(context);
-	renderSystem->update(context);
+		auto collisionSystem = systemManager.getSystem<CollisionSystem>();
+		auto bumpSystem = systemManager.getSystem<BumpSystem>();
 
+		inputSystem->update(context);
+		restockSystem->update(context);
+		motionSystem->update(context);
+		collisionSystem->update(context);
+		bumpSystem->update(context);
+		animationSystem->update(context);
+		renderSystem->update(context);
 	for (auto &entity : entityManager.getAllEntitiesWithComponent<VelocityComponent>()) {
 		auto velocity = entity.component;
 		auto position = entityManager.getComponent<PositionComponent>(entity.id);

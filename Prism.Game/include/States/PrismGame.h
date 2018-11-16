@@ -18,6 +18,8 @@
 #include "ECS/Systems/KeyboardInputSystem.h"
 #include "ECS/Systems/RestockResourceSystem.h"
 #include "ECS/Systems/AnimationSystem.h"
+#include "ECS/Systems/BumpSystem.h"
+#include "ECS/Systems/CollisionSystem.h"
 
 namespace States {
 	class PrismGame : public Game
@@ -30,8 +32,8 @@ namespace States {
 		void onLeave() override;
 
 	private:
-		EntityManager entityManager;
-		SystemManager systemManager;
+		ECS::EntityManager entityManager;
+		ECS::SystemManager systemManager;
 		EntityFactory entityFactory;
 
 		void registerSystems(Context &context);

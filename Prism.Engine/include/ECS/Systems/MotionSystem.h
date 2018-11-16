@@ -15,7 +15,3 @@ namespace ECS {
 		};
 	}
 }
-
-using namespace ECS;
-using namespace ECS::Components;
-using namespace ECS::Systems;
