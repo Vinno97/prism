@@ -18,6 +18,8 @@
 #include "ECS/Systems/KeyboardInputSystem.h"
 #include "ECS/Systems/RestockResourceSystem.h"
 #include "ECS/Systems/AnimationSystem.h"
+#include "ECS/Systems/CollisionSystem.h"
+#include "ECS/Systems/AttackSystem.h"
 
 namespace States {
 	class PrismGame : public Game

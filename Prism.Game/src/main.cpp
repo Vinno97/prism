@@ -23,6 +23,8 @@
 #include "ECS/Components/KeyboardInputComponent.h"
 #include "ECS/Systems/KeyboardInputSystem.h"
 #include "ECS/Systems/MotionSystem.h"
+#include "Physics/BoundingBox.h"
+#include "Physics/QuadTree.h"
 #include "States/PrismGame.h"
 
 #define _CRTDBG_MAP_ALLOC
@@ -36,9 +38,25 @@ void start() {
 	ce.Run();
 }
 
+void test() {
+	QuadTree q = QuadTree(10, 10, 0, 0);
+	BoundingBox b1 = BoundingBox(2, 3, 3);
+	BoundingBox b2 = BoundingBox(2, 7, 3);
+	q.Insert(b1);
+	q.Insert(b2);
+	q.Insert(b1);
+	std::vector<BoundingBox const *> v;
+	q.Retrieve(v,b1);
+	q.Clear();
+	q.Insert(b1);
+}
+
 int main(int argc, char ** argv) {
 	//_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	start();
+	//test();
+	
+
 
 	_CrtDumpMemoryLeaks();
 	return 0;

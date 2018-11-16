@@ -12,6 +12,9 @@
 #include "ECS/Components/KeyboardInputComponent.h"
 #include "ECS/Components/ResourceSpawnComponent.h"
 #include <World/TerrainGenerator.h>
+#include "ECS/Components/BoundingBoxComponent.h"
+#include "ECS/Components/HealthComponent.h"
+
 #include "Renderer/Graphics/Loader/ModelLoader.h"
 
 using namespace ECS;
@@ -37,9 +40,11 @@ int EntityFactory::createPlayer(EntityManager& entityManager)
 
 	return entityManager.createEntity(appearance,
 		VelocityComponent(),
+		HealthComponent(),
 		PositionComponent(),
 		DragComponent(5.f),
 		KeyboardInputComponent(),
+		BoundingBoxComponent(0.2, 0.2),
 		PlayerComponent()
 	);
 }
@@ -54,9 +59,16 @@ int EntityFactory::createEnemy(EntityManager& entityManager) {
 	appearance.scaleZ = 0.002f;
 	appearance.model = std::move(model);
 
-	return entityManager.createEntity(VelocityComponent(), PositionComponent(), DragComponent(5.f), EnemyComponent(), appearance);
-
+	return entityManager.createEntity(
+		VelocityComponent(), 
+		HealthComponent(),
+		PositionComponent(), 
+		DragComponent(5.f), 
+		EnemyComponent(), 
+		BoundingBoxComponent(0.2, 0.2),
+		appearance);
 }
+
 
 int EntityFactory::createResourcePoint(EntityManager & entityManager)
 {

@@ -54,11 +54,13 @@ namespace States {
 		RenderSystem renderSystem = RenderSystem(entityManager, context.window->width, context.window->height);
 		KeyboardInputSystem inputSystem = KeyboardInputSystem(entityManager);
 		RestockResourceSystem restockSystem = RestockResourceSystem(entityManager);
+		AttackSystem attackSystem = AttackSystem(entityManager);
 		AnimationSystem animationSystem = AnimationSystem(entityManager);
 
 		systemManager.registerSystem(motionSystem);
 		systemManager.registerSystem(renderSystem);
 		systemManager.registerSystem(inputSystem);
+		systemManager.registerSystem(attackSystem);
 		systemManager.registerSystem(restockSystem);
 		systemManager.registerSystem(animationSystem);
 	}
@@ -77,12 +79,14 @@ namespace States {
 
 		auto inputSystem = systemManager.getSystem<KeyboardInputSystem>();
 		auto motionSystem = systemManager.getSystem<MotionSystem>();
+		auto attackSystem = systemManager.getSystem<AttackSystem>();
 		auto renderSystem = systemManager.getSystem<RenderSystem>();
 		auto restockSystem = systemManager.getSystem<RestockResourceSystem>();
 		auto animationSystem = systemManager.getSystem<AnimationSystem>();
 
 		inputSystem->update(context);
 		restockSystem->update(context);
+		attackSystem->update(context);
 		motionSystem->update(context);
 		animationSystem->update(context);
 		renderSystem->update(context);
@@ -90,7 +94,7 @@ namespace States {
 		for (auto &entity : entityManager.getAllEntitiesWithComponent<VelocityComponent>()) {
 			auto velocity = entity.component;
 			auto position = entityManager.getComponent<PositionComponent>(entity.id);
-			printf("Entity:\t\t%d \nPosition: \tX: %.2f, Y: %.2f\nVelocity:\tdX: %.2f, dY: %.2f\n\n", entity.id, position->x, position->y, velocity->dx, velocity->dy);
+			//printf("Entity:\t\t%d \nPosition: \tX: %.2f, Y: %.2f\nVelocity:\tdX: %.2f, dY: %.2f\n\n", entity.id, position->x, position->y, velocity->dx, velocity->dy);
 		}
 
 		context.window->swapScreen();
