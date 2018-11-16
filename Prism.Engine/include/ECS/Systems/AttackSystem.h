@@ -24,8 +24,8 @@ namespace ECS {
 			///</summary>
 			void updateEntity(int id);
 		private:
-			QuadTree quadTree;
-			AABBCollider aabbCollider;
+			Physics::QuadTree quadTree;
+			Physics::AABBCollider aabbCollider;
 		};
 	}
 }

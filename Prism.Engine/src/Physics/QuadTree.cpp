@@ -1,11 +1,16 @@
 #include "Physics/QuadTree.h"
+#include <iostream>
 
-
+using namespace Physics;
 
 QuadTree::QuadTree()
 = default;
 
-QuadTree::QuadTree(float width, float heigt, float x, float y)
+QuadTree::~QuadTree() {
+	Clear();
+}
+
+QuadTree::QuadTree(float width, float heigt, float x, float y, unsigned int maxObjects)
 {
 	float halfwidth = width / 2.0;
 	float halfHeigth = heigt / 2.0;
@@ -14,19 +19,74 @@ QuadTree::QuadTree(float width, float heigt, float x, float y)
 	nodes[1] = nullptr;
 	nodes[2] = nullptr;
 	nodes[3] = nullptr;
+	this->maxObjects = maxObjects;
 }
 
-
-QuadTree::~QuadTree()
+QuadTree::QuadTree(const QuadTree& other)
 {
-	Clear();
+	this->maxObjects = other.maxObjects;
+	this->objects = other.objects;
+	this->bounds = other.bounds;
+	if (other.nodes[0] != nullptr) {
+		for (int i = 0; i < 4;i++) {
+			nodes[i] = new QuadTree();
+			*nodes[i] = *other.nodes[i];
+		}
+	}
+}
+
+QuadTree & QuadTree::operator=(const QuadTree& other)
+{
+	if (this != &other) {
+		this->maxObjects = other.maxObjects;
+		this->objects = other.objects;
+		this->bounds = other.bounds;
+		if (other.nodes[0] != nullptr) {
+			for (int i = 0; i < 4;i++) {
+				nodes[i] = new QuadTree();
+				*nodes[i] = *other.nodes[i];
+			}
+		}
+		return *this;
+	}
+}
+
+QuadTree::QuadTree(QuadTree&& other)
+{
+	this->maxObjects = other.maxObjects;
+	other.maxObjects = 0;
+	this->objects = other.objects;
+	other.objects.clear();
+	this->bounds = other.bounds;
+	other.bounds = BoundingBox();
+	for (int i = 0; i < 4;i++) {
+		nodes[i] = other.nodes[i];
+		other.nodes[i] = nullptr;
+	}
+}
+
+QuadTree & QuadTree::operator=(QuadTree&& other)
+{
+	if (this != &other) {
+		this->maxObjects = other.maxObjects;
+		other.maxObjects = 0;
+		this->objects = other.objects;
+		other.objects.clear();
+		this->bounds = other.bounds;
+		other.bounds = BoundingBox();
+		for (int i = 0; i < 4;i++) {
+			nodes[i] = other.nodes[i];
+			other.nodes[i] = nullptr;
+		}
+	}
+	return *this;
 }
 
 void QuadTree::Clear()
 {
-	for (auto i = 0;i < 4; i++) {
-		if (nodes[i] != nullptr) {
-			objects.clear();
+	if (nodes[0] != nullptr) {
+		for (auto i = 0;i < 4; i++) {
+			delete nodes[i];
 			nodes[i] = nullptr;
 		}
 	}
@@ -44,11 +104,11 @@ void QuadTree::Split()
 	float north = halfHeight + bounds.GetPosY();
 	float south = (-1 * halfHeight) + bounds.GetPosY();
 
-	nodes[0] = &QuadTree(width, height, east, north);
-	nodes[1] = &QuadTree(width, height, east, south);
-	nodes[2] = &QuadTree(width, height, west, south);
-	nodes[3] = &QuadTree(width, height, west, north);
-
+	nodes[0] = new QuadTree(width, height, east, north, maxObjects);
+	nodes[1] = new QuadTree(width, height, east, south, maxObjects);
+	nodes[2] = new QuadTree(width, height, west, south, maxObjects);
+	nodes[3] = new QuadTree(width, height, west, north, maxObjects);
+	
 	for (auto it = objects.begin(); it != objects.end();) {
 		int index = GetIndex(*(*it));
 		if (index != -1) {
@@ -128,11 +188,30 @@ void QuadTree::Insert(BoundingBox const &newBox)
 	}
 }
 
-std::vector<BoundingBox const *> QuadTree::Retrieve(std::vector<BoundingBox const *> &vector,BoundingBox const &searchBox)
+/*
+std::vector<BoundingBox const *> QuadTree::RetrieveSelected(std::vector<BoundingBox const *> &vector, BoundingBox const &searchBox)
 {
 	int index = GetIndex(searchBox);
 	if (index != -1 && nodes[0] != nullptr) {
-		nodes[index]->Retrieve(vector,searchBox);
+		nodes[index]->RetrieveAll(vector, searchBox);
+	}
+	for (int i = 0; i < objects.size();i++) {
+		if (objects[i] != &searchBox) {
+			vector.push_back(objects[i]);
+			if (vector.size()>=3) {
+				std::cout << "what??????????????";
+			}
+		}
+	}
+	return vector;
+}
+*/
+
+std::vector<BoundingBox const *> QuadTree::RetrieveAll(std::vector<BoundingBox const *> &vector,BoundingBox const &searchBox)
+{
+	int index = GetIndex(searchBox);
+	if (index != -1 && nodes[0] != nullptr) {
+		nodes[index]->RetrieveAll(vector,searchBox);
 	}
 	vector.insert(vector.end(),objects.begin(), objects.end());
 	return vector;
@@ -141,4 +220,9 @@ std::vector<BoundingBox const *> QuadTree::Retrieve(std::vector<BoundingBox cons
 const BoundingBox QuadTree::GetBounds() const
 {
 	return bounds;
+}
+
+unsigned int QuadTree::GetMaxObject() const
+{
+	return maxObjects;
 }

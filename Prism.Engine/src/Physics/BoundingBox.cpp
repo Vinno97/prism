@@ -1,5 +1,6 @@
 #include "Physics/BoundingBox.h"
 
+using namespace Physics;
 
 BoundingBox::BoundingBox()
 = default;
