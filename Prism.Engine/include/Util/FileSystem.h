@@ -3,13 +3,13 @@
 #include <fstream>
 
 namespace Util {
-	class FileReader
+	class FileSystem
 	{
 	public:
-		FileReader() = default;
-		~FileReader() = default;
-		std::ifstream readResourceIntoStream(std::string path) const;
-		std::string readResourceFileIntoString(std::string path) const;
-		void saveStringIntoResource(std::string path, std::string data) const;
+		FileSystem() = default;
+		~FileSystem() = default;
+		std::ifstream readResourceIntoStream(const std::string &path) const;
+		std::string readResourceFileIntoString(const std::string &path) const;
+		void saveStringIntoResource(const std::string &path, const std::string &data) const;
 	};
 }
