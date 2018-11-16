@@ -24,7 +24,7 @@ namespace Renderer {
 	{
 		renderDevice = OGLRenderDevice::getRenderDevice();
 
-		Util::FileReader fileReader;
+		Util::FileSystem fileReader;
 		string vertexSource = fileReader.readResourceFileIntoString("/shaders/simpleGeometry.vs");
 		string fragmentSource = fileReader.readResourceFileIntoString("/shaders/simpleGeometry.fs");
 

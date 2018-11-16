@@ -3,7 +3,7 @@
   <ItemGroup>
     <ClCompile Include="src\Renderer\Camera.cpp" />
     <ClCompile Include="src\Renderer\Renderable.cpp" />
-    <ClCompile Include="src\Util\FileReader.cpp" />
+    <ClCompile Include="src\Util\FileSystem.cpp" />
     <ClCompile Include="src\Renderer\ForwardRenderer.cpp" />
     <ClCompile Include="src\MenuState.cpp" />
     <ClCompile Include="src\ECS\EntityManager.cpp" />
@@ -110,11 +110,10 @@
     <ClInclude Include="include\Util\FileSystem.h" />
   </ItemGroup>
   <ItemGroup>
-    <Library Include="lib\glew32.lib" />
-    <Library Include="lib\glew32s.lib" />
-    <Library Include="lib\assimp-vc140-mtd.lib" />
-    <Library Include="lib\SDL2.lib" />
-    <Library Include="lib\SDL2main.lib" />
-    <Library Include="lib\SDL2test.lib" />
+    <Library Include="lib\x64\SDL2test.lib" />
+    <Library Include="lib\x64\glew32.lib" />
+    <Library Include="lib\x64\SDL2.lib" />
+    <Library Include="lib\x64\SDL2main.lib" />
+    <Library Include="lib\x64\assimp-vc140-mtd.lib" />
   </ItemGroup>
 </Project>
