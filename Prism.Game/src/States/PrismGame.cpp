@@ -58,14 +58,12 @@ namespace States {
 		MotionSystem motionSystem = MotionSystem(entityManager);
 		RenderSystem renderSystem = RenderSystem(entityManager, context.window->width, context.window->height);
 		KeyboardInputSystem inputSystem = KeyboardInputSystem(entityManager);
-		RestockResourceSystem restockSystem = RestockResourceSystem(entityManager);
 		AnimationSystem animationSystem = AnimationSystem(entityManager);
 		ResourceGatherSystem resourceGatherSystem = ResourceGatherSystem(entityManager);
 
 		systemManager.registerSystem(motionSystem);
 		systemManager.registerSystem(renderSystem);
 		systemManager.registerSystem(inputSystem);
-		systemManager.registerSystem(restockSystem);
 		systemManager.registerSystem(animationSystem);
 		systemManager.registerSystem(resourceGatherSystem);
 	}
@@ -85,12 +83,10 @@ namespace States {
 		auto inputSystem = systemManager.getSystem<KeyboardInputSystem>();
 		auto motionSystem = systemManager.getSystem<MotionSystem>();
 		auto renderSystem = systemManager.getSystem<RenderSystem>();
-		auto restockSystem = systemManager.getSystem<RestockResourceSystem>();
 		auto animationSystem = systemManager.getSystem<AnimationSystem>();
 		auto resourceGatherSystem = systemManager.getSystem<ResourceGatherSystem>();
 
 		inputSystem->update(context);
-		restockSystem->update(context);
 		motionSystem->update(context);
 		animationSystem->update(context);
 		renderSystem->update(context);

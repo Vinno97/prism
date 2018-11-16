@@ -14,13 +14,13 @@ namespace ECS {
 		public:
 			ResourceGatherSystem(EntityManager &entityManager);
 			~ResourceGatherSystem();
-			void update(Context context) override;
+			void update(Context& context) override;
 			System* clone() override;
 		private:
 			int xMargin = 1;
 			int yMargin = 1;
 			bool shouldIncreaseResources(PositionComponent& playerPosition, PositionComponent& resourcePointPosition);
-			void increateResource(std::string resourceType, InventoryComponent& playerInventory, int gatherRate);
+			void increateResource(std::string resourceType, InventoryComponent& playerInventory, float gatherRate);
 		};
 	}
 }

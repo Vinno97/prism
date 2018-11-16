@@ -6,9 +6,9 @@ namespace ECS {
 	namespace Components {
 		struct InventoryComponent : Component {
 
-			int redResource = 0;
-			int greenResource = 0;
-			int blueResource = 0;
+			float redResource = 0;
+			float greenResource = 0;
+			float blueResource = 0;
 			Component* Clone() override {
 				auto temp = new InventoryComponent();
 				temp->blueResource = this->blueResource;

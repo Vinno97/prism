@@ -24,7 +24,7 @@ namespace ECS {
 		ECS::Systems::RenderSystem::~RenderSystem()
 			= default;
 
-		void RenderSystem::update(Context context)
+		void RenderSystem::update(Context& context)
 		{
 			auto appearanceEntities = this->entityManager->getAllEntitiesWithComponent<AppearanceComponent>();
 			vector<Renderable> rendererData;

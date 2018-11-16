@@ -13,10 +13,12 @@ namespace ECS {
 		ResourceGatherSystem::~ResourceGatherSystem()
 			= default;
 
-		void ResourceGatherSystem::update(Context context)
+		void ResourceGatherSystem::update(Context& context)
 		{
 			auto players = entityManager->getAllEntitiesWithComponent<PlayerComponent>();
 			auto resourcePoints = entityManager->getAllEntitiesWithComponent<ResourceSpawnComponent>();
+
+			
 
 			for (auto player : players) {
 				auto playerPosition = entityManager->getComponent<PositionComponent>(player.id);
@@ -29,7 +31,7 @@ namespace ECS {
 						
 						auto resource = entityManager->getComponent<ResourceSpawnComponent>(resourcePoint.id);
 						
-						increateResource(resource->resourceType, *playerInventory, resource->gatherRate);
+						increateResource(resource->resourceType, *playerInventory, (resource->gatherRate * context.deltaTime));
 					}
 				}
 			}
@@ -47,7 +49,7 @@ namespace ECS {
 			return false;
 		}
 
-		void ResourceGatherSystem::increateResource(std::string resourceType, InventoryComponent& playerInventory, int gatherRate)
+		void ResourceGatherSystem::increateResource(std::string resourceType, InventoryComponent& playerInventory, float gatherRate)
 		{
 			if (resourceType == "red") {
 				playerInventory.redResource += gatherRate;

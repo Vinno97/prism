@@ -15,7 +15,7 @@ ECS::Systems::MotionSystem::MotionSystem(EntityManager &entityManager) : System(
 ECS::Systems::MotionSystem::~MotionSystem()
 = default;
 
-void ECS::Systems::MotionSystem::update(Context context) {
+void ECS::Systems::MotionSystem::update(Context& context) {
 	for (auto entity : entityManager->getAllEntitiesWithComponent<VelocityComponent>()) {
 		auto velocity = entity.component;
 

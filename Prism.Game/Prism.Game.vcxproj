@@ -137,14 +137,12 @@
     <ClInclude Include="include\States\PrismGame.h" />
     <ClInclude Include="include\ECS\Components\KeyboardInputComponent.h" />
     <ClInclude Include="include\ECS\Systems\KeyboardInputSystem.h" />
-    <ClInclude Include="include\ECS\Systems\RestockResourceSystem.h" />
     <ClInclude Include="include\States\PauseState.h" />
     <ClInclude Include="include\World\TerrainGenerator.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ECS\Systems\AnimationSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\ResourceGatherSystem.cpp" />
-    <ClCompile Include="src\ECS\Systems\RestockResourceSystem.cpp" />
     <ClCompile Include="src\States\PauseState.cpp" />
     <ClCompile Include="src\ECS\Systems\KeyboardInputSystem.cpp" />
     <ClCompile Include="src\EntityFactory.cpp" />

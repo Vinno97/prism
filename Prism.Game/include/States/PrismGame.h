@@ -16,7 +16,6 @@
 #include "ECS/Systems/MotionSystem.h"
 #include "ECS/Systems/RenderSystem.h"
 #include "ECS/Systems/KeyboardInputSystem.h"
-#include "ECS/Systems/RestockResourceSystem.h"
 #include "ECS/Systems/AnimationSystem.h"
 #include "ECS/Systems/ResourceGatherSystem.h"
 
