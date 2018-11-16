@@ -15,9 +15,6 @@ namespace ECS {
 		KeyboardInputSystem::KeyboardInputSystem(EntityManager &entityManager) : System(entityManager) {
 		}
 
-
-
-
 		KeyboardInputSystem::~KeyboardInputSystem()
 			= default;
 
@@ -60,15 +57,6 @@ namespace ECS {
 					}
 				}
 
-				// Cheat option to increase health of the Player
-				if (entityManager->hasComponent<PlayerComponent>(entity.id)) {
-					auto healthComponent = entityManager->getComponent<HealthComponent>(entity.id);
-			
-					if (input->isKeyPressed(Key::KEY_H))
-					{
-						// healthComponent->increase();
-					}
-				}
 			}
 		}
 

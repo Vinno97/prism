@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\ECS\Systems\CheatSystem.h" />
     <ClInclude Include="include\ECS\Components\PlayerComponent.h" />
     <ClInclude Include="include\World\Assemblers\AppearanceAssembler.h" />
     <ClInclude Include="include\World\EntityConfigurators\AppearanceConfigurator.h" />
@@ -86,6 +87,7 @@
     <ClInclude Include="include\World\WorldLoader.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\ECS\Systems\CheatSystem.cpp" />
     <ClCompile Include="src\World\Assemblers\AppearanceAssembler.cpp" />
     <ClCompile Include="src\World\Assemblers\PositionAssembler.cpp" />
     <ClCompile Include="src\World\JSONSerializer.cpp" />

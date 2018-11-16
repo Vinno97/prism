@@ -45,6 +45,7 @@
     <ClCompile Include="src\World\Assemblers\EntityAssembler.cpp" />
     <ClCompile Include="src\ECS\Systems\CollisionSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\AttackSystem.cpp" />
+    <ClCompile Include="src\ECS\Systems\CheatSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Renderer\Camera.h" />
@@ -120,6 +121,7 @@
     <ClInclude Include="include\ECS\Systems\CollisionSystem.h" />
     <ClInclude Include="include\ECS\Systems\AttackSystem.h" />
     <ClInclude Include="include\ECS\Components\HealthComponent.h" />
+    <ClInclude Include="include\ECS\Systems\CheatSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\x64\SDL2test.lib" />
