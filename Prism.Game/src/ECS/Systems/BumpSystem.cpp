@@ -23,7 +23,7 @@ void BumpSystem::update(Context context)
 			const auto boundingBox = &boundingBoxComponent->boundingBox;
 			auto vector = &boundingBoxComponent->collidesWith;
 			
-			if (aabbCollider.AmountCollisions(*boundingBox, *boundingBox, *vector) > 0) {
+			if (AmountCollisions(*boundingBox, *boundingBox, *vector) > 0) {
 				const auto position = entityManager->getComponent<PositionComponent>(entity.id);
 				auto velocity = entityManager->getComponent<VelocityComponent>(entity.id);
 
@@ -35,11 +35,11 @@ void BumpSystem::update(Context context)
 				testBox1.SetPosXY(x -= velocity->dx*context.deltaTime, y);
 				testBox2.SetPosXY(x, y -= velocity->dy*context.deltaTime);
 
-				if (aabbCollider.AmountCollisions(testBox1, *boundingBox, *vector) == 0) {
+				if (AmountCollisions(testBox1, *boundingBox, *vector) == 0) {
 					position->x -= velocity->dx*context.deltaTime;
 					velocity->dx = 0;
 				}
-				else if (aabbCollider.AmountCollisions(testBox2, *boundingBox, *vector) == 0) {
+				else if (AmountCollisions(testBox2, *boundingBox, *vector) == 0) {
 					position->y -= velocity->dy*context.deltaTime;
 					velocity->dy = 0;
 				}
