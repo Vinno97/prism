@@ -10,7 +10,11 @@ namespace ECS {
 			int greenResource = 0;
 			int blueResource = 0;
 			Component* Clone() override {
-				return new InventoryComponent();
+				auto temp = new InventoryComponent();
+				temp->blueResource = this->blueResource;
+				temp->redResource = this->redResource;
+				temp->greenResource = this->greenResource;
+				return temp;
 			}
 		};
 	}
