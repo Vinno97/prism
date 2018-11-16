@@ -128,12 +128,21 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="include\ECS\Components\EnemyComponent.h" />
+    <ClInclude Include="include\ECS\Components\MineComponent.h" />
+    <ClInclude Include="include\ECS\Components\TowerComponent.h" />
+    <ClInclude Include="include\ECS\Components\WallComponent.h" />
     <ClInclude Include="include\ECS\Systems\AnimationSystem.h" />
-    <ClInclude Include="include\ECS\Components\PlayerComponent.h" />
     <ClInclude Include="include\ECS\Components\ResourceSpawnComponent.h" />
     <ClInclude Include="include\ECS\Systems\BumpSystem.h" />
     <ClInclude Include="include\EntityFactory.h" />
     <ClInclude Include="include\States\PrismGame.h" />
+    <ClInclude Include="include\World\Assemblers\EnemyAssembler.h" />
+    <ClInclude Include="include\World\Assemblers\PlayerAssembler.h" />
+    <ClInclude Include="include\World\Assemblers\ResourceSpawnAssembler.h" />
+    <ClInclude Include="include\World\Assemblers\TowerAssembler.h" />
+    <ClInclude Include="include\World\Assemblers\WallAssembler.h" />
+    <ClInclude Include="include\World\Assemblers\PrismEntityAssembler.h" />
+    <ClInclude Include="include\PrismGame.h" />
     <ClInclude Include="include\ECS\Components\KeyboardInputComponent.h" />
     <ClInclude Include="include\ECS\Systems\KeyboardInputSystem.h" />
     <ClInclude Include="include\ECS\Systems\RestockResourceSystem.h" />
@@ -149,6 +158,12 @@
     <ClCompile Include="src\EntityFactory.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\States\PrismGame.cpp" />
+    <ClCompile Include="src\World\Assemblers\PrismEntityAssembler.cpp" />
+    <ClCompile Include="src\World\Assemblers\EnemyAssembler.cpp" />
+    <ClCompile Include="src\World\Assemblers\PlayerAssembler.cpp" />
+    <ClCompile Include="src\World\Assemblers\ResourceSpawnAssembler.cpp" />
+    <ClCompile Include="src\World\Assemblers\TowerAssembler.cpp" />
+    <ClCompile Include="src\World\Assemblers\WallAssembler.cpp" />
     <ClCompile Include="src\World\TerrainGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -4,9 +4,9 @@
 
 namespace ECS {
 	namespace Components {
-		struct PlayerComponent : Component {
+		struct WallComponent : Component {
 			Component* Clone() override {
-				return new PlayerComponent();
+				return new WallComponent();
 			}
 		};
 	}
