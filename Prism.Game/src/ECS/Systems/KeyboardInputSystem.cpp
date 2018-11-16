@@ -65,7 +65,7 @@ namespace ECS {
 			
 					if (input->isKeyPressed(Key::KEY_H))
 					{
-						healthComponent->increase();
+						// healthComponent->increase();
 					}
 				}
 			}
