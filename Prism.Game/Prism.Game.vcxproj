@@ -130,10 +130,13 @@
     <ClInclude Include="include\ECS\Components\BulletComponent.h" />
     <ClInclude Include="include\ECS\Components\EnemyComponent.h" />
     <ClInclude Include="include\ECS\Components\ProjectileAttackComponent.h" />
+    <ClInclude Include="include\ECS\Systems\AimingSystem.h" />
     <ClInclude Include="include\ECS\Systems\AnimationSystem.h" />
     <ClInclude Include="include\ECS\Components\PlayerComponent.h" />
     <ClInclude Include="include\ECS\Components\ResourceSpawnComponent.h" />
+    <ClInclude Include="include\ECS\Systems\AttackSystem.h" />
     <ClInclude Include="include\ECS\Systems\ProjectileAttackSystem.h" />
+    <ClInclude Include="include\ECS\Systems\BumbSystem.h" />
     <ClInclude Include="include\EntityFactory.h" />
     <ClInclude Include="include\States\PrismGame.h" />
     <ClInclude Include="include\ECS\Components\KeyboardInputComponent.h" />
@@ -145,9 +148,12 @@
     <ClInclude Include="include\World\TerrainGenerator.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\ECS\Systems\AimingSystem.cpp" />
+    <ClCompile Include="src\ECS\Systems\AttackSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\ProjectileAttackSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\ShootingSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\AnimationSystem.cpp" />
+    <ClCompile Include="src\ECS\Systems\BumbSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\RestockResourceSystem.cpp" />
     <ClCompile Include="src\States\PauseState.cpp" />
     <ClCompile Include="src\ECS\Systems\KeyboardInputSystem.cpp" />

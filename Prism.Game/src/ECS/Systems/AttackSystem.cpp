@@ -6,6 +6,8 @@
 #include "ECS/Components/BoundingBoxComponent.h"
 #include "../../Prism.Game/include/ECS/Components/EnemyComponent.h"
 #include "../../Prism.Game/include/ECS/Components/PlayerComponent.h"
+#include "ECS/Components/BoundingBoxComponent.h"
+
 
 using namespace ECS;
 using namespace ECS::Components;
@@ -19,7 +21,8 @@ ECS::Systems::AttackSystem::~AttackSystem()
 void ECS::Systems::AttackSystem::update(Context context) {
 	for (auto entity : entityManager->getAllEntitiesWithComponent<BoundingBoxComponent>())
 	{
-		if (entityManager->hasComponent<PositionComponent>(entity.id) && (entityManager->hasComponent<HealthComponent>(entity.id))) {
+		if (entityManager->hasComponent<PositionComponent>(entity.id) 
+			&& (entityManager->hasComponent<HealthComponent>(entity.id))) {
 			auto boundingBox = &entityManager->getComponent<BoundingBoxComponent>(entity.id)->boundingBox;
 			auto Position = entityManager->getComponent<PositionComponent>(entity.id);
 
@@ -28,10 +31,11 @@ void ECS::Systems::AttackSystem::update(Context context) {
 		}
 	}
 
-	for (auto entity : entityManager->getAllEntitiesWithComponent<BoundingBoxComponent>())
+	for (auto entity : entityManager->getAllEntitiesWithComponent<EnemyComponent>())
 	{
 		if (entityManager->hasComponent<PositionComponent>(entity.id)
-			&& entityManager->hasComponent<HealthComponent>(entity.id)) {
+			&& entityManager->hasComponent<HealthComponent>(entity.id)
+			&& entityManager->hasComponent<BoundingBoxComponent>(entity.id)) {
 
 			auto boundingBox = &entityManager->getComponent<BoundingBoxComponent>(entity.id)->boundingBox;
 			auto Position = entityManager->getComponent<PositionComponent>(entity.id);
@@ -60,7 +64,7 @@ void ECS::Systems::AttackSystem::updateEntity(int id) {
 		auto currentComponent = entityManager->getComponent<HealthComponent>(id);
 		currentComponent->health -= 10;
 
-		if (currentComponent->health == 0) {
+		if (currentComponent->health >= 0) {
 
 			// Print (Remove after review)
 			std::cout << "Player is dead" << std::endl;

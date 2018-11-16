@@ -5,18 +5,16 @@
 
 namespace ECS {
 	namespace Systems {
-		class ShootingSystem : public System
+		class AimingSystem : public System
 		{
 		public:
-			ShootingSystem(EntityManager& entityManager);
-			~ShootingSystem();
+			AimingSystem(EntityManager& entityManager);
+			~AimingSystem();
 
 			void update(Context context) override;
 			System* clone() override;
 		private:
-			float pastTime = 0;
-			float cooldown = 0.2;
+
 		};
 	}
 }
-

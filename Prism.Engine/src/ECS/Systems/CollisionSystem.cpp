@@ -27,7 +27,7 @@ void CollisionSystem::update(Context context)
 			quadTree.Insert(*boundingBox);
 		}
 	}
-	
+
 	for (auto entity : entityManager->getAllEntitiesWithComponent<ECS::Components::BoundingBoxComponent>())
 	{
 
@@ -35,7 +35,8 @@ void CollisionSystem::update(Context context)
 			auto positionComponent = entityManager->getComponent<PositionComponent>(entity.id);
 			auto boundingBoxComponent = entityManager->getComponent<BoundingBoxComponent>(entity.id);
 			boundingBoxComponent->boundingBox.SetPosXY(positionComponent->x, positionComponent->y);
-
+			boundingBoxComponent->didCollide = false;
+			boundingBoxComponent->collidesWith.clear();
 			std::vector<Physics::BoundingBox const *> vector;
 			quadTree.RetrieveAll(vector,boundingBoxComponent->boundingBox);
 			for (int i = 0;i < vector.size();i++) {

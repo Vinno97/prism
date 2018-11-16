@@ -25,8 +25,8 @@ namespace ECS {
 					pastTime = 0;
 					int projectileId = ef.createProjectile(*entityManager);
 					auto position = entityManager->getComponent<PositionComponent>(projectileId);
-					position->x = entityManager->getComponent<PositionComponent>(entity.id)->x;
-					position->y = entityManager->getComponent<PositionComponent>(entity.id)->y;
+					position->x = entityManager->getComponent<PositionComponent>(entity.id)->x + (component->xdirection / 4);
+					position->y = entityManager->getComponent<PositionComponent>(entity.id)->y + (component->ydirection / 4);
 					auto velocity = entityManager->getComponent<VelocityComponent>(projectileId);
 					velocity->dx = component->xdirection * 5;
 					velocity->dy = component->ydirection * 5;

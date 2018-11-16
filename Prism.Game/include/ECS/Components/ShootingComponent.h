@@ -5,8 +5,8 @@
 namespace ECS {
 	namespace Components {
 		struct ShootingComponent : Component {
-			int xdirection;
-			int ydirection;
+			float xdirection;
+			float ydirection;
 			bool isShooting;
 
 			Component* Clone() override {

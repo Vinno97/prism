@@ -18,8 +18,11 @@
 #include <World/TerrainGenerator.h>
 #include "ECS/Components/BoundingBoxComponent.h"
 #include "ECS/Components/HealthComponent.h"
-
+#include "ECS/Components/CameraComponent.h"
+#include "ECS/Components/MousePointerComponent.h"
+#include <World/TerrainGenerator.h>
 #include "Renderer/Graphics/Loader/ModelLoader.h"
+#include "Renderer/Camera.h"
 
 using namespace ECS;
 using namespace ECS::Components;
@@ -173,6 +176,22 @@ int EntityFactory::createFloor(ECS::EntityManager & entityManager)
 	return entityManager.createEntity(positionComponent, appearance);
 }
 
+int EntityFactory::createCamera(ECS::EntityManager & entityManager)
+{
+	Renderer::Camera camera;
+
+	camera.move(0, 2.f, 3.f);
+	camera.rotate(-35.f, 0.f, 0.f);
+
+	CameraComponent component;
+	component.camera = camera;
+	return entityManager.createEntity(component);
+}
+
+int EntityFactory::createCameraPointer(ECS::EntityManager & entityManager)
+{
+	return entityManager.createEntity(MousePointerComponent(), PositionComponent());
+}
 
 
 EntityFactory::~EntityFactory()

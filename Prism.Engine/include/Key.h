@@ -11,4 +11,5 @@ enum class Key {
 	KEY_LEFT,
 	KEY_RIGHT,
 	KEY_ESCAPE,
+	MOUSE_BUTTON_LEFT,
 };
