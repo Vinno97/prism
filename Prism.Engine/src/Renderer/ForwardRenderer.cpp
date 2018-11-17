@@ -12,7 +12,7 @@
 #include "Renderer/Graphics/VertexBuffer.h"
 #include "Renderer/Graphics/Loader/ModelLoader.h"
 #include "Renderer/Graphics/Models/Model.h"
-#include "Util/FileReader.h"
+#include "Util/FileSystem.h"
 
 using namespace std;
 using namespace Renderer;
@@ -24,7 +24,7 @@ namespace Renderer {
 	{
 		renderDevice = OGLRenderDevice::getRenderDevice();
 
-		Util::FileReader fileReader;
+		Util::FileSystem fileReader;
 		string vertexSource = fileReader.readResourceFileIntoString("/shaders/simpleGeometry.vs");
 		string fragmentSource = fileReader.readResourceFileIntoString("/shaders/simpleGeometry.fs");
 

@@ -34,12 +34,13 @@ namespace ECS {
 						float x = playerPosition->x - enemyPosition->x;
 						float y = playerPosition->y - enemyPosition->y;
 
-						int dirX = (int)(x / std::abs(x));
-						int dirY = (int)(y / std::abs(y));
+						float dirX = x / std::abs(x);
+						float dirY = y / std::abs(y);
 
 						auto angle = std::abs(std::atan(y / x));
-						enemyVelocity->dx = enemySpeed * std::cos(angle) * dirX;
-						enemyVelocity->dy = enemySpeed * std::sin(angle) * dirY;
+						enemyVelocity->dx = enemySpeed * std::cos(angle) * dirX * context.deltaTime;
+						enemyVelocity->dy = enemySpeed * std::sin(angle) * dirY * context.deltaTime;
+						enemyVelocity->dx = enemySpeed * std::cos(angle) * dirX * context.deltaTime;
 					}
 				}
 			}

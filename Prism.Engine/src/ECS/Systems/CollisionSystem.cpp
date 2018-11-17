@@ -3,66 +3,53 @@
 #include "ECS/Components/VelocityComponent.h"
 #include "ECS/Components/PositionComponent.h"
 
-CollisionSystem::CollisionSystem(ECS::EntityManager &entityManager,float width, float height, float posX, float posY) : System(entityManager)
+using namespace ECS;
+using namespace ECS::Components;
+using namespace ECS::Systems;
+using namespace Physics;
+
+CollisionSystem::CollisionSystem(EntityManager &entityManager,float width, float height, float posX, float posY, unsigned int maxObject) : System(entityManager)
 {
-	quadTree = QuadTree(width, height, posX, posY);
+	quadTree = QuadTree(width, height, posX, posY, maxObject);
 }
 
 CollisionSystem::~CollisionSystem()
-{
-}
+= default;
 
 void CollisionSystem::update(Context context)
 {
 	for (auto entity : entityManager->getAllEntitiesWithComponent<ECS::Components::BoundingBoxComponent>())
 	{
-		if (entityManager->hasComponent<ECS::Components::PositionComponent>(entity.id)) {
-			auto boundingBox = entityManager->getComponent<ECS::Components::BoundingBoxComponent>(entity.id)->boundingBox;
-			auto Position = entityManager->getComponent<ECS::Components::PositionComponent>(entity.id);
+		if (entityManager->hasComponent<PositionComponent>(entity.id)) {
+			auto boundingBox = &entityManager->getComponent<BoundingBoxComponent>(entity.id)->boundingBox;
+			auto position = entityManager->getComponent<PositionComponent>(entity.id);
 
-			boundingBox.SetPosXY(Position->x, Position->y);
-			quadTree.Insert(boundingBox);
+			boundingBox->SetPosXY(position->x, position->y);
+			quadTree.Insert(*boundingBox);
 		}
 	}
 	
 	for (auto entity : entityManager->getAllEntitiesWithComponent<ECS::Components::BoundingBoxComponent>())
 	{
-		if (entityManager->hasComponent<ECS::Components::PositionComponent>(entity.id) 
-			&& entityManager->hasComponent<ECS::Components::VelocityComponent>(entity.id)) {
-			
-			auto boundingBox = entityManager->getComponent<ECS::Components::BoundingBoxComponent>(entity.id)->boundingBox;
-			auto Position = entityManager->getComponent<ECS::Components::PositionComponent>(entity.id);
-			auto Velocity = entityManager->getComponent<ECS::Components::VelocityComponent>(entity.id);
+		if (entityManager->hasComponent<PositionComponent>(entity.id)) {
+			auto positionComponent = entityManager->getComponent<PositionComponent>(entity.id);
+			auto boundingBoxComponent = entityManager->getComponent<BoundingBoxComponent>(entity.id);
+			boundingBoxComponent->boundingBox.SetPosXY(positionComponent->x, positionComponent->y);
 
-			boundingBox.SetPosXY(Position->x, Position->y);
-			std::vector<BoundingBox const *> vector;
-			quadTree.Retrieve(vector, boundingBox);
+			boundingBoxComponent->didCollide = false;
+			boundingBoxComponent->collidesWith.clear();
 
-
-			for (auto &otherBox : vector) {
-				if (otherBox != &boundingBox) {
-
-					BoundingBox testBox(boundingBox);
-					float x = boundingBox.GetPosX();
-					float y = boundingBox.GetPosY();
-
-					testBox.SetPosXY(x -= Velocity->dx*context.deltaTime, y);
-					if (!aabbCollider.CheckCollision(*otherBox, testBox) && aabbCollider.CheckCollision(*otherBox, boundingBox)) {
-						Position->x -= Velocity->dx*context.deltaTime;
-						Velocity->dx = 0;
-						boundingBox.SetPosXY(Position->x, y);
-					}
-
-					testBox.SetPosXY(x, y -= Velocity->dy*context.deltaTime);
-					if (!aabbCollider.CheckCollision(*otherBox, testBox) && aabbCollider.CheckCollision(*otherBox, boundingBox)) {
-						Position->y -= Velocity->dy*context.deltaTime;
-						Velocity->dy = 0;
-					}
+			std::vector<Physics::BoundingBox const *> vector;
+			quadTree.RetrieveAll(vector,boundingBoxComponent->boundingBox);
+			for (int i = 0;i < vector.size();i++) {
+				if (&boundingBoxComponent->boundingBox != vector[i] && aabbCollider.CheckCollision(boundingBoxComponent->boundingBox, *vector[i])) {
+					boundingBoxComponent->didCollide = true;
+					boundingBoxComponent->collidesWith.push_back(vector[i]);
 				}
 			}
 		}
-		quadTree.Clear();
 	}
+	quadTree.Clear();
 }
 
 ECS::Systems::System* CollisionSystem::clone()
@@ -71,5 +58,5 @@ ECS::Systems::System* CollisionSystem::clone()
 	float width = b.GetEast() - b.GetWest();
 	float height = b.GetNorth() - b.GetSouth();
 
-	return new CollisionSystem(*entityManager,width,height,b.GetPosX(),b.GetPosY());
+	return new CollisionSystem(*entityManager,width,height,b.GetPosX(),b.GetPosY(),quadTree.GetMaxObject());
 }

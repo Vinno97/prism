@@ -2,7 +2,7 @@
 #include <thread>
 #include "Context.h"
 #include "InputManager.h"
-
+#include <mutex>
 #include "ECS/Systems/KeyboardInputSystem.h"
 #include "ECS/Components/VelocityComponent.h"
 #include "ECS/Components/AppearanceComponent.h"
@@ -16,17 +16,15 @@ namespace ECS {
 		}
 
 
-		void increaseHealth() {
-	
-	;
-		}
+
 
 		KeyboardInputSystem::~KeyboardInputSystem()
 			= default;
 
 		void KeyboardInputSystem::update(Context context) {
 			// 1 unit/second^2
-			double acceleration = 5;
+			//double acceleration = 5;
+			double acceleration = 10;
 
 			auto input = context.inputManager;
 
@@ -64,13 +62,11 @@ namespace ECS {
 
 				// Cheat option to increase health of the Player
 				if (entityManager->hasComponent<PlayerComponent>(entity.id)) {
-
 					auto healthComponent = entityManager->getComponent<HealthComponent>(entity.id);
-
+			
 					if (input->isKeyPressed(Key::KEY_H))
 					{
-								healthComponent->health += 100;
-								cout << healthComponent->health;
+						// healthComponent->increase();
 					}
 				}
 			}

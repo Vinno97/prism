@@ -1,6 +1,7 @@
 #pragma once
 #include <cstdio>
 #include <vector>
+#include <set>
 #include <map>
 #include <typeindex>
 #include "Components/Component.h"
@@ -41,8 +42,10 @@ namespace ECS {
 		/// </summary>
 		/// <param name="entityId">The ID of the entity to add the component to.</param>
 		/// <param name="entityId">The component to add to the entity.</param>
-		template<class T, typename = std::enable_if_t < std::is_base_of<Component, T>::type::value>>
-		void addComponentToEntity(unsigned int entityId, T& component)
+		// TODO: Zorg dat dit werkt voor zowel rvalues als lvalues
+		//template<class T, typename = std::enable_if_t < std::is_base_of<Component, T>::type::value>>
+		template<typename T>
+		void addComponentToEntity(unsigned int entityId, T&& component)
 		{
 			const std::type_index type = std::type_index(typeid(component));
 
@@ -53,7 +56,7 @@ namespace ECS {
 					throw std::runtime_error("Already attached a component of type " + *type.name() + *" to entity " + std::to_string(entityId));
 				}
 			}
-			entityComponents[type][entityId] = component.Clone();//new T(component);
+			entityComponents[type][entityId] = component.Clone();
 		}
 
 		/// <summary>
@@ -75,7 +78,6 @@ namespace ECS {
 		T* getComponent(unsigned int entityId) const {
 			const std::type_index type{ std::type_index(typeid(T)) };
 			return static_cast<T*>(getComponent(entityId, type));
-
 		}
 
 		/// <summary>
@@ -117,6 +119,11 @@ namespace ECS {
 		/// <param name="entityId">The ID of the entity to be removed.</param>
 		void removeEntity(unsigned int entityId);
 
+		/// <summary>
+		/// Gives a list of all entity IDs that have at least one Component.
+		/// </summary>
+		/// <returns>a list of all entity IDs.</returns>
+		std::set<int> getAllEntities();
 
 	private:
 		unsigned int lastEntityId = 0;
@@ -136,10 +143,14 @@ namespace ECS {
 
 		void removeComponentFromEntity(unsigned int entityId, std::type_index componentType);
 
+		int buildEntity() {
+			return lastEntityId++;
+		}
+
 		template <typename F, typename... Fs>
 		int buildEntity(F &&f) {
 			addComponentToEntity(lastEntityId, f);
-			return lastEntityId++;
+			return buildEntity();
 		}
 
 		template <typename F, typename... Fs>
