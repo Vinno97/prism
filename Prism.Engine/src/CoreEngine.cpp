@@ -34,13 +34,8 @@ const void CoreEngine::InitWindow(const char* title, const int width, const int 
 
 //Runns the gameloop
 void CoreEngine::Run()
-{
-	MenuBuilder menuBuilder;
-	MenuRenderer renderer;
-	menuBuilder.addControl(500, 500, 100, 100, "C:\\Users\\solaw\\prism\\dubai.png");
-	menuBuilder.addControl(600, 50, 75, 75, "C:\\Users\\solaw\\prism\\plaatje.jpg");
+{	
 	
-	auto menu = menuBuilder.buildMenu();
 
 	//Holds the time in which the gameupdate was last called 
 	auto lastTime = std::chrono::system_clock::now();
@@ -59,12 +54,6 @@ void CoreEngine::Run()
 		//Sets the right values in context
 		context.deltaTime = deltaTime.count() / 1000000.f;
 		context.stateMachine->getCurrentState()->onUpdate(context);
-		
-
-		renderer.renderMenu(menu);
-
-		context.window->swapScreen();
-
 	}
 }
 

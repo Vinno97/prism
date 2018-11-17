@@ -18,20 +18,31 @@
 #include "ECS/Systems/KeyboardInputSystem.h"
 #include "ECS/Systems/RestockResourceSystem.h"
 #include "ECS/Systems/AnimationSystem.h"
+#include "Menu/MenuBuilder.h"
+#include "Menu/Menu.h"
+#include "Menu/MenuRenderer.h"
 
-class PrismGame : public Game
-{
-public:
-	PrismGame();
-	void onInit(Context &context) override;
-	void onUpdate(Context &context) override;
-	void onEnter() override;
-	void onLeave() override;
+namespace States {
+	class PrismGame : public Game
+	{
+	public:
+		PrismGame();
+		void onInit(Context &context) override;
+		void onUpdate(Context &context) override;
+		void onEnter() override;
+		void onLeave() override;
 
-private:
-	EntityManager entityManager;
-	SystemManager systemManager;
-	EntityFactory entityFactory;
+	private:
+		EntityManager entityManager;
+		SystemManager systemManager;
+		EntityFactory entityFactory;
+		Menu::MenuBuilder menuBuilder;
+		Menu::MenuRenderer renderer;
+		Menu::Menu menu;
+		Menu::MenuRenderer menuRenderer;
 
-	void registerSystems(Context &context);
-};
+		void registerSystems(Context &context);
+
+		bool canPressEscape;
+	};
+}

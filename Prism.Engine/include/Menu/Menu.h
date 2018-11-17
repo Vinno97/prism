@@ -8,6 +8,7 @@ namespace Menu {
 	{
 	public:
 		Menu()=default;
+		Menu(const Menu &other);
 		std::vector<Control> controls;
 	};
 }
