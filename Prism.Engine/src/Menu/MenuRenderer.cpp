@@ -8,6 +8,7 @@
 #include "Renderer/Graphics/VertexArrayObject.h"
 #include "Renderer/Graphics/VertexBuffer.h"
 #include "Util/FileReader.h"
+#include <SDL2/SDL_opengl.h>
 
 #include <random>
 #include <functional>
@@ -43,20 +44,25 @@ namespace Menu {
 	{
 		menuPipeline->run();
 		menuPipeline->setUniformMatrix4f("view", projection);
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		for (auto& control : menu.controls) 
 		{
 			auto pos = control.position;
 			glm::mat4 model = glm::mat4(1.0f);
 			model = glm::translate(model, glm::vec3(pos.x, pos.y, 0.0f));
 			model = glm::scale(model, glm::vec3(control.size.x, control.size.y, 1.0f));
-			
+
 			menuPipeline->setUniformMatrix4f("model", model);
+
+			control.model.texture->bind();
 			control.model.mesh->vertexArrayObject->bind();
 			control.model.mesh->indexBuffer->bind();
 			renderDevice->DrawTrianglesIndexed(0, control.model.mesh->indicesLength);
 			
 			//control.DrawTexture();
 		}
+		glDisable(GL_BLEND);
 		menuPipeline->stop();
 	}
 }

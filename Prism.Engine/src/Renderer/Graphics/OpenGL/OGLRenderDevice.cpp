@@ -9,6 +9,7 @@
 #include "Renderer/Graphics/OpenGL/OGLVertexBuffer.h"
 #include "Renderer/Graphics/OpenGL/OGLIndexBuffer.h"
 #include "Renderer/Graphics/OpenGL/OGLVertexArrayObject.h"
+#include "Renderer/Graphics/OpenGL/OGLTexture.h"
 #include <memory>
 
 using namespace std;
@@ -60,6 +61,11 @@ namespace Renderer {
 			unique_ptr<VertexArrayObject> OGLRenderDevice::createVertexArrayobject() const
 			{
 				return make_unique<OGLVertexArrayObject>();
+			}
+
+			shared_ptr<Texture> OGLRenderDevice::createTexture(const char * path) const
+			{
+				return make_shared<OGLTexture>(path);
 			}
 
 			void OGLRenderDevice::setClearColour(float r, float g, float b, float w) const

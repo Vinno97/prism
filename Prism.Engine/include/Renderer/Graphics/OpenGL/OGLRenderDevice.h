@@ -33,6 +33,7 @@ namespace Renderer {
 				unique_ptr<VertexBuffer> createVertexBuffer(long size, const void *data) const override;
 				unique_ptr<IndexBuffer> createIndexBuffer(long size, const void *data) const override;
 				unique_ptr<VertexArrayObject> createVertexArrayobject() const override;
+				shared_ptr<Texture> createTexture(const char* path) const override;
 
 				void setClearColour(float r, float g, float b, float w) const override;
 				void useDepthTest(bool enable) const override;

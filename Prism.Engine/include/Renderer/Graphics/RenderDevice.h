@@ -5,6 +5,7 @@
 #include "Renderer/Graphics/Pipeline.h"
 #include "Renderer/Graphics/VertexBuffer.h"
 #include "Renderer/Graphics/IndexBuffer.h"
+#include "Renderer/Graphics/Texture.h"
 #include "Renderer/Graphics/VertexArrayObject.h"
 #include <memory>
 
@@ -51,6 +52,11 @@ namespace Renderer {
 			/// Create a new vertexArrayObject
 			/// </summary>
 			virtual unique_ptr<VertexArrayObject> createVertexArrayobject() const = 0;
+
+			/// <summary>
+			/// Create a new vertexArrayObject
+			/// </summary>
+			virtual shared_ptr<Texture> createTexture(const char* path) const = 0;
 
 			/// <summary>
 			/// Set the colour that the screen will be cleared with

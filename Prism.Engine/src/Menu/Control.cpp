@@ -6,6 +6,8 @@
 #include "Renderer/Graphics/OpenGL/OGLRenderDevice.h"
 #include "Renderer/Graphics/Models/Mesh.h"
 #include "Renderer/Graphics/RenderDevice.h"
+#include "Surface.h"
+
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_image.h"
 
@@ -18,36 +20,38 @@ namespace Menu {
 	Control::Control(float x, float y, float width, float height, const char *path)
 	{
 		// Image is SDL_surface
-		this->surface = IMG_Load(path);
-
-		if (!surface)
-		{
-			std::cout << "Error Cannot load image";
-		}
-
-		unsigned int texture;
-		glGenTextures(1, &texture);
-		glBindTexture(GL_TEXTURE_2D, texture);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, this->surface->w, this->surface->h, 0, GL_RGB, GL_UNSIGNED_BYTE, surface->pixels); //GL_BITMAP
-
+	//	this->surface = IMG_Load(path);
+	//
+	//	if (!surface)
+	//	{
+	//		std::cout << "Error Cannot load image";
+	//	}
+	//
+	//	unsigned int texture;
+	//	glGenTextures(1, &texture);
+	//	glBindTexture(GL_TEXTURE_2D, texture);
+	//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	//
+	//	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, this->surface->w, this->surface->h, 0, GL_RGB, GL_UNSIGNED_BYTE, surface->pixels); //GL_BITMAP
+	//
 		this->xPos = x;
 		this->yPos = y;
-
+	//
 		position = Math::Vector3f{ this->xPos, this->yPos, 0 };
 		size = Math::Vector3f{width, height, 0};
 
 		RenderDevice* renderDevice = OGLRenderDevice::getRenderDevice();
 
+		shared_ptr<Texture> texture = renderDevice->createTexture(path);
+
 		float vertices[] = {
 			 1.0f,  1.0f,  // top right
-			 1.0f,  0.0f,  // bottom right
-			 0.0f,  0.0f,  // bottom left
-			 0.0f,  1.0f   // top left 
+			 1.0f, -1.0f,  // bottom right
+			-1.0f, -1.0f,  // bottom left
+			-1.0f,  1.0f   // top left 
 		};
 		unsigned int indices[] = {  // note that we start from 0!
 			0, 1, 3,   // first triangle
@@ -63,14 +67,13 @@ namespace Menu {
 
 		std::unique_ptr<VertexArrayObject> vertexArrayObject = renderDevice->createVertexArrayobject();
 		vertexArrayObject->addVertexBuffer(move(vertexBuffer), 0, 2 * sizeof(float), 0, 2);
-
 		unique_ptr<IndexBuffer> indexBuffer = renderDevice->createIndexBuffer(6 * sizeof(unsigned int), indicesArray);
-
 		shared_ptr<Mesh> mesh = make_shared<Mesh>(move(vertexArrayObject), move(indexBuffer));
-		glBindTexture(GL_TEXTURE_2D, texture);
+
 		mesh->isIndiced = true;
 		mesh->indicesLength = 6;
 		model = Model{ mesh };
+		model.texture = texture;
 	}
 
 	void Control::DrawTexture()

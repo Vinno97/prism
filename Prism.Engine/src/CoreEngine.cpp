@@ -37,8 +37,8 @@ void CoreEngine::Run()
 {
 	MenuBuilder menuBuilder;
 	MenuRenderer renderer;
-	menuBuilder.addControl(450, 50, 300, 75, "C:\\Users\\solaw\\prism\\plaatje.jpg");
-	//menuBuilder.addControl(600, 50, 300, 75, "C:\\Users\\solaw\\prism\\plaatje.jpg");
+	menuBuilder.addControl(500, 500, 100, 100, "C:\\Users\\solaw\\prism\\dubai.png");
+	menuBuilder.addControl(600, 50, 75, 75, "C:\\Users\\solaw\\prism\\plaatje.jpg");
 	
 	auto menu = menuBuilder.buildMenu();
 
