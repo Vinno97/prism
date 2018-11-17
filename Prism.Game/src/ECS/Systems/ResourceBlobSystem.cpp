@@ -5,6 +5,7 @@
 #include "ECS/Components/PlayerComponent.h"
 #include "Math/Vector3f.h"
 #include "ECS/Components/VelocityComponent.h"
+#include "ECS/Components/InventoryComponent.h"
 
 namespace ECS {
 	namespace Systems {
@@ -44,9 +45,34 @@ namespace ECS {
 			float distance = sqrt((x*x) + (y*y));
 
 			if (distance < 0.05f ) {
+				
+				
+				auto resource = entityManager->getComponent<ResourceBlobComponent>(blob);
+				auto player = entityManager->getAllEntitiesWithComponent<PlayerComponent>()[0];
+				auto playerInventory = entityManager->getComponent<InventoryComponent>(player.id);
+				increateResource(resource->resourceType, *playerInventory, resource->value );
+
 				entityManager->removeEntity(blob);
 			}
 			
+		}
+
+		void ResourceBlobSystem::increateResource(std::string resourceType, InventoryComponent& playerInventory, float gatherRate)
+		{
+			if (resourceType == "red") {
+				playerInventory.redResource += gatherRate;
+				std::cout << "type " << resourceType << "- amount " << playerInventory.redResource << std::endl;
+			}
+
+			if (resourceType == "blue") {
+				playerInventory.blueResource += gatherRate;
+				std::cout << "type " << resourceType << "- amount " << playerInventory.blueResource << std::endl;
+			}
+
+			if (resourceType == "green") {
+				playerInventory.greenResource += gatherRate;
+				std::cout << "type " << resourceType << "- amount " << playerInventory.greenResource << std::endl;
+			}
 		}
 		System * ResourceBlobSystem::clone()
 		{

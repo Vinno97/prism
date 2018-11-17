@@ -38,10 +38,10 @@ namespace ECS {
 						auto resource = entityManager->getComponent<ResourceSpawnComponent>(resourcePoint.id);
 
 						
-						increateResource(resource->resourceType, *playerInventory, (resource->gatherRate * context.deltaTime));
+						//increateResource(resource->resourceType, *playerInventory, (resource->gatherRate * context.deltaTime));
 						
 						if (resource->SpawnTimer >= 0.8f) {
-							CreateBlob(resourcePoint.id, resource->resourceType);
+							CreateBlob(resourcePoint.id, resource->resourceType, resource->value);
 							resource->SpawnTimer = 0;
 						}
 						resource->SpawnTimer += context.deltaTime;
@@ -68,27 +68,9 @@ namespace ECS {
 			return false;
 		}
 
-		void ResourceGatherSystem::increateResource(std::string resourceType, InventoryComponent& playerInventory, float gatherRate)
-		{
-			if (resourceType == "red") {
-				playerInventory.redResource += gatherRate;
-				std::cout << "type " << resourceType << "- amount " << playerInventory.redResource << std::endl;
-			}
+		void ResourceGatherSystem::CreateBlob(int resourcePointID, std::string type, float value) {
 			
-			if (resourceType == "blue") {
-				playerInventory.blueResource += gatherRate;
-				std::cout << "type " << resourceType << "- amount " << playerInventory.blueResource << std::endl;
-			}
-			
-			if (resourceType == "green") {
-				playerInventory.greenResource += gatherRate;
-				std::cout << "type " << resourceType << "- amount " << playerInventory.greenResource << std::endl;
-			}
-		}
-
-		void ResourceGatherSystem::CreateBlob(int resourcePointID, std::string type) {
-			
-			auto blob = entityFactory.CreateBlob(*entityManager, type);
+			auto blob = entityFactory.CreateBlob(*entityManager, type, value);
 			auto bloblPosition = entityManager->getComponent<PositionComponent>(blob);
 			bloblPosition->x = entityManager->getComponent<PositionComponent>(resourcePointID)->x;
 			bloblPosition->y = entityManager->getComponent<PositionComponent>(resourcePointID)->y;

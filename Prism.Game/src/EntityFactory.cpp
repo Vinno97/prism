@@ -63,7 +63,7 @@ int EntityFactory::createEnemy(EntityManager& entityManager) {
 
 }
 
-int EntityFactory::createResourcePoint(EntityManager & entityManager, std::string type, int gatherRate)
+int EntityFactory::createResourcePoint(EntityManager & entityManager, std::string type, int gatherRate, float value)
 {
 	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
 	auto model = ml.loadModel("./res/resource2.obj");
@@ -83,7 +83,7 @@ int EntityFactory::createResourcePoint(EntityManager & entityManager, std::strin
 	if (type == "green") {
 		appearance.color = Math::Vector3f{ 0.6f, 1.0f, 0.6f };
 	}
-	return entityManager.createEntity(PositionComponent(), ResourceSpawnComponent(gatherRate, type), appearance);
+	return entityManager.createEntity(PositionComponent(), ResourceSpawnComponent(gatherRate, type, value), appearance);
 
 }
 
@@ -150,7 +150,7 @@ int EntityFactory::createFloor(ECS::EntityManager & entityManager)
 	return entityManager.createEntity(positionComponent, appearance);
 }
 
-int EntityFactory::CreateBlob(ECS::EntityManager & entityManager, std::string type)
+int EntityFactory::CreateBlob(ECS::EntityManager & entityManager, std::string type, float value)
 {
 	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
 	auto model = ml.loadModel("./res/blob.obj");
@@ -172,7 +172,9 @@ int EntityFactory::CreateBlob(ECS::EntityManager & entityManager, std::string ty
 		appearance.color = Math::Vector3f{ 0.6f, 1.0f, 0.6f };
 	}
 
-	return entityManager.createEntity(appearance, PositionComponent(), VelocityComponent(), ResourceBlobComponent(), DragComponent());
+	ResourceBlobComponent resource;
+	resource.value = value;
+	return entityManager.createEntity(appearance, PositionComponent(), VelocityComponent(), resource, DragComponent());
 }
 
 

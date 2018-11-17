@@ -24,8 +24,7 @@ namespace ECS {
 			/// Checks if an entity with the resourceGatherComponent is in range to collect the resource
 			/// </summay>
 			bool shouldIncreaseResources(PositionComponent& playerPosition, PositionComponent& resourcePointPosition, float radius);
-			void increateResource(std::string resourceType, InventoryComponent& playerInventory, float gatherRate);
-			void CreateBlob(int resourcePointID, std::string type);
+			void CreateBlob(int resourcePointID, std::string type, float value);
 		};
 	}
 }

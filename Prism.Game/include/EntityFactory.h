@@ -9,13 +9,13 @@ public:
 	~EntityFactory();
 	int createPlayer(ECS::EntityManager& entityManager);
 	int createEnemy(ECS::EntityManager& entityManager);
-	int createResourcePoint(ECS::EntityManager& entityManager, std::string type, int gatherRate);
+	int createResourcePoint(ECS::EntityManager & entityManager, std::string type, int gatherRate, float value);
 	int createTower(ECS::EntityManager& entityManager);
 	int createWall(ECS::EntityManager& entityManager);
 	int createMine(ECS::EntityManager& entityManager);
 	int createScene(ECS::EntityManager & entityManager);
 	int createFloor(ECS::EntityManager & entityManager);
-	int CreateBlob(ECS::EntityManager & entityManager, std::string type);
+	int CreateBlob(ECS::EntityManager & entityManager, std::string type, float value);
 private:
 	//map<std::string, Model> modelCache; // TODO: Use this cache to cache the models to optimize memory usage.
 };

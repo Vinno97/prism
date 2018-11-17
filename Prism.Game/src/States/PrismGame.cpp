@@ -17,9 +17,9 @@ namespace States {
 	void PrismGame::onInit(Context & context)
 	{
 		auto player = entityFactory.createPlayer(entityManager);
-		auto redResourcePoint = entityFactory.createResourcePoint(entityManager, "red", 1);
-		auto greenResourcePoint = entityFactory.createResourcePoint(entityManager, "green", 1);
-		auto blueResourcePoint = entityFactory.createResourcePoint(entityManager, "blue", 1);
+		auto redResourcePoint = entityFactory.createResourcePoint(entityManager, "red", 1, 1);
+		auto greenResourcePoint = entityFactory.createResourcePoint(entityManager, "green", 1, 1);
+		auto blueResourcePoint = entityFactory.createResourcePoint(entityManager, "blue", 1, 1);
 		auto enemy = entityFactory.createEnemy(entityManager);
 		auto scene = entityFactory.createScene(entityManager);
 
