@@ -3,7 +3,7 @@
   <ItemGroup>
     <ClCompile Include="src\Renderer\Camera.cpp" />
     <ClCompile Include="src\Renderer\Renderable.cpp" />
-    <ClCompile Include="src\Util\FileReader.cpp" />
+    <ClCompile Include="src\Util\FileSystem.cpp" />
     <ClCompile Include="src\Renderer\ForwardRenderer.cpp" />
     <ClCompile Include="src\MenuState.cpp" />
     <ClCompile Include="src\ECS\EntityManager.cpp" />
@@ -32,6 +32,13 @@
     <ClCompile Include="src\ECS\SystemManager.cpp" />
     <ClCompile Include="src\ECS\Systems\System.cpp" />
     <ClCompile Include="src\Math\Vector3f.cpp" />
+    <ClCompile Include="src\World\WorldLoader.cpp" />
+    <ClCompile Include="src\World\WorldObject.cpp" />
+    <ClCompile Include="src\World\ObjectProperties.cpp" />
+    <ClCompile Include="src\World\JSONSerializer.cpp" />
+    <ClCompile Include="src\World\Assemblers\AppearanceAssembler.cpp" />
+    <ClCompile Include="src\World\Assemblers\PositionAssembler.cpp" />
+    <ClCompile Include="src\World\Assemblers\EntityAssembler.cpp" />
     <ClCompile Include="src\Util\lodepng.cpp" />
     <ClCompile Include="src\Menu\MenuBuilder.cpp" />
     <ClCompile Include="src\Menu\Control.cpp" />
@@ -42,7 +49,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Renderer\Camera.h" />
-    <ClInclude Include="include\Util\FileReader.h" />
     <ClInclude Include="include\Renderer\ForwardRenderer.h" />
     <ClInclude Include="include\ECS\Components\AppearanceComponent.h" />
     <ClInclude Include="include\ECS\Components\Component.h" />
@@ -97,15 +103,31 @@
     <ClInclude Include="include\Renderer\Graphics\Texture.h" />
     <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLTexture.h" />
     <ClInclude Include="include\Surface.h" />
+    <ClInclude Include="include\nlohmann\adl_serializer.hpp" />
+    <ClInclude Include="include\nlohmann\json.hpp" />
+    <ClInclude Include="include\nlohmann\json_fwd.hpp" />
+    <ClInclude Include="include\World\WorldLoader.h" />
+    <ClInclude Include="include\World\EntityConfigurators\EntityConfigurator.h" />
+    <ClInclude Include="include\World\EntityConfigurators\PositionConfigurator.h" />
+    <ClInclude Include="include\World\EntityConfigurators\AppearanceConfigurator.h" />
+    <ClInclude Include="include\World\WorldObject.h" />
+    <ClInclude Include="include\ECS\Components\PlayerComponent.h" />
+    <ClInclude Include="include\World\ObjectProperties.h" />
+    <ClInclude Include="include\World\EntityDisassembler.h" />
+    <ClInclude Include="include\World\LevelSerializer.h" />
+    <ClInclude Include="include\World\JSONSerializer.h" />
+    <ClInclude Include="include\World\Assemblers\AppearanceAssembler.h" />
+    <ClInclude Include="include\World\Assemblers\PositionAssembler.h" />
+    <ClInclude Include="include\World\Assemblers\BaseAssembler.h" />
+    <ClInclude Include="include\World\Assemblers\EntityAssembler.h" />
+    <ClInclude Include="include\Util\FileSystem.h" />
   </ItemGroup>
   <ItemGroup>
-    <Library Include="lib\glew32.lib" />
-    <Library Include="lib\glew32s.lib" />
-    <Library Include="lib\assimp-vc140-mtd.lib" />
-    <Library Include="lib\SDL2.lib" />
-    <Library Include="lib\SDL2main.lib" />
-    <Library Include="lib\SDL2test.lib" />
-    <Library Include="lib\SDL2_image.lib" />
+    <Library Include="lib\x64\SDL2test.lib" />
+    <Library Include="lib\x64\glew32.lib" />
+    <Library Include="lib\x64\SDL2.lib" />
+    <Library Include="lib\x64\SDL2main.lib" />
+    <Library Include="lib\x64\assimp-vc140-mtd.lib" />
     <Library Include="lib\x64\SDL2_image.lib" />
   </ItemGroup>
   <ItemGroup>

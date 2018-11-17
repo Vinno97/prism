@@ -7,7 +7,7 @@
 #include "Renderer/Graphics/OpenGL/OGLPipeline.h"
 #include "Renderer/Graphics/VertexArrayObject.h"
 #include "Renderer/Graphics/VertexBuffer.h"
-#include "Util/FileReader.h"
+#include "Util/FileSystem.h"
 #include <SDL2/SDL_opengl.h>
 
 #include <random>
@@ -22,7 +22,7 @@ namespace Menu {
 	MenuRenderer::MenuRenderer()
 	{
 		renderDevice = OGLRenderDevice::getRenderDevice();
-		Util::FileReader fileReader;
+		Util::FileSystem fileReader;
 		string vertexSource = fileReader.readResourceFileIntoString("/shaders/menuShader.vs");
 		string fragmentSource = fileReader.readResourceFileIntoString("/shaders/menuShader.fs");
 

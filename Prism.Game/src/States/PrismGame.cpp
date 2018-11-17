@@ -3,9 +3,14 @@
 #include "StateMachine.h"
 #include "States/PauseState.h"
 
+#include "World/WorldLoader.h"
+#include "World/Assemblers/PrismEntityAssembler.h"
+
 namespace States {
 	using namespace ECS;
 	using namespace ECS::Components;
+	using namespace World;
+	using namespace World::Assemblers;
 	/// <summary>
 	/// creates new PrismGame object
 	/// </summary>
@@ -18,30 +23,24 @@ namespace States {
 		menuBuilder.addControl(600, 50, 75, 75, "C:\\Users\\solaw\\prism\\plaatje.jpg");
 		menu = menuBuilder.buildMenu();
 
+		auto floor = entityFactory.createFloor(entityManager);
+		auto scene = entityFactory.createScene(entityManager);
+		auto sceneComponent = entityManager.getComponent<SceneComponent>(scene);
 		auto player = entityFactory.createPlayer(entityManager);
 		auto resourcePoint = entityFactory.createResourcePoint(entityManager);
 		auto enemy = entityFactory.createEnemy(entityManager);
-		auto scene = entityFactory.createScene(entityManager);
-
-		for (int i = -4; i < 4; i++) {
-			auto entity = i % 2 == 0 ? entityFactory.createTower(entityManager) : entityFactory.createWall(entityManager);
-			auto position = entityManager.getComponent<PositionComponent>(entity);
-			position->y = -1;
-			position->x = i;
-		}
-
-		auto positions{ entityManager.getAllEntitiesWithComponent<PositionComponent>() };
-
-		entityManager.getComponent<PositionComponent>(player)->y = 1;
-		entityManager.getComponent<PositionComponent>(resourcePoint)->x = 1;
-		entityManager.getComponent<PositionComponent>(enemy)->x = -1;
-
-		auto sceneComponent = entityManager.getComponent<SceneComponent>(scene);
 
 		sceneComponent->scene.ambientLightColor = Math::Vector3f{ 1.0f, 1.0f, 1.0f };
-		sceneComponent->scene.ambientLightStrength = 0.65f;
-		sceneComponent->scene.sun.color = Math::Vector3f{ .30f, .30f, .30f };
+		sceneComponent->scene.ambientLightStrength = 0.95f;
+		sceneComponent->scene.sun.color = Math::Vector3f{ .20f, .20f, .20f };
 		sceneComponent->scene.sun.direction = Math::Vector3f{ 25.f, 150.0f, 100.0f };
+
+		World::LevelManager loader{ std::make_unique<PrismEntityAssembler>() };
+
+		loader.load("levels/Sample World", entityManager);
+		// Dit is hoe een wereld zou worden opgeslagen en weer ingeladen.
+		//loader.load("saves/Sample Save", entityManager);
+		//loader.save("saves/Sample Save", entityManager);
 
 		registerSystems(context);
 		PauseState ps = PauseState();
@@ -70,7 +69,6 @@ namespace States {
 	void PrismGame::onUpdate(Context &context)
 	{
 		auto input = context.inputManager;
-
 
 		auto inputSystem = systemManager.getSystem<KeyboardInputSystem>();
 		auto motionSystem = systemManager.getSystem<MotionSystem>();
@@ -102,6 +100,7 @@ namespace States {
 			canPressEscape = true;
 		}
 	}
+
 	void PrismGame::onEnter() {
 	}
 	void PrismGame::onLeave() {
