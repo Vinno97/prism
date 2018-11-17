@@ -3,6 +3,8 @@
 #include "StateMachine.h"
 #include "States/PauseState.h"
 #include "ECS/Systems/ResourceGatherSystem.h"
+#include "ECS/Systems/ResourceBlobSystem.h"
+
 namespace States {
 	using namespace ECS;
 	using namespace ECS::Components;
@@ -60,12 +62,14 @@ namespace States {
 		KeyboardInputSystem inputSystem = KeyboardInputSystem(entityManager);
 		AnimationSystem animationSystem = AnimationSystem(entityManager);
 		ResourceGatherSystem resourceGatherSystem = ResourceGatherSystem(entityManager);
+		ResourceBlobSystem resourceBlobSystem = ResourceBlobSystem(entityManager);
 
 		systemManager.registerSystem(motionSystem);
 		systemManager.registerSystem(renderSystem);
 		systemManager.registerSystem(inputSystem);
 		systemManager.registerSystem(animationSystem);
 		systemManager.registerSystem(resourceGatherSystem);
+		systemManager.registerSystem(resourceBlobSystem);
 	}
 
 	void PrismGame::onUpdate(Context &context)
@@ -85,12 +89,14 @@ namespace States {
 		auto renderSystem = systemManager.getSystem<RenderSystem>();
 		auto animationSystem = systemManager.getSystem<AnimationSystem>();
 		auto resourceGatherSystem = systemManager.getSystem<ResourceGatherSystem>();
+		auto resourceBlobSystem = systemManager.getSystem<ResourceBlobSystem>();
 
 		inputSystem->update(context);
 		motionSystem->update(context);
 		animationSystem->update(context);
 		renderSystem->update(context);
 		resourceGatherSystem->update(context);
+		resourceBlobSystem->update(context);
 
 		for (auto &entity : entityManager.getAllEntitiesWithComponent<VelocityComponent>()) {
 			auto velocity = entity.component;

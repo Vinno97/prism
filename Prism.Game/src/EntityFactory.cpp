@@ -13,7 +13,8 @@
 #include "ECS/Components/ResourceSpawnComponent.h"
 #include <World/TerrainGenerator.h>
 #include "ECS/Components/InventoryComponent.h"
-
+#include "ECS/Components/ResourceGatherComponent.h"
+#include "ECS/Components/ResourceBlobComponent.h"
 #include "Renderer/Graphics/Loader/ModelLoader.h"
 
 using namespace ECS;
@@ -43,7 +44,8 @@ int EntityFactory::createPlayer(EntityManager& entityManager)
 		DragComponent(5.f),
 		KeyboardInputComponent(),
 		PlayerComponent(),
-		InventoryComponent()
+		InventoryComponent(),
+		ResourceGatherComponent()
 	);
 }
 
@@ -146,6 +148,31 @@ int EntityFactory::createFloor(ECS::EntityManager & entityManager)
 	appearance.color = Math::Vector3f{ 0.87f, 0.87f, 0.87f };
 	PositionComponent positionComponent;
 	return entityManager.createEntity(positionComponent, appearance);
+}
+
+int EntityFactory::CreateBlob(ECS::EntityManager & entityManager, std::string type)
+{
+	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
+	auto model = ml.loadModel("./res/blob.obj");
+
+	AppearanceComponent appearance;
+	appearance.scaleX = 0.05f;
+	appearance.scaleY = 0.05f;
+	appearance.scaleZ = 0.05f;
+	appearance.translationY = 0.2f;
+	appearance.model = std::move(model);
+
+	if (type == "blue") {
+		appearance.color = Math::Vector3f{ 0.6f, 0.6f, 1.0f };
+	}
+	if (type == "red") {
+		appearance.color = Math::Vector3f{ 1.0f, 0.6f, 0.6f };
+	}
+	if (type == "green") {
+		appearance.color = Math::Vector3f{ 0.6f, 1.0f, 0.6f };
+	}
+
+	return entityManager.createEntity(appearance, PositionComponent(), VelocityComponent(), ResourceBlobComponent(), DragComponent());
 }
 
 

@@ -129,9 +129,12 @@
   <ItemGroup>
     <ClInclude Include="include\ECS\Components\EnemyComponent.h" />
     <ClInclude Include="include\ECS\Components\InventoryComponent.h" />
+    <ClInclude Include="include\ECS\Components\ResourceBlobComponent.h" />
+    <ClInclude Include="include\ECS\Components\ResourceGatherComponent.h" />
     <ClInclude Include="include\ECS\Systems\AnimationSystem.h" />
     <ClInclude Include="include\ECS\Components\PlayerComponent.h" />
     <ClInclude Include="include\ECS\Components\ResourceSpawnComponent.h" />
+    <ClInclude Include="include\ECS\Systems\ResourceBlobSystem.h" />
     <ClInclude Include="include\ECS\Systems\ResourceGatherSystem.h" />
     <ClInclude Include="include\EntityFactory.h" />
     <ClInclude Include="include\States\PrismGame.h" />
@@ -142,6 +145,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ECS\Systems\AnimationSystem.cpp" />
+    <ClCompile Include="src\ECS\Systems\ResourceBlobSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\ResourceGatherSystem.cpp" />
     <ClCompile Include="src\States\PauseState.cpp" />
     <ClCompile Include="src\ECS\Systems\KeyboardInputSystem.cpp" />

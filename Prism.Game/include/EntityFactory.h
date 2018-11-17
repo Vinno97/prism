@@ -15,6 +15,7 @@ public:
 	int createMine(ECS::EntityManager& entityManager);
 	int createScene(ECS::EntityManager & entityManager);
 	int createFloor(ECS::EntityManager & entityManager);
+	int CreateBlob(ECS::EntityManager & entityManager, std::string type);
 private:
 	//map<std::string, Model> modelCache; // TODO: Use this cache to cache the models to optimize memory usage.
 };

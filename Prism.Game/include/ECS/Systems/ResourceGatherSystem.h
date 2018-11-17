@@ -6,6 +6,7 @@
 #include "ECS/Components/PlayerComponent.h"
 #include "ECS/Components/ResourceSpawnComponent.h"
 #include "ECS/Components/InventoryComponent.h"
+#include "EntityFactory.h"
 
 namespace ECS {
 	namespace Systems {
@@ -17,10 +18,14 @@ namespace ECS {
 			void update(Context& context) override;
 			System* clone() override;
 		private:
-			int xMargin = 1;
-			int yMargin = 1;
-			bool shouldIncreaseResources(PositionComponent& playerPosition, PositionComponent& resourcePointPosition);
+			
+			EntityFactory entityFactory;
+			/// <summary>
+			/// Checks if an entity with the resourceGatherComponent is in range to collect the resource
+			/// </summay>
+			bool shouldIncreaseResources(PositionComponent& playerPosition, PositionComponent& resourcePointPosition, float radius);
 			void increateResource(std::string resourceType, InventoryComponent& playerInventory, float gatherRate);
+			void CreateBlob(int resourcePointID, std::string type);
 		};
 	}
 }
