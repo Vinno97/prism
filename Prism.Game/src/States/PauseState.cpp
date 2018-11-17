@@ -36,10 +36,10 @@ namespace States {
 
 	void PauseState::onEnter()
 	{
-		menuBuilder.addControl(500, 500, 500, 500, "C:\\Users\\solaw\\prism\\paused.png");
+		menuBuilder.addControl(850, 500, 500, 100, "C:\\Users\\solaw\\prism\\pause.png");
 		menu = menuBuilder.buildMenu();
 		Renderer::Graphics::RenderDevice* renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
-		renderDevice->clearScreen();
+		renderDevice->setClearColour(1.f, 1.f, 1.f, 1.f);
 	}
 
 
