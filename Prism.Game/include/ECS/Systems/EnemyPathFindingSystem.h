@@ -5,13 +5,15 @@
 
 namespace ECS {
 	namespace Systems {
-		class PathFindingSystem : public System
+		class EnemyPathFindingSystem : public System
 		{
 		public:
-			PathFindingSystem(EntityManager &entityManager);
-			~PathFindingSystem();
+			EnemyPathFindingSystem(EntityManager &entityManager, float enemySpeed);
+			~EnemyPathFindingSystem();
 			void update(Context context) override;
 			System* clone() override;
+		private:
+			float enemySpeed;
 		};
 	}
 }

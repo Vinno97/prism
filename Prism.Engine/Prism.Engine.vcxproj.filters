@@ -38,7 +38,6 @@
     <ClCompile Include="src\Math\Vector3f.cpp" />
     <ClCompile Include="src\ECS\Systems\CollisionSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\AttackSystem.cpp" />
-    <ClCompile Include="include\ECS\Systems\PathFindingSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Renderer\Camera.h" />
@@ -97,7 +96,6 @@
     <ClInclude Include="include\ECS\Systems\CollisionSystem.h" />
     <ClInclude Include="include\ECS\Systems\AttackSystem.h" />
     <ClInclude Include="include\ECS\Components\HealthComponent.h" />
-    <ClInclude Include="include\ECS\Systems\PathFindingSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\glew32.lib" />
