@@ -1,7 +1,7 @@
 #pragma once
 
 namespace Enums {
-	enum ResourceType {
+	enum class ResourceType {
 		RED,
 		GREEN,
 		BLUE

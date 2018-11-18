@@ -1,8 +1,8 @@
 #pragma once
 
+#include "memory"
 #include "ECS/EntityManager.h"
 #include "Context.h"
-#include "ECS/EntityManager.h"
 
 namespace ECS {
 	namespace Systems {

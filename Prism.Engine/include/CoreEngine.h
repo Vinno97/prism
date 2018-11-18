@@ -1,5 +1,5 @@
 #pragma once
-#include <Chrono>
+#include <chrono>
 #include <thread>
 #include "Context.h"
 #include <Window.h>
