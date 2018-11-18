@@ -7,6 +7,7 @@
 #include "Renderer/Graphics/Models/Mesh.h"
 #include "Renderer/Graphics/RenderDevice.h"
 #include "Surface.h"
+#include <stdexcept>
 
 #ifdef _MSC_VER
 	#include <filesystem>
@@ -35,7 +36,7 @@ namespace Menu {
 		auto filepath = pwd.concat("/res/").concat(path);
 
 		if (!filesystem::exists(filepath)) {
-			throw new std::exception("File does not exist");
+			throw std::invalid_argument("File does not exist");
 			return;
 		}
 
