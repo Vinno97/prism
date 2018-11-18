@@ -9,7 +9,7 @@ namespace ECS {
 			ResourceGatherComponent() = default;
 			ResourceGatherComponent(float range_) : gatherRange(range_) {};
 
-			float gatherRange = 1;
+			const float gatherRange = 1;
 
 			Component* Clone() override {
 				auto temp = new ResourceGatherComponent();

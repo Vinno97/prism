@@ -63,7 +63,7 @@ int EntityFactory::createEnemy(EntityManager& entityManager) {
 
 }
 
-int EntityFactory::createResourcePoint(EntityManager & entityManager, std::string type, int gatherRate, float value)
+int EntityFactory::createResourcePoint(EntityManager & entityManager, Enums::ResourceType type, int gatherRate, float value)
 {
 	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
 	auto model = ml.loadModel("./res/resource2.obj");
@@ -74,13 +74,13 @@ int EntityFactory::createResourcePoint(EntityManager & entityManager, std::strin
 	appearance.scaleZ = 0.002f;
 	appearance.model = std::move(model);
 
-	if (type == "blue") {
+	if (type == Enums::ResourceType::BLUE) {
 		appearance.color = Math::Vector3f{ 0.6f, 0.6f, 1.0f };
 	}
-	if (type == "red") {
+	if (type == Enums::ResourceType::RED) {
 		appearance.color = Math::Vector3f{ 1.0f, 0.6f, 0.6f };
 	}
-	if (type == "green") {
+	if (type == Enums::ResourceType::GREEN) {
 		appearance.color = Math::Vector3f{ 0.6f, 1.0f, 0.6f };
 	}
 	return entityManager.createEntity(PositionComponent(), ResourceSpawnComponent(gatherRate, type, value), appearance);
@@ -150,7 +150,7 @@ int EntityFactory::createFloor(ECS::EntityManager & entityManager)
 	return entityManager.createEntity(positionComponent, appearance);
 }
 
-int EntityFactory::CreateBlob(ECS::EntityManager & entityManager, std::string type, float value)
+int EntityFactory::CreateBlob(ECS::EntityManager & entityManager, Enums::ResourceType type, float value)
 {
 	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
 	auto model = ml.loadModel("./res/blob.obj");
@@ -162,19 +162,18 @@ int EntityFactory::CreateBlob(ECS::EntityManager & entityManager, std::string ty
 	appearance.translationY = 0.2f;
 	appearance.model = std::move(model);
 
-	if (type == "blue") {
+	if (type == Enums::ResourceType::BLUE) {
 		appearance.color = Math::Vector3f{ 0.6f, 0.6f, 1.0f };
 	}
-	if (type == "red") {
+	if (type == Enums::ResourceType::RED) {
 		appearance.color = Math::Vector3f{ 1.0f, 0.6f, 0.6f };
 	}
-	if (type == "green") {
+	if (type == Enums::ResourceType::GREEN) {
 		appearance.color = Math::Vector3f{ 0.6f, 1.0f, 0.6f };
 	}
 
-	ResourceBlobComponent resource;
-	resource.value = value;
-	resource.resourceType = type;
+	ResourceBlobComponent resource = ResourceBlobComponent(value , type);
+
 	return entityManager.createEntity(appearance, PositionComponent(), VelocityComponent(), resource, DragComponent());
 }
 

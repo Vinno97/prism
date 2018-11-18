@@ -17,9 +17,9 @@ namespace States {
 	void PrismGame::onInit(Context & context)
 	{
 		auto player = entityFactory.createPlayer(entityManager);
-		auto redResourcePoint = entityFactory.createResourcePoint(entityManager, "red", 1, 1);
-		auto greenResourcePoint = entityFactory.createResourcePoint(entityManager, "green", 1, 1);
-		auto blueResourcePoint = entityFactory.createResourcePoint(entityManager, "blue", 1, 1);
+		auto redResourcePoint = entityFactory.createResourcePoint(entityManager, Enums::ResourceType::RED, 1, 1);
+		auto greenResourcePoint = entityFactory.createResourcePoint(entityManager, Enums::ResourceType::GREEN, 1, 1);
+		auto blueResourcePoint = entityFactory.createResourcePoint(entityManager, Enums::ResourceType::BLUE, 1, 1);
 		auto enemy = entityFactory.createEnemy(entityManager);
 		auto scene = entityFactory.createScene(entityManager);
 
@@ -101,7 +101,7 @@ namespace States {
 		for (auto &entity : entityManager.getAllEntitiesWithComponent<VelocityComponent>()) {
 			auto velocity = entity.component;
 			auto position = entityManager.getComponent<PositionComponent>(entity.id);
-			printf("Entity:\t\t%d \nPosition: \tX: %.2f, Y: %.2f\nVelocity:\tdX: %.2f, dY: %.2f\n\n", entity.id, position->x, position->y, velocity->dx, velocity->dy);
+			//printf("Entity:\t\t%d \nPosition: \tX: %.2f, Y: %.2f\nVelocity:\tdX: %.2f, dY: %.2f\n\n", entity.id, position->x, position->y, velocity->dx, velocity->dy);
 		}
 
 		context.window->swapScreen();

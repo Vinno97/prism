@@ -6,15 +6,14 @@
 #include "Math/Vector3f.h"
 #include "ECS/Components/VelocityComponent.h"
 #include "ECS/Components/InventoryComponent.h"
+#include "Enums/ResourceTypeEnum.h"
 
 namespace ECS {
 	namespace Systems {
 		ResourceBlobSystem::ResourceBlobSystem(EntityManager & entityManager) : System(entityManager)
 		{
 		}
-		ResourceBlobSystem::~ResourceBlobSystem()
-		{
-		}
+
 		void ResourceBlobSystem::update(Context & context)
 		{
 			auto resouceBlobs = entityManager->getAllEntitiesWithComponent<ResourceBlobComponent>();
@@ -57,19 +56,19 @@ namespace ECS {
 			
 		}
 
-		void ResourceBlobSystem::increateResource(std::string resourceType, InventoryComponent& playerInventory, float gatherRate)
+		void ResourceBlobSystem::increateResource(Enums::ResourceType resourceType, InventoryComponent& playerInventory, float gatherRate)
 		{
-			if (resourceType == "red") {
+			if (resourceType == Enums::ResourceType::RED ) {
 				playerInventory.redResource += gatherRate;
 				//std::cout << "type " << resourceType << "- amount " << playerInventory.redResource << std::endl;
 			}
 
-			if (resourceType == "blue") {
+			if (resourceType == Enums::ResourceType::BLUE) {
 				playerInventory.blueResource += gatherRate;
 				//std::cout << "type " << resourceType << "- amount " << playerInventory.blueResource << std::endl;
 			}
 
-			if (resourceType == "green") {
+			if (resourceType == Enums::ResourceType::GREEN) {
 				playerInventory.greenResource += gatherRate;
 				//std::cout << "type " << resourceType << "- amount " << playerInventory.greenResource << std::endl;
 			}

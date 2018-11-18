@@ -131,6 +131,7 @@
     <ClInclude Include="include\ECS\Components\InventoryComponent.h" />
     <ClInclude Include="include\ECS\Components\ResourceBlobComponent.h" />
     <ClInclude Include="include\ECS\Components\ResourceGatherComponent.h" />
+    <ClInclude Include="include\Enums\ResourceTypeEnum.h" />
     <ClInclude Include="include\ECS\Systems\AnimationSystem.h" />
     <ClInclude Include="include\ECS\Components\PlayerComponent.h" />
     <ClInclude Include="include\ECS\Components\ResourceSpawnComponent.h" />

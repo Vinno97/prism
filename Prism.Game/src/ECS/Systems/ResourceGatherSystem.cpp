@@ -7,6 +7,7 @@
 #include "ECS/Components/VelocityComponent.h"
 #include "ECS/Components/AppearanceComponent.h"
 #include "ECS/Components/ResourceBlobComponent.h"
+#include "Enums/ResourceTypeEnum.h"
 
 namespace ECS {
 	namespace Systems {
@@ -14,8 +15,6 @@ namespace ECS {
 		{
 			
 		}
-		ResourceGatherSystem::~ResourceGatherSystem()
-			= default;
 
 		void ResourceGatherSystem::update(Context& context)
 		{
@@ -68,7 +67,7 @@ namespace ECS {
 			return false;
 		}
 
-		void ResourceGatherSystem::CreateBlob(int resourcePointID, std::string type, float value) {
+		void ResourceGatherSystem::CreateBlob(int resourcePointID, Enums::ResourceType type, float value) {
 			
 			auto blob = entityFactory.CreateBlob(*entityManager, type, value);
 			auto bloblPosition = entityManager->getComponent<PositionComponent>(blob);

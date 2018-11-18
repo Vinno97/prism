@@ -110,5 +110,8 @@
     <ClInclude Include="include\ECS\Systems\ResourceBlobSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\Enums\ResourceTypeEnum.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
