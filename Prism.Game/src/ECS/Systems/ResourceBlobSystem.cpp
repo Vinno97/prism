@@ -7,6 +7,7 @@
 #include "ECS/Components/VelocityComponent.h"
 #include "ECS/Components/InventoryComponent.h"
 #include "Enums/ResourceTypeEnum.h"
+#include <math.h>
 
 namespace ECS {
 	namespace Systems {

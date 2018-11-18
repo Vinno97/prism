@@ -8,6 +8,7 @@
 #include "ECS/Components/AppearanceComponent.h"
 #include "ECS/Components/ResourceBlobComponent.h"
 #include "Enums/ResourceTypeEnum.h"
+#include <math.h>
 
 namespace ECS {
 	namespace Systems {
