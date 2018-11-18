@@ -5,10 +5,10 @@ namespace Renderer {
 		namespace OpenGL {
 			OGLTexture::OGLTexture(const char* path)
 			{
-				Surface* surface = &Surface{ path };
+				Surface surface = Surface{ path };
 
 				int mode = GL_RGB;
-				if (surface->bytesperPixel() == 4) {
+				if (surface.bytesperPixel() == 4) {
 					mode = GL_RGBA;
 				}
 
@@ -19,7 +19,7 @@ namespace Renderer {
 				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-				glTexImage2D(GL_TEXTURE_2D, 0, mode, surface->width(), surface->height(), 0, mode, GL_UNSIGNED_BYTE, surface->pixels()); //GL_BITMAP
+				glTexImage2D(GL_TEXTURE_2D, 0, mode, surface.width(), surface.height(), 0, mode, GL_UNSIGNED_BYTE, surface.pixels()); //GL_BITMAP
 
 			}
 			void OGLTexture::bind()
