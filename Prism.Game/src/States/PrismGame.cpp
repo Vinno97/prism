@@ -19,8 +19,8 @@ namespace States {
 
 	void PrismGame::onInit(Context & context)
 	{
-		menuBuilder.addControl(500, 500, 100, 100, "C:\\Users\\solaw\\prism\\dubai.png");
-		menuBuilder.addControl(600, 50, 75, 75, "C:\\Users\\solaw\\prism\\plaatje.jpg");
+		menuBuilder.addControl(-0.75, 0.75, 0.25, 0.25, "img/someimage.png");
+		menuBuilder.addControl(0, 0, 0.8, 0.3, "img/pause.png");
 		menu = menuBuilder.buildMenu();
 
 		auto floor = entityFactory.createFloor(entityManager);

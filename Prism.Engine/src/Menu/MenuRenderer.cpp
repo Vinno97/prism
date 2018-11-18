@@ -36,9 +36,9 @@ namespace Menu {
 		float width = 1080 / 2;
 		float height = 1920 / 2;
 
-		float aspect = float(1920)/float(1080);
+		float aspect = float(1920/2)/float(1080/2);
 
-		projection = glm::ortho(0.f, height*aspect, 0.f, height, -1.0f, 1.0f);
+		projection = glm::ortho(-aspect, aspect, -1.f, 1.f, -1.0f, 1.0f);
 	}
 	void MenuRenderer::renderMenu(Menu& menu)
 	{
@@ -46,22 +46,25 @@ namespace Menu {
 		menuPipeline->setUniformMatrix4f("view", projection);
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		float aspect = float(1920) / float(1080);
+
+		menu.mesh->vertexArrayObject->bind();
+		menu.mesh->indexBuffer->bind();
+
 		for (auto& control : menu.controls) 
 		{
 			auto pos = control.position;
 			glm::mat4 model = glm::mat4(1.0f);
 			model = glm::translate(model, glm::vec3(pos.x, pos.y, 0.0f));
-			model = glm::scale(model, glm::vec3(control.size.x, control.size.y, 1.0f));
+			model = glm::scale(model, glm::vec3(control.size.x, control.size.y*aspect, 1.0f));
 
 			menuPipeline->setUniformMatrix4f("model", model);
 
-			control.model.texture->bind();
-			control.model.mesh->vertexArrayObject->bind();
-			control.model.mesh->indexBuffer->bind();
-			renderDevice->DrawTrianglesIndexed(0, control.model.mesh->indicesLength);
-			
-			//control.DrawTexture();
+			control.texture->bind();
+			renderDevice->DrawTrianglesIndexed(0, menu.mesh->indicesLength);	
 		}
+		menu.mesh->vertexArrayObject->unbind();
+
 		glDisable(GL_BLEND);
 		menuPipeline->stop();
 	}

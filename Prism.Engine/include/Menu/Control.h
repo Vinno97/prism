@@ -15,19 +15,9 @@ namespace Menu {
 	public:
 		Control() = default;
 		Control(float x, float y, float width, float height, const char *path);
-		SDL_Window *window;
-		SDL_Texture* texture;
-		SDL_Renderer *renderer;
-		SDL_Surface *surface;
-		//GLuint TextureID;
-		void DrawTexture();
 		void UpdateTexture(const char *path);
-		//SDL_Texture* Surface;
-		Renderer::Graphics::Models::Model model;
 		Math::Vector3f position;
 		Math::Vector3f size;
-	private:
-		float xPos;
-		float yPos;
+		std::shared_ptr<Renderer::Graphics::Texture> texture;
 	};
 }
