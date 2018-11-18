@@ -25,9 +25,6 @@ namespace States {
 		auto camera = entityFactory.createCamera(entityManager);
 		auto mousePointer = entityFactory.createCameraPointer(entityManager);
 
-		AudioSystem audio;
-		audio.addMusic("main", "main.wav");
-		audio.playMusic("main");
 
 		for (int i = -4; i < 4; i++) {
 			auto entity = i % 2 == 0 ? entityFactory.createTower(entityManager) : entityFactory.createWall(entityManager);

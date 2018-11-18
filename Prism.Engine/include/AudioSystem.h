@@ -23,7 +23,7 @@ public:
 	void playSound(string name);
 	void playMusic(string name);
 	void pauseOrResumeMusic();
-	void stopMusic();
+	void stopMusic(); 
 
 	~AudioSystem();
 };
