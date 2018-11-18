@@ -28,11 +28,6 @@ void Window::init(const char* title, const int width, const int height, const in
 	}
 }
 
-SDL_Window * Window::getWindow()
-{
-	return this->gWindow;
-}
-
 void Window::createOpenGLContext(const int majorVersion, const int minorVersion, const bool useCompatibilityProfile)
 {
 

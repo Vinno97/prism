@@ -3,7 +3,6 @@
 
 #include "Menu/MenuBuilder.h"
 #include "Renderer/Renderable.h"
-#include <SDL2/SDL.h>
 #include <vector>
 #include <memory>
 #include "Renderer/Graphics/Models/Model.h"

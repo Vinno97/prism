@@ -76,7 +76,7 @@ namespace Renderer {
 			/// <summary>
 			/// Toggle blending mode
 			/// </summary>
-			virtual void useBlending(bool blend) const = 0;
+			virtual void useBlending(const bool blend) const = 0;
 
 			/// <summary>
 			/// Draw the currently bound VBO's using indices 

@@ -35,7 +35,7 @@ namespace Renderer {
 				unique_ptr<VertexArrayObject> createVertexArrayobject() const override;
 				shared_ptr<Texture> createTexture(const char* path) const override;
 
-				void useBlending(bool blend) const override;
+				void useBlending(const bool blend) const override;
 				void setClearColour(float r, float g, float b, float w) const override;
 				void useDepthTest(bool enable) const override;
 				void clearScreen() const override;

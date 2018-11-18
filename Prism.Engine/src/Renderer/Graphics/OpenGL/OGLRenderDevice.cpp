@@ -68,7 +68,7 @@ namespace Renderer {
 				return make_shared<OGLTexture>(path);
 			}
 
-			void OGLRenderDevice::useBlending(bool blend) const
+			void OGLRenderDevice::useBlending(const bool blend) const
 			{
 				if (true) {
 					glEnable(GL_BLEND);

@@ -28,8 +28,6 @@ public:
 	/// </summary>
 	InputManager getInputManager();
 
-	SDL_Window *getWindow();
-
 	/// <summary>
 	/// Prepares SDL window for opengl rendering. Requires for window to be initialized
 	/// </summary>		
