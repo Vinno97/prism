@@ -36,8 +36,7 @@ namespace ECS {
 					if (ResourceGatherSystem::shouldIncreaseResources(*resourceGatherPosition, *resourcePointPosition, range )) {
 						
 						auto resource = entityManager->getComponent<ResourceSpawnComponent>(resourcePoint.id);
-
-						
+												
 						//increateResource(resource->resourceType, *playerInventory, (resource->gatherRate * context.deltaTime));
 						
 						if (resource->SpawnTimer >= 0.8f) {
@@ -46,6 +45,7 @@ namespace ECS {
 						}
 						resource->SpawnTimer += context.deltaTime;
 					}
+
 				}
 			}
 		}

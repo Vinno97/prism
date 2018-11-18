@@ -61,17 +61,17 @@ namespace ECS {
 		{
 			if (resourceType == "red") {
 				playerInventory.redResource += gatherRate;
-				std::cout << "type " << resourceType << "- amount " << playerInventory.redResource << std::endl;
+				//std::cout << "type " << resourceType << "- amount " << playerInventory.redResource << std::endl;
 			}
 
 			if (resourceType == "blue") {
 				playerInventory.blueResource += gatherRate;
-				std::cout << "type " << resourceType << "- amount " << playerInventory.blueResource << std::endl;
+				//std::cout << "type " << resourceType << "- amount " << playerInventory.blueResource << std::endl;
 			}
 
 			if (resourceType == "green") {
 				playerInventory.greenResource += gatherRate;
-				std::cout << "type " << resourceType << "- amount " << playerInventory.greenResource << std::endl;
+				//std::cout << "type " << resourceType << "- amount " << playerInventory.greenResource << std::endl;
 			}
 		}
 		System * ResourceBlobSystem::clone()

@@ -174,6 +174,7 @@ int EntityFactory::CreateBlob(ECS::EntityManager & entityManager, std::string ty
 
 	ResourceBlobComponent resource;
 	resource.value = value;
+	resource.resourceType = type;
 	return entityManager.createEntity(appearance, PositionComponent(), VelocityComponent(), resource, DragComponent());
 }
 
