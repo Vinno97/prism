@@ -24,9 +24,6 @@ namespace States {
 		auto floor = entityFactory.createFloor(entityManager);
 		auto scene = entityFactory.createScene(entityManager);
 		auto sceneComponent = entityManager.getComponent<SceneComponent>(scene);
-		auto player = entityFactory.createPlayer(entityManager);
-		auto resourcePoint = entityFactory.createResourcePoint(entityManager);
-		auto enemy = entityFactory.createEnemy(entityManager);
 
 		sceneComponent->scene.ambientLightColor = Math::Vector3f{ 1.0f, 1.0f, 1.0f };
 		sceneComponent->scene.ambientLightStrength = 0.95f;
