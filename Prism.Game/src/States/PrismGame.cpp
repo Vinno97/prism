@@ -3,6 +3,7 @@
 #include "StateMachine.h"
 #include "States/PauseState.h"
 #include "ECS/Systems/EnemyPathFindingSystem.h"
+#include "ECS/Components/PlayerComponent.h"
 
 #include "World/WorldLoader.h"
 #include "World/Assemblers/PrismEntityAssembler.h"
@@ -52,10 +53,10 @@ void PrismGame::registerSystems(Context &context)
 	KeyboardInputSystem inputSystem = KeyboardInputSystem(entityManager);
 	RestockResourceSystem restockSystem = RestockResourceSystem(entityManager);
 	AnimationSystem animationSystem = AnimationSystem(entityManager);
-	CollisionSystem collisionSystem = CollisionSystem(entityManager, context.window->width, context.window->height, 0, 0, 2);
+	CollisionSystem collisionSystem = CollisionSystem(entityManager,200/* context.window->width*/,200/* context.window->height*/, 0, 0, 2);
 	BumpSystem bumpSystem = BumpSystem(entityManager);
 	AttackSystem attackSystem = AttackSystem(entityManager);
-	EnemyPathFindingSystem enemyPathFindingSystem = EnemyPathFindingSystem(entityManager, 20.0);
+	EnemyPathFindingSystem enemyPathFindingSystem = EnemyPathFindingSystem(entityManager, 10.0);
 
 	systemManager.registerSystem(motionSystem);
 	systemManager.registerSystem(renderSystem);
@@ -97,15 +98,15 @@ void PrismGame::onUpdate(Context &context)
 	motionSystem->update(context);
 	
 	collisionSystem->update(context);
-	attackSystem->update(context);
-	bumpSystem->update(context);
+	//attackSystem->update(context);
+	//bumpSystem->update(context);
 	animationSystem->update(context);
 	renderSystem->update(context);
 	
-	for (auto &entity : entityManager.getAllEntitiesWithComponent<VelocityComponent>()) {
-		auto velocity = entity.component;
+	for (auto &entity : entityManager.getAllEntitiesWithComponent<PlayerComponent>()) {
+		auto velocity = entityManager.getComponent<VelocityComponent>(entity.id);
 		auto position = entityManager.getComponent<PositionComponent>(entity.id);
-		printf("Entity:\t\t%d \nPosition: \tX: %.2f, Y: %.2f\nVelocity:\tdX: %.2f, dY: %.2f\n\n", entity.id, position->x, position->y, velocity->dx, velocity->dy);
+		//printf("Entity:\t\t%d \nPosition: \tX: %.2f, Y: %.2f\nVelocity:\tdX: %.2f, dY: %.2f\n\n", entity.id, position->x, position->y, velocity->dx, velocity->dy);
 	}
 
 	context.window->swapScreen();
