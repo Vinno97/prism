@@ -40,6 +40,7 @@
     <ClCompile Include="src\World\Assemblers\AppearanceAssembler.cpp" />
     <ClCompile Include="src\World\Assemblers\PositionAssembler.cpp" />
     <ClCompile Include="src\World\Assemblers\EntityAssembler.cpp" />
+    <ClCompile Include="src\AudioSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Renderer\Camera.h" />
@@ -108,6 +109,7 @@
     <ClInclude Include="include\World\Assemblers\BaseAssembler.h" />
     <ClInclude Include="include\World\Assemblers\EntityAssembler.h" />
     <ClInclude Include="include\Util\FileSystem.h" />
+    <ClInclude Include="include\AudioSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\x64\SDL2test.lib" />
@@ -115,5 +117,25 @@
     <Library Include="lib\x64\SDL2.lib" />
     <Library Include="lib\x64\SDL2main.lib" />
     <Library Include="lib\x64\assimp-vc140-mtd.lib" />
+    <Library Include="lib\x64\SDL2_mixer.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="lib\x64\libFLAC-8.dll" />
+    <None Include="lib\x64\libmodplug-1.dll" />
+    <None Include="lib\x64\libmpg123-0.dll" />
+    <None Include="lib\x64\libogg-0.dll" />
+    <None Include="lib\x64\libopus-0.dll" />
+    <None Include="lib\x64\libopusfile-0.dll" />
+    <None Include="lib\x64\libvorbis-0.dll" />
+    <None Include="lib\x64\libvorbisfile-3.dll" />
+    <None Include="lib\x64\SDL2_mixer.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="lib\x64\LICENSE.FLAC.txt" />
+    <Text Include="lib\x64\LICENSE.modplug.txt" />
+    <Text Include="lib\x64\LICENSE.mpg123.txt" />
+    <Text Include="lib\x64\LICENSE.ogg-vorbis.txt" />
+    <Text Include="lib\x64\LICENSE.opus.txt" />
+    <Text Include="lib\x64\LICENSE.opusfile.txt" />
   </ItemGroup>
 </Project>

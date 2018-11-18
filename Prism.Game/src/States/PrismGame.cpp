@@ -5,6 +5,7 @@
 
 #include "World/WorldLoader.h"
 #include "World/Assemblers/PrismEntityAssembler.h"
+#include "AudioSystem.h"
 
 using namespace States;
 using namespace ECS;
@@ -22,6 +23,7 @@ void PrismGame::onInit(Context & context)
 	auto floor = entityFactory.createFloor(entityManager);
 	auto scene = entityFactory.createScene(entityManager);
 	auto sceneComponent = entityManager.getComponent<SceneComponent>(scene);
+
 
 	sceneComponent->scene.ambientLightColor = Math::Vector3f{ 1.0f, 1.0f, 1.0f };
 	sceneComponent->scene.ambientLightStrength = 0.95f;
