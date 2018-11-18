@@ -94,9 +94,9 @@ namespace States {
 		inputSystem->update(context);
 		motionSystem->update(context);
 		animationSystem->update(context);
-		renderSystem->update(context);
 		resourceGatherSystem->update(context);
 		resourceBlobSystem->update(context);
+		renderSystem->update(context);
 
 		for (auto &entity : entityManager.getAllEntitiesWithComponent<VelocityComponent>()) {
 			auto velocity = entity.component;
