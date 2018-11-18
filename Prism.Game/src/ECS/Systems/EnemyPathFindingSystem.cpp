@@ -41,10 +41,6 @@ namespace ECS {
 
 						enemyVelocity->dx += enemySpeed * std::cos(angle) * dirX * context.deltaTime;
 						enemyVelocity->dy += enemySpeed * std::sin(angle) * dirY * context.deltaTime;
-
-						auto ty = enemySpeed * std::sin(angle) /* dirY/* * context.deltaTime*/;
-						auto tx = enemySpeed * std::sin(angle) /* dirY/* * context.deltaTime*/;
-						//std::cout << std::sqrt(ty * ty + tx * tx) << std::endl;
 					}
 				}
 			}
