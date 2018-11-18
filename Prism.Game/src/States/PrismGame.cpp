@@ -1,53 +1,43 @@
-#include "PrismGame.h"
+#include "States/PrismGame.h"
 #include "Math/Vector3f.h"
+#include "StateMachine.h"
+#include "States/PauseState.h"
 
-#include "ECS/Systems/MotionSystem.h"
-#include "ECS/Systems/RenderSystem.h"
-#include "ECS/Systems/KeyboardInputSystem.h"
-#include "ECS/Systems/RestockResourceSystem.h"
-#include "ECS/Systems/AnimationSystem.h"
+#include "World/WorldLoader.h"
+#include "World/Assemblers/PrismEntityAssembler.h"
 
-#include "World/TerrainGenerator.h"
-
+using namespace States;
 using namespace ECS;
 using namespace ECS::Components;
+using namespace World::Assemblers;
 
 /// <summary>
 /// creates new PrismGame object
 /// </summary>
 PrismGame::PrismGame()
-= default;
+	= default;
 
 void PrismGame::onInit(Context & context)
-{	
-	auto player = entityFactory.createPlayer(entityManager);
-	auto resourcePoint = entityFactory.createResourcePoint(entityManager);
-	auto enemy = entityFactory.createEnemy(entityManager);
-	auto scene = entityFactory.createScene(entityManager);
+{
 	auto floor = entityFactory.createFloor(entityManager);
-	auto spawn = entityFactory.createEnemySpawn(entityManager);
-
-	for (int i = -4; i < 4; i++) {
-		auto entity = i % 2 == 0 ? entityFactory.createTower(entityManager) : entityFactory.createWall(entityManager);
-		auto position = entityManager.getComponent<PositionComponent>(entity);
-		position->y = -1;
-		position->x = i;
-	}
-
-	auto positions{ entityManager.getAllEntitiesWithComponent<PositionComponent>()};
-
-	entityManager.getComponent<PositionComponent>(player)->y = 1;
-	entityManager.getComponent<PositionComponent>(resourcePoint)->x = 1;
-	entityManager.getComponent<PositionComponent>(enemy)->x = -1;
-	
+	auto scene = entityFactory.createScene(entityManager);
 	auto sceneComponent = entityManager.getComponent<SceneComponent>(scene);
 
 	sceneComponent->scene.ambientLightColor = Math::Vector3f{ 1.0f, 1.0f, 1.0f };
 	sceneComponent->scene.ambientLightStrength = 0.95f;
 	sceneComponent->scene.sun.color = Math::Vector3f{ .20f, .20f, .20f };
 	sceneComponent->scene.sun.direction = Math::Vector3f{ 25.f, 150.0f, 100.0f };
-//
+
+	World::LevelManager loader{ std::make_unique<PrismEntityAssembler>() };
+
+	loader.load("levels/Sample World", entityManager);
+	// Dit is hoe een wereld zou worden opgeslagen en weer ingeladen.
+	//loader.load("saves/Sample Save", entityManager);
+	//loader.save("saves/Sample Save", entityManager);
+
 	registerSystems(context);
+	PauseState ps = PauseState();
+	context.stateMachine->addState(ps);
 }
 
 /// <summary>
@@ -61,40 +51,47 @@ void PrismGame::registerSystems(Context &context)
 	KeyboardInputSystem inputSystem = KeyboardInputSystem(entityManager);
 	RestockResourceSystem restockSystem = RestockResourceSystem(entityManager);
 	AnimationSystem animationSystem = AnimationSystem(entityManager);
-	EnemySpawnSystem enemySpawnSystem = EnemySpawnSystem(entityManager);
 	
 	systemManager.registerSystem(motionSystem);
 	systemManager.registerSystem(renderSystem);
 	systemManager.registerSystem(inputSystem);
 	systemManager.registerSystem(restockSystem);
 	systemManager.registerSystem(animationSystem);
-	systemManager.registerSystem(enemySpawnSystem);
 }
 
 void PrismGame::onUpdate(Context &context)
 {
+	auto input = context.inputManager;
+	if (input->isKeyPressed(Key::KEY_ESCAPE) && canPressEscape) {
+		canPressEscape = false;
+		context.stateMachine->setState<PauseState>();
+	}
+
+	if (!input->isKeyPressed(Key::KEY_ESCAPE)) {
+		canPressEscape = true;
+	}
+
 	auto inputSystem = systemManager.getSystem<KeyboardInputSystem>();
 	auto motionSystem = systemManager.getSystem<MotionSystem>();
 	auto renderSystem = systemManager.getSystem<RenderSystem>();
 	auto restockSystem = systemManager.getSystem<RestockResourceSystem>();
 	auto animationSystem = systemManager.getSystem<AnimationSystem>();
-	auto enemySpawnSystem = systemManager.getSystem<EnemySpawnSystem>();
 
 	inputSystem->update(context);
 	restockSystem->update(context);
 	motionSystem->update(context);
 	animationSystem->update(context);
 	renderSystem->update(context);
-	enemySpawnSystem->update(context);
 
 	for (auto &entity : entityManager.getAllEntitiesWithComponent<VelocityComponent>()) {
 		auto velocity = entity.component;
 		auto position = entityManager.getComponent<PositionComponent>(entity.id);
 		printf("Entity:\t\t%d \nPosition: \tX: %.2f, Y: %.2f\nVelocity:\tdX: %.2f, dY: %.2f\n\n", entity.id, position->x, position->y, velocity->dx, velocity->dy);
 	}
+
+	context.window->swapScreen();
 }
 void PrismGame::onEnter() {
-
 }
 void PrismGame::onLeave() {
 }

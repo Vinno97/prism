@@ -100,7 +100,11 @@ namespace ECS {
 
 	bool EntityManager::hasComponent(unsigned int entityId, std::type_index componentType) const
 	{
-		return entityComponents.find(componentType) != entityComponents.end();
+		if (entityComponents.find(componentType) != entityComponents.end()) {
+			auto entityList = entityComponents.at(componentType);
+			return entityComponents.at(componentType).find(entityId) != entityComponents.at(componentType).end();
+		}
+		return false;
 	}
 
 	void EntityManager::removeComponentFromEntity(unsigned int entityId, std::type_index componentType)
@@ -129,6 +133,19 @@ namespace ECS {
 				++itr;
 			}
 		}
+	}
+
+	std::set<int> EntityManager::getAllEntities()
+	{
+		std::set<int> entityIds;
+
+		for (const auto& componentType : entityComponents) {
+			for (const auto& test : componentType.second) {
+				entityIds.insert(test.first);
+			}
+		}
+
+		return entityIds;
 	}
 
 	EntityManager::EntityManager(const EntityManager& other)
