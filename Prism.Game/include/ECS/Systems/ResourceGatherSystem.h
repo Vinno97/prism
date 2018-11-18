@@ -23,8 +23,8 @@ namespace ECS {
 			/// <summary>
 			/// Checks if an entity with the resourceGatherComponent is in range to collect the resource
 			/// </summay>
-			bool shouldIncreaseResources(PositionComponent& playerPosition, PositionComponent& resourcePointPosition, float radius);
-			void CreateBlob(int resourcePointID, Enums::ResourceType resourceType, float value);
+			bool shouldIncreaseResources(PositionComponent& playerPosition, PositionComponent& resourcePointPosition, float radius) const;
+			void createResourceBlob(int resourcePointID, Enums::ResourceType resourceType, float value);
 		};
 	}
 }

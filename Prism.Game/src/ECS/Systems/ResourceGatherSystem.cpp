@@ -40,7 +40,7 @@ namespace ECS {
 						//increateResource(resource->resourceType, *playerInventory, (resource->gatherRate * context.deltaTime));
 						
 						if (resource->SpawnTimer >= 0.8f) {
-							CreateBlob(resourcePoint.id, resource->resourceType, resource->value);
+							createResourceBlob(resourcePoint.id, resource->resourceType, resource->value);
 							resource->SpawnTimer = 0;
 						}
 						resource->SpawnTimer += context.deltaTime;
@@ -54,7 +54,7 @@ namespace ECS {
 			auto newSystem = new ResourceGatherSystem(*entityManager);
 			return newSystem;
 		}
-		bool ResourceGatherSystem::shouldIncreaseResources(PositionComponent& playerPosition, PositionComponent& resourcePointPosition, float radius)
+		bool ResourceGatherSystem::shouldIncreaseResources(PositionComponent& playerPosition, PositionComponent& resourcePointPosition, float radius) const
 		{
 			auto x = resourcePointPosition.x - playerPosition.x;
 			auto y = resourcePointPosition.y - playerPosition.y;
@@ -68,9 +68,9 @@ namespace ECS {
 			return false;
 		}
 
-		void ResourceGatherSystem::CreateBlob(int resourcePointID, Enums::ResourceType type, float value) {
+		void ResourceGatherSystem::createResourceBlob(int resourcePointID, Enums::ResourceType type, float value) {
 			
-			auto blob = entityFactory.CreateBlob(*entityManager, type, value);
+			auto blob = entityFactory.CreateResourceBlob(*entityManager, type, value);
 			auto bloblPosition = entityManager->getComponent<PositionComponent>(blob);
 			bloblPosition->x = entityManager->getComponent<PositionComponent>(resourcePointID)->x;
 			bloblPosition->y = entityManager->getComponent<PositionComponent>(resourcePointID)->y;

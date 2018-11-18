@@ -13,7 +13,8 @@ namespace ECS {
 			ResourceBlobSystem(EntityManager &entityManager);
 			~ResourceBlobSystem() = default;
 			void update(Context& context) override;
-			void RemoveBlobs(PositionComponent & playerPosition, PositionComponent & blobPosition, int blob);
+		private:
+			void removeResourceBlobs(PositionComponent & playerPosition, PositionComponent & blobPosition, int blob);
 			void increateResource(Enums::ResourceType resourceType, InventoryComponent & playerInventory, float gatherRate);
 			System* clone() override;
 

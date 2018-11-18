@@ -11,7 +11,7 @@ namespace World {
 			void assemble(int entity, const WorldObject& worldObject, ECS::EntityManager& entityManager) const;
 			void disassemble(int entity, WorldObject& worldObject, const ECS::EntityManager& entityManager) const;
 		private:
-			std::map<std::string, Enums::ResourceType> resourceTypes;
+			std::map<int, Enums::ResourceType> resourceTypes;
 		};
 	}
 }

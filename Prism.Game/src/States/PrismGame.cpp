@@ -21,12 +21,6 @@ PrismGame::PrismGame()
 
 void PrismGame::onInit(Context & context)
 {
-	auto player = entityFactory.createPlayer(entityManager);
-	auto redResourcePoint = entityFactory.createResourcePoint(entityManager, Enums::ResourceType::RED, 1, 1);
-	auto greenResourcePoint = entityFactory.createResourcePoint(entityManager, Enums::ResourceType::GREEN, 1, 1);
-	auto blueResourcePoint = entityFactory.createResourcePoint(entityManager, Enums::ResourceType::BLUE, 1, 1);
-	auto enemy = entityFactory.createEnemy(entityManager);
-
 	auto floor = entityFactory.createFloor(entityManager);
 	auto scene = entityFactory.createScene(entityManager);
 	auto sceneComponent = entityManager.getComponent<SceneComponent>(scene);
@@ -35,16 +29,10 @@ void PrismGame::onInit(Context & context)
 	sceneComponent->scene.ambientLightStrength = 0.95f;
 	sceneComponent->scene.sun.color = Math::Vector3f{ .20f, .20f, .20f };
 	sceneComponent->scene.sun.direction = Math::Vector3f{ 25.f, 150.0f, 100.0f };
-	entityManager.getComponent<PositionComponent>(player)->y = 1;
-	entityManager.getComponent<PositionComponent>(redResourcePoint)->x = 1;
-	entityManager.getComponent<PositionComponent>(greenResourcePoint)->x = 2;
-	entityManager.getComponent<PositionComponent>(blueResourcePoint)->x = 1;
-	entityManager.getComponent<PositionComponent>(blueResourcePoint)->y = 1;
-	entityManager.getComponent<PositionComponent>(enemy)->x = -1;
 
 	World::LevelManager loader{ std::make_unique<PrismEntityAssembler>() };
 
-	//loader.load("levels/Sample World", entityManager);
+	loader.load("levels/Sample World", entityManager);
 	// Dit is hoe een wereld zou worden opgeslagen en weer ingeladen.
 	//loader.load("saves/Sample Save", entityManager);
 	//loader.save("saves/Sample Save", entityManager);
@@ -101,10 +89,10 @@ void PrismGame::onUpdate(Context &context)
 	resourceBlobSystem->update(context);
 	renderSystem->update(context);
 
-	for (auto &entity : entityManager.getAllEntitiesWithComponent<VelocityComponent>()) {
-		auto velocity = entity.component;
+	for (auto &entity : entityManager.getAllEntitiesWithComponent<PlayerComponent>()) {
+		auto velocity = entityManager.getComponent<VelocityComponent>(entity.id);
 		auto position = entityManager.getComponent<PositionComponent>(entity.id);
-		//printf("Entity:\t\t%d \nPosition: \tX: %.2f, Y: %.2f\nVelocity:\tdX: %.2f, dY: %.2f\n\n", entity.id, position->x, position->y, velocity->dx, velocity->dy);
+		printf("Entity:\t\t%d \nPosition: \tX: %.2f, Y: %.2f\nVelocity:\tdX: %.2f, dY: %.2f\n\n", entity.id, position->x, position->y, velocity->dx, velocity->dy);
 	}
 
 	context.window->swapScreen();

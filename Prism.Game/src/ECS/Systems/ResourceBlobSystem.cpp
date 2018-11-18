@@ -33,16 +33,16 @@ namespace ECS {
 				blobVelocity->dx = direction.x;
 				blobVelocity->dy = direction.y;
 
-				RemoveBlobs(*playerLocation, *blobPosition, blob.id);
+				removeResourceBlobs(*playerLocation, *blobPosition, blob.id);
 			}
 		}
 
-		void ResourceBlobSystem::RemoveBlobs(PositionComponent &playerPosition, PositionComponent &blobPosition, int blob) {
+		void ResourceBlobSystem::removeResourceBlobs(PositionComponent &playerPosition, PositionComponent &blobPosition, int blob) {
 
 			auto x = blobPosition.x - playerPosition.x;
 			auto y = blobPosition.y - playerPosition.y;
 
-			float distance = sqrt((x*x) + (y*y));
+			float distance = std::sqrt((x*x) + (y*y));
 
 			if (distance < 0.05f ) {
 				

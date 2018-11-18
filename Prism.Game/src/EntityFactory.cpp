@@ -40,15 +40,16 @@ int EntityFactory::createPlayer(int entity, EntityManager& entityManager) {
 	appearance.model = std::move(model);
 	appearance.color = Math::Vector3f{ 1.0f, 0.5f, 0.5f };
 
-	return entityManager.createEntity(appearance,
-		VelocityComponent(),
-		PositionComponent(),
-		DragComponent(5.f),
-		KeyboardInputComponent(),
-		PlayerComponent(),
-		InventoryComponent(),
-		ResourceGatherComponent()
-	);
+	entityManager.addComponentToEntity(entity, VelocityComponent());
+	entityManager.addComponentToEntity(entity, PositionComponent());
+	entityManager.addComponentToEntity(entity, DragComponent(5.f));
+	entityManager.addComponentToEntity(entity, KeyboardInputComponent());
+	entityManager.addComponentToEntity(entity, PlayerComponent());
+	entityManager.addComponentToEntity(entity, InventoryComponent());
+	entityManager.addComponentToEntity(entity, ResourceGatherComponent());
+	entityManager.addComponentToEntity(entity, appearance);
+
+	return entity;
 }
 
 int EntityFactory::createEnemy(EntityManager& entityManager) {
@@ -67,10 +68,10 @@ int EntityFactory::createEnemy(int entity, EntityManager& entityManager) {
 
 	entityManager.addComponentToEntity(entity, VelocityComponent());
 	entityManager.addComponentToEntity(entity, PositionComponent());
-	entityManager.addComponentToEntity(entity, DragComponent(5.f)); 
+	entityManager.addComponentToEntity(entity, DragComponent(5.f));
 	entityManager.addComponentToEntity(entity, EnemyComponent());
 	entityManager.addComponentToEntity(entity, appearance);
-	
+
 	return entity;
 }
 
@@ -99,7 +100,12 @@ int EntityFactory::createResourcePoint(int entity, EntityManager & entityManager
 	if (type == Enums::ResourceType::GREEN) {
 		appearance.color = Math::Vector3f{ 0.6f, 1.0f, 0.6f };
 	}
-	return entityManager.createEntity(PositionComponent(), ResourceSpawnComponent(gatherRate, type, value), appearance);
+
+	entityManager.addComponentToEntity(entity, PositionComponent());
+	entityManager.addComponentToEntity(entity, ResourceSpawnComponent(gatherRate, type, value));
+	entityManager.addComponentToEntity(entity, appearance);
+
+	return entity;
 
 }
 int EntityFactory::createTower(EntityManager & entityManager) {
@@ -178,13 +184,13 @@ int EntityFactory::createScene(int entity, EntityManager & entityManager) {
 
 int EntityFactory::createFloor(ECS::EntityManager & entityManager)
 {
-    return createFloor(entityManager.createEntity(), entityManager);
+	return createFloor(entityManager.createEntity(), entityManager);
 }
 
 int EntityFactory::createFloor(int entity, EntityManager & entityManager) {
 	int width = 150;
 	int height = 150;
-	float scale = 3	;
+	float scale = 3;
 
 	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
 	auto model = World::TerrainGenerator().generateTerrain(width / scale, height / scale);
@@ -203,13 +209,17 @@ int EntityFactory::createFloor(int entity, EntityManager & entityManager) {
 
 	appearance.model = std::move(model);
 	appearance.color = Math::Vector3f{ 0.87f, 0.87f, 0.87f };
-	
+
 	entityManager.addComponentToEntity(entity, PositionComponent());
 	entityManager.addComponentToEntity(entity, appearance);
 	return entity;
 }
 
-int EntityFactory::CreateBlob(ECS::EntityManager & entityManager, Enums::ResourceType type, float value)
+int EntityFactory::CreateResourceBlob(ECS::EntityManager & entityManager, Enums::ResourceType type, float value) {
+
+	return CreateResourceBlob(entityManager.createEntity(), entityManager, type, value);
+}
+int EntityFactory::CreateResourceBlob(int entity, ECS::EntityManager & entityManager, Enums::ResourceType type, float value)
 {
 	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
 	auto model = ml.loadModel("./res/blob.obj");
@@ -231,7 +241,15 @@ int EntityFactory::CreateBlob(ECS::EntityManager & entityManager, Enums::Resourc
 		appearance.color = Math::Vector3f{ 0.6f, 1.0f, 0.6f };
 	}
 
-	ResourceBlobComponent resource = ResourceBlobComponent(value , type);
+	ResourceBlobComponent resource = ResourceBlobComponent(value, type);
 
-	return entityManager.createEntity(appearance, PositionComponent(), VelocityComponent(), resource, DragComponent());
+
+	entityManager.addComponentToEntity(entity, PositionComponent());
+	entityManager.addComponentToEntity(entity, VelocityComponent());
+	entityManager.addComponentToEntity(entity, DragComponent());
+	entityManager.addComponentToEntity(entity, resource);
+	entityManager.addComponentToEntity(entity, appearance);
+	return entity;
+
+	//return entityManager.createEntity(appearance, PositionComponent(), VelocityComponent(), resource, DragComponent());
 }

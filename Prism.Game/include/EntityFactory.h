@@ -33,7 +33,8 @@ public:
 	int createFloor(ECS::EntityManager & entityManager);
 	int createFloor(int entity, ECS::EntityManager & entityManager);
 
-	int CreateBlob(ECS::EntityManager & entityManager, Enums::ResourceType type, float value);
+	int CreateResourceBlob(ECS::EntityManager & entityManager, Enums::ResourceType type, float value);
+	int CreateResourceBlob(int entity, ECS::EntityManager & entityManager, Enums::ResourceType type, float value);
 private:
 	//map<std::string, Model> modelCache; // TODO: Use this cache to cache the models to optimize memory usage.
 };
