@@ -1,6 +1,7 @@
 #include "Menu/Menu.h"
 #include "..\..\include\Menu\Menu.h"
 namespace Menu {
+
 	Menu::Menu(const Menu & other)
 	{
 		for (auto const& control : other.controls) {

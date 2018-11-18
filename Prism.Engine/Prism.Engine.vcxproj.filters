@@ -149,11 +149,6 @@
     <None Include="lib\x64\zlib1.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="lib\LICENSE.jpeg.txt" />
-    <Text Include="lib\LICENSE.png.txt" />
-    <Text Include="lib\LICENSE.tiff.txt" />
-    <Text Include="lib\LICENSE.webp.txt" />
-    <Text Include="lib\LICENSE.zlib.txt" />
     <Text Include="lib\x64\LICENSE.jpeg.txt" />
     <Text Include="lib\x64\LICENSE.png.txt" />
     <Text Include="lib\x64\LICENSE.tiff.txt" />
