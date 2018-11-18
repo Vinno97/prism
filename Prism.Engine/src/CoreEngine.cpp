@@ -21,6 +21,7 @@ CoreEngine::CoreEngine()
 	context.window = new Window();
 	context.stateMachine = new StateMachine();
 	context.inputManager = new InputManager();
+	context.audioSystem = new AudioSystem();
 }
 
 const void CoreEngine::InitWindow(const char* title, const int width, const int height, const int x, const int y) {
@@ -56,6 +57,7 @@ void CoreEngine::CleanUp() {
 	delete context.stateMachine;
 	delete context.window;
 	delete context.inputManager;
+	delete context.audioSystem;
 }
 
 CoreEngine::~CoreEngine()

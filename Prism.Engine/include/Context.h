@@ -1,6 +1,7 @@
 #pragma once
 #include <Window.h>
 #include "InputManager.h"
+#include "AudioSystem.h"
 
 class StateMachine;
 
@@ -19,5 +20,6 @@ public:
 	Window *window;
 	StateMachine *stateMachine;
 	InputManager *inputManager;
+	AudioSystem *audioSystem;
 };
 
