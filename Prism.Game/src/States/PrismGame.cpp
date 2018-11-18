@@ -21,7 +21,6 @@ namespace States {
 	{
 		menuBuilder.addControl(-1.15, 0.88, 0.6, 0.07, "img/healthbar.png");
 		menu = menuBuilder.buildMenu();
-
 		auto floor = entityFactory.createFloor(entityManager);
 		auto scene = entityFactory.createScene(entityManager);
 		auto sceneComponent = entityManager.getComponent<SceneComponent>(scene);
@@ -87,7 +86,7 @@ namespace States {
 			printf("Entity:\t\t%d \nPosition: \tX: %.2f, Y: %.2f\nVelocity:\tdX: %.2f, dY: %.2f\n\n", entity.id, position->x, position->y, velocity->dx, velocity->dy);
 		}
 
-		menuRenderer.renderMenu(menu);
+		menuRenderer.renderMenu(menu, float(context.window->width) / float(context.window->height));
 		context.window->swapScreen();
 
 		if (input->isKeyPressed(Key::KEY_ESCAPE) && canPressEscape) {

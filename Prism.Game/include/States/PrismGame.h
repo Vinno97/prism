@@ -37,9 +37,8 @@ namespace States {
 		SystemManager systemManager;
 		EntityFactory entityFactory;
 		Menu::MenuBuilder menuBuilder;
-		Menu::MenuRenderer renderer;
-		Menu::Menu menu;
 		Menu::MenuRenderer menuRenderer;
+		Menu::Menu menu;
 
 		void registerSystems(Context &context);
 

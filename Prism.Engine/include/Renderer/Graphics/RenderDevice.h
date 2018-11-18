@@ -74,6 +74,11 @@ namespace Renderer {
 			virtual void clearScreen() const = 0;
 
 			/// <summary>
+			/// Toggle blending mode
+			/// </summary>
+			virtual void useBlending(bool blend) const = 0;
+
+			/// <summary>
 			/// Draw the currently bound VBO's using indices 
 			/// </summary>
 			/// <param name="offset">Offset of the drawing call</param>

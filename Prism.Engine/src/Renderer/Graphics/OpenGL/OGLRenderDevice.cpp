@@ -68,6 +68,17 @@ namespace Renderer {
 				return make_shared<OGLTexture>(path);
 			}
 
+			void OGLRenderDevice::useBlending(bool blend) const
+			{
+				if (true) {
+					glEnable(GL_BLEND);
+					glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+				}
+				else {
+					glDisable(GL_BLEND);
+				}
+			}
+
 			void OGLRenderDevice::setClearColour(float r, float g, float b, float w) const
 			{
 				glClearColor(r, g, b, w);

@@ -14,7 +14,7 @@ namespace Menu {
 	{
 	public:
 		MenuRenderer();
-		void renderMenu(Menu& menu);
+		void renderMenu(Menu& menu, float aspect);
 	private:
 		Renderer::Graphics::RenderDevice* renderDevice;
 		std::unique_ptr<Renderer::Graphics::Pipeline> menuPipeline;

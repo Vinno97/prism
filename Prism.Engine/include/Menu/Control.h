@@ -18,6 +18,7 @@ namespace Menu {
 		void UpdateTexture(const char *path);
 		Math::Vector3f position;
 		Math::Vector3f size;
+		float rotation = 0;
 		std::shared_ptr<Renderer::Graphics::Texture> texture;
 	};
 }

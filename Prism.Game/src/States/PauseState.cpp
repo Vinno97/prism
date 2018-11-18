@@ -13,7 +13,6 @@ namespace States {
 
 	void PauseState::onInit(Context & context)
 	{
-
 	}
 
 	void PauseState::onUpdate(Context & context)
@@ -30,18 +29,17 @@ namespace States {
 		}
 		Renderer::Graphics::RenderDevice* renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
 		renderDevice->clearScreen();
-		menuRenderer.renderMenu(menu);
+		menuRenderer.renderMenu(menu, float(context.window->width) / float(context.window->height));
 		context.window->swapScreen();
 	}
 
 	void PauseState::onEnter()
 	{
-		menuBuilder.addControl(0, 0, 1, 0.2, "img/pause.png");
+		menuBuilder.addControl(0, 0, 1, 0.17, "img/pause.png");
 		menu = menuBuilder.buildMenu();
 		Renderer::Graphics::RenderDevice* renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
 		renderDevice->setClearColour(1.f, 1.f, 1.f, 1.f);
 	}
-
 
 	void PauseState::onLeave()
 	{

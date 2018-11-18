@@ -23,10 +23,9 @@ namespace States {
 
 	private:
 		bool canPressEscape = false;
-		Menu::MenuBuilder menuBuilder;
-		Menu::MenuRenderer renderer;
-		Menu::Menu menu;
 		Menu::MenuRenderer menuRenderer;
+		Menu::MenuBuilder menuBuilder;
+		Menu::Menu menu;
 	};
 }
 

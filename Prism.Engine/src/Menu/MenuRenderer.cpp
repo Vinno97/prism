@@ -8,9 +8,6 @@
 #include "Renderer/Graphics/VertexArrayObject.h"
 #include "Renderer/Graphics/VertexBuffer.h"
 #include "Util/FileSystem.h"
-#include <SDL2/SDL_opengl.h>
-
-#include <random>
 #include <functional>
 
 using namespace std;
@@ -32,21 +29,14 @@ namespace Menu {
 
 		menuPipeline->createUniform("view");
 		menuPipeline->createUniform("model");
-			
-		float width = 1080 / 2;
-		float height = 1920 / 2;
-
-		float aspect = float(1920/2)/float(1080/2);
-
-		projection = glm::ortho(-aspect, aspect, -1.f, 1.f, -1.0f, 1.0f);
 	}
-	void MenuRenderer::renderMenu(Menu& menu)
+
+	void MenuRenderer::renderMenu(Menu& menu, float aspect)
 	{
 		menuPipeline->run();
 		menuPipeline->setUniformMatrix4f("view", projection);
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		float aspect = float(1920) / float(1080);
+		renderDevice->useBlending(true);
+		projection = glm::ortho(-aspect, aspect, -1.f, 1.f, -1.0f, 1.0f);
 
 		menu.mesh->vertexArrayObject->bind();
 		menu.mesh->indexBuffer->bind();
@@ -55,7 +45,9 @@ namespace Menu {
 		{
 			auto pos = control.position;
 			glm::mat4 model = glm::mat4(1.0f);
+
 			model = glm::translate(model, glm::vec3(pos.x, pos.y, 0.0f));
+			model = glm::rotate(model, control.rotation, glm::vec3(0.f, 0.f, 1.f));
 			model = glm::scale(model, glm::vec3(control.size.x, control.size.y*aspect, 1.0f));
 
 			menuPipeline->setUniformMatrix4f("model", model);
@@ -63,6 +55,7 @@ namespace Menu {
 			control.texture->bind();
 			renderDevice->DrawTrianglesIndexed(0, menu.mesh->indicesLength);	
 		}
+		renderDevice->useBlending(false);
 		menu.mesh->vertexArrayObject->unbind();
 
 		glDisable(GL_BLEND);
