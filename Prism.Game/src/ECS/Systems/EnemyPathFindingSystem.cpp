@@ -1,3 +1,5 @@
+#include <cmath>
+
 #include "ECS/Systems/EnemyPathFindingSystem.h"
 #include "ECS/Components/VelocityComponent.h"
 #include "ECS/Components/PositionComponent.h"
