@@ -42,9 +42,6 @@
     <ClCompile Include="src\World\Assemblers\AppearanceAssembler.cpp" />
     <ClCompile Include="src\World\Assemblers\PositionAssembler.cpp" />
     <ClCompile Include="src\World\Assemblers\EntityAssembler.cpp" />
-<<<<<<<<< Temporary merge branch 1
-    <ClCompile Include="src\ECS\Systems\CollisionSystem.cpp" />
-=========
     <ClCompile Include="src\Util\lodepng.cpp" />
     <ClCompile Include="src\Menu\MenuBuilder.cpp" />
     <ClCompile Include="src\Menu\Control.cpp" />
