@@ -18,6 +18,9 @@
 #include "ECS/Systems/KeyboardInputSystem.h"
 #include "ECS/Systems/RestockResourceSystem.h"
 #include "ECS/Systems/AnimationSystem.h"
+#include "Menu/MenuBuilder.h"
+#include "Menu/Menu.h"
+#include "Menu/MenuRenderer.h"
 
 namespace States {
 	class PrismGame : public Game
@@ -33,6 +36,9 @@ namespace States {
 		EntityManager entityManager;
 		SystemManager systemManager;
 		EntityFactory entityFactory;
+		Menu::MenuBuilder menuBuilder;
+		Menu::MenuRenderer menuRenderer;
+		Menu::Menu menu;
 
 		void registerSystems(Context &context);
 

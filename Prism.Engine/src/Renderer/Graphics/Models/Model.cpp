@@ -14,12 +14,14 @@ namespace Renderer {
 			Model::Model(const Model & other)
 			{
 				mesh = other.mesh;
+				texture = other.texture;
 			}
 
 			Model & Model::operator=(const Model & other)
 			{
 				if (this != &other) {
 					mesh = other.mesh;
+					texture = other.texture;
 				}
 				return *this;
 			}
@@ -27,13 +29,16 @@ namespace Renderer {
 			Model::Model(Model && other)
 			{
 				mesh.swap(other.mesh);
+				texture.swap(other.texture);
 				other.mesh = nullptr;
+				other.texture = nullptr;
 			}
 
 			Model & Model::operator=(Model && other)
 			{
 				if (this != &other) {
 					mesh.swap(other.mesh);
+					texture.swap(other.texture);
 				}
 				return *this;
 			}
