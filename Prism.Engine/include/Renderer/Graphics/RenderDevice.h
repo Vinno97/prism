@@ -55,12 +55,17 @@ namespace Renderer {
 			/// <summary>
 			/// Create a new vertexArrayObject
 			/// </summary>
-			virtual std::unique_ptr<RenderTarget> createRenderTarget(bool useDepthBuffer, Texture& texture) const = 0;
+			virtual std::unique_ptr<RenderTarget> createRenderTarget(bool useDepthBuffer, std::shared_ptr<Texture> texture) const = 0;
 
 			/// <summary>
-			/// Create a new vertexArrayObject
+			/// Create a new texture with image path
 			/// </summary>
-			virtual shared_ptr<Texture> createTexture(const char* path) const = 0;
+			virtual std::shared_ptr<Texture> createTexture(const char* path) const = 0;
+
+			/// <summary>
+			/// Create a new texture 
+			/// </summary>
+			virtual std::shared_ptr<Texture> createTexture() const = 0;
 
 			/// <summary>
 			/// Set the colour that the screen will be cleared with

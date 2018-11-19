@@ -14,26 +14,44 @@
 #include "Renderer/Graphics/Loader/ModelLoader.h"
 #include "Renderer/Graphics/Models/Model.h"
 #include "Util/FileSystem.h"
+#include <SDL2/SDL_opengl.h>
 
 using namespace Renderer;
 using namespace Renderer::Graphics;
 using namespace Renderer::Graphics::OpenGL;
 
+using namespace Renderer::Graphics::Models;
+
 namespace Renderer {
 	ForwardRenderer::ForwardRenderer(int width, int height) : width{width}, height{height}
 	{
 		renderDevice = OGLRenderDevice::getRenderDevice();
-		renderTarget = renderDevice->createRenderTarget(true);
+
+		quadTexture = renderDevice->createTexture();
+
+		renderTarget = renderDevice->createRenderTarget(true , quadTexture);
 
 		//Init render target quad
-		auto verticesSize = 18 * sizeof(float);
-		std::unique_ptr<VertexBuffer> vertexBuffer = renderDevice->createVertexBuffer(verticesSize, quadData);
+		float* verticesArray = vertices;
+		float* textsArray = texCoords;
+		unsigned int* indicesArray = indices;
+
+		auto verticesSize = 8 * sizeof(float);
+
+		std::unique_ptr<VertexBuffer> vertexBuffer = renderDevice->createVertexBuffer(verticesSize, vertices);
+		std::unique_ptr<VertexBuffer> texBuffer = renderDevice->createVertexBuffer(verticesSize, texCoords);
+
+		std::unique_ptr<IndexBuffer> indexBuffer = renderDevice->createIndexBuffer(6 * sizeof(unsigned int), indices);
+
 		std::unique_ptr<VertexArrayObject> vertexArrayObject = renderDevice->createVertexArrayobject();
 		vertexArrayObject->addVertexBuffer(move(vertexBuffer), 0, 2 * sizeof(float), 0, 2);
-		auto mesh = std::make_shared<Renderer::Graphics::Models::Mesh>(move(vertexArrayObject));
-		mesh->isIndiced = false;
-		mesh->verticesLength = 6;
+		vertexArrayObject->addVertexBuffer(move(texBuffer), 1, 2 * sizeof(float), 0, 2);
 
+		quadMesh = std::make_shared<Renderer::Graphics::Models::Mesh>(move(vertexArrayObject), move(indexBuffer));
+		quadMesh->isIndiced = true;
+		quadMesh->indicesLength = 6;
+
+		//end init render target quad
 
 		Util::FileSystem fileReader;
 		std::string vertexSource = fileReader.readResourceFileIntoString("/shaders/simpleGeometry.vs");
@@ -42,6 +60,14 @@ namespace Renderer {
 		std::unique_ptr<VertexShader> vertexShader = renderDevice->createVertexShader(vertexSource.c_str());
 		std::unique_ptr<FragmentShader> fragmentShader = renderDevice->createFragmentShader(fragmentSource.c_str());
 		geometryPipeline = move(renderDevice->createPipeline(*vertexShader, *fragmentShader));
+
+		vertexSource = fileReader.readResourceFileIntoString("/shaders/quadShader.vs");
+		fragmentSource = fileReader.readResourceFileIntoString("/shaders/quadShader.fs");
+
+		vertexShader = renderDevice->createVertexShader(vertexSource.c_str());
+		fragmentShader = renderDevice->createFragmentShader(fragmentSource.c_str());
+
+		quadPipeline = move(renderDevice->createPipeline(*vertexShader, *fragmentShader));
 
 		geometryPipeline->createUniform("model");
 		geometryPipeline->createUniform("view");
@@ -65,10 +91,11 @@ namespace Renderer {
 	{
 		glm::mat4 model;
 		const glm::mat4 view = camera.getCameraMatrix();
+		
+		renderDevice->clearScreen();
+		renderTarget->bind();
 		renderDevice->clearScreen();
 		geometryPipeline->run();
-
-		renderTarget->bind();
 
 		for (const auto& renderable : renderables) {
 			model = renderable.getMatrix();
@@ -93,10 +120,17 @@ namespace Renderer {
 				renderDevice->DrawTriangles(0, renderable.model->mesh->verticesLength);
 			}
 		}
+		geometryPipeline->stop();
 		renderTarget->unbind();
 
+		quadPipeline->run();
 
+		quadTexture->bind();
+		quadMesh->vertexArrayObject->bind();
+		quadMesh->indexBuffer->bind();
+		glViewport(0, 0, 960, 540); 
+		renderDevice->DrawTrianglesIndexed(0, quadMesh->indicesLength);
+		quadPipeline->stop();
 
-		geometryPipeline->stop();
 	}
 }

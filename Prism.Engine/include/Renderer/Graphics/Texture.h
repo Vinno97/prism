@@ -5,6 +5,7 @@ namespace Renderer {
 		public:
 			Texture()=default;
 			virtual void bind() = 0;
+			virtual int getID() = 0;
 		};
 	}
 }

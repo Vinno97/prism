@@ -17,6 +17,11 @@ void main() {
 	float diff = max(dot(norm, lightDir), 0.0);
 	vec3 diffuse = diff * sunColor;
 	vec3 result = (ambient + diffuse) * vec3(objectColor);
-
-    FragColor = vec4(result, 1.0);
-}
+	
+	float brightness = dot(result.rgb, vec3(0.2126, 0.7152, 0.0722));
+	
+	if(brightness > 1.0)
+        FragColor = vec4(result.rgb, 0.0);
+    else
+        FragColor = vec4(0.0, 0.0, 0.0, 1.0);
+	}

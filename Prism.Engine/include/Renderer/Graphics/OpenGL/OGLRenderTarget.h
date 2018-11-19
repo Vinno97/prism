@@ -1,5 +1,6 @@
 #pragma once
 #include "Renderer/Graphics/RenderTarget.h"
+#include "Renderer/Graphics/Texture.h"
 #include <SDL2/SDL_opengl.h>
 
 namespace Renderer {
@@ -7,7 +8,7 @@ namespace Renderer {
 		namespace OpenGL {
 			class OGLRenderTarget : public RenderTarget {
 			public:
-				OGLRenderTarget(bool useDepthBuffer);
+				OGLRenderTarget(bool useDepthBuffer, Renderer::Graphics::Texture& texture);
 				void bind() override;
 				void unbind() override;
 				~OGLRenderTarget();

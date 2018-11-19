@@ -5,6 +5,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <vector>
 #include <tuple>
+#include <memory>
 #include "Renderer/Graphics/RenderDevice.h"
 #include "Renderer/Renderable.h"
 #include "Renderer/Camera.h"
@@ -15,6 +16,8 @@
 #include "Renderer/Graphics/OpenGL/OGLPipeline.h"
 #include "Renderer/Graphics/VertexArrayObject.h"
 #include "Renderer/Graphics/VertexBuffer.h"
+#include "Renderer/Graphics/Texture.h"
+#include "Renderer/Graphics/Models/Mesh.h"
 #include "Renderer/Graphics/Loader/ModelLoader.h"
 #include "Renderer/Graphics/Models/Model.h"
 #include "Renderer/DirectionalLight.h"
@@ -36,17 +39,31 @@ namespace Renderer {
 	private: 
 		glm::mat4 projection = glm::mat4(1.0f);
 		std::unique_ptr<Renderer::Graphics::Pipeline> geometryPipeline;
+		std::unique_ptr<Renderer::Graphics::Pipeline> quadPipeline;
 		std::unique_ptr<Renderer::Graphics::RenderTarget> renderTarget;
 		Renderer::Graphics::RenderDevice* renderDevice;
+		std::shared_ptr<Renderer::Graphics::Texture> quadTexture;
+		std::shared_ptr<Renderer::Graphics::Models::Mesh> quadMesh;
 
-		float quadData[18] = {
-			-1.0f, -1.0f, 0.0f,
-			1.0f, -1.0f, 0.0f,
-			-1.0f,  1.0f, 0.0f,
-			-1.0f,  1.0f, 0.0f,
-			1.0f, -1.0f, 0.0f,
-			1.0f,  1.0f, 0.0f,
+		float vertices[8] = {
+			 1.0f,  1.0f,  // top right
+			 1.0f, -1.0f,  // bottom right
+			-1.0f, -1.0f,  // bottom left
+			-1.0f,  1.0f   // top left 
 		};
+
+		float texCoords[8] = {
+			1.0f,  1.0f,   
+			1.0f,  0.0f,   
+			0.0f,  0.0f,   
+			0.0f,  1.0f,   
+		};
+
+		unsigned int indices[6] = {
+			0, 1, 3,   // first triangle
+			1, 2, 3    // second triangle
+		};
+
 	};
 }
 

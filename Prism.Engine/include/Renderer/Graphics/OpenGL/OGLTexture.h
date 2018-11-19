@@ -11,6 +11,8 @@ namespace Renderer {
 			{
 			public:
 				OGLTexture(const char* path);
+				OGLTexture();
+				int getID() override;
 				void bind() override;
 			private:
 				GLuint textureID;
