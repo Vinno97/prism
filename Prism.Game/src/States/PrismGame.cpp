@@ -89,6 +89,8 @@ void PrismGame::onUpdate(Context &context)
 	auto restockSystem = systemManager.getSystem<RestockResourceSystem>();
 	auto cheatSystem = systemManager.getSystem<CheatSystem>();
 	auto animationSystem = systemManager.getSystem<AnimationSystem>();
+	auto collisionSystem = systemManager.getSystem<CollisionSystem>();
+	auto bumpSystem = systemManager.getSystem<BumpSystem>();
 
 	if (input->isKeyPressed(Key::KEY_ESCAPE) && canPressEscape) {
 		canPressEscape = false;
@@ -115,7 +117,6 @@ void PrismGame::onUpdate(Context &context)
 		menuRenderer.renderMenu(menu, float(context.window->width) / float(context.window->height));
 		context.window->swapScreen();
 
-		auto input = context.inputManager;
 		if (input->isKeyPressed(Key::KEY_ESCAPE) && canPressEscape) {
 			canPressEscape = false;
 			context.stateMachine->setState<PauseState>();

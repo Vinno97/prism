@@ -20,6 +20,7 @@ class PrismGame : public Game
 	void onUpdate(Context &context) override;
 	void onEnter() override;
 	void onLeave() override;
+	void cheat(Context &context);
 
   private:
 	ECS::EntityManager entityManager;
