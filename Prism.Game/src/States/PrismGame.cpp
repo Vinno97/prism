@@ -53,47 +53,38 @@ namespace States {
 		KeyboardInputSystem inputSystem = KeyboardInputSystem(entityManager);
 		RestockResourceSystem restockSystem = RestockResourceSystem(entityManager);
 		AnimationSystem animationSystem = AnimationSystem(entityManager);
-
-	/// <summary>
-	/// register systems in system manager
-	/// </summary>
-	/// <param name="context">The context that is needed to register the systems</param>
-void PrismGame::registerSystems(Context &context)
-{
-	MotionSystem motionSystem = MotionSystem(entityManager);
-	RenderSystem renderSystem = RenderSystem(entityManager, context.window->width, context.window->height);
-	KeyboardInputSystem inputSystem = KeyboardInputSystem(entityManager);
-	RestockResourceSystem restockSystem = RestockResourceSystem(entityManager);
-	AnimationSystem animationSystem = AnimationSystem(entityManager);
 	CollisionSystem collisionSystem = CollisionSystem(entityManager, context.window->width, context.window->height, 0, 0, 2);
-	BumpSystem bumpSystem = BumpSystem(entityManager);
-	AttackSystem attackSystem = AttackSystem(entityManager);
+		CollisionSystem collisionSystem = CollisionSystem(entityManager, context.window->width, context.window->height, 0, 0, 2);
+		BumpSystem bumpSystem = BumpSystem(entityManager);
+		AttackSystem attackSystem = AttackSystem(entityManager);
 	
-	systemManager.registerSystem(motionSystem);
-	systemManager.registerSystem(renderSystem);
-	systemManager.registerSystem(inputSystem);
-	systemManager.registerSystem(restockSystem);
-	systemManager.registerSystem(animationSystem);
-	systemManager.registerSystem(collisionSystem);
-	systemManager.registerSystem(bumpSystem);
-	systemManager.registerSystem(attackSystem);
+		systemManager.registerSystem(motionSystem);
+		systemManager.registerSystem(renderSystem);
+		systemManager.registerSystem(inputSystem);
+		systemManager.registerSystem(restockSystem);
+		systemManager.registerSystem(animationSystem);
+		systemManager.registerSystem(collisionSystem);
+		systemManager.registerSystem(bumpSystem);
+		systemManager.registerSystem(attackSystem);
+	}
 
-}
+
 	void PrismGame::onUpdate(Context &context)
 	{
 		auto input = context.inputManager;
 		auto inputSystem = systemManager.getSystem<KeyboardInputSystem>();
-		auto attackSystem = sytemManager.getSystem<AttackSystem>();
+		auto attackSystem = systemManager.getSystem<AttackSystem>();
 		auto motionSystem = systemManager.getSystem<MotionSystem>();
+		auto collisionSystem = systemManager.getSystem<CollisionSystem>();
 		auto renderSystem = systemManager.getSystem<RenderSystem>();
 		auto restockSystem = systemManager.getSystem<RestockResourceSystem>();
 		auto animationSystem = systemManager.getSystem<AnimationSystem>();
 
-
 		inputSystem->update(context);
+		attackSystem->update(context);
 		restockSystem->update(context);
 		motionSystem->update(context);
-		attackSystem->update(context);
+		collisionSystem->update(context);
 		animationSystem->update(context);
 		renderSystem->update(context);
 
