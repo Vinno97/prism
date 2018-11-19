@@ -53,7 +53,6 @@ namespace States {
 		KeyboardInputSystem inputSystem = KeyboardInputSystem(entityManager);
 		RestockResourceSystem restockSystem = RestockResourceSystem(entityManager);
 		AnimationSystem animationSystem = AnimationSystem(entityManager);
-	CollisionSystem collisionSystem = CollisionSystem(entityManager, context.window->width, context.window->height, 0, 0, 2);
 		CollisionSystem collisionSystem = CollisionSystem(entityManager, context.window->width, context.window->height, 0, 0, 2);
 		BumpSystem bumpSystem = BumpSystem(entityManager);
 		AttackSystem attackSystem = AttackSystem(entityManager);
