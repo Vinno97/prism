@@ -9,6 +9,7 @@
 #include "ECS/Components/PlayerComponent.h"
 #include "ECS/Components/HealthComponent.h"
 #include "ECS/Components/KeyboardInputComponent.h"
+#include "Math/Vector3f.h"
 
 namespace ECS {
 	namespace Systems {
@@ -59,7 +60,19 @@ namespace ECS {
 						appearance->rotationY += context.deltaTime * 50;
 					}
 				}
-
+				
+				//Math::Vector3f v = Math::Vector3f(velocity->dx, velocity->dy, 0);
+				//v.normalize();
+				//velocity->dx = v.x /** acceleration*/;
+				//velocity->dy = v.y /** acceleration*/;
+				
+				float xDir = velocity->dx;
+				float yDir = velocity->dy;
+				float pyth = sqrt((xDir * xDir) + (yDir * yDir));
+				if (pyth != 0.0) {
+					velocity->dx = (xDir / pyth);
+					velocity->dy = (yDir / pyth);
+				}
 				// Cheat option to increase health of the Player
 				if (entityManager->hasComponent<PlayerComponent>(entity.id)) {
 					auto healthComponent = entityManager->getComponent<HealthComponent>(entity.id);

@@ -1,3 +1,4 @@
+#include <cmath>
 #include "Math/Vector3f.h"
 
 Math::Vector3f::Vector3f() {
@@ -37,4 +38,15 @@ Math::Vector3f Math::Vector3f::operator-(const Math::Vector3f other) {
     vector.y = this->y - other.y;
     vector.z = this->z - other.z;
     return vector;
+}
+
+Math::Vector3f Math::Vector3f::normalize()
+{
+	float length = std::sqrt((x*x) + (y*y) + (z*z));
+	if (length != 0) {
+		x = x / length;
+		y = y / length;
+		z = z / length;
+	}
+	return *this;
 }
