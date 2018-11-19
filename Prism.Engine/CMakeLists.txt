@@ -60,7 +60,7 @@ elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
 endif()
 
 #target_link_libraries(Prism.Engine PRIVATE ${ASSIMP_LIBRARIES} ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES} ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES})
-target_link_libraries(Prism.Engine PRIVATE ${ASSIMP_LIBRARIES} ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES} ${SDL2_LIBRARIES} ${FILESYSTEM_LIB})
+target_link_libraries(Prism.Engine PRIVATE ${ASSIMP_LIBRARIES} ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES} ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES} ${FILESYSTEM_LIB})
 
 target_include_directories(Prism.Engine PUBLIC include)
 target_include_directories(Prism.Engine PRIVATE
