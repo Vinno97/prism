@@ -101,6 +101,10 @@
     <ClCompile Include="src\Menu\MenuRenderer.cpp" />
     <ClCompile Include="src\Menu\Control.cpp" />
     <ClCompile Include="src\Menu\MenuBuilder.cpp" />
+    <ClCompile Include="src\ECS\Systems\CollisionSystem.cpp" />
+    <ClCompile Include="src\Physics\AABBCollider.cpp" />
+    <ClCompile Include="src\Physics\BoundingBox.cpp" />
+    <ClCompile Include="src\Physics\QuadTree.cpp" />
     <ClCompile Include="src\ECS\Systems\AttackSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\CollisionSystem.cpp" />
     <ClCompile Include="src\Physics\AABBCollider.cpp" />
