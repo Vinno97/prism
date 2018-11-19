@@ -1,8 +1,21 @@
 #include "States/PrismGame.h"
+
 #include "Math/Vector3f.h"
 #include "StateMachine.h"
 #include "States/PauseState.h"
-
+#include "ECS/Components/SceneComponent.h"
+#include "ECS/Components/PositionComponent.h"
+#include "ECS/Components/VelocityComponent.h"
+#include "ECS/Components/AppearanceComponent.h"
+#include "ECS/Components/DragComponent.h"
+#include "ECS/Components/KeyboardInputComponent.h"
+#include "ECS/Systems/MotionSystem.h"
+#include "ECS/Systems/RenderSystem.h"
+#include "ECS/Systems/KeyboardInputSystem.h"
+#include "ECS/Systems/RestockResourceSystem.h"
+#include "ECS/Systems/AnimationSystem.h"
+#include "ECS/Systems/BumpSystem.h"
+#include "ECS/Systems/CollisionSystem.h"
 #include "World/WorldLoader.h"
 #include "World/Assemblers/PrismEntityAssembler.h"
 
@@ -54,6 +67,8 @@ namespace States {
 		RestockResourceSystem restockSystem = RestockResourceSystem(entityManager);
 		AnimationSystem animationSystem = AnimationSystem(entityManager);
 		CheatSystem cheatSystem = CheatSystem(entityManager);
+		CollisionSystem collisionSystem = CollisionSystem(entityManager, context.window->width, context.window->height, 0, 0, 2);
+		BumpSystem bumpSystem = BumpSystem(entityManager);
 
 		systemManager.registerSystem(motionSystem);
 		systemManager.registerSystem(cheatSystem);
@@ -61,6 +76,8 @@ namespace States {
 		systemManager.registerSystem(inputSystem);
 		systemManager.registerSystem(restockSystem);
 		systemManager.registerSystem(animationSystem);
+		systemManager.registerSystem(collisionSystem);
+		systemManager.registerSystem(bumpSystem);
 	}
 
 void PrismGame::onUpdate(Context &context)
@@ -83,9 +100,11 @@ void PrismGame::onUpdate(Context &context)
 		cheatSystem->update(context);
 		restockSystem->update(context);
 		motionSystem->update(context);
+		collisionSystem->update(context);
+		bumpSystem->update(context);
 		animationSystem->update(context);
-
 		renderSystem->update(context);
+
 
 		for (auto &entity : entityManager.getAllEntitiesWithComponent<VelocityComponent>()) {
 			auto velocity = entity.component;
@@ -96,6 +115,7 @@ void PrismGame::onUpdate(Context &context)
 		menuRenderer.renderMenu(menu, float(context.window->width) / float(context.window->height));
 		context.window->swapScreen();
 
+		auto input = context.inputManager;
 		if (input->isKeyPressed(Key::KEY_ESCAPE) && canPressEscape) {
 			canPressEscape = false;
 			context.stateMachine->setState<PauseState>();
@@ -104,7 +124,7 @@ void PrismGame::onUpdate(Context &context)
 		if (!input->isKeyPressed(Key::KEY_ESCAPE)) {
 			canPressEscape = true;
 		}
-	}
+	}	
 
 	void PrismGame::onEnter() {
 	}
