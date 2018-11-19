@@ -21,7 +21,7 @@ CoreEngine::CoreEngine()
 	context.window = new Window();
 	context.stateMachine = new StateMachine();
 	context.inputManager = new InputManager();
-	context.audioSystem = new AudioSystem();
+	context.audioManager = new AudioManager();
 }
 
 const void CoreEngine::InitWindow(const char* title, const int width, const int height, const int x, const int y) {
@@ -35,6 +35,8 @@ void CoreEngine::Run()
 	//Holds the time in which the gameupdate was last called 
 	auto lastTime = std::chrono::system_clock::now();
 	int count = 0;
+	context.audioManager->addMusic("main", "main.wav");
+	context.audioManager->playMusic("main");
 
 	//While the window is unclosed run the gameloop
 	while (!context.window->shouldClose())
@@ -49,6 +51,7 @@ void CoreEngine::Run()
 		//Sets the right values in context
 		context.deltaTime = deltaTime.count() / 1000000.f;
 		context.stateMachine->getCurrentState()->onUpdate(context);
+
 	}
 }
 
@@ -57,7 +60,7 @@ void CoreEngine::CleanUp() {
 	delete context.stateMachine;
 	delete context.window;
 	delete context.inputManager;
-	delete context.audioSystem;
+	delete context.audioManager;
 }
 
 CoreEngine::~CoreEngine()
