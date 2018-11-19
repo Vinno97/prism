@@ -32,7 +32,9 @@ namespace Renderer {
 				std::unique_ptr<IndexBuffer> createIndexBuffer(long size, const void *data) const override;
 				std::unique_ptr<VertexArrayObject> createVertexArrayobject() const override;
 				std::unique_ptr<RenderTarget> createRenderTarget(bool useDepthBuffer) const override;
+				std::shared_ptr<Texture> createTexture(const char* path) const override;
 
+				void useBlending(const bool blend) const override;
 				void setClearColour(float r, float g, float b, float w) const override;
 				void useDepthTest(bool enable) const override;
 				void clearScreen() const override;

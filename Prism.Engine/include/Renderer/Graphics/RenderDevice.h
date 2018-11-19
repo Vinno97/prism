@@ -5,6 +5,7 @@
 #include "Renderer/Graphics/Pipeline.h"
 #include "Renderer/Graphics/VertexBuffer.h"
 #include "Renderer/Graphics/IndexBuffer.h"
+#include "Renderer/Graphics/Texture.h"
 #include "Renderer/Graphics/VertexArrayObject.h"
 #include "Renderer/Graphics/RenderTarget.h"
 #include <memory>
@@ -57,6 +58,11 @@ namespace Renderer {
 			virtual std::unique_ptr<RenderTarget> createRenderTarget(bool useDepthBuffer, Texture& texture) const = 0;
 
 			/// <summary>
+			/// Create a new vertexArrayObject
+			/// </summary>
+			virtual shared_ptr<Texture> createTexture(const char* path) const = 0;
+
+			/// <summary>
 			/// Set the colour that the screen will be cleared with
 			/// </summary>
 			virtual void setClearColour(float r, float g, float b, float w) const = 0;
@@ -70,6 +76,11 @@ namespace Renderer {
 			/// clear the screen
 			/// </summary>
 			virtual void clearScreen() const = 0;
+
+			/// <summary>
+			/// Toggle blending mode
+			/// </summary>
+			virtual void useBlending(const bool blend) const = 0;
 
 			/// <summary>
 			/// Draw the currently bound VBO's using indices 

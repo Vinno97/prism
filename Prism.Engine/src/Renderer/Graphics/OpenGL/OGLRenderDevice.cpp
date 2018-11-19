@@ -10,6 +10,7 @@
 #include "Renderer/Graphics/OpenGL/OGLIndexBuffer.h"
 #include "Renderer/Graphics/OpenGL/OGLRenderTarget.h"
 #include "Renderer/Graphics/OpenGL/OGLVertexArrayObject.h"
+#include "Renderer/Graphics/OpenGL/OGLTexture.h"
 #include <memory>
 
 using namespace std;
@@ -61,6 +62,22 @@ namespace Renderer {
 			unique_ptr<VertexArrayObject> OGLRenderDevice::createVertexArrayobject() const
 			{
 				return make_unique<OGLVertexArrayObject>();
+			}
+
+			shared_ptr<Texture> OGLRenderDevice::createTexture(const char * path) const
+			{
+				return make_shared<OGLTexture>(path);
+			}
+
+			void OGLRenderDevice::useBlending(const bool blend) const
+			{
+				if (true) {
+					glEnable(GL_BLEND);
+					glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+				}
+				else {
+					glDisable(GL_BLEND);
+				}
 			}
 
 			std::unique_ptr<RenderTarget> OGLRenderDevice::createRenderTarget(bool useDepthBuffer) const
