@@ -9,7 +9,6 @@
 namespace Renderer {
 	namespace Graphics {
 		namespace Models {
-
 			class Model {
 				public: 
 					Model(std::shared_ptr<Mesh> m);
@@ -18,7 +17,6 @@ namespace Renderer {
 					Model& operator=(const Model& other);
 					Model(Model&& other);
 					Model& operator=(Model&& other);
-					//Material material;
 				};
 		}
 	}

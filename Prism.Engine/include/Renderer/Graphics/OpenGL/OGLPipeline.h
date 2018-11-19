@@ -6,8 +6,6 @@
 #include <glm/glm.hpp>
 #include <memory>
 
-using namespace std;
-
 namespace Renderer {
 	namespace Graphics {
 		namespace OpenGL {

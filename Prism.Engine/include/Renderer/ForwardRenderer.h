@@ -28,15 +28,15 @@ namespace Renderer {
 		/// <summary>
 		/// Draws the list of renderables from the viewpoint of a given camera
 		/// </summary>
-		void draw(const Camera& camera, const vector<Renderable>& renderables, Renderer::Scene& scene);
+		void draw(const Camera& camera, const std::vector<Renderable>& renderables, Renderer::Scene& scene);
 
 		~ForwardRenderer();
 		int width;
 		int height;
 	private: 
 		glm::mat4 projection = glm::mat4(1.0f);
-		unique_ptr<Pipeline> geometryPipeline;
-		RenderDevice* renderDevice;
+		std::unique_ptr<Renderer::Graphics::Pipeline> geometryPipeline;
+		Renderer::Graphics::RenderDevice* renderDevice;
 	};
 }
 

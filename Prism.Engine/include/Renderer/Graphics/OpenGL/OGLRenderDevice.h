@@ -9,8 +9,6 @@
 #include "Renderer/Graphics/VertexArrayObject.h"
 #include <memory>
 
-using namespace std;
-
 namespace Renderer {
 	namespace Graphics {
 		namespace OpenGL {
@@ -27,12 +25,12 @@ namespace Renderer {
 				/// </remarks>
 				static RenderDevice* getRenderDevice();
 
-				unique_ptr<VertexShader> createVertexShader(const char* source) const override;
-				unique_ptr<FragmentShader> createFragmentShader(const char* source) const override;
-				unique_ptr<Pipeline> createPipeline(VertexShader& vs, FragmentShader& fs) const override;
-				unique_ptr<VertexBuffer> createVertexBuffer(long size, const void *data) const override;
-				unique_ptr<IndexBuffer> createIndexBuffer(long size, const void *data) const override;
-				unique_ptr<VertexArrayObject> createVertexArrayobject() const override;
+				std::unique_ptr<VertexShader> createVertexShader(const char* source) const override;
+				std::unique_ptr<FragmentShader> createFragmentShader(const char* source) const override;
+				std::unique_ptr<Pipeline> createPipeline(VertexShader& vs, FragmentShader& fs) const override;
+				std::unique_ptr<VertexBuffer> createVertexBuffer(long size, const void *data) const override;
+				std::unique_ptr<IndexBuffer> createIndexBuffer(long size, const void *data) const override;
+				std::unique_ptr<VertexArrayObject> createVertexArrayobject() const override;
 
 				void setClearColour(float r, float g, float b, float w) const override;
 				void useDepthTest(bool enable) const override;

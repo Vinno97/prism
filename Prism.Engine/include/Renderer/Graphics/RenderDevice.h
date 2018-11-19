@@ -8,49 +8,47 @@
 #include "Renderer/Graphics/VertexArrayObject.h"
 #include <memory>
 
-using namespace std;
-
 namespace Renderer {
 	namespace Graphics {
 		class RenderDevice
 		{
 		public:
-			RenderDevice() {};
-			~RenderDevice() {};
+			RenderDevice()=default;
+			~RenderDevice()=default;
 
 			/// <summary>
 			/// Create a new vertexshader
 			/// </summary>
-			virtual unique_ptr<VertexShader> createVertexShader(const char* source) const = 0;
+			virtual std::unique_ptr<VertexShader> createVertexShader(const char* source) const = 0;
 
 			/// <summary>
 			/// Create a new fragmentshader
 			/// </summary>
-			virtual unique_ptr<FragmentShader> createFragmentShader(const char* source)  const = 0;
+			virtual std::unique_ptr<FragmentShader> createFragmentShader(const char* source)  const = 0;
 
 			/// <summary>
 			/// Create a new pipeline
 			/// </summary>
-			virtual unique_ptr<Pipeline> createPipeline(VertexShader& vs, FragmentShader& fs) const = 0;
+			virtual std::unique_ptr<Pipeline> createPipeline(VertexShader& vs, FragmentShader& fs) const = 0;
 
 			/// <summary>
 			/// Create a new vertexbuffer
 			/// </summary>
 			/// <param name="size">Size of the index buffer</param>
 			/// <param name="data">Data that the buffer will be filled with (float array)</param>
-			virtual unique_ptr<VertexBuffer> createVertexBuffer(long size, const void *data) const = 0;
+			virtual std::unique_ptr<VertexBuffer> createVertexBuffer(long size, const void *data) const = 0;
 
 			/// <summary>
 			/// Create a new indexBuffer
 			/// </summary>
 			/// <param name="size">Size of the indice buffer</param>
 			/// <param name="data">Data that the buffer will be filled with (int array)</param>
-			virtual unique_ptr<IndexBuffer> createIndexBuffer(long size, const void *data) const = 0;
+			virtual std::unique_ptr<IndexBuffer> createIndexBuffer(long size, const void *data) const = 0;
 
 			/// <summary>
 			/// Create a new vertexArrayObject
 			/// </summary>
-			virtual unique_ptr<VertexArrayObject> createVertexArrayobject() const = 0;
+			virtual std::unique_ptr<VertexArrayObject> createVertexArrayobject() const = 0;
 
 			/// <summary>
 			/// Set the colour that the screen will be cleared with

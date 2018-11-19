@@ -8,13 +8,13 @@
 #include "Renderer/Graphics/OpenGL/OGLRenderDevice.h"
 #include "Renderer/Graphics/OpenGL/OGLVertexShader.h"
 #include "Renderer/Graphics/OpenGL/OGLPipeline.h"
+#include "Renderer/Graphics/Pipeline.h"
 #include "Renderer/Graphics/VertexArrayObject.h"
 #include "Renderer/Graphics/VertexBuffer.h"
 #include "Renderer/Graphics/Loader/ModelLoader.h"
 #include "Renderer/Graphics/Models/Model.h"
 #include "Util/FileSystem.h"
 
-using namespace std;
 using namespace Renderer;
 using namespace Renderer::Graphics;
 using namespace Renderer::Graphics::OpenGL;
@@ -25,8 +25,8 @@ namespace Renderer {
 		renderDevice = OGLRenderDevice::getRenderDevice();
 
 		Util::FileSystem fileReader;
-		string vertexSource = fileReader.readResourceFileIntoString("/shaders/simpleGeometry.vs");
-		string fragmentSource = fileReader.readResourceFileIntoString("/shaders/simpleGeometry.fs");
+		std::string vertexSource = fileReader.readResourceFileIntoString("/shaders/simpleGeometry.vs");
+		std::string fragmentSource = fileReader.readResourceFileIntoString("/shaders/simpleGeometry.fs");
 
 		std::unique_ptr<VertexShader> vertexShader = renderDevice->createVertexShader(vertexSource.c_str());
 		std::unique_ptr<FragmentShader> fragmentShader = renderDevice->createFragmentShader(fragmentSource.c_str());
@@ -50,10 +50,10 @@ namespace Renderer {
 		renderDevice->setClearColour(0.7f, 0.7f, 0.7f, 1.f);
 	}
 
-	void ForwardRenderer::draw(const Camera& camera, const vector<Renderable>& renderables, Scene& scene)
+	void ForwardRenderer::draw(const Camera& camera, const std::vector<Renderable>& renderables, Scene& scene)
 	{
-		mat4 model;
-		mat4 view = camera.getCameraMatrix();
+		glm::mat4 model;
+		glm::mat4 view = camera.getCameraMatrix();
 		renderDevice->clearScreen();
 		geometryPipeline->run();
 
