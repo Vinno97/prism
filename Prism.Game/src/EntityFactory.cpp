@@ -45,7 +45,7 @@ int EntityFactory::createPlayer(int entity, EntityManager& entityManager) {
 	entityManager.addComponentToEntity(entity, DragComponent(5.f));
 	entityManager.addComponentToEntity(entity, KeyboardInputComponent());
 	entityManager.addComponentToEntity(entity, PlayerComponent());
-	entityManager.addComponentToEntity(entity, BoundingBoxComponent(.5,.5));
+	entityManager.addComponentToEntity(entity, BoundingBoxComponent(.3,.3));
 	return entity;
 }
 
@@ -68,7 +68,7 @@ int EntityFactory::createEnemy(int entity, EntityManager& entityManager) {
 	entityManager.addComponentToEntity(entity, DragComponent(5.f)); 
 	entityManager.addComponentToEntity(entity, EnemyComponent());
 	entityManager.addComponentToEntity(entity, appearance);
-	entityManager.addComponentToEntity(entity, BoundingBoxComponent(.5, .5));
+	entityManager.addComponentToEntity(entity, BoundingBoxComponent(.4, .4));
 	
 	return entity;
 }
