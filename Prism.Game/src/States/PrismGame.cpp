@@ -98,15 +98,15 @@ void PrismGame::onUpdate(Context &context)
 	motionSystem->update(context);
 	
 	collisionSystem->update(context);
-	//attackSystem->update(context);
-	//bumpSystem->update(context);
+	attackSystem->update(context);
+	bumpSystem->update(context);
 	animationSystem->update(context);
 	renderSystem->update(context);
 	
 	for (auto &entity : entityManager.getAllEntitiesWithComponent<PlayerComponent>()) {
 		auto velocity = entityManager.getComponent<VelocityComponent>(entity.id);
 		auto position = entityManager.getComponent<PositionComponent>(entity.id);
-		//printf("Entity:\t\t%d \nPosition: \tX: %.2f, Y: %.2f\nVelocity:\tdX: %.2f, dY: %.2f\n\n", entity.id, position->x, position->y, velocity->dx, velocity->dy);
+		printf("Entity:\t\t%d \nPosition: \tX: %.2f, Y: %.2f\nVelocity:\tdX: %.2f, dY: %.2f\n\n", entity.id, position->x, position->y, velocity->dx, velocity->dy);
 	}
 
 	context.window->swapScreen();

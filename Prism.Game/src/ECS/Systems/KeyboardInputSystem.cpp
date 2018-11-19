@@ -28,25 +28,29 @@ namespace ECS {
 			double acceleration = 10;
 
 			auto input = context.inputManager;
+			
+			float dirX = 0;
+			float dirY = 0;
+
 
 			for (auto entity : entityManager->getAllEntitiesWithComponent<KeyboardInputComponent>()) {
 				auto velocity = entityManager->getComponent<VelocityComponent>(entity.id);
 
 				if (input->isKeyPressed(Key::KEY_W))
 				{
-					velocity->dy -= acceleration * context.deltaTime;
+					dirY -= acceleration;
 				}
 				if (input->isKeyPressed(Key::KEY_S))
 				{
-					velocity->dy += acceleration * context.deltaTime;
+					dirY += acceleration;
 				}
 				if (input->isKeyPressed(Key::KEY_A))
 				{
-					velocity->dx -= acceleration * context.deltaTime;
+					dirX -= acceleration;
 				}
 				if (input->isKeyPressed(Key::KEY_D))
 				{
-					velocity->dx += acceleration * context.deltaTime;
+					dirX += acceleration;
 				}
 
 				if (entityManager->hasComponent<AppearanceComponent>(entity.id)) {
@@ -61,18 +65,11 @@ namespace ECS {
 					}
 				}
 				
-				//Math::Vector3f v = Math::Vector3f(velocity->dx, velocity->dy, 0);
-				//v.normalize();
-				//velocity->dx = v.x /** acceleration*/;
-				//velocity->dy = v.y /** acceleration*/;
+				Math::Vector3f v = Math::Vector3f(dirX, dirY, 0);
+				v.normalize();
+				velocity->dx += v.x * acceleration*context.deltaTime;
+				velocity->dy += v.y * acceleration*context.deltaTime;
 				
-				float xDir = velocity->dx;
-				float yDir = velocity->dy;
-				float pyth = sqrt((xDir * xDir) + (yDir * yDir));
-				if (pyth != 0.0) {
-					velocity->dx = (xDir / pyth);
-					velocity->dy = (yDir / pyth);
-				}
 				// Cheat option to increase health of the Player
 				if (entityManager->hasComponent<PlayerComponent>(entity.id)) {
 					auto healthComponent = entityManager->getComponent<HealthComponent>(entity.id);

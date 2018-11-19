@@ -5,6 +5,7 @@
 #include "ECS/Components/PositionComponent.h"
 #include "ECS/Components/EnemyComponent.h"
 #include "ECS/Components/PlayerComponent.h"
+#include "Math/Vector3f.h"
 
 namespace ECS {
 	namespace Systems {
@@ -36,13 +37,11 @@ namespace ECS {
 						float x = playerPosition->x - enemyPosition->x;
 						float y = playerPosition->y - enemyPosition->y;
 
-						float dirX = x / std::abs(x);
-						float dirY = y / std::abs(y);
+						Math::Vector3f vector = Math::Vector3f(x, y, 0);
+						vector.normalize();
+						enemyVelocity->dx += enemySpeed * vector.x * context.deltaTime;
+						enemyVelocity->dy += enemySpeed * vector.y * context.deltaTime;
 
-						auto angle = std::abs(std::atan(y / x));
-
-						enemyVelocity->dx += enemySpeed * std::cos(angle) * dirX * context.deltaTime;
-						enemyVelocity->dy += enemySpeed * std::sin(angle) * dirY * context.deltaTime;
 					}
 				}
 			}
