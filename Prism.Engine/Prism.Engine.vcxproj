@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\Menu\Control.h" />
     <ClInclude Include="include\ECS\Systems\CheatSystem.h" />
     <ClInclude Include="include\ECS\Components\PlayerComponent.h" />
     <ClInclude Include="include\World\Assemblers\AppearanceAssembler.h" />
@@ -30,6 +31,7 @@
     <ClInclude Include="include\Physics\BoundingBox.h" />
     <ClInclude Include="include\Physics\QuadTree.h" />
     <ClInclude Include="include\Renderer\Camera.h" />
+    <ClInclude Include="include\Renderer\Graphics\Texture.h" />
     <ClInclude Include="include\Renderer\Scene.h" />
     <ClInclude Include="include\Util\FileSystem.h" />
     <ClInclude Include="include\Renderer\ForwardRenderer.h" />
@@ -44,7 +46,6 @@
     <ClInclude Include="include\Renderer\Graphics\Models\Material.h" />
     <ClInclude Include="include\Renderer\Graphics\Models\Mesh.h" />
     <ClInclude Include="include\Renderer\Graphics\Models\Model.h" />
-    <ClInclude Include="include\Renderer\Graphics\Models\Texture.h" />
     <ClInclude Include="include\Context.h" />
     <ClInclude Include="include\CoreEngine.h" />
     <ClInclude Include="include\ECS\Entity.h" />
@@ -65,6 +66,7 @@
     <ClInclude Include="include\Key.h" />
     <ClInclude Include="include\State.h" />
     <ClInclude Include="include\StateMachine.h" />
+    <ClInclude Include="include\Util\lodepng.h" />
     <ClInclude Include="include\Window.h" />
     <ClInclude Include="include\MenuState.h" />
     <ClInclude Include="include\ECS\SystemManager.h" />
@@ -85,12 +87,22 @@
     <ClInclude Include="include\World\JSONSerializer.h" />
     <ClInclude Include="include\World\WorldObject.h" />
     <ClInclude Include="include\World\WorldLoader.h" />
+    <ClInclude Include="include\Menu\MenuBuilder.h" />
+    <ClInclude Include="include\Menu\MenuRenderer.h" />
+    <ClInclude Include="include\Menu\Menu.h" />
+    <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLTexture.h" />
+    <ClInclude Include="include\Surface.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ECS\Systems\CheatSystem.cpp" />
     <ClCompile Include="src\World\Assemblers\AppearanceAssembler.cpp" />
     <ClCompile Include="src\World\Assemblers\PositionAssembler.cpp" />
     <ClCompile Include="src\World\JSONSerializer.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLTexture.cpp" />
+    <ClCompile Include="src\Menu\Menu.cpp" />
+    <ClCompile Include="src\Menu\MenuRenderer.cpp" />
+    <ClCompile Include="src\Menu\Control.cpp" />
+    <ClCompile Include="src\Menu\MenuBuilder.cpp" />
     <ClCompile Include="src\ECS\Systems\AttackSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\CollisionSystem.cpp" />
     <ClCompile Include="src\Physics\AABBCollider.cpp" />
@@ -107,7 +119,6 @@
     <ClCompile Include="src\Renderer\Graphics\Models\Material.cpp" />
     <ClCompile Include="src\Renderer\Graphics\Models\Mesh.cpp" />
     <ClCompile Include="src\Renderer\Graphics\Models\Model.cpp" />
-    <ClCompile Include="src\Renderer\Graphics\Models\Texture.cpp" />
     <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLIndexBuffer.cpp" />
     <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLPipeline.cpp" />
     <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLFragmentShader.cpp" />
@@ -123,6 +134,7 @@
     <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLVertexShader.cpp" />
     <ClCompile Include="src\State.cpp" />
     <ClCompile Include="src\StateMachine.cpp" />
+    <ClCompile Include="src\Util\lodepng.cpp" />
     <ClCompile Include="src\Window.cpp" />
     <ClCompile Include="src\Renderer\Graphics\Loader\StaticMeshLoader.cpp" />
     <ClCompile Include="src\ECS\SystemManager.cpp" />
@@ -132,6 +144,7 @@
     <ClCompile Include="src\World\Assemblers\EntityAssembler.cpp" />
     <ClCompile Include="src\World\WorldObject.cpp" />
     <ClCompile Include="src\World\WorldLoader.cpp" />
+    <ClCompile Include="src\Surface.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\x64\glew32.lib" />
@@ -139,6 +152,32 @@
     <Library Include="lib\x64\SDL2.lib" />
     <Library Include="lib\x64\SDL2main.lib" />
     <Library Include="lib\x64\SDL2test.lib" />
+    <Library Include="lib\x64\SDL2_image.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="png\healthbar.png" />
+    <Image Include="png\someimage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="lib\libjpeg-9.dll" />
+    <None Include="lib\libpng16-16.dll" />
+    <None Include="lib\libtiff-5.dll" />
+    <None Include="lib\libwebp-7.dll" />
+    <None Include="lib\SDL2_image.dll" />
+    <None Include="lib\x64\libjpeg-9.dll" />
+    <None Include="lib\x64\libpng16-16.dll" />
+    <None Include="lib\x64\libtiff-5.dll" />
+    <None Include="lib\x64\libwebp-7.dll" />
+    <None Include="lib\x64\SDL2_image.dll" />
+    <None Include="lib\x64\zlib1.dll" />
+    <None Include="lib\zlib1.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="lib\x64\LICENSE.jpeg.txt" />
+    <Text Include="lib\x64\LICENSE.png.txt" />
+    <Text Include="lib\x64\LICENSE.tiff.txt" />
+    <Text Include="lib\x64\LICENSE.webp.txt" />
+    <Text Include="lib\x64\LICENSE.zlib.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

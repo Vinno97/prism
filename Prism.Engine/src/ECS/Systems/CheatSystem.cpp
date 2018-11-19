@@ -21,14 +21,14 @@ void ECS::Systems::CheatSystem::increaseHealth()
 			ticks = 1;;
 			healtComponent->health += 100;
 			//Test:
-			//std::cout << healtComponent->health << std::endl;
+			std::cout << healtComponent->health << std::endl;
 		}
 
 		if (ticks > 0) {
 			ticks++;
 		}
 
-		if (ticks == 8) {
+		if (ticks == 7) {
 			ticks = 0;
 		}
 	}

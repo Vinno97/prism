@@ -185,7 +185,7 @@ int EntityFactory::createFloor(ECS::EntityManager & entityManager)
 int EntityFactory::createFloor(int entity, EntityManager & entityManager) {
 	int width = 150;
 	int height = 150;
-	float scale = 3	;
+	float scale = 1;
 
 	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
 	auto model = World::TerrainGenerator().generateTerrain(width / scale, height / scale);
@@ -203,7 +203,7 @@ int EntityFactory::createFloor(int entity, EntityManager & entityManager) {
 	appearance.translationY = -scale / 15;
 
 	appearance.model = std::move(model);
-	appearance.color = Math::Vector3f{ 0.87f, 0.87f, 0.87f };
+	appearance.color = Math::Vector3f{ 0.78f, 0.78f, 0.78f };
 	
 	entityManager.addComponentToEntity(entity, PositionComponent());
 	entityManager.addComponentToEntity(entity, appearance);
