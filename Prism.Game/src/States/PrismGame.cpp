@@ -96,7 +96,9 @@ namespace States {
 		auto animationSystem = systemManager.getSystem<AnimationSystem>();
 
 		inputSystem->update(context);
+	
 		attackSystem->update(context);
+		bumpSystem->update(context);
 		restockSystem->update(context);
 		motionSystem->update(context);
 		collisionSystem->update(context);
