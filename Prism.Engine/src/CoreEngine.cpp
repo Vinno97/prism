@@ -12,8 +12,12 @@
 #include "Renderer/Graphics/Models/Model.h"
 #include "ECS/Systems/RenderSystem.h"
 #include "ECS/SystemManager.h"
+#include "Menu/MenuBuilder.h"
+#include "Menu/Menu.h"
+#include "Menu/MenuRenderer.h"
 
 using namespace std;
+using namespace Menu;
 using namespace Renderer::Graphics::Loader;
 
 CoreEngine::CoreEngine()
@@ -30,7 +34,9 @@ const void CoreEngine::InitWindow(const char* title, const int width, const int 
 
 //Runns the gameloop
 void CoreEngine::Run()
-{
+{	
+	
+
 	//Holds the time in which the gameupdate was last called 
 	auto lastTime = std::chrono::system_clock::now();
 	int count = 0;
