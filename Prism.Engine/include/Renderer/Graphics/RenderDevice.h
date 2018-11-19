@@ -6,6 +6,7 @@
 #include "Renderer/Graphics/VertexBuffer.h"
 #include "Renderer/Graphics/IndexBuffer.h"
 #include "Renderer/Graphics/VertexArrayObject.h"
+#include "Renderer/Graphics/RenderTarget.h"
 #include <memory>
 
 namespace Renderer {
@@ -49,6 +50,11 @@ namespace Renderer {
 			/// Create a new vertexArrayObject
 			/// </summary>
 			virtual std::unique_ptr<VertexArrayObject> createVertexArrayobject() const = 0;
+
+			/// <summary>
+			/// Create a new vertexArrayObject
+			/// </summary>
+			virtual std::unique_ptr<RenderTarget> createRenderTarget(bool useDepthBuffer, Texture& texture) const = 0;
 
 			/// <summary>
 			/// Set the colour that the screen will be cleared with

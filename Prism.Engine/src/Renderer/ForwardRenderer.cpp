@@ -23,6 +23,17 @@ namespace Renderer {
 	ForwardRenderer::ForwardRenderer(int width, int height) : width{width}, height{height}
 	{
 		renderDevice = OGLRenderDevice::getRenderDevice();
+		renderTarget = renderDevice->createRenderTarget(true);
+
+		//Init render target quad
+		auto verticesSize = 18 * sizeof(float);
+		std::unique_ptr<VertexBuffer> vertexBuffer = renderDevice->createVertexBuffer(verticesSize, quadData);
+		std::unique_ptr<VertexArrayObject> vertexArrayObject = renderDevice->createVertexArrayobject();
+		vertexArrayObject->addVertexBuffer(move(vertexBuffer), 0, 2 * sizeof(float), 0, 2);
+		auto mesh = std::make_shared<Renderer::Graphics::Models::Mesh>(move(vertexArrayObject));
+		mesh->isIndiced = false;
+		mesh->verticesLength = 6;
+
 
 		Util::FileSystem fileReader;
 		std::string vertexSource = fileReader.readResourceFileIntoString("/shaders/simpleGeometry.vs");
@@ -50,15 +61,16 @@ namespace Renderer {
 		renderDevice->setClearColour(0.7f, 0.7f, 0.7f, 1.f);
 	}
 
-	void ForwardRenderer::draw(const Camera& camera, const std::vector<Renderable>& renderables, Scene& scene)
+	void ForwardRenderer::draw(const Camera& camera, const std::vector<Renderable>& renderables, const Scene& scene)
 	{
 		glm::mat4 model;
-		glm::mat4 view = camera.getCameraMatrix();
+		const glm::mat4 view = camera.getCameraMatrix();
 		renderDevice->clearScreen();
 		geometryPipeline->run();
 
-		for (auto& renderable : renderables) {
+		renderTarget->bind();
 
+		for (const auto& renderable : renderables) {
 			model = renderable.getMatrix();
 			geometryPipeline->setUniformMatrix4f("view", view);
 			geometryPipeline->setUniformMatrix4f("proj", projection);
@@ -81,12 +93,10 @@ namespace Renderer {
 				renderDevice->DrawTriangles(0, renderable.model->mesh->verticesLength);
 			}
 		}
-		geometryPipeline->stop();
-	}
+		renderTarget->unbind();
 
-	ForwardRenderer::~ForwardRenderer()
-	{
-		//std::cout << "end";
-		//delete renderDevice;
+
+
+		geometryPipeline->stop();
 	}
 }

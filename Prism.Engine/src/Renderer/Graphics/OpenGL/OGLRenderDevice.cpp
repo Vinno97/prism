@@ -8,6 +8,7 @@
 #include "Renderer/Graphics/OpenGL/OGLPipeline.h"
 #include "Renderer/Graphics/OpenGL/OGLVertexBuffer.h"
 #include "Renderer/Graphics/OpenGL/OGLIndexBuffer.h"
+#include "Renderer/Graphics/OpenGL/OGLRenderTarget.h"
 #include "Renderer/Graphics/OpenGL/OGLVertexArrayObject.h"
 #include <memory>
 
@@ -60,6 +61,11 @@ namespace Renderer {
 			unique_ptr<VertexArrayObject> OGLRenderDevice::createVertexArrayobject() const
 			{
 				return make_unique<OGLVertexArrayObject>();
+			}
+
+			std::unique_ptr<RenderTarget> OGLRenderDevice::createRenderTarget(bool useDepthBuffer) const
+			{
+				return std::make_unique<OGLRenderTarget>(useDepthBuffer);
 			}
 
 			void OGLRenderDevice::setClearColour(float r, float g, float b, float w) const
