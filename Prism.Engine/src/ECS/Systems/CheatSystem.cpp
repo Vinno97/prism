@@ -1,11 +1,10 @@
 #include <math.h>
 #include "ECS/Systems/AttackSystem.h"
-#include "ECS/EntityManager.h";
-#include "ECS/SystemManager.h";
+#include "ECS/EntityManager.h"
+#include "ECS/SystemManager.h"
 #include "ECS/Components/HealthComponent.h"
 #include "ECS/Components/PlayerComponent.h"
-#include "ECS\Systems\CheatSystem.h"
-
+#include "ECS/Systems/CheatSystem.h"
 
 using namespace ECS;
 using namespace ECS::Components;
@@ -33,9 +32,7 @@ void ECS::Systems::CheatSystem::increaseHealth()
 			ticks = 0;
 		}
 	}
-	
 }
-
 
 CheatSystem::~CheatSystem()
 {
