@@ -140,12 +140,12 @@ int EntityFactory::createScene(EntityManager & entityManager) {
 
 int EntityFactory::createProjectile(EntityManager & entityManager) {
 	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
-	auto model = ml.loadModel("./res/uglyenemy.obj");
+	auto model = ml.loadModel("./res/projectile.obj");
 
 	AppearanceComponent appearance;
-	appearance.scaleX = 0.002f;
-	appearance.scaleY = 0.002f;
-	appearance.scaleZ = 0.002f;
+	appearance.scaleX = 0.1f;
+	appearance.scaleY = 0.1f;
+	appearance.scaleZ = 0.1f;
 	appearance.model = std::move(model);
 
 	return entityManager.createEntity(
@@ -153,7 +153,7 @@ int EntityFactory::createProjectile(EntityManager & entityManager) {
 		PositionComponent(), 
 		BulletComponent(),
 		HealthComponent(15),
-		BoundingBoxComponent(0.5, 0.5), 
+		BoundingBoxComponent(0.1, 0.1), 
 		ProjectileAttackComponent(), appearance);
 }
 

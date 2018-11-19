@@ -3,6 +3,7 @@
 #include "EntityFactory.h"
 #include "ECS/Components/VelocityComponent.h"
 #include "ECS/Components/BulletComponent.h"
+#include "ECS/Components/AppearanceComponent.h"
 
 
 namespace ECS {
@@ -30,6 +31,11 @@ namespace ECS {
 					auto velocity = entityManager->getComponent<VelocityComponent>(projectileId);
 					velocity->dx = component->xdirection * 5;
 					velocity->dy = component->ydirection * 5;
+					if (entityManager->hasComponent<AppearanceComponent>(entity.id)) {
+						auto entityAppearance = entityManager->getComponent<AppearanceComponent>(entity.id);
+						auto projectileAppearance = entityManager->getComponent<AppearanceComponent>(projectileId);
+						projectileAppearance->color = entityAppearance->color;
+					}
 					entityManager->getComponent<BulletComponent>(projectileId)->lifeTime = 2;
 					component->isShooting = false;
 				}
