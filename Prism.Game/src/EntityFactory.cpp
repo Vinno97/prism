@@ -215,11 +215,11 @@ int EntityFactory::createFloor(int entity, EntityManager & entityManager) {
 	return entity;
 }
 
-int EntityFactory::CreateResourceBlob(ECS::EntityManager & entityManager, Enums::ResourceType type, float value) {
+int EntityFactory::createResourceBlob(ECS::EntityManager & entityManager, Enums::ResourceType type, float value) {
 
-	return CreateResourceBlob(entityManager.createEntity(), entityManager, type, value);
+	return createResourceBlob(entityManager.createEntity(), entityManager, type, value);
 }
-int EntityFactory::CreateResourceBlob(int entity, ECS::EntityManager & entityManager, Enums::ResourceType type, float value)
+int EntityFactory::createResourceBlob(int entity, ECS::EntityManager & entityManager, Enums::ResourceType type, float value)
 {
 	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
 	auto model = ml.loadModel("./res/blob.obj");

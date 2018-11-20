@@ -70,7 +70,7 @@ namespace ECS {
 
 		void ResourceGatherSystem::createResourceBlob(int resourcePointID, Enums::ResourceType type, float value) {
 			
-			auto blob = entityFactory.CreateResourceBlob(*entityManager, type, value);
+			auto blob = entityFactory.createResourceBlob(*entityManager, type, value);
 			auto bloblPosition = entityManager->getComponent<PositionComponent>(blob);
 			bloblPosition->x = entityManager->getComponent<PositionComponent>(resourcePointID)->x;
 			bloblPosition->y = entityManager->getComponent<PositionComponent>(resourcePointID)->y;
