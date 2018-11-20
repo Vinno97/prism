@@ -29,12 +29,8 @@ namespace Renderer {
 		renderDevice = OGLRenderDevice::getRenderDevice();
 
 		quadTexture = renderDevice->createTexture();
-		quadTexture1 = renderDevice->createTexture();
-
 		renderTarget = renderDevice->createRenderTarget(true , quadTexture);
-
 		renderTarget->addBuffer(quadTexture);
-		renderTarget->addBuffer(quadTexture1);
 
 		loadPipelines();
 		createTargetQuad();
@@ -51,7 +47,6 @@ namespace Renderer {
 		const glm::mat4 view = camera.getCameraMatrix();
 		
 		renderDevice->clearScreen();
-
 		renderTarget->bind();
 
 		renderDevice->clearScreen();
@@ -84,14 +79,15 @@ namespace Renderer {
 		geometryPipeline->stop();
 	
 		quadPipeline->run();
-
+		
 		quadTexture->bind(textures[0]);
-		quadTexture1->bind(textures[1]);
-
 		quadMesh->vertexArrayObject->bind();
 		quadMesh->indexBuffer->bind();
 		glViewport(0, 0, 960, 540); 
 		renderDevice->DrawTrianglesIndexed(0, quadMesh->indicesLength);
+
+		quadMesh->vertexArrayObject->unbind();
+
 		quadPipeline->stop();
 
 	}

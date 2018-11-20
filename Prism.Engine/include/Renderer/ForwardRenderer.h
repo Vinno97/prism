@@ -42,16 +42,11 @@ namespace Renderer {
 
 		glm::mat4 projection = glm::mat4(1.0f);
 		std::unique_ptr<Renderer::Graphics::Pipeline> geometryPipeline;
-		std::unique_ptr<Renderer::Graphics::Pipeline> quadPipeline;
 		std::unique_ptr<Renderer::Graphics::RenderTarget> renderTarget;
-		std::unique_ptr<Renderer::Graphics::RenderTarget> renderTarget1;
-
-		Renderer::Graphics::RenderDevice* renderDevice;
-
-		std::shared_ptr<Renderer::Graphics::Texture> quadTexture;
-		std::shared_ptr<Renderer::Graphics::Texture> quadTexture1;
-
+		std::unique_ptr<Renderer::Graphics::Pipeline> quadPipeline;
 		std::shared_ptr<Renderer::Graphics::Models::Mesh> quadMesh;
+		std::shared_ptr<Renderer::Graphics::Texture> quadTexture;
+		Renderer::Graphics::RenderDevice* renderDevice;
 
 		float vertices[8] = {
 			 1.0f,  1.0f,  // top right
