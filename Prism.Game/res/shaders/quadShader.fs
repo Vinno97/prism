@@ -1,12 +1,17 @@
 #version 330 core
 
 in vec2 UV;
-
 out vec4 color;
 
-layout(binding = 0) uniform sampler2D image1;
-layout(binding = 1) uniform sampler2D image2;
+uniform vec3 ambientLightColor;
+uniform float ambientLightStrength;
+uniform vec3 sunPosition;
+uniform vec3 sunColor;
+
+layout(binding = 0) uniform sampler2D gPosition;
 
 void main(){
-	color = texture(image1, UV);
+
+    vec3 FragPos = texture(gPosition, UV).rgb;
+	color = vec4(FragPos, 1.0);
 }

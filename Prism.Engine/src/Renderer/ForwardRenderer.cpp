@@ -28,9 +28,15 @@ namespace Renderer {
 	{
 		renderDevice = OGLRenderDevice::getRenderDevice();
 
-		quadTexture = renderDevice->createTexture();
-		renderTarget = renderDevice->createRenderTarget(true , quadTexture);
-		renderTarget->addBuffer(quadTexture);
+		positionBuffer = renderDevice->createTexture();
+		normalBuffer = renderDevice->createTexture();
+		albedoBuffer = renderDevice->createTexture();
+
+		renderTarget = renderDevice->createRenderTarget(true , positionBuffer);
+
+		renderTarget->addBuffer(positionBuffer);
+		//renderTarget->addBuffer(normalBuffer);
+		//renderTarget->addBuffer(albedoBuffer);
 
 		loadPipelines();
 		createTargetQuad();
@@ -47,22 +53,18 @@ namespace Renderer {
 		const glm::mat4 view = camera.getCameraMatrix();
 		
 		renderDevice->clearScreen();
+			
 		renderTarget->bind();
-
 		renderDevice->clearScreen();
 		geometryPipeline->run();
 
+
 		for (const auto& renderable : renderables) {
 			model = renderable.getMatrix();
+
 			geometryPipeline->setUniformMatrix4f("view", view);
 			geometryPipeline->setUniformMatrix4f("proj", projection);
 			geometryPipeline->setUniformMatrix4f("model", model);
-
-			geometryPipeline->setUniformVector("ambientLightColor", scene.ambientLightColor.x, scene.ambientLightColor.y, scene.ambientLightColor.z);
-			geometryPipeline->setUniformFloat("ambientLightStrength", scene.ambientLightStrength);
-
-			geometryPipeline->setUniformVector("sunPosition", scene.sun.direction.x, scene.sun.direction.y, scene.sun.direction.z);
-			geometryPipeline->setUniformVector("sunColor", scene.sun.color.x, scene.sun.color.y, scene.sun.color.z);
 
 			geometryPipeline->setUniformVector("objectColor", renderable.color.x, renderable.color.y, renderable.color.z);
 
@@ -75,12 +77,21 @@ namespace Renderer {
 				renderDevice->DrawTriangles(0, renderable.model->mesh->verticesLength);
 			}
 		}
+
 		renderTarget->unbind();
 		geometryPipeline->stop();
 	
 		quadPipeline->run();
 		
-		quadTexture->bind(textures[0]);
+		quadPipeline->setUniformVector("ambientLightColor", scene.ambientLightColor.x, scene.ambientLightColor.y, scene.ambientLightColor.z);
+		quadPipeline->setUniformFloat("ambientLightStrength", scene.ambientLightStrength);
+		quadPipeline->setUniformVector("sunPosition", scene.sun.direction.x, scene.sun.direction.y, scene.sun.direction.z);
+		quadPipeline->setUniformVector("sunColor", scene.sun.color.x, scene.sun.color.y, scene.sun.color.z);
+
+		positionBuffer->bind(textures[0]);
+		//normalBuffer->bind(textures[1]);
+		//albedoBuffer->bind(textures[2]);
+
 		quadMesh->vertexArrayObject->bind();
 		quadMesh->indexBuffer->bind();
 		glViewport(0, 0, 960, 540); 
@@ -123,17 +134,11 @@ namespace Renderer {
 		std::unique_ptr<FragmentShader> fragmentShader = renderDevice->createFragmentShader(fragmentSource.c_str());
 		geometryPipeline = move(renderDevice->createPipeline(*vertexShader, *fragmentShader));
 
+		geometryPipeline->createUniform("objectColor");
 		geometryPipeline->createUniform("model");
 		geometryPipeline->createUniform("view");
 		geometryPipeline->createUniform("proj");
 
-		geometryPipeline->createUniform("ambientLightColor");
-		geometryPipeline->createUniform("ambientLightStrength");
-		geometryPipeline->createUniform("objectColor");
-
-		geometryPipeline->createUniform("sunPosition");
-		geometryPipeline->createUniform("sunColor");
-		geometryPipeline->createUniform("proj");
 
 		//Setup quad shaders
 		vertexSource = fileReader.readResourceFileIntoString("/shaders/quadShader.vs");
@@ -143,5 +148,11 @@ namespace Renderer {
 		fragmentShader = renderDevice->createFragmentShader(fragmentSource.c_str());
 
 		quadPipeline = move(renderDevice->createPipeline(*vertexShader, *fragmentShader));
+
+		quadPipeline->createUniform("ambientLightColor");
+		quadPipeline->createUniform("ambientLightStrength");
+					
+		quadPipeline->createUniform("sunPosition");
+		quadPipeline->createUniform("sunColor");
 	}
 }

@@ -45,8 +45,11 @@ namespace Renderer {
 		std::unique_ptr<Renderer::Graphics::RenderTarget> renderTarget;
 		std::unique_ptr<Renderer::Graphics::Pipeline> quadPipeline;
 		std::shared_ptr<Renderer::Graphics::Models::Mesh> quadMesh;
-		std::shared_ptr<Renderer::Graphics::Texture> quadTexture;
 		Renderer::Graphics::RenderDevice* renderDevice;
+
+		std::shared_ptr<Renderer::Graphics::Texture> positionBuffer;
+		std::shared_ptr<Renderer::Graphics::Texture> normalBuffer;
+		std::shared_ptr<Renderer::Graphics::Texture> albedoBuffer;
 
 		float vertices[8] = {
 			 1.0f,  1.0f,  // top right
