@@ -20,7 +20,7 @@ namespace Renderer {
 			virtual void unbind() = 0;
 
 			/// <summary>
-			/// Make this the current active rendertarget
+			/// Add a colourbuffer to be drawn to
 			/// </summary>
 			virtual void addBuffer(std::shared_ptr<Texture> texture) = 0;
 		protected:
