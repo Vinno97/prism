@@ -1,8 +1,21 @@
 #include "States/PrismGame.h"
+
 #include "Math/Vector3f.h"
 #include "StateMachine.h"
 #include "States/PauseState.h"
-
+#include "ECS/Components/SceneComponent.h"
+#include "ECS/Components/PositionComponent.h"
+#include "ECS/Components/VelocityComponent.h"
+#include "ECS/Components/AppearanceComponent.h"
+#include "ECS/Components/DragComponent.h"
+#include "ECS/Components/KeyboardInputComponent.h"
+#include "ECS/Systems/MotionSystem.h"
+#include "ECS/Systems/RenderSystem.h"
+#include "ECS/Systems/KeyboardInputSystem.h"
+#include "ECS/Systems/RestockResourceSystem.h"
+#include "ECS/Systems/AnimationSystem.h"
+#include "ECS/Systems/BumpSystem.h"
+#include "ECS/Systems/CollisionSystem.h"
 #include "World/WorldLoader.h"
 #include "World/Assemblers/PrismEntityAssembler.h"
 
@@ -55,29 +68,36 @@ namespace States {
 		KeyboardInputSystem inputSystem = KeyboardInputSystem(entityManager);
 		RestockResourceSystem restockSystem = RestockResourceSystem(entityManager);
 		AnimationSystem animationSystem = AnimationSystem(entityManager);
+		CollisionSystem collisionSystem = CollisionSystem(entityManager, context.window->width, context.window->height, 0, 0, 2);
+		BumpSystem bumpSystem = BumpSystem(entityManager);
 
 		systemManager.registerSystem(motionSystem);
 		systemManager.registerSystem(renderSystem);
 		systemManager.registerSystem(inputSystem);
 		systemManager.registerSystem(restockSystem);
 		systemManager.registerSystem(animationSystem);
+		systemManager.registerSystem(collisionSystem);
+		systemManager.registerSystem(bumpSystem);
 	}
 
 	void PrismGame::onUpdate(Context &context)
 	{
-		auto input = context.inputManager;
-
 		auto inputSystem = systemManager.getSystem<KeyboardInputSystem>();
 		auto motionSystem = systemManager.getSystem<MotionSystem>();
 		auto renderSystem = systemManager.getSystem<RenderSystem>();
 		auto restockSystem = systemManager.getSystem<RestockResourceSystem>();
 		auto animationSystem = systemManager.getSystem<AnimationSystem>();
+		auto collisionSystem = systemManager.getSystem<CollisionSystem>();
+		auto bumpSystem = systemManager.getSystem<BumpSystem>();
 
 		inputSystem->update(context);
 		restockSystem->update(context);
 		motionSystem->update(context);
+		collisionSystem->update(context);
+		bumpSystem->update(context);
 		animationSystem->update(context);
 		renderSystem->update(context);
+
 
 		for (auto &entity : entityManager.getAllEntitiesWithComponent<VelocityComponent>()) {
 			auto velocity = entity.component;
@@ -88,6 +108,7 @@ namespace States {
 		menuRenderer.renderMenu(menu, float(context.window->width) / float(context.window->height));
 		context.window->swapScreen();
 
+		auto input = context.inputManager;
 		if (input->isKeyPressed(Key::KEY_ESCAPE) && canPressEscape) {
 			canPressEscape = false;
 			context.stateMachine->setState<PauseState>();
@@ -96,7 +117,8 @@ namespace States {
 		if (!input->isKeyPressed(Key::KEY_ESCAPE)) {
 			canPressEscape = true;
 		}
-	}
+	}	
+	
 
 	void PrismGame::onEnter() {
 	}

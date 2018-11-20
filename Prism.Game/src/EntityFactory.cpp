@@ -14,6 +14,7 @@
 #include "ECS/Components/AppearanceComponent.h"
 #include "ECS/Components/KeyboardInputComponent.h"
 #include "ECS/Components/ResourceSpawnComponent.h"
+#include "ECS/Components/BoundingBoxComponent.h"
 #include <World/TerrainGenerator.h>
 #include "Renderer/Graphics/Loader/ModelLoader.h"
 
@@ -44,6 +45,7 @@ int EntityFactory::createPlayer(int entity, EntityManager& entityManager) {
 	entityManager.addComponentToEntity(entity, DragComponent(5.f));
 	entityManager.addComponentToEntity(entity, KeyboardInputComponent());
 	entityManager.addComponentToEntity(entity, PlayerComponent());
+	entityManager.addComponentToEntity(entity, BoundingBoxComponent(.3,.3));
 	return entity;
 }
 
@@ -66,6 +68,7 @@ int EntityFactory::createEnemy(int entity, EntityManager& entityManager) {
 	entityManager.addComponentToEntity(entity, DragComponent(5.f)); 
 	entityManager.addComponentToEntity(entity, EnemyComponent());
 	entityManager.addComponentToEntity(entity, appearance);
+	entityManager.addComponentToEntity(entity, BoundingBoxComponent(.4, .4));
 	
 	return entity;
 }
@@ -111,6 +114,7 @@ int EntityFactory::createTower(int entity, EntityManager & entityManager)
 	entityManager.addComponentToEntity(entity, TowerComponent());
 	entityManager.addComponentToEntity(entity, PositionComponent());
 	entityManager.addComponentToEntity(entity, appearance);
+	entityManager.addComponentToEntity(entity, BoundingBoxComponent(1, 1));
 	return entity;
 }
 
@@ -132,6 +136,7 @@ int EntityFactory::createWall(int entity, EntityManager & entityManager)
 	entityManager.addComponentToEntity(entity, WallComponent());
 	entityManager.addComponentToEntity(entity, PositionComponent());
 	entityManager.addComponentToEntity(entity, appearance);
+	entityManager.addComponentToEntity(entity, BoundingBoxComponent(1, 1));
 	return entity;
 }
 

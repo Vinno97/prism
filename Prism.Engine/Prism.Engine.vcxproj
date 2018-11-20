@@ -23,7 +23,12 @@
     <ClInclude Include="include\nlohmann\adl_serializer.hpp" />
     <ClInclude Include="include\nlohmann\json.hpp" />
     <ClInclude Include="include\nlohmann\json_fwd.hpp" />
+    <ClInclude Include="include\ECS\Components\BoundingBoxComponent.h" />
+    <ClInclude Include="include\ECS\Systems\CollisionSystem.h" />
     <ClInclude Include="include\Renderer\DirectionalLight.h" />
+    <ClInclude Include="include\Physics\AABBCollider.h" />
+    <ClInclude Include="include\Physics\BoundingBox.h" />
+    <ClInclude Include="include\Physics\QuadTree.h" />
     <ClInclude Include="include\Renderer\Camera.h" />
     <ClInclude Include="include\Renderer\Graphics\Texture.h" />
     <ClInclude Include="include\Renderer\Scene.h" />
@@ -97,6 +102,10 @@
     <ClCompile Include="src\Menu\MenuRenderer.cpp" />
     <ClCompile Include="src\Menu\Control.cpp" />
     <ClCompile Include="src\Menu\MenuBuilder.cpp" />
+    <ClCompile Include="src\ECS\Systems\CollisionSystem.cpp" />
+    <ClCompile Include="src\Physics\AABBCollider.cpp" />
+    <ClCompile Include="src\Physics\BoundingBox.cpp" />
+    <ClCompile Include="src\Physics\QuadTree.cpp" />
     <ClCompile Include="src\Renderer\Camera.cpp" />
     <ClCompile Include="src\Renderer\Renderable.cpp" />
     <ClCompile Include="src\Util\FileSystem.cpp" />
