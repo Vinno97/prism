@@ -1,3 +1,4 @@
+#include <GL/glew.h>
 #include "Renderer/ForwardRenderer.h"
 #include <string>
 #include <glm/glm.hpp>
@@ -28,58 +29,15 @@ namespace Renderer {
 		renderDevice = OGLRenderDevice::getRenderDevice();
 
 		quadTexture = renderDevice->createTexture();
+		quadTexture1 = renderDevice->createTexture();
 
 		renderTarget = renderDevice->createRenderTarget(true , quadTexture);
 
-		//Init render target quad
-		float* verticesArray = vertices;
-		float* textsArray = texCoords;
-		unsigned int* indicesArray = indices;
+		renderTarget->addBuffer(quadTexture);
+		renderTarget->addBuffer(quadTexture1);
 
-		auto verticesSize = 8 * sizeof(float);
-
-		std::unique_ptr<VertexBuffer> vertexBuffer = renderDevice->createVertexBuffer(verticesSize, vertices);
-		std::unique_ptr<VertexBuffer> texBuffer = renderDevice->createVertexBuffer(verticesSize, texCoords);
-
-		std::unique_ptr<IndexBuffer> indexBuffer = renderDevice->createIndexBuffer(6 * sizeof(unsigned int), indices);
-
-		std::unique_ptr<VertexArrayObject> vertexArrayObject = renderDevice->createVertexArrayobject();
-		vertexArrayObject->addVertexBuffer(move(vertexBuffer), 0, 2 * sizeof(float), 0, 2);
-		vertexArrayObject->addVertexBuffer(move(texBuffer), 1, 2 * sizeof(float), 0, 2);
-
-		quadMesh = std::make_shared<Renderer::Graphics::Models::Mesh>(move(vertexArrayObject), move(indexBuffer));
-		quadMesh->isIndiced = true;
-		quadMesh->indicesLength = 6;
-
-		//end init render target quad
-
-		Util::FileSystem fileReader;
-		std::string vertexSource = fileReader.readResourceFileIntoString("/shaders/simpleGeometry.vs");
-		std::string fragmentSource = fileReader.readResourceFileIntoString("/shaders/simpleGeometry.fs");
-
-		std::unique_ptr<VertexShader> vertexShader = renderDevice->createVertexShader(vertexSource.c_str());
-		std::unique_ptr<FragmentShader> fragmentShader = renderDevice->createFragmentShader(fragmentSource.c_str());
-		geometryPipeline = move(renderDevice->createPipeline(*vertexShader, *fragmentShader));
-
-		vertexSource = fileReader.readResourceFileIntoString("/shaders/quadShader.vs");
-		fragmentSource = fileReader.readResourceFileIntoString("/shaders/quadShader.fs");
-
-		vertexShader = renderDevice->createVertexShader(vertexSource.c_str());
-		fragmentShader = renderDevice->createFragmentShader(fragmentSource.c_str());
-
-		quadPipeline = move(renderDevice->createPipeline(*vertexShader, *fragmentShader));
-
-		geometryPipeline->createUniform("model");
-		geometryPipeline->createUniform("view");
-		geometryPipeline->createUniform("proj");
-
-		geometryPipeline->createUniform("ambientLightColor");
-		geometryPipeline->createUniform("ambientLightStrength");
-		geometryPipeline->createUniform("objectColor");
-
-		geometryPipeline->createUniform("sunPosition");
-		geometryPipeline->createUniform("sunColor");
-		geometryPipeline->createUniform("proj");
+		loadPipelines();
+		createTargetQuad();
 
 	    projection = glm::perspective(glm::radians(45.0f), (float) width/height, 0.5f, 100.0f);
 
@@ -93,7 +51,9 @@ namespace Renderer {
 		const glm::mat4 view = camera.getCameraMatrix();
 		
 		renderDevice->clearScreen();
+
 		renderTarget->bind();
+
 		renderDevice->clearScreen();
 		geometryPipeline->run();
 
@@ -120,17 +80,72 @@ namespace Renderer {
 				renderDevice->DrawTriangles(0, renderable.model->mesh->verticesLength);
 			}
 		}
-		geometryPipeline->stop();
 		renderTarget->unbind();
-
+		geometryPipeline->stop();
+	
 		quadPipeline->run();
 
-		quadTexture->bind();
+		quadTexture->bind(textures[0]);
+		quadTexture1->bind(textures[1]);
+
 		quadMesh->vertexArrayObject->bind();
 		quadMesh->indexBuffer->bind();
 		glViewport(0, 0, 960, 540); 
 		renderDevice->DrawTrianglesIndexed(0, quadMesh->indicesLength);
 		quadPipeline->stop();
 
+	}
+	void ForwardRenderer::createTargetQuad()
+	{
+		float* verticesArray = vertices;
+		float* textsArray = texCoords;
+		unsigned int* indicesArray = indices;
+
+		auto verticesSize = 8 * sizeof(float);
+
+		std::unique_ptr<VertexBuffer> vertexBuffer = renderDevice->createVertexBuffer(verticesSize, vertices);
+		std::unique_ptr<VertexBuffer> texBuffer = renderDevice->createVertexBuffer(verticesSize, texCoords);
+
+		std::unique_ptr<IndexBuffer> indexBuffer = renderDevice->createIndexBuffer(6 * sizeof(unsigned int), indices);
+
+		std::unique_ptr<VertexArrayObject> vertexArrayObject = renderDevice->createVertexArrayobject();
+		vertexArrayObject->addVertexBuffer(move(vertexBuffer), 0, 2 * sizeof(float), 0, 2);
+		vertexArrayObject->addVertexBuffer(move(texBuffer), 1, 2 * sizeof(float), 0, 2);
+
+		quadMesh = std::make_shared<Renderer::Graphics::Models::Mesh>(move(vertexArrayObject), move(indexBuffer));
+		quadMesh->isIndiced = true;
+		quadMesh->indicesLength = 6;
+
+	}
+	void ForwardRenderer::loadPipelines()
+	{
+		//Setup geometry shaders
+		Util::FileSystem fileReader;
+		std::string vertexSource = fileReader.readResourceFileIntoString("/shaders/simpleGeometry.vs");
+		std::string fragmentSource = fileReader.readResourceFileIntoString("/shaders/simpleGeometry.fs");
+		std::unique_ptr<VertexShader> vertexShader = renderDevice->createVertexShader(vertexSource.c_str());
+		std::unique_ptr<FragmentShader> fragmentShader = renderDevice->createFragmentShader(fragmentSource.c_str());
+		geometryPipeline = move(renderDevice->createPipeline(*vertexShader, *fragmentShader));
+
+		geometryPipeline->createUniform("model");
+		geometryPipeline->createUniform("view");
+		geometryPipeline->createUniform("proj");
+
+		geometryPipeline->createUniform("ambientLightColor");
+		geometryPipeline->createUniform("ambientLightStrength");
+		geometryPipeline->createUniform("objectColor");
+
+		geometryPipeline->createUniform("sunPosition");
+		geometryPipeline->createUniform("sunColor");
+		geometryPipeline->createUniform("proj");
+
+		//Setup quad shaders
+		vertexSource = fileReader.readResourceFileIntoString("/shaders/quadShader.vs");
+		fragmentSource = fileReader.readResourceFileIntoString("/shaders/quadShader.fs");
+
+		vertexShader = renderDevice->createVertexShader(vertexSource.c_str());
+		fragmentShader = renderDevice->createFragmentShader(fragmentSource.c_str());
+
+		quadPipeline = move(renderDevice->createPipeline(*vertexShader, *fragmentShader));
 	}
 }

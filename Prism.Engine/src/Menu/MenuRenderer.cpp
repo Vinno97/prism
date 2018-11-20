@@ -52,7 +52,7 @@ namespace Menu {
 
 			menuPipeline->setUniformMatrix4f("model", model);
 
-			control.texture->bind();
+			control.texture->bind(textures[0]);
 			renderDevice->DrawTrianglesIndexed(0, menu.mesh->indicesLength);	
 		}
 		renderDevice->useBlending(false);

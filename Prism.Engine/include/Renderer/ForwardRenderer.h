@@ -37,12 +37,20 @@ namespace Renderer {
 		int width;
 		int height;
 	private: 
+		void createTargetQuad();
+		void loadPipelines();
+
 		glm::mat4 projection = glm::mat4(1.0f);
 		std::unique_ptr<Renderer::Graphics::Pipeline> geometryPipeline;
 		std::unique_ptr<Renderer::Graphics::Pipeline> quadPipeline;
 		std::unique_ptr<Renderer::Graphics::RenderTarget> renderTarget;
+		std::unique_ptr<Renderer::Graphics::RenderTarget> renderTarget1;
+
 		Renderer::Graphics::RenderDevice* renderDevice;
+
 		std::shared_ptr<Renderer::Graphics::Texture> quadTexture;
+		std::shared_ptr<Renderer::Graphics::Texture> quadTexture1;
+
 		std::shared_ptr<Renderer::Graphics::Models::Mesh> quadMesh;
 
 		float vertices[8] = {

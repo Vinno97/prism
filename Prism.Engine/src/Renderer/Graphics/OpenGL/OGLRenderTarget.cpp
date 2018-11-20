@@ -7,7 +7,7 @@
 namespace Renderer {
 	namespace Graphics {
 		namespace OpenGL {
-			OGLRenderTarget::OGLRenderTarget(bool useDepthBuffer, Renderer::Graphics::Texture& texture) {
+			OGLRenderTarget::OGLRenderTarget(bool useDepthBuffer) {
 				glGenFramebuffers(1, &FBO);
 				glBindFramebuffer(GL_FRAMEBUFFER, FBO);
 
@@ -18,23 +18,35 @@ namespace Renderer {
 					glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, 1024, 768);
 					glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthrenderbuffer);
 				}
-
-				// Set "renderedTexture" as our colour attachement #0
-				glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, texture.getID() , 0);
-
-				// Set the list of draw buffers.
-				GLenum DrawBuffers[1] = { GL_COLOR_ATTACHMENT0 };
-				glDrawBuffers(1, DrawBuffers);
 			}
 
 			void OGLRenderTarget::bind()
 			{
+				GLenum* drawBuffers = new GLenum[bufferAmount];
+				for (int i = 0; i < bufferAmount; i++) {
+					drawBuffers[i] = GL_COLOR_ATTACHMENT0 + i;
+				}
+
 				glBindFramebuffer(GL_FRAMEBUFFER, FBO);
+				glDrawBuffers(bufferAmount, drawBuffers);
+				
+				delete drawBuffers;
 			}
 
 			void OGLRenderTarget::unbind()
 			{
 				glBindFramebuffer(GL_FRAMEBUFFER, 0);
+			}
+
+			void OGLRenderTarget::addBuffer(std::shared_ptr<Texture> texture)
+			{
+				glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0+bufferAmount, GL_TEXTURE_2D, texture->getID(), 0);
+				bufferAmount++;
+			}
+
+			int OGLRenderTarget::getID()
+			{
+				return FBO;
 			}
 
 			OGLRenderTarget::~OGLRenderTarget()

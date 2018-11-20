@@ -148,6 +148,7 @@
     <Image Include="png\someimage.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="cpp.hint" />
     <None Include="lib\libjpeg-9.dll" />
     <None Include="lib\libpng16-16.dll" />
     <None Include="lib\libtiff-5.dll" />

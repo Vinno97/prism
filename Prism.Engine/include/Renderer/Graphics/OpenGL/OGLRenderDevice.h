@@ -8,6 +8,7 @@
 #include "Renderer/Graphics/IndexBuffer.h"
 #include "Renderer/Graphics/VertexArrayObject.h"
 #include <memory>
+#include <map>
 
 namespace Renderer {
 	namespace Graphics {
@@ -43,6 +44,18 @@ namespace Renderer {
 				void DrawTriangles(long offset, int count) const override;
 			private:
 				OGLRenderDevice();
+			};
+
+			static std::map<int, int> textures = {
+				{0, GL_TEXTURE0 },
+				{1, GL_TEXTURE1},
+				{2, GL_TEXTURE2},
+				{3, GL_TEXTURE3},
+				{4, GL_TEXTURE4},
+				{5, GL_TEXTURE5},
+				{6, GL_TEXTURE6},
+				{7, GL_TEXTURE7},
+				{8, GL_TEXTURE8},
 			};
 		}
 	}

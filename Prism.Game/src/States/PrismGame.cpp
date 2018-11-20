@@ -20,7 +20,9 @@ namespace States {
 	void PrismGame::onInit(Context & context)
 	{
 		menuBuilder.addControl(-1.15, 0.88, 0.6, 0.07, "img/healthbar.png");
+
 		menu = menuBuilder.buildMenu();
+
 		auto floor = entityFactory.createFloor(entityManager);
 		auto scene = entityFactory.createScene(entityManager);
 		auto sceneComponent = entityManager.getComponent<SceneComponent>(scene);

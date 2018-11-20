@@ -1,5 +1,7 @@
 #pragma once
 #include <SDL2/SDL_opengl.h>
+#include "Renderer/Graphics/Texture.h"
+#include <memory>
 
 namespace Renderer {
 	namespace Graphics {
@@ -16,6 +18,11 @@ namespace Renderer {
 			/// Make this the current active rendertarget
 			/// </summary>
 			virtual void unbind() = 0;
+
+			/// <summary>
+			/// Make this the current active rendertarget
+			/// </summary>
+			virtual void addBuffer(std::shared_ptr<Texture> texture) = 0;
 		protected:
 			GLuint FBO;
 		};

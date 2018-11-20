@@ -1,5 +1,6 @@
 #pragma once
-#include <SDL2/SDL_opengl.h>
+
+#include <GL/glew.h>
 #include "Renderer/Graphics/RenderDevice.h"
 #include "Renderer/Graphics/OpenGL/OGLRenderDevice.h"
 #include "Renderer/Graphics/VertexShader.h"
@@ -12,6 +13,7 @@
 #include "Renderer/Graphics/OpenGL/OGLVertexArrayObject.h"
 #include "Renderer/Graphics/OpenGL/OGLTexture.h"
 #include <memory>
+#include <SDL2/SDL_opengl.h>
 
 using namespace std;
 
@@ -76,7 +78,7 @@ namespace Renderer {
 
 			std::unique_ptr<RenderTarget> OGLRenderDevice::createRenderTarget(bool useDepthBuffer, std::shared_ptr<Texture> texture) const
 			{
-				return std::make_unique<OGLRenderTarget>(useDepthBuffer, *texture);
+				return std::make_unique<OGLRenderTarget>(useDepthBuffer);
 			}
 
 			void OGLRenderDevice::useBlending(const bool blend) const
