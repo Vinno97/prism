@@ -20,6 +20,8 @@
 #include "ECS/Components/KeyboardInputComponent.h"
 #include "ECS/Systems/KeyboardInputSystem.h"
 #include "ECS/Systems/MotionSystem.h"
+#include "Physics/BoundingBox.h"
+#include "Physics/QuadTree.h"
 #include "States/PrismGame.h"
 
 #define _CRTDBG_MAP_ALLOC
