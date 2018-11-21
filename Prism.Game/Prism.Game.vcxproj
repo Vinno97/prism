@@ -81,6 +81,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\States\EndState.h" />
     <ClInclude Include="include\ECS\Components\EnemyComponent.h" />
     <ClInclude Include="include\ECS\Components\EnemySpawnComponent.h" />
     <ClInclude Include="include\ECS\Components\MineComponent.h" />
@@ -113,6 +114,7 @@
     <ClInclude Include="include\World\TerrainGenerator.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\States\EndState.cpp" />
     <ClCompile Include="src\ECS\Systems\AnimationSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\AttackSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\BumpSystem.cpp" />
@@ -145,6 +147,9 @@
     <ProjectReference Include="..\Prism.Engine\Prism.Engine.vcxproj">
       <Project>{76c79dd1-01cd-4145-a02f-26538e4b060d}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\img\gameover.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

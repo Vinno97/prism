@@ -3,6 +3,7 @@
 #include "Math/Vector3f.h"
 #include "StateMachine.h"
 #include "States/PauseState.h"
+#include "States/EndState.h"
 #include "ECS/Components/SceneComponent.h"
 #include "ECS/Components/PositionComponent.h"
 #include "ECS/Components/VelocityComponent.h"
@@ -53,6 +54,9 @@ namespace States {
 		registerSystems(context);
 		PauseState ps = PauseState();
 		context.stateMachine->addState(ps);
+
+		EndState es = EndState();
+		context.stateMachine->addState(es);
 	}
 
 	/// <summary>
