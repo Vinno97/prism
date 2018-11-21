@@ -37,7 +37,6 @@ namespace Renderer {
 
 	    projection = glm::perspective(glm::radians(45.0f), (float) width/height, 0.5f, 100.0f);
 
-		renderDevice->useDepthTest(true);
 		renderDevice->setClearColour(1.f, 1.f, 1.f, 1.f);
 	}
 
@@ -45,7 +44,7 @@ namespace Renderer {
 	{
 		glm::mat4 model;
 		const glm::mat4 view = camera.getCameraMatrix();
-		
+		renderDevice->useDepthTest(true);
 		renderDevice->clearScreen();
 		renderTarget->bind();
 
@@ -81,6 +80,7 @@ namespace Renderer {
 		quadPipeline->run();
 		
 		quadTexture->bind(textures[0]);
+
 		quadMesh->vertexArrayObject->bind();
 		quadMesh->indexBuffer->bind();
 		glViewport(0, 0, 960, 540); 
@@ -89,7 +89,7 @@ namespace Renderer {
 		quadMesh->vertexArrayObject->unbind();
 
 		quadPipeline->stop();
-
+		renderDevice->useDepthTest(false);
 	}
 	void ForwardRenderer::createTargetQuad()
 	{
