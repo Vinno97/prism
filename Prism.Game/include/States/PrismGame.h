@@ -34,6 +34,7 @@ namespace States {
 		SystemManager systemManager;
 		EntityFactory entityFactory;
 
+		void loadAudio(Context &context) const;
 		void registerSystems(Context &context);
 
 		bool canPressEscape;

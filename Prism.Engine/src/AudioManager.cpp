@@ -18,7 +18,9 @@ void AudioManager::addSound(const std::string name, const std::string file)
 	Mix_Chunk *sound = Mix_LoadWAV(filepath.c_str());
 
 	if (sound == nullptr) {
-		std::cout << "Failed to load sound effect! SDL_mixer Error: " << Mix_GetError() << "\n";
+		std::string error = "Failed to load sound effect! SDL_mixer Error: ";
+		error += Mix_GetError();
+		std::runtime_error(error.c_str());
 	}
 	else {
 		sounds.emplace(name, sound);
@@ -31,7 +33,9 @@ void AudioManager::addMusic(const std::string name, const std::string file)
 	Mix_Music *mus = Mix_LoadMUS(filepath.c_str());
 	
 	if (mus == nullptr) {
-		std::cout << "Failed to load music! SDL_mixer Error: " << Mix_GetError() << "\n";
+		std::string error = "Failed to load music! SDL_mixer Error: ";
+		error += Mix_GetError();
+		std::runtime_error(error.c_str());
 	}
 	else {
 		music.emplace(name, mus);
@@ -45,7 +49,7 @@ const void AudioManager::playSound(const std::string name)
 		Mix_PlayChannel(-1, sounds[name], 0);
 	}
 	else {
-		std::cout << "Failed to play sound! " << name << " does not exist." << "\n";
+		std::runtime_error("Failed to play sound! " + name + " does not exist.");
 	}
 }
 
@@ -56,7 +60,7 @@ const void AudioManager::playMusic(const std::string name)
 		Mix_PlayMusic(music[name], -1);
 	}
 	else {
-		std::cout << "Failed to play music! " << name << " does not exist." << "\n";
+		std::runtime_error("Failed to play music! " + name + " does not exist.");
 	}
 }
 

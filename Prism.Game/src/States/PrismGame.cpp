@@ -29,11 +29,13 @@ void PrismGame::onInit(Context & context)
 	sceneComponent->scene.sun.direction = Math::Vector3f{ 25.f, 150.0f, 100.0f };
 
 	World::LevelManager loader{ std::make_unique<PrismEntityAssembler>() };
-
+	
 	loader.load("levels/Sample World", entityManager);
 	// Dit is hoe een wereld zou worden opgeslagen en weer ingeladen.
 	//loader.load("saves/Sample Save", entityManager);
 	//loader.save("saves/Sample Save", entityManager);
+
+	loadAudio(context);
 
 	registerSystems(context);
 	PauseState ps = PauseState();
@@ -91,6 +93,16 @@ void PrismGame::onUpdate(Context &context)
 
 	context.window->swapScreen();
 }
+
+void PrismGame::loadAudio(Context &context) const
+{
+	context.audioManager->addMusic("Ambience", "Ambience.wav");
+	//Load more
+
+	//Temporarily in here, will be moved to onEnter once context is accessible.
+	context.audioManager->playMusic("Ambience");
+}
+
 void PrismGame::onEnter() {
 }
 void PrismGame::onLeave() {
