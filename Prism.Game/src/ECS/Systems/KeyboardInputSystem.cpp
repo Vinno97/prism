@@ -9,6 +9,7 @@
 #include "ECS/Components/PlayerComponent.h"
 #include "ECS/Components/HealthComponent.h"
 #include "ECS/Components/KeyboardInputComponent.h"
+#include "Math/Vector3f.h"
 
 namespace ECS {
 	namespace Systems {
@@ -27,25 +28,29 @@ namespace ECS {
 			double acceleration = 5;
 
 			auto input = context.inputManager;
+			
+			float dirX = 0;
+			float dirY = 0;
+
 
 			for (auto entity : entityManager->getAllEntitiesWithComponent<KeyboardInputComponent>()) {
 				auto velocity = entityManager->getComponent<VelocityComponent>(entity.id);
 
 				if (input->isKeyPressed(Key::KEY_W))
 				{
-					velocity->dy -= acceleration * context.deltaTime;
+					dirY -= acceleration;
 				}
 				if (input->isKeyPressed(Key::KEY_S))
 				{
-					velocity->dy += acceleration * context.deltaTime;
+					dirY += acceleration;
 				}
 				if (input->isKeyPressed(Key::KEY_A))
 				{
-					velocity->dx -= acceleration * context.deltaTime;
+					dirX -= acceleration;
 				}
 				if (input->isKeyPressed(Key::KEY_D))
 				{
-					velocity->dx += acceleration * context.deltaTime;
+					dirX += acceleration;
 				}
 
 
@@ -75,7 +80,12 @@ namespace ECS {
 						appearance->rotationY += context.deltaTime * 50;
 					}
 				}
-
+				
+				Math::Vector3f v = Math::Vector3f(dirX, dirY, 0);
+				v.normalize();
+				velocity->dx += v.x * acceleration*context.deltaTime;
+				velocity->dy += v.y * acceleration*context.deltaTime;
+				
 				// Cheat option to increase health of the Player
 				if (entityManager->hasComponent<PlayerComponent>(entity.id)) {
 					auto healthComponent = entityManager->getComponent<HealthComponent>(entity.id);

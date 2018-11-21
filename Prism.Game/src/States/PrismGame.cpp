@@ -9,7 +9,9 @@
 #include "ECS/Components/AppearanceComponent.h"
 #include "ECS/Components/DragComponent.h"
 #include "ECS/Components/KeyboardInputComponent.h"
+#include "ECS/Systems/EnemyPathFindingSystem.h"
 #include "ECS/Systems/MotionSystem.h"
+#include "ECS/Systems/AttackSystem.h"
 #include "ECS/Systems/RenderSystem.h"
 #include "ECS/Systems/KeyboardInputSystem.h"
 #include "ECS/Systems/AnimationSystem.h"
@@ -18,6 +20,8 @@
 #include "ECS/Systems/CollisionSystem.h"
 #include "ECS/Systems/ResourceGatherSystem.h"
 #include "ECS/Systems/ResourceBlobSystem.h"
+#include "ECS/Systems/EnemySpawnSystem.h"
+#include "ECS/Systems/MousePointSystem.h"
 
 #include "World/WorldLoader.h"
 #include "World/Assemblers/PrismEntityAssembler.h"
@@ -64,6 +68,7 @@ namespace States {
 		MotionSystem motionSystem = MotionSystem(entityManager);
 		RenderSystem renderSystem = RenderSystem(entityManager, context.window->width, context.window->height);
 		KeyboardInputSystem inputSystem = KeyboardInputSystem(entityManager);
+		EnemyPathFindingSystem enemyPathFindingSystem  = EnemyPathFindingSystem(entityManager, 10);
 		AnimationSystem animationSystem = AnimationSystem(entityManager);
 		CollisionSystem collisionSystem = CollisionSystem(entityManager, context.window->width, context.window->height, 0, 0, 2);
 		BumpSystem bumpSystem = BumpSystem(entityManager);
@@ -71,11 +76,13 @@ namespace States {
 		ResourceGatherSystem resourceGatherSystem = ResourceGatherSystem(entityManager);
 		EnemySpawnSystem enemySpawnSystem = EnemySpawnSystem(entityManager);
 		MousePointSystem pointSystem = MousePointSystem(entityManager);
-
 		AttackSystem attackSystem = AttackSystem(entityManager);
+
 		systemManager.registerSystem(motionSystem);
 		systemManager.registerSystem(renderSystem);
 		systemManager.registerSystem(inputSystem);
+		systemManager.registerSystem(enemyPathFindingSystem);
+
 		systemManager.registerSystem(animationSystem);
 		systemManager.registerSystem(collisionSystem);
 		systemManager.registerSystem(bumpSystem);
@@ -93,12 +100,13 @@ namespace States {
 	   auto input = context.inputManager;
 
 		auto inputSystem = systemManager.getSystem<KeyboardInputSystem>();
-		auto attackSystem = systemManager.getSystem<AttackSystem>();
-		auto bumpSystem = systemManager.getSystem<BumpSystem>();
+		auto enemyPathFindingSystem = systemManager.getSystem<EnemyPathFindingSystem>();
 		auto motionSystem = systemManager.getSystem<MotionSystem>();
 		auto collisionSystem = systemManager.getSystem<CollisionSystem>();
 		auto renderSystem = systemManager.getSystem<RenderSystem>();
 		auto animationSystem = systemManager.getSystem<AnimationSystem>();
+		auto attackSystem = systemManager.getSystem<AttackSystem>();
+		auto bumpSystem = systemManager.getSystem<BumpSystem>();
 		auto enemySpawnSystem = systemManager.getSystem<EnemySpawnSystem>();
 		auto pointSystem = systemManager.getSystem<MousePointSystem>();
 
@@ -106,6 +114,7 @@ namespace States {
 		auto resourceGatherSystem = systemManager.getSystem<ResourceGatherSystem>();
 
 		inputSystem->update(context);
+		enemyPathFindingSystem->update(context);
 		motionSystem->update(context);
 		collisionSystem->update(context);
 		attackSystem->update(context);
@@ -117,7 +126,7 @@ namespace States {
 		renderSystem->update(context);
 		pointSystem->update(context);
 
-		///std::cout << 1.0/context.deltaTime << std::endl;
+		std::cout << 1.0/context.deltaTime << std::endl;
 		/*
 		for (auto &entity : entityManager.getAllEntitiesWithComponent<VelocityComponent>()) {
 			auto velocity = entity.component;

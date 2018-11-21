@@ -14,6 +14,7 @@ namespace Math {
 		
 		Vector3f normalize();
 
+
 		float x;
 		float y;
 		float z;
