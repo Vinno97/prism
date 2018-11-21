@@ -24,6 +24,8 @@ Math::Vector3f Math::Vector3f::substract(const Math::Vector3f& vector) {
     return *this;
 }
 
+
+
 Math::Vector3f Math::Vector3f::operator+(const Math::Vector3f other) {
     Vector3f vector;
     vector.x = this->x + other.x;
@@ -50,3 +52,4 @@ Math::Vector3f Math::Vector3f::normalize()
 	}
 	return *this;
 }
+

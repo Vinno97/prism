@@ -55,18 +55,18 @@ namespace ECS {
 
 
 
-		//	//TODO MOET WAARSCHIJNLIJK ANDERS
-		//	if (input->isMouseButtonPressed(Key::MOUSE_BUTTON_LEFT))
-		//	{
-		//		auto position = entityManager->getComponent<PositionComponent>(entity.id);
-		//		std::vector<int> pos = input->GetMousePoisiton();
-		//		float x = (pos[0] - context.window->width / 2.0)*0.006;
-		//		float y = (pos[1] - context.window->height / 2.0)*0.006;
-		//		velocity->dx = -1 * (position->x - x);
-		//		velocity->dy = -1 * (position->y - y);
-		//		//position->x = x;
-		//		//position->y = y;
-		//	}
+				//	//TODO MOET WAARSCHIJNLIJK ANDERS
+				//	if (input->isMouseButtonPressed(Key::MOUSE_BUTTON_LEFT))
+				//	{
+				//		auto position = entityManager->getComponent<PositionComponent>(entity.id);
+				//		std::vector<int> pos = input->GetMousePoisiton();
+				//		float x = (pos[0] - context.window->width / 2.0)*0.006;
+				//		float y = (pos[1] - context.window->height / 2.0)*0.006;
+				//		velocity->dx = -1 * (position->x - x);
+				//		velocity->dy = -1 * (position->y - y);
+				//		//position->x = x;
+				//		//position->y = y;
+				//	}
 
 
 				if (entityManager->hasComponent<AppearanceComponent>(entity.id)) {
@@ -89,7 +89,7 @@ namespace ECS {
 				// Cheat option to increase health of the Player
 				if (entityManager->hasComponent<PlayerComponent>(entity.id)) {
 					auto healthComponent = entityManager->getComponent<HealthComponent>(entity.id);
-			
+
 					if (input->isKeyPressed(Key::KEY_H))
 					{
 						// healthComponent->increase();
