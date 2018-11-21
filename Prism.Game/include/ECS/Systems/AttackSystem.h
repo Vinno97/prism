@@ -1,5 +1,4 @@
 #pragma once
-
 #include "Context.h"
 #include "ECS/Systems/System.h"
 #include "Physics/QuadTree.h"
@@ -7,12 +6,18 @@
 
 namespace ECS {
 	namespace Systems {
-		class CollisionSystem : public System {
+		class AttackSystem : public System {
 		public:
-			CollisionSystem(ECS::EntityManager &entityManager, float width, float height, float posX, float posY,unsigned int maxObjects);
-			~CollisionSystem();
+			AttackSystem(EntityManager &entityManager);
+			~AttackSystem();
 			void update(Context& context) override;
 			System* clone() override;
+
+			///<summary>
+			/// Method to update the entity when collision is detected
+			///<param name="id">The ID of the Entity to update
+			///</summary>
+			void updateEntity(int id);
 		private:
 			Physics::QuadTree quadTree;
 			Physics::AABBCollider aabbCollider;
@@ -20,5 +25,3 @@ namespace ECS {
 	}
 }
 
-
-	

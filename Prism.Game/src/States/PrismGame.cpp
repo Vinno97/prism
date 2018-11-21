@@ -12,10 +12,13 @@
 #include "ECS/Systems/MotionSystem.h"
 #include "ECS/Systems/RenderSystem.h"
 #include "ECS/Systems/KeyboardInputSystem.h"
-#include "ECS/Systems/RestockResourceSystem.h"
 #include "ECS/Systems/AnimationSystem.h"
+#include "ECS/Systems/AttackSystem.h"
 #include "ECS/Systems/BumpSystem.h"
 #include "ECS/Systems/CollisionSystem.h"
+#include "ECS/Systems/ResourceGatherSystem.h"
+#include "ECS/Systems/ResourceBlobSystem.h"
+
 #include "World/WorldLoader.h"
 #include "World/Assemblers/PrismEntityAssembler.h"
 
@@ -24,9 +27,10 @@ namespace States {
 	using namespace ECS::Components;
 	using namespace World;
 	using namespace World::Assemblers;
+
 	/// <summary>
-	/// creates new PrismGame object
-	/// </summary>
+/// creates new PrismGame object
+/// </summary>
 	PrismGame::PrismGame()
 		= default;
 
@@ -36,6 +40,8 @@ namespace States {
 		menu = menuBuilder.buildMenu();
 		auto floor = entityFactory.createFloor(entityManager);
 		auto scene = entityFactory.createScene(entityManager);
+		auto camera = entityFactory.createCamera(entityManager);
+		auto mousePointer = entityFactory.createCameraPointer(entityManager);
 		auto sceneComponent = entityManager.getComponent<SceneComponent>(scene);
 
 		sceneComponent->scene.ambientLightColor = Math::Vector3f{ 1.0f, 1.0f, 1.0f };
@@ -64,49 +70,67 @@ namespace States {
 		MotionSystem motionSystem = MotionSystem(entityManager);
 		RenderSystem renderSystem = RenderSystem(entityManager, context.window->width, context.window->height);
 		KeyboardInputSystem inputSystem = KeyboardInputSystem(entityManager);
-		RestockResourceSystem restockSystem = RestockResourceSystem(entityManager);
 		AnimationSystem animationSystem = AnimationSystem(entityManager);
 		CollisionSystem collisionSystem = CollisionSystem(entityManager, context.window->width, context.window->height, 0, 0, 2);
 		BumpSystem bumpSystem = BumpSystem(entityManager);
+		ResourceBlobSystem resourceBlobSystem = ResourceBlobSystem(entityManager);
+		ResourceGatherSystem resourceGatherSystem = ResourceGatherSystem(entityManager);
+		MousePointSystem pointSystem = MousePointSystem(entityManager);
 
+		AttackSystem attackSystem = AttackSystem(entityManager);
 		systemManager.registerSystem(motionSystem);
 		systemManager.registerSystem(renderSystem);
 		systemManager.registerSystem(inputSystem);
-		systemManager.registerSystem(restockSystem);
 		systemManager.registerSystem(animationSystem);
 		systemManager.registerSystem(collisionSystem);
 		systemManager.registerSystem(bumpSystem);
+		systemManager.registerSystem(resourceGatherSystem);
+		systemManager.registerSystem(resourceBlobSystem);
+		systemManager.registerSystem(pointSystem);
+		systemManager.registerSystem(attackSystem);
 	}
+
+
 
 	void PrismGame::onUpdate(Context &context)
 	{
+	   auto input = context.inputManager;
+
 		auto inputSystem = systemManager.getSystem<KeyboardInputSystem>();
-		auto motionSystem = systemManager.getSystem<MotionSystem>();
-		auto renderSystem = systemManager.getSystem<RenderSystem>();
-		auto restockSystem = systemManager.getSystem<RestockResourceSystem>();
-		auto animationSystem = systemManager.getSystem<AnimationSystem>();
-		auto collisionSystem = systemManager.getSystem<CollisionSystem>();
+		auto attackSystem = systemManager.getSystem<AttackSystem>();
 		auto bumpSystem = systemManager.getSystem<BumpSystem>();
+		auto motionSystem = systemManager.getSystem<MotionSystem>();
+		auto collisionSystem = systemManager.getSystem<CollisionSystem>();
+		auto renderSystem = systemManager.getSystem<RenderSystem>();
+		auto animationSystem = systemManager.getSystem<AnimationSystem>();
+		auto pointSystem = systemManager.getSystem<MousePointSystem>();
+
+		auto resourceBlobSystem = systemManager.getSystem<ResourceBlobSystem>();
+		auto resourceGatherSystem = systemManager.getSystem<ResourceGatherSystem>();
 
 		inputSystem->update(context);
-		restockSystem->update(context);
 		motionSystem->update(context);
 		collisionSystem->update(context);
+		attackSystem->update(context);
 		bumpSystem->update(context);
 		animationSystem->update(context);
+		resourceGatherSystem->update(context);
+		resourceBlobSystem->update(context);
 		renderSystem->update(context);
+		pointSystem->update(context);
 
-
+		///std::cout << 1.0/context.deltaTime << std::endl;
+		/*
 		for (auto &entity : entityManager.getAllEntitiesWithComponent<VelocityComponent>()) {
 			auto velocity = entity.component;
 			auto position = entityManager.getComponent<PositionComponent>(entity.id);
-			printf("Entity:\t\t%d \nPosition: \tX: %.2f, Y: %.2f\nVelocity:\tdX: %.2f, dY: %.2f\n\n", entity.id, position->x, position->y, velocity->dx, velocity->dy);
-		}
+			//printf("Entity:\t\t%d \nPosition: \tX: %.2f, Y: %.2f\nVelocity:\tdX: %.2f, dY: %.2f\n\n", entity.id, position->x, position->y, velocity->dx, velocity->dy);
+		}*/
+
 
 		menuRenderer.renderMenu(menu, float(context.window->width) / float(context.window->height));
 		context.window->swapScreen();
 
-		auto input = context.inputManager;
 		if (input->isKeyPressed(Key::KEY_ESCAPE) && canPressEscape) {
 			canPressEscape = false;
 			context.stateMachine->setState<PauseState>();
@@ -115,11 +139,11 @@ namespace States {
 		if (!input->isKeyPressed(Key::KEY_ESCAPE)) {
 			canPressEscape = true;
 		}
-	}	
-	
-
+	}
 	void PrismGame::onEnter() {
 	}
 	void PrismGame::onLeave() {
 	}
 }
+
+
