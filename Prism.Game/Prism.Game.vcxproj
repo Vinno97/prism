@@ -104,6 +104,7 @@
     <ClInclude Include="include\ECS\Systems\AnimationSystem.h" />
     <ClInclude Include="include\ECS\Components\ResourceSpawnComponent.h" />
     <ClInclude Include="include\ECS\Systems\ProjectileAttackSystem.h" />
+    <ClInclude Include="include\ECS\Systems\EnemyPathFindingSystem.h" />
     <ClInclude Include="include\ECS\Systems\BumpSystem.h" />
     <ClInclude Include="include\ECS\Systems\EnemySpawnSystem.h" />
     <ClInclude Include="include\ECS\Systems\ResourceBlobSystem.h" />
@@ -135,6 +136,7 @@
     <ClCompile Include="src\ECS\Systems\ResourceBlobSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\ResourceGatherSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\EnemySpawnSystem.cpp" />
+    <ClCompile Include="src\ECS\Systems\EnemyPathFindingSystem.cpp" />
     <ClCompile Include="src\States\PauseState.cpp" />
     <ClCompile Include="src\ECS\Systems\KeyboardInputSystem.cpp" />
     <ClCompile Include="src\EntityFactory.cpp" />

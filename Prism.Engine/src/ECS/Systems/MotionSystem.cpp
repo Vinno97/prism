@@ -27,6 +27,7 @@ void ECS::Systems::MotionSystem::update(Context& context) {
 
 			if (std::abs(velocity->dx) < 0.01) velocity->dx = 0;
 			if (std::abs(velocity->dy) < 0.01) velocity->dy = 0;
+
 		}
 
 		if (entityManager->hasComponent<PositionComponent>(entity.id)) {
