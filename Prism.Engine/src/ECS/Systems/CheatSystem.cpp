@@ -6,10 +6,6 @@
 #include "ECS/Components/PlayerComponent.h"
 #include "ECS/Systems/CheatSystem.h"
 
-using namespace ECS;
-using namespace ECS::Components;
-using namespace ECS::Systems;
-
 ECS::Systems::CheatSystem::CheatSystem(EntityManager &entityManager) : System(entityManager) { }
 
 void ECS::Systems::CheatSystem::increaseHealth()
@@ -23,18 +19,18 @@ void ECS::Systems::CheatSystem::increaseHealth()
 			//Test:
 			//std::cout << healtComponent->health << std::endl;
 		}
-
-		if (ticks > 0) {
+		else {
 			ticks++;
-		}
-
-		if (ticks == 7) {
-			ticks = 0;
+			if (ticks == 2) {
+				ticks = 0;
+			}
 		}
 	}
 }
 
-CheatSystem::~CheatSystem()
+
+
+ECS::Systems::CheatSystem::~CheatSystem()
 {
 }
 
@@ -42,7 +38,7 @@ void ECS::Systems::CheatSystem::update(Context context)
 {
 }
 
-System * ECS::Systems::CheatSystem::clone()
+ECS::System * ECS::Systems::CheatSystem::clone()
 {
 	return nullptr;
 }
