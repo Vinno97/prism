@@ -8,6 +8,7 @@
 #include "../../Prism.Game/include/ECS/Components/EnemyComponent.h"
 #include "ECS/Components/PlayerComponent.h"
 
+
 ECS::Systems::AttackSystem::AttackSystem(EntityManager &entityManager) : System(entityManager) { }
 
 ECS::Systems::AttackSystem::~AttackSystem()
@@ -30,14 +31,25 @@ void ECS::Systems::AttackSystem::update(Context& context) {
 			std::vector<Physics::BoundingBox const *> vector;
 
 			vector = boundingBoxComponent->collidesWith;
-			for (int i = 0; i < vector.size(); i++) {
-				for (auto entity1 : entityManager->getAllEntitiesWithComponent<HealthComponent>()) {
-					updateEntity(entity1.id);
+			if (boundingBoxComponent->didCollide) {
+
+
+				
+				for (int i = 0; i < vector.size(); i++) {
+					for (const auto& entity1 : entityManager->getAllEntitiesWithComponent<PlayerComponent>()) {
+						auto CollideBoundingBox = &entityManager->getComponent<BoundingBoxComponent>(entity1.id)->boundingBox;
+						if (CollideBoundingBox == vector[i]) {
+							updateEntity(entity1.id);
+						//	vector.push_back(&boundingBoxComponent->boundingBox);
+							updateEntity(entity.id);
+						}
+					}
 				}
+
+
 			}
 		}
 	}
-	quadTree.Clear();
 }
 
 void ECS::Systems::AttackSystem::updateEntity(int id) {
@@ -56,7 +68,6 @@ void ECS::Systems::AttackSystem::updateEntity(int id) {
 
 			// Print (Remove after review)
 			std::cout << "Player is dead" << std::endl;
-			entityManager->removeEntity(id);
 		}
 		// Print (Remove after review)
 		std::cout << "Speler: " << currentComponent->health << std::endl;
