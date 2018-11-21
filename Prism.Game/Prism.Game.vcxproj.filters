@@ -1,39 +1,60 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <ClCompile Include="src\ECS\Systems\AimingSystem.cpp" />
+    <ClCompile Include="src\ECS\Systems\AttackSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\ProjectileAttackSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\ShootingSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\AnimationSystem.cpp" />
-    <ClCompile Include="src\ECS\Systems\BumbSystem.cpp" />
-    <ClCompile Include="src\ECS\Systems\RestockResourceSystem.cpp" />
+    <ClCompile Include="src\ECS\Systems\BumpSystem.cpp" />
+    <ClCompile Include="src\ECS\Systems\ResourceBlobSystem.cpp" />
+    <ClCompile Include="src\ECS\Systems\ResourceGatherSystem.cpp" />
     <ClCompile Include="src\States\PauseState.cpp" />
     <ClCompile Include="src\ECS\Systems\KeyboardInputSystem.cpp" />
     <ClCompile Include="src\EntityFactory.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\States\PrismGame.cpp" />
+    <ClCompile Include="src\World\Assemblers\PrismEntityAssembler.cpp" />
+    <ClCompile Include="src\World\Assemblers\EnemyAssembler.cpp" />
+    <ClCompile Include="src\World\Assemblers\PlayerAssembler.cpp" />
+    <ClCompile Include="src\World\Assemblers\ResourceSpawnAssembler.cpp" />
+    <ClCompile Include="src\World\Assemblers\TowerAssembler.cpp" />
+    <ClCompile Include="src\World\Assemblers\WallAssembler.cpp" />
     <ClCompile Include="src\World\TerrainGenerator.cpp" />
-    <ClCompile Include="src\ECS\Systems\AimingSystem.cpp" />
-    <ClCompile Include="src\ECS\Systems\AttackSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ECS\Components\BulletComponent.h" />
     <ClInclude Include="include\ECS\Components\EnemyComponent.h" />
     <ClInclude Include="include\ECS\Components\ProjectileAttackComponent.h" />
+    <ClInclude Include="include\ECS\Systems\AimingSystem.h" />
+    <ClInclude Include="include\ECS\Components\MineComponent.h" />
+    <ClInclude Include="include\ECS\Components\TowerComponent.h" />
+    <ClInclude Include="include\ECS\Components\WallComponent.h" />
+    <ClInclude Include="include\ECS\Components\InventoryComponent.h" />
+    <ClInclude Include="include\ECS\Components\ResourceBlobComponent.h" />
+    <ClInclude Include="include\ECS\Components\ResourceGatherComponent.h" />
+    <ClInclude Include="include\Enums\ResourceTypeEnum.h" />
     <ClInclude Include="include\ECS\Systems\AnimationSystem.h" />
-    <ClInclude Include="include\ECS\Components\PlayerComponent.h" />
     <ClInclude Include="include\ECS\Components\ResourceSpawnComponent.h" />
     <ClInclude Include="include\ECS\Systems\ProjectileAttackSystem.h" />
-    <ClInclude Include="include\ECS\Systems\BumbSystem.h" />
+    <ClInclude Include="include\ECS\Systems\BumpSystem.h" />
+    <ClInclude Include="include\ECS\Systems\ResourceBlobSystem.h" />
+    <ClInclude Include="include\ECS\Systems\ResourceGatherSystem.h" />
     <ClInclude Include="include\EntityFactory.h" />
     <ClInclude Include="include\States\PrismGame.h" />
+    <ClInclude Include="include\World\Assemblers\EnemyAssembler.h" />
+    <ClInclude Include="include\World\Assemblers\PlayerAssembler.h" />
+    <ClInclude Include="include\World\Assemblers\ResourceSpawnAssembler.h" />
+    <ClInclude Include="include\World\Assemblers\TowerAssembler.h" />
+    <ClInclude Include="include\World\Assemblers\WallAssembler.h" />
+    <ClInclude Include="include\World\Assemblers\PrismEntityAssembler.h" />
+    <ClInclude Include="include\PrismGame.h" />
     <ClInclude Include="include\ECS\Components\KeyboardInputComponent.h" />
     <ClInclude Include="include\ECS\Systems\KeyboardInputSystem.h" />
-    <ClInclude Include="include\ECS\Systems\RestockResourceSystem.h" />
     <ClInclude Include="include\ECS\Components\ShootingComponent.h" />
     <ClInclude Include="include\ECS\Systems\ShootingSystem.h" />
     <ClInclude Include="include\States\PauseState.h" />
     <ClInclude Include="include\World\TerrainGenerator.h" />
-    <ClInclude Include="include\ECS\Systems\AimingSystem.h" />
     <ClInclude Include="include\ECS\Systems\AttackSystem.h" />
   </ItemGroup>
   <ItemGroup>

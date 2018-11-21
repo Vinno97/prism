@@ -15,7 +15,7 @@ namespace ECS {
 		AimingSystem::~AimingSystem()
 			= default;
 
-		void AimingSystem::update(Context context)
+		void AimingSystem::update(Context& context)
 		{
 			auto input = context.inputManager;
 			for (auto player : entityManager->getAllEntitiesWithComponent<PlayerComponent>()) {

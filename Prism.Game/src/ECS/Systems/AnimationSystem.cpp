@@ -2,6 +2,7 @@
 
 #include <math.h>
 #include <chrono>
+
 #include "Context.h"
 #include "InputManager.h"
 #include "ECS/Systems/AnimationSystem.h"
@@ -18,7 +19,7 @@ namespace ECS {
 		AnimationSystem::~AnimationSystem()
 			= default;
 
-		void AnimationSystem::update(Context context) {
+		void AnimationSystem::update(Context& context) {
 			absoluteTime += context.deltaTime;
 			// TODO: Misschien kan dit mooier
 			for (const auto& player : entityManager->getAllEntitiesWithComponent<PlayerComponent>()) {

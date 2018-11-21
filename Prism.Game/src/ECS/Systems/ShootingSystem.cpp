@@ -16,7 +16,7 @@ namespace ECS {
 		ShootingSystem::~ShootingSystem()
 			= default;
 
-		void ShootingSystem::update(Context context)
+		void ShootingSystem::update(Context& context)
 		{
 			EntityFactory ef = EntityFactory();
 			for (auto entity : entityManager->getAllEntitiesWithComponent<ShootingComponent>()) {

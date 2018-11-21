@@ -188,30 +188,17 @@ void QuadTree::Insert(BoundingBox const &newBox)
 	}
 }
 
-/*
-std::vector<BoundingBox const *> QuadTree::RetrieveSelected(std::vector<BoundingBox const *> &vector, BoundingBox const &searchBox)
-{
-	int index = GetIndex(searchBox);
-	if (index != -1 && nodes[0] != nullptr) {
-		nodes[index]->RetrieveAll(vector, searchBox);
-	}
-	for (int i = 0; i < objects.size();i++) {
-		if (objects[i] != &searchBox) {
-			vector.push_back(objects[i]);
-			if (vector.size()>=3) {
-				std::cout << "what??????????????";
-			}
-		}
-	}
-	return vector;
-}
-*/
-
 std::vector<BoundingBox const *> QuadTree::RetrieveAll(std::vector<BoundingBox const *> &vector,BoundingBox const &searchBox)
 {
 	int index = GetIndex(searchBox);
 	if (index != -1 && nodes[0] != nullptr) {
 		nodes[index]->RetrieveAll(vector,searchBox);
+	}
+	else if (nodes[0] != nullptr) {
+		nodes[0]->RetrieveAll(vector, searchBox);
+		nodes[1]->RetrieveAll(vector, searchBox);
+		nodes[2]->RetrieveAll(vector, searchBox);
+		nodes[3]->RetrieveAll(vector, searchBox);
 	}
 	vector.insert(vector.end(),objects.begin(), objects.end());
 	return vector;

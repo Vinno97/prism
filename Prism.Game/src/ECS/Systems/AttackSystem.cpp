@@ -3,14 +3,10 @@
 #include "ECS/EntityManager.h";
 #include "ECS/SystemManager.h";
 #include "ECS/Components/HealthComponent.h"
+#include "ECS/Components/VelocityComponent.h"
 #include "ECS/Components/BoundingBoxComponent.h"
 #include "../../Prism.Game/include/ECS/Components/EnemyComponent.h"
-#include "../../Prism.Game/include/ECS/Components/PlayerComponent.h"
-#include "ECS/Components/BoundingBoxComponent.h"
-
-
-using namespace ECS;
-using namespace ECS::Components;
+#include "ECS/Components/PlayerComponent.h"
 
 ECS::Systems::AttackSystem::AttackSystem(EntityManager &entityManager) : System(entityManager) { }
 
@@ -18,40 +14,25 @@ ECS::Systems::AttackSystem::~AttackSystem()
 = default;
 
 
-void ECS::Systems::AttackSystem::update(Context context) {
-	for (auto entity : entityManager->getAllEntitiesWithComponent<BoundingBoxComponent>())
-	{
-		if (entityManager->hasComponent<PositionComponent>(entity.id) 
-			&& (entityManager->hasComponent<HealthComponent>(entity.id))) {
-			auto boundingBox = &entityManager->getComponent<BoundingBoxComponent>(entity.id)->boundingBox;
-			auto Position = entityManager->getComponent<PositionComponent>(entity.id);
-
-			boundingBox->SetPosXY(Position->x, Position->y);
-			quadTree.Insert(*boundingBox);
-		}
-	}
+void ECS::Systems::AttackSystem::update(Context& context) {
 
 	for (auto entity : entityManager->getAllEntitiesWithComponent<EnemyComponent>())
 	{
 		if (entityManager->hasComponent<PositionComponent>(entity.id)
-			&& entityManager->hasComponent<HealthComponent>(entity.id)
-			&& entityManager->hasComponent<BoundingBoxComponent>(entity.id)) {
+			&& entityManager->hasComponent<BoundingBoxComponent>(entity.id)
+			&& entityManager->hasComponent<VelocityComponent>(entity.id)
+			&& entityManager->hasComponent<HealthComponent>(entity.id)) {
 
-			auto boundingBox = &entityManager->getComponent<BoundingBoxComponent>(entity.id)->boundingBox;
+			auto boundingBoxComponent = entityManager->getComponent<BoundingBoxComponent>(entity.id);
 			auto Position = entityManager->getComponent<PositionComponent>(entity.id);
 
-			boundingBox->SetPosXY(Position->x, Position->y);
-			std::vector<BoundingBox const *> vec;
-			quadTree.RetrieveAll(vec, *boundingBox);
+			boundingBoxComponent->boundingBox.SetPosXY(Position->x, Position->y);
+			std::vector<Physics::BoundingBox const *> vector;
 
-			for (auto otherBox : vec) {
-				if (otherBox != boundingBox) {
-					float x = boundingBox->GetPosX();
-					float y = boundingBox->GetPosY();
-
-					if (aabbCollider.CheckCollision(*otherBox, *boundingBox)) {
-						updateEntity(entity.id);
-					}
+			vector = boundingBoxComponent->collidesWith;
+			for (int i = 0; i < vector.size(); i++) {
+				for (auto entity1 : entityManager->getAllEntitiesWithComponent<HealthComponent>()) {
+					updateEntity(entity1.id);
 				}
 			}
 		}
@@ -60,11 +41,18 @@ void ECS::Systems::AttackSystem::update(Context context) {
 }
 
 void ECS::Systems::AttackSystem::updateEntity(int id) {
-	if (entityManager->hasComponent<PlayerComponent>(id)) {
+	if (entityManager->hasComponent<EnemyComponent>(id)) {
+		entityManager->removeEntity(id);
+		// Print (Remove after review)
+		std::cout << "Enemy is exploded" << std::endl;
+	}
+
+	if (entityManager->hasComponent<HealthComponent>(id)) {
 		auto currentComponent = entityManager->getComponent<HealthComponent>(id);
+
 		currentComponent->health -= 10;
 
-		if (currentComponent->health >= 0) {
+		if (currentComponent->health == 0) {
 
 			// Print (Remove after review)
 			std::cout << "Player is dead" << std::endl;
@@ -73,17 +61,12 @@ void ECS::Systems::AttackSystem::updateEntity(int id) {
 		// Print (Remove after review)
 		std::cout << "Speler: " << currentComponent->health << std::endl;
 	}
-	else if (entityManager->hasComponent<EnemyComponent>(id)) {
-		entityManager->removeEntity(id);
-		// Print (Remove after review)
-		std::cout << "Enemy is exploded" << std::endl;
-	}
 }
 
 
-System * ECS::Systems::AttackSystem::clone()
+ECS::System * ECS::Systems::AttackSystem::clone()
 {
-	BoundingBox b = quadTree.GetBounds();
+	Physics::BoundingBox b = quadTree.GetBounds();
 	float width = b.GetEast() - b.GetWest();
 	float height = b.GetNorth() - b.GetSouth();
 

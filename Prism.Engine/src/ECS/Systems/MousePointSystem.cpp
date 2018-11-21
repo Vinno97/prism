@@ -14,7 +14,7 @@ namespace ECS {
 		MousePointSystem::~MousePointSystem()
 			= default;
 
-		void MousePointSystem::update(Context context) {
+		void MousePointSystem::update(Context& context) {
 			auto input = context.inputManager;
 
 			auto cameraEntity = this->entityManager->getAllEntitiesWithComponent<CameraComponent>()[0].component;

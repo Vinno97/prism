@@ -12,7 +12,7 @@ namespace ECS {
 		public:
 			MousePointSystem(EntityManager &entityManager);
 			~MousePointSystem();
-			void update(Context context) override;
+			void update(Context& context) override;
 			System* clone() override;
 
 			int mouseEntityID;

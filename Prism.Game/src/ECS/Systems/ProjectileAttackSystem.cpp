@@ -14,7 +14,7 @@ namespace ECS {
 		ProjectileAttackSystem::~ProjectileAttackSystem()
 			= default;
 
-		void ProjectileAttackSystem::update(Context context)
+		void ProjectileAttackSystem::update(Context& context)
 		{
 			auto players = entityManager->getAllEntitiesWithComponent<PlayerComponent>();
 

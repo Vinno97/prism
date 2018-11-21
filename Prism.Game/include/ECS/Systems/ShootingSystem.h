@@ -11,7 +11,7 @@ namespace ECS {
 			ShootingSystem(EntityManager& entityManager);
 			~ShootingSystem();
 
-			void update(Context context) override;
+			void update(Context& context) override;
 			System* clone() override;
 		private:
 			float pastTime = 0;
