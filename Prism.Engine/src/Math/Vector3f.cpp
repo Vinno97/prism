@@ -1,6 +1,6 @@
 #include <cmath>
 #include "Math/Vector3f.h"
-
+#include <math.h>
 Math::Vector3f::Vector3f() {
     x = 0;
     y = 0;

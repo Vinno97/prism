@@ -1,10 +1,10 @@
 #pragma once
 
 #include "Game.h"
-
 #include "ECS/EntityManager.h"
 #include "ECS/SystemManager.h"
 #include "EntityFactory.h"
+#include "State.h"
 
 #include "Menu/MenuBuilder.h"
 #include "Menu/Menu.h"

@@ -10,7 +10,7 @@ namespace ECS {
 		public:
 			EnemyPathFindingSystem(EntityManager &entityManager, float enemySpeed);
 			~EnemyPathFindingSystem();
-			void update(Context context) override;
+			void update(Context& context) override;
 			System* clone() override;
 		private:
 			float enemySpeed;

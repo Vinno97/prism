@@ -17,7 +17,7 @@ namespace ECS {
 		EnemyPathFindingSystem::~EnemyPathFindingSystem()
 			= default;
 
-		void EnemyPathFindingSystem::update(Context context)
+		void EnemyPathFindingSystem::update(Context& context)
 		{
 			unsigned int playerId;
 			auto players = entityManager->getAllEntitiesWithComponent<PlayerComponent>();
