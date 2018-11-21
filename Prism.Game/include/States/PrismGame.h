@@ -5,7 +5,7 @@
 #include "ECS/EntityManager.h"
 #include "ECS/SystemManager.h"
 #include "EntityFactory.h"
-
+#include "State.h"
 #include "Menu/MenuBuilder.h"
 #include "Menu/Menu.h"
 #include "Menu/MenuRenderer.h"
@@ -13,7 +13,6 @@
 #include "ECS/Systems/MotionSystem.h"
 #include "ECS/Systems/RenderSystem.h"
 #include "ECS/Systems/KeyboardInputSystem.h"
-#include "ECS/Systems/RestockResourceSystem.h"
 #include "ECS/Systems/AnimationSystem.h"
 #include "ECS/Systems/EnemySpawnSystem.h"
 namespace States
@@ -21,22 +20,24 @@ namespace States
 class PrismGame : public Game
 {
   public:
-	PrismGame();
-	void onInit(Context &context) override;
-	void onUpdate(Context &context) override;
-	void onEnter() override;
-	void onLeave() override;
+		/// <summary>
+		/// creates new PrismGame object
+		/// </summary>
+		PrismGame() = default;
+		void onInit(Context &context) override;
+		void onUpdate(Context &context) override;
+		void onEnter() override;
+		void onLeave() override;
+	private:
+		ECS::EntityManager entityManager;
+		ECS::SystemManager systemManager;
+		EntityFactory entityFactory;
+		Menu::MenuBuilder menuBuilder;
+		Menu::MenuRenderer menuRenderer;
+		Menu::Menu menu;
 
-  private:
-	ECS::EntityManager entityManager;
-	ECS::SystemManager systemManager;
-	EntityFactory entityFactory;
-	Menu::MenuBuilder menuBuilder;
-	Menu::MenuRenderer menuRenderer;
-	Menu::Menu menu;
+		void registerSystems(Context &context);
 
-	void registerSystems(Context &context);
-
-	bool canPressEscape;
-};
+		bool canPressEscape;
+	};
 } // namespace States

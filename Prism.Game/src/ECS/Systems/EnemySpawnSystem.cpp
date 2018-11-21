@@ -12,7 +12,7 @@ namespace ECS {
 		EnemySpawnSystem::~EnemySpawnSystem()
 			= default;
 
-		void EnemySpawnSystem::update(Context context) {
+		void EnemySpawnSystem::update(Context& context) {
 			auto time = context.deltaTime;
 			auto input = context.inputManager;
 			EntityFactory entityFactory;
@@ -30,8 +30,8 @@ namespace ECS {
 				if (component->timeSinceLastSpawn > component->spawnInterval) {
 					component->timeSinceLastSpawn = 0;
 					auto enemy = entityFactory.createEnemy(*entityManager);
-					entityManager->getComponent<PositionComponent>(enemy)->x += position->x+0.5;
-					entityManager->getComponent<PositionComponent>(enemy)->y += position->y+0.5;
+					entityManager->getComponent<PositionComponent>(enemy)->x += position->x+1;
+					entityManager->getComponent<PositionComponent>(enemy)->y += position->y+1;
 				}
 			}
 		}

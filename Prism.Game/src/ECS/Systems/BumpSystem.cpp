@@ -13,7 +13,7 @@ BumpSystem::BumpSystem(EntityManager &entityManager) : System(entityManager) {}
 BumpSystem::~BumpSystem()
 = default;
 
-void BumpSystem::update(Context context)
+void BumpSystem::update(Context& context)
 {
 	for (auto entity : entityManager->getAllEntitiesWithComponent<BoundingBoxComponent>()) {
 		auto boundingBoxComponent = entityManager->getComponent<BoundingBoxComponent>(entity.id);
