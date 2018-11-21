@@ -41,6 +41,7 @@ void ECS::Systems::AttackSystem::update(Context& context) {
 						if (CollideBoundingBox == vector[i]) {
 							updateEntity(entity1.id);
 							updateEntity(entity.id);
+							context.audioManager->playSound("EnemyKill");
 						}
 					}
 				}

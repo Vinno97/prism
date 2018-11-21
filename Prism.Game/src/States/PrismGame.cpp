@@ -144,6 +144,8 @@ namespace States {
 	void PrismGame::loadAudio(Context &context) const
 	{
 		context.audioManager->addMusic("Ambience", "Ambience.wav");
+		context.audioManager->addSound("Bullet", "Bullet.wav");
+		context.audioManager->addSound("EnemyKill", "EnemyKill.wav");
 		//Load more
 
 		//Temporarily in here, will be moved to onEnter once context is accessible.
