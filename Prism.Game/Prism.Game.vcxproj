@@ -45,6 +45,9 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(ProjectDir)include;$(IncludePath)</IncludePath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>$(ProjectDir)include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -60,7 +63,8 @@
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /y "$(ProjectDir)lib\*.dll" "$(OutDir)"</Command>
+      <Command>xcopy /y "$(ProjectDir)lib\*.dll" "$(OutDir)" &amp; xcopy /y /I /E "$(ProjectDir)res" "$(OutDir)res"
+</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -71,13 +75,16 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)Prism.Engine\include;$(SolutionDir)Prism.Engine\lib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <SubSystem>Console</SubSystem>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /y "$(ProjectDir)lib\*.dll" "$(OutDir)"</Command>
+      <Command>xcopy /y "$(ProjectDir)lib\*.dll" "$(OutDir)" &amp; xcopy /y /I /E "$(ProjectDir)res" "$(OutDir)res"
+</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -85,6 +92,7 @@
     <ClInclude Include="include\ECS\Components\EnemyComponent.h" />
     <ClInclude Include="include\ECS\Components\ProjectileAttackComponent.h" />
     <ClInclude Include="include\ECS\Systems\AimingSystem.h" />
+    <ClInclude Include="include\ECS\Components\EnemySpawnComponent.h" />
     <ClInclude Include="include\ECS\Components\MineComponent.h" />
     <ClInclude Include="include\ECS\Components\TowerComponent.h" />
     <ClInclude Include="include\ECS\Components\WallComponent.h" />
@@ -97,11 +105,13 @@
     <ClInclude Include="include\ECS\Components\ResourceSpawnComponent.h" />
     <ClInclude Include="include\ECS\Systems\ProjectileAttackSystem.h" />
     <ClInclude Include="include\ECS\Systems\BumpSystem.h" />
+    <ClInclude Include="include\ECS\Systems\EnemySpawnSystem.h" />
     <ClInclude Include="include\ECS\Systems\ResourceBlobSystem.h" />
     <ClInclude Include="include\ECS\Systems\ResourceGatherSystem.h" />
     <ClInclude Include="include\EntityFactory.h" />
     <ClInclude Include="include\States\PrismGame.h" />
     <ClInclude Include="include\World\Assemblers\EnemyAssembler.h" />
+    <ClInclude Include="include\World\Assemblers\EnemySpawnAssembler.h" />
     <ClInclude Include="include\World\Assemblers\PlayerAssembler.h" />
     <ClInclude Include="include\World\Assemblers\ResourceSpawnAssembler.h" />
     <ClInclude Include="include\World\Assemblers\TowerAssembler.h" />
@@ -124,11 +134,13 @@
     <ClCompile Include="src\ECS\Systems\BumpSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\ResourceBlobSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\ResourceGatherSystem.cpp" />
+    <ClCompile Include="src\ECS\Systems\EnemySpawnSystem.cpp" />
     <ClCompile Include="src\States\PauseState.cpp" />
     <ClCompile Include="src\ECS\Systems\KeyboardInputSystem.cpp" />
     <ClCompile Include="src\EntityFactory.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\States\PrismGame.cpp" />
+    <ClCompile Include="src\World\Assemblers\EnemySpawnAssembler.cpp" />
     <ClCompile Include="src\World\Assemblers\PrismEntityAssembler.cpp" />
     <ClCompile Include="src\World\Assemblers\EnemyAssembler.cpp" />
     <ClCompile Include="src\World\Assemblers\PlayerAssembler.cpp" />

@@ -14,7 +14,7 @@ namespace States {
 
 	class PrismGame : public State {
 	public:
-		PrismGame() = default;
+		PrismGame()=default;
 
 		void onInit(Context &context) override;
 		void onUpdate(Context &context) override;

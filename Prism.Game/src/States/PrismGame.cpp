@@ -25,13 +25,13 @@
 #include "World/WorldLoader.h"
 #include "World/Assemblers/PrismEntityAssembler.h"
 #include "ECS/Systems/MousePointSystem.h"
+#include "ECS/Systems/EnemySpawnSystem.h"
 
 namespace States {
 	using namespace ECS;
 	using namespace ECS::Components;
 	using namespace World;
 	using namespace World::Assemblers;
-
 
 	void PrismGame::onInit(Context & context)
 	{
@@ -53,7 +53,7 @@ namespace States {
 		loader.load("levels/Sample World", entityManager);
 		// Dit is hoe een wereld zou worden opgeslagen en weer ingeladen.
 		//loader.load("saves/Sample Save", entityManager);
-		//loader.save("saves/Sample Save", entityManager);
+		loader.save("saves/Sample Save", entityManager);
 
 		registerSystems(context);
 		PauseState ps = PauseState();
@@ -75,6 +75,7 @@ namespace States {
 		ProjectileAttackSystem projectileAttackSystem = ProjectileAttackSystem(entityManager);
 		ResourceBlobSystem resourceBlobSystem = ResourceBlobSystem(entityManager);
 		ResourceGatherSystem resourceGatherSystem = ResourceGatherSystem(entityManager);
+		EnemySpawnSystem enemySpawnSystem = EnemySpawnSystem(entityManager);
 		MousePointSystem pointSystem = MousePointSystem(entityManager);
 		BumpSystem bumpSystem = BumpSystem(entityManager);
 		AimingSystem aimSystem = AimingSystem(entityManager);
@@ -91,6 +92,7 @@ namespace States {
 		systemManager.registerSystem(bumpSystem);
 		systemManager.registerSystem(resourceGatherSystem);
 		systemManager.registerSystem(resourceBlobSystem);
+		systemManager.registerSystem(enemySpawnSystem);
 		systemManager.registerSystem(pointSystem);
 		systemManager.registerSystem(attackSystem);
 	}
@@ -110,6 +112,7 @@ namespace States {
 		auto animationSystem = systemManager.getSystem<AnimationSystem>();
 		auto shootingSystem = systemManager.getSystem<ShootingSystem>();
 		auto projectileAttackSystem = systemManager.getSystem<ProjectileAttackSystem>();
+		auto enemySpawnSystem = systemManager.getSystem<EnemySpawnSystem>();
 		auto pointSystem = systemManager.getSystem<MousePointSystem>();
 		auto aimSystem = systemManager.getSystem<AimingSystem>();
 		auto resourceBlobSystem = systemManager.getSystem<ResourceBlobSystem>();
@@ -127,6 +130,7 @@ namespace States {
 		animationSystem->update(context);
 		resourceGatherSystem->update(context);
 		resourceBlobSystem->update(context);
+		enemySpawnSystem->update(context);
 		renderSystem->update(context);
 
 
