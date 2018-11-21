@@ -46,9 +46,9 @@ namespace Util {
 
         auto pwd = filesystem::current_path();
 
-        auto filepath = pwd.concat("/res").concat(path);
+        auto filepath = pwd.concat("/res/").concat(path);
 
-        std::fstream outfile(filepath);
+        std::ofstream outfile(filepath);
         outfile << data;
         outfile.close();
     }
