@@ -91,6 +91,7 @@
     <ClInclude Include="include\Enums\ResourceTypeEnum.h" />
     <ClInclude Include="include\ECS\Systems\AnimationSystem.h" />
     <ClInclude Include="include\ECS\Components\ResourceSpawnComponent.h" />
+    <ClInclude Include="include\ECS\Systems\BumpSystem.h" />
     <ClInclude Include="include\ECS\Systems\ResourceBlobSystem.h" />
     <ClInclude Include="include\ECS\Systems\ResourceGatherSystem.h" />
     <ClInclude Include="include\EntityFactory.h" />
@@ -109,6 +110,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ECS\Systems\AnimationSystem.cpp" />
+    <ClCompile Include="src\ECS\Systems\BumpSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\ResourceBlobSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\ResourceGatherSystem.cpp" />
     <ClCompile Include="src\States\PauseState.cpp" />

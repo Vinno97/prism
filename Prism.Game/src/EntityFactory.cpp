@@ -14,6 +14,7 @@
 #include "ECS/Components/AppearanceComponent.h"
 #include "ECS/Components/KeyboardInputComponent.h"
 #include "ECS/Components/ResourceSpawnComponent.h"
+#include "ECS/Components/BoundingBoxComponent.h"
 #include <World/TerrainGenerator.h>
 #include "ECS/Components/InventoryComponent.h"
 #include "ECS/Components/ResourceGatherComponent.h"
@@ -45,6 +46,7 @@ int EntityFactory::createPlayer(int entity, EntityManager& entityManager) {
 	entityManager.addComponentToEntity(entity, DragComponent(5.f));
 	entityManager.addComponentToEntity(entity, KeyboardInputComponent());
 	entityManager.addComponentToEntity(entity, PlayerComponent());
+	entityManager.addComponentToEntity(entity, BoundingBoxComponent(.3,.3));
 	entityManager.addComponentToEntity(entity, InventoryComponent());
 	entityManager.addComponentToEntity(entity, ResourceGatherComponent());
 	entityManager.addComponentToEntity(entity, appearance);
@@ -71,7 +73,8 @@ int EntityFactory::createEnemy(int entity, EntityManager& entityManager) {
 	entityManager.addComponentToEntity(entity, DragComponent(5.f));
 	entityManager.addComponentToEntity(entity, EnemyComponent());
 	entityManager.addComponentToEntity(entity, appearance);
-
+	entityManager.addComponentToEntity(entity, BoundingBoxComponent(.4, .4));
+	
 	return entity;
 }
 
@@ -127,6 +130,7 @@ int EntityFactory::createTower(int entity, EntityManager & entityManager)
 	entityManager.addComponentToEntity(entity, TowerComponent());
 	entityManager.addComponentToEntity(entity, PositionComponent());
 	entityManager.addComponentToEntity(entity, appearance);
+	entityManager.addComponentToEntity(entity, BoundingBoxComponent(1, 1));
 	return entity;
 }
 
@@ -148,6 +152,7 @@ int EntityFactory::createWall(int entity, EntityManager & entityManager)
 	entityManager.addComponentToEntity(entity, WallComponent());
 	entityManager.addComponentToEntity(entity, PositionComponent());
 	entityManager.addComponentToEntity(entity, appearance);
+	entityManager.addComponentToEntity(entity, BoundingBoxComponent(1, 1));
 	return entity;
 }
 
@@ -190,7 +195,7 @@ int EntityFactory::createFloor(ECS::EntityManager & entityManager)
 int EntityFactory::createFloor(int entity, EntityManager & entityManager) {
 	int width = 150;
 	int height = 150;
-	float scale = 3;
+	float scale = 1;
 
 	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
 	auto model = World::TerrainGenerator().generateTerrain(width / scale, height / scale);
@@ -208,8 +213,8 @@ int EntityFactory::createFloor(int entity, EntityManager & entityManager) {
 	appearance.translationY = -scale / 15;
 
 	appearance.model = std::move(model);
-	appearance.color = Math::Vector3f{ 0.87f, 0.87f, 0.87f };
-
+	appearance.color = Math::Vector3f{ 0.78f, 0.78f, 0.78f };
+	
 	entityManager.addComponentToEntity(entity, PositionComponent());
 	entityManager.addComponentToEntity(entity, appearance);
 	return entity;
