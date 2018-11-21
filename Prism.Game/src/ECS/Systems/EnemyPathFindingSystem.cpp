@@ -22,7 +22,7 @@ namespace ECS {
 			unsigned int playerId;
 			auto players = entityManager->getAllEntitiesWithComponent<PlayerComponent>();
 			if (players.size() > 0) {
-				playerId = entityManager->getAllEntitiesWithComponent<PlayerComponent>()[0].id;
+				playerId = players[0].id;
 
 				auto playerPosition = entityManager->getComponent<PositionComponent>(playerId);
 
@@ -34,14 +34,10 @@ namespace ECS {
 						auto enemyPosition = entityManager->getComponent<PositionComponent>(entity.id);
 						auto enemyVelocity = entityManager->getComponent<VelocityComponent>(entity.id);
 
-						float x = playerPosition->x - enemyPosition->x;
-						float y = playerPosition->y - enemyPosition->y;
-
-						Math::Vector3f vector = Math::Vector3f(x, y, 0);
+						Math::Vector3f vector = Math::Vector3f(playerPosition->x - enemyPosition->x, playerPosition->y - enemyPosition->y, 0);
 						vector.normalize();
 						enemyVelocity->dx += enemySpeed * vector.x * context.deltaTime;
 						enemyVelocity->dy += enemySpeed * vector.y * context.deltaTime;
-
 					}
 				}
 			}
