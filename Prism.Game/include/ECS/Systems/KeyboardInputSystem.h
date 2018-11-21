@@ -10,7 +10,7 @@ namespace ECS {
 		public:
 			KeyboardInputSystem(EntityManager &entityManager);
 			~KeyboardInputSystem();
-			void update(Context context) override;
+			void update(Context& context) override;
 			System* clone() override;
 		};
 	}

@@ -7,15 +7,13 @@
 #include "ECS/EntityManager.h"
 #include "ECS/SystemManager.h"
 
-using namespace ECS;
-using namespace ECS::Components;
 
 ECS::Systems::MotionSystem::MotionSystem(EntityManager &entityManager) : System(entityManager) {}
 
 ECS::Systems::MotionSystem::~MotionSystem()
 = default;
 
-void ECS::Systems::MotionSystem::update(Context context) {
+void ECS::Systems::MotionSystem::update(Context& context) {
 	for (auto entity : entityManager->getAllEntitiesWithComponent<VelocityComponent>()) {
 		auto velocity = entity.component;
 
@@ -40,7 +38,7 @@ void ECS::Systems::MotionSystem::update(Context context) {
 
 }
 
-System * ECS::Systems::MotionSystem::clone()
+ECS::System * ECS::Systems::MotionSystem::clone()
 {
 	MotionSystem* system = new MotionSystem(*entityManager);
 	return system;

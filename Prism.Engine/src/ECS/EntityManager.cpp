@@ -133,6 +133,8 @@ namespace ECS {
 				++itr;
 			}
 		}
+
+		
 	}
 
 	std::set<int> EntityManager::getAllEntities()
@@ -170,6 +172,7 @@ namespace ECS {
 			auto const entities = entityComponents.at(componentType);
 
 			result.reserve(entities.size());
+
 			for (auto const& entry : entities) {
 				Entity<Component*> entity;
 				entity.id = entry.first;
@@ -177,13 +180,12 @@ namespace ECS {
 
 				result.push_back(entity);
 			}
-
+		
 			return result;
 		}
 		catch (const std::out_of_range&) {} // No entities found, returning an empty array.
 		return result;
 	}
-
 
 
 }

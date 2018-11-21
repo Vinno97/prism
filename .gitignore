@@ -342,3 +342,4 @@ cmake-build-*/
 !Prism.*/lib/x64/
 !Prism.*/lib/x86/
 
+*.ini

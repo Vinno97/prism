@@ -44,10 +44,10 @@ namespace Renderer {
 		geometryPipeline->createUniform("sunColor");
 		geometryPipeline->createUniform("proj");
 
-	    projection = glm::perspective(glm::radians(45.0f), (float) width/height, 1.f, 100.0f);
+	    projection = glm::perspective(glm::radians(45.0f), (float) width/height, 0.5f, 100.0f);
 
 		renderDevice->useDepthTest(true);
-		renderDevice->setClearColour(0.7f, 0.7f, 0.7f, 1.f);
+		renderDevice->setClearColour(1.f, 1.f, 1.f, 1.f);
 	}
 
 	void ForwardRenderer::draw(const Camera& camera, const vector<Renderable>& renderables, Scene& scene)

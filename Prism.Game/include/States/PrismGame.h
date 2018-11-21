@@ -1,10 +1,13 @@
 #pragma once
 
 #include "Game.h"
-
 #include "ECS/EntityManager.h"
 #include "ECS/SystemManager.h"
 #include "EntityFactory.h"
+#include "State.h"
+#include "Menu/MenuBuilder.h"
+#include "Menu/Menu.h"
+#include "Menu/MenuRenderer.h"
 
 #include "ECS/Components/SceneComponent.h"
 #include "ECS/Components/PositionComponent.h"
@@ -16,27 +19,31 @@
 #include "ECS/Systems/MotionSystem.h"
 #include "ECS/Systems/RenderSystem.h"
 #include "ECS/Systems/KeyboardInputSystem.h"
-#include "ECS/Systems/RestockResourceSystem.h"
 #include "ECS/Systems/AnimationSystem.h"
+#include "ECS/Systems/CollisionSystem.h"
+#include "ECS/Systems/MousePointSystem.h"
+#include "ECS/Systems/EnemySpawnSystem.h"
 
 namespace States {
-	class PrismGame : public Game
-	{
+
+	class PrismGame : public State {
 	public:
-		PrismGame();
+		PrismGame()=default;
+
 		void onInit(Context &context) override;
 		void onUpdate(Context &context) override;
 		void onEnter() override;
 		void onLeave() override;
-
 	private:
-		EntityManager entityManager;
-		SystemManager systemManager;
+		ECS::EntityManager entityManager;
+		ECS::SystemManager systemManager;
 		EntityFactory entityFactory;
+		Menu::MenuBuilder menuBuilder;
+		Menu::MenuRenderer menuRenderer;
+		Menu::Menu menu;
 
 		void loadAudio(Context &context) const;
 		void registerSystems(Context &context);
-
 		bool canPressEscape;
 	};
-}
+} // namespace States
