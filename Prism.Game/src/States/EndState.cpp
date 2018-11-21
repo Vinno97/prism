@@ -18,15 +18,7 @@ namespace States {
 	void EndState::onUpdate(Context & context)
 	{
 
-		auto input = context.inputManager;
-		if (input->isKeyPressed(Key::KEY_ESCAPE) && canPressEscape) {
-			canPressEscape = false;
-			context.stateMachine->setState<PrismGame>();
-		}
 
-		if (!input->isKeyPressed(Key::KEY_ESCAPE)) {
-			canPressEscape = true;
-		}
 		Renderer::Graphics::RenderDevice* renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
 		renderDevice->clearScreen();
 		menuRenderer.renderMenu(menu, float(context.window->width) / float(context.window->height));
