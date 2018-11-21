@@ -65,7 +65,7 @@ void ECS::Systems::AttackSystem::updateEntity(int id, Context& context) {
 
 		currentComponent->health -= 10;
 
-		if (currentComponent->health == 0) {
+		if (currentComponent->health <= 0) {
 
 			// Print (Remove after review)
 			std::cout << "Player is dead" << std::endl;
