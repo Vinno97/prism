@@ -15,7 +15,7 @@ namespace ECS {
 		public:
 			System(EntityManager& entityManager);
 			virtual ~System();
-			virtual void update(Context context) = 0;
+			virtual void update(Context& context) = 0;
 			virtual System* clone() = 0;
 
 		protected:

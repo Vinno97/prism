@@ -16,7 +16,7 @@ CollisionSystem::CollisionSystem(EntityManager &entityManager,float width, float
 CollisionSystem::~CollisionSystem()
 = default;
 
-void CollisionSystem::update(Context context)
+void CollisionSystem::update(Context& context)
 {
 	for (auto entity : entityManager->getAllEntitiesWithComponent<BoundingBoxComponent>())
 	{
