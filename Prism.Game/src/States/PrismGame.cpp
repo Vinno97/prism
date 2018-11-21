@@ -28,12 +28,6 @@ namespace States {
 	using namespace World;
 	using namespace World::Assemblers;
 
-	/// <summary>
-/// creates new PrismGame object
-/// </summary>
-	PrismGame::PrismGame()
-		= default;
-
 	void PrismGame::onInit(Context & context)
 	{
 		menuBuilder.addControl(-1.15, 0.88, 0.6, 0.07, "img/healthbar.png");
@@ -54,7 +48,7 @@ namespace States {
 		loader.load("levels/Sample World", entityManager);
 		// Dit is hoe een wereld zou worden opgeslagen en weer ingeladen.
 		//loader.load("saves/Sample Save", entityManager);
-		//loader.save("saves/Sample Save", entityManager);
+		loader.save("saves/Sample Save", entityManager);
 
 		registerSystems(context);
 		PauseState ps = PauseState();
@@ -75,6 +69,7 @@ namespace States {
 		BumpSystem bumpSystem = BumpSystem(entityManager);
 		ResourceBlobSystem resourceBlobSystem = ResourceBlobSystem(entityManager);
 		ResourceGatherSystem resourceGatherSystem = ResourceGatherSystem(entityManager);
+		EnemySpawnSystem enemySpawnSystem = EnemySpawnSystem(entityManager);
 		MousePointSystem pointSystem = MousePointSystem(entityManager);
 
 		AttackSystem attackSystem = AttackSystem(entityManager);
@@ -86,6 +81,7 @@ namespace States {
 		systemManager.registerSystem(bumpSystem);
 		systemManager.registerSystem(resourceGatherSystem);
 		systemManager.registerSystem(resourceBlobSystem);
+		systemManager.registerSystem(enemySpawnSystem);
 		systemManager.registerSystem(pointSystem);
 		systemManager.registerSystem(attackSystem);
 	}
@@ -103,6 +99,7 @@ namespace States {
 		auto collisionSystem = systemManager.getSystem<CollisionSystem>();
 		auto renderSystem = systemManager.getSystem<RenderSystem>();
 		auto animationSystem = systemManager.getSystem<AnimationSystem>();
+		auto enemySpawnSystem = systemManager.getSystem<EnemySpawnSystem>();
 		auto pointSystem = systemManager.getSystem<MousePointSystem>();
 
 		auto resourceBlobSystem = systemManager.getSystem<ResourceBlobSystem>();
@@ -116,6 +113,7 @@ namespace States {
 		animationSystem->update(context);
 		resourceGatherSystem->update(context);
 		resourceBlobSystem->update(context);
+		enemySpawnSystem->update(context);
 		renderSystem->update(context);
 		pointSystem->update(context);
 

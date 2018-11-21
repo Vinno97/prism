@@ -22,12 +22,13 @@
 #include "ECS/Systems/AnimationSystem.h"
 #include "ECS/Systems/CollisionSystem.h"
 #include "ECS/Systems/MousePointSystem.h"
+#include "ECS/Systems/EnemySpawnSystem.h"
 
 namespace States {
 
 	class PrismGame : public State {
 	public:
-		PrismGame();
+		PrismGame()=default;
 
 		void onInit(Context &context) override;
 		void onUpdate(Context &context) override;
