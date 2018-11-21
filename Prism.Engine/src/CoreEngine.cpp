@@ -35,8 +35,6 @@ void CoreEngine::Run()
 	//Holds the time in which the gameupdate was last called 
 	auto lastTime = std::chrono::system_clock::now();
 	int count = 0;
-	context.audioManager->addMusic("main", "main.wav");
-	context.audioManager->playMusic("main");
 
 	//While the window is unclosed run the gameloop
 	while (!context.window->shouldClose())

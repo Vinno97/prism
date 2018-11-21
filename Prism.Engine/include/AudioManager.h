@@ -4,7 +4,7 @@
 #include <iostream>
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_mixer.h"
-#include <experimental/filesystem>
+#include "Util/FileSystem.h"
 
 class AudioManager
 {
@@ -19,9 +19,12 @@ public:
 
 	const void playSound(const std::string name);
 	const void playMusic(const std::string name);
-	void pauseOrResumeMusic();
-	void stopMusic(); 
+	void pauseMusic() const;
+	void resumeMusic() const;
+	void stopMusic() const;
 
 	~AudioManager();
+private:
+	Util::FileSystem fs;
 };
 
