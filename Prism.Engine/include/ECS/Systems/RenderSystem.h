@@ -15,7 +15,6 @@ namespace ECS {
 			System* clone() override;
 		private:
 			std::shared_ptr<Renderer::ForwardRenderer> forwardRenderer;
-			Renderer::Camera camera;
 		};
 
 
