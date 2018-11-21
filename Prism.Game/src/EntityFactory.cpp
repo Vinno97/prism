@@ -262,7 +262,13 @@ int EntityFactory::createResourceBlob(int entity, ECS::EntityManager & entityMan
 }
 
 
-int EntityFactory::createEnemySpawn(ECS::EntityManager & entityManager)
+int EntityFactory::createEnemySpawn(ECS::EntityManager & entityManager, float spawnInterval, bool enabled)
+{
+
+	return entityManager.createEntity(entityManager.createEntity(), entityManager, spawnInterval);
+}
+
+int EntityFactory::createEnemySpawn(int entity, ECS::EntityManager & entityManager, float spawnInterval, bool enabled)
 {
 	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
 	auto model = ml.loadModel("./res/spawner.obj");
@@ -277,5 +283,11 @@ int EntityFactory::createEnemySpawn(ECS::EntityManager & entityManager)
 	position.y = 0;
 
 	appearance.model = std::move(model);
-	return entityManager.createEntity(position, EnemySpawnComponent(), appearance);
+	EnemySpawnComponent spawnComponent = EnemySpawnComponent{ spawnInterval, 0.f, enabled };
+
+	entityManager.addComponentToEntity(entity, position);
+	entityManager.addComponentToEntity(entity, appearance);
+	entityManager.addComponentToEntity(entity, spawnComponent);
+
+	return entity;
 }
