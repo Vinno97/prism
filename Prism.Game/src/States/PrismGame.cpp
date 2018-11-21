@@ -45,7 +45,7 @@ namespace States {
 		loader.load("levels/Sample World", entityManager);
 		// Dit is hoe een wereld zou worden opgeslagen en weer ingeladen.
 		//loader.load("saves/Sample Save", entityManager);
-		//loader.save("saves/Sample Save", entityManager);
+		loader.save("saves/Sample Save", entityManager);
 
 		registerSystems(context);
 		PauseState ps = PauseState();
