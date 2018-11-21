@@ -14,35 +14,25 @@ ECS::Systems::AttackSystem::~AttackSystem()
 
 
 void ECS::Systems::AttackSystem::update(Context context) {
-	for (auto entity : entityManager->getAllEntitiesWithComponent<BoundingBoxComponent>())
-	{
-		if (entityManager->hasComponent<PositionComponent>(entity.id) && (entityManager->hasComponent<HealthComponent>(entity.id))) {
-			auto boundingBox = &entityManager->getComponent<BoundingBoxComponent>(entity.id)->boundingBox;
-			auto Position = entityManager->getComponent<PositionComponent>(entity.id);
 
-			boundingBox->SetPosXY(Position->x, Position->y);
-			quadTree.Insert(*boundingBox);
-		}
-	}
-
-	for (auto entity : entityManager->getAllEntitiesWithComponent<BoundingBoxComponent>())
+	for (auto entity : entityManager->getAllEntitiesWithComponent<HealthComponent>())
 	{
 		if (entityManager->hasComponent<PositionComponent>(entity.id)
-			&& entityManager->hasComponent<HealthComponent>(entity.id)) {
+			&& entityManager->hasComponent<BoundingBoxComponent>(entity.id)) {
 
 			auto boundingBoxComponent = entityManager->getComponent<BoundingBoxComponent>(entity.id);
 			auto Position = entityManager->getComponent<PositionComponent>(entity.id);
 
 			boundingBoxComponent->boundingBox.SetPosXY(Position->x, Position->y);
-			std::vector<Physics::BoundingBox const *> vec;
-			quadTree.RetrieveAll(vec, boundingBoxComponent->boundingBox);
+			std::vector<Physics::BoundingBox const *> vector;
 
-			for (int i = 0; i < vec.size(); i++) {
-				if (&boundingBoxComponent->boundingBox != vec[i] && aabbCollider.CheckCollision(boundingBoxComponent->boundingBox, *vec[i])) {
+			vector = boundingBoxComponent->collidesWith;
+			for (int i = 0; i < vector.size(); i++) {
+				if (&boundingBoxComponent->boundingBox != vector[i] && aabbCollider.CheckCollision(boundingBoxComponent->boundingBox, *vector[i])) {
 					float x = boundingBoxComponent->boundingBox.GetPosX();
 					float y = boundingBoxComponent->boundingBox.GetPosY();
 
-					if (aabbCollider.CheckCollision(*vec[i], boundingBoxComponent->boundingBox)) {
+					if (aabbCollider.CheckCollision(*vector[i], boundingBoxComponent->boundingBox)) {
 						updateEntity(entity.id);
 					}
 				}

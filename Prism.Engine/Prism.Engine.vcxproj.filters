@@ -50,7 +50,6 @@
     <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLTexture.cpp" />
     <ClCompile Include="src\Surface.cpp" />
     <ClCompile Include="src\ECS\Systems\CollisionSystem.cpp" />
-    <ClCompile Include="src\ECS\Systems\AttackSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Renderer\Camera.h" />
@@ -131,7 +130,6 @@
     <ClInclude Include="include\Physics\QuadTree.h" />
     <ClInclude Include="include\ECS\Components\BoundingBoxComponent.h" />
     <ClInclude Include="include\ECS\Systems\CollisionSystem.h" />
-    <ClInclude Include="include\ECS\Systems\AttackSystem.h" />
     <ClInclude Include="include\ECS\Components\HealthComponent.h" />
   </ItemGroup>
   <ItemGroup>
