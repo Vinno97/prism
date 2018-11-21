@@ -125,12 +125,13 @@ int EntityFactory::createWall(EntityManager & entityManager) {
 int EntityFactory::createWall(int entity, EntityManager & entityManager)
 {
 	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
-	auto model = ml.loadModel("./res/wall.obj");
+	auto model = ml.loadModel("./res/wallv2.obj");
 
 	AppearanceComponent appearance;
 	appearance.scaleX = 0.5f;
 	appearance.scaleY = 0.5f;
 	appearance.scaleZ = 0.5f;
+	appearance.translationY = 0.2f;
 	appearance.model = std::move(model);
 	appearance.color = Math::Vector3f{ 0.9f, 0.9f, 0.9f };
 	entityManager.addComponentToEntity(entity, WallComponent());
@@ -197,7 +198,7 @@ int EntityFactory::createFloor(int entity, EntityManager & entityManager) {
 	appearance.translationY = -scale / 15;
 
 	appearance.model = std::move(model);
-	appearance.color = Math::Vector3f{ 0.65f, 0.65f, 0.8f };
+	appearance.color = Math::Vector3f{ 0.8f, 0.8f, 0.82f };
 	
 	entityManager.addComponentToEntity(entity, PositionComponent());
 	entityManager.addComponentToEntity(entity, appearance);
