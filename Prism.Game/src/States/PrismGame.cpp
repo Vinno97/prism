@@ -40,6 +40,8 @@ namespace States {
 		menu = menuBuilder.buildMenu();
 		auto floor = entityFactory.createFloor(entityManager);
 		auto scene = entityFactory.createScene(entityManager);
+		auto camera = entityFactory.createCamera(entityManager);
+		auto mousePointer = entityFactory.createCameraPointer(entityManager);
 		auto sceneComponent = entityManager.getComponent<SceneComponent>(scene);
 
 		sceneComponent->scene.ambientLightColor = Math::Vector3f{ 1.0f, 1.0f, 1.0f };
@@ -73,6 +75,7 @@ namespace States {
 		BumpSystem bumpSystem = BumpSystem(entityManager);
 		ResourceBlobSystem resourceBlobSystem = ResourceBlobSystem(entityManager);
 		ResourceGatherSystem resourceGatherSystem = ResourceGatherSystem(entityManager);
+		MousePointSystem pointSystem = MousePointSystem(entityManager);
 
 		AttackSystem attackSystem = AttackSystem(entityManager);
 		systemManager.registerSystem(motionSystem);
@@ -83,6 +86,7 @@ namespace States {
 		systemManager.registerSystem(bumpSystem);
 		systemManager.registerSystem(resourceGatherSystem);
 		systemManager.registerSystem(resourceBlobSystem);
+		systemManager.registerSystem(pointSystem);
 		systemManager.registerSystem(attackSystem);
 	}
 
@@ -99,6 +103,7 @@ namespace States {
 		auto collisionSystem = systemManager.getSystem<CollisionSystem>();
 		auto renderSystem = systemManager.getSystem<RenderSystem>();
 		auto animationSystem = systemManager.getSystem<AnimationSystem>();
+		auto pointSystem = systemManager.getSystem<MousePointSystem>();
 
 		auto resourceBlobSystem = systemManager.getSystem<ResourceBlobSystem>();
 		auto resourceGatherSystem = systemManager.getSystem<ResourceGatherSystem>();
@@ -112,6 +117,7 @@ namespace States {
 		resourceGatherSystem->update(context);
 		resourceBlobSystem->update(context);
 		renderSystem->update(context);
+		pointSystem->update(context);
 
 		///std::cout << 1.0/context.deltaTime << std::endl;
 		/*

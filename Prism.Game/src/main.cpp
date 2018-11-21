@@ -23,6 +23,7 @@
 #include "Physics/BoundingBox.h"
 #include "Physics/QuadTree.h"
 #include "States/PrismGame.h"
+#include "States/PrismGame.h"
 
 #define _CRTDBG_MAP_ALLOC
 

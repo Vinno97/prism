@@ -35,6 +35,9 @@ public:
 
 	int createResourceBlob(ECS::EntityManager & entityManager, Enums::ResourceType type, float value);
 	int createResourceBlob(int entity, ECS::EntityManager & entityManager, Enums::ResourceType type, float value);
+	
+	int createCamera(ECS::EntityManager & entityManager);
+	int createCameraPointer(ECS::EntityManager & entityManager);
 private:
 	//map<std::string, Model> modelCache; // TODO: Use this cache to cache the models to optimize memory usage.
 };

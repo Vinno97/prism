@@ -17,6 +17,8 @@
 #include "ECS/Components/ResourceSpawnComponent.h"
 #include <World/TerrainGenerator.h>
 #include "ECS/Components/BoundingBoxComponent.h"
+#include "ECS/Components/CameraComponent.h"
+#include "ECS/Components/MousePointerComponent.h"
 #include <World/TerrainGenerator.h>
 #include "ECS/Components/InventoryComponent.h"
 #include "ECS/Components/ResourceGatherComponent.h"
@@ -24,6 +26,7 @@
 #include "ECS/Components/HealthComponent.h"
 
 #include "Renderer/Graphics/Loader/ModelLoader.h"
+#include "Renderer/Camera.h"
 
 using namespace ECS;
 using namespace ECS::Components;
@@ -227,9 +230,9 @@ int EntityFactory::createFloor(int entity, EntityManager & entityManager) {
 }
 
 int EntityFactory::createResourceBlob(ECS::EntityManager & entityManager, Enums::ResourceType type, float value) {
-
 	return createResourceBlob(entityManager.createEntity(), entityManager, type, value);
 }
+
 int EntityFactory::createResourceBlob(int entity, ECS::EntityManager & entityManager, Enums::ResourceType type, float value)
 {
 	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
@@ -261,6 +264,23 @@ int EntityFactory::createResourceBlob(int entity, ECS::EntityManager & entityMan
 	entityManager.addComponentToEntity(entity, resource);
 	entityManager.addComponentToEntity(entity, appearance);
 	return entity;
-
-	//return entityManager.createEntity(appearance, PositionComponent(), VelocityComponent(), resource, DragComponent());
 }
+
+int EntityFactory::createCameraPointer(ECS::EntityManager & entityManager)
+{
+	return entityManager.createEntity(MousePointerComponent(), PositionComponent());
+}
+
+int EntityFactory::createCamera(ECS::EntityManager & entityManager)
+{
+	Renderer::Camera camera;
+
+	camera.move(0, 2.f, 3.f);
+	camera.rotate(-35.f, 0.f, 0.f);
+
+	CameraComponent component;
+	component.camera = camera;
+	return entityManager.createEntity(component);
+}
+
+	
