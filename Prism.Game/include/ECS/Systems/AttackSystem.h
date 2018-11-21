@@ -10,7 +10,7 @@ namespace ECS {
 		public:
 			AttackSystem(EntityManager &entityManager);
 			~AttackSystem();
-			void update(Context context) override;
+			void update(Context& context) override;
 			System* clone() override;
 
 			///<summary>

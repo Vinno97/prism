@@ -13,50 +13,49 @@ BumpSystem::BumpSystem(EntityManager &entityManager) : System(entityManager) {}
 BumpSystem::~BumpSystem()
 = default;
 
-void BumpSystem::update(Context context)
-{	
-	for (auto entity : entityManager->getAllEntitiesWithComponent<VelocityComponent>()) {
-		if (entityManager->hasComponent<BoundingBoxComponent>(entity.id)) {
-			auto boundingBoxComponent = entityManager->getComponent<BoundingBoxComponent>(entity.id);
-			if (boundingBoxComponent->didCollide) {
+void BumpSystem::update(Context& context)
+{
+	for (auto entity : entityManager->getAllEntitiesWithComponent<BoundingBoxComponent>()) {
+		auto boundingBoxComponent = entityManager->getComponent<BoundingBoxComponent>(entity.id);
+		if (entityManager->hasComponent<VelocityComponent>(entity.id) && boundingBoxComponent->didCollide) {
 
 
-				const auto boundingBox = &boundingBoxComponent->boundingBox;
-				auto vector = &boundingBoxComponent->collidesWith;
+			const auto boundingBox = &boundingBoxComponent->boundingBox;
+			auto vector = &boundingBoxComponent->collidesWith;
 
-				if (CountCollisions(*boundingBox, *boundingBox, *vector) > 0) {
-					const auto position = entityManager->getComponent<PositionComponent>(entity.id);
-					auto velocity = entityManager->getComponent<VelocityComponent>(entity.id);
+			if (CountCollisions(*boundingBox, *boundingBox, *vector) > 0) {
+				const auto position = entityManager->getComponent<PositionComponent>(entity.id);
+				auto velocity = entityManager->getComponent<VelocityComponent>(entity.id);
 
-					BoundingBox testBox1(*boundingBox);
-					BoundingBox testBox2(*boundingBox);
-					float x = position->x;
-					float y = position->y;
+				BoundingBox testBox1(*boundingBox);
+				BoundingBox testBox2(*boundingBox);
+				float x = position->x;
+				float y = position->y;
 
-					testBox1.SetPosXY(x - velocity->dx*context.deltaTime, y);
-					testBox2.SetPosXY(x, y - velocity->dy*context.deltaTime);
+				testBox1.SetPosXY(x - velocity->dx*context.deltaTime, y);
+				testBox2.SetPosXY(x, y - velocity->dy*context.deltaTime);
 
-					if (CountCollisions(testBox1, *boundingBox, *vector) == 0) {
-						position->x -= velocity->dx*context.deltaTime;
-						velocity->dx = 0;
-					}
-					else if (CountCollisions(testBox2, *boundingBox, *vector) == 0) {
-						position->y -= velocity->dy*context.deltaTime;
-						velocity->dy = 0;
-					}
-					else {
-						position->x -= velocity->dx * context.deltaTime;
-						velocity->dx = 0;
-						position->y -= velocity->dy * context.deltaTime;
-						velocity->dy = 0;
-					}
-					boundingBoxComponent->didCollide = false;
-					boundingBoxComponent->collidesWith.clear();
+				if (CountCollisions(testBox1, *boundingBox, *vector) == 0) {
+					position->x -= velocity->dx*context.deltaTime;
+					velocity->dx = 0;
 				}
+				else if (CountCollisions(testBox2, *boundingBox, *vector) == 0) {
+					position->y -= velocity->dy*context.deltaTime;
+					velocity->dy = 0;
+				}
+				else {
+					position->x -= velocity->dx * context.deltaTime;
+					velocity->dx = 0;
+					position->y -= velocity->dy * context.deltaTime;
+					velocity->dy = 0;
+				}
+				boundingBoxComponent->didCollide = false;
+				boundingBoxComponent->collidesWith.clear();
 			}
 		}
 	}
 }
+
 
 int BumpSystem::CountCollisions(BoundingBox &box1, BoundingBox &adress, std::vector<const BoundingBox*> &vector)
 {

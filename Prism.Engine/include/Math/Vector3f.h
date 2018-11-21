@@ -11,6 +11,8 @@ namespace Math {
 
 		Vector3f operator+(const Vector3f other);
 		Vector3f operator-(const Vector3f other);
+		
+		Vector3f normalize();
 
 		float x;
 		float y;

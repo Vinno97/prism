@@ -14,7 +14,7 @@ ECS::Systems::AttackSystem::~AttackSystem()
 = default;
 
 
-void ECS::Systems::AttackSystem::update(Context context) {
+void ECS::Systems::AttackSystem::update(Context& context) {
 
 	for (auto entity : entityManager->getAllEntitiesWithComponent<EnemyComponent>())
 	{
