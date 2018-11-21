@@ -12,54 +12,68 @@ namespace ECS {
 
 	SystemManager::~SystemManager()
 	{
-		for (const auto type : systems) {
-			delete type.second;
+		for (const auto systems : prioritizedSystems) {
+			for (const auto type : systems.second) {
+				delete type.second;
+			}
+
 		}
 	}
 
 	SystemManager::SystemManager(const SystemManager & other)
 	{
-		for (const auto type : other.systems) {
-			this->systems[type.first] = type.second->clone();
-			type.first;
-		};
 
-		
-		//this->systems.insert(other.systems.begin(), other.systems.end());
+		for (const auto systems : other.prioritizedSystems) {
+			for (const auto type : systems.second) {
+				this->prioritizedSystems[systems.first][type.first] = type.second->clone();
+				type.first;
+			};
+		}
 	}
 
 	SystemManager & SystemManager::operator=(const SystemManager & other)
 	{
 		if (this != &other) {
-			for (const auto type : other.systems) {
-				this->systems[type.first] = type.second->clone();
-				type.first;
-			};
+
+			for (const auto systems : other.prioritizedSystems) {
+				for (const auto type : systems.second) {
+					this->prioritizedSystems[systems.first][type.first] = type.second->clone();
+					type.first;
+				};
+			}
 		}
 		return *this;
 	}
 
 	SystemManager::SystemManager(SystemManager && other)
 	{
-		this->systems = other.systems;
-		other.systems.clear();
+		this->prioritizedSystems = other.prioritizedSystems;
+		other.prioritizedSystems.clear();
 	}
 
 	SystemManager & SystemManager::operator=(SystemManager && other)
 	{
 		if (this != &other) {
-			this->systems = other.systems;
-			other.systems.clear();
+			this->prioritizedSystems = other.prioritizedSystems;
+			other.prioritizedSystems.clear();
 		}
 		return *this;
+	}
+
+	std::map<int, std::map<std::type_index, System*>> SystemManager::getAllSystems()
+	{
+		return prioritizedSystems;
 	}
 
 	void SystemManager::unRegisterSystem(std::type_index systemType)
 	{
 		try
 		{
-			delete systems.at(systemType);
-			systems.erase(systemType);
+			for (auto systems : prioritizedSystems) {
+				delete systems.second.at(systemType);
+				systems.second.erase(systemType);
+			}
+
 		}
 		catch (const std::out_of_range&)
 		{
@@ -75,7 +89,10 @@ namespace ECS {
 	{
 		try
 		{
-			return systems.at(systemType);
+			for (auto systems : prioritizedSystems) {
+				return systems.second.at(systemType);
+			}
+
 		}
 		catch (const std::out_of_range&)
 		{

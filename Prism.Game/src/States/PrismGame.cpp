@@ -68,18 +68,18 @@ namespace States {
 		BumbSystem bumpSystem = BumbSystem(entityManager);
 		AimingSystem aimSystem = AimingSystem(entityManager);
 
-		systemManager.registerSystem(motionSystem);
-		systemManager.registerSystem(renderSystem);
-		systemManager.registerSystem(inputSystem);
-		systemManager.registerSystem(attackSystem);
-		systemManager.registerSystem(restockSystem);
-		systemManager.registerSystem(animationSystem);
-		systemManager.registerSystem(collisionSystem);
-		systemManager.registerSystem(shootingSystem);
-		systemManager.registerSystem(bumpSystem);
-		systemManager.registerSystem(projectileAttackSystem);
-		systemManager.registerSystem(aimSystem);
-		systemManager.registerSystem(pointSystem);
+		systemManager.registerSystem(4, motionSystem);
+		systemManager.registerSystem(5, renderSystem);
+		systemManager.registerSystem(1, inputSystem);
+		systemManager.registerSystem(3, attackSystem);
+		systemManager.registerSystem(2, restockSystem);
+		systemManager.registerSystem(2, animationSystem);
+		systemManager.registerSystem(1, collisionSystem);
+		systemManager.registerSystem(2, shootingSystem);
+		systemManager.registerSystem(3, bumpSystem);
+		systemManager.registerSystem(2, projectileAttackSystem);
+		systemManager.registerSystem(2, aimSystem);
+		systemManager.registerSystem(1, pointSystem);
 	}
 
 	void PrismGame::onUpdate(Context &context)
@@ -94,32 +94,11 @@ namespace States {
 			canPressEscape = true;
 		}
 
-		auto inputSystem = systemManager.getSystem<KeyboardInputSystem>();
-		auto motionSystem = systemManager.getSystem<MotionSystem>();
-		auto attackSystem = systemManager.getSystem<AttackSystem>();
-		auto renderSystem = systemManager.getSystem<RenderSystem>();
-		auto restockSystem = systemManager.getSystem<RestockResourceSystem>();
-		auto animationSystem = systemManager.getSystem<AnimationSystem>();
-		auto collisionSystem = systemManager.getSystem<CollisionSystem>();
-		auto bumpSystem = systemManager.getSystem<BumbSystem>();
-		auto shootingSystem = systemManager.getSystem<ShootingSystem>();
-		auto projectileAttackSystem = systemManager.getSystem<ProjectileAttackSystem>();
-		auto pointSystem = systemManager.getSystem<MousePointSystem>();
-		auto aimSystem = systemManager.getSystem<AimingSystem>();
-
-		inputSystem->update(context);
-		restockSystem->update(context);
-		
-		motionSystem->update(context);
-		animationSystem->update(context);
-		renderSystem->update(context);
-		pointSystem->update(context);
-		collisionSystem->update(context);
-		aimSystem->update(context);
-		shootingSystem->update(context);
-		projectileAttackSystem->update(context);
-		attackSystem->update(context);
-		bumpSystem->update(context);
+		for (auto systemList : systemManager.getAllSystems()) {
+			for (auto system : systemList.second) {
+				system.second->update(context);
+			}
+		}
 			
 
 //		for (auto &entity : entityManager.getAllEntitiesWithComponent<VelocityComponent>()) {
