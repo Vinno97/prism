@@ -3,6 +3,7 @@
 #include "ECS/EntityManager.h";
 #include "ECS/SystemManager.h";
 #include "ECS/Components/HealthComponent.h"
+#include "ECS/Components/VelocityComponent.h"
 #include "ECS/Components/BoundingBoxComponent.h"
 #include "../../Prism.Game/include/ECS/Components/EnemyComponent.h"
 #include "ECS/Components/PlayerComponent.h"
@@ -15,10 +16,12 @@ ECS::Systems::AttackSystem::~AttackSystem()
 
 void ECS::Systems::AttackSystem::update(Context context) {
 
-	for (auto entity : entityManager->getAllEntitiesWithComponent<HealthComponent>())
+	for (auto entity : entityManager->getAllEntitiesWithComponent<EnemyComponent>())
 	{
 		if (entityManager->hasComponent<PositionComponent>(entity.id)
-			&& entityManager->hasComponent<BoundingBoxComponent>(entity.id)) {
+			&& entityManager->hasComponent<BoundingBoxComponent>(entity.id)
+			&& entityManager->hasComponent<VelocityComponent>(entity.id)
+			&& entityManager->hasComponent<HealthComponent>(entity.id)) {
 
 			auto boundingBoxComponent = entityManager->getComponent<BoundingBoxComponent>(entity.id);
 			auto Position = entityManager->getComponent<PositionComponent>(entity.id);
@@ -28,13 +31,8 @@ void ECS::Systems::AttackSystem::update(Context context) {
 
 			vector = boundingBoxComponent->collidesWith;
 			for (int i = 0; i < vector.size(); i++) {
-				if (&boundingBoxComponent->boundingBox != vector[i] && aabbCollider.CheckCollision(boundingBoxComponent->boundingBox, *vector[i])) {
-					float x = boundingBoxComponent->boundingBox.GetPosX();
-					float y = boundingBoxComponent->boundingBox.GetPosY();
-
-					if (aabbCollider.CheckCollision(*vector[i], boundingBoxComponent->boundingBox)) {
-						updateEntity(entity.id);
-					}
+				for (auto entity1 : entityManager->getAllEntitiesWithComponent<HealthComponent>()) {
+					updateEntity(entity1.id);
 				}
 			}
 		}
@@ -43,8 +41,15 @@ void ECS::Systems::AttackSystem::update(Context context) {
 }
 
 void ECS::Systems::AttackSystem::updateEntity(int id) {
-	if (entityManager->hasComponent<PlayerComponent>(id)) {
+	if (entityManager->hasComponent<EnemyComponent>(id)) {
+		entityManager->removeEntity(id);
+		// Print (Remove after review)
+		std::cout << "Enemy is exploded" << std::endl;
+	}
+	
+	if (entityManager->hasComponent<HealthComponent>(id)) {
 		auto currentComponent = entityManager->getComponent<HealthComponent>(id);
+
 		currentComponent->health -= 10;
 
 		if (currentComponent->health == 0) {
@@ -55,11 +60,6 @@ void ECS::Systems::AttackSystem::updateEntity(int id) {
 		}
 		// Print (Remove after review)
 		std::cout << "Speler: " << currentComponent->health << std::endl;
-	}
-	else if (entityManager->hasComponent<EnemyComponent>(id)) {
-		entityManager->removeEntity(id);
-		// Print (Remove after review)
-		std::cout << "Enemy is exploded" << std::endl;
 	}
 }
 
