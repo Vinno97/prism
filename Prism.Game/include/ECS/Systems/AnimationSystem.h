@@ -10,7 +10,7 @@ namespace ECS {
 		public:
 			AnimationSystem(EntityManager& entityManager);
 			~AnimationSystem();
-			void update(Context context) override;
+			void update(Context& context) override;
 			System* clone() override;
 		private:
 			long double absoluteTime = 0;

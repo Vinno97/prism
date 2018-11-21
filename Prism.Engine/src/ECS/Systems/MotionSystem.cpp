@@ -4,8 +4,8 @@
 #include "ECS/Components/DragComponent.h"
 #include "ECS/Components/PositionComponent.h"
 #include "ECS/Components/VelocityComponent.h"
-#include "ECS/EntityManager.h";
-#include "ECS/SystemManager.h";
+#include "ECS/EntityManager.h"
+#include "ECS/SystemManager.h"
 
 using namespace ECS;
 using namespace ECS::Components;
@@ -16,7 +16,7 @@ ECS::Systems::MotionSystem::MotionSystem(EntityManager &entityManager) : System(
 ECS::Systems::MotionSystem::~MotionSystem()
 = default;
 
-void ECS::Systems::MotionSystem::update(Context context) {
+void ECS::Systems::MotionSystem::update(Context& context) {
 	for (auto entity : entityManager->getAllEntitiesWithComponent<VelocityComponent>()) {
 		auto velocity = entity.component;
 

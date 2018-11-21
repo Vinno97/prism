@@ -1,10 +1,11 @@
 #pragma once
-#include <Chrono>
+#include <chrono>
 #include <thread>
 #include "Context.h"
 #include <Window.h>
 #include "StateMachine.h"
 #include "State.h"
+
 
 /// <summary>
 /// is responsible for running the gameloop
