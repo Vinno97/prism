@@ -63,7 +63,7 @@ void ECS::Systems::AttackSystem::updateEntity(int id, Context& context) {
 	if (entityManager->hasComponent<HealthComponent>(id)) {
 		auto currentComponent = entityManager->getComponent<HealthComponent>(id);
 
-		currentComponent->health -= 50;
+		currentComponent->health -= 10;
 
 		if (currentComponent->health == 0) {
 
