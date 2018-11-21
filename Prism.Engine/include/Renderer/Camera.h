@@ -31,7 +31,5 @@ namespace Renderer {
 		vec3 position;
 		vec3 rotation;
 		~Camera();
-	private:
-		
 	};
 }
