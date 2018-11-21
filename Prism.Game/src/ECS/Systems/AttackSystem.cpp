@@ -40,7 +40,6 @@ void ECS::Systems::AttackSystem::update(Context& context) {
 						auto CollideBoundingBox = &entityManager->getComponent<BoundingBoxComponent>(entity1.id)->boundingBox;
 						if (CollideBoundingBox == vector[i]) {
 							updateEntity(entity1.id);
-						//	vector.push_back(&boundingBoxComponent->boundingBox);
 							updateEntity(entity.id);
 						}
 					}
