@@ -7,11 +7,6 @@
 #include "../../Prism.Game/include/ECS/Components/EnemyComponent.h"
 #include "ECS/Components/PlayerComponent.h"
 
-using namespace ECS;
-using namespace ECS::Components;
-using namespace ECS::Systems;
-using namespace Physics;
-
 ECS::Systems::AttackSystem::AttackSystem(EntityManager &entityManager) : System(entityManager) { }
 
 ECS::Systems::AttackSystem::~AttackSystem()
@@ -79,9 +74,9 @@ void ECS::Systems::AttackSystem::updateEntity(int id) {
 }
 
 
-System * ECS::Systems::AttackSystem::clone()
+ECS::System * ECS::Systems::AttackSystem::clone()
 {
-	BoundingBox b = quadTree.GetBounds();
+	Physics::BoundingBox b = quadTree.GetBounds();
 	float width = b.GetEast() - b.GetWest();
 	float height = b.GetNorth() - b.GetSouth();
 
