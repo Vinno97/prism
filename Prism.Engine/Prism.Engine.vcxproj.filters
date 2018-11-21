@@ -37,8 +37,6 @@
     <ClCompile Include="src\ECS\SystemManager.cpp" />
     <ClCompile Include="src\ECS\Systems\System.cpp" />
     <ClCompile Include="src\Math\Vector3f.cpp" />
-<<<<<<< HEAD
-=======
     <ClCompile Include="src\World\WorldLoader.cpp" />
     <ClCompile Include="src\World\WorldObject.cpp" />
     <ClCompile Include="src\World\ObjectProperties.cpp" />
@@ -55,7 +53,6 @@
     <ClCompile Include="src\Surface.cpp" />
     <ClCompile Include="src\ECS\Systems\MousePointSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\CollisionSystem.cpp" />
->>>>>>> refs/remotes/origin/development
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ECS\Components\HealthComponent.h" />
@@ -70,11 +67,8 @@
     <ClInclude Include="include\Physics\BoundingBox.h" />
     <ClInclude Include="include\Physics\QuadTree.h" />
     <ClInclude Include="include\Renderer\Camera.h" />
-<<<<<<< HEAD
     <ClInclude Include="include\Renderer\Scene.h" />
     <ClInclude Include="include\Util\FileReader.h" />
-=======
->>>>>>> refs/remotes/origin/development
     <ClInclude Include="include\Renderer\ForwardRenderer.h" />
     <ClInclude Include="include\ECS\Components\AppearanceComponent.h" />
     <ClInclude Include="include\ECS\Components\Component.h" />
@@ -119,8 +113,6 @@
     <ClInclude Include="include\Renderer\Renderable.h" />
     <ClInclude Include="include\ECS\Components\SceneComponent.h" />
     <ClInclude Include="include\Math\Vector3f.h" />
-<<<<<<< HEAD
-=======
     <ClInclude Include="include\Renderer\DirectionalLight.h" />
     <ClInclude Include="include\Renderer\Scene.h" />
     <ClInclude Include="include\Util\lodepng.h" />
@@ -184,7 +176,6 @@
     <None Include="lib\x64\libwebp-7.dll" />
     <None Include="lib\x64\SDL2_image.dll" />
     <None Include="lib\x64\zlib1.dll" />
->>>>>>> refs/remotes/origin/development
   </ItemGroup>
   <ItemGroup>
     <Text Include="lib\x64\LICENSE.jpeg.txt" />
