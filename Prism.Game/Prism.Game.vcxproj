@@ -92,6 +92,7 @@
     <ClInclude Include="include\Enums\ResourceTypeEnum.h" />
     <ClInclude Include="include\ECS\Systems\AnimationSystem.h" />
     <ClInclude Include="include\ECS\Components\ResourceSpawnComponent.h" />
+    <ClInclude Include="include\ECS\Systems\AttackSystem.h" />
     <ClInclude Include="include\ECS\Systems\BumpSystem.h" />
     <ClInclude Include="include\ECS\Systems\EnemySpawnSystem.h" />
     <ClInclude Include="include\ECS\Systems\ResourceBlobSystem.h" />
@@ -113,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ECS\Systems\AnimationSystem.cpp" />
+    <ClCompile Include="src\ECS\Systems\AttackSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\BumpSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\ResourceBlobSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\ResourceGatherSystem.cpp" />

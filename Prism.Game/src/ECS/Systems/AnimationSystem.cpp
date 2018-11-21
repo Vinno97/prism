@@ -5,7 +5,6 @@
 
 #include "Context.h"
 #include "InputManager.h"
-
 #include "ECS/Systems/AnimationSystem.h"
 #include "ECS/Components/EnemyComponent.h"
 #include "ECS/Components/PlayerComponent.h"
@@ -35,6 +34,7 @@ namespace ECS {
 				auto sin = std::sin(absoluteTime) + 1;
 				appearance->translationY = multiplier * sin;
 			}
+
 			for (const auto& player : entityManager->getAllEntitiesWithComponent<EnemyComponent>()) {
 				auto appearance = entityManager->getComponent<AppearanceComponent>(player.id);
 				double widthMultiplier = .05;

@@ -21,6 +21,7 @@
     <ClInclude Include="include\nlohmann\adl_serializer.hpp" />
     <ClInclude Include="include\nlohmann\json.hpp" />
     <ClInclude Include="include\nlohmann\json_fwd.hpp" />
+    <ClInclude Include="include\ECS\Components\HealthComponent.h" />
     <ClInclude Include="include\ECS\Components\BoundingBoxComponent.h" />
     <ClInclude Include="include\ECS\Systems\CollisionSystem.h" />
     <ClInclude Include="include\Renderer\DirectionalLight.h" />

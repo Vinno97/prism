@@ -81,6 +81,9 @@
     <ClCompile Include="src\ECS\Systems\BumpSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\ECS\Systems\AttackSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="src\ECS\Systems\EnemySpawnSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -171,6 +174,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\ECS\Systems\BumpSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ECS\Systems\AttackSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\ECS\Systems\EnemySpawnSystem.h">

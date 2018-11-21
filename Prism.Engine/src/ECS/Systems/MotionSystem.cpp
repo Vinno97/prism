@@ -7,9 +7,6 @@
 #include "ECS/EntityManager.h"
 #include "ECS/SystemManager.h"
 
-using namespace ECS;
-using namespace ECS::Components;
-using namespace ECS::Systems;
 
 ECS::Systems::MotionSystem::MotionSystem(EntityManager &entityManager) : System(entityManager) {}
 
@@ -41,7 +38,7 @@ void ECS::Systems::MotionSystem::update(Context& context) {
 
 }
 
-System * ECS::Systems::MotionSystem::clone()
+ECS::System * ECS::Systems::MotionSystem::clone()
 {
 	MotionSystem* system = new MotionSystem(*entityManager);
 	return system;

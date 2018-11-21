@@ -18,7 +18,7 @@ CollisionSystem::~CollisionSystem()
 
 void CollisionSystem::update(Context& context)
 {
-	for (auto entity : entityManager->getAllEntitiesWithComponent<BoundingBoxComponent>())
+	for (auto entity : entityManager->getAllEntitiesWithComponent<ECS::Components::BoundingBoxComponent>())
 	{
 		if (entityManager->hasComponent<PositionComponent>(entity.id)) {
 			auto boundingBox = &entityManager->getComponent<BoundingBoxComponent>(entity.id)->boundingBox;
@@ -29,9 +29,11 @@ void CollisionSystem::update(Context& context)
 		}
 	}
 	
-	for (auto entity : entityManager->getAllEntitiesWithComponent<BoundingBoxComponent>())
+	for (auto entity : entityManager->getAllEntitiesWithComponent<VelocityComponent>())
 	{
-		if (entityManager->hasComponent<PositionComponent>(entity.id)) {
+		if (entityManager->hasComponent<PositionComponent>(entity.id) &&
+			entityManager->hasComponent<BoundingBoxComponent>(entity.id)) {
+
 			auto positionComponent = entityManager->getComponent<PositionComponent>(entity.id);
 			auto boundingBoxComponent = entityManager->getComponent<BoundingBoxComponent>(entity.id);
 			boundingBoxComponent->boundingBox.SetPosXY(positionComponent->x, positionComponent->y);
