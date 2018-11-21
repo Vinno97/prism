@@ -23,7 +23,7 @@ namespace World {
 
 	std::unique_ptr<Model> TerrainGenerator::generateTerrain(int width, int height) {
 		std::default_random_engine generator;
-		std::uniform_real_distribution<float> distribution(0.0, 1.7);
+		std::uniform_real_distribution<float> distribution(0.0, 5);
 
 		heightMap.resize(height, std::vector<float>(width, -1));
 		//Fill height map

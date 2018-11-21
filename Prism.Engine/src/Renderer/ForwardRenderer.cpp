@@ -35,15 +35,14 @@ namespace Renderer {
 		renderTarget = renderDevice->createRenderTarget(true , positionBuffer);
 
 		renderTarget->addBuffer(positionBuffer);
-		//renderTarget->addBuffer(normalBuffer);
-		//renderTarget->addBuffer(albedoBuffer);
+		renderTarget->addBuffer(normalBuffer);
+		renderTarget->addBuffer(albedoBuffer);
 
 		loadPipelines();
 		createTargetQuad();
 
 	    projection = glm::perspective(glm::radians(45.0f), (float) width/height, 0.5f, 100.0f);
 
-		renderDevice->useDepthTest(true);
 		renderDevice->setClearColour(1.f, 1.f, 1.f, 1.f);
 	}
 
@@ -51,7 +50,7 @@ namespace Renderer {
 	{
 		glm::mat4 model;
 		const glm::mat4 view = camera.getCameraMatrix();
-		
+		renderDevice->useDepthTest(true);
 		renderDevice->clearScreen();
 			
 		renderTarget->bind();
@@ -89,8 +88,8 @@ namespace Renderer {
 		quadPipeline->setUniformVector("sunColor", scene.sun.color.x, scene.sun.color.y, scene.sun.color.z);
 
 		positionBuffer->bind(textures[0]);
-		//normalBuffer->bind(textures[1]);
-		//albedoBuffer->bind(textures[2]);
+		normalBuffer->bind(textures[1]);
+		albedoBuffer->bind(textures[2]);
 
 		quadMesh->vertexArrayObject->bind();
 		quadMesh->indexBuffer->bind();
@@ -100,7 +99,7 @@ namespace Renderer {
 		quadMesh->vertexArrayObject->unbind();
 
 		quadPipeline->stop();
-
+		renderDevice->useDepthTest(false);
 	}
 	void ForwardRenderer::createTargetQuad()
 	{
@@ -138,7 +137,6 @@ namespace Renderer {
 		geometryPipeline->createUniform("model");
 		geometryPipeline->createUniform("view");
 		geometryPipeline->createUniform("proj");
-
 
 		//Setup quad shaders
 		vertexSource = fileReader.readResourceFileIntoString("/shaders/quadShader.vs");
