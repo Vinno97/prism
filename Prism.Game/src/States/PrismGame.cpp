@@ -13,6 +13,7 @@
 #include "ECS/Systems/RenderSystem.h"
 #include "ECS/Systems/KeyboardInputSystem.h"
 #include "ECS/Systems/AnimationSystem.h"
+#include "ECS/Systems/AttackSystem.h"
 #include "ECS/Systems/BumpSystem.h"
 #include "ECS/Systems/CollisionSystem.h"
 #include "ECS/Systems/ResourceGatherSystem.h"
@@ -76,6 +77,7 @@ namespace States {
 		ResourceGatherSystem resourceGatherSystem = ResourceGatherSystem(entityManager);
 		MousePointSystem pointSystem = MousePointSystem(entityManager);
 
+		AttackSystem attackSystem = AttackSystem(entityManager);
 		systemManager.registerSystem(motionSystem);
 		systemManager.registerSystem(renderSystem);
 		systemManager.registerSystem(inputSystem);
@@ -85,19 +87,23 @@ namespace States {
 		systemManager.registerSystem(resourceGatherSystem);
 		systemManager.registerSystem(resourceBlobSystem);
 		systemManager.registerSystem(pointSystem);
+		systemManager.registerSystem(attackSystem);
 	}
 
 
 
 	void PrismGame::onUpdate(Context &context)
 	{
+	   auto input = context.inputManager;
+
 		auto inputSystem = systemManager.getSystem<KeyboardInputSystem>();
+		auto attackSystem = systemManager.getSystem<AttackSystem>();
+		auto bumpSystem = systemManager.getSystem<BumpSystem>();
 		auto motionSystem = systemManager.getSystem<MotionSystem>();
+		auto collisionSystem = systemManager.getSystem<CollisionSystem>();
 		auto renderSystem = systemManager.getSystem<RenderSystem>();
 		auto animationSystem = systemManager.getSystem<AnimationSystem>();
 		auto pointSystem = systemManager.getSystem<MousePointSystem>();
-		auto collisionSystem = systemManager.getSystem<CollisionSystem>();
-		auto bumpSystem = systemManager.getSystem<BumpSystem>();
 
 		auto resourceBlobSystem = systemManager.getSystem<ResourceBlobSystem>();
 		auto resourceGatherSystem = systemManager.getSystem<ResourceGatherSystem>();
@@ -105,6 +111,7 @@ namespace States {
 		inputSystem->update(context);
 		motionSystem->update(context);
 		collisionSystem->update(context);
+		attackSystem->update(context);
 		bumpSystem->update(context);
 		animationSystem->update(context);
 		resourceGatherSystem->update(context);
@@ -112,18 +119,18 @@ namespace States {
 		renderSystem->update(context);
 		pointSystem->update(context);
 
-
+		///std::cout << 1.0/context.deltaTime << std::endl;
+		/*
 		for (auto &entity : entityManager.getAllEntitiesWithComponent<VelocityComponent>()) {
 			auto velocity = entity.component;
 			auto position = entityManager.getComponent<PositionComponent>(entity.id);
-			printf("Entity:\t\t%d \nPosition: \tX: %.2f, Y: %.2f\nVelocity:\tdX: %.2f, dY: %.2f\n\n", entity.id, position->x, position->y, velocity->dx, velocity->dy);
-		}
+			//printf("Entity:\t\t%d \nPosition: \tX: %.2f, Y: %.2f\nVelocity:\tdX: %.2f, dY: %.2f\n\n", entity.id, position->x, position->y, velocity->dx, velocity->dy);
+		}*/
 
 
 		menuRenderer.renderMenu(menu, float(context.window->width) / float(context.window->height));
 		context.window->swapScreen();
 
-		auto input = context.inputManager;
 		if (input->isKeyPressed(Key::KEY_ESCAPE) && canPressEscape) {
 			canPressEscape = false;
 			context.stateMachine->setState<PauseState>();

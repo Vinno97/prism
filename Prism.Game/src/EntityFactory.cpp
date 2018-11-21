@@ -6,6 +6,7 @@
 #include "ECS/Components/WallComponent.h"
 #include "ECS/Components/MineComponent.h"
 #include "ECS/Components/SceneComponent.h"
+#include "ECS/Components/HealthComponent.h"
 #include "ECS/Components/EnemyComponent.h"
 #include "ECS/Components/TowerComponent.h"
 #include "ECS/Components/PlayerComponent.h"
@@ -14,6 +15,7 @@
 #include "ECS/Components/AppearanceComponent.h"
 #include "ECS/Components/KeyboardInputComponent.h"
 #include "ECS/Components/ResourceSpawnComponent.h"
+#include <World/TerrainGenerator.h>
 #include "ECS/Components/BoundingBoxComponent.h"
 #include "ECS/Components/CameraComponent.h"
 #include "ECS/Components/MousePointerComponent.h"
@@ -21,6 +23,8 @@
 #include "ECS/Components/InventoryComponent.h"
 #include "ECS/Components/ResourceGatherComponent.h"
 #include "ECS/Components/ResourceBlobComponent.h"
+#include "ECS/Components/HealthComponent.h"
+
 #include "Renderer/Graphics/Loader/ModelLoader.h"
 #include "Renderer/Camera.h"
 
@@ -47,6 +51,7 @@ int EntityFactory::createPlayer(int entity, EntityManager& entityManager) {
 	entityManager.addComponentToEntity(entity, VelocityComponent());
 	entityManager.addComponentToEntity(entity, PositionComponent());
 	entityManager.addComponentToEntity(entity, DragComponent(5.f));
+	entityManager.addComponentToEntity(entity, HealthComponent());
 	entityManager.addComponentToEntity(entity, KeyboardInputComponent());
 	entityManager.addComponentToEntity(entity, PlayerComponent());
 	entityManager.addComponentToEntity(entity, BoundingBoxComponent(.3,.3));
@@ -73,7 +78,8 @@ int EntityFactory::createEnemy(int entity, EntityManager& entityManager) {
 
 	entityManager.addComponentToEntity(entity, VelocityComponent());
 	entityManager.addComponentToEntity(entity, PositionComponent());
-	entityManager.addComponentToEntity(entity, DragComponent(5.f));
+	entityManager.addComponentToEntity(entity, HealthComponent());
+	entityManager.addComponentToEntity(entity, DragComponent(5.f)); 
 	entityManager.addComponentToEntity(entity, EnemyComponent());
 	entityManager.addComponentToEntity(entity, appearance);
 	entityManager.addComponentToEntity(entity, BoundingBoxComponent(.4, .4));

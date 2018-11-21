@@ -42,7 +42,6 @@
     <ClCompile Include="src\World\Assemblers\AppearanceAssembler.cpp" />
     <ClCompile Include="src\World\Assemblers\PositionAssembler.cpp" />
     <ClCompile Include="src\World\Assemblers\EntityAssembler.cpp" />
-    <ClCompile Include="src\ECS\Systems\CollisionSystem.cpp" />
     <ClCompile Include="src\Util\lodepng.cpp" />
     <ClCompile Include="src\Menu\MenuBuilder.cpp" />
     <ClCompile Include="src\Menu\Control.cpp" />
@@ -51,6 +50,7 @@
     <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLTexture.cpp" />
     <ClCompile Include="src\Surface.cpp" />
     <ClCompile Include="src\ECS\Systems\MousePointSystem.cpp" />
+    <ClCompile Include="src\ECS\Systems\CollisionSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Renderer\Camera.h" />
@@ -134,6 +134,7 @@
     <ClInclude Include="include\ECS\Components\CameraComponent.h" />
     <ClInclude Include="include\ECS\Components\MousePointerComponent.h" />
     <ClInclude Include="include\ECS\Systems\MousePointSystem.h" />
+    <ClInclude Include="include\ECS\Components\HealthComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\x64\SDL2test.lib" />
