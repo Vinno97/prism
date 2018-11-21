@@ -35,6 +35,7 @@ namespace ECS {
 							playerShooting->ydirection = normalizedY;
 							playerShooting->isShooting = true;
 						}
+
 					}
 					else {
 						playerShooting->isShooting = false;
