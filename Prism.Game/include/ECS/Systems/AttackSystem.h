@@ -1,5 +1,4 @@
 #pragma once
-
 #include "Context.h"
 #include "ECS/Systems/System.h"
 #include "Physics/QuadTree.h"
@@ -11,7 +10,7 @@ namespace ECS {
 		public:
 			AttackSystem(EntityManager &entityManager);
 			~AttackSystem();
-			void update(Context context) override;
+			void update(Context& context) override;
 			System* clone() override;
 
 			///<summary>

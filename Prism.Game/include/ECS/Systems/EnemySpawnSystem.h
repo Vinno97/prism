@@ -2,17 +2,15 @@
 
 #include "Context.h"
 #include "ECS/Systems/System.h"
-#include "../../Prism.Engine/include/ECS/Systems/CheatSystem.h"
-
-
+#include "InputManager.h"
 
 namespace ECS {
 	namespace Systems {
-		class KeyboardInputSystem : public System
+		class EnemySpawnSystem : public System
 		{
 		public:
-			KeyboardInputSystem(EntityManager &entityManager);
-			~KeyboardInputSystem();
+			EnemySpawnSystem(EntityManager &entityManager);
+			~EnemySpawnSystem();
 			void update(Context& context) override;
 			System* clone() override;
 		};

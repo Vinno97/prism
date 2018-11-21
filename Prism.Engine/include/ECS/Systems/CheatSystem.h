@@ -12,7 +12,7 @@ namespace ECS {
 			CheatSystem(EntityManager &entityManager);
 			~CheatSystem();
 
-			void update(Context context) override;
+			void update(Context& context) override;
 			System* clone() override;
 			float ticks = 0;
 			void increaseHealth();

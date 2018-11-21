@@ -1,5 +1,4 @@
 #include <math.h>
-#include "ECS/Systems/AttackSystem.h"
 #include "ECS/EntityManager.h"
 #include "ECS/SystemManager.h"
 #include "ECS/Components/HealthComponent.h"
@@ -34,7 +33,7 @@ ECS::Systems::CheatSystem::~CheatSystem()
 {
 }
 
-void ECS::Systems::CheatSystem::update(Context context)
+void ECS::Systems::CheatSystem::update(Context& context)
 {
 }
 

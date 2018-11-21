@@ -18,10 +18,10 @@ namespace ECS {
 		KeyboardInputSystem::~KeyboardInputSystem()
 			= default;
 
-		void KeyboardInputSystem::update(Context context) {
+		void KeyboardInputSystem::update(Context& context) {
 			// 1 unit/second^2
 			//double acceleration = 5;
-			double acceleration = 10;
+			double acceleration = 5;
 
 			auto input = context.inputManager;
 
@@ -44,6 +44,22 @@ namespace ECS {
 				{
 					velocity->dx += acceleration * context.deltaTime;
 				}
+
+
+
+		//	//TODO MOET WAARSCHIJNLIJK ANDERS
+		//	if (input->isMouseButtonPressed(Key::MOUSE_BUTTON_LEFT))
+		//	{
+		//		auto position = entityManager->getComponent<PositionComponent>(entity.id);
+		//		std::vector<int> pos = input->GetMousePoisiton();
+		//		float x = (pos[0] - context.window->width / 2.0)*0.006;
+		//		float y = (pos[1] - context.window->height / 2.0)*0.006;
+		//		velocity->dx = -1 * (position->x - x);
+		//		velocity->dy = -1 * (position->y - y);
+		//		//position->x = x;
+		//		//position->y = y;
+		//	}
+
 
 				if (entityManager->hasComponent<AppearanceComponent>(entity.id)) {
 					auto appearance = entityManager->getComponent<AppearanceComponent>(entity.id);
