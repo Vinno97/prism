@@ -59,7 +59,7 @@ void ECS::Systems::AttackSystem::updateEntity(int id, Context& context) {
 		// Print (Remove after review)
 		std::cout << "Enemy is exploded" << std::endl;
 	}
-	
+
 	if (entityManager->hasComponent<HealthComponent>(id)) {
 		auto currentComponent = entityManager->getComponent<HealthComponent>(id);
 

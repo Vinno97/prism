@@ -28,10 +28,14 @@ public:
 	int createMine(int entity, ECS::EntityManager& entityManager);
 
 	int createScene(ECS::EntityManager & entityManager);
+
+	int createProjectile(ECS::EntityManager & entityManager);
+
 	int createScene(int entity, ECS::EntityManager & entityManager);
 	
 	int createEnemySpawn(ECS::EntityManager & entityManager, float spawnInterval, bool enabled);
 	int createEnemySpawn(int entity, ECS::EntityManager & entityManager, float spawnInterval, bool enabled);
+
 
 	int createFloor(ECS::EntityManager & entityManager);
 	int createFloor(int entity, ECS::EntityManager & entityManager);
