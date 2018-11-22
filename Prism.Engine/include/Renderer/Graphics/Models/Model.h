@@ -4,6 +4,7 @@
 #include "Renderer/Graphics/IndexBuffer.h"
 #include "Renderer/Graphics/Models/Mesh.h"
 #include "Renderer/Graphics/Models/Material.h"
+#include "Renderer/Graphics/Texture.h"
 #include <memory>
 
 namespace Renderer {
@@ -12,13 +13,15 @@ namespace Renderer {
 
 			class Model {
 				public: 
-					Model(std::shared_ptr<Mesh> m);
+					Model() = default;
 					std::shared_ptr<Mesh> mesh;
 					Model(const Model &other);
 					Model& operator=(const Model& other);
 					Model(Model&& other);
 					Model& operator=(Model&& other);
-					//Material material;
+
+					Model(std::shared_ptr<Mesh> m);
+					std::shared_ptr<Texture> texture;
 				};
 		}
 	}

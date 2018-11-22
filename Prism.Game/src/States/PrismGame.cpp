@@ -1,48 +1,63 @@
 #include "States/PrismGame.h"
+
 #include "Math/Vector3f.h"
 #include "StateMachine.h"
 #include "States/PauseState.h"
+
+#include "ECS/Components/SceneComponent.h"
+#include "ECS/Components/PositionComponent.h"
+#include "ECS/Components/VelocityComponent.h"
+#include "ECS/Components/AppearanceComponent.h"
+#include "ECS/Components/DragComponent.h"
+#include "ECS/Components/KeyboardInputComponent.h"
+#include "ECS/Systems/EnemyPathFindingSystem.h"
+#include "ECS/Systems/MotionSystem.h"
+#include "ECS/Systems/AttackSystem.h"
+#include "ECS/Systems/RenderSystem.h"
+#include "ECS/Systems/KeyboardInputSystem.h"
+#include "ECS/Systems/AnimationSystem.h"
+#include "ECS/Systems/AttackSystem.h"
+#include "ECS/Systems/BumpSystem.h"
+#include "ECS/Systems/CollisionSystem.h"
+#include "ECS/Systems/ResourceGatherSystem.h"
+#include "ECS/Systems/ResourceBlobSystem.h"
 #include "ECS/Systems/ShootingSystem.h"
 #include "ECS/Systems/ProjectileAttackSystem.h"
 #include "ECS/Systems/AimingSystem.h"
+#include "ECS/Systems/EnemySpawnSystem.h"
+#include "ECS/Systems/MousePointSystem.h"
+#include "World/WorldLoader.h"
+#include "World/Assemblers/PrismEntityAssembler.h"
+#include "ECS/Systems/MousePointSystem.h"
+#include "ECS/Systems/EnemySpawnSystem.h"
 
 namespace States {
 	using namespace ECS;
-	using namespace Components;
-	/// <summary>
-	/// creates new PrismGame object
-	/// </summary>
-	PrismGame::PrismGame()
-		= default;
+	using namespace ECS::Components;
+	using namespace World;
+	using namespace World::Assemblers;
 
 	void PrismGame::onInit(Context & context)
 	{
-		auto player = entityFactory.createPlayer(entityManager);
-		auto resourcePoint = entityFactory.createResourcePoint(entityManager);
-		auto enemy = entityFactory.createEnemy(entityManager);
+		menuBuilder.addControl(-1.15, 0.88, 0.6, 0.07, "img/healthbar.png");
+		menu = menuBuilder.buildMenu();
+		auto floor = entityFactory.createFloor(entityManager);
 		auto scene = entityFactory.createScene(entityManager);
 		auto camera = entityFactory.createCamera(entityManager);
 		auto mousePointer = entityFactory.createCameraPointer(entityManager);
-
-		for (int i = -4; i < 4; i++) {
-			auto entity = i % 2 == 0 ? entityFactory.createTower(entityManager) : entityFactory.createWall(entityManager);
-			auto position = entityManager.getComponent<PositionComponent>(entity);
-			position->y = -1;
-			position->x = i;
-		}
-
-		auto positions{ entityManager.getAllEntitiesWithComponent<PositionComponent>() };
-
-		entityManager.getComponent<PositionComponent>(player)->y = 1;
-		entityManager.getComponent<PositionComponent>(resourcePoint)->x = 1;
-		entityManager.getComponent<PositionComponent>(enemy)->x = -1;
-
 		auto sceneComponent = entityManager.getComponent<SceneComponent>(scene);
 
 		sceneComponent->scene.ambientLightColor = Math::Vector3f{ 1.0f, 1.0f, 1.0f };
-		sceneComponent->scene.ambientLightStrength = 0.65f;
-		sceneComponent->scene.sun.color = Math::Vector3f{ .30f, .30f, .30f };
+		sceneComponent->scene.ambientLightStrength = 0.95f;
+		sceneComponent->scene.sun.color = Math::Vector3f{ .20f, .20f, .20f };
 		sceneComponent->scene.sun.direction = Math::Vector3f{ 25.f, 150.0f, 100.0f };
+
+		World::LevelManager loader{ std::make_unique<PrismEntityAssembler>() };
+
+		loader.load("levels/Sample World", entityManager);
+		// Dit is hoe een wereld zou worden opgeslagen en weer ingeladen.
+		//loader.load("saves/Sample Save", entityManager);
+		loader.save("saves/Sample Save", entityManager);
 
 		registerSystems(context);
 		PauseState ps = PauseState();
@@ -58,41 +73,54 @@ namespace States {
 		MotionSystem motionSystem = MotionSystem(entityManager);
 		RenderSystem renderSystem = RenderSystem(entityManager, context.window->width, context.window->height);
 		KeyboardInputSystem inputSystem = KeyboardInputSystem(entityManager);
-		RestockResourceSystem restockSystem = RestockResourceSystem(entityManager);
-		AttackSystem attackSystem = AttackSystem(entityManager);
+		EnemyPathFindingSystem enemyPathFindingSystem  = EnemyPathFindingSystem(entityManager, 10);
 		AnimationSystem animationSystem = AnimationSystem(entityManager);
 		CollisionSystem collisionSystem = CollisionSystem(entityManager, context.window->width, context.window->height, 0, 0, 2);
 		ShootingSystem shootingSystem = ShootingSystem(entityManager);
 		ProjectileAttackSystem projectileAttackSystem = ProjectileAttackSystem(entityManager);
+		ResourceBlobSystem resourceBlobSystem = ResourceBlobSystem(entityManager);
+		ResourceGatherSystem resourceGatherSystem = ResourceGatherSystem(entityManager);
+		EnemySpawnSystem enemySpawnSystem = EnemySpawnSystem(entityManager);
 		MousePointSystem pointSystem = MousePointSystem(entityManager);
-		BumbSystem bumpSystem = BumbSystem(entityManager);
+		BumpSystem bumpSystem = BumpSystem(entityManager);
 		AimingSystem aimSystem = AimingSystem(entityManager);
+		AttackSystem attackSystem = AttackSystem(entityManager);
 
-		systemManager.registerSystem(4, motionSystem);
-		systemManager.registerSystem(5, renderSystem);
+		//1
 		systemManager.registerSystem(1, inputSystem);
-		systemManager.registerSystem(3, attackSystem);
-		systemManager.registerSystem(2, restockSystem);
-		systemManager.registerSystem(2, animationSystem);
-		systemManager.registerSystem(1, collisionSystem);
-		systemManager.registerSystem(2, shootingSystem);
-		systemManager.registerSystem(3, bumpSystem);
-		systemManager.registerSystem(2, projectileAttackSystem);
-		systemManager.registerSystem(2, aimSystem);
 		systemManager.registerSystem(1, pointSystem);
+		systemManager.registerSystem(1, enemyPathFindingSystem);
+
+		//2
+		systemManager.registerSystem(2, motionSystem);
+		systemManager.registerSystem(2, animationSystem);
+		systemManager.registerSystem(2, aimSystem);
+		systemManager.registerSystem(2, resourceGatherSystem);
+		systemManager.registerSystem(2, enemySpawnSystem);
+
+		//3
+		systemManager.registerSystem(3, collisionSystem);
+		systemManager.registerSystem(3, resourceBlobSystem);
+		systemManager.registerSystem(3, shootingSystem);
+		
+		
+
+		//4
+		systemManager.registerSystem(4, projectileAttackSystem);
+		
+		
+		
+		//5
+		systemManager.registerSystem(5, renderSystem);
+		systemManager.registerSystem(5, attackSystem);
+		systemManager.registerSystem(5, bumpSystem);
 	}
+
+
 
 	void PrismGame::onUpdate(Context &context)
 	{
-		auto input = context.inputManager;
-		if (input->isKeyPressed(Key::KEY_ESCAPE) && canPressEscape) {
-			canPressEscape = false;
-			context.stateMachine->setState<PauseState>();
-		}
-
-		if (!input->isKeyPressed(Key::KEY_ESCAPE)) {
-			canPressEscape = true;
-		}
+	   auto input = context.inputManager;
 
 		for (auto systemList : systemManager.getAllSystems()) {
 			for (auto system : systemList.second) {
@@ -101,16 +129,31 @@ namespace States {
 		}
 			
 
-//		for (auto &entity : entityManager.getAllEntitiesWithComponent<VelocityComponent>()) {
-//			auto velocity = entity.component;
-//			auto position = entityManager.getComponent<PositionComponent>(entity.id);
-//			printf("Entity:\t\t%d \nPosition: \tX: %.2f, Y: %.2f\nVelocity:\tdX: %.2f, dY: %.2f\n\n", entity.id, position->x, position->y, velocity->dx, velocity->dy);
-//		}
+		std::cout << 1.0/context.deltaTime << std::endl;
+		/*
+		for (auto &entity : entityManager.getAllEntitiesWithComponent<VelocityComponent>()) {
+			auto velocity = entity.component;
+			auto position = entityManager.getComponent<PositionComponent>(entity.id);
+			//printf("Entity:\t\t%d \nPosition: \tX: %.2f, Y: %.2f\nVelocity:\tdX: %.2f, dY: %.2f\n\n", entity.id, position->x, position->y, velocity->dx, velocity->dy);
+		}*/
 
+
+		menuRenderer.renderMenu(menu, float(context.window->width) / float(context.window->height));
 		context.window->swapScreen();
+
+		if (input->isKeyPressed(Key::KEY_ESCAPE) && canPressEscape) {
+			canPressEscape = false;
+			context.stateMachine->setState<PauseState>();
+		}
+
+		if (!input->isKeyPressed(Key::KEY_ESCAPE)) {
+			canPressEscape = true;
+		}
 	}
 	void PrismGame::onEnter() {
 	}
 	void PrismGame::onLeave() {
 	}
 }
+
+

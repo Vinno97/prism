@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="Debug|Win32">
-      <Configuration>Debug</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Release|Win32">
-      <Configuration>Release</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
     <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
       <Platform>x64</Platform>
@@ -19,9 +11,18 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\Menu\Control.h" />
+    <ClInclude Include="include\ECS\Components\PlayerComponent.h" />
+    <ClInclude Include="include\World\Assemblers\AppearanceAssembler.h" />
+    <ClInclude Include="include\World\EntityConfigurators\AppearanceConfigurator.h" />
+    <ClInclude Include="include\World\EntityConfigurators\EntityConfigurator.h" />
+    <ClInclude Include="include\World\EntityConfigurators\PositionConfigurator.h" />
+    <ClInclude Include="include\World\Assemblers\EntityAssembler.h" />
+    <ClInclude Include="include\nlohmann\adl_serializer.hpp" />
+    <ClInclude Include="include\nlohmann\json.hpp" />
+    <ClInclude Include="include\nlohmann\json_fwd.hpp" />
     <ClInclude Include="include\ECS\Components\HealthComponent.h" />
     <ClInclude Include="include\ECS\Components\BoundingBoxComponent.h" />
-    <ClInclude Include="include\ECS\Systems\CollisionHandlerSystem.h" />
     <ClInclude Include="include\ECS\Components\CameraComponent.h" />
     <ClInclude Include="include\ECS\Components\MousePointerComponent.h" />
     <ClInclude Include="include\ECS\Systems\CollisionSystem.h" />
@@ -31,8 +32,9 @@
     <ClInclude Include="include\Physics\BoundingBox.h" />
     <ClInclude Include="include\Physics\QuadTree.h" />
     <ClInclude Include="include\Renderer\Camera.h" />
+    <ClInclude Include="include\Renderer\Graphics\Texture.h" />
     <ClInclude Include="include\Renderer\Scene.h" />
-    <ClInclude Include="include\Util\FileReader.h" />
+    <ClInclude Include="include\Util\FileSystem.h" />
     <ClInclude Include="include\Renderer\ForwardRenderer.h" />
     <ClInclude Include="include\ECS\Components\AppearanceComponent.h" />
     <ClInclude Include="include\ECS\Components\Component.h" />
@@ -45,7 +47,6 @@
     <ClInclude Include="include\Renderer\Graphics\Models\Material.h" />
     <ClInclude Include="include\Renderer\Graphics\Models\Mesh.h" />
     <ClInclude Include="include\Renderer\Graphics\Models\Model.h" />
-    <ClInclude Include="include\Renderer\Graphics\Models\Texture.h" />
     <ClInclude Include="include\Context.h" />
     <ClInclude Include="include\CoreEngine.h" />
     <ClInclude Include="include\ECS\Entity.h" />
@@ -66,6 +67,7 @@
     <ClInclude Include="include\Key.h" />
     <ClInclude Include="include\State.h" />
     <ClInclude Include="include\StateMachine.h" />
+    <ClInclude Include="include\Util\lodepng.h" />
     <ClInclude Include="include\Window.h" />
     <ClInclude Include="include\MenuState.h" />
     <ClInclude Include="include\ECS\SystemManager.h" />
@@ -78,8 +80,29 @@
     <ClInclude Include="include\Renderer\Renderable.h" />
     <ClInclude Include="include\ECS\Components\SceneComponent.h" />
     <ClInclude Include="include\Math\Vector3f.h" />
+    <ClInclude Include="include\World\Assemblers\BaseAssembler.h" />
+    <ClInclude Include="include\World\Assemblers\PositionAssembler.h" />
+    <ClInclude Include="include\World\ObjectProperties.h" />
+    <ClInclude Include="include\World\EntityDisassembler.h" />
+    <ClInclude Include="include\World\LevelSerializer.h" />
+    <ClInclude Include="include\World\JSONSerializer.h" />
+    <ClInclude Include="include\World\WorldObject.h" />
+    <ClInclude Include="include\World\WorldLoader.h" />
+    <ClInclude Include="include\Menu\MenuBuilder.h" />
+    <ClInclude Include="include\Menu\MenuRenderer.h" />
+    <ClInclude Include="include\Menu\Menu.h" />
+    <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLTexture.h" />
+    <ClInclude Include="include\Surface.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\World\Assemblers\AppearanceAssembler.cpp" />
+    <ClCompile Include="src\World\Assemblers\PositionAssembler.cpp" />
+    <ClCompile Include="src\World\JSONSerializer.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLTexture.cpp" />
+    <ClCompile Include="src\Menu\Menu.cpp" />
+    <ClCompile Include="src\Menu\MenuRenderer.cpp" />
+    <ClCompile Include="src\Menu\Control.cpp" />
+    <ClCompile Include="src\Menu\MenuBuilder.cpp" />
     <ClCompile Include="src\ECS\Systems\CollisionSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\MousePointSystem.cpp" />
     <ClCompile Include="src\Physics\AABBCollider.cpp" />
@@ -87,7 +110,7 @@
     <ClCompile Include="src\Physics\QuadTree.cpp" />
     <ClCompile Include="src\Renderer\Camera.cpp" />
     <ClCompile Include="src\Renderer\Renderable.cpp" />
-    <ClCompile Include="src\Util\FileReader.cpp" />
+    <ClCompile Include="src\Util\FileSystem.cpp" />
     <ClCompile Include="src\Renderer\ForwardRenderer.cpp" />
     <ClCompile Include="src\MenuState.cpp" />
     <ClCompile Include="src\ECS\EntityManager.cpp" />
@@ -96,7 +119,6 @@
     <ClCompile Include="src\Renderer\Graphics\Models\Material.cpp" />
     <ClCompile Include="src\Renderer\Graphics\Models\Mesh.cpp" />
     <ClCompile Include="src\Renderer\Graphics\Models\Model.cpp" />
-    <ClCompile Include="src\Renderer\Graphics\Models\Texture.cpp" />
     <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLIndexBuffer.cpp" />
     <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLPipeline.cpp" />
     <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLFragmentShader.cpp" />
@@ -112,19 +134,50 @@
     <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLVertexShader.cpp" />
     <ClCompile Include="src\State.cpp" />
     <ClCompile Include="src\StateMachine.cpp" />
+    <ClCompile Include="src\Util\lodepng.cpp" />
     <ClCompile Include="src\Window.cpp" />
     <ClCompile Include="src\Renderer\Graphics\Loader\StaticMeshLoader.cpp" />
     <ClCompile Include="src\ECS\SystemManager.cpp" />
     <ClCompile Include="src\ECS\Systems\System.cpp" />
     <ClCompile Include="src\Math\Vector3f.cpp" />
+    <ClCompile Include="src\World\ObjectProperties.cpp" />
+    <ClCompile Include="src\World\Assemblers\EntityAssembler.cpp" />
+    <ClCompile Include="src\World\WorldObject.cpp" />
+    <ClCompile Include="src\World\WorldLoader.cpp" />
+    <ClCompile Include="src\Surface.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Library Include="lib\glew32.lib" />
-    <Library Include="lib\glew32s.lib" />
-    <Library Include="lib\assimp-vc140-mtd.lib" />
-    <Library Include="lib\SDL2.lib" />
-    <Library Include="lib\SDL2main.lib" />
-    <Library Include="lib\SDL2test.lib" />
+    <Library Include="lib\x64\glew32.lib" />
+    <Library Include="lib\x64\assimp-vc140-mtd.lib" />
+    <Library Include="lib\x64\SDL2.lib" />
+    <Library Include="lib\x64\SDL2main.lib" />
+    <Library Include="lib\x64\SDL2test.lib" />
+    <Library Include="lib\x64\SDL2_image.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="png\healthbar.png" />
+    <Image Include="png\someimage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="lib\libjpeg-9.dll" />
+    <None Include="lib\libpng16-16.dll" />
+    <None Include="lib\libtiff-5.dll" />
+    <None Include="lib\libwebp-7.dll" />
+    <None Include="lib\SDL2_image.dll" />
+    <None Include="lib\x64\libjpeg-9.dll" />
+    <None Include="lib\x64\libpng16-16.dll" />
+    <None Include="lib\x64\libtiff-5.dll" />
+    <None Include="lib\x64\libwebp-7.dll" />
+    <None Include="lib\x64\SDL2_image.dll" />
+    <None Include="lib\x64\zlib1.dll" />
+    <None Include="lib\zlib1.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="lib\x64\LICENSE.jpeg.txt" />
+    <Text Include="lib\x64\LICENSE.png.txt" />
+    <Text Include="lib\x64\LICENSE.tiff.txt" />
+    <Text Include="lib\x64\LICENSE.webp.txt" />
+    <Text Include="lib\x64\LICENSE.zlib.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -133,19 +186,6 @@
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>MultiByte</CharacterSet>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
@@ -153,7 +193,7 @@
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -163,12 +203,6 @@
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
   <ImportGroup Label="Shared">
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -180,50 +214,33 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <IncludePath>$(ProjectDir)include;$(IncludePath)</IncludePath>
   </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <Optimization>Disabled</Optimization>
-      <SDLCheck>true</SDLCheck>
-      <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ClCompile>
-    <Link>
-      <AdditionalLibraryDirectories>$(ProjectDir)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <SubSystem>Console</SubSystem>
-    </Link>
-  </ItemDefinitionGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>$(ProjectDir)include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)lib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <EnablePREfast>false</EnablePREfast>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>SDL2main.lib;SDL2.lib;glew32.lib;opengl32.lib;assimp-vc140-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>$(ProjectDir)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
     </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <Optimization>MaxSpeed</Optimization>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
-      <ConformanceMode>true</ConformanceMode>
-    </ClCompile>
-    <Link>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
-    </Link>
+    <Lib>
+      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+    <Lib>
+      <AdditionalLibraryDirectories>$(ProjectDir)\lib\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -233,11 +250,16 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)lib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
+    <Lib>
+      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)\lib\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

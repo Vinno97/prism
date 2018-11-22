@@ -1,14 +1,8 @@
 #pragma once
-
 #include "Context.h"
 #include "ECS/Systems/System.h"
 #include "Physics/QuadTree.h"
 #include "Physics/AABBCollider.h"
-
-using namespace ECS;
-using namespace ECS::Components;
-using namespace ECS::Systems;
-using namespace Physics;
 
 namespace ECS {
 	namespace Systems {
@@ -16,7 +10,7 @@ namespace ECS {
 		public:
 			AttackSystem(EntityManager &entityManager);
 			~AttackSystem();
-			void update(Context context) override;
+			void update(Context& context) override;
 			System* clone() override;
 
 			///<summary>
@@ -25,8 +19,8 @@ namespace ECS {
 			///</summary>
 			void updateEntity(int id);
 		private:
-			QuadTree quadTree;
-			AABBCollider aabbCollider;
+			Physics::QuadTree quadTree;
+			Physics::AABBCollider aabbCollider;
 		};
 	}
 }

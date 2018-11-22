@@ -11,7 +11,7 @@ namespace ECS {
 			ProjectileAttackSystem(EntityManager& entityManager);
 			~ProjectileAttackSystem();
 
-			void update(Context context) override;
+			void update(Context& context) override;
 			System* clone() override;
 		private:
 		};

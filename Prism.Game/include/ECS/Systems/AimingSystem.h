@@ -11,7 +11,7 @@ namespace ECS {
 			AimingSystem(EntityManager& entityManager);
 			~AimingSystem();
 
-			void update(Context context) override;
+			void update(Context& context) override;
 			System* clone() override;
 		private:
 

@@ -26,9 +26,10 @@ namespace Renderer {
 		/// Translates the camera by the values given
 		/// </summary>
 		void rotate(float x, float y, float z);
-		~Camera();
+
+		// TODO: Deze moeten mss enkel readonly getters zijn (en dat het renderSystem gewoon de delta voor move() uitrekent).
 		vec3 position;
 		vec3 rotation;
-	private:
+		~Camera();
 	};
 }
