@@ -1,11 +1,12 @@
 #pragma once
-#include "ECS/Components/Component.h"
+#include "Component.h"
 #include "Physics/BoundingBox.h"
 #include <vector>
 
 namespace ECS {
 	namespace Components {
 		struct BoundingBoxComponent : Component {
+
 			BoundingBoxComponent(float width, float height) : boundingBox(Physics::BoundingBox(height / 2.0, width / 2.0, -1 * height / 2.0, -1 * width / 2.0)) {};
 
 			Physics::BoundingBox boundingBox;
@@ -25,3 +26,4 @@ namespace ECS {
 		};
 	}
 }
+
