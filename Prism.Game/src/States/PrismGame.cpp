@@ -30,6 +30,7 @@
 #include "World/Assemblers/PrismEntityAssembler.h"
 #include "ECS/Systems/MousePointSystem.h"
 #include "ECS/Systems/EnemySpawnSystem.h"
+#include <functional>
 
 namespace States {
 	using namespace ECS;
@@ -39,8 +40,9 @@ namespace States {
 
 	void PrismGame::onInit(Context & context)
 	{
-		menuBuilder.addControl(-1.15, 0.88, 0.6, 0.07, "img/healthbar.png");
-		menu = menuBuilder.buildMenu();
+
+
+
 		auto floor = entityFactory.createFloor(entityManager);
 		auto scene = entityFactory.createScene(entityManager);
 		auto camera = entityFactory.createCamera(entityManager);
@@ -60,8 +62,13 @@ namespace States {
 		loader.save("saves/Sample Save", entityManager);
 
 		registerSystems(context);
+
 		PauseState ps = PauseState();
 		context.stateMachine->addState(ps);
+		std::function<void()> callback = [context, &canPress = canPressEscape]() mutable { canPress = false; context.stateMachine->setState<PauseState>(); };
+		menuBuilder.addControl(-1.15, 0.88, 0.6, 0.07, "img/healthbar.png", callback);
+		menu = menuBuilder.buildMenu();
+
 	}
 
 	/// <summary>
@@ -108,7 +115,11 @@ namespace States {
 
 	void PrismGame::onUpdate(Context &context)
 	{
-	   auto input = context.inputManager;
+
+		auto input = context.inputManager;
+		if (menu.handleInput(*context.inputManager, context.window->width, context.window->height)) { 
+			return; 
+		}
 
 		auto inputSystem = systemManager.getSystem<KeyboardInputSystem>();
 		auto enemyPathFindingSystem = systemManager.getSystem<EnemyPathFindingSystem>();
@@ -154,13 +165,13 @@ namespace States {
 		menuRenderer.renderMenu(menu, float(context.window->width) / float(context.window->height));
 		context.window->swapScreen();
 
+		if (!input->isKeyPressed(Key::KEY_ESCAPE)) {
+			canPressEscape = true;
+		}
+
 		if (input->isKeyPressed(Key::KEY_ESCAPE) && canPressEscape) {
 			canPressEscape = false;
 			context.stateMachine->setState<PauseState>();
-		}
-
-		if (!input->isKeyPressed(Key::KEY_ESCAPE)) {
-			canPressEscape = true;
 		}
 	}
 	void PrismGame::onEnter() {

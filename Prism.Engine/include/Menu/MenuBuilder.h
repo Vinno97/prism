@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <functional>
 #include "Menu/Menu.h"
 #include "Renderer/Graphics/Models/Model.h"
 #include "Renderer/Graphics/Models/Mesh.h"
@@ -13,6 +14,7 @@ namespace Menu {
 	public:
 		MenuBuilder();
 		void addControl(float x, float y, float width, float height, const char *path);
+		void addControl(float x, float y, float width, float height, const char *path, std::function<void()> callback_);
 		Menu buildMenu();
 	private:
 		void initMesh();

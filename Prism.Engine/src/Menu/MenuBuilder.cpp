@@ -49,12 +49,21 @@ namespace Menu {
 	{
 		Control control{x, y, width, height, path };
 		Model model = Model{ mesh };
+		menu.controls.push_back(control);
+	}
 
+	void MenuBuilder::addControl(float x, float y, float width, float height, const char * path, std::function<void()> callback_)
+	{
+		Control control{ x, y, width, height, path, callback_ };
+		Model model = Model{ mesh };
 		menu.controls.push_back(control);
 	}
 
 	Menu MenuBuilder::buildMenu()
 	{
+		for (auto& c : menu.controls) {
+			c.onClick();
+		}
 		return menu;
 	}
 }
