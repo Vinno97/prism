@@ -17,8 +17,6 @@ namespace States {
 
 	void EndState::onUpdate(Context & context)
 	{
-
-
 		Renderer::Graphics::RenderDevice* renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
 		renderDevice->clearScreen();
 		menuRenderer.renderMenu(menu, float(context.window->width) / float(context.window->height));
