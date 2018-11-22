@@ -70,7 +70,6 @@ void ECS::Systems::AttackSystem::updateEntity(int id, Context& context) {
 			// Print (Remove after review)
 			std::cout << "Player is dead" << std::endl;
 
-
 			context.stateMachine->setState<EndState>();
 
 		}
