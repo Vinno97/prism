@@ -44,34 +44,34 @@ namespace ECS {
 		/// Gets all systems by priority.
 		/// </summary>
 		/// <returns></returns>
-		std::map<int, std::map<std::type_index, System*>> getAllSystems();
+		 std::map<int, std::map<std::type_index, System*>>& getAllSystems();
 
 
 		/// <summary>
 		/// Registers a System and ensures that there is only one instance of it.
 		/// </summary>
 		/// <param name"system">The system that needs to be registerd </param>
-		template<typename A, typename B, typename = std::enable_if_t < std::is_base_of<System, A>::type::value>>
-		void registerSystem(int priority, B& system) {
+		//template<typename A, typename B, typename = std::enable_if_t < std::is_base_of<System, A>::type::value>>
+		template <int P, typename A, typename B, typename... Fs>
+		SystemManager &registerSystem(Fs &&... fs) {
 
-			const std::type_index type = std::type_index(typeid(system));
+			const std::type_index type = std::type_index(typeid(A));
 			for (auto systems : prioritizedSystems) {
 				if (systems.second.find(type) != systems.second.end()) {
 					throw std::runtime_error("There can only one type of " + *type.name() + *" registered");
 				}
 			}
-			auto map = std::map<std::type_index, System*>();
-			map[type] = new B(system);
-			auto &list = prioritizedSystems[priority][type] = new B(system);
+			prioritizedSystems[P][type] = new B(std::forward<Fs>(fs)...);
+			return *this;
 		}
 
 		/// <summary>
 		/// Registers a System and ensures that there is only one instance of it.
 		/// </summary>
 		/// <param name"system">The system that needs to be registerd </param>
-		template<class A>
-		void registerSystem(int priority, A& system) {
-			registerSystem<A, A>(priority, system);
+		template<int P, class A, typename... Fs>
+		SystemManager &registerSystem(Fs &&... fs) {
+			return registerSystem<P, A, A>(std::forward<Fs>(fs)...);
 		}
 
 

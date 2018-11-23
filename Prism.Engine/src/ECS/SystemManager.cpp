@@ -60,7 +60,7 @@ namespace ECS {
 		return *this;
 	}
 
-	std::map<int, std::map<std::type_index, System*>> SystemManager::getAllSystems()
+	std::map<int, std::map<std::type_index, System*>>& SystemManager::getAllSystems()
 	{
 		return prioritizedSystems;
 	}

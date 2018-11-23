@@ -70,50 +70,31 @@ namespace States {
 	/// <param name="context">The context that is needed to register the systems</param>
 	void PrismGame::registerSystems(Context &context)
 	{
-		MotionSystem motionSystem = MotionSystem(entityManager);
-		RenderSystem renderSystem = RenderSystem(entityManager, context.window->width, context.window->height);
-		KeyboardInputSystem inputSystem = KeyboardInputSystem(entityManager);
-		EnemyPathFindingSystem enemyPathFindingSystem  = EnemyPathFindingSystem(entityManager, 10);
-		AnimationSystem animationSystem = AnimationSystem(entityManager);
-		CollisionSystem collisionSystem = CollisionSystem(entityManager, context.window->width, context.window->height, 0, 0, 2);
-		ShootingSystem shootingSystem = ShootingSystem(entityManager);
-		ProjectileAttackSystem projectileAttackSystem = ProjectileAttackSystem(entityManager);
-		ResourceBlobSystem resourceBlobSystem = ResourceBlobSystem(entityManager);
-		ResourceGatherSystem resourceGatherSystem = ResourceGatherSystem(entityManager);
-		EnemySpawnSystem enemySpawnSystem = EnemySpawnSystem(entityManager);
-		MousePointSystem pointSystem = MousePointSystem(entityManager);
-		BumpSystem bumpSystem = BumpSystem(entityManager);
-		AimingSystem aimSystem = AimingSystem(entityManager);
-		AttackSystem attackSystem = AttackSystem(entityManager);
+		systemManager
+			//1
+			.registerSystem<1, KeyboardInputSystem>(entityManager)
+			.registerSystem<1, MousePointSystem>(entityManager)
+			.registerSystem<1, EnemyPathFindingSystem>(entityManager, 10)
 
-		//1
-		systemManager.registerSystem(1, inputSystem);
-		systemManager.registerSystem(1, pointSystem);
-		systemManager.registerSystem(1, enemyPathFindingSystem);
+			//2
+			.registerSystem<2, MotionSystem>(entityManager)
+			.registerSystem<2, AnimationSystem>(entityManager)
+			.registerSystem<2, AimingSystem>(entityManager)
+			.registerSystem<2, ResourceGatherSystem>(entityManager)
+			.registerSystem<2, EnemySpawnSystem>(entityManager)
 
-		//2
-		systemManager.registerSystem(2, motionSystem);
-		systemManager.registerSystem(2, animationSystem);
-		systemManager.registerSystem(2, aimSystem);
-		systemManager.registerSystem(2, resourceGatherSystem);
-		systemManager.registerSystem(2, enemySpawnSystem);
+			//3
+			.registerSystem<3, CollisionSystem>(entityManager, context.window->width, context.window->height, 0, 0, 2)
+			.registerSystem<3, ResourceBlobSystem>(entityManager)
+			.registerSystem<3, ShootingSystem>(entityManager)
 
-		//3
-		systemManager.registerSystem(3, collisionSystem);
-		systemManager.registerSystem(3, resourceBlobSystem);
-		systemManager.registerSystem(3, shootingSystem);
-		
-		
+			//4
+			.registerSystem<4, ProjectileAttackSystem>(entityManager)
 
-		//4
-		systemManager.registerSystem(4, projectileAttackSystem);
-		
-		
-		
-		//5
-		systemManager.registerSystem(5, renderSystem);
-		systemManager.registerSystem(5, attackSystem);
-		systemManager.registerSystem(5, bumpSystem);
+			//5
+			.registerSystem<5, RenderSystem>(entityManager, context.window->width, context.window->height)
+			.registerSystem<5, AttackSystem>(entityManager)
+			.registerSystem<5, BumpSystem>(entityManager);
 	}
 
 
@@ -128,15 +109,16 @@ namespace States {
 			}
 		}
 			
-
+		
 		std::cout << 1.0/context.deltaTime << std::endl;
+		
 		/*
 		for (auto &entity : entityManager.getAllEntitiesWithComponent<VelocityComponent>()) {
 			auto velocity = entity.component;
 			auto position = entityManager.getComponent<PositionComponent>(entity.id);
 			//printf("Entity:\t\t%d \nPosition: \tX: %.2f, Y: %.2f\nVelocity:\tdX: %.2f, dY: %.2f\n\n", entity.id, position->x, position->y, velocity->dx, velocity->dy);
 		}*/
-
+		
 
 		menuRenderer.renderMenu(menu, float(context.window->width) / float(context.window->height));
 		context.window->swapScreen();
