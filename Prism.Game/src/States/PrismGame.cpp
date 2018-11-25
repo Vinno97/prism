@@ -30,6 +30,7 @@
 #include "World/Assemblers/PrismEntityAssembler.h"
 #include "ECS/Systems/MousePointSystem.h"
 #include "ECS/Systems/EnemySpawnSystem.h"
+#include "ECS/Systems/BuildSystem.h"
 
 namespace States {
 	using namespace ECS;
@@ -85,6 +86,7 @@ namespace States {
 		BumpSystem bumpSystem = BumpSystem(entityManager);
 		AimingSystem aimSystem = AimingSystem(entityManager);
 		AttackSystem attackSystem = AttackSystem(entityManager);
+		BuildSystem buildSystem = BuildSystem(entityManager);
 
 		systemManager.registerSystem(motionSystem);
 		systemManager.registerSystem(renderSystem);
@@ -102,6 +104,7 @@ namespace States {
 		systemManager.registerSystem(enemySpawnSystem);
 		systemManager.registerSystem(pointSystem);
 		systemManager.registerSystem(attackSystem);
+		systemManager.registerSystem(buildSystem);
 	}
 
 
@@ -125,12 +128,15 @@ namespace States {
 		auto aimSystem = systemManager.getSystem<AimingSystem>();
 		auto resourceBlobSystem = systemManager.getSystem<ResourceBlobSystem>();
 		auto resourceGatherSystem = systemManager.getSystem<ResourceGatherSystem>();
+		auto buildSystem = systemManager.getSystem<BuildSystem>();
 
 		inputSystem->update(context);
 		enemyPathFindingSystem->update(context);
 		motionSystem->update(context);
+		buildSystem->update(context);
 		collisionSystem->update(context);
 		pointSystem->update(context);
+		
 		aimSystem->update(context);
 		shootingSystem->update(context);
 		projectileAttackSystem->update(context);

@@ -100,6 +100,7 @@
     <ClInclude Include="include\ECS\Components\ResourceBlobComponent.h" />
     <ClInclude Include="include\ECS\Components\ResourceGatherComponent.h" />
     <ClInclude Include="include\ECS\Systems\AttackSystem.h" />
+    <ClInclude Include="include\ECS\Systems\BuildSystem.h" />
     <ClInclude Include="include\Enums\ResourceTypeEnum.h" />
     <ClInclude Include="include\ECS\Systems\AnimationSystem.h" />
     <ClInclude Include="include\ECS\Components\ResourceSpawnComponent.h" />
@@ -129,6 +130,7 @@
   <ItemGroup>
     <ClCompile Include="src\ECS\Systems\AimingSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\AttackSystem.cpp" />
+    <ClCompile Include="src\ECS\Systems\BuildSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\ProjectileAttackSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\ShootingSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\AnimationSystem.cpp" />

@@ -21,8 +21,8 @@ namespace ECS {
 
 			cameraEntity->camera;
 
-			if (input->isMouseButtonPressed(Key::MOUSE_BUTTON_LEFT))
-			{
+			//if (input->isMouseButtonPressed(Key::MOUSE_BUTTON_LEFT))
+			//{
 				std::vector<int> pos = input->GetMousePoisiton();
 				float x = (2.0f * pos[0]) / context.window->width - 1.0f;
 				float y = 1.0f - (2.0f * pos[1]) / context.window->height;
@@ -62,7 +62,7 @@ namespace ECS {
 						mousePosition3D->y = intersection.z;
 						mousePosition3D->x = intersection.x;
 					}
-		    	}
+		    	//}
 			}
 		}
 
