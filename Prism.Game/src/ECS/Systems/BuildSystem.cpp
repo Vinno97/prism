@@ -7,6 +7,7 @@
 #include "ECS/Components/BoundingBoxComponent.h"
 #include "ECS/Components/MousePointerComponent.h"
 #include "ECS/Components/PlayerComponent.h"
+#include "ECS/Components/ShootingComponent.h"
 
 
 ECS::Systems::BuildSystem::BuildSystem(EntityManager &entityManager) : System(entityManager) { }
@@ -17,11 +18,16 @@ ECS::Systems::BuildSystem::~BuildSystem()
 
 void ECS::Systems::BuildSystem::update(Context& context) {
 	deltaTime += context.deltaTime;
+	
+	//Player meegeven of contructor??
+	auto playerId = entityManager->getAllEntitiesWithComponent<PlayerComponent>()[0].id;
+
 	if (deltaTime > pressTime) {
 		if (context.inputManager->isKeyPressed(Key::KEY_1)) {
 			deltaTime = 0;
 			if (!isBuilding) {
 				isBuilding = true;
+				
 				buildingId = ef.createWall(*entityManager);
 			}
 			else {
@@ -31,13 +37,15 @@ void ECS::Systems::BuildSystem::update(Context& context) {
 		}
 	}
 	
+
 	if (isBuilding) {
 		auto boundingBoxComponent = entityManager->getComponent<BoundingBoxComponent>(buildingId);
 		bool canPlace = !boundingBoxComponent->didCollide;
 
-
+		//TODO :: CollisionSystem moet echt anders. komt hier altijd in omdat structurs geen velocity hebben
 		if (canPlace) {
 			if (isBuilding && context.inputManager->isMouseButtonPressed(Key::MOUSE_BUTTON_LEFT)) {
+				entityManager->getComponent<ShootingComponent>(playerId)->isShooting = false;
 				buildingId = -1;
 				isBuilding = false;
 			}
