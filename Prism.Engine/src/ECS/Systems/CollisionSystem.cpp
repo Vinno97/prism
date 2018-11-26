@@ -23,30 +23,33 @@ void CollisionSystem::update(Context& context)
 		if (entityManager->hasComponent<PositionComponent>(entity.id)) {
 			auto boundingBox = &entityManager->getComponent<BoundingBoxComponent>(entity.id)->boundingBox;
 			auto position = entityManager->getComponent<PositionComponent>(entity.id);
-
+			
 			boundingBox->SetPosXY(position->x, position->y);
+
+			if (!entityManager->hasComponent<BoundingBoxComponent>(boundingBoxMap[boundingBox])) {
+				boundingBoxMap[boundingBox] = entity.id;
+			}			
 			quadTree.Insert(*boundingBox);
 		}
 	}
 
-	for (auto entity : entityManager->getAllEntitiesWithComponent<VelocityComponent>())
+	for (auto entity : entityManager->getAllEntitiesWithComponent<BoundingBoxComponent>())
 	{
-		if (entityManager->hasComponent<PositionComponent>(entity.id) &&
-			entityManager->hasComponent<BoundingBoxComponent>(entity.id)) {
+		if (entityManager->hasComponent<PositionComponent>(entity.id) /*&&
+			entityManager->hasComponent<BoundingBoxComponent>(entity.id)*/) {
 
 			auto positionComponent = entityManager->getComponent<PositionComponent>(entity.id);
 			auto boundingBoxComponent = entityManager->getComponent<BoundingBoxComponent>(entity.id);
-			//boundingBoxComponent->boundingBox.SetPosXY(positionComponent->x, positionComponent->y);
 
 			boundingBoxComponent->didCollide = false;
 			boundingBoxComponent->collidesWith.clear();
 
-			std::vector<Physics::BoundingBox const *> vector;
-			quadTree.RetrieveAll(vector, boundingBoxComponent->boundingBox);
-			for (int i = 0; i < vector.size(); i++) {
-				if (&boundingBoxComponent->boundingBox != vector[i] && aabbCollider.CheckCollision(boundingBoxComponent->boundingBox, *vector[i])) {
+			std::vector<Physics::BoundingBox const *> boundingBoxes;
+			quadTree.RetrieveAll(boundingBoxes, boundingBoxComponent->boundingBox);
+			for (int i = 0; i < boundingBoxes.size(); i++) {
+				if (&boundingBoxComponent->boundingBox != boundingBoxes[i] && aabbCollider.CheckCollision(boundingBoxComponent->boundingBox, *boundingBoxes[i])) {
 					boundingBoxComponent->didCollide = true;
-					boundingBoxComponent->collidesWith.push_back(vector[i]);
+					boundingBoxComponent->collidesWith.push_back(boundingBoxMap[boundingBoxes[i]]);
 				}
 			}
 		}
