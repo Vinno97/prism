@@ -22,5 +22,7 @@ namespace Menu {
 
 		~Menu();
 		void cleanup();
+	private:
+		bool hit = false;
 	};
 }

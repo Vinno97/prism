@@ -48,6 +48,24 @@ namespace Menu {
 		callback = callback_;
 	}
 
+	Control::Control(float x, float y, float width, float height, const char * path,
+		std::function<void(Math::Vector3f&position, Math::Vector3f&size)> hoverCallback_,
+		std::function<void(Math::Vector3f&position, Math::Vector3f&size)> leaveCallback_) : Control(x, y, width, height, path)
+	{
+		leaveCallback = leaveCallback_;
+		hoverCallback = hoverCallback_;
+	}
+
+	Control::Control(float x, float y, float width, float height, const char * path, 
+		std::function<void()> callback_, 
+		std::function<void(Math::Vector3f&position, Math::Vector3f&size)> hoverCallback_,
+		std::function<void(Math::Vector3f&position, Math::Vector3f&size)> leaveCallback_) : Control(x, y, width, height, path)
+	{
+		callback = callback_;
+		leaveCallback = leaveCallback_;
+		hoverCallback = hoverCallback_;
+	}
+
 	void Control::UpdateTexture(const char *path)
 	{
 
@@ -57,5 +75,22 @@ namespace Menu {
 	{
 		if(callback != nullptr)
 			callback();
+	}
+	void Control::onEnter()
+	{
+		if (hoverCallback == nullptr || isActive)
+			return;
+
+		hoverCallback(position, size);
+		isActive = true;
+	}
+
+	void Control::onLeave()
+	{
+		if (leaveCallback == nullptr || !isActive)
+			return;
+
+		leaveCallback(position, size);
+		isActive = false;
 	}
 }

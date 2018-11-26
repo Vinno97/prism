@@ -7,6 +7,7 @@
 #include "Renderer/Graphics/Models/Mesh.h"
 #include "Renderer/Graphics/OpenGL/OGLRenderDevice.h"
 #include "Renderer/Graphics/RenderDevice.h"
+#include "Math/Vector3f.h"
 
 namespace Menu {
 	class MenuBuilder
@@ -15,6 +16,14 @@ namespace Menu {
 		MenuBuilder();
 		void addControl(float x, float y, float width, float height, const char *path);
 		void addControl(float x, float y, float width, float height, const char *path, std::function<void()> callback_);
+		void addControl(float x, float y, float width, float height, const char *path,
+			std::function<void(Math::Vector3f& position, Math::Vector3f& size)> hoverCallback_,
+			std::function<void(Math::Vector3f& position, Math::Vector3f& size)> leaveCallback_);
+		void addControl(float x, float y, float width, float height, const char *path, 
+			std::function<void()> callback_, 
+			std::function<void(Math::Vector3f& position, Math::Vector3f& size)> hoverCallback_,
+			std::function<void(Math::Vector3f& position, Math::Vector3f& size)> leaveCallback_);
+
 		Menu buildMenu();
 	private:
 		void initMesh();

@@ -1,10 +1,13 @@
 #include "States/MainMenuState.h"
 #include "StateMachine.h";
 #include "States/PrismGame.h"; 
+#include "Math/Vector3f.h";
 #include "Renderer/Graphics/RenderDevice.h"
 #include "Renderer/Graphics/OpenGL/OGLRenderDevice.h"
 #include "Renderer/Graphics/OpenGL/OGLVertexShader.h"
 #include "Renderer/Graphics/OpenGL/OGLPipeline.h"
+
+using namespace Math;
 
 namespace States {
 	MainMenuState::MainMenuState()
@@ -17,9 +20,11 @@ namespace States {
 		context.stateMachine->addState(game, context);
 
 		std::function<void()> callback = [context]() { context.stateMachine->setState<PrismGame>(); };
-		menuBuilder.addControl(-0.35,  0.4, 0.6, 0.18, "img/NewGameButton.png", callback);
-		menuBuilder.addControl(-0.35,  0.1, 0.6, 0.18, "img/LoadGameButton.png");
-		menuBuilder.addControl(-0.35, -0.7, 0.6, 0.18, "img/QuitGameButton.png");
+		std::function<void(Vector3f& position, Vector3f& size)> hoverCallback = [](Vector3f& position, Vector3f& size) { position.y -= 0.01; };
+		std::function<void(Vector3f& position, Vector3f& size)> leaveCallback = [](Vector3f& position, Vector3f& size) { position.y += 0.01; };
+		menuBuilder.addControl(-0.35,  0.4, 0.6, 0.18, "img/NewGameButton.png", callback, hoverCallback, leaveCallback);
+		menuBuilder.addControl(-0.35,  0.1, 0.6, 0.18, "img/LoadGameButton.png", hoverCallback, leaveCallback);
+		menuBuilder.addControl(-0.35, -0.7, 0.6, 0.18, "img/QuitGameButton.png", hoverCallback, leaveCallback);
 
 
 		menu = menuBuilder.buildMenu();
@@ -34,11 +39,11 @@ namespace States {
 		menuRenderer.renderMenu(menu, float(context.window->width) / float(context.window->height));
 
 		auto input = context.inputManager;
+		context.window->swapScreen();
 		if (menu.handleInput(*context.inputManager, context.window->width, context.window->height)) {
 			return;
 		}
 
-		context.window->swapScreen();
 	}
 
 	void MainMenuState::onEnter()
