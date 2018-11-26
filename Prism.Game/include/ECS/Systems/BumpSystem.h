@@ -11,7 +11,7 @@ namespace ECS {
 		public:
 			BumpSystem(ECS::EntityManager &entityManager);
 			~BumpSystem();
-			void update(Context context) override;
+			void update(Context& context) override;
 			System* clone() override;
 		private:
 			Physics::AABBCollider aabbCollider;

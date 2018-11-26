@@ -10,7 +10,7 @@ namespace ECS {
 		public:
 			MotionSystem(EntityManager &entityManager);
 			~MotionSystem();
-			void update(Context context);
+			void update(Context& context);
 			System* clone() override;
 		};
 	}

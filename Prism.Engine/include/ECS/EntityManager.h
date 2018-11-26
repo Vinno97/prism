@@ -98,9 +98,7 @@ namespace ECS {
 		template<typename T, typename = std::enable_if_t < std::is_base_of<Component, T>::type::value>>
 		std::vector<Entity<T*>> getAllEntitiesWithComponent() const {
 			auto const type = std::type_index(typeid(T));
-
 			auto const entities = getAllEntitiesWithComponent(type);
-
 			std::vector<Entity<T*>> result;
 
 			result.reserve(entities.size());
@@ -110,6 +108,8 @@ namespace ECS {
 				entity.component = static_cast<T*>(entry.component);
 				result.push_back(entity);
 			}
+			
+
 			return result;
 		}
 

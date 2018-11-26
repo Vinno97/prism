@@ -332,8 +332,24 @@ ASALocalRun/
 # Local History for Visual Studio
 .localhistory/
 
+# Visual Studio code workspace settings
+.vscode/
+
 # CMake build directories
 cmake-build-*/
+out/
+
+# CMake files
+CMakeLists.txt.user
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
+Testing
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
 
 # Allow .obj model resources
 !Prism.Game/res/**/*.obj
@@ -342,3 +358,4 @@ cmake-build-*/
 !Prism.*/lib/x64/
 !Prism.*/lib/x86/
 
+*.ini

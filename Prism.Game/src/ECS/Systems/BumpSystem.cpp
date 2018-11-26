@@ -13,7 +13,7 @@ BumpSystem::BumpSystem(EntityManager &entityManager) : System(entityManager) {}
 BumpSystem::~BumpSystem()
 = default;
 
-void BumpSystem::update(Context context)
+void BumpSystem::update(Context& context)
 {
 	for (auto entity : entityManager->getAllEntitiesWithComponent<BoundingBoxComponent>()) {
 		auto boundingBoxComponent = entityManager->getComponent<BoundingBoxComponent>(entity.id);
@@ -23,7 +23,7 @@ void BumpSystem::update(Context context)
 			const auto boundingBox = &boundingBoxComponent->boundingBox;
 			auto vector = &boundingBoxComponent->collidesWith;
 			
-			if (CountCollisions(*boundingBox, *boundingBox, *vector) > 0) {
+			if (boundingBoxComponent->didCollide) {
 				const auto position = entityManager->getComponent<PositionComponent>(entity.id);
 				auto velocity = entityManager->getComponent<VelocityComponent>(entity.id);
 
@@ -56,10 +56,11 @@ void BumpSystem::update(Context context)
 	}
 }
 
+
 int BumpSystem::CountCollisions(BoundingBox &box1, BoundingBox &adress, std::vector<const BoundingBox*> &vector)
 {
 	int count = 0;
-	for (int i = 0; i < vector.size();i++) {
+	for (int i = 0; i < vector.size(); i++) {
 		if (aabbCollider.CheckCollision(box1, *(vector[i]))) {
 			count++;
 		}
@@ -71,5 +72,3 @@ ECS::Systems::System* BumpSystem::clone()
 {
 	return new BumpSystem(*entityManager);
 }
-
-

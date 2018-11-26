@@ -28,7 +28,5 @@ namespace Renderer {
 		glm::vec3 position;
 		glm::vec3 rotation;
 		~Camera();
-	private:
-		
 	};
 }
