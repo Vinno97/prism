@@ -18,11 +18,10 @@ namespace ECS {
 	{
 		if (this != &other) {
 			lastEntityId = other.lastEntityId;
-			std::map<std::type_index, std::map<unsigned int, Component*>>::const_iterator it;
 
-			for (it = other.entityComponents.begin(); it != other.entityComponents.end(); it++)
+			for (auto it = other.entityComponents.begin(); it != other.entityComponents.end(); it++)
 			{
-				std::map<unsigned int, Component*> newMap;
+				std::unordered_map<unsigned int, Component*> newMap;
 				for (auto itSub = it->second.begin(); itSub != it->second.end(); itSub++)
 				{
 					newMap[itSub->first] = itSub->second->Clone();
@@ -37,10 +36,9 @@ namespace ECS {
 
 	EntityManager::EntityManager(EntityManager && other)
 	{
-		std::map<std::type_index, std::map<unsigned int, Component*>>::const_iterator it;
-		for (it = other.entityComponents.begin(); it != other.entityComponents.end(); it++)
+		for (auto it = other.entityComponents.begin(); it != other.entityComponents.end(); it++)
 		{
-			std::map<unsigned int, Component*> newMap;
+			std::unordered_map<unsigned int, Component*> newMap;
 			for (auto itSub = it->second.begin(); itSub != it->second.end(); itSub++)
 			{
 				newMap[itSub->first] = itSub->second->Clone();
@@ -58,10 +56,9 @@ namespace ECS {
 	EntityManager & EntityManager::operator=(EntityManager && other)
 	{
 		if (this != &other) {
-			std::map<std::type_index, std::map<unsigned int, Component*>>::const_iterator it;
-			for (it = other.entityComponents.begin(); it != other.entityComponents.end(); it++)
+			for (auto it = other.entityComponents.begin(); it != other.entityComponents.end(); it++)
 			{
-				std::map<unsigned int, Component*> newMap;
+				std::unordered_map<unsigned int, Component*> newMap;
 				for (auto itSub = it->second.begin(); itSub != it->second.end(); itSub++)
 				{
 					newMap[itSub->first] = itSub->second->Clone();
@@ -101,8 +98,8 @@ namespace ECS {
 	bool EntityManager::hasComponent(unsigned int entityId, std::type_index componentType) const
 	{
 		if (entityComponents.find(componentType) != entityComponents.end()) {
-			auto entityList = entityComponents.at(componentType);
-			return entityComponents.at(componentType).find(entityId) != entityComponents.at(componentType).end();
+			auto entityList = &entityComponents.at(componentType);
+			return entityList->find(entityId) != entityList->end();
 		}
 		return false;
 	}
@@ -122,7 +119,7 @@ namespace ECS {
 	}
 
 	void EntityManager::removeEntity(unsigned int entityId) {
-		std::map<std::type_index, std::map<unsigned int, Component*>>::iterator itr = entityComponents.begin();
+		auto itr = entityComponents.begin();
 		while (itr != entityComponents.end()) {
 			itr->second.erase(entityId);
 
@@ -153,11 +150,9 @@ namespace ECS {
 	EntityManager::EntityManager(const EntityManager& other)
 	{
 		lastEntityId = other.lastEntityId;
-		std::map<std::type_index, std::map<unsigned int, Component*>>::const_iterator it;
-
-		for (it = other.entityComponents.begin(); it != other.entityComponents.end(); it++ )
+		for (auto it = other.entityComponents.begin(); it != other.entityComponents.end(); it++ )
 		{
-			std::map<unsigned int, Component*> newMap;
+			std::unordered_map<unsigned int, Component*> newMap;
 			for (auto itSub = it->second.begin(); itSub != it->second.end(); itSub++ )
 			{
 				newMap[itSub->first] = itSub->second->Clone();
