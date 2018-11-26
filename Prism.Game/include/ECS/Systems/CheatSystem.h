@@ -19,6 +19,10 @@ namespace ECS {
 			void increaseResources();
 			void decreaseHealth();
 			void decreaseResources();
+			void increaseGameSpeed();
+			void decreaseGameSpeed();
+		private:
+			float multiplier = 1;
 		};
 	}
 }

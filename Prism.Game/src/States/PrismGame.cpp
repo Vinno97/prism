@@ -146,8 +146,10 @@ namespace States {
 		auto resourceBlobSystem = systemManager.getSystem<ResourceBlobSystem>();
 		auto resourceGatherSystem = systemManager.getSystem<ResourceGatherSystem>();
 		auto gameoverSystem = systemManager.getSystem<GameOverSystem>();
+		auto cheatSystem = systemManager.getSystem<CheatSystem>();
 
 		cheat(context);
+		cheatSystem->update(context);
 		gameoverSystem->update(context);
 		inputSystem->update(context);
 		enemyPathFindingSystem->update(context);
@@ -222,7 +224,12 @@ namespace States {
 		else if (input->isKeyPressed(Key::KEY_T)) {
 			cheatSystem->decreaseResources();
 		}
-
+		else if (input->isKeyPressed(Key::KEY_PLUS)) {
+			cheatSystem->increaseGameSpeed();
+		}
+		else if (input->isKeyPressed(Key::KEY_MIN)) {
+			cheatSystem->decreaseGameSpeed();
+		}
 
 
 	}

@@ -124,6 +124,23 @@ void ECS::Systems::CheatSystem::decreaseResources()
 	}
 }
 
+void ECS::Systems::CheatSystem::decreaseGameSpeed()
+{
+	if (multiplier > 0.2) {
+		multiplier -= 0.1;
+	}
+	
+}
+
+void ECS::Systems::CheatSystem::increaseGameSpeed()
+{
+	if (multiplier < 2.5) {
+		multiplier += 0.1;
+	}
+	
+}
+
+
 
 
 
@@ -133,6 +150,7 @@ ECS::Systems::CheatSystem::~CheatSystem()
 
 void ECS::Systems::CheatSystem::update(Context& context)
 {
+	context.deltaTime *= multiplier;
 }
 
 ECS::System * ECS::Systems::CheatSystem::clone()
