@@ -17,7 +17,11 @@ namespace States {
 		context.stateMachine->addState(game, context);
 
 		std::function<void()> callback = [context]() { context.stateMachine->setState<PrismGame>(); };
-		menuBuilder.addControl(-0.5, 0, 1, 0.21, "img/pause.png", callback);
+		menuBuilder.addControl(-0.35,  0.4, 0.6, 0.18, "img/NewGameButton.png", callback);
+		menuBuilder.addControl(-0.35,  0.1, 0.6, 0.18, "img/LoadGameButton.png");
+		menuBuilder.addControl(-0.35, -0.7, 0.6, 0.18, "img/QuitGameButton.png");
+
+
 		menu = menuBuilder.buildMenu();
 		Renderer::Graphics::RenderDevice* renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
 		renderDevice->setClearColour(1.f, 1.f, 1.f, 1.f);

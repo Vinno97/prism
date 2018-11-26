@@ -63,9 +63,8 @@ namespace States {
 		PauseState ps = PauseState();
 		context.stateMachine->addState(ps, context);
 		std::function<void()> callback = [context, &canPress = canPressEscape]() mutable { canPress = false; context.stateMachine->setState<PauseState>(); };
-		menuBuilder.addControl(-0.98, 0.78, 0.8, 0.15, "img/healthbar.png", callback);
+		menuBuilder.addControl(-0.95, 0.78, 0.8, 0.15, "img/healthbar.png", callback);
 		menu = menuBuilder.buildMenu();
-
 	}
 
 	/// <summary>
