@@ -21,6 +21,7 @@
 #include "ECS/Systems/AttackSystem.h"
 #include "ECS/Systems/BumpSystem.h"
 #include "ECS/Systems/CollisionSystem.h"
+#include "ECS/Systems/CheatSystem.h"
 #include "ECS/Systems/ResourceGatherSystem.h"
 #include "ECS/Systems/ResourceBlobSystem.h"
 #include "ECS/Systems/ShootingSystem.h"

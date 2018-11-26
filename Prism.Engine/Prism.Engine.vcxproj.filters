@@ -53,13 +53,10 @@
     <ClCompile Include="src\Surface.cpp" />
     <ClCompile Include="src\ECS\Systems\MousePointSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\CollisionSystem.cpp" />
-    <ClCompile Include="src\ECS\Systems\AttackSystem.cpp" />
-    <ClCompile Include="src\ECS\Systems\CheatSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ECS\Components\HealthComponent.h" />
     <ClInclude Include="include\ECS\Components\BoundingBoxComponent.h" />
-    <ClInclude Include="include\ECS\Systems\CollisionHandlerSystem.h" />
     <ClInclude Include="include\ECS\Components\CameraComponent.h" />
     <ClInclude Include="include\ECS\Components\MousePointerComponent.h" />
     <ClInclude Include="include\ECS\Systems\CollisionSystem.h" />
@@ -70,7 +67,6 @@
     <ClInclude Include="include\Physics\QuadTree.h" />
     <ClInclude Include="include\Renderer\Camera.h" />
     <ClInclude Include="include\Renderer\Scene.h" />
-    <ClInclude Include="include\Util\FileReader.h" />
     <ClInclude Include="include\Renderer\ForwardRenderer.h" />
     <ClInclude Include="include\ECS\Components\AppearanceComponent.h" />
     <ClInclude Include="include\ECS\Components\Component.h" />
@@ -152,7 +148,6 @@
     <ClInclude Include="include\ECS\Components\MousePointerComponent.h" />
     <ClInclude Include="include\ECS\Systems\MousePointSystem.h" />
     <ClInclude Include="include\ECS\Components\HealthComponent.h" />
-    <ClInclude Include="include\ECS\Systems\CheatSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\x64\SDL2test.lib" />
