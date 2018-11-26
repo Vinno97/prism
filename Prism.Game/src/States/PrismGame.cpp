@@ -171,7 +171,7 @@ namespace States {
 		context.audioManager->addMusic("Ambience", "Ambience.wav");
 		context.audioManager->addSound("Bullet", "Bullet.wav");
 		context.audioManager->addSound("EnemyKill", "EnemyKill.wav");
-		//Load more
+		context.audioManager->addSound("Resource", "ResourceGathering.wav");
 
 		//Temporarily in here, will be moved to onEnter once context is accessible.
 		context.audioManager->playMusic("Ambience");
