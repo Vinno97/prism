@@ -11,8 +11,6 @@ namespace ECS {
 			AttackSystem(EntityManager &entityManager);
 			~AttackSystem();
 			void update(Context& context) override;
-			std::unique_ptr<System> clone() override;
-
 			///<summary>
 			/// Method to update the entity when collision is detected
 			///<param name="id">The ID of the Entity to update

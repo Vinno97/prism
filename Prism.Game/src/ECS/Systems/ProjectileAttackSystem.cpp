@@ -61,10 +61,5 @@ namespace ECS {
 			}
 
 		}
-
-		std::unique_ptr<System> ProjectileAttackSystem::clone()
-		{
-			return std::make_unique<ProjectileAttackSystem>(ProjectileAttackSystem(*entityManager));
-		}
 	}
 }

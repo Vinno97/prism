@@ -12,7 +12,6 @@ namespace ECS {
 			~ShootingSystem();
 
 			void update(Context& context) override;
-			std::unique_ptr<System> clone() override;
 		private:
 			float pastTime = 0;
 			float cooldown = 0.2;

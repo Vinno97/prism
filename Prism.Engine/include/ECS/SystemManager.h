@@ -56,12 +56,12 @@ namespace ECS {
 		SystemManager &registerSystem(Fs &&... fs) {
 
 			const std::type_index type = std::type_index(typeid(A));
-			for (auto systems : prioritizedSystems) {
+			for (auto& systems : prioritizedSystems) {
 				if (systems.second.find(type) != systems.second.end()) {
 					throw std::runtime_error("There can only one type of " + *type.name() + *" registered");
 				}
 			}
-			prioritizedSystems[P][type] = std::make_unique<B>(std::forward<Fs>(fs)...);
+			prioritizedSystems[P][type] = std::move(std::make_unique<B>(std::forward<Fs>(fs)...));
 			return *this;
 		}
 

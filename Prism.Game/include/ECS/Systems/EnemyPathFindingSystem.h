@@ -11,7 +11,6 @@ namespace ECS {
 			EnemyPathFindingSystem(EntityManager &entityManager, float enemySpeed);
 			~EnemyPathFindingSystem();
 			void update(Context& context) override;
-			std::unique_ptr<System> clone() override;
 		private:
 			float enemySpeed;
 		};

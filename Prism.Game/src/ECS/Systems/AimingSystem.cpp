@@ -43,10 +43,5 @@ namespace ECS {
 				}
 			}
 		}
-
-		std::unique_ptr<System> AimingSystem::clone()
-		{
-			return std::make_unique<AimingSystem>(AimingSystem(*entityManager));
-		}
 	}
 }

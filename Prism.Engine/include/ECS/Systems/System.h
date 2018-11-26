@@ -16,7 +16,6 @@ namespace ECS {
 			System(EntityManager& entityManager);
 			virtual ~System();
 			virtual void update(Context& context) = 0;
-			virtual std::unique_ptr<System> clone() = 0;
 
 		protected:
 			EntityManager *entityManager;

@@ -49,10 +49,6 @@ namespace ECS {
 				}
 			}
 		}
-		std::unique_ptr<System> ResourceGatherSystem::clone()
-		{
-			return std::make_unique<ResourceGatherSystem>(ResourceGatherSystem(*entityManager));
-		}
 		bool ResourceGatherSystem::shouldIncreaseResources(PositionComponent& playerPosition, PositionComponent& resourcePointPosition, float radius) const
 		{
 			auto x = resourcePointPosition.x - playerPosition.x;

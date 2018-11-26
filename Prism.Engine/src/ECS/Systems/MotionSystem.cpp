@@ -38,7 +38,3 @@ void ECS::Systems::MotionSystem::update(Context& context) {
 
 }
 
-std::unique_ptr<ECS::Systems::System> ECS::Systems::MotionSystem::clone()
-{
-	return std::make_unique<MotionSystem>(MotionSystem(*entityManager));
-}

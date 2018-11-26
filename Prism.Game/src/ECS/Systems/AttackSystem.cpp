@@ -73,12 +73,3 @@ void ECS::Systems::AttackSystem::updateEntity(int id) {
 	}
 }
 
-
-std::unique_ptr<ECS::System> ECS::Systems::AttackSystem::clone()
-{
-	Physics::BoundingBox b = quadTree.GetBounds();
-	float width = b.GetEast() - b.GetWest();
-	float height = b.GetNorth() - b.GetSouth();
-
-	return std::make_unique<AttackSystem>(AttackSystem(*entityManager));
-}

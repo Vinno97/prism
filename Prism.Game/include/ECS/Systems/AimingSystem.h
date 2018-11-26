@@ -12,7 +12,6 @@ namespace ECS {
 			~AimingSystem();
 
 			void update(Context& context) override;
-			std::unique_ptr<System> clone() override;
 		private:
 
 		};

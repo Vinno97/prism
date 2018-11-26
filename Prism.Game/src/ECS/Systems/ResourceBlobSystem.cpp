@@ -74,9 +74,5 @@ namespace ECS {
 				//std::cout << "type " << resourceType << "- amount " << playerInventory.greenResource << std::endl;
 			}
 		}
-		std::unique_ptr<System> ResourceBlobSystem::clone()
-		{
-			return nullptr;
-		}
 	}
 }

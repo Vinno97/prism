@@ -16,7 +16,6 @@ namespace ECS {
 		private:
 			void removeResourceBlobs(PositionComponent & playerPosition, PositionComponent & blobPosition, int blob);
 			void increateResource(Enums::ResourceType resourceType, InventoryComponent & playerInventory, float gatherRate);
-			std::unique_ptr<System> clone() override;
 
 		};
 	}
