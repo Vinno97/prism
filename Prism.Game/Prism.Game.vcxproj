@@ -113,6 +113,7 @@
     <ClInclude Include="include\ECS\Systems\ResourceGatherSystem.h" />
     <ClInclude Include="include\EntityFactory.h" />
     <ClInclude Include="include\States\EndState.h" />
+    <ClInclude Include="include\States\MainMenuState.h" />
     <ClInclude Include="include\States\PrismGame.h" />
     <ClInclude Include="include\World\Assemblers\EnemyAssembler.h" />
     <ClInclude Include="include\World\Assemblers\EnemySpawnAssembler.h" />
@@ -143,6 +144,7 @@
     <ClCompile Include="src\ECS\Systems\ResourceGatherSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\EnemySpawnSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\EnemyPathFindingSystem.cpp" />
+    <ClCompile Include="src\States\MainMenuState.cpp" />
     <ClCompile Include="src\States\PauseState.cpp" />
     <ClCompile Include="src\ECS\Systems\KeyboardInputSystem.cpp" />
     <ClCompile Include="src\EntityFactory.cpp" />
