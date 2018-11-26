@@ -28,7 +28,7 @@ class PrismGame : public Game
 	Menu::MenuBuilder menuBuilder;
 	Menu::MenuRenderer menuRenderer;
 	Menu::Menu menu;
-
+	void cheat(Context &context);
 	void registerSystems(Context &context);
 
 	bool canPressEscape;
