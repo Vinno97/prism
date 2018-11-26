@@ -68,7 +68,7 @@ int BumpSystem::CountCollisions(BoundingBox &box1, BoundingBox &adress, std::vec
 	return count;
 }
 
-ECS::Systems::System* BumpSystem::clone()
+std::unique_ptr<System> BumpSystem::clone()
 {
-	return new BumpSystem(*entityManager);
+	return std::make_unique<BumpSystem>(BumpSystem(*entityManager));
 }

@@ -12,7 +12,7 @@ namespace ECS {
 			EnemySpawnSystem(EntityManager &entityManager);
 			~EnemySpawnSystem();
 			void update(Context& context) override;
-			System* clone() override;
+			std::unique_ptr<System> clone() override;
 		};
 	}
 }

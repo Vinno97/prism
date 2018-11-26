@@ -11,7 +11,7 @@ namespace ECS {
 			KeyboardInputSystem(EntityManager &entityManager);
 			~KeyboardInputSystem();
 			void update(Context& context) override;
-			System* clone() override;
+			std::unique_ptr<System> clone() override;
 		};
 	}
 }

@@ -103,8 +103,8 @@ namespace States {
 	{
 	   auto input = context.inputManager;
 
-		for (auto systemList : systemManager.getAllSystems()) {
-			for (auto system : systemList.second) {
+		for (auto& systemList : systemManager.getAllSystems()) {
+			for (auto& system : systemList.second) {
 				system.second->update(context);
 			}
 		}

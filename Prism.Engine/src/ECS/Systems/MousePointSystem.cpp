@@ -66,9 +66,9 @@ namespace ECS {
 			}
 		}
 
-		System * MousePointSystem::clone()
+		std::unique_ptr<System> MousePointSystem::clone()
 		{
-			return new MousePointSystem(*entityManager);
+			return std::make_unique<MousePointSystem>(MousePointSystem(*entityManager));
 		}
 	}
 }

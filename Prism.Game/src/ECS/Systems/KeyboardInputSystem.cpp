@@ -98,10 +98,9 @@ namespace ECS {
 			}
 		}
 
-		System * KeyboardInputSystem::clone()
+		std::unique_ptr<System> KeyboardInputSystem::clone()
 		{
-			auto test = new KeyboardInputSystem(*entityManager);
-			return test;
+			return std::make_unique<KeyboardInputSystem>(*entityManager);
 		}
 	}
 }

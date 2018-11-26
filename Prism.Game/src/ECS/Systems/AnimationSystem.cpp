@@ -63,9 +63,9 @@ namespace ECS {
 				appearance->rotationY= result;
 			}
 		}
-		System * AnimationSystem::clone()
+		std::unique_ptr<System> AnimationSystem::clone()
 		{
-			return new AnimationSystem(*entityManager);
+			return std::make_unique<AnimationSystem>(AnimationSystem(*entityManager));
 		}
 	}
 }

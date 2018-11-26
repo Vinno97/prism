@@ -12,7 +12,7 @@ namespace ECS {
 			BumpSystem(ECS::EntityManager &entityManager);
 			~BumpSystem();
 			void update(Context& context) override;
-			System* clone() override;
+			std::unique_ptr<System> clone() override;
 		private:
 			Physics::AABBCollider aabbCollider;
 

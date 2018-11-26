@@ -72,10 +72,9 @@ namespace ECS {
 			forwardRenderer->draw(cameraComponent->camera, rendererData, sceneComponent->scene);
 		}
 
-		System * RenderSystem::clone()
+		std::unique_ptr<System> RenderSystem::clone()
 		{
-			RenderSystem* system = new RenderSystem(*entityManager, forwardRenderer->width, forwardRenderer->height);
-			return system;
+			return std::make_unique<RenderSystem>(RenderSystem(*entityManager, forwardRenderer->width, forwardRenderer->height));
 		}
 	}
 }

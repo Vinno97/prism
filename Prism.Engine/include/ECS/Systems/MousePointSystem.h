@@ -13,7 +13,7 @@ namespace ECS {
 			MousePointSystem(EntityManager &entityManager);
 			~MousePointSystem();
 			void update(Context& context) override;
-			System* clone() override;
+			std::unique_ptr<System> clone() override;
 
 			int mouseEntityID;
 		};

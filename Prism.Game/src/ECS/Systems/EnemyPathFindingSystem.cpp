@@ -43,9 +43,9 @@ namespace ECS {
 			}
 		}
 
-		ECS::Systems::System* EnemyPathFindingSystem::clone()
+		std::unique_ptr<System> EnemyPathFindingSystem::clone()
 		{
-			return new EnemyPathFindingSystem(*entityManager,enemySpeed);
+			return std::make_unique<EnemyPathFindingSystem>(EnemyPathFindingSystem(*entityManager,enemySpeed));
 		}
 	}
 }

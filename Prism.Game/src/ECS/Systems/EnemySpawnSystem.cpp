@@ -35,9 +35,9 @@ namespace ECS {
 				}
 			}
 		}
-		System * EnemySpawnSystem::clone()
+		std::unique_ptr<System> EnemySpawnSystem::clone()
 		{
-			return new EnemySpawnSystem(*entityManager);
+			return std::make_unique<EnemySpawnSystem>(EnemySpawnSystem(*entityManager));
 		}
 	}
 }

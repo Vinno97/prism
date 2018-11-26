@@ -12,55 +12,52 @@ namespace ECS {
 
 	SystemManager::~SystemManager()
 	{
-		for (const auto systems : prioritizedSystems) {
-			for (const auto type : systems.second) {
-				delete type.second;
-			}
-
-		}
+		
 	}
 
-	SystemManager::SystemManager(const SystemManager & other)
-	{
+	//SystemManager::SystemManager(const SystemManager & other)
+	//{
+	//
+	//	for (const auto systems : other.prioritizedSystems) {
+	//		for (const auto& type : systems.second) {
+	//			std::unique_ptr<System> system = std::make_unique<System>(*type.second->clone());
+	//			this->prioritizedSystems[systems.first][type.first] = std::move(system);
+	//			type.first;
+	//		};
+	//	}
+	//}
 
-		for (const auto systems : other.prioritizedSystems) {
-			for (const auto type : systems.second) {
-				this->prioritizedSystems[systems.first][type.first] = type.second->clone();
-				type.first;
-			};
-		}
-	}
+	//SystemManager & SystemManager::operator=(const SystemManager & other)
+	//{
+	//	if (this != &other) {
+	//
+	//		for (const auto systems : other.prioritizedSystems) {
+	//			for (const auto &type : systems.second) {
+	//				std::unique_ptr<System> system = std::make_unique<System>(*type.second->clone());
+	//				this->prioritizedSystems[systems.first][type.first] = std::move(system);
+	//				type.first;
+	//			};
+	//		}
+	//	}
+	//	return *this;
+	//}
 
-	SystemManager & SystemManager::operator=(const SystemManager & other)
-	{
-		if (this != &other) {
+	//SystemManager::SystemManager(SystemManager && other)
+	//{
+	//	this->prioritizedSystems = other.prioritizedSystems;
+	//	other.prioritizedSystems.clear();
+	//}
+	//
+	//SystemManager & SystemManager::operator=(SystemManager && other)
+	//{
+	//	if (this != &other) {
+	//		this->prioritizedSystems = other.prioritizedSystems;
+	//		other.prioritizedSystems.clear();
+	//	}
+	//	return *this;
+	//}
 
-			for (const auto systems : other.prioritizedSystems) {
-				for (const auto type : systems.second) {
-					this->prioritizedSystems[systems.first][type.first] = type.second->clone();
-					type.first;
-				};
-			}
-		}
-		return *this;
-	}
-
-	SystemManager::SystemManager(SystemManager && other)
-	{
-		this->prioritizedSystems = other.prioritizedSystems;
-		other.prioritizedSystems.clear();
-	}
-
-	SystemManager & SystemManager::operator=(SystemManager && other)
-	{
-		if (this != &other) {
-			this->prioritizedSystems = other.prioritizedSystems;
-			other.prioritizedSystems.clear();
-		}
-		return *this;
-	}
-
-	std::map<int, std::map<std::type_index, System*>>& SystemManager::getAllSystems()
+	std::map<int, std::map<std::type_index, std::unique_ptr<System>>>& SystemManager::getAllSystems()
 	{
 		return prioritizedSystems;
 	}
@@ -69,8 +66,7 @@ namespace ECS {
 	{
 		try
 		{
-			for (auto systems : prioritizedSystems) {
-				delete systems.second.at(systemType);
+			for (auto& systems : prioritizedSystems) {
 				systems.second.erase(systemType);
 			}
 
@@ -81,16 +77,13 @@ namespace ECS {
 		}
 	}
 
-	void SystemManager::registerSystem(std::type_index systemType, ECS::Systems::System* system)
-	{
-	}
 
-	ECS::Systems::System * SystemManager::getSystem(std::type_index systemType) const
+	System* SystemManager::getSystem(std::type_index systemType) const
 	{
 		try
 		{
-			for (auto systems : prioritizedSystems) {
-				return systems.second.at(systemType);
+			for (auto& systems : prioritizedSystems) {
+				return systems.second.at(systemType).get();
 			}
 
 		}

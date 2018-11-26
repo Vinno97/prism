@@ -11,7 +11,7 @@ namespace ECS {
 			MotionSystem(EntityManager &entityManager);
 			~MotionSystem();
 			void update(Context& context);
-			System* clone() override;
+			std::unique_ptr<System> clone() override;
 		};
 	}
 }

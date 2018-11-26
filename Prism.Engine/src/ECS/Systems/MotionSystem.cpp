@@ -5,7 +5,6 @@
 #include "ECS/Components/PositionComponent.h"
 #include "ECS/Components/VelocityComponent.h"
 #include "ECS/EntityManager.h"
-#include "ECS/SystemManager.h"
 
 
 ECS::Systems::MotionSystem::MotionSystem(EntityManager &entityManager) : System(entityManager) {}
@@ -39,8 +38,7 @@ void ECS::Systems::MotionSystem::update(Context& context) {
 
 }
 
-ECS::System * ECS::Systems::MotionSystem::clone()
+std::unique_ptr<ECS::Systems::System> ECS::Systems::MotionSystem::clone()
 {
-	MotionSystem* system = new MotionSystem(*entityManager);
-	return system;
+	return std::make_unique<MotionSystem>(MotionSystem(*entityManager));
 }

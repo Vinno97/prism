@@ -53,9 +53,9 @@ namespace ECS {
 
 		}
 
-		System * ShootingSystem::clone()
+		std::unique_ptr<System> ShootingSystem::clone()
 		{
-			return new ShootingSystem(*entityManager);
+			return std::make_unique<ShootingSystem>(ShootingSystem(*entityManager));
 		}
 	}
 }

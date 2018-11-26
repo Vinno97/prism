@@ -13,10 +13,10 @@ namespace ECS {
 	public:
 		SystemManager();
 		~SystemManager();
-		SystemManager(const SystemManager&other);
-		SystemManager& operator=(const SystemManager& other);
-		SystemManager(SystemManager&& other);
-		SystemManager& operator=(SystemManager&& other);
+		//SystemManager(const SystemManager&other);
+		//SystemManager& operator=(const SystemManager& other);
+		//SystemManager(SystemManager&& other);
+		//SystemManager& operator=(SystemManager&& other);
 
 		/// <summary>
 		/// Unregisters a System of a certain type.
@@ -44,7 +44,7 @@ namespace ECS {
 		/// Gets all systems by priority.
 		/// </summary>
 		/// <returns></returns>
-		 std::map<int, std::map<std::type_index, System*>>& getAllSystems();
+		 std::map<int, std::map<std::type_index, std::unique_ptr<System>>>& getAllSystems();
 
 
 		/// <summary>
@@ -61,7 +61,7 @@ namespace ECS {
 					throw std::runtime_error("There can only one type of " + *type.name() + *" registered");
 				}
 			}
-			prioritizedSystems[P][type] = new B(std::forward<Fs>(fs)...);
+			prioritizedSystems[P][type] = std::make_unique<B>(B(std::forward<Fs>(fs)...));
 			return *this;
 		}
 
@@ -80,10 +80,9 @@ namespace ECS {
 		/// A dictonary with all the registered systems.
 		/// </summary>
 		//std::map<std::type_index, System*> systems;
-		std::map<int, std::map<std::type_index, System*>> prioritizedSystems;
+		std::map<int, std::map<std::type_index, std::unique_ptr<System>>> prioritizedSystems;
 
 		void unRegisterSystem(std::type_index systemType);
-		void registerSystem(std::type_index systemType, System* system);
 		System* getSystem(std::type_index systemType) const;
 	};
 }
