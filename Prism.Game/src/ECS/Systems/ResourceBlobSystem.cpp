@@ -33,11 +33,11 @@ namespace ECS {
 				blobVelocity->dx = direction.x;
 				blobVelocity->dy = direction.y;
 
-				removeResourceBlobs(*playerLocation, *blobPosition, blob.id);
+				removeResourceBlobs(*playerLocation, *blobPosition, blob.id, context);
 			}
 		}
 
-		void ResourceBlobSystem::removeResourceBlobs(PositionComponent &playerPosition, PositionComponent &blobPosition, int blob) {
+		void ResourceBlobSystem::removeResourceBlobs(PositionComponent &playerPosition, PositionComponent &blobPosition, int blob, Context & context) {
 
 			auto x = blobPosition.x - playerPosition.x;
 			auto y = blobPosition.y - playerPosition.y;
@@ -52,6 +52,7 @@ namespace ECS {
 				auto playerInventory = entityManager->getComponent<InventoryComponent>(player.id);
 				increateResource(resource->resourceType, *playerInventory, resource->value );
 
+				context.audioManager->playSound("Resource");
 				entityManager->removeEntity(blob);
 			}
 			

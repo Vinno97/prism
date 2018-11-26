@@ -30,6 +30,6 @@ class PrismGame : public Game
 
 	bool canPressEscape;
 	void registerSystems(Context &context);
-
+	void loadAudio(Context &context) const;
 };
 } // namespace States

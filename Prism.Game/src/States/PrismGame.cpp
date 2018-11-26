@@ -3,7 +3,7 @@
 #include "Math/Vector3f.h"
 #include "StateMachine.h"
 #include "States/PauseState.h"
-
+#include "States/EndState.h"
 #include "ECS/Components/SceneComponent.h"
 #include "ECS/Components/PositionComponent.h"
 #include "ECS/Components/VelocityComponent.h"
@@ -58,10 +58,15 @@ namespace States {
 		//loader.load("saves/Sample Save", entityManager);
 		loader.save("saves/Sample Save", entityManager);
 
+		loadAudio(context);
+
 		registerSystems(context);
 
 		PauseState ps = PauseState();
 		context.stateMachine->addState(ps, context);
+		EndState es = EndState();
+		context.stateMachine->addState(es, context);
+		
 		std::function<void()> callback = [context, &canPress = canPressEscape]() mutable { canPress = false; context.stateMachine->setState<PauseState>(); };
 		menuBuilder.addControl(-0.95, 0.78, 0.8, 0.15, "img/healthbar.png", callback);
 		menu = menuBuilder.buildMenu();
@@ -163,6 +168,18 @@ namespace States {
 			context.stateMachine->setState<PauseState>();
 		}
 	}
+
+	void PrismGame::loadAudio(Context &context) const
+	{
+		context.audioManager->addMusic("Ambience", "Ambience.wav");
+		context.audioManager->addSound("Bullet", "Bullet.wav");
+		context.audioManager->addSound("EnemyKill", "EnemyKill.wav");
+		context.audioManager->addSound("Resource", "ResourceGathering.wav");
+
+		//Temporarily in here, will be moved to onEnter once context is accessible.
+		context.audioManager->playMusic("Ambience");
+	}
+
 	void PrismGame::onEnter() {
 	}
 	void PrismGame::onLeave() {
