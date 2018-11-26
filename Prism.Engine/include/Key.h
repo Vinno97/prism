@@ -14,4 +14,5 @@ enum class Key {
 	MOUSE_BUTTON_LEFT,
 	KEY_PLUS,
 	KEY_MIN,
+	KEY_END,
 };

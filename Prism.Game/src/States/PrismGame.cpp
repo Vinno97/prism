@@ -230,6 +230,9 @@ namespace States {
 		else if (input->isKeyPressed(Key::KEY_MIN)) {
 			cheatSystem->decreaseGameSpeed();
 		}
+		else if (input->isKeyPressed(Key::KEY_END)) {
+			cheatSystem->resetGameSpeed();
+		}
 
 
 	}

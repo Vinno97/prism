@@ -139,7 +139,9 @@ void ECS::Systems::CheatSystem::increaseGameSpeed()
 	}
 	
 }
-
+void ECS::Systems::CheatSystem::resetGameSpeed() {
+	multiplier = 1.0;
+}
 
 
 

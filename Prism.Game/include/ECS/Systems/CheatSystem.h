@@ -21,6 +21,7 @@ namespace ECS {
 			void decreaseResources();
 			void increaseGameSpeed();
 			void decreaseGameSpeed();
+			void resetGameSpeed();
 		private:
 			float multiplier = 1;
 		};
