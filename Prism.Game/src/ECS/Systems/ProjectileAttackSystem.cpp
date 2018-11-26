@@ -44,6 +44,7 @@ namespace ECS {
 									}
 									if (EnemyHealth->health <= 0) {
 										entityManager->removeEntity(enemy.id);
+										context.audioManager->playSound("EnemyKill");
 										break;
 									}
 								}

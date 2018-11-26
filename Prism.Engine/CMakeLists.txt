@@ -28,6 +28,7 @@ else () # Assume GCC/Clang on a Unix os
     find_package(SDL2 REQUIRED)
 #    find_package(SDL2_image REQUIRED)
     pkg_check_modules(SDL2_IMAGE REQUIRED SDL2_image)
+    pkg_check_modules(SDL2_MIXER REQUIRED SDL2_mixer)
     find_package(OpenGL REQUIRED)
     find_package(GLEW REQUIRED)
     find_package(Assimp REQUIRED)
@@ -60,7 +61,7 @@ elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
 endif()
 
 #target_link_libraries(Prism.Engine PRIVATE ${ASSIMP_LIBRARIES} ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES} ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES})
-target_link_libraries(Prism.Engine PRIVATE ${ASSIMP_LIBRARIES} ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES} ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES} ${FILESYSTEM_LIB})
+target_link_libraries(Prism.Engine PRIVATE ${ASSIMP_LIBRARIES} ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES} ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES} ${SDL2_MIXER_LIBRARIES} ${FILESYSTEM_LIB})
 
 target_include_directories(Prism.Engine PUBLIC include)
 target_include_directories(Prism.Engine PRIVATE

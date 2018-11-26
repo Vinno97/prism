@@ -30,7 +30,7 @@ class PrismGame : public Game
 	Menu::Menu menu;
 
 	void registerSystems(Context &context);
-
+	void loadAudio(Context &context) const;
 	bool canPressEscape;
 };
 } // namespace States

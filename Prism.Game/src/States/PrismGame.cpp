@@ -59,6 +59,8 @@ namespace States {
 		//loader.load("saves/Sample Save", entityManager);
 		loader.save("saves/Sample Save", entityManager);
 
+		loadAudio(context);
+
 		registerSystems(context);
 		PauseState ps = PauseState();
 		context.stateMachine->addState(ps);
@@ -166,6 +168,18 @@ namespace States {
 			canPressEscape = true;
 		}
 	}
+
+	void PrismGame::loadAudio(Context &context) const
+	{
+		context.audioManager->addMusic("Ambience", "Ambience.wav");
+		context.audioManager->addSound("Bullet", "Bullet.wav");
+		context.audioManager->addSound("EnemyKill", "EnemyKill.wav");
+		context.audioManager->addSound("Resource", "ResourceGathering.wav");
+
+		//Temporarily in here, will be moved to onEnter once context is accessible.
+		context.audioManager->playMusic("Ambience");
+	}
+
 	void PrismGame::onEnter() {
 	}
 	void PrismGame::onLeave() {
