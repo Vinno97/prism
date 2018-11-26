@@ -313,7 +313,7 @@ int EntityFactory::createEnemySpawn(int entity, ECS::EntityManager & entityManag
 	position.y = 0;
 	
 	appearance.model = std::move(model);
-	EnemySpawnComponent spawnComponent = EnemySpawnComponent{ spawnInterval, 0.f, enabled };
+	EnemySpawnComponent spawnComponent = EnemySpawnComponent{ 2, 0.f, enabled };
 
 	entityManager.addComponentToEntity(entity, position);
 	entityManager.addComponentToEntity(entity, spawnComponent);
