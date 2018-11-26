@@ -46,8 +46,6 @@ void ECS::Systems::AttackSystem::update(Context& context) {
 						}
 					}
 				}
-
-
 			}
 		}
 	}
@@ -63,16 +61,8 @@ void ECS::Systems::AttackSystem::updateEntity(int id, Context& context) {
 	if (entityManager->hasComponent<HealthComponent>(id)) {
 		auto currentComponent = entityManager->getComponent<HealthComponent>(id);
 
-		currentComponent->health -= 10;
+		currentComponent->health -= 100;
 
-		if (currentComponent->health <= 0) {
-
-			// Print (Remove after review)
-			std::cout << "Player is dead" << std::endl;
-
-			context.stateMachine->setState<EndState>();
-
-		}
 		// Print (Remove after review)
 		std::cout << "Speler: " << currentComponent->health << std::endl;
 	}

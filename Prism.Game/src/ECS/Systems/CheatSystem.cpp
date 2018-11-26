@@ -34,8 +34,10 @@ void ECS::Systems::CheatSystem::decreaseHealth()
 		auto healthComponent = entityManager->getComponent<HealthComponent>(entity.id);
 		if (ticks == 0)
 		{
-			if (healthComponent->health <= 100) {
+			if (healthComponent->health <= 100) {	
 				healthComponent->health = 0;
+
+				
 			}
 			else {
 				healthComponent->health -= 100;

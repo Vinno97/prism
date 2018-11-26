@@ -12,6 +12,7 @@
 #include "ECS/Components/KeyboardInputComponent.h"
 #include "ECS/Systems/EnemyPathFindingSystem.h"
 #include "ECS/Systems/MotionSystem.h"
+#include "ECS/Systems/GameOverSystem.h"
 #include "ECS/Systems/AttackSystem.h"
 #include "ECS/Systems/RenderSystem.h"
 #include "ECS/Systems/EnemySpawnSystem.h"
@@ -92,10 +93,12 @@ namespace States {
 		BumpSystem bumpSystem = BumpSystem(entityManager);
 		AimingSystem aimSystem = AimingSystem(entityManager);
 		AttackSystem attackSystem = AttackSystem(entityManager);
+		GameOverSystem gameoverSystem = GameOverSystem(entityManager);
 
 		systemManager.registerSystem(motionSystem);
 		systemManager.registerSystem(renderSystem);
 		systemManager.registerSystem(inputSystem);
+		systemManager.registerSystem(gameoverSystem);
 		systemManager.registerSystem(enemyPathFindingSystem);
 
 		systemManager.registerSystem(animationSystem);
@@ -133,8 +136,10 @@ namespace States {
 		auto aimSystem = systemManager.getSystem<AimingSystem>();
 		auto resourceBlobSystem = systemManager.getSystem<ResourceBlobSystem>();
 		auto resourceGatherSystem = systemManager.getSystem<ResourceGatherSystem>();
+		auto gameoverSystem = systemManager.getSystem<GameOverSystem>();
 
 		cheat(context);
+		gameoverSystem->update(context);
 		inputSystem->update(context);
 		enemyPathFindingSystem->update(context);
 		motionSystem->update(context);

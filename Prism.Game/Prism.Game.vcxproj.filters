@@ -26,6 +26,7 @@
     <ClCompile Include="src\ECS\Systems\EnemyPathFindingSystem.cpp" />
     <ClCompile Include="src\World\Assemblers\EnemySpawnAssembler.cpp" />
     <ClCompile Include="src\ECS\Systems\CheatSystem.cpp" />
+    <ClCompile Include="src\ECS\Systems\GameOverSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ECS\Components\BulletComponent.h" />
@@ -121,6 +122,7 @@
     <ClInclude Include="include\States\EndState.h" />
     <ClInclude Include="include\World\Assemblers\EnemySpawnAssembler.h" />
     <ClInclude Include="include\ECS\Systems\CheatSystem.h" />
+    <ClInclude Include="include\ECS\Systems\GameOverSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="lib\assimp-vc140-mtd.dll" />
