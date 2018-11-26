@@ -502,18 +502,6 @@
                  "y":280
                 }, 
                 {
-                 "gid":8,
-                 "height":10,
-                 "id":95,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":10,
-                 "x":-450,
-                 "y":-490
-                }, 
-                {
                  "gid":7,
                  "height":10,
                  "id":96,

@@ -3,13 +3,16 @@
 #include "Math/Vector3f.h"
 #include "StateMachine.h"
 #include "States/PauseState.h"
+#include "States/EndState.h"
 #include "ECS/Components/SceneComponent.h"
 #include "ECS/Components/PositionComponent.h"
 #include "ECS/Components/VelocityComponent.h"
 #include "ECS/Components/AppearanceComponent.h"
 #include "ECS/Components/DragComponent.h"
 #include "ECS/Components/KeyboardInputComponent.h"
+#include "ECS/Systems/EnemyPathFindingSystem.h"
 #include "ECS/Systems/MotionSystem.h"
+#include "ECS/Systems/AttackSystem.h"
 #include "ECS/Systems/RenderSystem.h"
 #include "ECS/Systems/EnemySpawnSystem.h"
 #include "ECS/Systems/MousePointSystem.h"
@@ -20,8 +23,15 @@
 #include "ECS/Systems/CollisionSystem.h"
 #include "ECS/Systems/ResourceGatherSystem.h"
 #include "ECS/Systems/ResourceBlobSystem.h"
+#include "ECS/Systems/ShootingSystem.h"
+#include "ECS/Systems/ProjectileAttackSystem.h"
+#include "ECS/Systems/AimingSystem.h"
+#include "ECS/Systems/EnemySpawnSystem.h"
+#include "ECS/Systems/MousePointSystem.h"
 #include "World/WorldLoader.h"
 #include "World/Assemblers/PrismEntityAssembler.h"
+#include "ECS/Systems/MousePointSystem.h"
+#include "ECS/Systems/EnemySpawnSystem.h"
 
 namespace States {
 	using namespace ECS;
@@ -54,6 +64,9 @@ namespace States {
 		registerSystems(context);
 		PauseState ps = PauseState();
 		context.stateMachine->addState(ps);
+
+		EndState es = EndState();
+		context.stateMachine->addState(es);
 	}
 
 	/// <summary>
@@ -65,22 +78,31 @@ namespace States {
 		MotionSystem motionSystem = MotionSystem(entityManager);
 		RenderSystem renderSystem = RenderSystem(entityManager, context.window->width, context.window->height);
 		KeyboardInputSystem inputSystem = KeyboardInputSystem(entityManager);
+		EnemyPathFindingSystem enemyPathFindingSystem  = EnemyPathFindingSystem(entityManager, 10);
 		AnimationSystem animationSystem = AnimationSystem(entityManager);
 		CheatSystem cheatSystem = CheatSystem(entityManager);
 		CollisionSystem collisionSystem = CollisionSystem(entityManager, context.window->width, context.window->height, 0, 0, 2);
-		BumpSystem bumpSystem = BumpSystem(entityManager);
+		ShootingSystem shootingSystem = ShootingSystem(entityManager);
+		ProjectileAttackSystem projectileAttackSystem = ProjectileAttackSystem(entityManager);
 		ResourceBlobSystem resourceBlobSystem = ResourceBlobSystem(entityManager);
 		ResourceGatherSystem resourceGatherSystem = ResourceGatherSystem(entityManager);
 		EnemySpawnSystem enemySpawnSystem = EnemySpawnSystem(entityManager);
 		MousePointSystem pointSystem = MousePointSystem(entityManager);
+		BumpSystem bumpSystem = BumpSystem(entityManager);
+		AimingSystem aimSystem = AimingSystem(entityManager);
 		AttackSystem attackSystem = AttackSystem(entityManager);
 
 		systemManager.registerSystem(motionSystem);
 		systemManager.registerSystem(renderSystem);
 		systemManager.registerSystem(inputSystem);
+		systemManager.registerSystem(enemyPathFindingSystem);
+
 		systemManager.registerSystem(animationSystem);
 		systemManager.registerSystem(cheatSystem);
 		systemManager.registerSystem(collisionSystem);
+		systemManager.registerSystem(shootingSystem);
+		systemManager.registerSystem(projectileAttackSystem);
+		systemManager.registerSystem(aimSystem);
 		systemManager.registerSystem(bumpSystem);
 		systemManager.registerSystem(resourceGatherSystem);
 		systemManager.registerSystem(resourceBlobSystem);
@@ -96,23 +118,30 @@ namespace States {
 		auto input = context.inputManager;
 
 		auto inputSystem = systemManager.getSystem<KeyboardInputSystem>();
-		auto attackSystem = systemManager.getSystem<AttackSystem>();
-		auto bumpSystem = systemManager.getSystem<BumpSystem>();
+		auto enemyPathFindingSystem = systemManager.getSystem<EnemyPathFindingSystem>();
 		auto motionSystem = systemManager.getSystem<MotionSystem>();
 		auto collisionSystem = systemManager.getSystem<CollisionSystem>();
 		auto renderSystem = systemManager.getSystem<RenderSystem>();
 		auto animationSystem = systemManager.getSystem<AnimationSystem>();
+		auto shootingSystem = systemManager.getSystem<ShootingSystem>();
+		auto projectileAttackSystem = systemManager.getSystem<ProjectileAttackSystem>();
+		auto attackSystem = systemManager.getSystem<AttackSystem>();
+		auto bumpSystem = systemManager.getSystem<BumpSystem>();
 		auto enemySpawnSystem = systemManager.getSystem<EnemySpawnSystem>();
 		auto pointSystem = systemManager.getSystem<MousePointSystem>();
-		auto cheatSystem = systemManager.getSystem<CheatSystem>();
+		auto aimSystem = systemManager.getSystem<AimingSystem>();
 		auto resourceBlobSystem = systemManager.getSystem<ResourceBlobSystem>();
 		auto resourceGatherSystem = systemManager.getSystem<ResourceGatherSystem>();
 
 		cheat(context);
 		inputSystem->update(context);
-
+		enemyPathFindingSystem->update(context);
 		motionSystem->update(context);
 		collisionSystem->update(context);
+		pointSystem->update(context);
+		aimSystem->update(context);
+		shootingSystem->update(context);
+		projectileAttackSystem->update(context);
 		attackSystem->update(context);
 		bumpSystem->update(context);
 		animationSystem->update(context);
@@ -120,9 +149,8 @@ namespace States {
 		resourceBlobSystem->update(context);
 		enemySpawnSystem->update(context);
 		renderSystem->update(context);
-		pointSystem->update(context);
 
-		///std::cout << 1.0/context.deltaTime << std::endl;
+		std::cout << 1.0/context.deltaTime << std::endl;
 		/*
 		for (auto &entity : entityManager.getAllEntitiesWithComponent<VelocityComponent>()) {
 			auto velocity = entity.component;
