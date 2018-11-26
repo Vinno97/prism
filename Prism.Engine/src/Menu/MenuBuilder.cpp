@@ -35,7 +35,11 @@ namespace Menu {
 		unique_ptr<VertexBuffer> vertexBuffer = renderDevice->createVertexBuffer(verticesSize, verticesArray);
 
 		std::unique_ptr<VertexArrayObject> vertexArrayObject = renderDevice->createVertexArrayobject();
+		std::unique_ptr<VertexBuffer> texBuffer = renderDevice->createVertexBuffer(verticesSize, texCoords);
+
 		vertexArrayObject->addVertexBuffer(move(vertexBuffer), 0, 2 * sizeof(float), 0, 2);
+		vertexArrayObject->addVertexBuffer(move(texBuffer), 1, 2 * sizeof(float), 0, 2);
+
 		unique_ptr<IndexBuffer> indexBuffer = renderDevice->createIndexBuffer(6 * sizeof(unsigned int), indicesArray);
 
 		mesh = make_shared<Mesh>(move(vertexArrayObject), move(indexBuffer));

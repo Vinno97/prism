@@ -40,9 +40,6 @@ namespace States {
 
 	void PrismGame::onInit(Context & context)
 	{
-
-
-
 		auto floor = entityFactory.createFloor(entityManager);
 		auto scene = entityFactory.createScene(entityManager);
 		auto camera = entityFactory.createCamera(entityManager);
@@ -64,9 +61,9 @@ namespace States {
 		registerSystems(context);
 
 		PauseState ps = PauseState();
-		context.stateMachine->addState(ps);
+		context.stateMachine->addState(ps, context);
 		std::function<void()> callback = [context, &canPress = canPressEscape]() mutable { canPress = false; context.stateMachine->setState<PauseState>(); };
-		menuBuilder.addControl(-1.15, 0.88, 0.6, 0.07, "img/healthbar.png", callback);
+		menuBuilder.addControl(-0.98, 0.78, 0.8, 0.15, "img/healthbar.png", callback);
 		menu = menuBuilder.buildMenu();
 
 	}
@@ -154,13 +151,6 @@ namespace States {
 		renderSystem->update(context);
 
 		std::cout << 1.0/context.deltaTime << std::endl;
-		/*
-		for (auto &entity : entityManager.getAllEntitiesWithComponent<VelocityComponent>()) {
-			auto velocity = entity.component;
-			auto position = entityManager.getComponent<PositionComponent>(entity.id);
-			//printf("Entity:\t\t%d \nPosition: \tX: %.2f, Y: %.2f\nVelocity:\tdX: %.2f, dY: %.2f\n\n", entity.id, position->x, position->y, velocity->dx, velocity->dy);
-		}*/
-
 
 		menuRenderer.renderMenu(menu, float(context.window->width) / float(context.window->height));
 		context.window->swapScreen();
