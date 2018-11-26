@@ -5,9 +5,6 @@
 #include "ECS/Components/HealthComponent.h"
 #include "ECS/Components/VelocityComponent.h"
 #include "ECS/Components/BoundingBoxComponent.h"
-#include "StateMachine.h"
-#include "States/EndState.h"
-#include "States/PauseState.h"
 #include "ECS/Components/EnemyComponent.h"
 #include "ECS/Components/PlayerComponent.h"
 
@@ -17,7 +14,6 @@ ECS::Systems::AttackSystem::AttackSystem(EntityManager &entityManager) : System(
 ECS::Systems::AttackSystem::~AttackSystem()
 = default;
 
-using namespace States;
 
 void ECS::Systems::AttackSystem::update(Context& context) {
 
@@ -61,7 +57,7 @@ void ECS::Systems::AttackSystem::updateEntity(int id, Context& context) {
 	if (entityManager->hasComponent<HealthComponent>(id)) {
 		auto currentComponent = entityManager->getComponent<HealthComponent>(id);
 
-		currentComponent->health -= 100;
+		currentComponent->health -= 10;
 
 		// Print (Remove after review)
 		std::cout << "Speler: " << currentComponent->health << std::endl;
