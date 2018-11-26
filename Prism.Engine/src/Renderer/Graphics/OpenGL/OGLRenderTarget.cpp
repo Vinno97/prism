@@ -18,6 +18,8 @@ namespace Renderer {
 					glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, 1024, 768);
 					glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthrenderbuffer);
 				}
+
+				unbind();
 			}
 
 			void OGLRenderTarget::bind()
@@ -40,8 +42,10 @@ namespace Renderer {
 
 			void OGLRenderTarget::addBuffer(std::shared_ptr<Texture> texture)
 			{
+				bind();
 				glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0+bufferAmount, GL_TEXTURE_2D, texture->getID(), 0);
 				bufferAmount++;
+				unbind();
 			}
 
 			int OGLRenderTarget::getID()
