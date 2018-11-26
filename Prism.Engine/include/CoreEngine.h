@@ -28,6 +28,12 @@ public:
 		context.stateMachine->setState<T>();
 	}
 
+	template<typename T>
+	void setEntryPoint()
+	{
+		context.stateMachine->setState<T>();
+	}
+
 	/// <summary>
 	/// adds a state to the statemachine
 	/// </summary>
@@ -35,6 +41,13 @@ public:
 	template<typename T, typename = std::enable_if_t < std::is_base_of<State, T>::type::value>>
 	void addState(T& state) {
 		context.stateMachine->addState(state);
+		context.stateMachine->getState<T>()->onInit(context);
+	}
+
+	template<typename T, typename...Fs>
+	void addState(Fs&&... fs)
+	{
+		context.stateMachine->addState<T>(std::forward<Fs>(fs)...);
 		context.stateMachine->getState<T>()->onInit(context);
 	}
 

@@ -60,8 +60,7 @@ namespace States {
 		loader.save("saves/Sample Save", entityManager);
 
 		registerSystems(context);
-		PauseState ps = PauseState();
-		context.stateMachine->addState(ps);
+		context.stateMachine->addState<PauseState>();
 	}
 
 	/// <summary>

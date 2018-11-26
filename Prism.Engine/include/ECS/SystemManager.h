@@ -61,7 +61,7 @@ namespace ECS {
 					throw std::runtime_error("There can only one type of " + *type.name() + *" registered");
 				}
 			}
-			prioritizedSystems[P][type] = std::make_unique<B>(B(std::forward<Fs>(fs)...));
+			prioritizedSystems[P][type] = std::make_unique<B>(std::forward<Fs>(fs)...);
 			return *this;
 		}
 
