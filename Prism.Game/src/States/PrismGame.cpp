@@ -150,8 +150,9 @@ namespace States {
 		resourceBlobSystem->update(context);
 		enemySpawnSystem->update(context);
 		renderSystem->update(context);
+	
 
-		std::cout << 1.0/context.deltaTime << std::endl;
+		//std::cout << 1.0/context.deltaTime << std::endl;
 		/*
 		for (auto &entity : entityManager.getAllEntitiesWithComponent<VelocityComponent>()) {
 			auto velocity = entity.component;
@@ -182,9 +183,23 @@ namespace States {
 	{
 		auto input = context.inputManager;
 		auto cheatSystem = systemManager.getSystem<CheatSystem>();
+
+		// TODO: Later naar in game buttons
 		if (input->isKeyPressed(Key::KEY_H))
 		{
 			cheatSystem->increaseHealth();
 		}
+		else if (input->isKeyPressed(Key::KEY_J)) {
+			cheatSystem->decreaseHealth();
+		}
+		else if (input->isKeyPressed(Key::KEY_R)) {
+			cheatSystem->increaseResources();
+		}
+		else if (input->isKeyPressed(Key::KEY_T)) {
+			cheatSystem->decreaseResources();
+		}
+
+
+
 	}
 }

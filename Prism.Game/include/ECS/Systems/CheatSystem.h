@@ -16,6 +16,9 @@ namespace ECS {
 			System* clone() override;
 			float ticks = 0;
 			void increaseHealth();
+			void increaseResources();
+			void decreaseHealth();
+			void decreaseResources();
 		};
 	}
 }

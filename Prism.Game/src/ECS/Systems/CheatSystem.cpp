@@ -2,6 +2,7 @@
 #include "ECS/EntityManager.h"
 #include "ECS/SystemManager.h"
 #include "ECS/Components/HealthComponent.h"
+#include "ECS/Components/InventoryComponent.h"
 #include "ECS/Components/PlayerComponent.h"
 #include "ECS/Systems/CheatSystem.h"
 
@@ -10,13 +11,13 @@ ECS::Systems::CheatSystem::CheatSystem(EntityManager &entityManager) : System(en
 void ECS::Systems::CheatSystem::increaseHealth()
 {
 	for (auto entity : entityManager->getAllEntitiesWithComponent<PlayerComponent>()) {
-		auto healtComponent = entityManager->getComponent<HealthComponent>(entity.id);
+		auto healthComponent = entityManager->getComponent<HealthComponent>(entity.id);
 		if (ticks == 0)
 		{
 			ticks = 1;;
-			healtComponent->health += 100;
+			healthComponent->health += 100;
 			//Test:
-			//std::cout << healtComponent->health << std::endl;
+			//std::cout << healthComponent->health << std::endl;
 		}
 		else {
 			ticks++;
@@ -26,6 +27,101 @@ void ECS::Systems::CheatSystem::increaseHealth()
 		}
 	}
 }
+
+void ECS::Systems::CheatSystem::decreaseHealth()
+{
+	for (auto entity : entityManager->getAllEntitiesWithComponent<PlayerComponent>()) {
+		auto healthComponent = entityManager->getComponent<HealthComponent>(entity.id);
+		if (ticks == 0)
+		{
+			if (healthComponent->health <= 100) {
+				healthComponent->health = 0;
+			}
+			else {
+				healthComponent->health -= 100;
+			}
+
+			ticks = 1;
+		}
+		else {
+			ticks++;
+			if (ticks == 2) {
+				ticks = 0;
+			}
+		}
+	}
+}
+
+void ECS::Systems::CheatSystem::increaseResources()
+{
+	for (auto entity : entityManager->getAllEntitiesWithComponent<PlayerComponent>()) {
+		auto resources = entityManager->getComponent<InventoryComponent>(entity.id);
+		if (ticks == 0)
+		{
+			ticks = 1;;
+			resources->blueResource += 100;
+			resources->redResource += 100;
+			resources->greenResource += 100;
+			
+			//Test:
+			std::cout << "Resources" << std::endl;
+			std::cout << resources->blueResource << std::endl;
+			std::cout << resources->redResource << std::endl;
+			std::cout << resources->greenResource << std::endl;
+		}
+		else {
+			ticks++;
+			if (ticks == 2) {
+				ticks = 0;
+			}
+		}
+	}
+}
+
+void ECS::Systems::CheatSystem::decreaseResources()
+{
+	for (auto entity : entityManager->getAllEntitiesWithComponent<PlayerComponent>()) {
+		auto resources = entityManager->getComponent<InventoryComponent>(entity.id);
+		if (ticks == 0)
+		{
+			ticks = 1;
+
+			if (resources->blueResource <= 100) {
+				resources->blueResource = 0;
+			}
+			else {
+				resources->blueResource -= 100;
+			}
+			
+			if (resources->redResource <= 100) {
+				resources->redResource = 0;
+			}
+			else {
+				resources->redResource -= 100;
+			}
+
+			if (resources->greenResource <= 100) {
+				resources->greenResource = 0;
+			}
+			else {
+				resources->greenResource -= 100;
+			}
+
+			//Test:
+			std::cout << "Resources" << std::endl;
+			std::cout << resources->blueResource << std::endl;
+			std::cout << resources->redResource << std::endl;
+			std::cout << resources->greenResource << std::endl;
+		}
+		else {
+			ticks++;
+			if (ticks == 2) {
+				ticks = 0;
+			}
+		}
+	}
+}
+
 
 
 
