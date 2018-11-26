@@ -1,7 +1,5 @@
 #include "AudioManager.h"
 
-namespace fs = std::experimental::filesystem;
-
 AudioManager::AudioManager()
 {
 	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
@@ -14,7 +12,7 @@ AudioManager::AudioManager()
 
 void AudioManager::addSound(const std::string name, const std::string file)
 {
-	
+
 	auto filepath = fs.getResourcePath("audio/sounds/") += file;
 	Mix_Chunk *sound = Mix_LoadWAV(filepath.c_str());
 
@@ -32,7 +30,7 @@ void AudioManager::addMusic(const std::string name, const std::string file)
 {
 	auto filepath = fs.getResourcePath("audio/music/") += file;
 	Mix_Music *mus = Mix_LoadMUS(filepath.c_str());
-	
+
 	if (mus == nullptr) {
 		std::string error = "Failed to load music! SDL_mixer Error: ";
 		error += Mix_GetError();
