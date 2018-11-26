@@ -16,6 +16,7 @@ in
             pkgconfig
             SDL2
             SDL2_image
+            SDL2_mixer
             assimp
             glm
             glew

@@ -40,6 +40,15 @@ namespace Util {
         return str;
     }
 
+	// In case you just want the resource path, argument can be left empty.
+	std::string FileSystem::getResourcePath(const std::string &path) const
+	{
+		auto pwd = filesystem::current_path();
+		auto filepath = pwd.concat("/res/").concat(path).string();
+
+		return filepath;
+	}
+
     void FileSystem::saveStringIntoResource(const std::string &path, const std::string &data) const {
         std::stringstream stream;
         stream << data;

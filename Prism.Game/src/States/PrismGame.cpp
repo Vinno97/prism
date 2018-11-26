@@ -3,7 +3,7 @@
 #include "Math/Vector3f.h"
 #include "StateMachine.h"
 #include "States/PauseState.h"
-
+#include "States/EndState.h"
 #include "ECS/Components/SceneComponent.h"
 #include "ECS/Components/PositionComponent.h"
 #include "ECS/Components/VelocityComponent.h"
@@ -30,6 +30,7 @@
 #include "World/Assemblers/PrismEntityAssembler.h"
 #include "ECS/Systems/MousePointSystem.h"
 #include "ECS/Systems/EnemySpawnSystem.h"
+#include <functional>
 
 namespace States {
 	using namespace ECS;
@@ -39,8 +40,6 @@ namespace States {
 
 	void PrismGame::onInit(Context & context)
 	{
-		menuBuilder.addControl(-1.15, 0.88, 0.6, 0.07, "img/healthbar.png");
-		menu = menuBuilder.buildMenu();
 		auto floor = entityFactory.createFloor(entityManager);
 		auto scene = entityFactory.createScene(entityManager);
 		auto camera = entityFactory.createCamera(entityManager);
@@ -59,8 +58,17 @@ namespace States {
 		//loader.load("saves/Sample Save", entityManager);
 		loader.save("saves/Sample Save", entityManager);
 
+		loadAudio(context);
+
 		registerSystems(context);
-		context.stateMachine->addState<PauseState>();
+
+		context.stateMachine->addState<PauseState>(context);
+
+		context.stateMachine->addState<EndState>(context);
+		
+		std::function<void()> callback = [context, &canPress = canPressEscape]() mutable { canPress = false; context.stateMachine->setState<PauseState>(); };
+		menuBuilder.addControl(-0.95, 0.78, 0.8, 0.15, "img/healthbar.png", callback);
+		menu = menuBuilder.buildMenu();
 	}
 
 	/// <summary>
@@ -100,7 +108,11 @@ namespace States {
 
 	void PrismGame::onUpdate(Context &context)
 	{
-	   auto input = context.inputManager;
+
+		auto input = context.inputManager;
+		if (menu.handleInput(*context.inputManager, context.window->width, context.window->height)) { 
+			return; 
+		}
 
 		for (auto& systemList : systemManager.getAllSystems()) {
 			for (auto& system : systemList.second) {
@@ -110,27 +122,31 @@ namespace States {
 			
 		
 		std::cout << 1.0/context.deltaTime << std::endl;
-		
-		/*
-		for (auto &entity : entityManager.getAllEntitiesWithComponent<VelocityComponent>()) {
-			auto velocity = entity.component;
-			auto position = entityManager.getComponent<PositionComponent>(entity.id);
-			//printf("Entity:\t\t%d \nPosition: \tX: %.2f, Y: %.2f\nVelocity:\tdX: %.2f, dY: %.2f\n\n", entity.id, position->x, position->y, velocity->dx, velocity->dy);
-		}*/
-		
 
 		menuRenderer.renderMenu(menu, float(context.window->width) / float(context.window->height));
 		context.window->swapScreen();
+
+		if (!input->isKeyPressed(Key::KEY_ESCAPE)) {
+			canPressEscape = true;
+		}
 
 		if (input->isKeyPressed(Key::KEY_ESCAPE) && canPressEscape) {
 			canPressEscape = false;
 			context.stateMachine->setState<PauseState>();
 		}
-
-		if (!input->isKeyPressed(Key::KEY_ESCAPE)) {
-			canPressEscape = true;
-		}
 	}
+
+	void PrismGame::loadAudio(Context &context) const
+	{
+		context.audioManager->addMusic("Ambience", "Ambience.wav");
+		context.audioManager->addSound("Bullet", "Bullet.wav");
+		context.audioManager->addSound("EnemyKill", "EnemyKill.wav");
+		context.audioManager->addSound("Resource", "ResourceGathering.wav");
+
+		//Temporarily in here, will be moved to onEnter once context is accessible.
+		context.audioManager->playMusic("Ambience");
+	}
+
 	void PrismGame::onEnter() {
 	}
 	void PrismGame::onLeave() {

@@ -2,8 +2,8 @@
 
 #include "Menu/Control.h"
 #include "Renderer/Graphics/Models/Mesh.h"
-#include "Renderer/Graphics/OpenGL/OGLRenderDevice.h"
 #include <vector>
+#include "InputManager.h"
 
 namespace Menu {
 	class Menu
@@ -17,6 +17,9 @@ namespace Menu {
 		Menu(Menu &&other);
 		Menu& operator=(const Menu& other);
 		Menu& operator=(Menu&& other);
+
+		bool handleInput(InputManager& input, int height, int width);
+
 		~Menu();
 		void cleanup();
 	};

@@ -8,6 +8,7 @@
 #include "Math/Vector3f.h"
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_image.h"
+#include <functional>
 
 namespace Menu {
 	class Control
@@ -15,10 +16,15 @@ namespace Menu {
 	public:
 		Control() = default;
 		Control(float x, float y, float width, float height, const char *path);
+		Control(float x, float y, float width, float height, const char *path, std::function<void()> callback_);
 		void UpdateTexture(const char *path);
+		void onClick();
+
 		Math::Vector3f position;
 		Math::Vector3f size;
 		float rotation = 0;
 		std::shared_ptr<Renderer::Graphics::Texture> texture;
+
+		std::function<void()> callback;
 	};
 }

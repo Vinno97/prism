@@ -42,15 +42,16 @@ public:
 	//}
 
 	template<typename T, typename...Fs>
-	void addState(Fs&&... fs)
+	void addState(Context & context, Fs&&... fs )
 	{
+
 		const std::type_index type{ std::type_index(typeid(T)) };
 
 		if (hasState(type)) {
 			throw std::runtime_error("There can only one type of " + *type.name() + *" registered");
 		}
-		
 		existingStates[type] = std::make_unique<T>(std::forward<Fs>(fs)...);
+		existingStates[type]->onInit(context);
 	}
 
 	/// <summary>

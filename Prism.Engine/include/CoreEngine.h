@@ -38,6 +38,7 @@ public:
 	/// adds a state to the statemachine
 	/// </summary>
 	/// <param name="state">The state that will be added</param>
+
 	//template<typename T, typename = std::enable_if_t < std::is_base_of<State, T>::type::value>>
 	//void addState(T& state) {
 	//	context.stateMachine->addState(state);
@@ -47,8 +48,7 @@ public:
 	template<typename T, typename...Fs>
 	void addState(Fs&&... fs)
 	{
-		context.stateMachine->addState<T>(std::forward<Fs>(fs)...);
-		context.stateMachine->getState<T>()->onInit(context);
+		context.stateMachine->addState<T>(context, std::forward<Fs>(fs)...);
 	}
 
 	/// <summary>
