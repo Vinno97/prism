@@ -55,7 +55,7 @@ int EntityFactory::createPlayer(int entity, EntityManager& entityManager) {
 	entityManager.addComponentToEntity(entity, VelocityComponent());
 	entityManager.addComponentToEntity(entity, PositionComponent());
 	entityManager.addComponentToEntity(entity, DragComponent(5.f));
-	entityManager.addComponentToEntity(entity, HealthComponent());
+	entityManager.addComponentToEntity(entity, HealthComponent(100));
 	entityManager.addComponentToEntity(entity, KeyboardInputComponent());
 	entityManager.addComponentToEntity(entity, PlayerComponent());
 	entityManager.addComponentToEntity(entity, BoundingBoxComponent(.3,.3));
