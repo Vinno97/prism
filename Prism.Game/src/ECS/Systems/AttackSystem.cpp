@@ -28,7 +28,7 @@ void ECS::Systems::AttackSystem::update(Context& context) {
 			auto Position = entityManager->getComponent<PositionComponent>(entity.id);
 
 			boundingBoxComponent->boundingBox.SetPosXY(Position->x, Position->y);
-			std::vector<Physics::BoundingBox const *> vector;
+			std::vector<unsigned int> vector;
 
 			vector = boundingBoxComponent->collidesWith;
 			if (boundingBoxComponent->didCollide) {
@@ -36,12 +36,12 @@ void ECS::Systems::AttackSystem::update(Context& context) {
 
 				
 				for (int i = 0; i < vector.size(); i++) {
-					for (const auto& entity1 : entityManager->getAllEntitiesWithComponent<PlayerComponent>()) {
-						auto CollideBoundingBox = &entityManager->getComponent<BoundingBoxComponent>(entity1.id)->boundingBox;
-						if (CollideBoundingBox == vector[i]) {
-							updateEntity(entity1.id);
+					if(entityManager->hasComponent<PlayerComponent>(vector[i])){
+						//auto CollideBoundingBox = &entityManager->getComponent<BoundingBoxComponent>(entity1.id)->boundingBox;
+						//if (CollideBoundingBox == vector[i]) {
+							updateEntity(vector[i]);
 							updateEntity(entity.id);
-						}
+						//}
 					}
 				}
 

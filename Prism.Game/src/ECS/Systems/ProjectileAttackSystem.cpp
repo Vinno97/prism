@@ -26,31 +26,26 @@ namespace ECS {
 					auto vector = boundingBoxComponent->collidesWith;
 					bool isEnemy = false;
 					for (auto collider : vector) {
-						
-						for (auto enemy : entityManager->getAllEntitiesWithComponent<EnemyComponent>()) {
-							auto other = entityManager->getComponent<BoundingBoxComponent>(enemy.id);
-							if (std::addressof(*collider) == std::addressof(other->boundingBox)){
-								isEnemy = true;
-								
-								
-								if (entityManager->hasComponent<HealthComponent>(entity.id) && entityManager->hasComponent<HealthComponent>(enemy.id)) {
-									auto ProjectileHealth = entityManager->getComponent<HealthComponent>(entity.id);
-									auto EnemyHealth = entityManager->getComponent<HealthComponent>(enemy.id);
-									int tempEnemyHealth = EnemyHealth->health;
-									EnemyHealth->health -= ProjectileHealth->health;
-									ProjectileHealth->health -= tempEnemyHealth;
-									if (ProjectileHealth->health <= 0) {
-										entityManager->removeEntity(entity.id);
-									}
-									if (EnemyHealth->health <= 0) {
-										entityManager->removeEntity(enemy.id);
-										break;
-									}
+
+						if (entityManager->hasComponent<EnemyComponent>(collider)) {
+							isEnemy = true;
+
+
+							if (entityManager->hasComponent<HealthComponent>(entity.id) && entityManager->hasComponent<HealthComponent>(collider)) {
+								auto ProjectileHealth = entityManager->getComponent<HealthComponent>(entity.id);
+								auto EnemyHealth = entityManager->getComponent<HealthComponent>(collider);
+								int tempEnemyHealth = EnemyHealth->health;
+								EnemyHealth->health -= ProjectileHealth->health;
+								ProjectileHealth->health -= tempEnemyHealth;
+								if (ProjectileHealth->health <= 0) {
+									entityManager->removeEntity(entity.id);
+								}
+								if (EnemyHealth->health <= 0) {
+									entityManager->removeEntity(collider);
+									break;
 								}
 							}
 						}
-						
-						
 					}
 					if (!isEnemy) {
 						entityManager->removeEntity(entity.id);
@@ -59,7 +54,6 @@ namespace ECS {
 				boundingBoxComponent->didCollide = false;
 				boundingBoxComponent->collidesWith.clear();
 			}
-
 		}
 
 		System * ProjectileAttackSystem::clone()

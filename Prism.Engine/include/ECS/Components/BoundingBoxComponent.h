@@ -12,7 +12,7 @@ namespace ECS {
 			Physics::BoundingBox boundingBox;
 			bool didCollide = false;
 
-			std::vector<Physics::BoundingBox const *> collidesWith;
+			std::vector<unsigned int> collidesWith;
 			
 			Component* Clone() override
 			{
