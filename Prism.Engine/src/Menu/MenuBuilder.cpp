@@ -35,7 +35,11 @@ namespace Menu {
 		unique_ptr<VertexBuffer> vertexBuffer = renderDevice->createVertexBuffer(verticesSize, verticesArray);
 
 		std::unique_ptr<VertexArrayObject> vertexArrayObject = renderDevice->createVertexArrayobject();
+		std::unique_ptr<VertexBuffer> texBuffer = renderDevice->createVertexBuffer(verticesSize, texCoords);
+
 		vertexArrayObject->addVertexBuffer(move(vertexBuffer), 0, 2 * sizeof(float), 0, 2);
+		vertexArrayObject->addVertexBuffer(move(texBuffer), 1, 2 * sizeof(float), 0, 2);
+
 		unique_ptr<IndexBuffer> indexBuffer = renderDevice->createIndexBuffer(6 * sizeof(unsigned int), indicesArray);
 
 		mesh = make_shared<Mesh>(move(vertexArrayObject), move(indexBuffer));
@@ -49,12 +53,21 @@ namespace Menu {
 	{
 		Control control{x, y, width, height, path };
 		Model model = Model{ mesh };
+		menu.controls.push_back(control);
+	}
 
+	void MenuBuilder::addControl(float x, float y, float width, float height, const char * path, std::function<void()> callback_)
+	{
+		Control control{ x, y, width, height, path, callback_ };
+		Model model = Model{ mesh };
 		menu.controls.push_back(control);
 	}
 
 	Menu MenuBuilder::buildMenu()
 	{
+		for (auto& c : menu.controls) {
+			c.onClick();
+		}
 		return menu;
 	}
 }

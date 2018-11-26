@@ -27,14 +27,14 @@ namespace Menu {
 		std::unique_ptr<FragmentShader> fragmentShader = renderDevice->createFragmentShader(fragmentSource.c_str());
 		menuPipeline = move(renderDevice->createPipeline(*vertexShader, *fragmentShader));
 
-		menuPipeline->createUniform("view");
+		//menuPipeline->createUniform("view");
 		menuPipeline->createUniform("model");
 	}
 
 	void MenuRenderer::renderMenu(Menu& menu, float aspect)
 	{
 		menuPipeline->run();
-		menuPipeline->setUniformMatrix4f("view", projection);
+	//	menuPipeline->setUniformMatrix4f("view", projection);
 		renderDevice->useBlending(true);
 		projection = glm::ortho(-aspect, aspect, -1.f, 1.f, -1.0f, 1.0f);
 
@@ -48,7 +48,7 @@ namespace Menu {
 
 			model = glm::translate(model, glm::vec3(pos.x, pos.y, 0.0f));
 			model = glm::rotate(model, control.rotation, glm::vec3(0.f, 0.f, 1.f));
-			model = glm::scale(model, glm::vec3(control.size.x, control.size.y*aspect, 1.0f));
+			model = glm::scale(model, glm::vec3(control.size.x, control.size.y, 1.0f));
 
 			menuPipeline->setUniformMatrix4f("model", model);
 
