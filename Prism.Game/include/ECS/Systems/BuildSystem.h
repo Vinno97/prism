@@ -4,6 +4,7 @@
 #include "Physics/QuadTree.h"
 #include "Physics/AABBCollider.h"
 #include "EntityFactory.h"
+#include "Math/Vector3f.h"
 
 namespace ECS {
 	namespace Systems {
@@ -20,6 +21,7 @@ namespace ECS {
 			EntityFactory ef;
 			float deltaTime;
 			float pressTime = 0.5;
+
 		};
 	}
 }
