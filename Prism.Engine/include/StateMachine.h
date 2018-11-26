@@ -39,6 +39,8 @@ public:
 		existingStates[type]->onInit(context);
 	}
 
+
+
 	/// <summary>
 	/// Get specific state
 	/// </summary>

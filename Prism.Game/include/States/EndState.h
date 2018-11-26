@@ -22,7 +22,6 @@ namespace States {
 		~EndState();
 
 	private:
-		bool canPressEscape = false;
 		Menu::MenuRenderer menuRenderer;
 		Menu::MenuBuilder menuBuilder;
 		Menu::Menu menu;
