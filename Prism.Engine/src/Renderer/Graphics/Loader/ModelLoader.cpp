@@ -26,7 +26,6 @@ namespace Renderer {
 
 			unique_ptr<Model> ModelLoader::loadModel(string path)
 			{
-				StaticMeshLoader staticMeshLoader = StaticMeshLoader();
 				shared_ptr<Mesh> m = staticMeshLoader.loadMesh(path);
 				unique_ptr<Model> model = make_unique<Model>(m);
 				return model;

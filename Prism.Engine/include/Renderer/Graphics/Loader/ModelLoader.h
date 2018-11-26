@@ -14,6 +14,7 @@
 #include <vector>
 #include <string>
 #include <memory>
+#include <map>
 
 using namespace Renderer::Graphics;
 using namespace Renderer::Graphics::Models;
@@ -27,7 +28,6 @@ namespace Renderer {
 
 			private:
 				StaticMeshLoader staticMeshLoader;
-
 			};
 		}
 	}

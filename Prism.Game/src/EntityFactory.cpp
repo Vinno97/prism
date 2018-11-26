@@ -28,7 +28,6 @@
 #include "ECS/Components/ResourceGatherComponent.h"
 #include "ECS/Components/ResourceBlobComponent.h"
 #include "ECS/Components/HealthComponent.h"
-#include "Renderer/Graphics/Loader/ModelLoader.h"
 #include "Renderer/Camera.h"
 
 using namespace ECS;
@@ -41,8 +40,8 @@ int EntityFactory::createPlayer(EntityManager& entityManager) {
 }
 
 int EntityFactory::createPlayer(int entity, EntityManager& entityManager) {
-	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
-	auto model = ml.loadModel("./res/player.obj");
+	
+	auto model = moderLoader.loadModel("./res/player.obj");
 
 	AppearanceComponent appearance;
 	appearance.scaleX = 0.002f;
@@ -72,8 +71,8 @@ int EntityFactory::createEnemy(EntityManager& entityManager) {
 }
 
 int EntityFactory::createEnemy(int entity, EntityManager& entityManager) {
-	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
-	auto model = ml.loadModel("./res/uglyenemy.obj");
+	
+	auto model = moderLoader.loadModel("./res/uglyenemy.obj");
 
 	AppearanceComponent appearance;
 	appearance.scaleX = 0.002f;
@@ -99,8 +98,8 @@ int EntityFactory::createResourcePoint(EntityManager & entityManager, Enums::Res
 
 int EntityFactory::createResourcePoint(int entity, EntityManager & entityManager, Enums::ResourceType type, int gatherRate, float value)
 {
-	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
-	auto model = ml.loadModel("./res/resource2.obj");
+	
+	auto model = moderLoader.loadModel("./res/resource2.obj");
 
 	AppearanceComponent appearance;
 	appearance.scaleX = 0.002f;
@@ -132,8 +131,8 @@ int EntityFactory::createTower(EntityManager & entityManager) {
 
 int EntityFactory::createTower(int entity, EntityManager & entityManager)
 {
-	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
-	auto model = ml.loadModel("./res/wall.obj");
+	
+	auto model = moderLoader.loadModel("./res/wall.obj");
 
 	AppearanceComponent appearance;
 	appearance.scaleX = 0.5f;
@@ -154,8 +153,8 @@ int EntityFactory::createWall(EntityManager & entityManager) {
 
 int EntityFactory::createWall(int entity, EntityManager & entityManager)
 {
-	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
-	auto model = ml.loadModel("./res/wall.obj");
+	
+	auto model = moderLoader.loadModel("./res/wall.obj");
 
 	AppearanceComponent appearance;
 	appearance.scaleX = 0.5f;
@@ -177,8 +176,8 @@ int EntityFactory::createMine(EntityManager & entityManager)
 
 int EntityFactory::createMine(int entity, EntityManager & entityManager)
 {
-	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
-	auto model = ml.loadModel("./res/uglyenemy.obj");
+	
+	auto model = moderLoader.loadModel("./res/uglyenemy.obj");
 
 	AppearanceComponent appearance;
 	appearance.scaleX = 0.005f;
@@ -202,8 +201,8 @@ int EntityFactory::createScene(int entity, EntityManager & entityManager) {
 }
 
 int EntityFactory::createProjectile(EntityManager & entityManager) {
-	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
-	auto model = ml.loadModel("./res/projectile.obj");
+	
+	auto model = moderLoader.loadModel("./res/projectile.obj");
 
 	AppearanceComponent appearance;
 	appearance.scaleX = 0.1f;
@@ -230,7 +229,6 @@ int EntityFactory::createFloor(int entity, EntityManager & entityManager) {
 	int height = 150;
 	float scale = 1;
 
-	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
 	auto model = World::TerrainGenerator().generateTerrain(width / scale, height / scale);
 
 	AppearanceComponent appearance;
@@ -259,8 +257,7 @@ int EntityFactory::createResourceBlob(ECS::EntityManager & entityManager, Enums:
 
 int EntityFactory::createResourceBlob(int entity, ECS::EntityManager & entityManager, Enums::ResourceType type, float value)
 {
-	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
-	auto model = ml.loadModel("./res/blob.obj");
+	auto model = moderLoader.loadModel("./res/blob.obj");
 
 	AppearanceComponent appearance;
 	appearance.scaleX = 0.05f;
@@ -303,8 +300,8 @@ int EntityFactory::createEnemySpawn(ECS::EntityManager & entityManager, float sp
 
 int EntityFactory::createEnemySpawn(int entity, ECS::EntityManager & entityManager, float spawnInterval, bool enabled)
 {
-	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
-	auto model = ml.loadModel("./res/spawner.obj");
+	
+	auto model = moderLoader.loadModel("./res/spawner.obj");
 	
 	AppearanceComponent appearance;
 	appearance.scaleX = 0.15f;

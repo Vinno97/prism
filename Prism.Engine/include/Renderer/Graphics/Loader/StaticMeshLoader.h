@@ -20,6 +20,8 @@ namespace Renderer {
 
 			private:
 				RenderDevice* renderDevice;
+				std::map<std::string, std::shared_ptr<Mesh>> loadedMeshes;
+
 			};
 		}
 	}

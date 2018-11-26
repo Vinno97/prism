@@ -32,6 +32,9 @@ namespace Renderer {
 			/// <returns>shared_ptr<Mesh></returns>
 			shared_ptr<Mesh> StaticMeshLoader::loadMesh(string path)
 			{
+				if (loadedMeshes.count(path))
+					return loadedMeshes[path];
+
 				Assimp::Importer importer;
 
 				// Import scene pointer from given path.
@@ -153,6 +156,8 @@ namespace Renderer {
 					cout << "Mesh creation failed. No mesh found." << endl;
 					throw std::runtime_error("Assimp mesh loading.");
 				}
+
+				loadedMeshes.insert(std::pair<std::string, std::shared_ptr<Mesh>>(path, combinedMesh));
 
 				return combinedMesh;
 			}
