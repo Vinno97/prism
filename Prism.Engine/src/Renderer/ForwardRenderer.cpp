@@ -103,9 +103,9 @@ namespace Renderer {
 	}
 	void ForwardRenderer::createTargetQuad()
 	{
-		float* verticesArray = vertices;
-		float* textsArray = texCoords;
-		unsigned int* indicesArray = indices;
+		const float* verticesArray = vertices;
+		const float* textsArray = texCoords;
+		const unsigned int* indicesArray = indices;
 
 		auto verticesSize = 8 * sizeof(float);
 
