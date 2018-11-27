@@ -68,8 +68,6 @@ namespace States {
 		context.stateMachine->addState(es, context);
 		
 		std::function<void()> callback = [context, &canPress = canPressEscape]() mutable { canPress = false; context.stateMachine->setState<PauseState>(); };
-		menuBuilder.addControl(-0.80, 0.68, 0.6, 0.10, "img/healthbar.png", callback);
-		menu = menuBuilder.buildMenu();
 	}
 
 	/// <summary>
@@ -156,7 +154,6 @@ namespace States {
 
 		std::cout << 1.0/context.deltaTime << std::endl;
 
-		menuRenderer.renderMenu(menu, float(context.window->width) / float(context.window->height));
 		context.window->swapScreen();
 
 		if (!input->isKeyPressed(Key::KEY_ESCAPE)) {
