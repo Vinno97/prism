@@ -108,7 +108,7 @@ void QuadTree::Split()
 	nodes[1] = new QuadTree(width, height, east, south, maxObjects);
 	nodes[2] = new QuadTree(width, height, west, south, maxObjects);
 	nodes[3] = new QuadTree(width, height, west, north, maxObjects);
-	
+
 	for (auto it = objects.begin(); it != objects.end();) {
 		int index = GetIndex(*(*it));
 		if (index != -1) {
@@ -124,7 +124,7 @@ void QuadTree::Split()
 int QuadTree::GetIndex(BoundingBox const &box) const
 {
 	int index = -1;
-	
+
 	float qX = bounds.GetPosX();
 	float qY = bounds.GetPosY();
 	float qNorth = bounds.GetNorth() + qY;
@@ -144,14 +144,14 @@ int QuadTree::GetIndex(BoundingBox const &box) const
 	bool fitRight = bEast <= qEast && bWest >= qX;
 
 	bool fitBottom = bNorth <= qY && bSouth >= qSouth;
-	bool fitLeft =  bEast <= qX && bWest >= qWest;
-	
+	bool fitLeft = bEast <= qX && bWest >= qWest;
+
 
 	if (fitTop) {
 		if (fitRight) {
 			index = 0;
 		}
-		else if(fitLeft){
+		else if (fitLeft) {
 			index = 3;
 		}
 	}
@@ -183,25 +183,24 @@ void QuadTree::Insert(BoundingBox const &newBox)
 	if (objects.size() > maxObjects) {
 		if (nodes[0] == nullptr) {
 			Split();
-			
+
 		}
 	}
 }
 
-std::vector<BoundingBox const *> QuadTree::RetrieveAll(std::vector<BoundingBox const *> &vector,BoundingBox const &searchBox)
+void QuadTree::RetrieveAll(std::list<BoundingBox const *> &boundingBoxes, BoundingBox const &searchBox)
 {
 	int index = GetIndex(searchBox);
 	if (index != -1 && nodes[0] != nullptr) {
-		nodes[index]->RetrieveAll(vector,searchBox);
+		nodes[index]->RetrieveAll(boundingBoxes, searchBox);
 	}
 	else if (nodes[0] != nullptr) {
-		nodes[0]->RetrieveAll(vector, searchBox);
-		nodes[1]->RetrieveAll(vector, searchBox);
-		nodes[2]->RetrieveAll(vector, searchBox);
-		nodes[3]->RetrieveAll(vector, searchBox);
+		nodes[0]->RetrieveAll(boundingBoxes, searchBox);
+		nodes[1]->RetrieveAll(boundingBoxes, searchBox);
+		nodes[2]->RetrieveAll(boundingBoxes, searchBox);
+		nodes[3]->RetrieveAll(boundingBoxes, searchBox);
 	}
-	vector.insert(vector.end(),objects.begin(), objects.end());
-	return vector;
+	std::copy(objects.begin(), objects.end(), std::back_inserter(boundingBoxes));
 }
 
 const BoundingBox QuadTree::GetBounds() const

@@ -3,6 +3,7 @@
 #include <vector>
 #include <set>
 #include <map>
+#include <unordered_map>
 #include <typeindex>
 #include "Components/Component.h"
 #include "Components/PositionComponent.h"
@@ -50,7 +51,7 @@ namespace ECS {
 			const std::type_index type = std::type_index(typeid(component));
 
 			if (entityComponents.find(type) != entityComponents.end()) {
-				std::map<unsigned int, Component*> *components = &entityComponents.at(type);
+				auto components = &entityComponents.at(type);
 
 				if (components->find(entityId) != components->end()) {
 					throw std::runtime_error("Already attached a component of type " + *type.name() + *" to entity " + std::to_string(entityId));
@@ -130,7 +131,7 @@ namespace ECS {
 		/// <summary>
 		/// Keeps a list of all instances of each component type.
 		/// </summary>
-		std::map<std::type_index, std::map<unsigned int, Component*>> entityComponents;
+		std::unordered_map<std::type_index, std::unordered_map<unsigned int, Component*>> entityComponents;
 
 		/// <summary>
 		/// Keeps a list of all Listeners attached to the EntityManager.

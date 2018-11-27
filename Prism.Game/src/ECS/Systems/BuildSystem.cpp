@@ -44,7 +44,6 @@ void ECS::Systems::BuildSystem::update(Context& context) {
 
 		//TODO :: CollisionSystem moet echt anders. komt hier altijd in omdat structurs geen velocity hebben
 		if (canPlace) {
-			entityManager->getComponent<AppearanceComponent>(playerId)->isShooting;
 			if (isBuilding && context.inputManager->isMouseButtonPressed(Key::MOUSE_BUTTON_LEFT)) {
 				entityManager->getComponent<ShootingComponent>(playerId)->isShooting = false;
 				buildingId = -1;

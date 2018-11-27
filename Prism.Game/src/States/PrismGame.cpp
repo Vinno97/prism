@@ -8,6 +8,7 @@
 #include "ECS/Components/PositionComponent.h"
 #include "ECS/Components/VelocityComponent.h"
 #include "ECS/Components/AppearanceComponent.h"
+#include "ECS/Components/EnemyComponent.h"
 #include "ECS/Components/DragComponent.h"
 #include "ECS/Components/KeyboardInputComponent.h"
 #include "ECS/Systems/EnemyPathFindingSystem.h"
@@ -77,6 +78,7 @@ namespace States {
 		EnemyPathFindingSystem enemyPathFindingSystem  = EnemyPathFindingSystem(entityManager, 10);
 		AnimationSystem animationSystem = AnimationSystem(entityManager);
 		CollisionSystem collisionSystem = CollisionSystem(entityManager, context.window->width, context.window->height, 0, 0, 2);
+		//collisionSystem.registerStaticObjects();
 		ShootingSystem shootingSystem = ShootingSystem(entityManager);
 		ProjectileAttackSystem projectileAttackSystem = ProjectileAttackSystem(entityManager);
 		ResourceBlobSystem resourceBlobSystem = ResourceBlobSystem(entityManager);
@@ -111,6 +113,8 @@ namespace States {
 
 	void PrismGame::onUpdate(Context &context)
 	{
+		context.deltaTime *= 2.5;
+
 	   auto input = context.inputManager;
 
 		auto inputSystem = systemManager.getSystem<KeyboardInputSystem>();
@@ -139,7 +143,7 @@ namespace States {
 		aimSystem->update(context);
 		shootingSystem->update(context);
 		projectileAttackSystem->update(context);
-		attackSystem->update(context);
+		//attackSystem->update(context);
 		bumpSystem->update(context);
 		animationSystem->update(context);
 		resourceGatherSystem->update(context);
@@ -147,7 +151,10 @@ namespace States {
 		enemySpawnSystem->update(context);
 		renderSystem->update(context);
 
-		std::cout << 1.0/context.deltaTime << std::endl;
+		std::cout << "FPS:   \t" << 1.0/context.deltaTime << std::endl;
+		
+		auto enemies = entityManager.getAllEntitiesWithComponent<VelocityComponent>();
+		std::cout << "Enemies:\t" << enemies.size() << std::endl;
 		/*
 		for (auto &entity : entityManager.getAllEntitiesWithComponent<VelocityComponent>()) {
 			auto velocity = entity.component;
