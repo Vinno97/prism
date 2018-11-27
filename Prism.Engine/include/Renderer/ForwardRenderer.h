@@ -51,21 +51,21 @@ namespace Renderer {
 		std::shared_ptr<Renderer::Graphics::Texture> normalBuffer;
 		std::shared_ptr<Renderer::Graphics::Texture> albedoBuffer;
 
-		float vertices[8] = {
+		const float vertices[8] = {
 			 1.0f,  1.0f,  // top right
 			 1.0f, -1.0f,  // bottom right
 			-1.0f, -1.0f,  // bottom left
 			-1.0f,  1.0f   // top left 
 		};
 
-		float texCoords[8] = {
+		const float texCoords[8] = {
 			1.0f,  1.0f,   
 			1.0f,  0.0f,   
 			0.0f,  0.0f,   
 			0.0f,  1.0f,   
 		};
 
-		unsigned int indices[6] = {
+		const unsigned int indices[6] = {
 			0, 1, 3,   // first triangle
 			1, 2, 3    // second triangle
 		};
