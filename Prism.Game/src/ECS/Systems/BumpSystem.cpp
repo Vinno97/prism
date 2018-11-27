@@ -23,7 +23,7 @@ void BumpSystem::update(Context& context)
 			const auto boundingBox = &boundingBoxComponent->boundingBox;
 			auto vector = &boundingBoxComponent->collidesWith;
 			
-			if (boundingBoxComponent->didCollide) {
+			if (vector->size()>0) {
 				const auto position = entityManager->getComponent<PositionComponent>(entity.id);
 				auto velocity = entityManager->getComponent<VelocityComponent>(entity.id);
 
@@ -62,12 +62,12 @@ int BumpSystem::CountCollisions(BoundingBox &box1, BoundingBox &adress, std::vec
 	int count = 0;
 
 	for (const auto& entity : vector) {
-		if (entityManager->hasComponent<BoundingBoxComponent>(entity)) {
+		//if (entityManager->hasComponent<BoundingBoxComponent>(entity)) {
 			auto bb = &entityManager->getComponent<BoundingBoxComponent>(entity)->boundingBox;
 			if (aabbCollider.CheckCollision(box1, *bb)) {
 				count++;
 			}
-		}
+		//}
 	}
 	return count;
 }

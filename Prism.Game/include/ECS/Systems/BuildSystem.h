@@ -21,7 +21,10 @@ namespace ECS {
 			EntityFactory ef;
 			float deltaTime;
 			float pressTime = 0.5;
-
+			Math::Vector3f buildingColor;
+			float wallRequirements = 50;
+			float towerRequirements = 50;
+			float factoryRequirements = 50;
 		};
 	}
 }
