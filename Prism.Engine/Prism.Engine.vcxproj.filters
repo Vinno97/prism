@@ -1,6 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <ClCompile Include="src\ECS\Systems\CollisionSystem.cpp" />
+    <ClCompile Include="src\ECS\Systems\MousePointSystem.cpp" />
+    <ClCompile Include="src\Physics\AABBCollider.cpp" />
+    <ClCompile Include="src\Physics\BoundingBox.cpp" />
+    <ClCompile Include="src\Physics\QuadTree.cpp" />
     <ClCompile Include="src\Renderer\Camera.cpp" />
     <ClCompile Include="src\Renderer\Renderable.cpp" />
     <ClCompile Include="src\Util\FileSystem.cpp" />
@@ -31,9 +36,6 @@
     <ClCompile Include="src\Renderer\Graphics\Loader\StaticMeshLoader.cpp" />
     <ClCompile Include="src\ECS\SystemManager.cpp" />
     <ClCompile Include="src\ECS\Systems\System.cpp" />
-    <ClCompile Include="src\Physics\AABBCollider.cpp" />
-    <ClCompile Include="src\Physics\BoundingBox.cpp" />
-    <ClCompile Include="src\Physics\QuadTree.cpp" />
     <ClCompile Include="src\Math\Vector3f.cpp" />
     <ClCompile Include="src\World\WorldLoader.cpp" />
     <ClCompile Include="src\World\WorldObject.cpp" />
@@ -42,6 +44,7 @@
     <ClCompile Include="src\World\Assemblers\AppearanceAssembler.cpp" />
     <ClCompile Include="src\World\Assemblers\PositionAssembler.cpp" />
     <ClCompile Include="src\World\Assemblers\EntityAssembler.cpp" />
+    <ClCompile Include="src\AudioManager.cpp" />
     <ClCompile Include="src\Util\lodepng.cpp" />
     <ClCompile Include="src\Menu\MenuBuilder.cpp" />
     <ClCompile Include="src\Menu\Control.cpp" />
@@ -53,7 +56,20 @@
     <ClCompile Include="src\ECS\Systems\CollisionSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\ECS\Components\HealthComponent.h" />
+    <ClInclude Include="include\ECS\Components\BoundingBoxComponent.h" />
+    <ClInclude Include="include\ECS\Systems\CollisionHandlerSystem.h" />
+    <ClInclude Include="include\ECS\Components\CameraComponent.h" />
+    <ClInclude Include="include\ECS\Components\MousePointerComponent.h" />
+    <ClInclude Include="include\ECS\Systems\CollisionSystem.h" />
+    <ClInclude Include="include\ECS\Systems\MousePointSystem.h" />
+    <ClInclude Include="include\Renderer\DirectionalLight.h" />
+    <ClInclude Include="include\Physics\AABBCollider.h" />
+    <ClInclude Include="include\Physics\BoundingBox.h" />
+    <ClInclude Include="include\Physics\QuadTree.h" />
     <ClInclude Include="include\Renderer\Camera.h" />
+    <ClInclude Include="include\Renderer\Scene.h" />
+    <ClInclude Include="include\Util\FileReader.h" />
     <ClInclude Include="include\Renderer\ForwardRenderer.h" />
     <ClInclude Include="include\ECS\Components\AppearanceComponent.h" />
     <ClInclude Include="include\ECS\Components\Component.h" />
@@ -126,6 +142,7 @@
     <ClInclude Include="include\World\Assemblers\BaseAssembler.h" />
     <ClInclude Include="include\World\Assemblers\EntityAssembler.h" />
     <ClInclude Include="include\Util\FileSystem.h" />
+    <ClInclude Include="include\AudioManager.h" />
     <ClInclude Include="include\Physics\BoundingBox.h" />
     <ClInclude Include="include\Physics\AABBCollider.h" />
     <ClInclude Include="include\Physics\QuadTree.h" />
@@ -142,6 +159,7 @@
     <Library Include="lib\x64\SDL2.lib" />
     <Library Include="lib\x64\SDL2main.lib" />
     <Library Include="lib\x64\assimp-vc140-mtd.lib" />
+    <Library Include="lib\x64\SDL2_mixer.lib" />
     <Library Include="lib\x64\SDL2_image.lib" />
   </ItemGroup>
   <ItemGroup>
@@ -163,10 +181,14 @@
     <None Include="lib\x64\zlib1.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="lib\x64\LICENSE.jpeg.txt" />
-    <Text Include="lib\x64\LICENSE.png.txt" />
-    <Text Include="lib\x64\LICENSE.tiff.txt" />
-    <Text Include="lib\x64\LICENSE.webp.txt" />
-    <Text Include="lib\x64\LICENSE.zlib.txt" />
+    <None Include="lib\x64\libFLAC-8.dll" />
+    <None Include="lib\x64\libmodplug-1.dll" />
+    <None Include="lib\x64\libmpg123-0.dll" />
+    <None Include="lib\x64\libogg-0.dll" />
+    <None Include="lib\x64\libopus-0.dll" />
+    <None Include="lib\x64\libopusfile-0.dll" />
+    <None Include="lib\x64\libvorbis-0.dll" />
+    <None Include="lib\x64\libvorbisfile-3.dll" />
+    <None Include="lib\x64\SDL2_mixer.dll" />
   </ItemGroup>
 </Project>

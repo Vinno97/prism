@@ -1,42 +1,69 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Header Files\ECS">
-      <UniqueIdentifier>{15e73fe7-8109-49a4-9e27-a0c1bbd7b314}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\ECS\Systems">
-      <UniqueIdentifier>{78dd7c0b-40c4-46d7-afad-2fee6ed3844d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\ECS">
-      <UniqueIdentifier>{5c1cb1f0-8e4b-4178-addc-39b0eb5c8706}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\ECS\Systems">
-      <UniqueIdentifier>{583029d8-da13-4f0a-be7a-3b2e22d7c234}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\ECS\Components">
-      <UniqueIdentifier>{e1d58eb6-fd2a-434c-91c3-3998f89493f8}</UniqueIdentifier>
-    </Filter>
+    <ClCompile Include="src\ECS\Systems\AimingSystem.cpp" />
+    <ClCompile Include="src\ECS\Systems\AttackSystem.cpp" />
+    <ClCompile Include="src\ECS\Systems\ProjectileAttackSystem.cpp" />
+    <ClCompile Include="src\ECS\Systems\ShootingSystem.cpp" />
+    <ClCompile Include="src\ECS\Systems\AnimationSystem.cpp" />
+    <ClCompile Include="src\ECS\Systems\BumpSystem.cpp" />
+    <ClCompile Include="src\ECS\Systems\ResourceBlobSystem.cpp" />
+    <ClCompile Include="src\ECS\Systems\ResourceGatherSystem.cpp" />
+    <ClCompile Include="src\States\PauseState.cpp" />
+    <ClCompile Include="src\ECS\Systems\KeyboardInputSystem.cpp" />
+    <ClCompile Include="src\EntityFactory.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\States\PrismGame.cpp" />
+    <ClCompile Include="src\World\Assemblers\PrismEntityAssembler.cpp" />
+    <ClCompile Include="src\World\Assemblers\EnemyAssembler.cpp" />
+    <ClCompile Include="src\World\Assemblers\PlayerAssembler.cpp" />
+    <ClCompile Include="src\World\Assemblers\ResourceSpawnAssembler.cpp" />
+    <ClCompile Include="src\World\Assemblers\TowerAssembler.cpp" />
+    <ClCompile Include="src\World\Assemblers\WallAssembler.cpp" />
+    <ClCompile Include="src\World\TerrainGenerator.cpp" />
+    <ClCompile Include="src\ECS\Systems\EnemySpawnSystem.cpp" />
+    <ClCompile Include="src\ECS\Systems\EnemyPathFindingSystem.cpp" />
+    <ClCompile Include="src\World\Assemblers\EnemySpawnAssembler.cpp" />
+    <ClCompile Include="src\States\MainMenuState.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\ECS\Components\BulletComponent.h" />
+    <ClInclude Include="include\ECS\Components\EnemyComponent.h" />
+    <ClInclude Include="include\ECS\Components\ProjectileAttackComponent.h" />
+    <ClInclude Include="include\ECS\Systems\AimingSystem.h" />
+    <ClInclude Include="include\ECS\Components\MineComponent.h" />
+    <ClInclude Include="include\ECS\Components\TowerComponent.h" />
+    <ClInclude Include="include\ECS\Components\WallComponent.h" />
+    <ClInclude Include="include\ECS\Components\InventoryComponent.h" />
+    <ClInclude Include="include\ECS\Components\ResourceBlobComponent.h" />
+    <ClInclude Include="include\ECS\Components\ResourceGatherComponent.h" />
+    <ClInclude Include="include\Enums\ResourceTypeEnum.h" />
+    <ClInclude Include="include\ECS\Systems\AnimationSystem.h" />
+    <ClInclude Include="include\ECS\Components\ResourceSpawnComponent.h" />
+    <ClInclude Include="include\ECS\Systems\ProjectileAttackSystem.h" />
+    <ClInclude Include="include\ECS\Systems\BumpSystem.h" />
+    <ClInclude Include="include\ECS\Systems\ResourceBlobSystem.h" />
+    <ClInclude Include="include\ECS\Systems\ResourceGatherSystem.h" />
+    <ClInclude Include="include\EntityFactory.h" />
+    <ClInclude Include="include\States\PrismGame.h" />
+    <ClInclude Include="include\World\Assemblers\EnemyAssembler.h" />
+    <ClInclude Include="include\World\Assemblers\PlayerAssembler.h" />
+    <ClInclude Include="include\World\Assemblers\ResourceSpawnAssembler.h" />
+    <ClInclude Include="include\World\Assemblers\TowerAssembler.h" />
+    <ClInclude Include="include\World\Assemblers\WallAssembler.h" />
+    <ClInclude Include="include\World\Assemblers\PrismEntityAssembler.h" />
+    <ClInclude Include="include\PrismGame.h" />
+    <ClInclude Include="include\ECS\Components\KeyboardInputComponent.h" />
+    <ClInclude Include="include\ECS\Systems\KeyboardInputSystem.h" />
+    <ClInclude Include="include\ECS\Components\ShootingComponent.h" />
+    <ClInclude Include="include\ECS\Systems\ShootingSystem.h" />
+    <ClInclude Include="include\States\PauseState.h" />
+    <ClInclude Include="include\World\TerrainGenerator.h" />
+    <ClInclude Include="include\ECS\Systems\AttackSystem.h" />
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\ECS\Systems\KeyboardInputSystem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\States\PrismGame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\ECS\Systems\AnimationSystem.cpp">
@@ -84,12 +111,23 @@
     <ClCompile Include="src\ECS\Systems\AttackSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\States\PrismGame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\States\EndState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClInclude Include="include\ECS\Components\EnemySpawnComponent.h" />
+    <ClInclude Include="include\ECS\Systems\EnemyPathFindingSystem.h" />
+    <ClInclude Include="include\ECS\Systems\EnemySpawnSystem.h" />
+    <ClInclude Include="include\World\Assemblers\EnemySpawnAssembler.h" />
+    <ClInclude Include="include\States\MainMenuState.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="lib\SDL2.dll" />
     <None Include="lib\assimp-vc140-mtd.dll" />
     <None Include="lib\glew32.dll" />
-    <None Include="lib\glew32.dll" />
+    <None Include="lib\SDL2.dll" />
+    <None Include="lib\SDL2_mixer.dll" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ECS\Components\KeyboardInputComponent.h">
@@ -117,9 +155,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\World\TerrainGenerator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ECS\Systems\BumbSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\States\PrismGame.h">
@@ -176,5 +211,25 @@
     <ClInclude Include="include\ECS\Systems\AttackSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\ECS\Systems\EnemySpawnSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\World\Assemblers\EnemySpawnAssembler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ECS\Components\EnemySpawnComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ECS\Systems\EnemyPathFindingSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\States\EndState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\img\gameover.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

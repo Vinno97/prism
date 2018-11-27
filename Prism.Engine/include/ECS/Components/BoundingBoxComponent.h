@@ -6,6 +6,7 @@
 namespace ECS {
 	namespace Components {
 		struct BoundingBoxComponent : Component {
+
 			BoundingBoxComponent(float width, float height) : boundingBox(Physics::BoundingBox(height / 2.0, width / 2.0, -1 * height / 2.0, -1 * width / 2.0)) {};
 
 			Physics::BoundingBox boundingBox;

@@ -28,7 +28,7 @@ public:
 	/// </summary>
 	/// <param name="state">New state</param>
 	template<class T>
-	void addState(T& state) {
+	void addState(T& state, Context& context) {
 		const std::type_index type{ std::type_index(typeid(T)) };
 
 		if (hasState(type)) {
@@ -36,6 +36,7 @@ public:
 		}
 		//This is copied succesfully
 		existingStates[type] = new T(std::move(state));
+		existingStates[type]->onInit(context);
 	}
 
 	/// <summary>

@@ -1,18 +1,23 @@
 #include <math.h>
 #include "ECS/Systems/AttackSystem.h"
-#include "ECS/EntityManager.h";
-#include "ECS/SystemManager.h";
+#include "ECS/EntityManager.h"
+#include "ECS/SystemManager.h"
 #include "ECS/Components/HealthComponent.h"
 #include "ECS/Components/VelocityComponent.h"
 #include "ECS/Components/BoundingBoxComponent.h"
-#include "../../Prism.Game/include/ECS/Components/EnemyComponent.h"
+#include "StateMachine.h"
+#include "States/EndState.h"
+#include "States/PauseState.h"
+#include "ECS/Components/EnemyComponent.h"
 #include "ECS/Components/PlayerComponent.h"
+
 
 ECS::Systems::AttackSystem::AttackSystem(EntityManager &entityManager) : System(entityManager) { }
 
 ECS::Systems::AttackSystem::~AttackSystem()
 = default;
 
+using namespace States;
 
 void ECS::Systems::AttackSystem::update(Context& context) {
 
@@ -30,33 +35,44 @@ void ECS::Systems::AttackSystem::update(Context& context) {
 			std::vector<Physics::BoundingBox const *> vector;
 
 			vector = boundingBoxComponent->collidesWith;
-			for (int i = 0; i < vector.size(); i++) {
-				for (auto entity1 : entityManager->getAllEntitiesWithComponent<HealthComponent>()) {
-					updateEntity(entity1.id);
+			if (boundingBoxComponent->didCollide) {
+							   				
+				for (int i = 0; i < vector.size(); i++) {
+					for (const auto& entity1 : entityManager->getAllEntitiesWithComponent<PlayerComponent>()) {
+						auto CollideBoundingBox = &entityManager->getComponent<BoundingBoxComponent>(entity1.id)->boundingBox;
+						if (CollideBoundingBox == vector[i]) {
+							updateEntity(entity1.id, context);
+							updateEntity(entity.id, context);
+							context.audioManager->playSound("EnemyKill");
+						}
+					}
 				}
+
+
 			}
 		}
 	}
-	quadTree.Clear();
 }
 
-void ECS::Systems::AttackSystem::updateEntity(int id) {
+void ECS::Systems::AttackSystem::updateEntity(int id, Context& context) {
 	if (entityManager->hasComponent<EnemyComponent>(id)) {
 		entityManager->removeEntity(id);
 		// Print (Remove after review)
 		std::cout << "Enemy is exploded" << std::endl;
 	}
-	
+
 	if (entityManager->hasComponent<HealthComponent>(id)) {
 		auto currentComponent = entityManager->getComponent<HealthComponent>(id);
 
 		currentComponent->health -= 10;
 
-		if (currentComponent->health == 0) {
+		if (currentComponent->health <= 0) {
 
 			// Print (Remove after review)
 			std::cout << "Player is dead" << std::endl;
-			entityManager->removeEntity(id);
+
+			context.stateMachine->setState<EndState>();
+
 		}
 		// Print (Remove after review)
 		std::cout << "Speler: " << currentComponent->health << std::endl;

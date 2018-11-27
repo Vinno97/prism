@@ -1,3 +1,4 @@
+#include <cmath>
 #include "Math/Vector3f.h"
 #include <math.h>
 Math::Vector3f::Vector3f() {
@@ -23,6 +24,8 @@ Math::Vector3f Math::Vector3f::substract(const Math::Vector3f& vector) {
     return *this;
 }
 
+
+
 Math::Vector3f Math::Vector3f::operator+(const Math::Vector3f other) {
     Vector3f vector;
     vector.x = this->x + other.x;
@@ -41,9 +44,12 @@ Math::Vector3f Math::Vector3f::operator-(const Math::Vector3f other) {
 
 Math::Vector3f Math::Vector3f::normalize()
 {
-	float lenght = sqrt((x*x) + (y*y)+ (z*z));
-	x = x / lenght;
-	y = y / lenght;
-	z = z / lenght;
+	float length = std::sqrt((x*x) + (y*y) + (z*z));
+	if (length != 0) {
+		x = x / length;
+		y = y / length;
+		z = z / length;
+	}
 	return *this;
 }
+

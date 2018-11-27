@@ -25,6 +25,7 @@ CoreEngine::CoreEngine()
 	context.window = new Window();
 	context.stateMachine = new StateMachine();
 	context.inputManager = new InputManager();
+	context.audioManager = new AudioManager();
 }
 
 const void CoreEngine::InitWindow(const char* title, const int width, const int height, const int x, const int y) {
@@ -54,6 +55,7 @@ void CoreEngine::Run()
 		//Sets the right values in context
 		context.deltaTime = deltaTime.count() / 1000000.f;
 		context.stateMachine->getCurrentState()->onUpdate(context);
+
 	}
 }
 
@@ -62,6 +64,7 @@ void CoreEngine::CleanUp() {
 	delete context.stateMachine;
 	delete context.window;
 	delete context.inputManager;
+	delete context.audioManager;
 }
 
 CoreEngine::~CoreEngine()
