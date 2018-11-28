@@ -23,7 +23,7 @@ namespace World {
 
 	std::unique_ptr<Model> TerrainGenerator::generateTerrain(int width, int height) {
 		std::default_random_engine generator;
-		std::uniform_real_distribution<float> distribution(0.0, 1.7);
+		std::uniform_real_distribution<float> distribution(0.0, 5);
 
 		heightMap.resize(height, std::vector<float>(width, -1));
 		//Fill height map
@@ -55,23 +55,23 @@ namespace World {
 		}
 
 		RenderDevice* renderDevice = OGLRenderDevice::getRenderDevice();
-		unique_ptr<VertexArrayObject> vertexArrayObject = renderDevice->createVertexArrayobject();
+		std::unique_ptr<VertexArrayObject> vertexArrayObject = renderDevice->createVertexArrayobject();
 
 		auto verticesSize = positions.size() * sizeof(float);
 		float* verticesArray = positions.data();
-		unique_ptr<VertexBuffer> vertexBuffer = renderDevice->createVertexBuffer(verticesSize, verticesArray);
+		std::unique_ptr<VertexBuffer> vertexBuffer = renderDevice->createVertexBuffer(verticesSize, verticesArray);
 		vertexArrayObject->addVertexBuffer(move(vertexBuffer), 0, 3 * sizeof(float), 0, 3);
 
 		auto normalsSize = normals.size() * sizeof(float);
 		float* normalsArray = normals.data();
-		unique_ptr<VertexBuffer> normalBuffer = renderDevice->createVertexBuffer(normalsSize, normalsArray);
+		std::unique_ptr<VertexBuffer> normalBuffer = renderDevice->createVertexBuffer(normalsSize, normalsArray);
 		vertexArrayObject->addVertexBuffer(move(normalBuffer), 1, 3 * sizeof(float), 0, 3);
 
-		shared_ptr<Mesh> mesh = make_shared<Mesh>(move(vertexArrayObject));
+		std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>(move(vertexArrayObject));
 		mesh->isIndiced = false;
 		mesh->verticesLength = positions.size() / 3;
 
-		unique_ptr<Model> model = make_unique<Model>(mesh);
+		std::unique_ptr<Model> model = std::make_unique<Model>(mesh);
 
 		return model;
 	}
