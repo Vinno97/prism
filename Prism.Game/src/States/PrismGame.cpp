@@ -139,9 +139,11 @@ namespace States {
 		motionSystem->update(context);
 		collisionSystem->update(context);
 		pointSystem->update(context);
-		buildSystem->update(context);
 		aimSystem->update(context);
 		shootingSystem->update(context);
+		
+		buildSystem->update(context);
+		
 		projectileAttackSystem->update(context);
 		//attackSystem->update(context);
 		bumpSystem->update(context);

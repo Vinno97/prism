@@ -50,7 +50,7 @@ void ECS::Systems::BuildSystem::update(Context& context) {
 		else if (context.inputManager->isKeyPressed(Key::KEY_2)) {
 			deltaTime = 0;
 			if (!isBuilding) {
-				if (inventory->redResource >= towerRequirements) {
+				if (true/*inventory->redResource >= towerRequirements*/) {
 					isBuilding = true;
 
 					buildingId = ef.createTower(*entityManager);

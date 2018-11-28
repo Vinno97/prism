@@ -62,12 +62,12 @@ int BumpSystem::CountCollisions(BoundingBox &box1, BoundingBox &adress, std::vec
 	int count = 0;
 
 	for (const auto& entity : vector) {
-		//if (entityManager->hasComponent<BoundingBoxComponent>(entity)) {
+		if (entityManager->hasComponent<BoundingBoxComponent>(entity)) {
 			auto bb = &entityManager->getComponent<BoundingBoxComponent>(entity)->boundingBox;
 			if (aabbCollider.CheckCollision(box1, *bb)) {
 				count++;
 			}
-		//}
+		}
 	}
 	return count;
 }
