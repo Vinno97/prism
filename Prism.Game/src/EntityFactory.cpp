@@ -133,12 +133,12 @@ int EntityFactory::createTower(EntityManager & entityManager) {
 int EntityFactory::createTower(int entity, EntityManager & entityManager)
 {
 	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
-	auto model = ml.loadModel("./res/tower-cross.obj");
+	auto model = ml.loadModel("./res/tower.obj");
 
 	AppearanceComponent appearance;
-	appearance.scaleX = 0.005f;
-	appearance.scaleY = 0.005f;
-	appearance.scaleZ = 0.005f;
+	appearance.scaleX = 0.5f;
+	appearance.scaleY = 0.5f;
+	appearance.scaleZ = 0.5f;
 	appearance.model = std::move(model);
 
 	entityManager.addComponentToEntity(entity, TowerComponent());
