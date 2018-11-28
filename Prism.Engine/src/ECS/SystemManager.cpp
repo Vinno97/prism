@@ -15,48 +15,6 @@ namespace ECS {
 		
 	}
 
-	//SystemManager::SystemManager(const SystemManager & other)
-	//{
-	//
-	//	for (const auto systems : other.prioritizedSystems) {
-	//		for (const auto& type : systems.second) {
-	//			std::unique_ptr<System> system = std::make_unique<System>(*type.second->clone());
-	//			this->prioritizedSystems[systems.first][type.first] = std::move(system);
-	//			type.first;
-	//		};
-	//	}
-	//}
-
-	//SystemManager & SystemManager::operator=(const SystemManager & other)
-	//{
-	//	if (this != &other) {
-	//
-	//		for (const auto systems : other.prioritizedSystems) {
-	//			for (const auto &type : systems.second) {
-	//				std::unique_ptr<System> system = std::make_unique<System>(*type.second->clone());
-	//				this->prioritizedSystems[systems.first][type.first] = std::move(system);
-	//				type.first;
-	//			};
-	//		}
-	//	}
-	//	return *this;
-	//}
-
-	//SystemManager::SystemManager(SystemManager && other)
-	//{
-	//	this->prioritizedSystems = other.prioritizedSystems;
-	//	other.prioritizedSystems.clear();
-	//}
-	//
-	//SystemManager & SystemManager::operator=(SystemManager && other)
-	//{
-	//	if (this != &other) {
-	//		this->prioritizedSystems = other.prioritizedSystems;
-	//		other.prioritizedSystems.clear();
-	//	}
-	//	return *this;
-	//}
-
 	std::map<int, std::map<std::type_index, std::unique_ptr<System>>>& SystemManager::getAllSystems()
 	{
 		return prioritizedSystems;

@@ -30,16 +30,6 @@ public:
 	/// Add state to list of existing states
 	/// </summary>
 	/// <param name="state">New state</param>
-	//template<class T>
-	//void addState(T& state) {
-	//	const std::type_index type{ std::type_index(typeid(T)) };
-
-	//	if (hasState(type)) {
-	//		throw std::runtime_error("There can only one type of " + *type.name() + *" registered");
-	//	}
-	//	//This is copied succesfully
-	//	existingStates[type] = new T(std::move(state));
-	//}
 
 	template<typename T, typename...Fs>
 	void addState(Context & context, Fs&&... fs )
