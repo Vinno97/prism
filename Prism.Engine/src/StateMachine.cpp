@@ -4,8 +4,7 @@
 StateMachine::StateMachine()
 = default;
 
-StateMachine::~StateMachine() {
-}
+
 
 State* StateMachine::getCurrentState() const
 {

@@ -22,7 +22,7 @@ namespace ECS {
 			forwardRenderer = std::make_shared<ForwardRenderer>(windowWidth, windowHeight);
 			auto cameraComponent = this->entityManager->getAllEntitiesWithComponent<CameraComponent>()[0].component;
 			auto camera = &cameraComponent->camera;
-			camera->move(0, 2.f, 3.f);
+			camera->move(0, 3.f, 4.f);
 			camera->rotate(-25.f, 0.f, 0.f);
 		}
 

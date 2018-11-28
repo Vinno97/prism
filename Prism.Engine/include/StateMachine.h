@@ -14,7 +14,7 @@ class StateMachine
 {
 public:
 	StateMachine();
-	~StateMachine();
+	~StateMachine() = default;
 
 	/// <summary>
 	/// Set currentSate
@@ -29,9 +29,10 @@ public:
 	/// <summary>
 	/// Add state to list of existing states
 	/// </summary>
-	/// <param name="state">New state</param>
+	/// <param name="context">The context</param>
+	///<param name="fs">Constructor parameters for State</param>
 
-	template<typename T, typename...Fs>
+	template<typename T, typename...Fs, typename = std::enable_if_t < std::is_base_of<State, T>::type::value>>
 	void addState(Context & context, Fs&&... fs )
 	{
 

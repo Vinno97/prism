@@ -37,18 +37,18 @@ namespace ECS {
 			return static_cast<T*>(getSystem(type));
 		}
 		/// <summary>
-		/// Gets all systems by priority.
+		/// Gets all systems
 		/// </summary>
-		/// <returns></returns>
+		/// <returns> A map of maps with all the systems by priority</returns>
 		 std::map<int, std::map<std::type_index, std::unique_ptr<System>>>& getAllSystems();
 
 
 		/// <summary>
-		/// Registers a System and ensures that there is only one instance of it.
+		/// Registers a System with it's priority and ensures that there is only one instance of it.
 		/// </summary>
-		/// <param name"system">The system that needs to be registerd </param>
+		/// <param name"fs">Constructor  parameters for the system you want to register</param>
 		//template<typename A, typename B, typename = std::enable_if_t < std::is_base_of<System, A>::type::value>>
-		template <int P, typename A, typename B, typename... Fs>
+		template <int P, typename A, typename B, typename... Fs, typename = std::enable_if_t < std::is_base_of<System, A>::type::value>>
 		SystemManager &registerSystem(Fs &&... fs) {
 
 			const std::type_index type = std::type_index(typeid(A));
@@ -62,9 +62,9 @@ namespace ECS {
 		}
 
 		/// <summary>
-		/// Registers a System and ensures that there is only one instance of it.
+		/// Registers a System with the right priority and ensures that there is only one instance of it.
 		/// </summary>
-		/// <param name"system">The system that needs to be registerd </param>
+		/// <param name"fs">Construcor parameters for the system you want to register </param>
 		template<int P, class A, typename... Fs>
 		SystemManager &registerSystem(Fs &&... fs) {
 			return registerSystem<P, A, A>(std::forward<Fs>(fs)...);
@@ -75,7 +75,6 @@ namespace ECS {
 		/// <summary>
 		/// A dictonary with all the registered systems.
 		/// </summary>
-		//std::map<std::type_index, System*> systems;
 		std::map<int, std::map<std::type_index, std::unique_ptr<System>>> prioritizedSystems;
 
 		void unRegisterSystem(std::type_index systemType);
