@@ -131,21 +131,25 @@ namespace States {
 		auto resourceGatherSystem = systemManager.getSystem<ResourceGatherSystem>();
 
 		inputSystem->update(context);
+		enemyPathFindingSystem->update(context);
 		
-		motionSystem->update(context);
 		collisionSystem->update(context);
+
+		motionSystem->update(context);
+		
 		pointSystem->update(context);
 		aimSystem->update(context);
 		shootingSystem->update(context);
 		projectileAttackSystem->update(context);
-		//attackSystem->update(context);
+		attackSystem->update(context);
 		bumpSystem->update(context);
-		enemyPathFindingSystem->update(context);
+	
+		
 		
 		animationSystem->update(context);
 		resourceGatherSystem->update(context);
 		resourceBlobSystem->update(context);
-		//enemySpawnSystem->update(context);
+		enemySpawnSystem->update(context);
 		renderSystem->update(context);
 
 		std::cout << "FPS:   \t" << 1.0/context.deltaTime << std::endl;
