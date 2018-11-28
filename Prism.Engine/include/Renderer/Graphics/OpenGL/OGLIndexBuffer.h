@@ -1,5 +1,6 @@
 #pragma once
 #include "Renderer/Graphics/IndexBuffer.h"
+
 namespace Renderer {
 	namespace Graphics {
 		namespace OpenGL {

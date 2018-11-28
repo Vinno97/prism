@@ -5,7 +5,7 @@ namespace Renderer {
 		class Pipeline
 		{
 		public:
-			Pipeline() {};
+			Pipeline()=default;
 
 			/// <summary>
 			/// Start this pipeline

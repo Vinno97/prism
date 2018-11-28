@@ -8,8 +8,7 @@
 #include "Renderer/Graphics/IndexBuffer.h"
 #include "Renderer/Graphics/VertexArrayObject.h"
 #include <memory>
-
-using namespace std;
+#include <map>
 
 namespace Renderer {
 	namespace Graphics {
@@ -27,13 +26,15 @@ namespace Renderer {
 				/// </remarks>
 				static RenderDevice* getRenderDevice();
 
-				unique_ptr<VertexShader> createVertexShader(const char* source) const override;
-				unique_ptr<FragmentShader> createFragmentShader(const char* source) const override;
-				unique_ptr<Pipeline> createPipeline(VertexShader& vs, FragmentShader& fs) const override;
-				unique_ptr<VertexBuffer> createVertexBuffer(long size, const void *data) const override;
-				unique_ptr<IndexBuffer> createIndexBuffer(long size, const void *data) const override;
-				unique_ptr<VertexArrayObject> createVertexArrayobject() const override;
-				shared_ptr<Texture> createTexture(const char* path) const override;
+				std::unique_ptr<VertexShader> createVertexShader(const char* source) const override;
+				std::unique_ptr<FragmentShader> createFragmentShader(const char* source) const override;
+				std::unique_ptr<Pipeline> createPipeline(VertexShader& vs, FragmentShader& fs) const override;
+				std::unique_ptr<VertexBuffer> createVertexBuffer(long size, const void *data) const override;
+				std::unique_ptr<IndexBuffer> createIndexBuffer(long size, const void *data) const override;
+				std::unique_ptr<VertexArrayObject> createVertexArrayobject() const override;
+				std::unique_ptr<RenderTarget> createRenderTarget(bool useDepthBuffer, std::shared_ptr<Texture> texture) const override;
+				std::shared_ptr<Texture> createTexture(const char* path) const override;
+				std::shared_ptr<Texture> createTexture() const override;
 
 				void useBlending(const bool blend) const override;
 				void setClearColour(float r, float g, float b, float w) const override;
@@ -43,6 +44,18 @@ namespace Renderer {
 				void DrawTriangles(long offset, int count) const override;
 			private:
 				OGLRenderDevice();
+			};
+
+			static std::map<int, int> textures = {
+				{0, GL_TEXTURE0 },
+				{1, GL_TEXTURE1},
+				{2, GL_TEXTURE2},
+				{3, GL_TEXTURE3},
+				{4, GL_TEXTURE4},
+				{5, GL_TEXTURE5},
+				{6, GL_TEXTURE6},
+				{7, GL_TEXTURE7},
+				{8, GL_TEXTURE8},
 			};
 		}
 	}

@@ -3,18 +3,16 @@
 #include "Renderer/Graphics/IndexBuffer.h"
 #include <memory>
 
-using namespace std;
-
 namespace Renderer {
 	namespace Graphics {
 		namespace Models {
 			class Mesh {
 			public:
-				Mesh(unique_ptr<VertexArrayObject> vertexArrayObject, unique_ptr<IndexBuffer> indexBuffer);
-				Mesh(unique_ptr<VertexArrayObject> vertexArrayObject);
+				Mesh(std::unique_ptr<VertexArrayObject> vertexArrayObject, std::unique_ptr<IndexBuffer> indexBuffer);
+				Mesh(std::unique_ptr<VertexArrayObject> vertexArrayObject);
 
-				unique_ptr<VertexArrayObject> vertexArrayObject;
-				unique_ptr<IndexBuffer> indexBuffer;
+				std::unique_ptr<VertexArrayObject> vertexArrayObject;
+				std::unique_ptr<IndexBuffer> indexBuffer;
 				int indicesLength;
 				int verticesLength;
 				bool isIndiced = false;

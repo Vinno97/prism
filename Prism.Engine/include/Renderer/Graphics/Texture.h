@@ -4,7 +4,8 @@ namespace Renderer {
 		class Texture {
 		public:
 			Texture()=default;
-			virtual void bind() = 0;
+			virtual void bind(int target) = 0;
+			virtual int getID() = 0;
 		};
 	}
 }

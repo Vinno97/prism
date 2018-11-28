@@ -5,7 +5,7 @@ namespace Renderer {
 	namespace Graphics {
 		class VertexBuffer {
 		public:
-			VertexBuffer() {};
+			VertexBuffer()=default;
 
 			/// <summary>
 			/// Make this the current active vertexbuffer
