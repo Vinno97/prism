@@ -17,7 +17,7 @@ namespace States {
 	void MainMenuState::onInit(Context & context)
 	{
 		PrismGame game = PrismGame();
-		context.stateMachine->addState(game, context);
+		context.stateMachine->addState<PrismGame>(context);
 
 		std::function<void()> callback = [context]() { context.stateMachine->setState<PrismGame>(); };
 		std::function<void(Vector3f& position, Vector3f& size)> hoverCallback = [](Vector3f& position, Vector3f& size) { position.y -= 0.01; };

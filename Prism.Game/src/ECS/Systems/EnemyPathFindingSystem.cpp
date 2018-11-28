@@ -42,10 +42,5 @@ namespace ECS {
 				}
 			}
 		}
-
-		ECS::Systems::System* EnemyPathFindingSystem::clone()
-		{
-			return new EnemyPathFindingSystem(*entityManager,enemySpeed);
-		}
 	}
 }

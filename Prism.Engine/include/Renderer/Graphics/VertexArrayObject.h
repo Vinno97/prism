@@ -10,7 +10,7 @@ namespace Renderer {
 		class VertexArrayObject
 		{
 		public:
-			VertexArrayObject() {};
+			VertexArrayObject()=default;
 
 			/// <summary>
 			/// adds a vertexbuffer to the VAO. 
