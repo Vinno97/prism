@@ -31,7 +31,7 @@
 #include "ECS/Systems/MousePointSystem.h"
 #include "ECS/Systems/EnemySpawnSystem.h"
 #include <functional>
-
+#include "ECS/Systems/TowerAimingSystem.h"
 namespace States {
 	using namespace ECS;
 	using namespace ECS::Components;
@@ -93,6 +93,7 @@ namespace States {
 		BumpSystem bumpSystem = BumpSystem(entityManager);
 		AimingSystem aimSystem = AimingSystem(entityManager);
 		AttackSystem attackSystem = AttackSystem(entityManager);
+		TowerAimingSystem towerAimingSystem = TowerAimingSystem(entityManager);
 
 		systemManager.registerSystem(motionSystem);
 		systemManager.registerSystem(renderSystem);
@@ -110,6 +111,7 @@ namespace States {
 		systemManager.registerSystem(enemySpawnSystem);
 		systemManager.registerSystem(pointSystem);
 		systemManager.registerSystem(attackSystem);
+		systemManager.registerSystem(towerAimingSystem);
 	}
 
 
@@ -137,7 +139,9 @@ namespace States {
 		auto aimSystem = systemManager.getSystem<AimingSystem>();
 		auto resourceBlobSystem = systemManager.getSystem<ResourceBlobSystem>();
 		auto resourceGatherSystem = systemManager.getSystem<ResourceGatherSystem>();
+		auto towerAimingSystem = systemManager.getSystem<TowerAimingSystem>();
 
+		towerAimingSystem->update(context);
 		inputSystem->update(context);
 		enemyPathFindingSystem->update(context);
 		motionSystem->update(context);

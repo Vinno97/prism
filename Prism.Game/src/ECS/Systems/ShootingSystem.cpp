@@ -18,10 +18,12 @@ namespace ECS {
 
 		void ShootingSystem::update(Context& context)
 		{
+			pastTime += context.deltaTime;
+
 			EntityFactory ef = EntityFactory();
 			for (auto entity : entityManager->getAllEntitiesWithComponent<ShootingComponent>()) {
 				auto component = entityManager->getComponent<ShootingComponent>(entity.id);
-				pastTime += context.deltaTime;
+
 				if (component->isShooting && pastTime > cooldown) {
 					pastTime = 0;
 					int projectileId = ef.createProjectile(*entityManager);

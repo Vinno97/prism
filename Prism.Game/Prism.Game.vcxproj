@@ -100,6 +100,7 @@
     <ClInclude Include="include\ECS\Components\ResourceBlobComponent.h" />
     <ClInclude Include="include\ECS\Components\ResourceGatherComponent.h" />
     <ClInclude Include="include\ECS\Systems\AttackSystem.h" />
+    <ClInclude Include="include\ECS\Systems\TowerAimingSystem.h" />
     <ClInclude Include="include\Enums\ResourceTypeEnum.h" />
     <ClInclude Include="include\ECS\Systems\AnimationSystem.h" />
     <ClInclude Include="include\ECS\Components\ResourceSpawnComponent.h" />
@@ -133,6 +134,7 @@
     <ClCompile Include="src\ECS\Systems\AttackSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\ProjectileAttackSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\ShootingSystem.cpp" />
+    <ClCompile Include="src\ECS\Systems\TowerAimingSystem.cpp" />
     <ClCompile Include="src\States\EndState.cpp" />
     <ClCompile Include="src\ECS\Systems\AnimationSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\BumpSystem.cpp" />
