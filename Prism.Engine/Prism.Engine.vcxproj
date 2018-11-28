@@ -14,6 +14,8 @@
     <ClInclude Include="include\AudioManager.h" />
     <ClInclude Include="include\Menu\Control.h" />
     <ClInclude Include="include\ECS\Components\PlayerComponent.h" />
+    <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLRenderTarget.h" />
+    <ClInclude Include="include\Renderer\Graphics\RenderTarget.h" />
     <ClInclude Include="include\World\Assemblers\AppearanceAssembler.h" />
     <ClInclude Include="include\World\EntityConfigurators\AppearanceConfigurator.h" />
     <ClInclude Include="include\World\EntityConfigurators\EntityConfigurator.h" />
@@ -97,6 +99,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\AudioManager.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLRenderTarget.cpp" />
     <ClCompile Include="src\World\Assemblers\AppearanceAssembler.cpp" />
     <ClCompile Include="src\World\Assemblers\PositionAssembler.cpp" />
     <ClCompile Include="src\World\JSONSerializer.cpp" />
@@ -173,6 +176,7 @@
     <None Include="lib\x64\SDL2_mixer.dll" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="cpp.hint" />
     <None Include="lib\libjpeg-9.dll" />
     <None Include="lib\libpng16-16.dll" />
     <None Include="lib\libtiff-5.dll" />
