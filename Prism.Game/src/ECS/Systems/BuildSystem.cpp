@@ -66,16 +66,16 @@ void ECS::Systems::BuildSystem::update(Context& context) {
 				entityManager->removeEntity(buildingId);
 			}
 		}
-		/*
+		
 		else if (context.inputManager->isKeyPressed(Key::KEY_3)) {
 			deltaTime = 0;
 			if (!isBuilding) {
-				if (inventory->blueResource >= factoryRequirements) {
+				if (true/*inventory->blueResource >= factoryRequirements*/) {
 					isBuilding = true;
 
 					//TODO :: Build Factory, heeft geen appearance???????/
 					buildingId = ef.createEnemy(*entityManager);
-					entityManager->addComponentToEntity(buildingId, DynamicComponent());
+					//entityManager->addComponentToEntity(buildingId, DynamicComponent());
 					buildingColor = entityManager->getComponent<AppearanceComponent>(buildingId)->color;
 				}
 				else {
@@ -86,7 +86,7 @@ void ECS::Systems::BuildSystem::update(Context& context) {
 				isBuilding = false;
 				entityManager->removeEntity(buildingId);
 			}
-		}*/
+		}
 	}
 
 	if (isBuilding) {
