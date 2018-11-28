@@ -162,7 +162,7 @@ int EntityFactory::createWall(int entity, EntityManager & entityManager)
 	appearance.scaleY = 0.5f;
 	appearance.scaleZ = 0.5f;
 	appearance.model = std::move(model);
-
+	appearance.color = Math::Vector3f{ 0.9f, 0.9f, 0.9f };
 	entityManager.addComponentToEntity(entity, WallComponent());
 	entityManager.addComponentToEntity(entity, PositionComponent());
 	entityManager.addComponentToEntity(entity, appearance);
@@ -228,7 +228,7 @@ int EntityFactory::createFloor(ECS::EntityManager & entityManager)
 int EntityFactory::createFloor(int entity, EntityManager & entityManager) {
 	int width = 150;
 	int height = 150;
-	float scale = 1;
+	float scale = 0.5;
 
 	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
 	auto model = World::TerrainGenerator().generateTerrain(width / scale, height / scale);
@@ -238,7 +238,7 @@ int EntityFactory::createFloor(int entity, EntityManager & entityManager) {
 	appearance.translationZ -= 6.25;
 
 	appearance.scaleX = scale;
-	appearance.scaleY = scale / 1.5;
+	appearance.scaleY = scale / 3;
 	appearance.scaleZ = scale;
 
 	appearance.translationX = -width / 2;
@@ -246,7 +246,7 @@ int EntityFactory::createFloor(int entity, EntityManager & entityManager) {
 	appearance.translationY = -scale / 15;
 
 	appearance.model = std::move(model);
-	appearance.color = Math::Vector3f{ 0.78f, 0.78f, 0.78f };
+	appearance.color = Math::Vector3f{ 0.8f, 0.8f, 0.82f };
 	
 	entityManager.addComponentToEntity(entity, PositionComponent());
 	entityManager.addComponentToEntity(entity, appearance);

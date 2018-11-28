@@ -5,6 +5,8 @@
 #include "Context.h"
 #include "ECS/Components/CameraComponent.h"
 
+using namespace glm;
+
 namespace ECS {
 	namespace Systems {
 		MousePointSystem::MousePointSystem(EntityManager& entityManager) : System(entityManager) {
