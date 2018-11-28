@@ -24,6 +24,19 @@ public:
 	}
 
 	/// <summary>
+	/// Remove state
+	/// </summary>
+	template<class T, typename = std::enable_if_t < std::is_base_of<State, T>::type::value>>
+	void removeState()
+	{
+		const std::type_index type{ std::type_index(typeid(T)) };
+		
+		if (hasState(type)) {
+			existingStates.erase(type);
+		}
+	}
+
+	/// <summary>
 	/// Add state to list of existing states
 	/// </summary>
 	/// <param name="state">New state</param>

@@ -58,7 +58,7 @@ void ECS::Systems::AttackSystem::updateEntity(int id, Context& context) {
 	if (entityManager->hasComponent<HealthComponent>(id)) {
 		auto currentComponent = entityManager->getComponent<HealthComponent>(id);
 
-		currentComponent->health -= 10;
+		currentComponent->health -= 100;
 
 		// Print (Remove after review)
 		std::cout << "Speler: " << currentComponent->health << std::endl;

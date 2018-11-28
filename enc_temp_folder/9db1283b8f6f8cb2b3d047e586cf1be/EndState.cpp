@@ -14,27 +14,22 @@ namespace States {
 
 	void EndState::onInit(Context & context)
 	{
-		std::function<void()> callbackMainMenu = [context]() { context.stateMachine->setState<MainMenuState>(); };
-		std::function<void()> callBackRestart = [context]()mutable {
-			context.stateMachine->removeState<PrismGame>();
 
-			PrismGame newGame = PrismGame();
-			context.stateMachine->addState(newGame, context);
-			context.stateMachine->setState<PrismGame>(); 
-		};
-
-
-		menuBuilder.addControl(-0.35, -0.1, 0.7, 0.16, "img/mainMenuButton.png", callbackMainMenu);
-		menuBuilder.addControl(-0.35, 0.1, 0.7, 0.16, "img/restart.png", callBackRestart);
-		menuBuilder.addControl(-0.5, 0.4, 1, 0.24, "img/gameover.png");
-
-		menu = menuBuilder.buildMenu();
 		Renderer::Graphics::RenderDevice* renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
 		renderDevice->setClearColour(1.f, 1.f, 1.f, 1.f);
 	}
 
 	void EndState::onUpdate(Context & context)
 	{
+		std::function<void()> callbackMainMenu = [context]() { context.stateMachine->setState<MainMenuState>(); };
+
+		menuBuilder.addControl(-0.35, -0.1, 0.7, 0.16, "img/mainMenuButton.png", callbackMainMenu);
+
+		menuBuilder.addControl(-0.5, 0.4, 1, 0.24, "img/gameover.png");
+
+		menu = menuBuilder.buildMenu();
+
+
 		Renderer::Graphics::RenderDevice* renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
 		renderDevice->clearScreen();
 		menuRenderer.renderMenu(menu, float(context.window->width) / float(context.window->height));
