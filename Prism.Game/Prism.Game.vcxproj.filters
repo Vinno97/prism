@@ -26,6 +26,7 @@
     <ClCompile Include="src\ECS\Systems\EnemyPathFindingSystem.cpp" />
     <ClCompile Include="src\World\Assemblers\EnemySpawnAssembler.cpp" />
     <ClCompile Include="src\World\Assemblers\CliffAssembler.cpp" />
+    <ClCompile Include="src\States\MainMenuState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ECS\Components\BulletComponent.h" />
@@ -115,6 +116,9 @@
     <ClCompile Include="src\States\PrismGame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\States\EndState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClInclude Include="include\ECS\Components\EnemySpawnComponent.h" />
     <ClInclude Include="include\ECS\Systems\EnemyPathFindingSystem.h" />
     <ClInclude Include="include\ECS\Systems\EnemySpawnSystem.h" />
@@ -122,6 +126,7 @@
     <ClInclude Include="include\World\Assemblers\EnemySpawnAssembler.h" />
     <ClInclude Include="include\World\Assemblers\CliffAssembler.h" />
     <ClInclude Include="include\ECS\Components\CliffComponent.h" />
+    <ClInclude Include="include\States\MainMenuState.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="lib\assimp-vc140-mtd.dll" />
