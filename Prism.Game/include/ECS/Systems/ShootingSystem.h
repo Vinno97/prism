@@ -13,9 +13,6 @@ namespace ECS {
 
 			void update(Context& context) override;
 			System* clone() override;
-		private:
-			float pastTime = 0;
-			float cooldown = 0.2;
 		};
 	}
 }

@@ -31,8 +31,9 @@ namespace ECS {
 							float pythagoras = sqrt((xDif * xDif) + (yDif * yDif));
 							float normalizedX = xDif / pythagoras;
 							float normalizedY = yDif / pythagoras;
-							playerShooting->xdirection = normalizedX;
-							playerShooting->ydirection = normalizedY;
+							float spread = static_cast<float>((rand() % (10) - 5) / 100.0);
+							playerShooting->xdirection = normalizedX + spread;
+							playerShooting->ydirection = normalizedY + spread;
 							playerShooting->isShooting = true;
 						}
 

@@ -2,6 +2,7 @@
 #include "ECS/Components/EnemyComponent.h"
 #include "ECS//Components/TowerComponent.h"
 #include "ECS/Components/ShootingComponent.h"
+#include "ECS/Components/VelocityComponent.h"
 #include "Math/Vector3f.h"
 
 using namespace ECS;
@@ -23,12 +24,13 @@ void ECS::Systems::TowerAimingSystem::update(Context & context)
 		for (const auto& enemy : enemyList) {
 
 			auto enemyPosition = entityManager->getComponent<PositionComponent>(enemy.id);
+			auto enemeySpeed = entityManager->getComponent<VelocityComponent>(enemy.id);
 			auto shootingComponent = entityManager->getComponent<ShootingComponent>(tower.id);
 
 			if (enemyIsInRange(*towerPosition, *enemyPosition, radius)) {
 
-				auto directionx = enemyPosition->x - towerPosition->x;
-				auto directiony = enemyPosition->y - towerPosition->y;
+				auto directionx = (enemyPosition->x + enemeySpeed->dx * (context.deltaTime * 10)) - towerPosition->x;
+				auto directiony = (enemyPosition->y + enemeySpeed->dy * (context.deltaTime * 10)) - towerPosition->y;
 				Math::Vector3f vec = Math::Vector3f(directionx, directiony, 0);
 				vec.normalize();
 
