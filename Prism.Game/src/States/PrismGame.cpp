@@ -62,10 +62,9 @@ namespace States {
 
 		registerSystems(context);
 
-		PauseState ps = PauseState();
-		context.stateMachine->addState(ps, context);
-		EndState es = EndState();
-		context.stateMachine->addState(es, context);
+		context.stateMachine->addState<PauseState>(context);
+
+		context.stateMachine->addState<EndState>(context);
 		
 		std::function<void()> callback = [context, &canPress = canPressEscape]() mutable { canPress = false; context.stateMachine->setState<PauseState>(); };
 	}
@@ -76,38 +75,31 @@ namespace States {
 	/// <param name="context">The context that is needed to register the systems</param>
 	void PrismGame::registerSystems(Context &context)
 	{
-		MotionSystem motionSystem = MotionSystem(entityManager);
-		RenderSystem renderSystem = RenderSystem(entityManager, context.window->width, context.window->height);
-		KeyboardInputSystem inputSystem = KeyboardInputSystem(entityManager);
-		EnemyPathFindingSystem enemyPathFindingSystem  = EnemyPathFindingSystem(entityManager, 10);
-		AnimationSystem animationSystem = AnimationSystem(entityManager);
-		CollisionSystem collisionSystem = CollisionSystem(entityManager, context.window->width, context.window->height, 0, 0, 2);
-		ShootingSystem shootingSystem = ShootingSystem(entityManager);
-		ProjectileAttackSystem projectileAttackSystem = ProjectileAttackSystem(entityManager);
-		ResourceBlobSystem resourceBlobSystem = ResourceBlobSystem(entityManager);
-		ResourceGatherSystem resourceGatherSystem = ResourceGatherSystem(entityManager);
-		EnemySpawnSystem enemySpawnSystem = EnemySpawnSystem(entityManager);
-		MousePointSystem pointSystem = MousePointSystem(entityManager);
-		BumpSystem bumpSystem = BumpSystem(entityManager);
-		AimingSystem aimSystem = AimingSystem(entityManager);
-		AttackSystem attackSystem = AttackSystem(entityManager);
+		systemManager
+			//1
+			.registerSystem<1, KeyboardInputSystem>(entityManager)
+			.registerSystem<1, MousePointSystem>(entityManager)
+			.registerSystem<1, EnemyPathFindingSystem>(entityManager, 10)
 
-		systemManager.registerSystem(motionSystem);
-		systemManager.registerSystem(renderSystem);
-		systemManager.registerSystem(inputSystem);
-		systemManager.registerSystem(enemyPathFindingSystem);
+			//2
+			.registerSystem<2, MotionSystem>(entityManager)
+			.registerSystem<2, AnimationSystem>(entityManager)
+			.registerSystem<2, AimingSystem>(entityManager)
+			.registerSystem<2, ResourceGatherSystem>(entityManager)
+			.registerSystem<2, EnemySpawnSystem>(entityManager)
 
-		systemManager.registerSystem(animationSystem);
-		systemManager.registerSystem(collisionSystem);
-		systemManager.registerSystem(shootingSystem);
-		systemManager.registerSystem(projectileAttackSystem);
-		systemManager.registerSystem(aimSystem);
-		systemManager.registerSystem(bumpSystem);
-		systemManager.registerSystem(resourceGatherSystem);
-		systemManager.registerSystem(resourceBlobSystem);
-		systemManager.registerSystem(enemySpawnSystem);
-		systemManager.registerSystem(pointSystem);
-		systemManager.registerSystem(attackSystem);
+			//3
+			.registerSystem<3, CollisionSystem>(entityManager, context.window->width, context.window->height, 0, 0, 2)
+			.registerSystem<3, ResourceBlobSystem>(entityManager)
+			.registerSystem<3, ShootingSystem>(entityManager)
+
+			//4
+			.registerSystem<4, ProjectileAttackSystem>(entityManager)
+
+			//5
+			.registerSystem<5, RenderSystem>(entityManager, context.window->width, context.window->height)
+			.registerSystem<5, AttackSystem>(entityManager)
+			.registerSystem<5, BumpSystem>(entityManager);
 	}
 
 
@@ -120,38 +112,13 @@ namespace States {
 			return; 
 		}
 
-		auto inputSystem = systemManager.getSystem<KeyboardInputSystem>();
-		auto enemyPathFindingSystem = systemManager.getSystem<EnemyPathFindingSystem>();
-		auto motionSystem = systemManager.getSystem<MotionSystem>();
-		auto collisionSystem = systemManager.getSystem<CollisionSystem>();
-		auto renderSystem = systemManager.getSystem<RenderSystem>();
-		auto animationSystem = systemManager.getSystem<AnimationSystem>();
-		auto shootingSystem = systemManager.getSystem<ShootingSystem>();
-		auto projectileAttackSystem = systemManager.getSystem<ProjectileAttackSystem>();
-		auto attackSystem = systemManager.getSystem<AttackSystem>();
-		auto bumpSystem = systemManager.getSystem<BumpSystem>();
-		auto enemySpawnSystem = systemManager.getSystem<EnemySpawnSystem>();
-		auto pointSystem = systemManager.getSystem<MousePointSystem>();
-		auto aimSystem = systemManager.getSystem<AimingSystem>();
-		auto resourceBlobSystem = systemManager.getSystem<ResourceBlobSystem>();
-		auto resourceGatherSystem = systemManager.getSystem<ResourceGatherSystem>();
-
-		inputSystem->update(context);
-		enemyPathFindingSystem->update(context);
-		motionSystem->update(context);
-		collisionSystem->update(context);
-		pointSystem->update(context);
-		aimSystem->update(context);
-		shootingSystem->update(context);
-		projectileAttackSystem->update(context);
-		attackSystem->update(context);
-		bumpSystem->update(context);
-		animationSystem->update(context);
-		resourceGatherSystem->update(context);
-		resourceBlobSystem->update(context);
-		enemySpawnSystem->update(context);
-		renderSystem->update(context);
-
+		for (auto& systemList : systemManager.getAllSystems()) {
+			for (auto& system : systemList.second) {
+				system.second->update(context);
+			}
+		}
+			
+		
 		std::cout << 1.0/context.deltaTime << std::endl;
 
 		context.window->swapScreen();

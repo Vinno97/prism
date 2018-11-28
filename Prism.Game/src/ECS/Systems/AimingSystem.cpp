@@ -44,10 +44,5 @@ namespace ECS {
 				}
 			}
 		}
-
-		System * AimingSystem::clone()
-		{
-			return new AimingSystem(*entityManager);
-		}
 	}
 }

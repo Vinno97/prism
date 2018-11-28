@@ -14,7 +14,7 @@ namespace States {
 	void MainMenuState::onInit(Context & context)
 	{
 		PrismGame game = PrismGame();
-		context.stateMachine->addState(game, context);
+		context.stateMachine->addState<PrismGame>(context);
 
 		std::function<void()> callback = [context]() { context.stateMachine->setState<PrismGame>(); };
 		menuBuilder.addControl(-0.35,  0.4, 0.6, 0.18, "img/NewGameButton.png", callback);
