@@ -18,11 +18,10 @@ void Game::onUpdate(Context &context)
 	
 }
 
-void Game::onEnter()
+void Game::onEnter(Context & context)
 {
-	// Entered the State Game
-
 }
+
 
 void Game::onLeave()
 {

@@ -23,8 +23,8 @@ void ECS::Systems::GameOverSystem::update(Context& context) {
 		auto healthComponent = entityManager->getComponent<HealthComponent>(entity.id);
 		
 		if (healthComponent->health <= 0) {
-	
 			context.stateMachine->setState<EndState>();
+			context.stateMachine->getState<EndState>()->onEnter(context);
 		}
 	}
 }

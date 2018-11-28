@@ -17,7 +17,7 @@ class PrismGame : public Game
 	PrismGame() = default;
 	void onInit(Context &context) override;
 	void onUpdate(Context &context) override;
-	void onEnter() override;
+	void onEnter(Context & context) override;
 	void onLeave() override;
 
   private:

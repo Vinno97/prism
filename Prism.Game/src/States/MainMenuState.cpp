@@ -13,10 +13,13 @@ namespace States {
 
 	void MainMenuState::onInit(Context & context)
 	{
-		PrismGame game = PrismGame();
-		context.stateMachine->addState(game, context);
-
-		std::function<void()> callback = [context]() { context.stateMachine->setState<PrismGame>(); };
+		std::function<void()> callback = [context]()mutable{ 
+			if (!context.stateMachine->hasState<PrismGame>()) {
+				PrismGame newGame = PrismGame();
+				context.stateMachine->addState(newGame, context);
+			}
+			context.stateMachine->setState<PrismGame>();
+		};
 		menuBuilder.addControl(-0.35,  0.4, 0.6, 0.18, "img/NewGameButton.png", callback);
 		menuBuilder.addControl(-0.35,  0.1, 0.6, 0.18, "img/LoadGameButton.png");
 		menuBuilder.addControl(-0.35, -0.7, 0.6, 0.18, "img/QuitGameButton.png");
@@ -41,7 +44,7 @@ namespace States {
 		context.window->swapScreen();
 	}
 
-	void MainMenuState::onEnter()
+	void MainMenuState::onEnter(Context & context)
 	{
 
 	}

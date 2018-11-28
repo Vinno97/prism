@@ -34,7 +34,7 @@ namespace States {
 		context.window->swapScreen();
 	}
 
-	void PauseState::onEnter()
+	void PauseState::onEnter(Context & context)
 	{
 		menuBuilder.addControl(-0.5, 0, 1, 0.21, "img/pause.png");
 		menu = menuBuilder.buildMenu();

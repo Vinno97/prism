@@ -20,7 +20,7 @@ void StateMachine::setState(std::type_index type) {
 		this->currentState->onLeave();
 
 	this->currentState = getState(type);
-	this->currentState->onEnter();
+//	this->currentState->onEnter(context);
 }
 
 State* StateMachine::getState(std::type_index type) const {

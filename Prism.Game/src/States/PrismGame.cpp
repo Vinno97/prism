@@ -63,13 +63,16 @@ namespace States {
 		loader.save("saves/Sample Save", entityManager);
 
 		loadAudio(context);
-
 		registerSystems(context);
 
-		PauseState ps = PauseState();
-		context.stateMachine->addState(ps, context);
-		EndState es = EndState();
-		context.stateMachine->addState(es, context);
+		if (!context.stateMachine->hasState<PauseState>()) {
+			PauseState ps = PauseState();
+			context.stateMachine->addState(ps, context);
+		}
+		if (!context.stateMachine->hasState<EndState>()) {
+			EndState ps = EndState();
+			context.stateMachine->addState(ps, context);
+		}
 		
 		std::function<void()> callback = [context, &canPress = canPressEscape]() mutable { canPress = false; context.stateMachine->setState<PauseState>(); };
 		menuBuilder.addControl(-0.95, 0.78, 0.8, 0.15, "img/healthbar.png", callback);
@@ -105,7 +108,6 @@ namespace States {
 		systemManager.registerSystem(inputSystem);
 		systemManager.registerSystem(gameoverSystem);
 		systemManager.registerSystem(enemyPathFindingSystem);
-
 		systemManager.registerSystem(animationSystem);
 		systemManager.registerSystem(cheatSystem);
 		systemManager.registerSystem(collisionSystem);
@@ -120,11 +122,8 @@ namespace States {
 		systemManager.registerSystem(attackSystem);
 	}
 
-
-
 	void PrismGame::onUpdate(Context &context)
 	{
-
 		auto input = context.inputManager;
 		if (menu.handleInput(*context.inputManager, context.window->width, context.window->height)) { 
 			return; 
@@ -148,7 +147,7 @@ namespace States {
 		auto gameoverSystem = systemManager.getSystem<GameOverSystem>();
 
 		cheat(context);
-		gameoverSystem->update(context);
+
 		inputSystem->update(context);
 		enemyPathFindingSystem->update(context);
 		motionSystem->update(context);
@@ -164,7 +163,7 @@ namespace States {
 		resourceBlobSystem->update(context);
 		enemySpawnSystem->update(context);
 		renderSystem->update(context);
-	
+		gameoverSystem->update(context);
 
 		//std::cout << 1.0/context.deltaTime << std::endl;
 		/*
@@ -198,7 +197,7 @@ namespace States {
 		context.audioManager->playMusic("Ambience");
 	}
 
-	void PrismGame::onEnter() {
+	void PrismGame::onEnter(Context & contexts) {
 	}
 	void PrismGame::onLeave() {
 	}

@@ -10,7 +10,7 @@ void State::onInit(Context &context)
 {
 }
 
-void State::onEnter()
+void State::onEnter(Context & context)
 {
 }
 
