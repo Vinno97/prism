@@ -122,7 +122,7 @@ namespace States {
 
 	void PrismGame::onUpdate(Context &context)
 	{
-
+		std::cout << 1.0 / context.deltaTime << "\r";
 		auto input = context.inputManager;
 		if (menu.handleInput(*context.inputManager, context.window->width, context.window->height)) { 
 			return; 
@@ -165,8 +165,6 @@ namespace States {
 		enemySpawnSystem->update(context);
 		renderSystem->update(context);
 	
-
-		//std::cout << 1.0/context.deltaTime << std::endl;
 		/*
 		for (auto &entity : entityManager.getAllEntitiesWithComponent<VelocityComponent>()) {
 			auto velocity = entity.component;
