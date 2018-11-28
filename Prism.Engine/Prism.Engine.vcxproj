@@ -17,6 +17,7 @@
     <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLRenderTarget.h" />
     <ClInclude Include="include\Renderer\Graphics\RenderTarget.h" />
     <ClInclude Include="include\World\Assemblers\AppearanceAssembler.h" />
+    <ClInclude Include="include\World\Assemblers\HealthAssembler.h" />
     <ClInclude Include="include\World\EntityConfigurators\AppearanceConfigurator.h" />
     <ClInclude Include="include\World\EntityConfigurators\EntityConfigurator.h" />
     <ClInclude Include="include\World\EntityConfigurators\PositionConfigurator.h" />
@@ -101,6 +102,7 @@
     <ClCompile Include="src\AudioManager.cpp" />
     <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLRenderTarget.cpp" />
     <ClCompile Include="src\World\Assemblers\AppearanceAssembler.cpp" />
+    <ClCompile Include="src\World\Assemblers\HealthAssembler.cpp" />
     <ClCompile Include="src\World\Assemblers\PositionAssembler.cpp" />
     <ClCompile Include="src\World\JSONSerializer.cpp" />
     <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLTexture.cpp" />
