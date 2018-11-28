@@ -113,9 +113,9 @@ namespace States {
 
 	void PrismGame::onUpdate(Context &context)
 	{
-		context.deltaTime *= 2.5;
+		//context.deltaTime *= 2.5;
 
-	   auto input = context.inputManager;
+	    auto input = context.inputManager;
 
 		auto inputSystem = systemManager.getSystem<KeyboardInputSystem>();
 		auto enemyPathFindingSystem = systemManager.getSystem<EnemyPathFindingSystem>();
@@ -136,21 +136,24 @@ namespace States {
 
 		inputSystem->update(context);
 		enemyPathFindingSystem->update(context);
-		motionSystem->update(context);
+		
 		collisionSystem->update(context);
+
+		motionSystem->update(context);
+		
 		pointSystem->update(context);
 		aimSystem->update(context);
-		shootingSystem->update(context);
 		
 		buildSystem->update(context);
-		
-		projectileAttackSystem->update(context);
-		//attackSystem->update(context);
-		bumpSystem->update(context);
+
 		animationSystem->update(context);
 		resourceGatherSystem->update(context);
 		resourceBlobSystem->update(context);
 		enemySpawnSystem->update(context);
+		shootingSystem->update(context);
+		projectileAttackSystem->update(context);
+		attackSystem->update(context);
+		bumpSystem->update(context);
 		renderSystem->update(context);
 
 		std::cout << "FPS:   \t" << 1.0/context.deltaTime << std::endl;

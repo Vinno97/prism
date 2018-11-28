@@ -28,6 +28,7 @@
 #include "ECS/Components/ResourceGatherComponent.h"
 #include "ECS/Components/ResourceBlobComponent.h"
 #include "ECS/Components/HealthComponent.h"
+#include "ECS/Components/PlacableComponent.h"
 #include "ECS/Components/DynamicComponent.h"
 #include "Renderer/Graphics/Loader/ModelLoader.h"
 #include "Renderer/Camera.h"
@@ -64,6 +65,7 @@ int EntityFactory::createPlayer(int entity, EntityManager& entityManager) {
 	entityManager.addComponentToEntity(entity, ResourceGatherComponent());
 	entityManager.addComponentToEntity(entity, appearance);
 	entityManager.addComponentToEntity(entity, ShootingComponent());
+	entityManager.addComponentToEntity(entity, PlacableComponent());
 	entityManager.addComponentToEntity(entity, DynamicComponent());
 
 	return entity;
@@ -90,6 +92,7 @@ int EntityFactory::createEnemy(int entity, EntityManager& entityManager) {
 	entityManager.addComponentToEntity(entity, EnemyComponent());
 	entityManager.addComponentToEntity(entity, appearance);
 	entityManager.addComponentToEntity(entity, BoundingBoxComponent(.4, .4));
+	entityManager.addComponentToEntity(entity, PlacableComponent());
 	entityManager.addComponentToEntity(entity, DynamicComponent());
 	
 	return entity;

@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ECS\Components\DynamicComponent.h" />
+    <ClInclude Include="include\ECS\Components\PlacableComponent.h" />
     <ClInclude Include="include\Menu\Control.h" />
     <ClInclude Include="include\ECS\Components\PlayerComponent.h" />
     <ClInclude Include="include\World\Assemblers\AppearanceAssembler.h" />

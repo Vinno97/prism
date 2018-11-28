@@ -149,6 +149,7 @@
     <ClInclude Include="include\ECS\Systems\MousePointSystem.h" />
     <ClInclude Include="include\ECS\Components\HealthComponent.h" />
     <ClInclude Include="include\ECS\Components\DynamicComponent.h" />
+    <ClInclude Include="include\ECS\Components\PlacableComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\x64\SDL2test.lib" />

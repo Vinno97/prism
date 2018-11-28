@@ -10,6 +10,7 @@
 #include "ECS/Components/AppearanceComponent.h"
 #include "ECS/Components/DynamicComponent.h"
 #include "ECS/Components/InventoryComponent.h"
+#include "ECS/Components/PlacableComponent.h"
 #include <algorithm>
 
 
@@ -35,6 +36,7 @@ void ECS::Systems::BuildSystem::update(Context& context) {
 					isBuilding = true;
 
 					buildingId = ef.createWall(*entityManager);
+					entityManager->addComponentToEntity(buildingId, VelocityComponent());
 					entityManager->addComponentToEntity(buildingId, DynamicComponent());
 					buildingColor = entityManager->getComponent<AppearanceComponent>(buildingId)->color;
 				}
@@ -54,6 +56,7 @@ void ECS::Systems::BuildSystem::update(Context& context) {
 					isBuilding = true;
 
 					buildingId = ef.createTower(*entityManager);
+					entityManager->addComponentToEntity(buildingId, VelocityComponent());
 					entityManager->addComponentToEntity(buildingId, DynamicComponent());
 					buildingColor = entityManager->getComponent<AppearanceComponent>(buildingId)->color;
 				}
@@ -97,22 +100,30 @@ void ECS::Systems::BuildSystem::update(Context& context) {
 		auto appearance = entityManager->getComponent<AppearanceComponent>(buildingId);
 		appearance->color = buildingColor;
 
-		entityManager->getComponent<ShootingComponent>(playerId)->isShooting = false;
+		
+		auto shooting = entityManager->getComponent<ShootingComponent>(playerId);
+		shooting->isShooting = false;
+		
 
+		
 		if (canPlace) {
-			if (isBuilding && context.inputManager->isMouseButtonPressed(Key::MOUSE_BUTTON_LEFT)) {
+			if (context.inputManager->isMouseButtonPressed(Key::MOUSE_BUTTON_LEFT)) {
 
+				entityManager->addComponentToEntity(buildingId, PlacableComponent());
 				entityManager->removeComponentFromEntity<DynamicComponent>(buildingId);
+				entityManager->removeComponentFromEntity<VelocityComponent>(buildingId);
 				buildingId = -1;
 				isBuilding = false;
 			}
 		}
 		else {
+			/*
 			for (auto id : boundingBoxComponent->collidesWith) {
 				auto &collider = (entityManager->getComponent<BoundingBoxComponent>(id)->collidesWith);
 				//collider->erase(collider->begin(), collider->begin(), buildingId);
 				collider.erase(std::remove(collider.begin(), collider.end(), buildingId), collider.end());
-			}
+				int k = 5;
+			}*/
 			appearance->color = Math::Vector3f{ 1.0f, 0.5f, 0.5f };
 		}
 	}
