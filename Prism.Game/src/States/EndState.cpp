@@ -14,15 +14,11 @@ namespace States {
 
 	void EndState::onInit(Context & context)
 	{
-		
-
-
 		std::function<void()> callbackMainMenu = [context]() { context.stateMachine->setState<MainMenuState>(); };
 		std::function<void()> callBackRestart = [context]() { context.stateMachine->setState<PrismGame>(); };
 		menuBuilder.addControl(-0.35, -0.1, 0.7, 0.16, "img/mainMenuButton.png", callbackMainMenu);
 		menuBuilder.addControl(-0.35, 0.1, 0.7, 0.16, "img/restart.png", callBackRestart);
 		menuBuilder.addControl(-0.5, 0.4, 1, 0.24, "img/gameover.png");
-
 
 		menu = menuBuilder.buildMenu();
 		Renderer::Graphics::RenderDevice* renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
@@ -45,7 +41,6 @@ namespace States {
 
 	void EndState::onEnter()
 	{
-
 	}
 
 	void EndState::onLeave()

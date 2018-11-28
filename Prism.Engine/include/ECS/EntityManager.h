@@ -109,7 +109,6 @@ namespace ECS {
 				result.push_back(entity);
 			}
 			
-
 			return result;
 		}
 

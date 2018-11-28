@@ -39,8 +39,6 @@ public:
 		existingStates[type]->onInit(context);
 	}
 
-
-
 	/// <summary>
 	/// Get specific state
 	/// </summary>
@@ -67,15 +65,11 @@ public:
 	/// <returns>Returns the current state </returns>
 	State *getCurrentState() const;
 
-
 private:
 	State *currentState;
-
 	// keeps a list of States
 	std::map<std::type_index, State*> existingStates;
-
 	void setState(std::type_index type);
-
 	State* getState(std::type_index type) const;
 	bool hasState(std::type_index type) const;
 };
