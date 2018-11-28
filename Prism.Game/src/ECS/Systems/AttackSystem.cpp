@@ -8,12 +8,10 @@
 #include "ECS/Components/EnemyComponent.h"
 #include "ECS/Components/PlayerComponent.h"
 
-
 ECS::Systems::AttackSystem::AttackSystem(EntityManager &entityManager) : System(entityManager) { }
 
 ECS::Systems::AttackSystem::~AttackSystem()
 = default;
-
 
 void ECS::Systems::AttackSystem::update(Context& context) {
 
