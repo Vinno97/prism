@@ -181,16 +181,18 @@ int EntityFactory::createCliff(int entity, EntityManager & entityManager)
 	auto model = ml.loadModel("./res/cliff_straight.obj");
 
 	AppearanceComponent appearance;
-	appearance.scaleX = 0.2f;
-	appearance.scaleY = 0.2f;
-	appearance.scaleZ = 0.2f;
-	appearance.translationY = 3.0f;
+	appearance.scaleX = 1.0f;
+	appearance.scaleY = 1.0f;
+	appearance.scaleZ = 1.0f;
 	appearance.rotationY = 180.0f;
 	appearance.model = std::move(model);
 
+	BoundingBoxComponent b = BoundingBoxComponent(0, 0);
+	b.boundingBox.SetBounds(-.2,.5,.5,-.5);
 	entityManager.addComponentToEntity(entity, PositionComponent());
 	entityManager.addComponentToEntity(entity, appearance);
-	entityManager.addComponentToEntity(entity, BoundingBoxComponent(1.0, 1.0));
+	//entityManager.addComponentToEntity(entity, BoundingBoxComponent(1.0, 0.2));
+	entityManager.addComponentToEntity(entity, b);
 	return entity;
 }
 

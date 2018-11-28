@@ -139,17 +139,17 @@ namespace States {
 		inputSystem->update(context);
 		enemyPathFindingSystem->update(context);
 		motionSystem->update(context);
-		//collisionSystem->update(context);
+		collisionSystem->update(context);
 		pointSystem->update(context);
 		aimSystem->update(context);
 		shootingSystem->update(context);
 		projectileAttackSystem->update(context);
 		attackSystem->update(context);
-		//bumpSystem->update(context);
+		bumpSystem->update(context);
 		animationSystem->update(context);
 		resourceGatherSystem->update(context);
 		resourceBlobSystem->update(context);
-		//enemySpawnSystem->update(context);
+		enemySpawnSystem->update(context);
 		renderSystem->update(context);
 
 		std::cout << 1.0/context.deltaTime << std::endl;
