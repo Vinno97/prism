@@ -33,6 +33,7 @@ namespace Menu {
 
 	void MenuRenderer::renderMenu(Menu& menu, float aspect)
 	{
+		renderDevice->useDepthTest(false);
 		menuPipeline->run();
 	//	menuPipeline->setUniformMatrix4f("view", projection);
 		renderDevice->useBlending(true);
@@ -52,7 +53,7 @@ namespace Menu {
 
 			menuPipeline->setUniformMatrix4f("model", model);
 
-			control.texture->bind();
+			control.texture->bind(textures[0]);
 			renderDevice->DrawTrianglesIndexed(0, menu.mesh->indicesLength);	
 		}
 		renderDevice->useBlending(false);
@@ -60,5 +61,6 @@ namespace Menu {
 
 		glDisable(GL_BLEND);
 		menuPipeline->stop();
+		renderDevice->useDepthTest(true);
 	}
 }

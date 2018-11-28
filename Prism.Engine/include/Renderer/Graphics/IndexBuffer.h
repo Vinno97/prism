@@ -5,7 +5,7 @@ namespace Renderer {
 	namespace Graphics{
 		class IndexBuffer {
 		public:
-			IndexBuffer() {};
+			IndexBuffer()=default;
 
 			/// <summary>
 			/// Make this the current active indexbuffer
