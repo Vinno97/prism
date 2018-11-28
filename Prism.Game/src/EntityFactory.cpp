@@ -140,6 +140,7 @@ int EntityFactory::createTower(int entity, EntityManager & entityManager)
 	appearance.scaleY = 0.5f;
 	appearance.scaleZ = 0.5f;
 	appearance.model = std::move(model);
+	appearance.color = Math::Vector3f{ 0.9f, 0.9f, 0.9f };
 
 	entityManager.addComponentToEntity(entity, TowerComponent());
 	entityManager.addComponentToEntity(entity, PositionComponent());
