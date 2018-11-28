@@ -7,6 +7,7 @@
 #include "ECS/Components/SceneComponent.h"
 #include "ECS/Components/PositionComponent.h"
 #include "ECS/Components/VelocityComponent.h"
+#include "ECS/Components/PointLightComponent.h"
 #include "ECS/Components/AppearanceComponent.h"
 #include "ECS/Components/DragComponent.h"
 #include "ECS/Components/KeyboardInputComponent.h"
@@ -52,6 +53,22 @@ namespace States {
 		sceneComponent->scene.sun.direction = Math::Vector3f{ 25.f, 150.0f, 100.0f };
 
 		World::LevelManager loader{ std::make_unique<PrismEntityAssembler>() };
+		auto entity = entityManager.createEntity();
+
+		Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
+		auto model = ml.loadModel("./res/wall.obj");
+
+		AppearanceComponent appearance;
+		appearance.scaleX = 0.1f;
+		appearance.scaleY = 0.1f;
+		appearance.scaleZ = 0.1f;
+
+		appearance.translationY = 0.5f;
+		appearance.model = std::move(model);
+
+		entityManager.addComponentToEntity(entity, PositionComponent(double(-42.f), double(-15.f)));
+		entityManager.addComponentToEntity(entity, appearance);
+		entityManager.addComponentToEntity(entity, PointLightComponent());
 
 		loader.load("levels/Sample World", entityManager);
 		// Dit is hoe een wereld zou worden opgeslagen en weer ingeladen.
@@ -114,6 +131,9 @@ namespace States {
 
 	void PrismGame::onUpdate(Context &context)
 	{
+
+		auto test = entityManager.getAllEntitiesWithComponent<PlayerComponent>()[0];
+		auto test2 = entityManager.getComponent<PositionComponent>(test.id);
 
 		auto input = context.inputManager;
 		if (menu.handleInput(*context.inputManager, context.window->width, context.window->height)) { 

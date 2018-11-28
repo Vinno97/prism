@@ -15,12 +15,14 @@
 #include "Renderer/Graphics/Loader/ModelLoader.h"
 #include "Renderer/Graphics/Models/Model.h"
 #include "Util/FileSystem.h"
+#include "Math/Vector3f.h"
+#include "Renderer/PointLight.h"
 #include <SDL2/SDL_opengl.h>
 
+using namespace Math;
 using namespace Renderer;
 using namespace Renderer::Graphics;
 using namespace Renderer::Graphics::OpenGL;
-
 using namespace Renderer::Graphics::Models;
 
 namespace Renderer {
@@ -87,6 +89,11 @@ namespace Renderer {
 		quadPipeline->setUniformVector("sunPosition", scene.sun.direction.x, scene.sun.direction.y, scene.sun.direction.z);
 		quadPipeline->setUniformVector("sunColor", scene.sun.color.x, scene.sun.color.y, scene.sun.color.z);
 
+		PointLight pointLight(Vector3f{-15.f, 1.f, -42.f }, Vector3f{ 0.f, 1.0f, 0.0f });
+
+		quadPipeline->setUniformVector("lightPosition", pointLight.position.x, pointLight.position.y, pointLight.position.z);
+		quadPipeline->setUniformVector("lightColor", pointLight.color.x, pointLight.color.y, pointLight.color.z);
+
 		positionBuffer->bind(textures[0]);
 		normalBuffer->bind(textures[1]);
 		albedoBuffer->bind(textures[2]);
@@ -152,5 +159,8 @@ namespace Renderer {
 					
 		quadPipeline->createUniform("sunPosition");
 		quadPipeline->createUniform("sunColor");
+
+		quadPipeline->createUniform("lightPosition");
+		quadPipeline->createUniform("lightColor");
 	}
 }

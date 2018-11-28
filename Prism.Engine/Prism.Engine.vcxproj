@@ -12,10 +12,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\AudioManager.h" />
+    <ClInclude Include="include\ECS\Components\PointLightComponent.h" />
     <ClInclude Include="include\Menu\Control.h" />
     <ClInclude Include="include\ECS\Components\PlayerComponent.h" />
     <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLRenderTarget.h" />
     <ClInclude Include="include\Renderer\Graphics\RenderTarget.h" />
+    <ClInclude Include="include\Renderer\PointLight.h" />
     <ClInclude Include="include\World\Assemblers\AppearanceAssembler.h" />
     <ClInclude Include="include\World\EntityConfigurators\AppearanceConfigurator.h" />
     <ClInclude Include="include\World\EntityConfigurators\EntityConfigurator.h" />

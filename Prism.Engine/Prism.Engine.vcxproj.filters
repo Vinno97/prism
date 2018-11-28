@@ -59,7 +59,6 @@
   <ItemGroup>
     <ClInclude Include="include\ECS\Components\HealthComponent.h" />
     <ClInclude Include="include\ECS\Components\BoundingBoxComponent.h" />
-    <ClInclude Include="include\ECS\Systems\CollisionHandlerSystem.h" />
     <ClInclude Include="include\ECS\Components\CameraComponent.h" />
     <ClInclude Include="include\ECS\Components\MousePointerComponent.h" />
     <ClInclude Include="include\ECS\Systems\CollisionSystem.h" />
@@ -70,7 +69,6 @@
     <ClInclude Include="include\Physics\QuadTree.h" />
     <ClInclude Include="include\Renderer\Camera.h" />
     <ClInclude Include="include\Renderer\Scene.h" />
-    <ClInclude Include="include\Util\FileReader.h" />
     <ClInclude Include="include\Renderer\ForwardRenderer.h" />
     <ClInclude Include="include\ECS\Components\AppearanceComponent.h" />
     <ClInclude Include="include\ECS\Components\Component.h" />
@@ -155,6 +153,8 @@
     <ClInclude Include="include\ECS\Components\HealthComponent.h" />
     <ClInclude Include="include\Renderer\Graphics\RenderTarget.h" />
     <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLRenderTarget.h" />
+    <ClInclude Include="include\Renderer\PointLight.h" />
+    <ClInclude Include="include\ECS\Components\PointLightComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\x64\SDL2test.lib" />

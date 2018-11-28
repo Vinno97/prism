@@ -8,6 +8,14 @@ uniform float ambientLightStrength;
 uniform vec3 sunPosition;
 uniform vec3 sunColor;
 
+struct Light {
+    vec3 Position;
+    vec3 Color;
+};
+
+uniform vec3 lightPosition;
+uniform vec3 lightColor;
+
 layout(binding = 0) uniform sampler2D gPosition;
 layout(binding = 1) uniform sampler2D gNormal;
 layout(binding = 2) uniform sampler2D gAlbedo;
@@ -23,7 +31,13 @@ void main(){
 	vec3 lightDir = normalize(sunPosition - FragPos);  
 	float diff = max(dot(norm, lightDir), 0.0);
 	vec3 diffuse = diff * sunColor;
-	vec3 result = (ambient + diffuse) * vec3(Albedo);
+	
+	float distance = length(lightPosition - FragPos);
+	
+	float attenuation = 1.0 / (1 + 0.09 * distance + 
+    		    0.032 * (distance * distance));   
+				
+	vec3 result = (ambient + (diffuse)) * vec3(Albedo);
 	
 	color = vec4(result, 1.0);
 }
