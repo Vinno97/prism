@@ -9,6 +9,7 @@
 #include "ECS/Components/HealthComponent.h"
 #include "ECS/Components/EnemyComponent.h"
 #include "ECS/Components/TowerComponent.h"
+#include "ECS/Components/CliffComponent.h"
 #include "ECS/Components/PlayerComponent.h"
 #include "ECS/Components/PositionComponent.h"
 #include "ECS/Components/VelocityComponent.h"
@@ -164,6 +165,29 @@ int EntityFactory::createWall(int entity, EntityManager & entityManager)
 	appearance.model = std::move(model);
 
 	entityManager.addComponentToEntity(entity, WallComponent());
+	entityManager.addComponentToEntity(entity, PositionComponent());
+	entityManager.addComponentToEntity(entity, appearance);
+	entityManager.addComponentToEntity(entity, BoundingBoxComponent(1.0, 1.0));
+	return entity;
+}
+
+int EntityFactory::createCliff(EntityManager & entityManager) {
+	return createCliff(entityManager.createEntity(), entityManager);
+}
+
+int EntityFactory::createCliff(int entity, EntityManager & entityManager)
+{
+	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
+	auto model = ml.loadModel("./res/cliff_straight.obj");
+
+	AppearanceComponent appearance;
+	appearance.scaleX = 0.2f;
+	appearance.scaleY = 0.2f;
+	appearance.scaleZ = 0.2f;
+	appearance.translationY = 3.0f;
+	appearance.rotationY = 180.0f;
+	appearance.model = std::move(model);
+
 	entityManager.addComponentToEntity(entity, PositionComponent());
 	entityManager.addComponentToEntity(entity, appearance);
 	entityManager.addComponentToEntity(entity, BoundingBoxComponent(1.0, 1.0));

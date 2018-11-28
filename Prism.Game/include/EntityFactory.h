@@ -24,6 +24,9 @@ public:
 	int createWall(ECS::EntityManager& entityManager);
 	int createWall(int entity, ECS::EntityManager& entityManager);
 
+	int createCliff(ECS::EntityManager& entityManager);
+	int createCliff(int entity, ECS::EntityManager& entityManager);
+
 	int createMine(ECS::EntityManager& entityManager);
 	int createMine(int entity, ECS::EntityManager& entityManager);
 

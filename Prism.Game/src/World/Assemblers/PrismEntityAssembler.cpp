@@ -5,6 +5,7 @@
 #include "World/Assemblers/ResourceSpawnAssembler.h"
 #include "World/Assemblers/TowerAssembler.h"
 #include "World/Assemblers/WallAssembler.h"
+#include "World/Assemblers/CliffAssembler.h"
 #include "World/Assemblers/EnemySpawnAssembler.h"
 
 using namespace World::Assemblers;
@@ -17,4 +18,5 @@ World::Assemblers::PrismEntityAssembler::PrismEntityAssembler() : EntityAssemble
 	addAssembler(std::make_unique<TowerAssembler>(), PRIORITY_HIGH);
 	addAssembler(std::make_unique<WallAssembler>(), PRIORITY_HIGH);
 	addAssembler(std::make_unique<EnemySpawnAssembler>(), PRIORITY_HIGH);
+	addAssembler(std::make_unique<CliffAssembler>(), PRIORITY_HIGH);
 }
