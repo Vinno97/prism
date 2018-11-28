@@ -4,8 +4,6 @@
 #include "Math/Vector3f.h"
 #include "Renderer/Graphics/Models/Model.h"
 
-using namespace Renderer::Graphics::Models;
-
 class Renderable
 {
 public:
@@ -16,10 +14,10 @@ public:
 	glm::mat4 getMatrix() const;
 	~Renderable();
 
-	Model* model;
-	tuple<float, float, float> position;
-	tuple<float, float, float> rotation;
-	tuple<float, float, float> scale;
+	Renderer::Graphics::Models::Model* model;
+	std::tuple<float, float, float> position;
+	std::tuple<float, float, float> rotation;
+	std::tuple<float, float, float> scale;
 	Math::Vector3f color;
 };
 
