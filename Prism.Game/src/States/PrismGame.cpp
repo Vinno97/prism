@@ -1,3 +1,4 @@
+#include "Menu/TextRenderer.h"
 #include "States/PrismGame.h"
 
 #include "Math/Vector3f.h"
@@ -45,6 +46,8 @@ namespace States {
 		auto camera = entityFactory.createCamera(entityManager);
 		auto mousePointer = entityFactory.createCameraPointer(entityManager);
 		auto sceneComponent = entityManager.getComponent<SceneComponent>(scene);
+
+		TextRenderer t;
 
 		sceneComponent->scene.ambientLightColor = Math::Vector3f{ 1.0f, 1.0f, 1.0f };
 		sceneComponent->scene.ambientLightStrength = 0.95f;
