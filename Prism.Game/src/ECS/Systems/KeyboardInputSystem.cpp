@@ -25,7 +25,7 @@ namespace ECS {
 		void KeyboardInputSystem::update(Context& context) {
 			// 1 unit/second^2
 			//double acceleration = 5;
-			double acceleration = 5;
+			double acceleration = 20;
 
 			auto input = context.inputManager;
 			

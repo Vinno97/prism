@@ -8,6 +8,8 @@ uniform float ambientLightStrength;
 uniform vec3 sunPosition;
 uniform vec3 sunColor;
 
+uniform mat4 view;
+
 struct Light {
     vec3 Position;
     vec3 Color;
@@ -32,12 +34,14 @@ void main(){
 	float diff = max(dot(norm, lightDir), 0.0);
 	vec3 diffuse = diff * sunColor;
 	
-	float distance = length(lightPosition - FragPos);
+	vec4 testpos1 = inverse(view) * vec4(-42, 1, -15, 1.0);
+	vec3 testpos = testpos1.xyz;
 	
-	float attenuation = 1.0 / (1 + 0.09 * distance + 
-    		    0.032 * (distance * distance));   
-				
+	vec3 lightDirPoint = normalize(testpos.xyz - FragPos);
+	vec3 diffuseLight = max(dot(Normal, lightDirPoint), 0.0) * Albedo * vec3(3, 3, 0);
+	
+	float test = length(testpos.xyz - FragPos);
+	diffuse += (test/100);
 	vec3 result = (ambient + (diffuse)) * vec3(Albedo);
-	
-	color = vec4(result, 1.0);
+	color = vec4(FragPos);
 }

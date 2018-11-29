@@ -30,9 +30,9 @@ namespace Renderer {
 	{
 		renderDevice = OGLRenderDevice::getRenderDevice();
 
-		positionBuffer = renderDevice->createTexture();
-		normalBuffer = renderDevice->createTexture();
-		albedoBuffer = renderDevice->createTexture();
+		positionBuffer = renderDevice->createTexture(true);
+		normalBuffer = renderDevice->createTexture(false);
+		albedoBuffer = renderDevice->createTexture(false);
 
 		renderTarget = renderDevice->createRenderTarget(true , positionBuffer);
 
@@ -88,6 +88,7 @@ namespace Renderer {
 		quadPipeline->setUniformFloat("ambientLightStrength", scene.ambientLightStrength);
 		quadPipeline->setUniformVector("sunPosition", scene.sun.direction.x, scene.sun.direction.y, scene.sun.direction.z);
 		quadPipeline->setUniformVector("sunColor", scene.sun.color.x, scene.sun.color.y, scene.sun.color.z);
+		quadPipeline->setUniformMatrix4f("view", view);
 
 		PointLight pointLight(Vector3f{-15.f, 1.f, -42.f }, Vector3f{ 0.f, 1.0f, 0.0f });
 
@@ -162,5 +163,6 @@ namespace Renderer {
 
 		quadPipeline->createUniform("lightPosition");
 		quadPipeline->createUniform("lightColor");
+		quadPipeline->createUniform("view");
 	}
 }

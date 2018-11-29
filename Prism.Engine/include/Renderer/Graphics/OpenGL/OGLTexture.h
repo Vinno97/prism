@@ -11,7 +11,7 @@ namespace Renderer {
 			{
 			public:
 				OGLTexture(const char* path);
-				OGLTexture();
+				OGLTexture(bool depth);
 				int getID() override;
 				void bind(int target) override;
 			private:

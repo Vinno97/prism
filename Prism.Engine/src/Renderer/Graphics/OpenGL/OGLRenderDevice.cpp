@@ -66,9 +66,9 @@ namespace Renderer {
 				return make_unique<OGLVertexArrayObject>();
 			}
 
-			std::shared_ptr<Texture> OGLRenderDevice::createTexture() const
+			std::shared_ptr<Texture> OGLRenderDevice::createTexture(bool depth) const
 			{
-				return std::make_shared<OGLTexture>();
+				return std::make_shared<OGLTexture>(depth);
 			}
 
 			shared_ptr<Texture> OGLRenderDevice::createTexture(const char * path) const
