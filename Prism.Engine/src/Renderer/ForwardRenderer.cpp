@@ -30,15 +30,17 @@ namespace Renderer {
 	{
 		renderDevice = OGLRenderDevice::getRenderDevice();
 
-		positionBuffer = renderDevice->createTexture(true);
+		positionBuffer = renderDevice->createTexture(false);
 		normalBuffer = renderDevice->createTexture(false);
 		albedoBuffer = renderDevice->createTexture(false);
+		depthBuffer = renderDevice->createTexture(true);
 
 		renderTarget = renderDevice->createRenderTarget(true , positionBuffer);
 
 		renderTarget->addBuffer(positionBuffer);
 		renderTarget->addBuffer(normalBuffer);
 		renderTarget->addBuffer(albedoBuffer);
+		renderTarget->setDepthBuffer(depthBuffer);
 
 		loadPipelines();
 		createTargetQuad();
@@ -48,8 +50,11 @@ namespace Renderer {
 		renderDevice->setClearColour(1.f, 1.f, 1.f, 1.f);
 	}
 
+	float i = 0;
+
 	void ForwardRenderer::draw(const Camera& camera, const std::vector<Renderable>& renderables, const Scene& scene)
 	{
+		i += 0.1;
 		glm::mat4 model;
 		const glm::mat4 view = camera.getCameraMatrix();
 		renderDevice->useDepthTest(true);
@@ -79,6 +84,9 @@ namespace Renderer {
 			}
 		}
 
+		GLfloat testvalue = 0.0f;
+		glReadPixels(0, 0, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &testvalue);
+
 		renderTarget->unbind();
 		geometryPipeline->stop();
 	
@@ -89,8 +97,9 @@ namespace Renderer {
 		quadPipeline->setUniformVector("sunPosition", scene.sun.direction.x, scene.sun.direction.y, scene.sun.direction.z);
 		quadPipeline->setUniformVector("sunColor", scene.sun.color.x, scene.sun.color.y, scene.sun.color.z);
 		quadPipeline->setUniformMatrix4f("view", view);
+		quadPipeline->setUniformMatrix4f("proj", projection);
 
-		PointLight pointLight(Vector3f{-15.f, 1.f, -42.f }, Vector3f{ 0.f, 1.0f, 0.0f });
+		PointLight pointLight(Vector3f{-41.f, 0.f, -15.f + i }, Vector3f{ 0.f, 1.0f, 0.0f });
 
 		quadPipeline->setUniformVector("lightPosition", pointLight.position.x, pointLight.position.y, pointLight.position.z);
 		quadPipeline->setUniformVector("lightColor", pointLight.color.x, pointLight.color.y, pointLight.color.z);
@@ -98,6 +107,7 @@ namespace Renderer {
 		positionBuffer->bind(textures[0]);
 		normalBuffer->bind(textures[1]);
 		albedoBuffer->bind(textures[2]);
+		depthBuffer->bind(textures[3]);
 
 		quadMesh->vertexArrayObject->bind();
 		quadMesh->indexBuffer->bind();
@@ -164,5 +174,6 @@ namespace Renderer {
 		quadPipeline->createUniform("lightPosition");
 		quadPipeline->createUniform("lightColor");
 		quadPipeline->createUniform("view");
+		quadPipeline->createUniform("proj");
 	}
 }

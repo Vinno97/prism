@@ -10,7 +10,9 @@ out vec3 normal;
 
 void main() { 
 	gl_Position = proj * view * model * vec4(aPos.x, aPos.y, aPos.z, 1 ); 
-	fragPos = vec4(model * vec4(aPos, 1.0));
+	fragPos = vec3(model * vec4(aPos.x, aPos.y, aPos.z, 1 ));
 	vec3 Normal = mat3(transpose(inverse(model))) * aNormal;  
-	normal = normalize(Normal);
+	normal = Normal;
 }
+
+

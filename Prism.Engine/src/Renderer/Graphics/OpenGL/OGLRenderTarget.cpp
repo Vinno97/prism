@@ -48,6 +48,11 @@ namespace Renderer {
 				unbind();
 			}
 
+			void OGLRenderTarget::setDepthBuffer(std::shared_ptr<Texture> texture)
+			{
+				glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, texture->getID(), 0);
+			}
+
 			int OGLRenderTarget::getID()
 			{
 				return FBO;
