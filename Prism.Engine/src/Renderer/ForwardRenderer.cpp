@@ -84,12 +84,10 @@ namespace Renderer {
 			}
 		}
 
-		GLfloat testvalue = 0.0f;
-		glReadPixels(0, 0, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &testvalue);
-
 		renderTarget->unbind();
 		geometryPipeline->stop();
-	
+		renderDevice->useDepthTest(false);
+		renderDevice->clearScreen();
 		quadPipeline->run();
 		
 		quadPipeline->setUniformVector("ambientLightColor", scene.ambientLightColor.x, scene.ambientLightColor.y, scene.ambientLightColor.z);
@@ -117,7 +115,6 @@ namespace Renderer {
 		quadMesh->vertexArrayObject->unbind();
 
 		quadPipeline->stop();
-		renderDevice->useDepthTest(false);
 	}
 	void ForwardRenderer::createTargetQuad()
 	{

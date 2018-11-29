@@ -58,6 +58,11 @@ vec3 WorldPosFromDepth(float depth) {
     return worldSpacePosition.xyz;
 }
 
+vec3 depth(){
+    float v = pow(texture(gDepth, UV).r , 256);
+	return vec3(v,v,v);
+}
+
 void main() {
     vec3 FragPos = texture(gPosition, UV).rgb;
     vec3 Normal = texture(gNormal, UV).rgb;
@@ -84,6 +89,6 @@ void main() {
 	diffuse.x += brightness;
 	
 	vec3 result = (ambient + (diffuse)) * vec3(Albedo);
-	color = vec4(texture(gDepth, UV.xy).z, 1, 1, 1.0);
+	color = vec4(depth(), 1.0);
 
 }

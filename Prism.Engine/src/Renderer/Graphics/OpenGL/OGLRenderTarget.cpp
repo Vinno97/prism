@@ -50,7 +50,7 @@ namespace Renderer {
 
 			void OGLRenderTarget::setDepthBuffer(std::shared_ptr<Texture> texture)
 			{
-				glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, texture->getID(), 0);
+				glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_TEXTURE_2D, texture->getID(), 0);
 			}
 
 			int OGLRenderTarget::getID()
