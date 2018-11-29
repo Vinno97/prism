@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\Menu\ControlBuilder.h" />
     <ClInclude Include="include\AudioManager.h" />
     <ClInclude Include="include\Menu\Control.h" />
     <ClInclude Include="include\ECS\Components\PlayerComponent.h" />
@@ -99,6 +100,7 @@
     <ClInclude Include="include\Surface.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Menu\ControlBuilder.cpp" />
     <ClCompile Include="src\AudioManager.cpp" />
     <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLRenderTarget.cpp" />
     <ClCompile Include="src\World\Assemblers\AppearanceAssembler.cpp" />
