@@ -4,13 +4,25 @@
   #   image: nixos/nix:latest
   # - container: nix
   #   image: ubuntu:latest
-    
+
 # - repo: self
 
 jobs:
-- job: StaticAnalysis
+- job: Windows
   pool:
-    vmImage: 'ubuntu-16.04'
+    vmImage: 'vs2017-win2016'
+  steps:
+  - task: VSBuild@1
+    displayName: 'Build solution **\*.sln'
+    inputs:
+      vsVersion: 15.0
+      platform: x64
+      configuration: debug
+      msbuildArchitecture: x64
+
+- job: Linux
+  pool:
+    vmImage: ubuntu-16.04
   steps:
   - bash: find . -type f -name '*.h' ! -path './Prism.*/include/*' -exec false {} +
     displayName: Header files are only in the ''include' directories
@@ -24,38 +36,41 @@ jobs:
   - bash: source ~/.profile && nix-shell --pure --run true;
     displayName: 'Configure Nix environment'
 
-- job: Windows
-  pool:
-    vmImage: 'vs2017-win2016'
-  dependsOn: StaticAnalysis
-  steps:
-  - task: VSBuild@1
-    displayName: 'Build solution **\*.sln'
-    inputs:
-      vsVersion: 15.0
-      platform: x64
-      configuration: debug
-      msbuildArchitecture: x64
-
-- job: Linux
-  pool:
-    vmImage: ubuntu-16.04
-  dependsOn: StaticAnalysis
-  steps:
-  - bash: curl https://nixos.org/nix/install | sh;
-    displayName: 'Install Nix environment'
-
-  # - bash: source ~/.profile && NIXPKGS_ALLOW_BROKEN=1 NIXPKGS_ALLOW_INSECURE=1 nix-env --install;
-  - bash: source ~/.profile && nix-shell --pure --run true;
-    displayName: 'Configure Nix environment'
+  - bash: |
+      wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.2.0.1227-linux.zip -O /tmp/sonar-scanner.zip && \
+      unzip -o /tmp/sonar-scanner.zip -d /tmp && \
+      wget https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip -O /tmp/build-wrapper.zip && \
+      unzip -o /tmp/build-wrapper.zip -d /tmp
+    displayName: Install SonarQube scanner
 
   - bash: source ~/.profile && nix-shell --pure --run 'cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" .'
     displayName: 'Configure CMake project'
 
-  - bash: source ~/.profile && nix-shell --pure --run 'cmake --build . --target Prism.Engine'
-    displayName: 'Build Engine'
+  - bash: source ~/.profile && /tmp/build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir bw-output nix-shell --pure --run 'make clean Prism.Engine'
+    displayName: Build All
 
-  - bash: source ~/.profile && nix-shell --pure --run 'cmake --build . --target Prism.Game'
-    displayName: 'Build Game'
+  - bash: |
+      if [ -z "$SYSTEM_PULLREQUEST_PULLREQUESTID" ]; then \
+        /tmp/sonar-scanner*/bin/sonar-scanner \
+          -Dsonar.login=$SONAR_ACCESSTOKEN \
+          -Dsonar.pullrequest.branch=$SYSTEM_PULLREQUEST_SOURCEBRANCH \
+          -Dsonar.pullrequest.key=$SYSTEM_PULLREQUEST_PULLREQUESTID \
+          -Dsonar.pullrequest.base=$SYSTEM_PULLREQUEST_TARGETBRANCH; \
+      else \
+        /tmp/sonar-scanner*/bin/sonar-scanner \
+          -Dsonar.login=$SONAR_ACCESSTOKEN \
+          -Dsonar.branch.name=$(Build.SourceBranch); \
+      fi
+    displayName: Analyze on SonarCloud
+    env:
+      SONAR_ACCESSTOKEN: $(sonar.accessToken)
+      # SOURCE_BRANCH: $(System.PullRequest.SourceBranch)
+      # TARGET_BRANCH: $(System.PullRequest.TargetBranch)
+      # PULL_ID: $(System.PullRequest.PullRequestId)
+  # - bash: source ~/.profile && nix-shell --pure --run 'cmake --build . --target Prism.Engine'
+  #   displayName: 'Build Engine'
+
+  # - bash: source ~/.profile && nix-shell --pure --run 'cmake --build . --target Prism.Game'
+  #   displayName: 'Build Game'
 
 
