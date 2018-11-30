@@ -76,13 +76,11 @@ namespace ECS {
 
 	EntityManager::~EntityManager() {
 		entityComponents.clear();
-		/*
-		for (const auto typePair : entityComponents) {
-			for (const auto componentPair : typePair.second) {
+		for (const auto& typePair : entityComponents) {
+			for (const auto componentPair : typePair.second) { 
 				delete componentPair.second;
 			}
 		}
-		*/
 	}
 
 	Component* EntityManager::getComponent(unsigned int entityId, std::type_index componentType) const noexcept
@@ -166,7 +164,7 @@ namespace ECS {
 			result.reserve(entities.size());
 
 			for (auto const& entry : entities) {
-				Entity<Component*> entity;
+				Entity<Component*> entity{};
 				entity.id = entry.first;
 				entity.component = entry.second;
 
