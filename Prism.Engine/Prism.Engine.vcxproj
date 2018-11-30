@@ -140,7 +140,6 @@
     <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLVertexShader.cpp" />
     <ClCompile Include="src\State.cpp" />
     <ClCompile Include="src\StateMachine.cpp" />
-    <ClCompile Include="src\Util\lodepng.cpp" />
     <ClCompile Include="src\Window.cpp" />
     <ClCompile Include="src\Renderer\Graphics\Loader\StaticMeshLoader.cpp" />
     <ClCompile Include="src\ECS\SystemManager.cpp" />

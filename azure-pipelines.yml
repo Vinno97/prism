@@ -53,9 +53,7 @@ jobs:
       if [ -z "$SYSTEM_PULLREQUEST_PULLREQUESTID" ]; then \
         /tmp/sonar-scanner*/bin/sonar-scanner \
           -Dsonar.login=$SONAR_ACCESSTOKEN \
-          -Dsonar.pullrequest.branch=$SYSTEM_PULLREQUEST_SOURCEBRANCH \
-          -Dsonar.pullrequest.key=$SYSTEM_PULLREQUEST_PULLREQUESTID \
-          -Dsonar.pullrequest.base=$SYSTEM_PULLREQUEST_TARGETBRANCH; \
+          -Dsonar.branch.name=$(Build.SourceBranch); \
       else \
         /tmp/sonar-scanner*/bin/sonar-scanner \
           -Dsonar.login=$SONAR_ACCESSTOKEN \
