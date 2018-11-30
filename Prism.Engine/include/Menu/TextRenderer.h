@@ -38,5 +38,8 @@ public:
 private:
 	std::map<GLchar, Character> Characters;
 	GLuint VAO, VBO;
+	std::unique_ptr<Renderer::Graphics::VertexBuffer> VBO2;
+	std::unique_ptr<Renderer::Graphics::VertexArrayObject> VAO2;
+
 };
 

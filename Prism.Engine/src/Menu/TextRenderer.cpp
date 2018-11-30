@@ -45,6 +45,7 @@ TextRenderer::TextRenderer()
 			GL_UNSIGNED_BYTE,
 			face->glyph->bitmap.buffer
 		);
+
 		// Set texture options
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
@@ -59,17 +60,25 @@ TextRenderer::TextRenderer()
 		};
 		Characters.insert(std::pair<GLchar, Character>(c, character));
 
-		glGenVertexArrays(1, &VAO);
-		glGenBuffers(1, &VBO);
-		glBindVertexArray(VAO);
-		glBindBuffer(GL_ARRAY_BUFFER, VBO);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), 0);
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		glBindVertexArray(0);
 
+	//	glGenVertexArrays(1, &VAO);
+
+	//glGenBuffers(1, &VBO);
+	//glBindVertexArray(VAO);
+	//glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	//glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
+	//glEnableVertexAttribArray(0);
+	//glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), 0);
+	//glBindBuffer(GL_ARRAY_BUFFER, 0);
+	//glBindVertexArray(0);
 		renderDevice = OGLRenderDevice::getRenderDevice();
+
+		VAO2 = std::move(renderDevice->createVertexArrayobject());
+		VBO2 = std::move(renderDevice->createDynamicVertexBuffer());
+		VAO2->bind();
+		VAO2->addVertexBuffer(move(VBO2), 0, 4 * sizeof(GLfloat), 0, 4);
+		VAO2->unbind();
+
 
 		Util::FileSystem fileReader;
 		std::string vertexSource = fileReader.readResourceFileIntoString("/shaders/textShader.vs");
@@ -80,6 +89,7 @@ TextRenderer::TextRenderer()
 
 		textPipeline->createUniform("projection");
 		textPipeline->createUniform("textColor");
+
 	}
 }
 
@@ -93,7 +103,9 @@ void TextRenderer::RenderText(std::string text, float x, float y, float scale)
 	renderDevice->useBlending(true);
 
 	glActiveTexture(GL_TEXTURE0);
-	glBindVertexArray(VAO);
+	//glBindVertexArray(VAO);
+
+	VAO2->bind();
 
 	// Iterate through all characters
 	std::string::const_iterator c;
@@ -119,7 +131,7 @@ void TextRenderer::RenderText(std::string text, float x, float y, float scale)
 		// Render glyph texture over quad
 		glBindTexture(GL_TEXTURE_2D, ch.TextureID);
 		// Update content of VBO memory
-		glBindBuffer(GL_ARRAY_BUFFER, VBO);
+		VBO2->bind();
 		glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		// Render quad
@@ -127,7 +139,8 @@ void TextRenderer::RenderText(std::string text, float x, float y, float scale)
 		// Now advance cursors for next glyph (note that advance is number of 1/64 pixels)
 		x += (ch.Advance >> 6) * scale; // Bitshift by 6 to get value in pixels (2^6 = 64)
 	}
-	glBindVertexArray(0);
+	VAO2->unbind();
+	//glBindVertexArray(0);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
 	renderDevice->useBlending(false);

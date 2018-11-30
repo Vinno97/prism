@@ -41,6 +41,13 @@ namespace Renderer {
 			virtual std::unique_ptr<VertexBuffer> createVertexBuffer(long size, const void *data) const = 0;
 
 			/// <summary>
+			/// Create a new dynamic vertexbuffer
+			/// </summary>
+			/// <param name="size">Size of the index buffer</param>
+			/// <param name="data">Data that the buffer will be filled with (float array)</param>
+			virtual std::unique_ptr<VertexBuffer> createDynamicVertexBuffer() const = 0;
+
+			/// <summary>
 			/// Create a new indexBuffer
 			/// </summary>
 			/// <param name="size">Size of the indice buffer</param>

@@ -13,6 +13,12 @@ namespace Renderer {
 				glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW); // always assuming static, for now
 			}
 
+			OGLVertexBuffer::OGLVertexBuffer() { 
+				glGenBuffers(1, &VBO);
+				glBindBuffer(GL_ARRAY_BUFFER, VBO);
+				glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
+			}
+
 			void OGLVertexBuffer::bind()
 			{
 				glBindBuffer(GL_ARRAY_BUFFER, VBO);

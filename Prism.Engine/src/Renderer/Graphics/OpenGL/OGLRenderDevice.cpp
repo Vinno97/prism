@@ -56,6 +56,11 @@ namespace Renderer {
 				return make_unique<OGLVertexBuffer>(size, data);
 			}
 
+			std::unique_ptr<VertexBuffer> OGLRenderDevice::createDynamicVertexBuffer() const
+			{
+				return make_unique<OGLVertexBuffer>();
+			}
+
 			unique_ptr<IndexBuffer> OGLRenderDevice::createIndexBuffer(long size, const void * data) const
 			{
 				return make_unique<OGLIndexBuffer>(size, data);
