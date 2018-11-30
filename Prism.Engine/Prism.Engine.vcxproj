@@ -71,7 +71,6 @@
     <ClInclude Include="include\Key.h" />
     <ClInclude Include="include\State.h" />
     <ClInclude Include="include\StateMachine.h" />
-    <ClInclude Include="include\Util\lodepng.h" />
     <ClInclude Include="include\Window.h" />
     <ClInclude Include="include\MenuState.h" />
     <ClInclude Include="include\ECS\SystemManager.h" />
