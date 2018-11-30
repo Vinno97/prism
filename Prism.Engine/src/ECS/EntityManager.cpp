@@ -85,23 +85,20 @@ namespace ECS {
 		*/
 	}
 
-	Component* EntityManager::getComponent(unsigned int entityId, std::type_index componentType) const
+	Component* EntityManager::getComponent(unsigned int entityId, std::type_index componentType) const noexcept
 	{
-		try {
-			return entityComponents.at(componentType).at(entityId);
+		const auto entityList = entityComponents.find(componentType);
+		if (entityList != entityComponents.end()) {
+			const auto component = entityList->second.find(entityId);
+			if (component != entityList->second.end()) return component->second;
 		}
-		catch (const std::out_of_range&) {
-			throw std::runtime_error(std::string("No component of type ") + componentType.name() + " found for entity " + std::to_string(entityId));
-		}
+		return nullptr;
 	}
 
-	bool EntityManager::hasComponent(unsigned int entityId, std::type_index componentType) const
+	bool EntityManager::hasComponent(unsigned int entityId, std::type_index componentType) const  noexcept
 	{
-		if (entityComponents.find(componentType) != entityComponents.end()) {
-			auto entityList = &entityComponents.at(componentType);
-			return entityList->find(entityId) != entityList->end();
-		}
-		return false;
+		const auto entityList = entityComponents.find(componentType);
+		return entityList != entityComponents.end() && entityList->second.find(entityId) != entityList->second.end();
 	}
 
 	void EntityManager::removeComponentFromEntity(unsigned int entityId, std::type_index componentType)
@@ -134,7 +131,7 @@ namespace ECS {
 		
 	}
 
-	std::set<int> EntityManager::getAllEntities()
+	std::set<int> EntityManager::getAllEntities() const noexcept
 	{
 		std::set<int> entityIds;
 

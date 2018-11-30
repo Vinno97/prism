@@ -124,7 +124,7 @@ namespace ECS {
 		/// Gives a list of all entity IDs that have at least one Component.
 		/// </summary>
 		/// <returns>a list of all entity IDs.</returns>
-		std::set<int> getAllEntities();
+		std::set<int> getAllEntities() const noexcept;
 
 	private:
 		unsigned int lastEntityId = 0;
@@ -136,9 +136,9 @@ namespace ECS {
 		/// <summary>
 		/// Keeps a list of all Listeners attached to the EntityManager.
 		/// </summary>
-		Component* getComponent(unsigned int entityId, std::type_index componentType) const;
+		Component* getComponent(unsigned int entityId, std::type_index componentType) const  noexcept;
 
-		bool hasComponent(unsigned int entityId, std::type_index componentType) const;
+		bool hasComponent(unsigned int entityId, std::type_index componentType) const  noexcept;
 
 		std::vector<Entity<Component*>> getAllEntitiesWithComponent(const std::type_index& componentType) const;
 
