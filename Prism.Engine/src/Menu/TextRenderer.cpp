@@ -3,6 +3,10 @@
 #include FT_FREETYPE_H  
 
 #include "Menu/TextRenderer.h"
+#include "Renderer/Graphics/OpenGL/OGLRenderDevice.h"
+
+using namespace Renderer::Graphics;
+using namespace Renderer::Graphics::OpenGL;
 
 TextRenderer::TextRenderer()
 {
@@ -55,9 +59,6 @@ TextRenderer::TextRenderer()
 		};
 		Characters.insert(std::pair<GLchar, Character>(c, character));
 
-
-
-		GLuint VAO, VBO;
 		glGenVertexArrays(1, &VAO);
 		glGenBuffers(1, &VBO);
 		glBindVertexArray(VAO);
@@ -67,10 +68,70 @@ TextRenderer::TextRenderer()
 		glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), 0);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glBindVertexArray(0);
+
+		renderDevice = OGLRenderDevice::getRenderDevice();
+
+		Util::FileSystem fileReader;
+		std::string vertexSource = fileReader.readResourceFileIntoString("/shaders/textShader.vs");
+		std::string fragmentSource = fileReader.readResourceFileIntoString("/shaders/textShader.fs");
+		std::unique_ptr<VertexShader> vertexShader = renderDevice->createVertexShader(vertexSource.c_str());
+		std::unique_ptr<FragmentShader> fragmentShader = renderDevice->createFragmentShader(fragmentSource.c_str());
+		textPipeline = std::move(renderDevice->createPipeline(*vertexShader, *fragmentShader));
+
+		textPipeline->createUniform("projection");
+		textPipeline->createUniform("textColor");
 	}
-		
 }
 
+void TextRenderer::RenderText(std::string text, float x, float y, float scale)
+{
+	// Activate corresponding render state	
+	textPipeline->run();
+	textPipeline->setUniformVector("textColor", 0.0f, 0.0f, 0.0);
+	glm::mat4 projection = glm::ortho(0.0f, 800.0f, 0.0f, 600.0f);
+	textPipeline->setUniformMatrix4f("projection", projection);
+	renderDevice->useBlending(true);
+
+	glActiveTexture(GL_TEXTURE0);
+	glBindVertexArray(VAO);
+
+	// Iterate through all characters
+	std::string::const_iterator c;
+	for (c = text.begin(); c != text.end(); c++)
+	{
+		Character ch = Characters[*c];
+
+		GLfloat xpos = x + ch.Bearing.x * scale;
+		GLfloat ypos = y - (ch.Size.y - ch.Bearing.y) * scale;
+
+		GLfloat w = ch.Size.x * scale;
+		GLfloat h = ch.Size.y * scale;
+		// Update VBO for each character
+		GLfloat vertices[6][4] = {
+			{ xpos,     ypos + h,   0.0, 0.0 },
+			{ xpos,     ypos,       0.0, 1.0 },
+			{ xpos + w, ypos,       1.0, 1.0 },
+
+			{ xpos,     ypos + h,   0.0, 0.0 },
+			{ xpos + w, ypos,       1.0, 1.0 },
+			{ xpos + w, ypos + h,   1.0, 0.0 }
+		};
+		// Render glyph texture over quad
+		glBindTexture(GL_TEXTURE_2D, ch.TextureID);
+		// Update content of VBO memory
+		glBindBuffer(GL_ARRAY_BUFFER, VBO);
+		glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		// Render quad
+		glDrawArrays(GL_TRIANGLES, 0, 6);
+		// Now advance cursors for next glyph (note that advance is number of 1/64 pixels)
+		x += (ch.Advance >> 6) * scale; // Bitshift by 6 to get value in pixels (2^6 = 64)
+	}
+	glBindVertexArray(0);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	renderDevice->useBlending(false);
+}
 
 TextRenderer::~TextRenderer()
 {

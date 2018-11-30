@@ -1,5 +1,4 @@
 #include <GL/glew.h>
-#include "Menu/MenuRenderer.h"
 #include <string>
 #include "Renderer/Graphics/RenderDevice.h"
 #include "Renderer/Graphics/VertexShader.h"
@@ -14,6 +13,8 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <map>
+#include <string>
+#include <memory>
 #include <SDL2/SDL_opengl.h>
 
 #pragma once
@@ -29,8 +30,13 @@ class TextRenderer
 public:
 	TextRenderer();
 	~TextRenderer();
+	void RenderText(std::string text, float x, float y, float scale);
+
+	std::unique_ptr<Renderer::Graphics::Pipeline> textPipeline;
+	Renderer::Graphics::RenderDevice* renderDevice;
 
 private:
 	std::map<GLchar, Character> Characters;
+	GLuint VAO, VBO;
 };
 

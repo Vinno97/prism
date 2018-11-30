@@ -33,6 +33,8 @@ namespace States {
 		renderDevice->clearScreen();
 		menuRenderer.renderMenu(menu, float(context.window->width) / float(context.window->height));
 
+		textRenderer.RenderText("yolo", 25, 25, 1);
+
 		auto input = context.inputManager;
 		if (menu.handleInput(*context.inputManager, context.window->width, context.window->height)) {
 			return;
