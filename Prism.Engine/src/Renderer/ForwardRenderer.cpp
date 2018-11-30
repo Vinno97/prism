@@ -89,17 +89,14 @@ namespace Renderer {
 		renderDevice->useDepthTest(false);
 		quadPipeline->run();
 		
-		quadPipeline->setUniformVector("ambientLightColor", scene.ambientLightColor.x, scene.ambientLightColor.y, scene.ambientLightColor.z);
-		quadPipeline->setUniformFloat("ambientLightStrength", scene.ambientLightStrength);
-		quadPipeline->setUniformVector("sunPosition", scene.sun.direction.x, scene.sun.direction.y, scene.sun.direction.z);
-		quadPipeline->setUniformVector("sunColor", scene.sun.color.x, scene.sun.color.y, scene.sun.color.z);
+		quadPipeline->setUniformVector("gDirectionalLight.Color", scene.ambientLightColor.x, scene.ambientLightColor.y, scene.ambientLightColor.z);
+		quadPipeline->setUniformVector("gDirectionalLight.Direction", scene.sun.direction.x, scene.sun.direction.y, scene.sun.direction.z);
+
+		quadPipeline->setUniformFloat("gDirectionalLight.AmbientIntensity", 0.6f);
+		quadPipeline->setUniformFloat("gDirectionalLight.DiffuseIntensity", 0.5f);
+
 		quadPipeline->setUniformMatrix4f("view", view);
 		quadPipeline->setUniformMatrix4f("proj", projection);
-
-		PointLight pointLight(Vector3f{-41.f-i, 0.f, -15.f  }, Vector3f{ 0.f, 1.0f, 0.0f });
-
-		quadPipeline->setUniformVector("lightPosition", pointLight.position.x, pointLight.position.y, pointLight.position.z);
-		quadPipeline->setUniformVector("lightColor", pointLight.color.x, pointLight.color.y, pointLight.color.z);
 
 		positionBuffer->bind(textures[0]);
 		normalBuffer->bind(textures[1]);
@@ -160,15 +157,12 @@ namespace Renderer {
 		fragmentShader = renderDevice->createFragmentShader(fragmentSource.c_str());
 
 		quadPipeline = move(renderDevice->createPipeline(*vertexShader, *fragmentShader));
-
-		quadPipeline->createUniform("ambientLightColor");
-		quadPipeline->createUniform("ambientLightStrength");
 					
-		quadPipeline->createUniform("sunPosition");
-		quadPipeline->createUniform("sunColor");
+		quadPipeline->createUniform("gDirectionalLight.Direction");
+		quadPipeline->createUniform("gDirectionalLight.Color");
+		quadPipeline->createUniform("gDirectionalLight.AmbientIntensity");
+		quadPipeline->createUniform("gDirectionalLight.DiffuseIntensity");
 
-		quadPipeline->createUniform("lightPosition");
-		quadPipeline->createUniform("lightColor");
 		quadPipeline->createUniform("view");
 		quadPipeline->createUniform("proj");
 	}

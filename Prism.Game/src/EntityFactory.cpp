@@ -162,7 +162,7 @@ int EntityFactory::createWall(int entity, EntityManager & entityManager)
 	appearance.scaleY = 0.5f;
 	appearance.scaleZ = 0.5f;
 	appearance.model = std::move(model);
-	appearance.color = Math::Vector3f{ 0.9f, 0.9f, 0.9f };
+	appearance.color = Math::Vector3f{ 0.92f, 0.92f, 0.92f };
 	entityManager.addComponentToEntity(entity, WallComponent());
 	entityManager.addComponentToEntity(entity, PositionComponent());
 	entityManager.addComponentToEntity(entity, appearance);

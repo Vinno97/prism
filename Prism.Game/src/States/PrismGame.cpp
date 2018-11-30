@@ -49,8 +49,8 @@ namespace States {
 
 		sceneComponent->scene.ambientLightColor = Math::Vector3f{ 1.0f, 1.0f, 1.0f };
 		sceneComponent->scene.ambientLightStrength = 0.95f;
-		sceneComponent->scene.sun.color = Math::Vector3f{ .20f, .20f, .20f };
-		sceneComponent->scene.sun.direction = Math::Vector3f{ 25.f, 150.0f, 100.0f };
+		sceneComponent->scene.sun.color = Math::Vector3f{ 1.f, 1.f, 1.f };
+		sceneComponent->scene.sun.direction = Math::Vector3f{ -0.3, -1.0f, -.3f };
 
 		World::LevelManager loader{ std::make_unique<PrismEntityAssembler>() };
 		auto entity = entityManager.createEntity();
