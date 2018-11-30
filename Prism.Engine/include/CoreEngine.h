@@ -22,9 +22,10 @@ public:
 	/// initialize the coreEngine
 	/// </summary>
 	/// <param name="state">The first state</param>
+
 	template<typename T, typename = std::enable_if_t < std::is_base_of<State, T>::type::value>>
-	void setEntryPoint(T& state) {
-		addState(state);
+	void setEntryPoint()
+	{
 		context.stateMachine->setState<T>();
 	}
 
@@ -32,10 +33,11 @@ public:
 	/// adds a state to the statemachine
 	/// </summary>
 	/// <param name="state">The state that will be added</param>
-	template<typename T, typename = std::enable_if_t < std::is_base_of<State, T>::type::value>>
-	void addState(T& state) {
-		context.stateMachine->addState(state);
-		context.stateMachine->getState<T>()->onInit(context);
+
+	template<typename T, typename...Fs, typename = std::enable_if_t < std::is_base_of<State, T>::type::value>>
+	void addState(Fs&&... fs)
+	{
+		context.stateMachine->addState<T>(context, std::forward<Fs>(fs)...);
 	}
 
 	/// <summary>

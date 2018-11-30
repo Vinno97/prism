@@ -43,9 +43,19 @@ namespace Menu {
 		texture = renderDevice->createTexture(filepath.generic_string().c_str());
 	}
 
+	Control::Control(float x, float y, float width, float height, const char * path, std::function<void()> callback_) : Control(x, y, width, height, path)
+	{
+		callback = callback_;
+	}
+
 	void Control::UpdateTexture(const char *path)
 	{
 
+	}
 
+	void Control::onClick()
+	{
+		if(callback != nullptr)
+			callback();
 	}
 }

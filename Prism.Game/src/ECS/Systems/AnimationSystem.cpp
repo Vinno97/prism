@@ -63,9 +63,5 @@ namespace ECS {
 				appearance->rotationY= result;
 			}
 		}
-		System * AnimationSystem::clone()
-		{
-			return new AnimationSystem(*entityManager);
-		}
 	}
 }

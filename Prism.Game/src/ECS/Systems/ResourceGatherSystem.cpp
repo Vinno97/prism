@@ -49,11 +49,6 @@ namespace ECS {
 				}
 			}
 		}
-		System * ResourceGatherSystem::clone()
-		{
-			auto newSystem = new ResourceGatherSystem(*entityManager);
-			return newSystem;
-		}
 		bool ResourceGatherSystem::shouldIncreaseResources(PositionComponent& playerPosition, PositionComponent& resourcePointPosition, float radius) const
 		{
 			auto x = resourcePointPosition.x - playerPosition.x;

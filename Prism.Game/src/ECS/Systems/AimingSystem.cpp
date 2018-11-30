@@ -35,6 +35,7 @@ namespace ECS {
 							playerShooting->ydirection = normalizedY;
 							playerShooting->isShooting = true;
 						}
+
 					}
 					else {
 						playerShooting->isShooting = false;
@@ -42,11 +43,6 @@ namespace ECS {
 
 				}
 			}
-		}
-
-		System * AimingSystem::clone()
-		{
-			return new AimingSystem(*entityManager);
 		}
 	}
 }

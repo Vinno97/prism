@@ -10,7 +10,6 @@
 namespace Renderer {
 	namespace Graphics {
 		namespace Models {
-
 			class Model {
 				public: 
 					Model() = default;

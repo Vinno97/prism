@@ -80,7 +80,3 @@ int BumpSystem::CountCollisions(BoundingBox &currentBox, std::vector<unsigned in
 	return count;
 }
 
-ECS::Systems::System* BumpSystem::clone()
-{
-	return new BumpSystem(*entityManager);
-}

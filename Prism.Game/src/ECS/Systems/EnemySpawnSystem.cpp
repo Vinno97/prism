@@ -35,9 +35,5 @@ namespace ECS {
 				}
 			}
 		}
-		System * EnemySpawnSystem::clone()
-		{
-			return new EnemySpawnSystem(*entityManager);
-		}
 	}
 }

@@ -26,10 +26,9 @@ namespace ECS {
 					auto vector = boundingBoxComponent->collidesWith;
 					bool isEnemy = false;
 					for (auto collider : vector) {
-
+						
 						if (entityManager->hasComponent<EnemyComponent>(collider)) {
 							isEnemy = true;
-
 
 							if (entityManager->hasComponent<HealthComponent>(entity.id) && entityManager->hasComponent<HealthComponent>(collider)) {
 								auto ProjectileHealth = entityManager->getComponent<HealthComponent>(entity.id);
@@ -42,6 +41,7 @@ namespace ECS {
 								}
 								if (EnemyHealth->health <= 0) {
 									entityManager->removeEntity(collider);
+									context.audioManager->playSound("EnemyKill");
 									break;
 								}
 							}
@@ -54,11 +54,6 @@ namespace ECS {
 				boundingBoxComponent->didCollide = false;
 				boundingBoxComponent->collidesWith.clear();
 			}
-		}
-
-		System * ProjectileAttackSystem::clone()
-		{
-			return new ProjectileAttackSystem(*entityManager);
 		}
 	}
 }
