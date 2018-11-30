@@ -13,8 +13,8 @@ namespace ECS {
 		class System
 		{
 		public:
-			System(EntityManager& entityManager);
-			virtual ~System();
+			explicit System(EntityManager& entityManager_);
+			virtual ~System() = 0;
 			virtual void update(Context& context) = 0;
 			virtual System* clone() = 0;
 
