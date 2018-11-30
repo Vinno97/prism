@@ -69,7 +69,7 @@ void main() {
     vec3 Albedo = texture(gAlbedo, UV).rgb;
 	vec3 Depth = texture(gDepth, UV).rgb;
 	
-	vec3 loc = decodeLocation();
+	vec3 loc = WorldPosFromDepth(Depth.x);
 	
 	vec3 ambient = ambientLightStrength * ambientLightColor; 	
 	vec3 norm = normalize(Normal);
@@ -78,17 +78,20 @@ void main() {
 	vec3 diffuse = diff * sunColor;
 				
 	float distance = length(lightPosition - loc);
-	float attenuation = 1.0 / (1.0 + 0.35 * distance + 
-    		    0.44 * (distance * distance));    
-				
-	//diffuse.x += attenuation;
-	
+	float attenuation = 1.0 / (1.0 + 0.7 * distance + 
+    		    1.8 * (distance * distance));    
+					
 	vec3 surfaceToLight = lightPosition - loc;
-	float brightness = dot(Normal, surfaceToLight) / (length(surfaceToLight) * length(Normal));
+	float brightness = max(dot(normalize(surfaceToLight), surfaceToLight), 0.0); (length(surfaceToLight) * length(norm));
 	
-	diffuse.x += brightness;
+	//diffuse.x += attenuation;
+
+	
+	diffuse.x *= brightness;
+	ambient.x *= brightness;
 	
 	vec3 result = (ambient + (diffuse)) * vec3(Albedo);
-	color = vec4(depth(), 1.0);
+	
+	color = vec4(result, 1.0);
 
 }

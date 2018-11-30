@@ -54,13 +54,13 @@ namespace Renderer {
 
 	void ForwardRenderer::draw(const Camera& camera, const std::vector<Renderable>& renderables, const Scene& scene)
 	{
-		i += 0.1;
+		i += 0.01;
 		glm::mat4 model;
 		const glm::mat4 view = camera.getCameraMatrix();
-		renderDevice->useDepthTest(true);
 		renderDevice->clearScreen();
 			
 		renderTarget->bind();
+		renderDevice->useDepthTest(true);
 		renderDevice->clearScreen();
 		geometryPipeline->run();
 
@@ -87,7 +87,6 @@ namespace Renderer {
 		renderTarget->unbind();
 		geometryPipeline->stop();
 		renderDevice->useDepthTest(false);
-		renderDevice->clearScreen();
 		quadPipeline->run();
 		
 		quadPipeline->setUniformVector("ambientLightColor", scene.ambientLightColor.x, scene.ambientLightColor.y, scene.ambientLightColor.z);
@@ -97,7 +96,7 @@ namespace Renderer {
 		quadPipeline->setUniformMatrix4f("view", view);
 		quadPipeline->setUniformMatrix4f("proj", projection);
 
-		PointLight pointLight(Vector3f{-41.f, 0.f, -15.f + i }, Vector3f{ 0.f, 1.0f, 0.0f });
+		PointLight pointLight(Vector3f{-41.f-i, 0.f, -15.f  }, Vector3f{ 0.f, 1.0f, 0.0f });
 
 		quadPipeline->setUniformVector("lightPosition", pointLight.position.x, pointLight.position.y, pointLight.position.z);
 		quadPipeline->setUniformVector("lightColor", pointLight.color.x, pointLight.color.y, pointLight.color.z);
