@@ -35,17 +35,14 @@ void ECS::Systems::AttackSystem::update(Context& context) {
 			std::vector<unsigned int> vector;
 
 			vector = boundingBoxComponent->collidesWith;
-			if (boundingBoxComponent->didCollide) {
-							   				
+			if (boundingBoxComponent->didCollide) {			   				
 				for (int i = 0; i < vector.size(); i++) {
-					if(entityManager->hasComponent<PlayerComponent>(vector[i])){
+					if(!entityManager->hasComponent<EnemyComponent>(vector[i])){
 						updateEntity(vector[i],context);
 						updateEntity(entity.id,context);
 						context.audioManager->playSound("EnemyKill");
 					}
 				}
-
-
 			}
 		}
 	}
@@ -68,7 +65,12 @@ void ECS::Systems::AttackSystem::updateEntity(int id, Context& context) {
 			// Print (Remove after review)
 			std::cout << "Player is dead" << std::endl;
 
-			context.stateMachine->setState<EndState>();
+			if (entityManager->hasComponent<PlayerComponent>(id)) {
+				context.stateMachine->setState<EndState>();
+			}
+			else {
+				entityManager->removeEntity(id);
+			}
 
 		}
 		// Print (Remove after review)

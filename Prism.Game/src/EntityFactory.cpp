@@ -152,6 +152,7 @@ int EntityFactory::createTower(int entity, EntityManager & entityManager)
 	entityManager.addComponentToEntity(entity, appearance);
 	entityManager.addComponentToEntity(entity, BoundingBoxComponent(1.0, 1.0));
 	entityManager.addComponentToEntity(entity, PlacableComponent());
+	entityManager.addComponentToEntity(entity, HealthComponent(100));
 	return entity;
 }
 
@@ -175,6 +176,7 @@ int EntityFactory::createWall(int entity, EntityManager & entityManager)
 	entityManager.addComponentToEntity(entity, appearance);
 	entityManager.addComponentToEntity(entity, BoundingBoxComponent(1.0, 1.0));
 	entityManager.addComponentToEntity(entity, PlacableComponent());
+	entityManager.addComponentToEntity(entity, HealthComponent(100));
 	return entity;
 }
 
