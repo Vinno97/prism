@@ -62,10 +62,5 @@ namespace ECS {
 			}
 
 		}
-
-		System * ProjectileAttackSystem::clone()
-		{
-			return new ProjectileAttackSystem(*entityManager);
-		}
 	}
 }

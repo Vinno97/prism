@@ -118,22 +118,3 @@ void TextRenderer::RenderText(std::string text, float x, float y, float scale)
 
 	renderDevice->useBlending(false);
 }
-
-TextRenderer::TextRenderer(const TextRenderer & other)
-{
-	
-}
-
-TextRenderer::TextRenderer(TextRenderer && other)
-{
-}
-
-TextRenderer & TextRenderer::operator=(const TextRenderer & other)
-{
-	// TODO: insert return statement here
-}
-
-TextRenderer & TextRenderer::operator=(TextRenderer && other)
-{
-	// TODO: insert return statement here
-}

@@ -93,7 +93,7 @@ namespace Renderer {
 
 		quadMesh->vertexArrayObject->bind();
 		quadMesh->indexBuffer->bind();
-		glViewport(0, 0, 1920, 1080); 
+		glViewport(0, 0, 1920 / 2, 1080 / 2); 
 		renderDevice->DrawTrianglesIndexed(0, quadMesh->indicesLength);
 
 		quadMesh->vertexArrayObject->unbind();

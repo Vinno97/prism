@@ -54,6 +54,7 @@
     <ClCompile Include="src\Surface.cpp" />
     <ClCompile Include="src\ECS\Systems\MousePointSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\CollisionSystem.cpp" />
+    <ClCompile Include="src\World\Assemblers\HealthAssembler.cpp" />
     <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLRenderTarget.cpp" />
     <ClCompile Include="src\Menu\TextRenderer.cpp" />
   </ItemGroup>
@@ -152,6 +153,7 @@
     <ClInclude Include="include\ECS\Components\MousePointerComponent.h" />
     <ClInclude Include="include\ECS\Systems\MousePointSystem.h" />
     <ClInclude Include="include\ECS\Components\HealthComponent.h" />
+    <ClInclude Include="include\World\Assemblers\HealthAssembler.h" />
     <ClInclude Include="include\Renderer\Graphics\RenderTarget.h" />
     <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLRenderTarget.h" />
     <ClInclude Include="include\Menu\TextRenderer.h" />

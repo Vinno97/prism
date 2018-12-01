@@ -15,7 +15,7 @@ namespace Renderer {
 					GLuint depthrenderbuffer;
 					glGenRenderbuffers(1, &depthrenderbuffer);
 					glBindRenderbuffer(GL_RENDERBUFFER, depthrenderbuffer);
-					glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, 1920, 1080);
+					glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, 1920 / 2, 1080 / 2);
 					glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthrenderbuffer);
 				}
 
