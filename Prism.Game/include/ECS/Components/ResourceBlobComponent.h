@@ -15,8 +15,8 @@ namespace ECS {
 			const Enums::ResourceType resourceType{};
 			const float value = 1;
 
-			Component* Clone() override {
-				return new ResourceBlobComponent(value, resourceType);
+			std::unique_ptr<Component> clone() override {
+				return std::make_unique<ResourceBlobComponent>(value, resourceType);
 			}
 		};
 	}

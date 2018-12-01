@@ -3,31 +3,18 @@
 #include <vector>
 #include <set>
 #include <map>
+#include <string>
 #include <unordered_map>
 #include <typeindex>
-#include "Components/Component.h"
-#include "Components/PositionComponent.h"
 #include "Entity.h"
 
 namespace ECS {
-
-	struct SampleComponent
-
 	/// <summary>
 	///	Handles the creation, management and removal of Entities.
 	/// </summary>
 	class EntityManager
 	{
 	public:
-		EntityManager();
-		EntityManager(const EntityManager &other);
-		EntityManager& operator=(const EntityManager& other);
-		EntityManager(EntityManager&& other);
-		EntityManager& operator=(EntityManager&& other);
-		
-		
-		~EntityManager();
-
 		///// <summary>
 		///// Creates a new entity.
 		///// </summary>
@@ -42,7 +29,7 @@ namespace ECS {
 		/// Adds a component to a given entity.
 		/// </summary>
 		/// <param name="entityId">The ID of the entity to add the component to.</param>
-		/// <param name="entityId">The component to add to the entity.</param>
+		/// <param name="component">The component to add to the entity.</param>
 		// TODO: Zorg dat dit werkt voor zowel rvalues als lvalues
 		//template<class T, typename = std::enable_if_t < std::is_base_of<Component, T>::type::value>>
 		template<typename T>
@@ -57,14 +44,14 @@ namespace ECS {
 					throw std::runtime_error("Already attached a component of type " + *type.name() + *" to entity " + std::to_string(entityId));
 				}
 			}
-			entityComponents[type][entityId] = component.Clone();
+			entityComponents[type][entityId] = component.clone();
 		}
 
 		/// <summary>
 		/// Removes a component from a given entiy.
 		/// </summary>
 		/// <param name="entityId">The ID of the entity to remove the component from.</param>
-		template<typename T, typename = std::enable_if_t < std::is_base_of<Component, T>::type::value>>
+		template<typename T, typename = std::enable_if_t < std::is_base_of<Components::Component, T>::type::value>>
 		void removeComponentFromEntity(unsigned int entityId) {
 			const std::type_index type{ std::type_index(typeid(T)) };
 			removeComponentFromEntity(entityId, type);
@@ -75,7 +62,7 @@ namespace ECS {
 		/// </summary>
 		/// <param name="entityId">The ID of the entity to get the component from.</param>
 		/// <returns>A pointer to the component belonging to the entity.</returns>
-		template<typename T, typename = std::enable_if_t < std::is_base_of<Component, T>::type::value>>
+		template<typename T, typename = std::enable_if_t < std::is_base_of<Components::Component, T>::type::value>>
 		T* getComponent(unsigned int entityId) const {
 			const std::type_index type{ std::type_index(typeid(T)) };
 			return static_cast<T*>(getComponent(entityId, type));
@@ -86,7 +73,7 @@ namespace ECS {
 		/// </summary>
 		/// <param name="entityId">The ID of the entity to get the component from.</param>
 		/// <returns>A boolean indicator whether the entity has the component.</returns>
-		template<typename T, typename = std::enable_if_t < std::is_base_of<Component, T>::type::value>>
+		template<typename T, typename = std::enable_if_t < std::is_base_of<Components::Component, T>::type::value>>
 		bool hasComponent(unsigned int entityId) const {
 			const std::type_index type{ std::type_index(typeid(T)) };
 			return hasComponent(entityId, type);
@@ -96,7 +83,7 @@ namespace ECS {
 		/// Retrieves all entities with a certain component type.
 		/// </summary>
 		/// <returns>A vector containing combinations of entities and the matching component.</returns>
-		template<typename T, typename = std::enable_if_t < std::is_base_of<Component, T>::type::value>>
+		template<typename T, typename = std::enable_if_t < std::is_base_of<Components::Component, T>::type::value>>
 		std::vector<Entity<T*>> getAllEntitiesWithComponent() const {
 			auto const type = std::type_index(typeid(T));
 			auto const entities = getAllEntitiesWithComponent(type);
@@ -109,7 +96,6 @@ namespace ECS {
 				entity.component = static_cast<T*>(entry.component);
 				result.push_back(entity);
 			}
-			
 
 			return result;
 		}
@@ -131,16 +117,16 @@ namespace ECS {
 		/// <summary>
 		/// Keeps a list of all instances of each component type.
 		/// </summary>
-		std::unordered_map<std::type_index, std::unordered_map<unsigned int, Component*>> entityComponents;
+		std::map<std::type_index, std::map<unsigned int, std::unique_ptr<Components::Component>>> entityComponents;
 
 		/// <summary>
 		/// Keeps a list of all Listeners attached to the EntityManager.
 		/// </summary>
-		Component* getComponent(unsigned int entityId, std::type_index componentType) const  noexcept;
+		Components::Component* getComponent(unsigned int entityId, std::type_index componentType) const  noexcept;
 
 		bool hasComponent(unsigned int entityId, std::type_index componentType) const  noexcept;
 
-		std::vector<Entity<Component*>> getAllEntitiesWithComponent(const std::type_index& componentType) const;
+		std::vector<Entity<Components::Component*>> getAllEntitiesWithComponent(const std::type_index& componentType) const;
 
 		void removeComponentFromEntity(unsigned int entityId, std::type_index componentType);
 
