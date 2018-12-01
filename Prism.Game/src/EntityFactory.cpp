@@ -171,11 +171,11 @@ int EntityFactory::createWall(int entity, EntityManager & entityManager)
 	return entity;
 }
 
-int EntityFactory::createCliff(EntityManager & entityManager) {
-	return createCliff(entityManager.createEntity(), entityManager);
+int EntityFactory::createCliff(EntityManager & entityManager, int rotation) {
+	return createCliff(entityManager.createEntity(), entityManager, rotation);
 }
 
-int EntityFactory::createCliff(int entity, EntityManager & entityManager)
+int EntityFactory::createCliff(int entity, EntityManager & entityManager, int rotation)
 {
 	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
 	auto model = ml.loadModel("./res/cliff_straight.obj");
@@ -184,15 +184,12 @@ int EntityFactory::createCliff(int entity, EntityManager & entityManager)
 	appearance.scaleX = 1.0f;
 	appearance.scaleY = 1.0f;
 	appearance.scaleZ = 1.0f;
-	appearance.rotationY = 180.0f;
+	appearance.rotationY = rotation;
 	appearance.model = std::move(model);
 
-	BoundingBoxComponent b = BoundingBoxComponent(0, 0);
-	b.boundingBox.SetBounds(-.2,.5,.5,-.5);
 	entityManager.addComponentToEntity(entity, PositionComponent());
 	entityManager.addComponentToEntity(entity, appearance);
-	//entityManager.addComponentToEntity(entity, BoundingBoxComponent(1.0, 0.2));
-	entityManager.addComponentToEntity(entity, b);
+	entityManager.addComponentToEntity(entity, BoundingBoxComponent(1.0, 0.2));
 	return entity;
 }
 
