@@ -8,7 +8,7 @@
 using namespace Renderer::Graphics;
 using namespace Renderer::Graphics::OpenGL;
 
-void TextRenderer::init()
+TextRenderer::TextRenderer()
 {
 	renderDevice = OGLRenderDevice::getRenderDevice();
 
@@ -17,7 +17,7 @@ void TextRenderer::init()
 		std::cout << "ERROR::FREETYPE: Could not init FreeType Library" << std::endl;
 
 	FT_Face face;
-	if (FT_New_Face(ft, "./res/fonts/arial.ttf", 0, &face))
+	if (FT_New_Face(ft, "./res/fonts/square.ttf", 0, &face))
 		std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;
 
 	FT_Set_Pixel_Sizes(face, 0, 48);
@@ -34,7 +34,7 @@ void TextRenderer::init()
 		}
 		// Generate texture
 		auto texture = renderDevice->createTexture(face->glyph->bitmap.width, face->glyph->bitmap.rows, face->glyph->bitmap.buffer, false);
-	
+
 		Character character = {
 			texture,
 			glm::ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
@@ -63,12 +63,19 @@ void TextRenderer::init()
 	textPipeline->createUniform("textColor");
 }
 
+void TextRenderer::init()
+{
+	
+}
+
 void TextRenderer::RenderText(std::string text, float x, float y, float scale)
 {
 	// Activate corresponding render state	
 	textPipeline->run();
 	textPipeline->setUniformVector("textColor", 0.0f, 0.0f, 0.0);
-	glm::mat4 projection = glm::ortho(-1.0f, 1.0f, -1.0f, 1.0f);
+	float aspect = 1920 / 1080;
+	//glm::mat4 projection = glm::ortho(0.0f, 800.0f, 0.0f, 600.0f);
+	glm::mat4 projection = glm::ortho(-1.0f, 1.0f*aspect, -1.0f, 1.0f);
 	textPipeline->setUniformMatrix4f("projection", projection);
 	renderDevice->useBlending(true);
 	VAO2->bind();

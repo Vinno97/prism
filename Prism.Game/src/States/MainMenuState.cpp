@@ -24,7 +24,6 @@ namespace States {
 		menu = menuBuilder.buildMenu();
 		renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
 		renderDevice->setClearColour(1.f, 1.f, 1.f, 1.f);
-		textRenderer.init();
 	}
 
 	void MainMenuState::onUpdate(Context & context)
@@ -32,7 +31,7 @@ namespace States {
 		renderDevice->clearScreen();
 		menuRenderer.renderMenu(menu, float(context.window->width) / float(context.window->height));
 
-		textRenderer.RenderText("yolo", 0, 0, 0.001);
+		textRenderer.RenderText("1 Red resources", 0, 0, 0.001);
 
 		auto input = context.inputManager;
 		if (menu.handleInput(*context.inputManager, context.window->width, context.window->height)) {

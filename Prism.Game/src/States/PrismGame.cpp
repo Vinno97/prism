@@ -69,6 +69,7 @@ namespace States {
 		context.stateMachine->addState(es, context);
 		
 		std::function<void()> callback = [context, &canPress = canPressEscape]() mutable { canPress = false; context.stateMachine->setState<PauseState>(); };
+		//textRenderer.init();
 	}
 
 	/// <summary>
@@ -154,7 +155,7 @@ namespace States {
 		renderSystem->update(context);
 
 		std::cout << 1.0/context.deltaTime << std::endl;
-
+		//textRenderer.RenderText("1 Red resources", 0, 0, 0.001);
 		context.window->swapScreen();
 
 		if (!input->isKeyPressed(Key::KEY_ESCAPE)) {

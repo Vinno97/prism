@@ -28,7 +28,7 @@ struct Character {
 class TextRenderer
 {
 public:
-	TextRenderer()=default;
+	TextRenderer();
 	~TextRenderer()=default;
 	void init();
 	void RenderText(std::string text, float x, float y, float scale);
