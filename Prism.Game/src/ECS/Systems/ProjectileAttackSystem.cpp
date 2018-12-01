@@ -7,6 +7,8 @@
 
 namespace ECS {
 	namespace Systems {
+		using namespace Components;
+		
 		ProjectileAttackSystem::ProjectileAttackSystem(EntityManager& entityManager) : System(entityManager)
 		{
 		}
@@ -51,8 +53,10 @@ namespace ECS {
 						entityManager->removeEntity(entity.id);
 					}
 				}
-				boundingBoxComponent->didCollide = false;
-				boundingBoxComponent->collidesWith.clear();
+
+				// TODO: Wat doet deze code hier eigenlijk? De game crasht hierop, maar werkt correct als het uitgeschakeld staat. Ik kan me ook niet bedenken wat dit zou horen te doen.
+				// boundingBoxComponent->didCollide = false;
+				// boundingBoxComponent->collidesWith.clear();
 			}
 		}
 	}

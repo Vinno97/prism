@@ -19,6 +19,7 @@ ECS::Systems::AttackSystem::~AttackSystem()
 = default;
 
 using namespace States;
+using namespace ECS::Components;
 
 void ECS::Systems::AttackSystem::update(Context& context) {
 

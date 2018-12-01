@@ -4,6 +4,7 @@
 #include "ECS/Components/VelocityComponent.h"
 #include "ECS/Components/BulletComponent.h"
 #include "ECS/Components/AppearanceComponent.h"
+#include "ECS/Components/PositionComponent.h"
 
 
 namespace ECS {

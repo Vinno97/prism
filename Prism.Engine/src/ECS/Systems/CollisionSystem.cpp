@@ -6,8 +6,8 @@
 #include <list>
 
 using namespace ECS;
-using namespace ECS::Components;
-using namespace ECS::Systems;
+using namespace Components;
+using namespace Systems;
 using namespace Physics;
 
 CollisionSystem::CollisionSystem(EntityManager &entityManager, float width, float height, float posX, float posY, unsigned int maxObject) : System(entityManager)

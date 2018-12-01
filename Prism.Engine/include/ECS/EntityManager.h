@@ -11,7 +11,7 @@
 
 namespace ECS {
 
-	using namespace Components;
+	struct SampleComponent
 
 	/// <summary>
 	///	Handles the creation, management and removal of Entities.
