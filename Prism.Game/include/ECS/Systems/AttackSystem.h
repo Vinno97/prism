@@ -11,13 +11,11 @@ namespace ECS {
 			AttackSystem(EntityManager &entityManager);
 			~AttackSystem();
 			void update(Context& context) override;
-			System* clone() override;
-
 			///<summary>
 			/// Method to update the entity when collision is detected
 			///<param name="id">The ID of the Entity to update
 			///</summary>
-			void updateEntity(int id);
+			void updateEntity(int id, Context& context);
 		private:
 			Physics::QuadTree quadTree;
 			Physics::AABBCollider aabbCollider;

@@ -9,7 +9,7 @@ using namespace World::Assemblers;
 
 void PositionAssembler::assemble(int entity, const WorldObject& worldObject, ECS::EntityManager& entityManager) const {
 	if (entityManager.hasComponent<PositionComponent>(entity)) {
-		auto position = entityManager.getComponent<PositionComponent>(entity);
+		const auto position = entityManager.getComponent<PositionComponent>(entity);
 		position->x = worldObject.x;
 		position->y = worldObject.y;
 	}
@@ -17,7 +17,7 @@ void PositionAssembler::assemble(int entity, const WorldObject& worldObject, ECS
 
 void PositionAssembler::disassemble(int entity, WorldObject& worldObject, const ECS::EntityManager& entityManager) const {
 	if (entityManager.hasComponent<PositionComponent>(entity)) {
-		auto position = entityManager.getComponent<PositionComponent>(entity);
+		const auto position = entityManager.getComponent<PositionComponent>(entity);
 		worldObject.x = position->x;
 		worldObject.y = position->y;
 	}

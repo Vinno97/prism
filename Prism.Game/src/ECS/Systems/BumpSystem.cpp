@@ -2,6 +2,7 @@
 #include "ECS/Components/BoundingBoxComponent.h"
 #include "ECS/Components/VelocityComponent.h"
 #include "ECS/Components/PositionComponent.h"
+#include "ECS/Components/DynamicComponent.h"
 
 using namespace ECS;
 using namespace ECS::Components;
@@ -15,7 +16,7 @@ BumpSystem::~BumpSystem()
 
 void BumpSystem::update(Context& context)
 {
-	for (auto entity : entityManager->getAllEntitiesWithComponent<BoundingBoxComponent>()) {
+	for (auto entity : entityManager->getAllEntitiesWithComponent<DynamicComponent>()) {
 		auto boundingBoxComponent = entityManager->getComponent<BoundingBoxComponent>(entity.id);
 		if (entityManager->hasComponent<VelocityComponent>(entity.id) && boundingBoxComponent->didCollide) {
 
@@ -27,7 +28,6 @@ void BumpSystem::update(Context& context)
 				const auto position = entityManager->getComponent<PositionComponent>(entity.id);
 				auto velocity = entityManager->getComponent<VelocityComponent>(entity.id);
 
-				//if (velocity->dx != 0.0 || velocity->dy != 0.0) {
 				BoundingBox testBoxXPlus(*boundingBox);
 				BoundingBox testBoxYPlus(*boundingBox);
 
@@ -37,8 +37,6 @@ void BumpSystem::update(Context& context)
 				float x = position->x;
 				float y = position->y;
 
-				//testBoxXPlus.SetPosXY(x + velocity->dx*context.deltaTime, y);
-				//testBoxYPlus.SetPosXY(x, y + velocity->dy*context.deltaTime);
 				testBoxXMin.SetPosXY(x - velocity->dx*context.deltaTime, y);
 				testBoxYMin.SetPosXY(x, y - velocity->dy*context.deltaTime);
 				
@@ -56,7 +54,6 @@ void BumpSystem::update(Context& context)
 					position->y -= velocity->dy * context.deltaTime;
 					velocity->dy = 0;
 				}
-				//}
 				boundingBoxComponent->didCollide = false;
 				boundingBoxComponent->collidesWith.clear();
 			}
@@ -80,7 +77,3 @@ int BumpSystem::CountCollisions(BoundingBox &currentBox, std::vector<unsigned in
 	return count;
 }
 
-ECS::Systems::System* BumpSystem::clone()
-{
-	return new BumpSystem(*entityManager);
-}

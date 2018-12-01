@@ -38,6 +38,7 @@ namespace Renderer {
 					throw std::runtime_error("Fragment shader does not compile");
 				}
 			}
+
 			//QQQ Delete shader
 			OGLFragmentShader::~OGLFragmentShader()
 			{

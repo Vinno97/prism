@@ -139,12 +139,3 @@ void ECS::Systems::BuildSystem::update(Context& context) {
 		}
 	}
 }
-
-ECS::System * ECS::Systems::BuildSystem::clone()
-{
-	BuildSystem *nb = new BuildSystem(*entityManager);
-	nb->buildingId = buildingId;
-	nb->isBuilding = isBuilding;
-
-	return nb;
-}

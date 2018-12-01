@@ -13,7 +13,6 @@ namespace ECS {
 			BuildSystem(EntityManager &entityManager);
 			~BuildSystem();
 			void update(Context& context) override;
-			System* clone() override;
 
 		private:
 			bool isBuilding = false;

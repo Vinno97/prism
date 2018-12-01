@@ -24,8 +24,8 @@ namespace ECS {
 
 		void KeyboardInputSystem::update(Context& context) {
 			// 1 unit/second^2
-			//double acceleration = 5;
-			double acceleration = 5;
+			//double acceleration = 10;
+			double acceleration = 10;
 
 			auto input = context.inputManager;
 			
@@ -96,12 +96,6 @@ namespace ECS {
 					}
 				}
 			}
-		}
-
-		System * KeyboardInputSystem::clone()
-		{
-			auto test = new KeyboardInputSystem(*entityManager);
-			return test;
 		}
 	}
 }
