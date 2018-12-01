@@ -67,9 +67,8 @@ namespace States {
 		context.stateMachine->addState(ps, context);
 		EndState es = EndState();
 		context.stateMachine->addState(es, context);
-		
+
 		std::function<void()> callback = [context, &canPress = canPressEscape]() mutable { canPress = false; context.stateMachine->setState<PauseState>(); };
-		//textRenderer.init();
 	}
 
 	/// <summary>
@@ -81,7 +80,7 @@ namespace States {
 		MotionSystem motionSystem = MotionSystem(entityManager);
 		RenderSystem renderSystem = RenderSystem(entityManager, context.window->width, context.window->height);
 		KeyboardInputSystem inputSystem = KeyboardInputSystem(entityManager);
-		EnemyPathFindingSystem enemyPathFindingSystem  = EnemyPathFindingSystem(entityManager, 10);
+		EnemyPathFindingSystem enemyPathFindingSystem = EnemyPathFindingSystem(entityManager, 10);
 		AnimationSystem animationSystem = AnimationSystem(entityManager);
 		CollisionSystem collisionSystem = CollisionSystem(entityManager, context.window->width, context.window->height, 0, 0, 2);
 		ShootingSystem shootingSystem = ShootingSystem(entityManager);
@@ -118,8 +117,8 @@ namespace States {
 	{
 
 		auto input = context.inputManager;
-		if (menu.handleInput(*context.inputManager, context.window->width, context.window->height)) { 
-			return; 
+		if (menu.handleInput(*context.inputManager, context.window->width, context.window->height)) {
+			return;
 		}
 
 		auto inputSystem = systemManager.getSystem<KeyboardInputSystem>();
@@ -154,8 +153,8 @@ namespace States {
 		enemySpawnSystem->update(context);
 		renderSystem->update(context);
 
-		std::cout << 1.0/context.deltaTime << std::endl;
-		//textRenderer.RenderText("1 Red resources", 0, 0, 0.001);
+		std::cout << 1.0 / context.deltaTime << std::endl;
+
 		context.window->swapScreen();
 
 		if (!input->isKeyPressed(Key::KEY_ESCAPE)) {
@@ -184,5 +183,4 @@ namespace States {
 	void PrismGame::onLeave() {
 	}
 }
-
 

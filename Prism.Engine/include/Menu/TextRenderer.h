@@ -33,6 +33,11 @@ public:
 	void init();
 	void RenderText(std::string text, float x, float y, float scale);
 
+	TextRenderer(const TextRenderer &other);
+	TextRenderer(TextRenderer &&other);
+	TextRenderer& operator=(const TextRenderer& other);
+	TextRenderer& operator=(TextRenderer&& other);
+
 	std::unique_ptr<Renderer::Graphics::Pipeline> textPipeline;
 	Renderer::Graphics::RenderDevice* renderDevice;
 
