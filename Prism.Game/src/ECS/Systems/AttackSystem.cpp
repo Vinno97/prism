@@ -39,9 +39,9 @@ void ECS::Systems::AttackSystem::update(Context& context) {
 							   				
 				for (int i = 0; i < vector.size(); i++) {
 					if(entityManager->hasComponent<PlayerComponent>(vector[i])){
-							updateEntity(vector[i],context);
-							updateEntity(entity.id,context);
-							context.audioManager->playSound("EnemyKill");
+						updateEntity(vector[i],context);
+						updateEntity(entity.id,context);
+						context.audioManager->playSound("EnemyKill");
 					}
 				}
 

@@ -99,7 +99,7 @@ namespace States {
 
 			//5
 			.registerSystem<5, RenderSystem>(entityManager, context.window->width, context.window->height)
-			//.registerSystem<5, AttackSystem>(entityManager)
+			.registerSystem<5, AttackSystem>(entityManager)
 			.registerSystem<5, BumpSystem>(entityManager);
 	}
 
