@@ -14,7 +14,7 @@ namespace ECS {
 		{
 			WALL,
 			TOWER,
-			FACTORY,
+			FACTORY,	
 			NONE
 		};
 
@@ -33,9 +33,9 @@ namespace ECS {
 			float pressTime = 0.5;
 			
 			Math::Vector3f buildingColor;
-			float wallRequirements = 0;
-			float towerRequirements = 0;
-			float factoryRequirements = 0;
+			float wallRequirements = 10;
+			float towerRequirements = 10;
+			float factoryRequirements = 10;
 		};
 	}
 }

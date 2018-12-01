@@ -29,9 +29,10 @@ void ECS::Systems::BuildSystem::update(Context& context) {
 		auto key1Pressed = context.inputManager->isKeyPressed(Key::KEY_1);
 		auto key2Pressed = context.inputManager->isKeyPressed(Key::KEY_2);
 		auto key3Pressed = context.inputManager->isKeyPressed(Key::KEY_3);
+		auto keyTabPressed = context.inputManager->isKeyPressed(Key::KEY_TAB);
 		BuildingType newBuild;
 
-		if (key1Pressed || key2Pressed || key3Pressed) {
+		if (key1Pressed || key2Pressed || key3Pressed || keyTabPressed) {
 			deltaTime = 0;
 			if (currentBuild != BuildingType::NONE) {
 				entityManager->removeEntity(buildingId);
