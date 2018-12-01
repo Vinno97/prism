@@ -68,7 +68,7 @@ void TextRenderer::RenderText(std::string text, float x, float y, float scale)
 	// Activate corresponding render state	
 	textPipeline->run();
 	textPipeline->setUniformVector("textColor", 0.0f, 0.0f, 0.0);
-	glm::mat4 projection = glm::ortho(0.0f, 800.0f, 0.0f, 600.0f);
+	glm::mat4 projection = glm::ortho(-1.0f, 1.0f, -1.0f, 1.0f);
 	textPipeline->setUniformMatrix4f("projection", projection);
 	renderDevice->useBlending(true);
 	VAO2->bind();
