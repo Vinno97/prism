@@ -55,10 +55,5 @@ namespace ECS {
 				boundingBoxComponent->collidesWith.clear();
 			}
 		}
-
-		System * ProjectileAttackSystem::clone()
-		{
-			return new ProjectileAttackSystem(*entityManager);
-		}
 	}
 }

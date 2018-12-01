@@ -23,6 +23,7 @@
 #include "Physics/BoundingBox.h"
 #include "Physics/QuadTree.h"
 #include "States/PrismGame.h"
+#include "States/MainMenuState.h"
 
 #define _CRTDBG_MAP_ALLOC
 
@@ -30,8 +31,9 @@
 void start() {
 	CoreEngine ce = CoreEngine();
 	ce.InitWindow("prism", 1920 / 2, 1080 / 2, 100, 100);
-	States::PrismGame prism;
-	ce.setEntryPoint(prism);
+	ce.addState<States::PrismGame>();
+	ce.setEntryPoint<States::PrismGame>();
+
 	ce.Run();
 }
 

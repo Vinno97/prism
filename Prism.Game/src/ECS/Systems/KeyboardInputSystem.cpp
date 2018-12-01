@@ -97,11 +97,5 @@ namespace ECS {
 				}
 			}
 		}
-
-		System * KeyboardInputSystem::clone()
-		{
-			auto test = new KeyboardInputSystem(*entityManager);
-			return test;
-		}
 	}
 }

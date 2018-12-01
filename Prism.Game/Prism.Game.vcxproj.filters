@@ -24,6 +24,7 @@
     <ClCompile Include="src\ECS\Systems\EnemySpawnSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\EnemyPathFindingSystem.cpp" />
     <ClCompile Include="src\World\Assemblers\EnemySpawnAssembler.cpp" />
+    <ClCompile Include="src\States\MainMenuState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ECS\Components\BulletComponent.h" />
@@ -113,15 +114,20 @@
     <ClCompile Include="src\States\PrismGame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\States\EndState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClInclude Include="include\ECS\Components\EnemySpawnComponent.h" />
     <ClInclude Include="include\ECS\Systems\EnemyPathFindingSystem.h" />
     <ClInclude Include="include\ECS\Systems\EnemySpawnSystem.h" />
     <ClInclude Include="include\World\Assemblers\EnemySpawnAssembler.h" />
+    <ClInclude Include="include\States\MainMenuState.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="lib\assimp-vc140-mtd.dll" />
     <None Include="lib\glew32.dll" />
     <None Include="lib\SDL2.dll" />
+    <None Include="lib\SDL2_mixer.dll" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ECS\Components\KeyboardInputComponent.h">
@@ -205,5 +211,25 @@
     <ClInclude Include="include\ECS\Systems\AttackSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\ECS\Systems\EnemySpawnSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\World\Assemblers\EnemySpawnAssembler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ECS\Components\EnemySpawnComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ECS\Systems\EnemyPathFindingSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\States\EndState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\img\gameover.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
