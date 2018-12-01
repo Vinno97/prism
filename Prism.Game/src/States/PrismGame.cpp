@@ -70,8 +70,8 @@ namespace States {
 			context.stateMachine->addState(ps, context);
 		}
 		if (!context.stateMachine->hasState<EndState>()) {
-			EndState ps = EndState();
-			context.stateMachine->addState(ps, context);
+			EndState es = EndState();
+			context.stateMachine->addState(es, context);
 		}
 		
 		std::function<void()> callback = [context, &canPress = canPressEscape]() mutable { canPress = false; context.stateMachine->setState<PauseState>(); };

@@ -13,6 +13,10 @@ namespace States {
 
 	void PauseState::onInit(Context & context)
 	{
+		menuBuilder.addControl(-0.5, 0, 1, 0.21, "img/pause.png");
+		menu = menuBuilder.buildMenu();
+		Renderer::Graphics::RenderDevice* renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
+		renderDevice->setClearColour(1.f, 1.f, 1.f, 1.f);
 	}
 
 	void PauseState::onUpdate(Context & context)
@@ -36,10 +40,7 @@ namespace States {
 
 	void PauseState::onEnter(Context & context)
 	{
-		menuBuilder.addControl(-0.5, 0, 1, 0.21, "img/pause.png");
-		menu = menuBuilder.buildMenu();
-		Renderer::Graphics::RenderDevice* renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
-		renderDevice->setClearColour(1.f, 1.f, 1.f, 1.f);
+
 	}
 
 	void PauseState::onLeave()
