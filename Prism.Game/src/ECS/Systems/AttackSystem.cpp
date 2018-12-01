@@ -63,6 +63,7 @@ void ECS::Systems::AttackSystem::updateEntity(int id) {
 
 		currentComponent->health -= 10;
 
+
 		if (currentComponent->health == 0) {
 
 			// Print (Remove after review)

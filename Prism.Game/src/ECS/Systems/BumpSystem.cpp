@@ -2,6 +2,7 @@
 #include "ECS/Components/BoundingBoxComponent.h"
 #include "ECS/Components/VelocityComponent.h"
 #include "ECS/Components/PositionComponent.h"
+#include "ECS/Components/DynamicComponent.h"
 
 using namespace ECS;
 using namespace ECS::Components;
@@ -15,7 +16,7 @@ BumpSystem::~BumpSystem()
 
 void BumpSystem::update(Context& context)
 {
-	for (auto entity : entityManager->getAllEntitiesWithComponent<BoundingBoxComponent>()) {
+	for (auto entity : entityManager->getAllEntitiesWithComponent<DynamicComponent>()) {
 		auto boundingBoxComponent = entityManager->getComponent<BoundingBoxComponent>(entity.id);
 		if (entityManager->hasComponent<VelocityComponent>(entity.id) && boundingBoxComponent->didCollide) {
 

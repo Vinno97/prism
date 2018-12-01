@@ -77,7 +77,6 @@ namespace States {
 		EnemyPathFindingSystem enemyPathFindingSystem  = EnemyPathFindingSystem(entityManager, 10);
 		AnimationSystem animationSystem = AnimationSystem(entityManager);
 		CollisionSystem collisionSystem = CollisionSystem(entityManager, context.window->width, context.window->height, 0, 0, 2);
-		//collisionSystem.registerStaticObjects();
 		ShootingSystem shootingSystem = ShootingSystem(entityManager);
 		ProjectileAttackSystem projectileAttackSystem = ProjectileAttackSystem(entityManager);
 		ResourceBlobSystem resourceBlobSystem = ResourceBlobSystem(entityManager);
@@ -110,7 +109,8 @@ namespace States {
 
 	void PrismGame::onUpdate(Context &context)
 	{
-		//context.deltaTime *= 2.5;
+		std::cout << "FPS:   \t" << 1.0 / context.deltaTime << std::endl;
+		context.deltaTime *= 2.5;
 
 	    auto input = context.inputManager;
 
@@ -141,18 +141,16 @@ namespace States {
 		aimSystem->update(context);
 		shootingSystem->update(context);
 		projectileAttackSystem->update(context);
-		attackSystem->update(context);
+		//attackSystem->update(context);
 		bumpSystem->update(context);
-	
-		
-		
+
 		animationSystem->update(context);
 		resourceGatherSystem->update(context);
 		resourceBlobSystem->update(context);
 		enemySpawnSystem->update(context);
 		renderSystem->update(context);
 
-		std::cout << "FPS:   \t" << 1.0/context.deltaTime << std::endl;
+		
 		
 		auto enemies = entityManager.getAllEntitiesWithComponent<VelocityComponent>();
 		std::cout << "Enemies:\t" << enemies.size() << std::endl;
