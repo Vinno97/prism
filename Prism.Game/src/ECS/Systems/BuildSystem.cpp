@@ -25,110 +25,87 @@ void ECS::Systems::BuildSystem::update(Context& context) {
 	deltaTime += context.deltaTime;
 	auto playerId = entityManager->getAllEntitiesWithComponent<PlayerComponent>()[0].id;
 
-
-
 	if (deltaTime > pressTime) {
-		auto inventory = entityManager->getComponent<InventoryComponent>(playerId);
-		if (context.inputManager->isKeyPressed(Key::KEY_1)) {
-			deltaTime = 0;
-			if (!isBuilding) {
-				if (true/*inventory->greenResource >= wallRequirements*/) {
-					isBuilding = true;
+		auto key1Pressed = context.inputManager->isKeyPressed(Key::KEY_1);
+		auto key2Pressed = context.inputManager->isKeyPressed(Key::KEY_2);
+		auto key3Pressed = context.inputManager->isKeyPressed(Key::KEY_3);
+		BuildingType newBuild;
 
-					buildingId = ef.createWall(*entityManager);
-					entityManager->addComponentToEntity(buildingId, VelocityComponent());
-					entityManager->addComponentToEntity(buildingId, DynamicComponent());
-					buildingColor = entityManager->getComponent<AppearanceComponent>(buildingId)->color;
-				}
-				else {
-					//TODO: niet genoeg resouces dus geluid ofzo?????
-				}
+		if (key1Pressed || key2Pressed || key3Pressed) {
+			deltaTime = 0;
+			if (currentBuild != BuildingType::NONE) {
+				entityManager->removeEntity(buildingId);
+				buildingId = -1;
+			}
+
+			if (key1Pressed && currentBuild!=BuildingType::WALL) {
+				buildingId = buildEntity(BuildingType::WALL);
+				currentBuild = BuildingType::WALL;
+				buildingColor = entityManager->getComponent<AppearanceComponent>(buildingId)->color;
+			}
+			else if (key2Pressed && currentBuild != BuildingType::TOWER) {
+				buildingId = buildEntity(BuildingType::TOWER);
+				currentBuild = BuildingType::TOWER;
+				buildingColor = entityManager->getComponent<AppearanceComponent>(buildingId)->color;
+			}
+			else if (key3Pressed && currentBuild != BuildingType::FACTORY) {
+				buildingId = buildEntity(BuildingType::FACTORY);
+				currentBuild = BuildingType::FACTORY;
+				buildingColor = entityManager->getComponent<AppearanceComponent>(buildingId)->color;
 			}
 			else {
-				isBuilding = false;
-				entityManager->removeEntity(buildingId);
-			}
-		}
-		else if (context.inputManager->isKeyPressed(Key::KEY_2)) {
-			deltaTime = 0;
-			if (!isBuilding) {
-				if (true/*inventory->redResource >= towerRequirements*/) {
-					isBuilding = true;
-
-					buildingId = ef.createTower(*entityManager);
-					entityManager->addComponentToEntity(buildingId, VelocityComponent());
-					entityManager->addComponentToEntity(buildingId, DynamicComponent());
-					buildingColor = entityManager->getComponent<AppearanceComponent>(buildingId)->color;
-				}
-				else {
-					//TODO: niet genoeg resouces dus geluid ofzo?????
-				}
-			}
-			else {
-				isBuilding = false;
-				entityManager->removeEntity(buildingId);
-			}
-		}
-		
-		else if (context.inputManager->isKeyPressed(Key::KEY_3)) {
-			deltaTime = 0;
-			if (!isBuilding) {
-				if (true/*inventory->blueResource >= factoryRequirements*/) {
-					isBuilding = true;
-
-					//TODO :: Build Factory, heeft geen appearance???????/
-					buildingId = ef.createEnemy(*entityManager);
-					//entityManager->addComponentToEntity(buildingId, DynamicComponent());
-					buildingColor = entityManager->getComponent<AppearanceComponent>(buildingId)->color;
-				}
-				else {
-					//TODO: niet genoeg resouces dus geluid ofzo?????
-				}
-			}
-			else {
-				isBuilding = false;
-				entityManager->removeEntity(buildingId);
+				currentBuild = BuildingType::NONE;
 			}
 		}
 	}
 
-	if (isBuilding) {
+
+
+	auto iBuilding = currentBuild != BuildingType::NONE;
+
+	if (currentBuild != BuildingType::NONE) {
 		auto boundingBoxComponent = entityManager->getComponent<BoundingBoxComponent>(buildingId);
+		auto inventory = entityManager->getComponent<InventoryComponent>(playerId);
+		
+		bool enoughResources = false;
+		if (currentBuild == BuildingType::WALL && inventory->greenResource >= wallRequirements) {
+			enoughResources = true;
+		}
+		else if (currentBuild == BuildingType::TOWER && inventory->redResource >= towerRequirements) {
+			enoughResources = true;
+		}
+		else if (currentBuild == BuildingType::FACTORY && inventory->blueResource >= towerRequirements) {
+			enoughResources = true;
+		}
+		
 		bool canPlace = !boundingBoxComponent->didCollide;
 		boundingBoxComponent->didCollide = false;
-
 		auto appearance = entityManager->getComponent<AppearanceComponent>(buildingId);
 		appearance->color = buildingColor;
-
-		
 		auto shooting = entityManager->getComponent<ShootingComponent>(playerId);
 		shooting->isShooting = false;
 		
-
-		
-		if (canPlace) {
+		if (canPlace && enoughResources) {
 			if (context.inputManager->isMouseButtonPressed(Key::MOUSE_BUTTON_LEFT)) {
-
+				currentBuild = BuildingType::NONE;
 				entityManager->addComponentToEntity(buildingId, PlacableComponent());
 				entityManager->removeComponentFromEntity<DynamicComponent>(buildingId);
 				entityManager->removeComponentFromEntity<VelocityComponent>(buildingId);
 				buildingId = -1;
-				isBuilding = false;
 			}
 		}
 		else {
-			/*
-			for (auto id : boundingBoxComponent->collidesWith) {
-				auto &collider = (entityManager->getComponent<BoundingBoxComponent>(id)->collidesWith);
-				//collider->erase(collider->begin(), collider->begin(), buildingId);
-				collider.erase(std::remove(collider.begin(), collider.end(), buildingId), collider.end());
-				int k = 5;
-			}*/
+			if (!canPlace) {
+				//TODO :: leuk muziekje?
+			}
+			if (!enoughResources) {
+				//TODO :: leuk muziekje?
+			}
 			appearance->color = Math::Vector3f{ 1.0f, 0.5f, 0.5f };
 		}
 	}
 
-	if (isBuilding) {
+	if (currentBuild != BuildingType::NONE) {
 		auto entities = entityManager->getAllEntitiesWithComponent<MousePointerComponent>();
 		if (entities.size() > 0) {
 			auto entityId = entities[0].id;
@@ -138,4 +115,35 @@ void ECS::Systems::BuildSystem::update(Context& context) {
 			buildingPosition->y = (int)mousePosition3D->y;
 		}
 	}
+}
+
+unsigned int ECS::Systems::BuildSystem::buildEntity(BuildingType buildingType)
+{
+	unsigned int newBuildingId;
+	switch (buildingType)
+	{
+	case ECS::Systems::BuildSystem::WALL:
+		newBuildingId = ef.createWall(*entityManager);
+		break;
+	case ECS::Systems::BuildSystem::TOWER:
+		newBuildingId = ef.createTower(*entityManager);
+		break;
+	case ECS::Systems::BuildSystem::FACTORY:
+		//TODO :: vervang FACTORY
+		newBuildingId = ef.createEnemy(*entityManager);
+		break;
+	default:
+		break;
+	}
+
+	if (buildingType != BuildingType::NONE) {
+		if (!entityManager->hasComponent<DynamicComponent>(newBuildingId)) {
+			entityManager->addComponentToEntity(newBuildingId, VelocityComponent());
+			entityManager->addComponentToEntity(newBuildingId, DynamicComponent());
+		}
+		if (entityManager->hasComponent<PlacableComponent>(newBuildingId)) {
+			entityManager->removeComponentFromEntity<PlacableComponent>(newBuildingId);
+		}
+	}
+	return newBuildingId;
 }
