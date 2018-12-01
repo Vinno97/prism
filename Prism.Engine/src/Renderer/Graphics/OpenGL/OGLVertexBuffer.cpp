@@ -24,6 +24,16 @@ namespace Renderer {
 				glBindBuffer(GL_ARRAY_BUFFER, VBO);
 			}
 
+			void OGLVertexBuffer::unbind()
+			{
+				glBindBuffer(GL_ARRAY_BUFFER, 0);
+			}
+
+			void OGLVertexBuffer::rebuffer(long size, const void * data)
+			{
+				glBufferSubData(GL_ARRAY_BUFFER, 0, size, data);
+			}
+
 			OGLVertexBuffer::~OGLVertexBuffer()
 			{
 				glDeleteBuffers(1, &VBO);

@@ -21,15 +21,14 @@ namespace States {
 		menuBuilder.addControl(-0.35,  0.1, 0.6, 0.18, "img/LoadGameButton.png");
 		menuBuilder.addControl(-0.35, -0.7, 0.6, 0.18, "img/QuitGameButton.png");
 
-
 		menu = menuBuilder.buildMenu();
-		Renderer::Graphics::RenderDevice* renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
+		renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
 		renderDevice->setClearColour(1.f, 1.f, 1.f, 1.f);
+		textRenderer.init();
 	}
 
 	void MainMenuState::onUpdate(Context & context)
 	{
-		Renderer::Graphics::RenderDevice* renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
 		renderDevice->clearScreen();
 		menuRenderer.renderMenu(menu, float(context.window->width) / float(context.window->height));
 

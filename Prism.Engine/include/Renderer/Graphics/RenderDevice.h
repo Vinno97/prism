@@ -43,8 +43,6 @@ namespace Renderer {
 			/// <summary>
 			/// Create a new dynamic vertexbuffer
 			/// </summary>
-			/// <param name="size">Size of the index buffer</param>
-			/// <param name="data">Data that the buffer will be filled with (float array)</param>
 			virtual std::unique_ptr<VertexBuffer> createDynamicVertexBuffer() const = 0;
 
 			/// <summary>
@@ -68,6 +66,11 @@ namespace Renderer {
 			/// Create a new texture with image path
 			/// </summary>
 			virtual std::shared_ptr<Texture> createTexture(const char* path) const = 0;
+
+			/// <summary>
+			/// Create a new texture with width and height
+			/// </summary>
+			virtual std::shared_ptr<Texture> createTexture(int width, int height, unsigned char* pixels, bool useRGB) const = 0;
 
 			/// <summary>
 			/// Create a new texture 

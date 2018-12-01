@@ -10,6 +10,8 @@ namespace Renderer {
 				OGLVertexBuffer(long size, const void *data);
 				OGLVertexBuffer();
 				void bind() override;
+				void unbind() override;
+				void rebuffer(long size, const void * data) override;
 				~OGLVertexBuffer();
 
 				GLuint VBO;

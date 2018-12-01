@@ -27,6 +27,7 @@ namespace States {
 		Menu::MenuBuilder menuBuilder;
 		Menu::Menu menu;
 		TextRenderer textRenderer;
+		Renderer::Graphics::RenderDevice* renderDevice;
 	};
 }
 

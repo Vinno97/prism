@@ -35,6 +35,7 @@ namespace Renderer {
 				std::unique_ptr<VertexArrayObject> createVertexArrayobject() const override;
 				std::unique_ptr<RenderTarget> createRenderTarget(bool useDepthBuffer, std::shared_ptr<Texture> texture) const override;
 				std::shared_ptr<Texture> createTexture(const char* path) const override;
+				std::shared_ptr<Texture> createTexture(int width, int height, unsigned char* pixels, bool useRGB) const override;
 				std::shared_ptr<Texture> createTexture() const override;
 
 				void useBlending(const bool blend) const override;

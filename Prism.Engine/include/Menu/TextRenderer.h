@@ -2,6 +2,7 @@
 #include <string>
 #include "Renderer/Graphics/RenderDevice.h"
 #include "Renderer/Graphics/VertexShader.h"
+#include "Renderer/Graphics/Texture.h"
 #include "Renderer/Graphics/OpenGL/OGLRenderDevice.h"
 #include "Renderer/Graphics/OpenGL/OGLVertexShader.h"
 #include "Renderer/Graphics/OpenGL/OGLPipeline.h"
@@ -15,11 +16,10 @@
 #include <map>
 #include <string>
 #include <memory>
-#include <SDL2/SDL_opengl.h>
 
 #pragma once
 struct Character {
-	unsigned int TextureID;  // ID handle of the glyph texture
+	std::shared_ptr<Renderer::Graphics::Texture> texture;  // ID handle of the glyph texture
 	glm::ivec2 Size;       // Size of glyph
 	glm::ivec2 Bearing;    // Offset from baseline to left/top of glyph
 	unsigned int Advance;    // Offset to advance to next glyph
@@ -28,18 +28,18 @@ struct Character {
 class TextRenderer
 {
 public:
-	TextRenderer();
-	~TextRenderer();
+	TextRenderer()=default;
+	~TextRenderer()=default;
+	void init();
 	void RenderText(std::string text, float x, float y, float scale);
 
 	std::unique_ptr<Renderer::Graphics::Pipeline> textPipeline;
 	Renderer::Graphics::RenderDevice* renderDevice;
 
 private:
-	std::map<GLchar, Character> Characters;
-	GLuint VAO, VBO;
+	std::map<char, Character> Characters;
+
 	std::unique_ptr<Renderer::Graphics::VertexBuffer> VBO2;
 	std::unique_ptr<Renderer::Graphics::VertexArrayObject> VAO2;
-
 };
 

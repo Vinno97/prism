@@ -8,8 +8,10 @@
 using namespace Renderer::Graphics;
 using namespace Renderer::Graphics::OpenGL;
 
-TextRenderer::TextRenderer()
+void TextRenderer::init()
 {
+	renderDevice = OGLRenderDevice::getRenderDevice();
+
 	FT_Library ft;
 	if (FT_Init_FreeType(&ft))
 		std::cout << "ERROR::FREETYPE: Could not init FreeType Library" << std::endl;
@@ -22,7 +24,7 @@ TextRenderer::TextRenderer()
 
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1); // Disable byte-alignment restriction
 
-	for (GLubyte c = 0; c < 128; c++)
+	for (auto c = 0; c < 128; c++)
 	{
 		// Load character glyph 
 		if (FT_Load_Char(face, c, FT_LOAD_RENDER))
@@ -31,27 +33,8 @@ TextRenderer::TextRenderer()
 			continue;
 		}
 		// Generate texture
-		GLuint texture;
-		glGenTextures(1, &texture);
-		glBindTexture(GL_TEXTURE_2D, texture);
-		glTexImage2D(
-			GL_TEXTURE_2D,
-			0,
-			GL_RED,
-			face->glyph->bitmap.width,
-			face->glyph->bitmap.rows,
-			0,
-			GL_RED,
-			GL_UNSIGNED_BYTE,
-			face->glyph->bitmap.buffer
-		);
-
-		// Set texture options
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		// Now store character for later use
+		auto texture = renderDevice->createTexture(face->glyph->bitmap.width, face->glyph->bitmap.rows, face->glyph->bitmap.buffer, false);
+	
 		Character character = {
 			texture,
 			glm::ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
@@ -60,37 +43,24 @@ TextRenderer::TextRenderer()
 		};
 		Characters.insert(std::pair<GLchar, Character>(c, character));
 
-
-	//	glGenVertexArrays(1, &VAO);
-
-	//glGenBuffers(1, &VBO);
-	//glBindVertexArray(VAO);
-	//glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	//glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
-	//glEnableVertexAttribArray(0);
-	//glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), 0);
-	//glBindBuffer(GL_ARRAY_BUFFER, 0);
-	//glBindVertexArray(0);
-		renderDevice = OGLRenderDevice::getRenderDevice();
-
-		VAO2 = std::move(renderDevice->createVertexArrayobject());
-		VBO2 = std::move(renderDevice->createDynamicVertexBuffer());
-		VAO2->bind();
-		VAO2->addVertexBuffer(move(VBO2), 0, 4 * sizeof(GLfloat), 0, 4);
-		VAO2->unbind();
-
-
-		Util::FileSystem fileReader;
-		std::string vertexSource = fileReader.readResourceFileIntoString("/shaders/textShader.vs");
-		std::string fragmentSource = fileReader.readResourceFileIntoString("/shaders/textShader.fs");
-		std::unique_ptr<VertexShader> vertexShader = renderDevice->createVertexShader(vertexSource.c_str());
-		std::unique_ptr<FragmentShader> fragmentShader = renderDevice->createFragmentShader(fragmentSource.c_str());
-		textPipeline = std::move(renderDevice->createPipeline(*vertexShader, *fragmentShader));
-
-		textPipeline->createUniform("projection");
-		textPipeline->createUniform("textColor");
-
 	}
+
+	VAO2 = renderDevice->createVertexArrayobject();
+	VAO2->bind();
+
+	VBO2 = renderDevice->createDynamicVertexBuffer();
+	VAO2->addVertexBuffer(VBO2.get(), 0, 4 * sizeof(GLfloat), 0, 4);
+	VAO2->unbind();
+
+	Util::FileSystem fileReader;
+	std::string vertexSource = fileReader.readResourceFileIntoString("/shaders/textShader.vs");
+	std::string fragmentSource = fileReader.readResourceFileIntoString("/shaders/textShader.fs");
+	std::unique_ptr<VertexShader> vertexShader = renderDevice->createVertexShader(vertexSource.c_str());
+	std::unique_ptr<FragmentShader> fragmentShader = renderDevice->createFragmentShader(fragmentSource.c_str());
+	textPipeline = std::move(renderDevice->createPipeline(*vertexShader, *fragmentShader));
+
+	textPipeline->createUniform("projection");
+	textPipeline->createUniform("textColor");
 }
 
 void TextRenderer::RenderText(std::string text, float x, float y, float scale)
@@ -101,10 +71,6 @@ void TextRenderer::RenderText(std::string text, float x, float y, float scale)
 	glm::mat4 projection = glm::ortho(0.0f, 800.0f, 0.0f, 600.0f);
 	textPipeline->setUniformMatrix4f("projection", projection);
 	renderDevice->useBlending(true);
-
-	glActiveTexture(GL_TEXTURE0);
-	//glBindVertexArray(VAO);
-
 	VAO2->bind();
 
 	// Iterate through all characters
@@ -129,23 +95,19 @@ void TextRenderer::RenderText(std::string text, float x, float y, float scale)
 			{ xpos + w, ypos + h,   1.0, 0.0 }
 		};
 		// Render glyph texture over quad
-		glBindTexture(GL_TEXTURE_2D, ch.TextureID);
+	//	glBindTexture(GL_TEXTURE_2D, ch.TextureID);
+		ch.texture->bind(textures[0]);
 		// Update content of VBO memory
 		VBO2->bind();
-		glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		VBO2->rebuffer(sizeof(vertices), vertices);
+		VBO2->unbind();
 		// Render quad
-		glDrawArrays(GL_TRIANGLES, 0, 6);
+		renderDevice->DrawTriangles(0, 6);
 		// Now advance cursors for next glyph (note that advance is number of 1/64 pixels)
 		x += (ch.Advance >> 6) * scale; // Bitshift by 6 to get value in pixels (2^6 = 64)
 	}
+
 	VAO2->unbind();
-	//glBindVertexArray(0);
-	glBindTexture(GL_TEXTURE_2D, 0);
 
 	renderDevice->useBlending(false);
-}
-
-TextRenderer::~TextRenderer()
-{
 }

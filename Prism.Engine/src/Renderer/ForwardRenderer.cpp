@@ -115,8 +115,8 @@ namespace Renderer {
 		std::unique_ptr<IndexBuffer> indexBuffer = renderDevice->createIndexBuffer(6 * sizeof(unsigned int), indices);
 
 		std::unique_ptr<VertexArrayObject> vertexArrayObject = renderDevice->createVertexArrayobject();
-		vertexArrayObject->addVertexBuffer(move(vertexBuffer), 0, 2 * sizeof(float), 0, 2);
-		vertexArrayObject->addVertexBuffer(move(texBuffer), 1, 2 * sizeof(float), 0, 2);
+		vertexArrayObject->addVertexBuffer(vertexBuffer.get(), 0, 2 * sizeof(float), 0, 2);
+		vertexArrayObject->addVertexBuffer(texBuffer.get(), 1, 2 * sizeof(float), 0, 2);
 
 		quadMesh = std::make_shared<Renderer::Graphics::Models::Mesh>(move(vertexArrayObject), move(indexBuffer));
 		quadMesh->isIndiced = true;

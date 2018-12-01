@@ -34,6 +34,27 @@ namespace Renderer {
 				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 			}
 
+			OGLTexture::OGLTexture(int width, int height, unsigned char* pixels, bool useRGB)
+			{
+
+				int colorEncoding = GL_RED;
+
+				if (useRGB) {
+					colorEncoding = GL_RGB;
+				}
+
+				glGenTextures(1, &textureID);
+				glBindTexture(GL_TEXTURE_2D, textureID);
+
+				// Give an empty image to OpenGL ( the last "0" )
+				glTexImage2D(GL_TEXTURE_2D, 0, colorEncoding, width, height, 0, colorEncoding, GL_UNSIGNED_BYTE, pixels);
+
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			}
+
 			int OGLTexture::getID()
 			{
 				return textureID;
