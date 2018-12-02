@@ -21,7 +21,7 @@ struct Character {
 	std::shared_ptr<Renderer::Graphics::Texture> texture;  // ID handle of the glyph texture
 	glm::ivec2 Size;       // Size of glyph
 	glm::ivec2 Bearing;    // Offset from baseline to left/top of glyph
-	unsigned int Advance;    // Offset to advance to next glyph
+	long Advance;    // Offset to advance to next glyph
 };
 
 class TextRenderer
