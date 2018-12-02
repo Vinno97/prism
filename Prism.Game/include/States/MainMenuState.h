@@ -16,13 +16,12 @@ namespace States {
 		void onUpdate(Context &context) override;
 		void onEnter(Context & context) override;
 		void onLeave() override;
-
 		MainMenuState(const MainMenuState &obj);
-
 		~MainMenuState();
 
 	private:
 		Menu::MenuRenderer menuRenderer;
+		bool exitBool = false;
 		Menu::MenuBuilder menuBuilder;
 		Menu::Menu menu;
 	};

@@ -5,6 +5,7 @@
 #include "Renderer/Graphics/OpenGL/OGLRenderDevice.h"
 #include "Renderer/Graphics/OpenGL/OGLVertexShader.h"
 #include "Renderer/Graphics/OpenGL/OGLPipeline.h"
+#include <cstdlib>
 
 namespace States {
 	MainMenuState::MainMenuState()
@@ -20,9 +21,16 @@ namespace States {
 			}
 			context.stateMachine->setState<PrismGame>();
 		};
+
+		std::function<void()> quitCallback = [&]() {
+			if (exitBool) {
+				exit(0);
+			}
+			exitBool = true;
+		};
 		menuBuilder.addControl(-0.35,  0.4, 0.6, 0.18, "img/NewGameButton.png", callback);
 		menuBuilder.addControl(-0.35,  0.1, 0.6, 0.18, "img/LoadGameButton.png");
-		menuBuilder.addControl(-0.35, -0.7, 0.6, 0.18, "img/QuitGameButton.png");
+		menuBuilder.addControl(-0.35, -0.7, 0.6, 0.18, "img/QuitGameButton.png", quitCallback);
 
 
 		menu = menuBuilder.buildMenu();
