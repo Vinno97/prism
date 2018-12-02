@@ -26,14 +26,15 @@ if (MSVC)
 else () # Assume GCC/Clang on a Unix os
     include(FindPkgConfig)
     find_package(SDL2 REQUIRED)
-#    find_package(SDL2_image REQUIRED)
+    #    find_package(SDL2_image REQUIRED)
     pkg_check_modules(SDL2_IMAGE REQUIRED SDL2_image)
     pkg_check_modules(SDL2_MIXER REQUIRED SDL2_mixer)
     find_package(OpenGL REQUIRED)
     find_package(GLEW REQUIRED)
     find_package(Assimp REQUIRED)
+    find_package(Freetype REQUIRED)
 
-#    link_libraries(libc++fs)
+    #    link_libraries(libc++fs)
 
     #    add_compile_options(-Wall -Wpedantic -Werror)
     set(CMAKE_CXX_FLAGS_DEBUG "-g")
@@ -58,10 +59,19 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
     set(FILESYSTEM_LIB c++experimental)
 elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
     set(FILESYSTEM_LIB stdc++fs)
-endif()
+endif ()
 
 #target_link_libraries(Prism.Engine PRIVATE ${ASSIMP_LIBRARIES} ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES} ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES})
-target_link_libraries(Prism.Engine PRIVATE ${ASSIMP_LIBRARIES} ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES} ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES} ${SDL2_MIXER_LIBRARIES} ${FILESYSTEM_LIB})
+target_link_libraries(Prism.Engine PRIVATE
+        ${ASSIMP_LIBRARIES}
+        ${OPENGL_LIBRARIES}
+        ${GLEW_LIBRARIES}
+        ${SDL2_LIBRARIES}
+        ${SDL2_IMAGE_LIBRARIES}
+        ${SDL2_MIXER_LIBRARIES}
+        ${FREETYPE_LIBRARIES}
+        ${FILESYSTEM_LIB}
+        )
 
 target_include_directories(Prism.Engine PUBLIC include)
 target_include_directories(Prism.Engine PRIVATE
@@ -70,7 +80,9 @@ target_include_directories(Prism.Engine PRIVATE
         ${OPENGL_INCLUDE_DIRS}
         ${GLEW_INCLUDE_DIRS}
         ${SDL2_INCLUDE_DIRS}
-        ${SDL2_IMAGE_INCLUDE_DIRS})
+        ${SDL2_IMAGE_INCLUDE_DIRS}
+        ${FREETYPE_INCLUDE_DIRS}
+        )
 
 
 # find_package(GTest)

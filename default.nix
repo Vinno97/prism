@@ -13,6 +13,7 @@ in
         };
         buildInputs = [
             cmake
+            freetype
             pkgconfig
             SDL2
             SDL2_image
