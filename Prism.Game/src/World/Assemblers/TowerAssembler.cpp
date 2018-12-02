@@ -6,13 +6,13 @@ using namespace World;
 using namespace World::Assemblers;
 
 void TowerAssembler::assemble(int entity, const WorldObject& worldObject, ECS::EntityManager& entityManager) const {
-	if (worldObject.gid == 27) {
+	if (worldObject.gid == 17) {
 		EntityFactory().createTower(entity, entityManager);
 	}
 }
 
 void TowerAssembler::disassemble(int entity, WorldObject& worldObject, const ECS::EntityManager& entityManager) const {
 	if (entityManager.hasComponent<ECS::Components::TowerComponent>(entity)) {
-		worldObject.gid = 27;
+		worldObject.gid = 17;
 	}
 }

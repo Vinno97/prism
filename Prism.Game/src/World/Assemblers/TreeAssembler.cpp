@@ -6,13 +6,13 @@ using namespace World;
 using namespace World::Assemblers;
 
 void TreeAssembler::assemble(int entity, const WorldObject& worldObject, ECS::EntityManager& entityManager) const {
-	if (worldObject.gid == 28) {
+	if (worldObject.gid == 18) {
 		EntityFactory().createTree(entity, entityManager);
 	}
 }
 
 void TreeAssembler::disassemble(int entity, WorldObject& worldObject, const ECS::EntityManager& entityManager) const {
 	if (entityManager.hasComponent<ECS::Components::TreeComponent>(entity)) {
-		worldObject.gid = 28;
+		worldObject.gid = 18;
 	}
 }
