@@ -51,7 +51,7 @@ namespace States {
 
 	void EndState::onEnter(Context &context)
 	{
-
+		context.stateMachine->removeState<PrismGame>();
 	}
 
 	void EndState::onLeave()

@@ -25,7 +25,7 @@ void ECS::Systems::GameOverSystem::update(Context& context) {
 		
 		if (healthComponent->health <= 0) {
 			context.stateMachine->setState<EndState>();
-			context.stateMachine->removeState<PrismGame>();
+			context.stateMachine->getState<EndState>()->onEnter(context);
 		}
 	}
 }
