@@ -20,7 +20,6 @@ namespace States {
 		menuBuilder.addControl(-0.35,  0.4, 0.6, 0.18, "img/NewGameButton.png");
 		menuBuilder.addControl(-0.35,  0.1, 0.6, 0.18, "img/LoadGameButton.png");
 		menuBuilder.addControl(-0.35, -0.7, 0.6, 0.18, "img/QuitGameButton.png");
-		menuBuilder.addTextControl(0.0, 0.0, 0.005, 0.005, "Test");
 
 		menu = menuBuilder.buildMenu();
 		renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();

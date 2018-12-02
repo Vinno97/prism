@@ -3,7 +3,6 @@
 #include "Menu/MenuBuilder.h"
 #include "Menu/MenuRenderer.h"
 #include "Menu/Menu.h"
-#include "Menu/TextRenderer.h"
 #include "ECS/EntityManager.h"
 #include "ECS/SystemManager.h"
 #include "EntityFactory.h"
@@ -32,7 +31,6 @@ class PrismGame : public Game
 	Menu::MenuBuilder menuBuilder;
 	Menu::MenuRenderer menuRenderer;
 	Menu::Menu menu;
-	TextRenderer textRenderer;
 
 	bool canPressEscape;
 	void registerSystems(Context &context);

@@ -3,7 +3,6 @@
 #include "State.h"
 #include "ECS/Systems/KeyboardInputSystem.h"
 #include "Menu/MenuBuilder.h"
-#include "Menu/TextRenderer.h"
 #include "Menu/Menu.h"
 #include "Menu/MenuRenderer.h"
 
@@ -26,7 +25,6 @@ namespace States {
 		Menu::MenuRenderer menuRenderer;
 		Menu::MenuBuilder menuBuilder;
 		Menu::Menu menu;
-		TextRenderer textRenderer;
 		Renderer::Graphics::RenderDevice* renderDevice;
 	};
 }
