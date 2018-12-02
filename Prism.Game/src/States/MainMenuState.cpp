@@ -13,7 +13,6 @@ namespace States {
 
 	void MainMenuState::onInit(Context & context)
 	{
-		PrismGame game = PrismGame();
 		context.stateMachine->addState<PrismGame>(context);
 
 		std::function<void()> callback = [context]() { context.stateMachine->setState<PrismGame>(); };
@@ -22,6 +21,7 @@ namespace States {
 		menuBuilder.addControl(-0.35, -0.7, 0.6, 0.18, "img/QuitGameButton.png");
 
 		menu = menuBuilder.buildMenu();
+
 		renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
 		renderDevice->setClearColour(1.f, 1.f, 1.f, 1.f);
 	}
@@ -29,11 +29,11 @@ namespace States {
 	void MainMenuState::onUpdate(Context & context)
 	{
 		renderDevice->clearScreen();
-		menuRenderer.renderMenu(menu, float(context.window->width) / float(context.window->height));
+		menuRenderer.renderMenu(*menu, float(context.window->width) / float(context.window->height));
 
 
 		auto input = context.inputManager;
-		if (menu.handleInput(*context.inputManager, context.window->width, context.window->height)) {
+		if (menu->handleInput(*context.inputManager, context.window->width, context.window->height)) {
 			return;
 		}
 
@@ -47,11 +47,6 @@ namespace States {
 
 	void MainMenuState::onLeave()
 	{
-	}
-
-	MainMenuState::MainMenuState(const MainMenuState & obj)
-	{
-		menu = obj.menu;
 	}
 
 	MainMenuState::~MainMenuState()

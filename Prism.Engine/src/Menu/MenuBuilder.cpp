@@ -18,9 +18,9 @@ using namespace Renderer::Graphics::OpenGL;
 using namespace Renderer::Graphics::Models;
 
 namespace Menu {
-	MenuBuilder::MenuBuilder()
-	{
-		menu = Menu{};
+	MenuBuilder::MenuBuilder() {
+		menu = std::make_unique<Menu>();
+
 		renderDevice = OGLRenderDevice::getRenderDevice();
 		this->initMesh();
 	}
@@ -34,9 +34,9 @@ namespace Menu {
 		textControl.size.x = width;
 		textControl.size.y = height;
 
-		menu.textControls.push_back(textControl);
+		menu->textControls.push_back(textControl);
 	
-		return textControl;
+		return *(--menu->textControls.end());
 	}
 
 	//Create a single mesh so we can reuse it
@@ -60,29 +60,26 @@ namespace Menu {
 		mesh->isIndiced = true;
 		mesh->indicesLength = 6;
 
-		menu.mesh = mesh;
+		menu->mesh = mesh;
 	}
 
 	void MenuBuilder::addControl(float x, float y, float width, float height, const char *path)
 	{
 		Control control{x, y, width, height, path };
 		Model model = Model{ mesh };
-		menu.controls.push_back(control);
+		menu->controls.push_back(control);
 	}
 
 	void MenuBuilder::addControl(float x, float y, float width, float height, const char * path, std::function<void()> callback_)
 	{
 		Control control{ x, y, width, height, path, callback_ };
 		Model model = Model{ mesh };
-		menu.controls.push_back(control);
+		menu->controls.push_back(control);
 	}
 
-	Menu MenuBuilder::buildMenu()
+	std::unique_ptr<Menu> MenuBuilder::buildMenu()
 	{
-		for (auto& c : menu.controls) {
-			c.onClick();
-		}
-		return menu;
+		return std::move(menu);
 	}
 }
 

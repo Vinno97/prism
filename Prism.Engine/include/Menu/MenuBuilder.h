@@ -18,13 +18,13 @@ namespace Menu {
 		TextControl& addTextControl(float x, float y, float width, float height, std::string text);
 		void addControl(float x, float y, float width, float height, const char *path);
 		void addControl(float x, float y, float width, float height, const char *path, std::function<void()> callback_);
-		Menu buildMenu();
+		std::unique_ptr<Menu> buildMenu();
 	private:
 		void initMesh();
 
 		Renderer::Graphics::RenderDevice* renderDevice;
 		std::shared_ptr<Renderer::Graphics::Models::Mesh> mesh;
-		Menu menu;
+		std::unique_ptr<Menu> menu;
 
 		float vertices[8] = {
 			 1.0f,  1.0f,  // top right

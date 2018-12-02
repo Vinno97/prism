@@ -27,7 +27,6 @@ namespace Menu {
 		std::unique_ptr<FragmentShader> fragmentShader = renderDevice->createFragmentShader(fragmentSource.c_str());
 		menuPipeline = move(renderDevice->createPipeline(*vertexShader, *fragmentShader));
 
-		//menuPipeline->createUniform("view");
 		menuPipeline->createUniform("model");
 	}
 
@@ -35,9 +34,7 @@ namespace Menu {
 	{
 		renderDevice->useDepthTest(false);
 		menuPipeline->run();
-	//	menuPipeline->setUniformMatrix4f("view", projection);
 		renderDevice->useBlending(true);
-		projection = glm::ortho(0.0f, 800.0f, 0.0f, 600.0f);
 
 		menu.mesh->vertexArrayObject->bind();
 		menu.mesh->indexBuffer->bind();

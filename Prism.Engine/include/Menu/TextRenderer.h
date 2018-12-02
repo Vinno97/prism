@@ -29,8 +29,7 @@ class TextRenderer
 public:
 	TextRenderer();
 	~TextRenderer()=default;
-	void init();
-	void RenderText(Menu::TextControl control);
+	void RenderText(const Menu::TextControl& control);
 
 	std::unique_ptr<Renderer::Graphics::Pipeline> textPipeline;
 	Renderer::Graphics::RenderDevice* renderDevice;

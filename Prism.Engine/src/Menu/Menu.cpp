@@ -2,60 +2,6 @@
 #include "Renderer/Graphics/OpenGL/OGLRenderDevice.h"
 
 namespace Menu {
-
-	Menu::Menu(const Menu & other)
-	{
-		for (auto const& control : other.controls) {
-			controls.push_back(control);
-		}
-
-		for (auto const& control : other.textControls) {
-			textControls.push_back(control);
-		}
-
-		mesh = other.mesh;
-	}
-
-	Menu::Menu(Menu&& other)
-	{
-		controls = other.controls;
-		textControls = other.textControls;
-		mesh.swap(other.mesh);
-
-		other.mesh = nullptr;
-	}
-
-	Menu & Menu::operator=(const Menu & other)
-	{
-		if (this != &other) {
-			cleanup();
-
-			for (auto const& control : other.controls) {
-				controls.push_back(control);
-			}
-
-			for (auto const& control : other.textControls) {
-				textControls.push_back(control);
-			}
-			mesh = other.mesh;
-		}
-		return *this;
-	}
-
-	Menu& Menu::operator=(Menu&& other)
-	{
-		if (this != &other) {
-			cleanup();
-
-			controls = other.controls;
-			textControls = other.textControls;
-			mesh.swap(other.mesh);
-
-			other.mesh = nullptr;
-		}
-		return *this;
-	}
-
 	bool Menu::handleInput(InputManager& input, int w, int h)
 	{
 		if (input.isMouseButtonPressed(Key::MOUSE_BUTTON_LEFT))

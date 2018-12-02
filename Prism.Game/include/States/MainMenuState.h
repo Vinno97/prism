@@ -17,14 +17,12 @@ namespace States {
 		void onEnter() override;
 		void onLeave() override;
 
-		MainMenuState(const MainMenuState &obj);
-
 		~MainMenuState();
 
 	private:
 		Menu::MenuRenderer menuRenderer;
 		Menu::MenuBuilder menuBuilder;
-		Menu::Menu menu;
+		std::unique_ptr<Menu::Menu> menu;
 		Renderer::Graphics::RenderDevice* renderDevice;
 	};
 }

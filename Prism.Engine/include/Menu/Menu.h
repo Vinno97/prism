@@ -15,11 +15,6 @@ namespace Menu {
 		std::vector<TextControl> textControls;
 		std::shared_ptr<Renderer::Graphics::Models::Mesh> mesh;
 
-		Menu(const Menu &other);
-		Menu(Menu &&other);
-		Menu& operator=(const Menu& other);
-		Menu& operator=(Menu&& other);
-
 		bool handleInput(InputManager& input, int height, int width);
 
 		~Menu();

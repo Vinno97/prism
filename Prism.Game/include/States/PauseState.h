@@ -17,15 +17,13 @@ namespace States {
 		void onEnter() override;
 		void onLeave() override;
 
-		PauseState(const PauseState &obj);
-
 		~PauseState();
 
 	private:
 		bool canPressEscape = false;
 		Menu::MenuRenderer menuRenderer;
 		Menu::MenuBuilder menuBuilder;
-		Menu::Menu menu;
+		std::unique_ptr<Menu::Menu> menu;
 	};
 }
 

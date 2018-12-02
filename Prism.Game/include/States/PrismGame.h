@@ -20,10 +20,6 @@ class PrismGame : public Game
 	void onEnter() override;
 	void onLeave() override;
 
-	PrismGame(const PrismGame & other) {
-
-	}
-
   private:
 	ECS::EntityManager entityManager;
 	ECS::SystemManager systemManager;

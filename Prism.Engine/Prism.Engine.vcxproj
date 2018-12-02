@@ -102,7 +102,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\AudioManager.cpp" />
-    <ClCompile Include="src\Menu\TextControl.cpp" />
     <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLRenderTarget.cpp" />
     <ClCompile Include="src\World\Assemblers\AppearanceAssembler.cpp" />
     <ClCompile Include="src\World\Assemblers\HealthAssembler.cpp" />

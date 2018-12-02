@@ -59,24 +59,16 @@ TextRenderer::TextRenderer()
 	std::unique_ptr<FragmentShader> fragmentShader = renderDevice->createFragmentShader(fragmentSource.c_str());
 	textPipeline = std::move(renderDevice->createPipeline(*vertexShader, *fragmentShader));
 
-	textPipeline->createUniform("projection");
 	textPipeline->createUniform("textColor");
 }
 
-void TextRenderer::init()
-{
-	
-}
-
-void TextRenderer::RenderText(Menu::TextControl control)
+void TextRenderer::RenderText(const Menu::TextControl& control)
 {
 	// Activate corresponding render state	
 	textPipeline->run();
 	textPipeline->setUniformVector("textColor", 0.0f, 0.0f, 0.0);
 	float aspect = 1920 / 1080;
 	//glm::mat4 projection = glm::ortho(0.0f, 800.0f, 0.0f, 600.0f);
-	glm::mat4 projection = glm::ortho(-1.0f, 1.0f*aspect, -1.0f, 1.0f);
-	textPipeline->setUniformMatrix4f("projection", projection);
 	renderDevice->useBlending(true);
 	VAO2->bind();
 
