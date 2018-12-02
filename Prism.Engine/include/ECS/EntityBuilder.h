@@ -1,11 +1,11 @@
 #pragma once
-#include "../../../Prism.Game/include/ECS/Components/ResourceGatherComponent.h"
+#include "ECS/Components/ResourceGatherComponent.h"
 #include "EntityManager.h"
 
 class EntityBuilder
 {
 public:
-	EntityBuilder(ECS::EntityManager& entityManager_) : EntityBuilder(entityManager_, entityManager_.createEntity())
+    explicit EntityBuilder(ECS::EntityManager& entityManager_) : EntityBuilder(entityManager_, entityManager_.createEntity())
 	{
 	}
 
@@ -17,8 +17,7 @@ public:
 	/// Adds a component to the entity.
 	/// </summary>
 	/// <param name="component">The component to add to the entity.</param>
-	template <typename T,
-	          typename = std::enable_if_t<std::is_assignable<ECS::Components::Component, T>::value>>
+	template <typename T>
 	EntityBuilder& addComponent(T&& component)
 	{
 		entityManager.addComponentToEntity(entityId, component);
@@ -29,9 +28,7 @@ public:
 	/// Adds a component to the entity.
 	/// </summary>
 	/// <param name"fs">Constructor  parameters for the Component to add</param>
-	template <typename T,
-	          typename... Fs,
-	          typename = std::enable_if_t<std::is_assignable<ECS::Components::Component, T>::value>>
+	template <typename T, typename... Fs>
 	EntityBuilder& addComponent(Fs ... fs)
 	{
 		entityManager.addComponentToEntity(entityId, T(std::forward<Fs>(fs)...));
