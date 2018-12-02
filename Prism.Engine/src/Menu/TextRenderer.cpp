@@ -67,8 +67,6 @@ void TextRenderer::RenderText(const Menu::TextControl& control)
 	// Activate corresponding render state	
 	textPipeline->run();
 	textPipeline->setUniformVector("textColor", 0.0f, 0.0f, 0.0);
-	float aspect = 1920 / 1080;
-	//glm::mat4 projection = glm::ortho(0.0f, 800.0f, 0.0f, 600.0f);
 	renderDevice->useBlending(true);
 	VAO2->bind();
 
