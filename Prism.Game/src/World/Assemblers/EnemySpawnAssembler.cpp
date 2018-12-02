@@ -6,7 +6,7 @@ using namespace World;
 using namespace World::Assemblers;
 
 void EnemySpawnAssembler::assemble(int entity, const WorldObject& worldObject, ECS::EntityManager& entityManager) const {
-	if (worldObject.gid == 8) {
+	if (worldObject.gid == 20) {
 
 		float spawnInterval = 10;
 		bool enabled = true;
@@ -25,7 +25,7 @@ void EnemySpawnAssembler::assemble(int entity, const WorldObject& worldObject, E
 
 void EnemySpawnAssembler::disassemble(int entity, WorldObject& worldObject, const ECS::EntityManager& entityManager) const {
 	if (entityManager.hasComponent<ECS::Components::EnemySpawnComponent>(entity)) {
-		worldObject.gid = 8;
+		worldObject.gid = 20;
 		auto enemySpawnComponent = entityManager.getComponent<ECS::Components::EnemySpawnComponent>(entity);
 
 		worldObject.additionalProperties["spawnInterval"] = ObjectProperties("spawnInterval", std::to_string(enemySpawnComponent->spawnInterval));

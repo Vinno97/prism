@@ -11,6 +11,8 @@
 #include "ECS/Components/TowerComponent.h"
 #include "ECS/Components/CliffComponent.h"
 #include "ECS/Components/CliffCornerComponent.h"
+#include "ECS/Components/TreeComponent.h"
+#include "ECS/Components/RockComponent.h"
 #include "ECS/Components/PlayerComponent.h"
 #include "ECS/Components/PositionComponent.h"
 #include "ECS/Components/VelocityComponent.h"
@@ -32,6 +34,8 @@
 #include "ECS/Components/HealthComponent.h"
 #include "Renderer/Graphics/Loader/ModelLoader.h"
 #include "Renderer/Camera.h"
+#include <stdlib.h> /* srand, rand */
+#include <time.h>
 
 using namespace ECS;
 using namespace ECS::Components;
@@ -215,7 +219,53 @@ int EntityFactory::createCliffCorner(int entity, EntityManager & entityManager, 
 	entityManager.addComponentToEntity(entity, BoundingBoxComponent(1.0, 0.2));
 	return entity;
 }
+//
+int EntityFactory::createTree(EntityManager & entityManager) {
+	return createTree(entityManager.createEntity(), entityManager);
+}
 
+int EntityFactory::createTree(int entity, EntityManager & entityManager)
+{
+	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
+	auto model = ml.loadModel("./res/Tree.obj");
+
+	AppearanceComponent appearance;
+	appearance.scaleX = 1.0f;
+	appearance.scaleY = 1.0f;
+	appearance.scaleZ = 1.0f;
+
+	appearance.rotationY = rand() % 360;
+	appearance.model = std::move(model);
+
+	entityManager.addComponentToEntity(entity, PositionComponent());
+	entityManager.addComponentToEntity(entity, appearance);
+	entityManager.addComponentToEntity(entity, BoundingBoxComponent(1.0, 0.2));
+	return entity;
+}
+
+int EntityFactory::createRock(EntityManager & entityManager) {
+	return createRock(entityManager.createEntity(), entityManager);
+}
+
+int EntityFactory::createRock(int entity, EntityManager & entityManager)
+{
+	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
+	auto model = ml.loadModel("./res/Big Rock.obj"); // And/or small rock?
+
+	AppearanceComponent appearance;
+	appearance.scaleX = 1.0f;
+	appearance.scaleY = 1.0f;
+	appearance.scaleZ = 1.0f;
+
+	appearance.rotationY = rand() % 360;
+	appearance.model = std::move(model);
+
+	entityManager.addComponentToEntity(entity, PositionComponent());
+	entityManager.addComponentToEntity(entity, appearance);
+	entityManager.addComponentToEntity(entity, BoundingBoxComponent(1.0, 0.2));
+	return entity;
+}
+//
 int EntityFactory::createMine(EntityManager & entityManager)
 {
 	return createMine(entityManager.createEntity(), entityManager);

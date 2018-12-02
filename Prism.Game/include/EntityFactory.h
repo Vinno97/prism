@@ -30,6 +30,12 @@ public:
 	int createCliffCorner(ECS::EntityManager& entityManager, int rotation = 0);
 	int createCliffCorner(int entity, ECS::EntityManager& entityManager, int rotation);
 
+	int createTree(ECS::EntityManager& entityManager);
+	int createTree(int entity, ECS::EntityManager& entityManager);
+
+	int createRock(ECS::EntityManager& entityManager);
+	int createRock(int entity, ECS::EntityManager& entityManager);
+
 	int createMine(ECS::EntityManager& entityManager);
 	int createMine(int entity, ECS::EntityManager& entityManager);
 

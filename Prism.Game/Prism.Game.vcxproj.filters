@@ -29,6 +29,8 @@
     <ClCompile Include="src\World\Assemblers\CliffAssembler.cpp" />
     <ClCompile Include="include\ECS\Components\CliffCornerComponent.h" />
     <ClCompile Include="src\World\Assemblers\CliffCornerAssembler.cpp" />
+    <ClCompile Include="src\World\Assemblers\TreeAssembler.cpp" />
+    <ClCompile Include="src\World\Assemblers\RockAssembler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ECS\Components\BulletComponent.h" />
@@ -130,6 +132,10 @@
     <ClInclude Include="include\ECS\Components\CliffComponent.h" />
     <ClInclude Include="include\States\MainMenuState.h" />
     <ClInclude Include="include\World\Assemblers\CliffCornerAssembler.h" />
+    <ClInclude Include="include\World\Assemblers\TreeAssembler.h" />
+    <ClInclude Include="include\World\Assemblers\RockAssembler.h" />
+    <ClInclude Include="include\ECS\Components\TreeComponent.h" />
+    <ClInclude Include="include\ECS\Components\RockComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="lib\assimp-vc140-mtd.dll" />
