@@ -32,11 +32,6 @@ public:
 	void init();
 	void RenderText(Menu::TextControl control);
 
-	TextRenderer(const TextRenderer &other);
-	TextRenderer(TextRenderer &&other);
-	TextRenderer& operator=(const TextRenderer& other);
-	TextRenderer& operator=(TextRenderer&& other);
-
 	std::unique_ptr<Renderer::Graphics::Pipeline> textPipeline;
 	Renderer::Graphics::RenderDevice* renderDevice;
 
