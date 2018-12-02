@@ -50,6 +50,8 @@ namespace States {
 		auto mousePointer = entityFactory.createCameraPointer(entityManager);
 		auto sceneComponent = entityManager.getComponent<SceneComponent>(scene);
 
+
+
 		sceneComponent->scene.ambientLightColor = Math::Vector3f{ 1.0f, 1.0f, 1.0f };
 		sceneComponent->scene.ambientLightStrength = 0.95f;
 		sceneComponent->scene.sun.color = Math::Vector3f{ .20f, .20f, .20f };
@@ -66,17 +68,19 @@ namespace States {
 		registerSystems(context);
 
 		if (!context.stateMachine->hasState<PauseState>()) {
-			PauseState ps = PauseState();
-			context.stateMachine->addState(ps, context);
+			context.stateMachine->addState<PauseState>(context);
 		}
 		if (!context.stateMachine->hasState<EndState>()) {
-			EndState es = EndState();
-			context.stateMachine->addState(es, context);
+			context.stateMachine->addState<EndState>(context);
 		}
 		
-		std::function<void()> callback = [context, &canPress = canPressEscape]() mutable { canPress = false; context.stateMachine->setState<PauseState>(); };
-		menuBuilder.addControl(-0.95, 0.78, 0.8, 0.15, "img/healthbar.png", callback);
-		menu = menuBuilder.buildMenu();
+		std::function<void()> callback = [context, &canPress = canPressEscape]() mutable { 
+			canPress = false; 
+			context.stateMachine->setState<PauseState>();
+			context.stateMachine->getState<PauseState>()->onEnter(context);
+		};
+
+		gameOverSystem = std::make_unique<GameOverSystem>(GameOverSystem(entityManager));
 	}
 
 	/// <summary>
@@ -85,41 +89,31 @@ namespace States {
 	/// <param name="context">The context that is needed to register the systems</param>
 	void PrismGame::registerSystems(Context &context)
 	{
-		MotionSystem motionSystem = MotionSystem(entityManager);
-		RenderSystem renderSystem = RenderSystem(entityManager, context.window->width, context.window->height);
-		KeyboardInputSystem inputSystem = KeyboardInputSystem(entityManager);
-		EnemyPathFindingSystem enemyPathFindingSystem  = EnemyPathFindingSystem(entityManager, 10);
-		AnimationSystem animationSystem = AnimationSystem(entityManager);
-		CheatSystem cheatSystem = CheatSystem(entityManager);
-		CollisionSystem collisionSystem = CollisionSystem(entityManager, context.window->width, context.window->height, 0, 0, 2);
-		ShootingSystem shootingSystem = ShootingSystem(entityManager);
-		ProjectileAttackSystem projectileAttackSystem = ProjectileAttackSystem(entityManager);
-		ResourceBlobSystem resourceBlobSystem = ResourceBlobSystem(entityManager);
-		ResourceGatherSystem resourceGatherSystem = ResourceGatherSystem(entityManager);
-		EnemySpawnSystem enemySpawnSystem = EnemySpawnSystem(entityManager);
-		MousePointSystem pointSystem = MousePointSystem(entityManager);
-		BumpSystem bumpSystem = BumpSystem(entityManager);
-		AimingSystem aimSystem = AimingSystem(entityManager);
-		AttackSystem attackSystem = AttackSystem(entityManager);
-		GameOverSystem gameoverSystem = GameOverSystem(entityManager);
+			systemManager
+			//1
+			.registerSystem<1, KeyboardInputSystem>(entityManager)
+			.registerSystem<1, MousePointSystem>(entityManager)
+			.registerSystem<1, EnemyPathFindingSystem>(entityManager, 10)
 
-		systemManager.registerSystem(motionSystem);
-		systemManager.registerSystem(renderSystem);
-		systemManager.registerSystem(inputSystem);
-		systemManager.registerSystem(gameoverSystem);
-		systemManager.registerSystem(enemyPathFindingSystem);
-		systemManager.registerSystem(animationSystem);
-		systemManager.registerSystem(cheatSystem);
-		systemManager.registerSystem(collisionSystem);
-		systemManager.registerSystem(shootingSystem);
-		systemManager.registerSystem(projectileAttackSystem);
-		systemManager.registerSystem(aimSystem);
-		systemManager.registerSystem(bumpSystem);
-		systemManager.registerSystem(resourceGatherSystem);
-		systemManager.registerSystem(resourceBlobSystem);
-		systemManager.registerSystem(enemySpawnSystem);
-		systemManager.registerSystem(pointSystem);
-		systemManager.registerSystem(attackSystem);
+			//2
+			.registerSystem<2, MotionSystem>(entityManager)
+			.registerSystem<2, AnimationSystem>(entityManager)
+			.registerSystem<2, AimingSystem>(entityManager)
+			.registerSystem<2, ResourceGatherSystem>(entityManager)
+			.registerSystem<2, EnemySpawnSystem>(entityManager)
+
+			//3
+			.registerSystem<3, CollisionSystem>(entityManager, context.window->width, context.window->height, 0, 0, 2)
+			.registerSystem<3, ResourceBlobSystem>(entityManager)
+			.registerSystem<3, ShootingSystem>(entityManager)
+
+			//4
+			.registerSystem<4, ProjectileAttackSystem>(entityManager)
+
+			//5
+			.registerSystem<5, RenderSystem>(entityManager, context.window->width, context.window->height)
+			.registerSystem<5, AttackSystem>(entityManager)
+			.registerSystem<5, BumpSystem>(entityManager);
 	}
 
 	void PrismGame::onUpdate(Context &context)
@@ -129,51 +123,16 @@ namespace States {
 			return; 
 		}
 
-		auto inputSystem = systemManager.getSystem<KeyboardInputSystem>();
-		auto enemyPathFindingSystem = systemManager.getSystem<EnemyPathFindingSystem>();
-		auto motionSystem = systemManager.getSystem<MotionSystem>();
-		auto collisionSystem = systemManager.getSystem<CollisionSystem>();
-		auto renderSystem = systemManager.getSystem<RenderSystem>();
-		auto animationSystem = systemManager.getSystem<AnimationSystem>();
-		auto shootingSystem = systemManager.getSystem<ShootingSystem>();
-		auto projectileAttackSystem = systemManager.getSystem<ProjectileAttackSystem>();
-		auto attackSystem = systemManager.getSystem<AttackSystem>();
-		auto bumpSystem = systemManager.getSystem<BumpSystem>();
-		auto enemySpawnSystem = systemManager.getSystem<EnemySpawnSystem>();
-		auto pointSystem = systemManager.getSystem<MousePointSystem>();
-		auto aimSystem = systemManager.getSystem<AimingSystem>();
-		auto resourceBlobSystem = systemManager.getSystem<ResourceBlobSystem>();
-		auto resourceGatherSystem = systemManager.getSystem<ResourceGatherSystem>();
-		auto gameoverSystem = systemManager.getSystem<GameOverSystem>();
+		for (auto& systemList : systemManager.getAllSystems()) {	
+			for (auto& system : systemList.second) {
+				system.second->update(context);
+			}
+		}
 
-		cheat(context);
+		gameOverSystem->update(context);
+	
+		std::cout << 1.0/context.deltaTime << std::endl;
 
-		inputSystem->update(context);
-		enemyPathFindingSystem->update(context);
-		motionSystem->update(context);
-		collisionSystem->update(context);
-		pointSystem->update(context);
-		aimSystem->update(context);
-		shootingSystem->update(context);
-		projectileAttackSystem->update(context);
-		attackSystem->update(context);
-		bumpSystem->update(context);
-		animationSystem->update(context);
-		resourceGatherSystem->update(context);
-		resourceBlobSystem->update(context);
-		enemySpawnSystem->update(context);
-		renderSystem->update(context);
-		gameoverSystem->update(context);
-
-		//std::cout << 1.0/context.deltaTime << std::endl;
-		/*
-		for (auto &entity : entityManager.getAllEntitiesWithComponent<VelocityComponent>()) {
-			auto velocity = entity.component;
-			auto position = entityManager.getComponent<PositionComponent>(entity.id);
-			//printf("Entity:\t\t%d \nPosition: \tX: %.2f, Y: %.2f\nVelocity:\tdX: %.2f, dY: %.2f\n\n", entity.id, position->x, position->y, velocity->dx, velocity->dy);
-		}*/
-
-		menuRenderer.renderMenu(menu, float(context.window->width) / float(context.window->height));
 		context.window->swapScreen();
 
 		if (!input->isKeyPressed(Key::KEY_ESCAPE)) {
@@ -183,6 +142,7 @@ namespace States {
 		if (input->isKeyPressed(Key::KEY_ESCAPE) && canPressEscape) {
 			canPressEscape = false;
 			context.stateMachine->setState<PauseState>();
+			context.stateMachine->getState<PauseState>()->onEnter(context);
 		}
 	}
 

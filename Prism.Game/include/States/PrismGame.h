@@ -4,6 +4,7 @@
 #include "Menu/MenuRenderer.h"
 #include "Menu/Menu.h"
 #include "ECS/EntityManager.h"
+#include "ECS/Systems/System.h"
 #include "ECS/SystemManager.h"
 #include "EntityFactory.h"
 #include "State.h"
@@ -26,6 +27,7 @@ class PrismGame : public Game
 	EntityFactory entityFactory;
 	Menu::MenuBuilder menuBuilder;
 	Menu::MenuRenderer menuRenderer;
+	std::unique_ptr<ECS::System> gameOverSystem;
 	Menu::Menu menu;
 	void cheat(Context &context);
 	bool canPressEscape;

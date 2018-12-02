@@ -9,10 +9,11 @@ namespace ECS {
 			/// <summary>
 			///	The position in units
 			/// </summary>
-			int health;
+			float health{0};
+
 			HealthComponent(int healthIn) : health(healthIn) {};
 			Component* Clone() override {
-				HealthComponent* component = new HealthComponent();
+				auto component = new HealthComponent();
 				component->health = health;
 				return component;
 			}

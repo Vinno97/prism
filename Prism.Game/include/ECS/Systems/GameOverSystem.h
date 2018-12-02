@@ -9,7 +9,6 @@ namespace ECS {
 		public:
 			GameOverSystem(EntityManager &entityManager);
 			~GameOverSystem();
-			System* clone() override;
 			void update(Context& context) override;
 		};
 	}

@@ -135,7 +135,3 @@ void ECS::Systems::CheatSystem::update(Context& context)
 {
 }
 
-ECS::System * ECS::Systems::CheatSystem::clone()
-{
-	return nullptr;
-}

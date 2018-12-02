@@ -58,19 +58,10 @@ void ECS::Systems::AttackSystem::updateEntity(int id, Context& context) {
 	if (entityManager->hasComponent<HealthComponent>(id)) {
 		auto currentComponent = entityManager->getComponent<HealthComponent>(id);
 
-		currentComponent->health -= 100;
+		currentComponent->health -= 10;
 
 		// Print (Remove after review)
 		std::cout << "Speler: " << currentComponent->health << std::endl;
 	}
 }
 
-
-ECS::System * ECS::Systems::AttackSystem::clone()
-{
-	Physics::BoundingBox b = quadTree.GetBounds();
-	float width = b.GetEast() - b.GetWest();
-	float height = b.GetNorth() - b.GetSouth();
-
-	return new AttackSystem(*entityManager);
-}

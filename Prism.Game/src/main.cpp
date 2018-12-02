@@ -22,7 +22,6 @@
 #include "ECS/Systems/MotionSystem.h"
 #include "Physics/BoundingBox.h"
 #include "Physics/QuadTree.h"
-#include "States/PrismGame.h"
 #include "States/MainMenuState.h"
 
 #define _CRTDBG_MAP_ALLOC
@@ -30,9 +29,10 @@
 // This function makes sure all objects are cleared from the stack before the memory gets dumped.
 void start() {
 	CoreEngine ce = CoreEngine();
-	ce.InitWindow("prism", 1920, 1080, 100, 100);
-	States::MainMenuState mainMenu;
-	ce.setEntryPoint(mainMenu);
+	ce.InitWindow("prism", 1920 / 2, 1080 / 2, 100, 100);
+	ce.addState<States::MainMenuState>();
+	ce.setEntryPoint<States::MainMenuState>();
+
 	ce.Run();
 }
 

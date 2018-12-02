@@ -7,6 +7,7 @@
 #include "ECS/Components/BoundingBoxComponent.h"
 #include "StateMachine.h"
 #include "States/EndState.h"
+#include "States/PrismGame.h"
 #include "ECS/Components/EnemyComponent.h"
 #include "ECS/Components/PlayerComponent.h"
 
@@ -24,12 +25,8 @@ void ECS::Systems::GameOverSystem::update(Context& context) {
 		
 		if (healthComponent->health <= 0) {
 			context.stateMachine->setState<EndState>();
-			context.stateMachine->getState<EndState>()->onEnter(context);
+			context.stateMachine->removeState<PrismGame>();
 		}
 	}
 }
 
-ECS::System * ECS::Systems::GameOverSystem::clone()
-{
-	return new GameOverSystem(*entityManager);
-}

@@ -53,6 +53,8 @@
     <ClCompile Include="src\Surface.cpp" />
     <ClCompile Include="src\ECS\Systems\MousePointSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\CollisionSystem.cpp" />
+    <ClCompile Include="src\World\Assemblers\HealthAssembler.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLRenderTarget.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ECS\Components\HealthComponent.h" />
@@ -148,6 +150,9 @@
     <ClInclude Include="include\ECS\Components\MousePointerComponent.h" />
     <ClInclude Include="include\ECS\Systems\MousePointSystem.h" />
     <ClInclude Include="include\ECS\Components\HealthComponent.h" />
+    <ClInclude Include="include\World\Assemblers\HealthAssembler.h" />
+    <ClInclude Include="include\Renderer\Graphics\RenderTarget.h" />
+    <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLRenderTarget.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\x64\SDL2test.lib" />
@@ -175,6 +180,7 @@
     <None Include="lib\x64\libwebp-7.dll" />
     <None Include="lib\x64\SDL2_image.dll" />
     <None Include="lib\x64\zlib1.dll" />
+    <None Include="cpp.hint" />
   </ItemGroup>
   <ItemGroup>
     <None Include="lib\x64\libFLAC-8.dll" />

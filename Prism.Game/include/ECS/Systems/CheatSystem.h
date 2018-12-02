@@ -13,7 +13,6 @@ namespace ECS {
 			~CheatSystem();
 
 			void update(Context& context) override;
-			System* clone() override;
 			float ticks = 0;
 			void increaseHealth();
 			void increaseResources();

@@ -53,12 +53,3 @@ void CollisionSystem::update(Context& context)
 	}
 	quadTree.Clear();
 }
-
-ECS::Systems::System* CollisionSystem::clone()
-{
-	BoundingBox b = quadTree.GetBounds();
-	float width = b.GetEast() - b.GetWest();
-	float height = b.GetNorth() - b.GetSouth();
-
-	return new CollisionSystem(*entityManager, width, height, b.GetPosX(), b.GetPosY(), quadTree.GetMaxObject());
-}

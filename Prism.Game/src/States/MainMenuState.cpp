@@ -16,7 +16,7 @@ namespace States {
 		std::function<void()> callback = [context]()mutable{ 
 			if (!context.stateMachine->hasState<PrismGame>()) {
 				PrismGame newGame = PrismGame();
-				context.stateMachine->addState(newGame, context);
+				context.stateMachine->addState<PrismGame>(context);
 			}
 			context.stateMachine->setState<PrismGame>();
 		};
