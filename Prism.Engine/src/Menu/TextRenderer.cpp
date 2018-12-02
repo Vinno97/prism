@@ -68,7 +68,7 @@ void TextRenderer::init()
 	
 }
 
-void TextRenderer::RenderText(std::string text, float x, float y, float scale)
+void TextRenderer::RenderText(Menu::TextControl control)
 {
 	// Activate corresponding render state	
 	textPipeline->run();
@@ -80,17 +80,20 @@ void TextRenderer::RenderText(std::string text, float x, float y, float scale)
 	renderDevice->useBlending(true);
 	VAO2->bind();
 
+	float x = control.position.x;
+	float y = control.position.y;
+
 	// Iterate through all characters
 	std::string::const_iterator c;
-	for (c = text.begin(); c != text.end(); c++)
+	for (c = control.text.begin(); c != control.text.end(); c++)
 	{
 		Character ch = Characters[*c];
 
-		GLfloat xpos = x + ch.Bearing.x * scale;
-		GLfloat ypos = y - (ch.Size.y - ch.Bearing.y) * scale;
+		GLfloat xpos = x + ch.Bearing.x * control.size.x;
+		GLfloat ypos = y - (ch.Size.y - ch.Bearing.y) * control.size.x;
 
-		GLfloat w = ch.Size.x * scale;
-		GLfloat h = ch.Size.y * scale;
+		GLfloat w = ch.Size.x * control.size.x;
+		GLfloat h = ch.Size.y * control.size.x;
 		// Update VBO for each character
 		GLfloat vertices[6][4] = {
 			{ xpos,     ypos + h,   0.0, 0.0 },
@@ -111,7 +114,7 @@ void TextRenderer::RenderText(std::string text, float x, float y, float scale)
 		// Render quad
 		renderDevice->DrawTriangles(0, 6);
 		// Now advance cursors for next glyph (note that advance is number of 1/64 pixels)
-		x += (ch.Advance >> 6) * scale; // Bitshift by 6 to get value in pixels (2^6 = 64)
+		x += (ch.Advance >> 6) * control.size.x; // Bitshift by 6 to get value in pixels (2^6 = 64)
 	}
 
 	VAO2->unbind();

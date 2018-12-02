@@ -2,7 +2,9 @@
 
 #include <memory>
 #include <functional>
+#include <string>
 #include "Menu/Menu.h"
+#include "Menu/TextControl.h"
 #include "Renderer/Graphics/Models/Model.h"
 #include "Renderer/Graphics/Models/Mesh.h"
 #include "Renderer/Graphics/OpenGL/OGLRenderDevice.h"
@@ -13,6 +15,7 @@ namespace Menu {
 	{
 	public:
 		MenuBuilder();
+		TextControl& addTextControl(float x, float y, float width, float height, std::string text);
 		void addControl(float x, float y, float width, float height, const char *path);
 		void addControl(float x, float y, float width, float height, const char *path, std::function<void()> callback_);
 		Menu buildMenu();

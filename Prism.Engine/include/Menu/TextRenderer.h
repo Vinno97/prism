@@ -4,10 +4,9 @@
 #include "Renderer/Graphics/VertexShader.h"
 #include "Renderer/Graphics/Texture.h"
 #include "Renderer/Graphics/OpenGL/OGLRenderDevice.h"
-#include "Renderer/Graphics/OpenGL/OGLVertexShader.h"
-#include "Renderer/Graphics/OpenGL/OGLPipeline.h"
 #include "Renderer/Graphics/VertexArrayObject.h"
 #include "Renderer/Graphics/VertexBuffer.h"
+#include "Menu/TextControl.h"
 #include "Util/FileSystem.h"
 #include <functional>
 #include <glm/glm.hpp>
@@ -31,7 +30,7 @@ public:
 	TextRenderer();
 	~TextRenderer()=default;
 	void init();
-	void RenderText(std::string text, float x, float y, float scale);
+	void RenderText(Menu::TextControl control);
 
 	TextRenderer(const TextRenderer &other);
 	TextRenderer(TextRenderer &&other);

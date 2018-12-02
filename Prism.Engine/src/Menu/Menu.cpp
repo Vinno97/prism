@@ -9,12 +9,17 @@ namespace Menu {
 			controls.push_back(control);
 		}
 
+		for (auto const& control : other.textControls) {
+			textControls.push_back(control);
+		}
+
 		mesh = other.mesh;
 	}
 
 	Menu::Menu(Menu&& other)
 	{
 		controls = other.controls;
+		textControls = other.textControls;
 		mesh.swap(other.mesh);
 
 		other.mesh = nullptr;
@@ -28,6 +33,10 @@ namespace Menu {
 			for (auto const& control : other.controls) {
 				controls.push_back(control);
 			}
+
+			for (auto const& control : other.textControls) {
+				textControls.push_back(control);
+			}
 			mesh = other.mesh;
 		}
 		return *this;
@@ -39,6 +48,7 @@ namespace Menu {
 			cleanup();
 
 			controls = other.controls;
+			textControls = other.textControls;
 			mesh.swap(other.mesh);
 
 			other.mesh = nullptr;

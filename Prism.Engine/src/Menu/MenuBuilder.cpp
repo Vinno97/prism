@@ -25,6 +25,20 @@ namespace Menu {
 		this->initMesh();
 	}
 
+	TextControl& MenuBuilder::addTextControl(float x, float y, float width, float height, std::string text)
+	{
+		TextControl textControl{ text };
+		textControl.position.x = x;
+		textControl.position.y = y;
+
+		textControl.size.x = width;
+		textControl.size.y = height;
+
+		menu.textControls.push_back(textControl);
+	
+		return textControl;
+	}
+
 	//Create a single mesh so we can reuse it
 	void MenuBuilder::initMesh() {
 		float* verticesArray = vertices;

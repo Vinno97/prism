@@ -57,6 +57,7 @@
     <ClCompile Include="src\World\Assemblers\HealthAssembler.cpp" />
     <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLRenderTarget.cpp" />
     <ClCompile Include="src\Menu\TextRenderer.cpp" />
+    <ClCompile Include="src\Menu\TextControl.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ECS\Components\HealthComponent.h" />
@@ -157,6 +158,7 @@
     <ClInclude Include="include\Renderer\Graphics\RenderTarget.h" />
     <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLRenderTarget.h" />
     <ClInclude Include="include\Menu\TextRenderer.h" />
+    <ClInclude Include="include\Menu\TextControl.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\x64\SDL2test.lib" />

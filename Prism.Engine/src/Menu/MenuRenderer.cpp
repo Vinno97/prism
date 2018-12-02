@@ -62,5 +62,9 @@ namespace Menu {
 		glDisable(GL_BLEND);
 		menuPipeline->stop();
 		renderDevice->useDepthTest(true);
+
+		for (auto& control : menu.textControls) {
+			textRenderer.RenderText(control);
+		}
 	}
 }
