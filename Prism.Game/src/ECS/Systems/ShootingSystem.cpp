@@ -6,6 +6,7 @@
 #include "ECS/Components/AppearanceComponent.h"
 #include "ECS/Components/PositionComponent.h"
 
+using namespace ECS::Components;
 
 namespace ECS {
 	namespace Systems {

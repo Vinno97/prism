@@ -25,7 +25,7 @@ namespace ECS {
 		return entityList != entityComponents.end() && entityList->second.find(entityId) != entityList->second.end();
 	}
 
-	void EntityManager::removeComponentFromEntity(unsigned int entityId, std::type_index componentType)
+	EntityManager& EntityManager::removeComponentFromEntity(unsigned int entityId, std::type_index componentType)
 	{
 		auto&& entityList = entityComponents.find(componentType);
 		if (entityList != entityComponents.end()) {
@@ -34,9 +34,10 @@ namespace ECS {
 				entityComponents.erase(componentType);
 			}
 		}
+		return *this;
 	}
 
-	void EntityManager::removeEntity(unsigned int entityId) {
+	EntityManager& EntityManager::removeEntity(unsigned int entityId) {
 		auto&& itr = entityComponents.begin();
 		while (itr != entityComponents.end()) {
 			itr->second.erase(entityId);
@@ -48,6 +49,7 @@ namespace ECS {
 				++itr;
 			}
 		}
+		return *this;
 	}
 
 	std::set<int> EntityManager::getAllEntities() const noexcept
