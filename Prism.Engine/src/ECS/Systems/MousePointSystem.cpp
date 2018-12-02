@@ -68,9 +68,5 @@ namespace ECS {
 			}
 		}
 
-		System * MousePointSystem::clone()
-		{
-			return new MousePointSystem(*entityManager);
-		}
 	}
 }

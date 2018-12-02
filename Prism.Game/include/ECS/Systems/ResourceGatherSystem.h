@@ -16,7 +16,6 @@ namespace ECS {
 			ResourceGatherSystem(EntityManager &entityManager);
 			~ResourceGatherSystem() = default;
 			void update(Context& context) override;
-			System* clone() override;
 		private:
 			
 			EntityFactory entityFactory;

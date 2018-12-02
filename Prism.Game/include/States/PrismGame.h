@@ -27,7 +27,6 @@ class PrismGame : public Game
 	Menu::MenuBuilder menuBuilder;
 	Menu::MenuRenderer menuRenderer;
 	Menu::Menu menu;
-	void cheat(Context &context);
 	bool canPressEscape;
 	void registerSystems(Context &context);
 	void loadAudio(Context &context) const;

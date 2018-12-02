@@ -153,9 +153,30 @@ ECS::Systems::CheatSystem::~CheatSystem()
 void ECS::Systems::CheatSystem::update(Context& context)
 {
 	context.deltaTime *= multiplier;
-}
 
-ECS::System * ECS::Systems::CheatSystem::clone()
-{
-	return nullptr;
+	auto input = context.inputManager;
+
+	// TODO: Later naar in game buttons
+	if (input->isKeyPressed(Key::KEY_H))
+	{
+		increaseHealth();
+	}
+	else if (input->isKeyPressed(Key::KEY_J)) {
+		decreaseHealth();
+	}
+	else if (input->isKeyPressed(Key::KEY_R)) {
+		increaseResources();
+	}
+	else if (input->isKeyPressed(Key::KEY_T)) {
+		decreaseResources();
+	}
+	else if (input->isKeyPressed(Key::KEY_PLUS)) {
+		increaseGameSpeed();
+	}
+	else if (input->isKeyPressed(Key::KEY_MIN)) {
+		decreaseGameSpeed();
+	}
+	else if (input->isKeyPressed(Key::KEY_END)) {
+		resetGameSpeed();
+	}
 }

@@ -28,8 +28,3 @@ void ECS::Systems::GameOverSystem::update(Context& context) {
 		}
 	}
 }
-
-ECS::System * ECS::Systems::GameOverSystem::clone()
-{
-	return new GameOverSystem(*entityManager);
-}
