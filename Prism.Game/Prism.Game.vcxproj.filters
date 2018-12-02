@@ -27,6 +27,8 @@
     <ClCompile Include="src\World\Assemblers\EnemySpawnAssembler.cpp" />
     <ClCompile Include="src\States\MainMenuState.cpp" />
     <ClCompile Include="src\World\Assemblers\CliffAssembler.cpp" />
+    <ClCompile Include="include\ECS\Components\CliffCornerComponent.h" />
+    <ClCompile Include="src\World\Assemblers\CliffCornerAssembler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ECS\Components\BulletComponent.h" />
@@ -127,6 +129,7 @@
     <ClInclude Include="include\World\Assemblers\CliffAssembler.h" />
     <ClInclude Include="include\ECS\Components\CliffComponent.h" />
     <ClInclude Include="include\States\MainMenuState.h" />
+    <ClInclude Include="include\World\Assemblers\CliffCornerAssembler.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="lib\assimp-vc140-mtd.dll" />

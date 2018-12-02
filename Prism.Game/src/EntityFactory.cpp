@@ -10,6 +10,7 @@
 #include "ECS/Components/EnemyComponent.h"
 #include "ECS/Components/TowerComponent.h"
 #include "ECS/Components/CliffComponent.h"
+#include "ECS/Components/CliffCornerComponent.h"
 #include "ECS/Components/PlayerComponent.h"
 #include "ECS/Components/PositionComponent.h"
 #include "ECS/Components/VelocityComponent.h"
@@ -179,6 +180,28 @@ int EntityFactory::createCliff(int entity, EntityManager & entityManager, int ro
 {
 	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
 	auto model = ml.loadModel("./res/cliff_straight.obj");
+
+	AppearanceComponent appearance;
+	appearance.scaleX = 1.0f;
+	appearance.scaleY = 1.0f;
+	appearance.scaleZ = 1.0f;
+	appearance.rotationY = rotation;
+	appearance.model = std::move(model);
+
+	entityManager.addComponentToEntity(entity, PositionComponent());
+	entityManager.addComponentToEntity(entity, appearance);
+	entityManager.addComponentToEntity(entity, BoundingBoxComponent(1.0, 0.2));
+	return entity;
+}
+
+int EntityFactory::createCliffCorner(EntityManager & entityManager, int rotation) {
+	return createCliffCorner(entityManager.createEntity(), entityManager, rotation);
+}
+
+int EntityFactory::createCliffCorner(int entity, EntityManager & entityManager, int rotation)
+{
+	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
+	auto model = ml.loadModel("./res/cliff_corner.obj");
 
 	AppearanceComponent appearance;
 	appearance.scaleX = 1.0f;

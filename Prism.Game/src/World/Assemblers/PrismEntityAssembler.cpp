@@ -6,6 +6,7 @@
 #include "World/Assemblers/TowerAssembler.h"
 #include "World/Assemblers/WallAssembler.h"
 #include "World/Assemblers/CliffAssembler.h"
+#include "World/Assemblers/CliffCornerAssembler.h"
 #include "World/Assemblers/EnemySpawnAssembler.h"
 
 using namespace World::Assemblers;

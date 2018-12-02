@@ -27,6 +27,9 @@ public:
 	int createCliff(ECS::EntityManager& entityManager, int rotation = 0);
 	int createCliff(int entity, ECS::EntityManager& entityManager, int rotation);
 
+	int createCliffCorner(ECS::EntityManager& entityManager, int rotation = 0);
+	int createCliffCorner(int entity, ECS::EntityManager& entityManager, int rotation);
+
 	int createMine(ECS::EntityManager& entityManager);
 	int createMine(int entity, ECS::EntityManager& entityManager);
 
