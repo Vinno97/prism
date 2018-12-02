@@ -66,7 +66,7 @@ void TextRenderer::RenderText(const Menu::TextControl& control)
 {
 	// Activate corresponding render state	
 	textPipeline->run();
-	textPipeline->setUniformVector("textColor", 0.0f, 0.0f, 0.0);
+	textPipeline->setUniformVector("textColor", control.colour.x, control.colour.y, control.colour.z);
 	renderDevice->useBlending(true);
 	VAO2->bind();
 
@@ -79,11 +79,11 @@ void TextRenderer::RenderText(const Menu::TextControl& control)
 	{
 		Character ch = Characters[*c];
 
-		GLfloat xpos = x + ch.Bearing.x * control.size.x;
-		GLfloat ypos = y - (ch.Size.y - ch.Bearing.y) * control.size.x;
+		GLfloat xpos = x + ch.Bearing.x * control.scale;
+		GLfloat ypos = y - (ch.Size.y - ch.Bearing.y) * control.scale;
 
-		GLfloat w = ch.Size.x * control.size.x;
-		GLfloat h = ch.Size.y * control.size.x;
+		GLfloat w = ch.Size.x * control.scale;
+		GLfloat h = ch.Size.y * control.scale;
 		// Update VBO for each character
 		GLfloat vertices[6][4] = {
 			{ xpos,     ypos + h,   0.0, 0.0 },
@@ -104,7 +104,7 @@ void TextRenderer::RenderText(const Menu::TextControl& control)
 		// Render quad
 		renderDevice->DrawTriangles(0, 6);
 		// Now advance cursors for next glyph (note that advance is number of 1/64 pixels)
-		x += (ch.Advance >> 6) * control.size.x; // Bitshift by 6 to get value in pixels (2^6 = 64)
+		x += (ch.Advance >> 6) * control.scale; // Bitshift by 6 to get value in pixels (2^6 = 64)
 	}
 
 	VAO2->unbind();
