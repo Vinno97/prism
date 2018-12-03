@@ -44,6 +44,7 @@ namespace States {
 
 	void MainMenuState::onEnter(Context & context)
 	{
+		context.audioManager->playMusic("MainMenu");
 	}
 
 	void MainMenuState::onLeave(Context & context)

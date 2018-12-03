@@ -33,6 +33,7 @@ namespace States {
 
 	void EndState::onLeave(Context & context)
 	{
+		context.audioManager->stopMusic();
 	}
 
 	EndState::EndState(const EndState & obj)
