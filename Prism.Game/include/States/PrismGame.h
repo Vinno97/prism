@@ -38,9 +38,14 @@ class PrismGame : public Game
 	Menu::TextControl* resourceRedDot;
 	Menu::TextControl* resourceBlueDot;
 	Menu::TextControl* resourceGreenDot;
+	Menu::TextControl* fps;
 
 	bool canPressEscape;
+	bool canPressF3;
+	bool showFPS;
 	void registerSystems(Context &context);
+	void toggleFPS(Context &context);
 	void loadAudio(Context &context) const;
+	int Fps(Context &context);
 };
-} // namespace States
+}

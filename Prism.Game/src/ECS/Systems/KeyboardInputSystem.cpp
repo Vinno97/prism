@@ -16,9 +16,6 @@ namespace ECS {
 		KeyboardInputSystem::KeyboardInputSystem(EntityManager &entityManager) : System(entityManager) {
 		}
 
-
-
-
 		KeyboardInputSystem::~KeyboardInputSystem()
 			= default;
 

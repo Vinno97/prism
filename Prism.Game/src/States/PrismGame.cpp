@@ -1,6 +1,7 @@
 #include "Menu/TextRenderer.h"
 #include "States/PrismGame.h"
-
+#include <iomanip>
+#include <iostream>
 #include "Math/Vector3f.h"
 #include "StateMachine.h"
 #include "States/PauseState.h"
@@ -76,6 +77,7 @@ namespace States {
 		resourceBlueDot = menuBuilder.addTextControl(-0.95, 0.86, 0.005, Math::Vector3f{ 0.1f, 0.1f, 0.8f }, ".");
 		resourceGreenDot = menuBuilder.addTextControl(-0.95, 0.82, 0.005, Math::Vector3f{ 0.1f, 0.8f, 0.1f }, ".");
 		health = menuBuilder.addTextControl(-0.9, 0.78, 0.0007, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "100");
+		fps = menuBuilder.addTextControl(0.725, 0.90, 0.0015, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "");
 
 		menu = menuBuilder.buildMenu();
 		
@@ -115,11 +117,8 @@ namespace States {
 			.registerSystem<5, BumpSystem>(entityManager);
 	}
 
-
-
 	void PrismGame::onUpdate(Context &context)
 	{
-
 		auto input = context.inputManager;
 		if (menu->handleInput(*context.inputManager, context.window->width, context.window->height)) {
 			return;
@@ -142,9 +141,9 @@ namespace States {
 		health->text = "Health: " + std::to_string(playerHealth);
 
 		menuRenderer.renderMenu(*menu, float(context.window->width) / float(context.window->height));
-		
-		std::cout << 1.0/context.deltaTime << std::endl;
 		context.window->swapScreen();
+
+		toggleFPS(context);
 
 		if (!input->isKeyPressed(Key::KEY_ESCAPE)) {
 			canPressEscape = true;
@@ -165,6 +164,35 @@ namespace States {
 
 		//Temporarily in here, will be moved to onEnter once context is accessible.
 		context.audioManager->playMusic("Ambience");
+	}
+
+	int PrismGame::Fps(Context &context)
+	{
+		double fps = 1.0 / context.deltaTime;
+		return(floor(fps));
+	}
+
+	void PrismGame::toggleFPS(Context & context)
+	{
+		auto input = context.inputManager;
+		if (!input->isKeyPressed(Key::KEY_F3)) {
+			canPressF3 = true;
+		}
+		if (input->isKeyPressed(Key::KEY_F3) && !showFPS  && canPressF3) {
+			canPressF3 = false;
+			showFPS = true;
+			fps->text = "FPS: " + std::to_string(Fps(context));
+		}
+
+		else if (input->isKeyPressed(Key::KEY_F3) && showFPS && canPressF3) {
+			canPressF3 = false;
+			showFPS = false;
+			fps->text = "";
+		}
+
+		if (showFPS) {
+			fps->text = "FPS: " + std::to_string(Fps(context));
+		}
 	}
 
 	void PrismGame::onEnter() {
