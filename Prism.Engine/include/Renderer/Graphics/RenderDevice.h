@@ -55,7 +55,7 @@ namespace Renderer {
 			/// <summary>
 			/// Create a new vertexArrayObject
 			/// </summary>
-			virtual std::unique_ptr<RenderTarget> createRenderTarget(bool useDepthBuffer, std::shared_ptr<Texture> texture) const = 0;
+			virtual std::unique_ptr<RenderTarget> createRenderTarget(bool useDepthBuffer) const = 0;
 
 			/// <summary>
 			/// Create a new texture with image path

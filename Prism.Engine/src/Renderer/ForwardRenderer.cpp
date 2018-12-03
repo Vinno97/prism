@@ -16,7 +16,6 @@
 #include "Renderer/Graphics/Models/Model.h"
 #include "Util/FileSystem.h"
 #include "Math/Vector3f.h"
-#include "Renderer/PointLight.h"
 #include <SDL2/SDL_opengl.h>
 
 using namespace Math;
@@ -35,12 +34,16 @@ namespace Renderer {
 		albedoBuffer = renderDevice->createTexture(false);
 		depthBuffer = renderDevice->createTexture(true);
 
-		renderTarget = renderDevice->createRenderTarget(true , positionBuffer);
+		renderTarget = renderDevice->createRenderTarget(true);
 
 		renderTarget->addBuffer(positionBuffer);
 		renderTarget->addBuffer(normalBuffer);
 		renderTarget->addBuffer(albedoBuffer);
 		renderTarget->setDepthBuffer(depthBuffer);
+
+		shadowDepthBuffer = renderDevice->createTexture(true);
+		shadowDepthTarget = renderDevice->createRenderTarget(true);
+		shadowDepthTarget->setDepthBuffer(shadowDepthBuffer);
 
 		loadPipelines();
 		createTargetQuad();
@@ -48,12 +51,15 @@ namespace Renderer {
 	    projection = glm::perspective(glm::radians(45.0f), (float) width/height, 0.5f, 100.0f);
 
 		renderDevice->setClearColour(1.f, 1.f, 1.f, 1.f);
+		shadowCamera.position = glm::vec3{ -45.1785889, 5.00000000, 4.11635685 };
+		shadowCamera.rotation = glm::vec3{ 0.f, 0.f, 0.f };
 	}
 
 	float i = 0;
 
-	void ForwardRenderer::draw(const Camera& camera, const std::vector<Renderable>& renderables, const Scene& scene)
+	void ForwardRenderer::draw(const Camera& camera, const std::vector<Renderable>& renderables, const Scene& scene, const std::vector<PointLight>& pointLights)
 	{
+
 		i += 0.01;
 		glm::mat4 model;
 		const glm::mat4 view = camera.getCameraMatrix();
@@ -63,7 +69,7 @@ namespace Renderer {
 		renderDevice->useDepthTest(true);
 		renderDevice->clearScreen();
 		geometryPipeline->run();
-
+		
 
 		for (const auto& renderable : renderables) {
 			model = renderable.getMatrix();
@@ -86,6 +92,35 @@ namespace Renderer {
 
 		renderTarget->unbind();
 		geometryPipeline->stop();
+
+		//Render shadowmap
+
+		shadowDepthTarget->bind();
+		shadowPipeline->run();
+		auto shadowView = shadowCamera.getCameraMatrix();
+
+		for (const auto& renderable : renderables) {
+			model = renderable.getMatrix();
+
+			shadowPipeline->setUniformMatrix4f("view", shadowView);
+			shadowPipeline->setUniformMatrix4f("proj", projection);
+			shadowPipeline->setUniformMatrix4f("model", model);
+
+			renderable.model->mesh->vertexArrayObject->bind();
+			if (renderable.model->mesh->isIndiced) {
+				renderable.model->mesh->indexBuffer->bind();
+				renderDevice->DrawTrianglesIndexed(0, renderable.model->mesh->indicesLength);
+			}
+			else {
+				renderDevice->DrawTriangles(0, renderable.model->mesh->verticesLength);
+			}
+		}
+
+		shadowPipeline->stop();
+		shadowDepthTarget->unbind();
+
+		//End render shadowmap
+
 		renderDevice->useDepthTest(false);
 		quadPipeline->run();
 		
@@ -97,7 +132,34 @@ namespace Renderer {
 
 		quadPipeline->setUniformMatrix4f("view", view);
 		quadPipeline->setUniformMatrix4f("proj", projection);
+		
+	//	int i = 0;
+	//	for (auto const& light : pointLights) {
+	//		std::string index = "gPointLights[" + std::to_string(i) + "]";
+	//		quadPipeline->setUniformVector(index.append(".Color").c_str(), 1.0f, 0.0f, 0.0f);
+	//		quadPipeline->setUniformVector(index.append(".Position").c_str(), 1.0f, 0.0f, 0.0f);
+	//		quadPipeline->setUniformFloat(index.append(".AmbientIntensity").c_str(), light.ambientIntensity);
+	//		quadPipeline->setUniformFloat(index.append(".DiffuseIntensity").c_str(), light.ambientIntensity);
+	//		quadPipeline->setUniformFloat(index.append(".Constant").c_str(), light.constant);
+	//		quadPipeline->setUniformFloat(index.append(".Linear").c_str(), light.linear);
+	//		quadPipeline->setUniformFloat(index.append(".Exp").c_str(), light.exp);
+	//	}
 
+		PointLight pl{ Math::Vector3f{-41.f, 3, -15.f}, Math::Vector3f{1.f, 0, 0.f} };
+
+		pl.constant = 1.0f;
+		pl.linear = 0.7f;
+		pl.exp = 1.8f;
+
+	//quadPipeline->setUniformVector("gPointLight.Color", pl.color.x, pl.color.y, pl.color.z);
+	//quadPipeline->setUniformVector("gPointLight.Position", pl.position.x, pl.position.y, pl.position.z);
+	//
+	//quadPipeline->setUniformFloat("gPointLight.AmbientIntensity", pl.ambientIntensity);
+	//quadPipeline->setUniformFloat("gPointLight.DiffuseIntensity", pl.diffuseIntensity);
+	//quadPipeline->setUniformFloat("gPointLight.Constant", pl.constant);
+	//quadPipeline->setUniformFloat("gPointLight.Linear", pl.linear);
+	//quadPipeline->setUniformFloat("gPointLight.Exp", pl.exp);
+		
 		positionBuffer->bind(textures[0]);
 		normalBuffer->bind(textures[1]);
 		albedoBuffer->bind(textures[2]);
@@ -163,7 +225,29 @@ namespace Renderer {
 		quadPipeline->createUniform("gDirectionalLight.AmbientIntensity");
 		quadPipeline->createUniform("gDirectionalLight.DiffuseIntensity");
 
+		//quadPipeline->createUniform("gPointLight.Color");
+		//quadPipeline->createUniform("gPointLight.Position");
+		//quadPipeline->createUniform("gPointLight.AmbientIntensity");
+		//quadPipeline->createUniform("gPointLight.DiffuseIntensity");
+		//quadPipeline->createUniform("gPointLight.Constant");
+		//quadPipeline->createUniform("gPointLight.Linear");
+		//quadPipeline->createUniform("gPointLight.Exp");
+
 		quadPipeline->createUniform("view");
 		quadPipeline->createUniform("proj");
+
+		//setup shadow shader
+
+		vertexSource = fileReader.readResourceFileIntoString("/shaders/shadowShader.vs");
+		fragmentSource = fileReader.readResourceFileIntoString("/shaders/shadowShader.fs");
+
+		vertexShader = renderDevice->createVertexShader(vertexSource.c_str());
+		fragmentShader = renderDevice->createFragmentShader(fragmentSource.c_str());
+
+		shadowPipeline = move(renderDevice->createPipeline(*vertexShader, *fragmentShader));
+
+		geometryPipeline->createUniform("model");
+		shadowPipeline->createUniform("view");
+		shadowPipeline->createUniform("proj");
 	}
 }

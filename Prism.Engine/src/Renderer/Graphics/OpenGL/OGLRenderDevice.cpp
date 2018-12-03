@@ -76,7 +76,7 @@ namespace Renderer {
 				return make_shared<OGLTexture>(path);
 			}
 
-			std::unique_ptr<RenderTarget> OGLRenderDevice::createRenderTarget(bool useDepthBuffer, std::shared_ptr<Texture> texture) const
+			std::unique_ptr<RenderTarget> OGLRenderDevice::createRenderTarget(bool useDepthBuffer) const
 			{
 				return std::make_unique<OGLRenderTarget>(useDepthBuffer);
 			}

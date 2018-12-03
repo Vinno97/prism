@@ -21,6 +21,7 @@
 #include "Renderer/Graphics/Loader/ModelLoader.h"
 #include "Renderer/Graphics/Models/Model.h"
 #include "Renderer/DirectionalLight.h"
+#include "Renderer/PointLight.h"
 #include "Renderer/Scene.h"
 
 namespace Renderer {
@@ -32,7 +33,7 @@ namespace Renderer {
 		/// <summary>
 		/// Draws the list of renderables from the viewpoint of a given camera
 		/// </summary>
-		void draw(const Camera& camera, const std::vector<Renderable>& renderables, const Renderer::Scene& scene);
+		void draw(const Camera& camera, const std::vector<Renderable>& renderables, const Renderer::Scene& scene, const std::vector<PointLight>& pointLights);
 
 		int width;
 		int height;
@@ -40,12 +41,19 @@ namespace Renderer {
 		void createTargetQuad();
 		void loadPipelines();
 
+		Camera shadowCamera;
+
 		glm::mat4 projection = glm::mat4(1.0f);
 		std::unique_ptr<Renderer::Graphics::Pipeline> geometryPipeline;
+		std::unique_ptr<Renderer::Graphics::Pipeline> shadowPipeline;
 		std::unique_ptr<Renderer::Graphics::RenderTarget> renderTarget;
 		std::unique_ptr<Renderer::Graphics::Pipeline> quadPipeline;
 		std::shared_ptr<Renderer::Graphics::Models::Mesh> quadMesh;
 		Renderer::Graphics::RenderDevice* renderDevice;
+
+		std::unique_ptr<Renderer::Graphics::RenderTarget> shadowDepthTarget;
+		std::shared_ptr<Renderer::Graphics::Texture> shadowDepthBuffer;
+		std::shared_ptr<Renderer::Graphics::Texture> shadowTest;
 
 		std::shared_ptr<Renderer::Graphics::Texture> positionBuffer;
 		std::shared_ptr<Renderer::Graphics::Texture> normalBuffer;

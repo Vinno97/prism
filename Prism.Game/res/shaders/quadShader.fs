@@ -13,6 +13,17 @@ struct DirectionalLight {
     float DiffuseIntensity;
 };
 
+struct PointLight {
+	vec3 Position;
+    vec3 Color;
+	float AmbientIntensity;
+    float DiffuseIntensity;
+	
+	float Constant;
+	float Linear;
+	float Exp;
+};
+
 uniform DirectionalLight gDirectionalLight;
 
 layout(binding = 0) uniform sampler2D gPosition;
@@ -52,8 +63,6 @@ void main() {
     else {
         DiffuseColor = vec4(0, 0, 0, 0);
     }
-	
 	color = vec4(Albedo, 1) * (AmbientColor + DiffuseColor);
-	//color = vec4(-gDirectionalLight.Direction, 1.0);
 }
 

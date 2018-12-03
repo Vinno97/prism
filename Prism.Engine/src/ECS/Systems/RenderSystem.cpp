@@ -69,8 +69,15 @@ namespace ECS {
 
 				rendererData.push_back(renderable);
 			}
-
-			forwardRenderer->draw(cameraComponent->camera, rendererData, sceneComponent->scene);
+			std::vector<PointLight> lights;
+			PointLight pl{ Math::Vector3f{-41.f, 1, -15.f}, Math::Vector3f{1.f, 0, 0.f} };
+		
+			pl.constant = 1.0f;
+			pl.linear = 0.7f;
+			pl.exp = 1.8f;
+			
+			lights.push_back(pl);
+			forwardRenderer->draw(cameraComponent->camera, rendererData, sceneComponent->scene, lights);
 		}
 
 		System * RenderSystem::clone()
