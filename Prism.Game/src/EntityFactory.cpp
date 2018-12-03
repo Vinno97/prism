@@ -5,6 +5,7 @@
 #include "ECS/Components/DragComponent.h"
 #include "ECS/Components/WallComponent.h"
 #include "ECS/Components/MineComponent.h"
+#include "ECS/Components/ScoreComponent.h"
 #include "ECS/Components/SceneComponent.h"
 #include "ECS/Components/HealthComponent.h"
 #include "ECS/Components/EnemyComponent.h"
@@ -61,6 +62,7 @@ int EntityFactory::createPlayer(int entity, EntityManager& entityManager) {
 	entityManager.addComponentToEntity(entity, BoundingBoxComponent(.3,.3));
 	entityManager.addComponentToEntity(entity, InventoryComponent());
 	entityManager.addComponentToEntity(entity, ResourceGatherComponent());
+	entityManager.addComponentToEntity(entity, ScoreComponent());
 	entityManager.addComponentToEntity(entity, appearance);
 	entityManager.addComponentToEntity(entity, ShootingComponent());
 
