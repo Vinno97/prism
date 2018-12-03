@@ -10,6 +10,7 @@
 #include "ECS/Components/EnemyComponent.h"
 #include "ECS/Components/TowerComponent.h"
 #include "ECS/Components/CliffComponent.h"
+#include "ECS/Components/CliffFillerComponent.h"
 #include "ECS/Components/CliffCornerComponent.h"
 #include "ECS/Components/TreeComponent.h"
 #include "ECS/Components/RockComponent.h"
@@ -187,9 +188,32 @@ int EntityFactory::createCliff(int entity, EntityManager & entityManager, int ro
 
 	AppearanceComponent appearance;
 	appearance.scaleX = 1.0f;
-	appearance.scaleY = 1.0f;
+	appearance.scaleY = 0.6f;
 	appearance.scaleZ = 1.0f;
+	appearance.color = Math::Vector3f(0.85f, 0.85f, 0.85f);
 	appearance.rotationY = rotation;
+	appearance.model = std::move(model);
+
+	entityManager.addComponentToEntity(entity, PositionComponent());
+	entityManager.addComponentToEntity(entity, appearance);
+	entityManager.addComponentToEntity(entity, BoundingBoxComponent(1.0, 0.2));
+	return entity;
+}
+
+int EntityFactory::createCliffFiller(EntityManager & entityManager) {
+	return createCliffFiller(entityManager.createEntity(), entityManager);
+}
+
+int EntityFactory::createCliffFiller(int entity, EntityManager & entityManager)
+{
+	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
+	auto model = ml.loadModel("./res/FillerCliff.obj");
+
+	AppearanceComponent appearance;
+	appearance.scaleX = 0.5f;
+	appearance.scaleY = 1.733f;
+	appearance.scaleZ = 0.5f;
+	appearance.color = Math::Vector3f(0.85f, 0.85f, 0.85f);
 	appearance.model = std::move(model);
 
 	entityManager.addComponentToEntity(entity, PositionComponent());
@@ -209,8 +233,9 @@ int EntityFactory::createCliffCorner(int entity, EntityManager & entityManager, 
 
 	AppearanceComponent appearance;
 	appearance.scaleX = 1.0f;
-	appearance.scaleY = 1.0f;
+	appearance.scaleY = 0.6f;
 	appearance.scaleZ = 1.0f;
+	appearance.color = Math::Vector3f(0.85f, 0.85f, 0.85f);
 	appearance.rotationY = rotation;
 	appearance.model = std::move(model);
 
@@ -230,9 +255,10 @@ int EntityFactory::createTree(int entity, EntityManager & entityManager)
 	auto model = ml.loadModel("./res/Tree.obj");
 
 	AppearanceComponent appearance;
-	appearance.scaleX = 0.4f;
-	appearance.scaleY = 0.4f;
-	appearance.scaleZ = 0.4f;
+	appearance.scaleX = 0.3f;
+	appearance.scaleY = 0.3f;
+	appearance.scaleZ = 0.3f;
+	appearance.color = Math::Vector3f(0.98f, 0.98f, 0.98f);
 
 	appearance.rotationY = rand() % 360;
 	appearance.model = std::move(model);
@@ -253,11 +279,12 @@ int EntityFactory::createRock(int entity, EntityManager & entityManager)
 	auto model = ml.loadModel("./res/Big Rock.obj"); // And/or small rock?
 
 	AppearanceComponent appearance;
-	appearance.scaleX = 0.2f;
-	appearance.scaleY = 0.2f;
-	appearance.scaleZ = 0.2f;
+	appearance.scaleX = 0.1f;
+	appearance.scaleY = 0.1f;
+	appearance.scaleZ = 0.1f;
 
 	appearance.rotationY = rand() % 360;
+	appearance.color = Math::Vector3f(0.9f, 0.9f, 0.9f);
 	appearance.model = std::move(model);
 
 	entityManager.addComponentToEntity(entity, PositionComponent());

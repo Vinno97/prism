@@ -89,6 +89,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="include\ECS\Components\CliffComponent.h" />
+    <ClInclude Include="include\ECS\Components\CliffFillerComponent.h" />
     <ClInclude Include="include\ECS\Components\RockComponent.h" />
     <ClInclude Include="include\ECS\Components\TreeComponent.h" />
     <ClInclude Include="include\World\Assemblers\CliffAssembler.h" />
@@ -118,6 +119,7 @@
     <ClInclude Include="include\States\MainMenuState.h" />
     <ClInclude Include="include\States\PrismGame.h" />
     <ClInclude Include="include\World\Assemblers\CliffCornerAssembler.h" />
+    <ClInclude Include="include\World\Assemblers\CliffFillerAssembler.h" />
     <ClInclude Include="include\World\Assemblers\EnemyAssembler.h" />
     <ClInclude Include="include\World\Assemblers\EnemySpawnAssembler.h" />
     <ClInclude Include="include\World\Assemblers\PlayerAssembler.h" />
@@ -156,6 +158,7 @@
     <ClCompile Include="src\States\PrismGame.cpp" />
     <ClCompile Include="src\World\Assemblers\CliffAssembler.cpp" />
     <ClCompile Include="src\World\Assemblers\CliffCornerAssembler.cpp" />
+    <ClCompile Include="src\World\Assemblers\CliffFillerAssembler.cpp" />
     <ClCompile Include="src\World\Assemblers\EnemySpawnAssembler.cpp" />
     <ClCompile Include="src\World\Assemblers\PrismEntityAssembler.cpp" />
     <ClCompile Include="src\World\Assemblers\EnemyAssembler.cpp" />
