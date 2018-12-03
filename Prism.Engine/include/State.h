@@ -24,10 +24,10 @@ public:
 	/// <summary>
 	/// Method to enter the state
 	/// </summary>
-	virtual void onEnter();
+	virtual void onEnter(Context & context);
 
 	/// <summary>
 	/// Method to leave the state
 	/// </summary>
-	virtual void onLeave();
+	virtual void onLeave(Context & context);
 };

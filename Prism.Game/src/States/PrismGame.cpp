@@ -67,7 +67,7 @@ namespace States {
 
 		context.stateMachine->addState<EndState>(context);
 		
-		std::function<void()> callback = [context, &canPress = canPressEscape]() mutable { canPress = false; context.stateMachine->setState<PauseState>(); };
+		std::function<void()> callback = [context, &canPress = canPressEscape]() mutable { canPress = false; context.stateMachine->setState<PauseState>(context); };
 	}
 
 	/// <summary>
@@ -130,25 +130,22 @@ namespace States {
 
 		if (input->isKeyPressed(Key::KEY_ESCAPE) && canPressEscape) {
 			canPressEscape = false;
-			context.stateMachine->setState<PauseState>();
+			context.stateMachine->setState<PauseState>(context);
 		}
 	}
 
 	void PrismGame::loadAudio(Context &context) const
 	{
 		context.audioManager->addMusic("Ambience", "Ambience.wav");
+		context.audioManager->addMusic("MainMenu", "MainMenu.wav");
 		context.audioManager->addSound("Bullet", "Bullet.wav");
 		context.audioManager->addSound("EnemyKill", "EnemyKill.wav");
 		context.audioManager->addSound("Resource", "ResourceGathering.wav");
+	}
 
-		//Temporarily in here, will be moved to onEnter once context is accessible.
+	void PrismGame::onEnter(Context &context) {
 		context.audioManager->playMusic("Ambience");
 	}
-
-	void PrismGame::onEnter() {
-	}
-	void PrismGame::onLeave() {
+	void PrismGame::onLeave(Context &context) {
 	}
 }
-
-

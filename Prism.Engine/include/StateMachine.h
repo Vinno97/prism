@@ -21,10 +21,10 @@ public:
 	/// Set currentSate
 	/// </summary>
 	template<class T, typename = std::enable_if_t < std::is_base_of<State, T>::type::value>>
-	void setState()
+	void setState(Context &context)
 	{
 		const std::type_index type{ std::type_index(typeid(T)) };
-		setState(type);
+		setState(type, context);
 	}
 
 	/// <summary>
@@ -79,7 +79,7 @@ private:
 	// keeps a list of States
 	std::map<std::type_index, std::unique_ptr<State>> existingStates;
 
-	void setState(std::type_index type);
+	void setState(std::type_index type, Context &context);
 
 	State* getState(std::type_index type) const;
 	bool hasState(std::type_index type) const;
