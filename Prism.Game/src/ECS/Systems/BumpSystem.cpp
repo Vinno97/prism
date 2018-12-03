@@ -26,8 +26,6 @@ void BumpSystem::update(Context& context)
 			if (collisions.size() > 0) {
 				auto currentPosition = entityManager->getComponent<PositionComponent>(entity.id);
 				auto currentVelocity = entityManager->getComponent<VelocityComponent>(entity.id);
-				
-				int total = 0;
 
 				bool xCol = false;
 				bool yCol = false;
@@ -36,11 +34,13 @@ void BumpSystem::update(Context& context)
 					if (entityManager->hasComponent<PositionComponent>(id)) {
 						auto colliderPosition = entityManager->getComponent<PositionComponent>(id);
 
+						//Various checks for collisions
 						bool cx1 = currentPosition->x > colliderPosition->x && currentVelocity->dx < 0;
 						bool cx2 = currentPosition->x < colliderPosition->x && currentVelocity->dx > 0;
 						bool cy1 = currentPosition->y > colliderPosition->y && currentVelocity->dy < 0;
 						bool cy2 = currentPosition->y < colliderPosition->y && currentVelocity->dy > 0;
 
+						//If collisions on both axis, determine axis of collision
 						if ((cx1 || cx2) && (cy1 || cy2)) {
 							auto &colliderBB = entityManager->getComponent<BoundingBoxComponent>(id)->boundingBox;
 							
@@ -49,6 +49,7 @@ void BumpSystem::update(Context& context)
 							auto colliderX = colliderBB.GetPosX();
 							auto colliderY = colliderBB.GetPosY();
 
+							//Calculate total collision on each axis
 							float xColT = 0.0;
 							float yColT = 0.0;
 
@@ -66,6 +67,7 @@ void BumpSystem::update(Context& context)
 								yColT = std::abs((colliderY - colliderBB.GetNorth()) - (currentY - currentBB.GetSouth()));
 							}
 							
+							//The side with the least amount of collision needs te be resolved
 							if (xColT < yColT) {
 								xCol = true;
 							}
@@ -80,15 +82,14 @@ void BumpSystem::update(Context& context)
 
 						else if (cx1 || cx2) {
 							xCol = true;
-							total++;
 						}
 						else if (cy1 || cy2) {
 							yCol = true;
-							total++;
 						}
 					}
 				}
-		
+				
+				//Based on the axis of the collision, the positions needs to be reset
 				if (xCol && yCol) {
 					currentPosition->x -= currentVelocity->dx*context.deltaTime;
 					currentVelocity->dx = 0;
@@ -103,9 +104,6 @@ void BumpSystem::update(Context& context)
 					currentPosition->y -= currentVelocity->dy*context.deltaTime;
 					currentVelocity->dy = 0;
 				}
-				
-				boundingBoxComponent->didCollide = false;
-				boundingBoxComponent->collidesWith.clear();
 			}
 		}
 	}
