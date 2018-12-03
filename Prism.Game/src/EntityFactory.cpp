@@ -196,7 +196,7 @@ int EntityFactory::createCliff(int entity, EntityManager & entityManager, int ro
 
 	entityManager.addComponentToEntity(entity, PositionComponent());
 	entityManager.addComponentToEntity(entity, appearance);
-	entityManager.addComponentToEntity(entity, BoundingBoxComponent(1.0, 0.2));
+	entityManager.addComponentToEntity(entity, BoundingBoxComponent(1.0, 1.0));
 	return entity;
 }
 
@@ -218,7 +218,7 @@ int EntityFactory::createCliffFiller(int entity, EntityManager & entityManager)
 
 	entityManager.addComponentToEntity(entity, PositionComponent());
 	entityManager.addComponentToEntity(entity, appearance);
-	entityManager.addComponentToEntity(entity, BoundingBoxComponent(1.0, 0.2));
+	entityManager.addComponentToEntity(entity, BoundingBoxComponent(1.0, 1.0));
 	return entity;
 }
 
@@ -241,7 +241,7 @@ int EntityFactory::createCliffCorner(int entity, EntityManager & entityManager, 
 
 	entityManager.addComponentToEntity(entity, PositionComponent());
 	entityManager.addComponentToEntity(entity, appearance);
-	entityManager.addComponentToEntity(entity, BoundingBoxComponent(1.0, 0.2));
+	entityManager.addComponentToEntity(entity, BoundingBoxComponent(1.0, 1.0));
 	return entity;
 }
 
@@ -255,17 +255,17 @@ int EntityFactory::createTree(int entity, EntityManager & entityManager)
 	auto model = ml.loadModel("./res/Tree.obj");
 
 	AppearanceComponent appearance;
-	appearance.scaleX = 0.3f;
-	appearance.scaleY = 0.3f;
-	appearance.scaleZ = 0.3f;
-	appearance.color = Math::Vector3f(0.98f, 0.98f, 0.98f);
+	appearance.scaleX = 0.2f;
+	appearance.scaleY = 0.2f;
+	appearance.scaleZ = 0.2f;
+	appearance.color = Math::Vector3f(0.9f, 0.9f, 0.9f);
 
 	appearance.rotationY = rand() % 360;
 	appearance.model = std::move(model);
 
 	entityManager.addComponentToEntity(entity, PositionComponent());
 	entityManager.addComponentToEntity(entity, appearance);
-	entityManager.addComponentToEntity(entity, BoundingBoxComponent(1.0, 0.2));
+	entityManager.addComponentToEntity(entity, BoundingBoxComponent(0.6, 0.6));
 	return entity;
 }
 
@@ -289,7 +289,7 @@ int EntityFactory::createRock(int entity, EntityManager & entityManager)
 
 	entityManager.addComponentToEntity(entity, PositionComponent());
 	entityManager.addComponentToEntity(entity, appearance);
-	entityManager.addComponentToEntity(entity, BoundingBoxComponent(1.0, 0.2));
+	entityManager.addComponentToEntity(entity, BoundingBoxComponent(1.2, 1.2));
 	return entity;
 }
 
@@ -369,7 +369,7 @@ int EntityFactory::createFloor(int entity, EntityManager & entityManager) {
 	appearance.translationY = -scale / 15;
 
 	appearance.model = std::move(model);
-	appearance.color = Math::Vector3f{ 0.8f, 0.8f, 0.82f };
+	appearance.color = Math::Vector3f{ 1.0f, 1.0f, 1.0f };
 	
 	entityManager.addComponentToEntity(entity, PositionComponent());
 	entityManager.addComponentToEntity(entity, appearance);
