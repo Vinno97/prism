@@ -24,9 +24,9 @@ class PrismGame : public Game
 	ECS::EntityManager entityManager;
 	ECS::SystemManager systemManager;
 	EntityFactory entityFactory;
-	Menu::MenuBuilder menuBuilder;
 	Menu::MenuRenderer menuRenderer;
-	Menu::Menu menu;
+	Menu::MenuBuilder menuBuilder;
+	std::unique_ptr<Menu::Menu> menu;
 
 	bool canPressEscape;
 	void registerSystems(Context &context);

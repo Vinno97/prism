@@ -64,8 +64,11 @@ namespace States {
 		registerSystems(context);
 
 		context.stateMachine->addState<PauseState>(context);
-
 		context.stateMachine->addState<EndState>(context);
+
+		menuBuilder.addControl(-0.35, -0.7, 0.6, 0.18, "img/QuitGameButton.png");
+		auto c = menuBuilder.addTextControl(0, 0, 0.001, Math::Vector3f{ 0.f, 1.f, 1. - 0.f }, "Hey Louis");
+		menu = menuBuilder.buildMenu();
 		
 		std::function<void()> callback = [context, &canPress = canPressEscape]() mutable { canPress = false; context.stateMachine->setState<PauseState>(); };
 	}
@@ -109,7 +112,7 @@ namespace States {
 	{
 
 		auto input = context.inputManager;
-		if (menu.handleInput(*context.inputManager, context.window->width, context.window->height)) {
+		if (menu->handleInput(*context.inputManager, context.window->width, context.window->height)) {
 			return;
 		}
 
@@ -121,6 +124,7 @@ namespace States {
 			
 		
 		std::cout << 1.0/context.deltaTime << std::endl;
+		menuRenderer.renderMenu(*menu, float(context.window->width) / float(context.window->height));
 		context.window->swapScreen();
 
 		if (!input->isKeyPressed(Key::KEY_ESCAPE)) {
