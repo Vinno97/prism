@@ -30,7 +30,7 @@ namespace ECS {
 
                 Math::Vector2<double> spawnPos = *entityManager->getComponent<PositionComponent>(resourcePoint.id);
 
-                // Zoekt de dichtstbijzijnde gatherer.
+                // Finds the nearest ResourceGatherer.
                 auto gatherer = std::min_element(resourceGatherers.begin(), resourceGatherers.end(), [&](auto e1, auto e2) {
                     Math::Vector2<double> pos1 = *entityManager->getComponent<PositionComponent>(e1.id);
                     Math::Vector2<double> pos2 = *entityManager->getComponent<PositionComponent>(e2.id);
