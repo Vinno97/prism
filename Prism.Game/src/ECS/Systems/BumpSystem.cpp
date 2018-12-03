@@ -20,12 +20,10 @@ void BumpSystem::update(Context& context)
 		auto boundingBoxComponent = entityManager->getComponent<BoundingBoxComponent>(entity.id);
 		if (entityManager->hasComponent<VelocityComponent>(entity.id) && boundingBoxComponent->didCollide) {
 
-
-			const auto currentBoundingBox = &boundingBoxComponent->boundingBox;
-			auto vector = &boundingBoxComponent->collidesWith;
+			const auto & currentBB = boundingBoxComponent->boundingBox;
+			auto & collisions = boundingBoxComponent->collidesWith;
 			
-
-			if (vector->size() > 0) {
+			if (collisions.size() > 0) {
 				auto currentPosition = entityManager->getComponent<PositionComponent>(entity.id);
 				auto currentVelocity = entityManager->getComponent<VelocityComponent>(entity.id);
 				
@@ -33,51 +31,39 @@ void BumpSystem::update(Context& context)
 
 				bool xCol = false;
 				bool yCol = false;
-				// tXcol = 0.0;
-				//float tYcol = 0.0;
 
-				for (auto& id : *vector) {	
+				for (auto& id : collisions) {
 					if (entityManager->hasComponent<PositionComponent>(id)) {
 						auto colliderPosition = entityManager->getComponent<PositionComponent>(id);
-						auto didColide = entityManager->getComponent<BoundingBoxComponent>(id)->didCollide;
-
-						float colliderVelocityX = 0.0;
-						float colliderVelocityY = 0.0;
-
-						if (entityManager->hasComponent<VelocityComponent>(id)) {
-							colliderVelocityX = entityManager->getComponent<VelocityComponent>(id)->dx;
-							colliderVelocityY = entityManager->getComponent<VelocityComponent>(id)->dy;
-						}
 
 						bool cx1 = currentPosition->x > colliderPosition->x && currentVelocity->dx < 0;
 						bool cx2 = currentPosition->x < colliderPosition->x && currentVelocity->dx > 0;
 						bool cy1 = currentPosition->y > colliderPosition->y && currentVelocity->dy < 0;
 						bool cy2 = currentPosition->y < colliderPosition->y && currentVelocity->dy > 0;
 
-
 						if ((cx1 || cx2) && (cy1 || cy2)) {
-
-							auto colliderBoundingBox = entityManager->getComponent<BoundingBoxComponent>(id)->boundingBox;
-							auto currentX = currentPosition->x;
-							auto currentY = currentPosition->y;
-							auto colliderX = colliderPosition->x;
-							auto colliderY = colliderPosition->y;
+							auto &colliderBB = entityManager->getComponent<BoundingBoxComponent>(id)->boundingBox;
+							
+							auto currentX = currentBB.GetPosX();
+							auto currentY = currentBB.GetPosY();
+							auto colliderX = colliderBB.GetPosX();
+							auto colliderY = colliderBB.GetPosY();
 
 							float xColT = 0.0;
 							float yColT = 0.0;
 
 							if (cx1) {
-								xColT = std::abs((colliderX + colliderBoundingBox.GetEast()) - (currentX + currentBoundingBox->GetWest()));
+								xColT = std::abs((colliderX + colliderBB.GetEast()) - (currentX + currentBB.GetWest()));
 							}
 							else if (cx2) {
-								xColT = std::abs((currentX + currentBoundingBox->GetEast()) - (colliderX + colliderBoundingBox.GetWest()));
+								xColT = std::abs((currentX + currentBB.GetEast()) - (colliderX + colliderBB.GetWest()));
 							}
 
 							if (cy1) {
-								yColT = std::abs((colliderY - colliderBoundingBox.GetSouth()) - (currentY - currentBoundingBox->GetNorth()));
+								yColT = std::abs((colliderY - colliderBB.GetSouth()) - (currentY - currentBB.GetNorth()));
 							}
 							else if (cy2) {
-								yColT = std::abs((colliderY - colliderBoundingBox.GetNorth()) - (currentY - currentBoundingBox->GetSouth()));
+								yColT = std::abs((colliderY - colliderBB.GetNorth()) - (currentY - currentBB.GetSouth()));
 							}
 							
 							if (xColT < yColT) {
@@ -102,14 +88,12 @@ void BumpSystem::update(Context& context)
 						}
 					}
 				}
-
-				
+		
 				if (xCol && yCol) {
 					currentPosition->x -= currentVelocity->dx*context.deltaTime;
 					currentVelocity->dx = 0;
 					currentPosition->y -= currentVelocity->dy*context.deltaTime;
 					currentVelocity->dy = 0;
-					
 				}
 				else if (xCol) {
 					currentPosition->x -= currentVelocity->dx*context.deltaTime;

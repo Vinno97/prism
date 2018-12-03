@@ -24,15 +24,15 @@ void CollisionSystem::update(Context& context)
 	for (auto entity : entityManager->getAllEntitiesWithComponent<BoundingBoxComponent>())
 	{
 		if (entityManager->hasComponent<PositionComponent>(entity.id) && entityManager->hasComponent<BoundingBoxComponent>(entity.id)) {
-			auto boundingBox = &entityManager->getComponent<BoundingBoxComponent>(entity.id)->boundingBox;
+			auto &boundingBox = entityManager->getComponent<BoundingBoxComponent>(entity.id)->boundingBox;
 			auto position = entityManager->getComponent<PositionComponent>(entity.id);
 			
-			boundingBox->SetPosXY(position->x, position->y);
+			boundingBox.SetPosXY(position->x, position->y);
 
-			if (!entityManager->hasComponent<BoundingBoxComponent>(boundingBoxMap[boundingBox])) {
-				boundingBoxMap[boundingBox] = entity.id;
+			if (!entityManager->hasComponent<BoundingBoxComponent>(boundingBoxMap[&boundingBox])) {
+				boundingBoxMap[&boundingBox] = entity.id;
 			}			
-			quadTree.Insert(*boundingBox);
+			quadTree.Insert(boundingBox);
 		}
 	}
 
