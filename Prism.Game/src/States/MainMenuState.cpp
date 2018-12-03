@@ -20,6 +20,7 @@ namespace States {
 		menuBuilder.addControl(-0.35,  0.1, 0.6, 0.18, "img/LoadGameButton.png");
 		menuBuilder.addControl(-0.35, -0.7, 0.6, 0.18, "img/QuitGameButton.png");
 
+		auto c = menuBuilder.addTextControl(0, 0, 0.001, Math::Vector3f{ 0.f, 1.f, 1. -0.f }, "Hey Louis");
 		menu = menuBuilder.buildMenu();
 
 		renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
@@ -46,10 +47,6 @@ namespace States {
 	}
 
 	void MainMenuState::onLeave()
-	{
-	}
-
-	MainMenuState::~MainMenuState()
 	{
 	}
 }

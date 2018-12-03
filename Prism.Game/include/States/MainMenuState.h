@@ -17,8 +17,6 @@ namespace States {
 		void onEnter() override;
 		void onLeave() override;
 
-		~MainMenuState();
-
 	private:
 		Menu::MenuRenderer menuRenderer;
 		Menu::MenuBuilder menuBuilder;
