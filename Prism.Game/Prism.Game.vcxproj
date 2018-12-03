@@ -122,6 +122,7 @@
     <ClInclude Include="include\World\Assemblers\TowerAssembler.h" />
     <ClInclude Include="include\World\Assemblers\WallAssembler.h" />
     <ClInclude Include="include\World\Assemblers\PrismEntityAssembler.h" />
+    <ClInclude Include="include\World\Assemblers\MineAssembler.h" />
     <ClInclude Include="include\PrismGame.h" />
     <ClInclude Include="include\ECS\Components\KeyboardInputComponent.h" />
     <ClInclude Include="include\ECS\Systems\KeyboardInputSystem.h" />
@@ -157,7 +158,8 @@
     <ClCompile Include="src\World\Assemblers\ResourceSpawnAssembler.cpp" />
     <ClCompile Include="src\World\Assemblers\TowerAssembler.cpp" />
     <ClCompile Include="src\World\Assemblers\WallAssembler.cpp" />
-    <ClCompile Include="src\World\TerrainGenerator.cpp" />
+    <ClCompile Include="src\World\Assemblers\MineAssembler.cpp" />
+     <ClCompile Include="src\World\TerrainGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="lib\assimp-vc140-mtd.dll" />
