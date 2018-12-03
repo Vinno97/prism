@@ -50,8 +50,6 @@ namespace ECS {
 					dirX += acceleration;
 				}
 
-
-
 				//	//TODO MOET WAARSCHIJNLIJK ANDERS
 				//	if (input->isMouseButtonPressed(Key::MOUSE_BUTTON_LEFT))
 				//	{
@@ -82,16 +80,7 @@ namespace ECS {
 				v.normalize();
 				velocity->dx += v.x * acceleration*context.deltaTime;
 				velocity->dy += v.y * acceleration*context.deltaTime;
-				
-				// Cheat option to increase health of the Player
-				if (entityManager->hasComponent<PlayerComponent>(entity.id)) {
-					auto healthComponent = entityManager->getComponent<HealthComponent>(entity.id);
-
-					if (input->isKeyPressed(Key::KEY_H))
-					{
-						// healthComponent->increase();
-					}
-				}
+			
 			}
 		}
 	}
