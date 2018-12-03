@@ -13,13 +13,17 @@
 #include "ECS/Components/KeyboardInputComponent.h"
 #include "ECS/Systems/EnemyPathFindingSystem.h"
 #include "ECS/Systems/MotionSystem.h"
+#include "ECS/Systems/GameOverSystem.h"
 #include "ECS/Systems/AttackSystem.h"
 #include "ECS/Systems/RenderSystem.h"
+#include "ECS/Systems/EnemySpawnSystem.h"
+#include "ECS/Systems/MousePointSystem.h"
 #include "ECS/Systems/KeyboardInputSystem.h"
 #include "ECS/Systems/AnimationSystem.h"
 #include "ECS/Systems/AttackSystem.h"
 #include "ECS/Systems/BumpSystem.h"
 #include "ECS/Systems/CollisionSystem.h"
+#include "ECS/Systems/CheatSystem.h"
 #include "ECS/Systems/ResourceGatherSystem.h"
 #include "ECS/Systems/ResourceBlobSystem.h"
 #include "ECS/Systems/ShootingSystem.h"
@@ -81,6 +85,8 @@ namespace States {
 			.registerSystem<1, KeyboardInputSystem>(entityManager)
 			.registerSystem<1, MousePointSystem>(entityManager)
 			.registerSystem<1, EnemyPathFindingSystem>(entityManager, 10)
+			.registerSystem<1, CheatSystem>(entityManager)
+			.registerSystem<1, GameOverSystem>(entityManager)
 
 			//2
 			.registerSystem<2, MotionSystem>(entityManager)
@@ -107,7 +113,7 @@ namespace States {
 
 	void PrismGame::onUpdate(Context &context)
 	{
-
+		std::cout << 1.0 / context.deltaTime << "\r";
 		auto input = context.inputManager;
 		if (menu.handleInput(*context.inputManager, context.window->width, context.window->height)) { 
 			return; 
@@ -119,9 +125,6 @@ namespace States {
 			}
 		}
 			
-		
-		std::cout << 1.0/context.deltaTime << std::endl;
-
 		context.window->swapScreen();
 
 		if (!input->isKeyPressed(Key::KEY_ESCAPE)) {
