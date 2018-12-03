@@ -56,6 +56,7 @@
     <ClCompile Include="src\ECS\Systems\CollisionSystem.cpp" />
     <ClCompile Include="src\World\Assemblers\HealthAssembler.cpp" />
     <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLRenderTarget.cpp" />
+    <ClCompile Include="src\Physics\PhysicsEngine.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ECS\Components\HealthComponent.h" />
@@ -157,6 +158,8 @@
     <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLRenderTarget.h" />
     <ClInclude Include="include\ECS\Components\DynamicComponent.h" />
     <ClInclude Include="include\ECS\EntityBuilder.h" />
+    <ClInclude Include="lib\include\Box2D\Box2D.h" />
+    <ClInclude Include="include\Physics\PhysicsEngine.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\x64\SDL2test.lib" />
@@ -166,6 +169,8 @@
     <Library Include="lib\x64\assimp-vc140-mtd.lib" />
     <Library Include="lib\x64\SDL2_mixer.lib" />
     <Library Include="lib\x64\SDL2_image.lib" />
+    <Library Include="..\..\referenties\Box2D\Build\bin\x86_64\Release\Box2D.lib" />
+    <Library Include="lib\x64\Box2D.lib" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="png\healthbar.png" />

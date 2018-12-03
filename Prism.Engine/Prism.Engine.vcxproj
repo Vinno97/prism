@@ -16,6 +16,7 @@
     <ClInclude Include="include\ECS\EntityBuilder.h" />
     <ClInclude Include="include\Menu\Control.h" />
     <ClInclude Include="include\ECS\Components\PlayerComponent.h" />
+    <ClInclude Include="include\Physics\PhysicsEngine.h" />
     <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLRenderTarget.h" />
     <ClInclude Include="include\Renderer\Graphics\RenderTarget.h" />
     <ClInclude Include="include\World\Assemblers\AppearanceAssembler.h" />
@@ -99,9 +100,11 @@
     <ClInclude Include="include\Menu\Menu.h" />
     <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLTexture.h" />
     <ClInclude Include="include\Surface.h" />
+    <ClInclude Include="lib\include\Box2D\Box2D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\AudioManager.cpp" />
+    <ClCompile Include="src\Physics\PhysicsEngine.cpp" />
     <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLRenderTarget.cpp" />
     <ClCompile Include="src\World\Assemblers\AppearanceAssembler.cpp" />
     <ClCompile Include="src\World\Assemblers\HealthAssembler.cpp" />
@@ -156,6 +159,8 @@
     <ClCompile Include="src\Surface.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Library Include="..\..\referenties\Box2D\Build\bin\x86_64\Release\Box2D.lib" />
+    <Library Include="lib\x64\Box2D.lib" />
     <Library Include="lib\x64\glew32.lib" />
     <Library Include="lib\x64\assimp-vc140-mtd.lib" />
     <Library Include="lib\x64\SDL2.lib" />

@@ -12,6 +12,7 @@ in
             paths = buildInputs;
         };
         buildInputs = [
+            box2d
             cmake
             pkgconfig
             SDL2

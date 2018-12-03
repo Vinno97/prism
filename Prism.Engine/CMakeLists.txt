@@ -32,6 +32,7 @@ else () # Assume GCC/Clang on a Unix os
     find_package(OpenGL REQUIRED)
     find_package(GLEW REQUIRED)
     find_package(Assimp REQUIRED)
+    find_package(Box2D REQUIRED)
 
 #    link_libraries(libc++fs)
 
@@ -61,16 +62,27 @@ elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
 endif()
 
 #target_link_libraries(Prism.Engine PRIVATE ${ASSIMP_LIBRARIES} ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES} ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES})
-target_link_libraries(Prism.Engine PRIVATE ${ASSIMP_LIBRARIES} ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES} ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES} ${SDL2_MIXER_LIBRARIES} ${FILESYSTEM_LIB})
+target_link_libraries(Prism.Engine PRIVATE
+        ${ASSIMP_LIBRARIES}
+        ${BOX2D_LIBRARIES}
+        ${OPENGL_LIBRARIES}
+        ${GLEW_LIBRARIES}
+        ${SDL2_LIBRARIES}
+        ${SDL2_IMAGE_LIBRARIES}
+        ${SDL2_MIXER_LIBRARIES}
+        ${FILESYSTEM_LIB}
+        )
 
 target_include_directories(Prism.Engine PUBLIC include)
 target_include_directories(Prism.Engine PRIVATE
         src
         ${ASSIMP_INCLUDE_DIRS}
+        ${BOX2D_INCLUDE_DIRS}
         ${OPENGL_INCLUDE_DIRS}
         ${GLEW_INCLUDE_DIRS}
         ${SDL2_INCLUDE_DIRS}
-        ${SDL2_IMAGE_INCLUDE_DIRS})
+        ${SDL2_IMAGE_INCLUDE_DIRS}
+        )
 
 
 # find_package(GTest)
