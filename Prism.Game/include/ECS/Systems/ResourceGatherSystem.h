@@ -13,8 +13,7 @@ namespace ECS {
 		class ResourceGatherSystem : public System
 		{
 		public:
-			ResourceGatherSystem(EntityManager &entityManager);
-			~ResourceGatherSystem() = default;
+			explicit ResourceGatherSystem(EntityManager& entityManager) : System(entityManager) {};
 			void update(Context& context) override;
 		private:
 			
@@ -22,8 +21,7 @@ namespace ECS {
 			/// <summary>
 			/// Checks if an entity with the resourceGatherComponent is in range to collect the resource
 			/// </summay>
-			bool shouldIncreaseResources(PositionComponent& playerPosition, PositionComponent& resourcePointPosition, float radius) const;
-			void createResourceBlob(int resourcePointID, Enums::ResourceType resourceType, float value);
+			void spawnResourceBlob(Math::Vector2<double>, unsigned targetId, Enums::ResourceType resourceType, float value);
 		};
 	}
 }
