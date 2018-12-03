@@ -4,8 +4,6 @@
 StateMachine::StateMachine()
 = default;
 
-
-
 State* StateMachine::getCurrentState() const
 {
 	return this->currentState;

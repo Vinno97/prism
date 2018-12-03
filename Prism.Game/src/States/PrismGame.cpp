@@ -50,8 +50,6 @@ namespace States {
 		auto mousePointer = entityFactory.createCameraPointer(entityManager);
 		auto sceneComponent = entityManager.getComponent<SceneComponent>(scene);
 
-
-
 		sceneComponent->scene.ambientLightColor = Math::Vector3f{ 1.0f, 1.0f, 1.0f };
 		sceneComponent->scene.ambientLightStrength = 0.95f;
 		sceneComponent->scene.sun.color = Math::Vector3f{ .20f, .20f, .20f };
@@ -80,7 +78,6 @@ namespace States {
 			context.stateMachine->getState<PauseState>()->onEnter(context);
 		};
 
-		gameOverSystem = std::make_unique<GameOverSystem>(GameOverSystem(entityManager));
 	}
 
 	/// <summary>
@@ -113,7 +110,8 @@ namespace States {
 			//5
 			.registerSystem<5, RenderSystem>(entityManager, context.window->width, context.window->height)
 			.registerSystem<5, AttackSystem>(entityManager)
-			.registerSystem<5, BumpSystem>(entityManager);
+			.registerSystem<5, BumpSystem>(entityManager)
+			.registerSystem<5, GameOverSystem>(entityManager);
 	}
 
 	void PrismGame::onUpdate(Context &context)
@@ -129,7 +127,6 @@ namespace States {
 			}
 		}
 
-		gameOverSystem->update(context);
 	
 		std::cout << 1.0/context.deltaTime << std::endl;
 

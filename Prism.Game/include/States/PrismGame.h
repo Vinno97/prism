@@ -27,7 +27,6 @@ class PrismGame : public Game
 	EntityFactory entityFactory;
 	Menu::MenuBuilder menuBuilder;
 	Menu::MenuRenderer menuRenderer;
-	std::unique_ptr<ECS::System> gameOverSystem;
 	Menu::Menu menu;
 	void cheat(Context &context);
 	bool canPressEscape;
