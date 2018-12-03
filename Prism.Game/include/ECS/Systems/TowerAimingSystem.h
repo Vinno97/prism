@@ -11,7 +11,7 @@ namespace ECS {
 			~TowerAimingSystem() = default;
 
 			void update(Context& context) override;
-			System* clone() override;
+			//System* clone() override;
 		private:
 			const float radius = 5;
 			bool enemyIsInRange(PositionComponent & playerPosition, PositionComponent & resourcePointPosition, float radius) const;

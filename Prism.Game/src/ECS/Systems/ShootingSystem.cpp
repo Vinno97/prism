@@ -55,10 +55,5 @@ namespace ECS {
 			}
 
 		}
-
-		System * ShootingSystem::clone()
-		{
-			return new ShootingSystem(*entityManager);
-		}
 	}
 }

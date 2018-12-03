@@ -68,7 +68,3 @@ int BumpSystem::CountCollisions(BoundingBox &box1, BoundingBox &adress, std::vec
 	return count;
 }
 
-ECS::Systems::System* BumpSystem::clone()
-{
-	return new BumpSystem(*entityManager);
-}

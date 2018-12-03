@@ -61,7 +61,7 @@ bool TowerAimingSystem::enemyIsInRange(PositionComponent& playerPosition, Positi
 	return false;
 }
 
-System * ECS::Systems::TowerAimingSystem::clone()
-{
-	return nullptr;
-}
+//System * ECS::Systems::TowerAimingSystem::clone()
+//{
+//	return nullptr;
+//}
