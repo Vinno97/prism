@@ -10,6 +10,7 @@
 #include "ECS/Components/VelocityComponent.h"
 #include "ECS/Components/AppearanceComponent.h"
 #include "ECS/Components/DragComponent.h"
+#include "ECS/Components/HealthComponent.h"
 #include "ECS/Components/KeyboardInputComponent.h"
 #include "ECS/Systems/EnemyPathFindingSystem.h"
 #include "ECS/Systems/MotionSystem.h"
@@ -66,9 +67,16 @@ namespace States {
 		context.stateMachine->addState<PauseState>(context);
 		context.stateMachine->addState<EndState>(context);
 
-		redResource = menuBuilder.addTextControl(-0.9, 0.94, 0.0007, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
-		greenResource = menuBuilder.addTextControl(-0.9, 0.90, 0.0007, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
-		blueResource = menuBuilder.addTextControl(-0.9,  0.86, 0.0007, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
+		redResource = menuBuilder.addTextControl(-0.9, 0.90, 0.0007, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
+		greenResource = menuBuilder.addTextControl(-0.9, 0.86, 0.0007, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
+		blueResource = menuBuilder.addTextControl(-0.9,  0.82, 0.0007, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
+		healthDot = menuBuilder.addTextControl(-0.95, 0.78, 0.005, Math::Vector3f{ 0.5f, 0.1f, 0.4f }, ".");
+
+		resourceRedDot = menuBuilder.addTextControl(-0.95, 0.90, 0.005, Math::Vector3f{ 0.8f, 0.1f, 0.1f }, ".");
+		resourceBlueDot = menuBuilder.addTextControl(-0.95, 0.86, 0.005, Math::Vector3f{ 0.1f, 0.1f, 0.8f }, ".");
+		resourceGreenDot = menuBuilder.addTextControl(-0.95, 0.82, 0.005, Math::Vector3f{ 0.1f, 0.8f, 0.1f }, ".");
+		health = menuBuilder.addTextControl(-0.9, 0.78, 0.0007, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "100");
+
 		menu = menuBuilder.buildMenu();
 		
 		std::function<void()> callback = [context, &canPress = canPressEscape]() mutable { canPress = false; context.stateMachine->setState<PauseState>(); };
@@ -123,9 +131,15 @@ namespace States {
 		}
 
 		auto inventory = entityManager.getAllEntitiesWithComponent<InventoryComponent>()[0].component;
+		int playerHealth;
+		for (const auto& entity : entityManager.getAllEntitiesWithComponent<PlayerComponent>()) {
+			playerHealth = entityManager.getComponent<HealthComponent>(entity.id)->health;
+		}
+
 		redResource->text =   "Red:   " + std::to_string(static_cast<int>(inventory->redResource));
 		blueResource->text =  "Blue:  " + std::to_string(static_cast<int>(inventory->blueResource));
 		greenResource->text = "Green: " + std::to_string(static_cast<int>(inventory->greenResource));
+		health->text = "Health: " + std::to_string(playerHealth);
 
 		menuRenderer.renderMenu(*menu, float(context.window->width) / float(context.window->height));
 		

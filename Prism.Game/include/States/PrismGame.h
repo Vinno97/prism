@@ -29,9 +29,15 @@ class PrismGame : public Game
 	Menu::MenuBuilder menuBuilder;
 	std::unique_ptr<Menu::Menu> menu;
 
+	//Textcontrols
 	Menu::TextControl* redResource;
 	Menu::TextControl* greenResource;
 	Menu::TextControl* blueResource;
+	Menu::TextControl* health;
+	Menu::TextControl* healthDot;
+	Menu::TextControl* resourceRedDot;
+	Menu::TextControl* resourceBlueDot;
+	Menu::TextControl* resourceGreenDot;
 
 	bool canPressEscape;
 	void registerSystems(Context &context);

@@ -47,8 +47,6 @@ void ECS::Systems::AttackSystem::update(Context& context) {
 						}
 					}
 				}
-
-
 			}
 		}
 	}
