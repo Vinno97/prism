@@ -6,13 +6,13 @@ using namespace World;
 using namespace World::Assemblers;
 
 void PlayerAssembler::assemble(int entity, const WorldObject& worldObject, ECS::EntityManager& entityManager) const {
-	if (worldObject.gid == 12) {
+	if (worldObject.gid == 4) {
 		EntityFactory().createPlayer(entity, entityManager);
 	}
 }
 
 void PlayerAssembler::disassemble(int entity, WorldObject& worldObject, const ECS::EntityManager& entityManager) const {
 	if (entityManager.hasComponent<ECS::Components::PlayerComponent>(entity)) {
-		worldObject.gid = 12;
+		worldObject.gid = 4;
 	}
 }

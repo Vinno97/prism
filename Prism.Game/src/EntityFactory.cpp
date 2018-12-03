@@ -230,9 +230,9 @@ int EntityFactory::createTree(int entity, EntityManager & entityManager)
 	auto model = ml.loadModel("./res/Tree.obj");
 
 	AppearanceComponent appearance;
-	appearance.scaleX = 1.0f;
-	appearance.scaleY = 1.0f;
-	appearance.scaleZ = 1.0f;
+	appearance.scaleX = 0.4f;
+	appearance.scaleY = 0.4f;
+	appearance.scaleZ = 0.4f;
 
 	appearance.rotationY = rand() % 360;
 	appearance.model = std::move(model);
@@ -253,9 +253,9 @@ int EntityFactory::createRock(int entity, EntityManager & entityManager)
 	auto model = ml.loadModel("./res/Big Rock.obj"); // And/or small rock?
 
 	AppearanceComponent appearance;
-	appearance.scaleX = 1.0f;
-	appearance.scaleY = 1.0f;
-	appearance.scaleZ = 1.0f;
+	appearance.scaleX = 0.2f;
+	appearance.scaleY = 0.2f;
+	appearance.scaleZ = 0.2f;
 
 	appearance.rotationY = rand() % 360;
 	appearance.model = std::move(model);

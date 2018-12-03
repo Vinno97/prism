@@ -13,7 +13,7 @@ World::Assemblers::ResourceSpawnAssembler::ResourceSpawnAssembler()
 }
 
 void ResourceSpawnAssembler::assemble(int entity, const WorldObject& worldObject, ECS::EntityManager& entityManager) const {
-	if (worldObject.gid == 2 || worldObject.gid == 11 || worldObject.gid == 13) {
+	if (worldObject.gid == 1 || worldObject.gid == 2 || worldObject.gid == 3) {
 		// TODO: Creëer het juiste type zodra dit in de game zit.
 
 		auto value = 1;
