@@ -219,7 +219,7 @@ int EntityFactory::createCliffCorner(int entity, EntityManager & entityManager, 
 	entityManager.addComponentToEntity(entity, BoundingBoxComponent(1.0, 0.2));
 	return entity;
 }
-//
+
 int EntityFactory::createTree(EntityManager & entityManager) {
 	return createTree(entityManager.createEntity(), entityManager);
 }
@@ -265,7 +265,7 @@ int EntityFactory::createRock(int entity, EntityManager & entityManager)
 	entityManager.addComponentToEntity(entity, BoundingBoxComponent(1.0, 0.2));
 	return entity;
 }
-//
+
 int EntityFactory::createMine(EntityManager & entityManager)
 {
 	return createMine(entityManager.createEntity(), entityManager);

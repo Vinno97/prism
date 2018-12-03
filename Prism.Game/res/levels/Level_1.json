@@ -1,5 +1,5 @@
 { "height":30,
- "infinite":true,
+ "infinite":false,
  "layers":[
         {
          "draworder":"topdown",
