@@ -33,7 +33,6 @@ namespace Menu {
 		textControl.colour = colour;
 		textControl.scale = scale;
 		menu->textControls.push_back(textControl);
-	
 		return *(--menu->textControls.end());
 	}
 

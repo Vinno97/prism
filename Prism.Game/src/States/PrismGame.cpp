@@ -67,7 +67,9 @@ namespace States {
 		context.stateMachine->addState<EndState>(context);
 
 		menuBuilder.addControl(-0.35, -0.7, 0.6, 0.18, "img/QuitGameButton.png");
-		//auto c = menuBuilder.addTextControl(0, 0, 0.001, Math::Vector3f{ 0.f, 1.f, 1. - 0.f }, "Hey Louis");
+		redResource = &menuBuilder.addTextControl(-1, 1, 0.005, Math::Vector3f{ 0.f, 1.f, 1. - 0.f }, "Hey Louis");
+		//greenResource = &menuBuilder.addTextControl(-1, -0.9, 0.005, Math::Vector3f{ 0.f, 1.f, 1. - 0.f }, "Hey Louis");
+		//blueResource = &menuBuilder.addTextControl(-1, -0.8, 0.005, Math::Vector3f{ 0.f, 1.f, 1. - 0.f }, "Hey Louis");
 		menu = menuBuilder.buildMenu();
 		
 		std::function<void()> callback = [context, &canPress = canPressEscape]() mutable { canPress = false; context.stateMachine->setState<PauseState>(); };
@@ -121,9 +123,11 @@ namespace States {
 			}
 		}
 			
+		redResource->text = std::to_string(context.deltaTime);
+
+		menuRenderer.renderMenu(*menu, float(context.window->width) / float(context.window->height));
 		
 		std::cout << 1.0/context.deltaTime << std::endl;
-		menuRenderer.renderMenu(*menu, float(context.window->width) / float(context.window->height));
 		context.window->swapScreen();
 
 		if (!input->isKeyPressed(Key::KEY_ESCAPE)) {

@@ -3,6 +3,7 @@
 #include "Menu/MenuBuilder.h"
 #include "Menu/MenuRenderer.h"
 #include "Menu/Menu.h"
+#include "Menu/TextControl.h"
 #include "ECS/EntityManager.h"
 #include "ECS/SystemManager.h"
 #include "EntityFactory.h"
@@ -27,6 +28,10 @@ class PrismGame : public Game
 	Menu::MenuRenderer menuRenderer;
 	Menu::MenuBuilder menuBuilder;
 	std::unique_ptr<Menu::Menu> menu;
+
+	Menu::TextControl* redResource;
+	Menu::TextControl* greenResource;
+	Menu::TextControl* blueResource;
 
 	bool canPressEscape;
 	void registerSystems(Context &context);
