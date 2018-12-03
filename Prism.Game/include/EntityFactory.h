@@ -1,50 +1,42 @@
 #pragma once
-#include <memory>
-
 #include "ECS/EntityManager.h"
 #include "Enums/ResourceTypeEnum.h"
 
 class EntityFactory {
 public:
-	~EntityFactory()
-		= default;
+	unsigned createPlayer(ECS::EntityManager& entityManager) const;
+	unsigned createPlayer(unsigned entity, ECS::EntityManager& entityManager) const;
 
-	int createPlayer(ECS::EntityManager& entityManager);
-	int createPlayer(int entity, ECS::EntityManager& entityManager);
+	unsigned createEnemy(ECS::EntityManager& entityManager) const;
+	unsigned createEnemy(unsigned entity, ECS::EntityManager& entityManager) const;
 
-	int createEnemy(ECS::EntityManager& entityManager);
-	int createEnemy(int entity, ECS::EntityManager& entityManager);
+	unsigned createResourcePoint(ECS::EntityManager & entityManager, Enums::ResourceType type, int gatherRate, float value) const;
+	unsigned createResourcePoint(unsigned entity, ECS::EntityManager & entityManager, Enums::ResourceType type, int gatherRate, float value) const;
 
-	int createResourcePoint(ECS::EntityManager & entityManager, Enums::ResourceType type, int gatherRate, float value);
-	int createResourcePoint(int entity, ECS::EntityManager & entityManager, Enums::ResourceType type, int gatherRate, float value);
+	unsigned createTower(ECS::EntityManager& entityManager) const;
+	unsigned createTower(unsigned entity, ECS::EntityManager& entityManager) const;
 
-	int createTower(ECS::EntityManager& entityManager);
-	int createTower(int entity, ECS::EntityManager& entityManager);
+	unsigned createWall(ECS::EntityManager& entityManager) const;
+	unsigned createWall(unsigned entity, ECS::EntityManager& entityManager) const;
 
-	int createWall(ECS::EntityManager& entityManager);
-	int createWall(int entity, ECS::EntityManager& entityManager);
+	unsigned createMine(ECS::EntityManager& entityManager) const;
+	unsigned createMine(unsigned entity, ECS::EntityManager& entityManager) const;
 
-	int createMine(ECS::EntityManager& entityManager);
-	int createMine(int entity, ECS::EntityManager& entityManager);
+	unsigned createScene(ECS::EntityManager & entityManager) const;
+	static unsigned createScene(unsigned entity, ECS::EntityManager & entityManager);
 
-	int createScene(ECS::EntityManager & entityManager);
-
-	int createProjectile(ECS::EntityManager & entityManager);
-
-	int createScene(int entity, ECS::EntityManager & entityManager);
+	unsigned createProjectile(ECS::EntityManager & entityManager) const;
+	unsigned createProjectile(unsigned entity, ECS::EntityManager & entityManager) const;
 	
-	int createEnemySpawn(ECS::EntityManager & entityManager, float spawnInterval, bool enabled);
-	int createEnemySpawn(int entity, ECS::EntityManager & entityManager, float spawnInterval, bool enabled);
+	unsigned createEnemySpawn(ECS::EntityManager & entityManager, float spawnInterval, bool enabled) const;
+	unsigned createEnemySpawn(unsigned entity, ECS::EntityManager & entityManager, float spawnInterval, bool enabled) const;
 
+	unsigned createFloor(ECS::EntityManager & entityManager) const;
+	unsigned createFloor(unsigned entity, ECS::EntityManager & entityManager) const;
 
-	int createFloor(ECS::EntityManager & entityManager);
-	int createFloor(int entity, ECS::EntityManager & entityManager);
+	unsigned createResourceBlob(ECS::EntityManager & entityManager, Enums::ResourceType type, float value) const;
+	unsigned createResourceBlob(unsigned entity, ECS::EntityManager & entityManager, Enums::ResourceType type, float value) const;
 
-	int createResourceBlob(ECS::EntityManager & entityManager, Enums::ResourceType type, float value);
-	int createResourceBlob(int entity, ECS::EntityManager & entityManager, Enums::ResourceType type, float value);
-	
-	int createCamera(ECS::EntityManager & entityManager);
-	int createCameraPointer(ECS::EntityManager & entityManager);
-private:
-	//map<std::string, Model> modelCache; // TODO: Use this cache to cache the models to optimize memory usage.
+	static unsigned createCamera(ECS::EntityManager & entityManager);
+	static unsigned createCameraPointer(ECS::EntityManager & entityManager);
 };

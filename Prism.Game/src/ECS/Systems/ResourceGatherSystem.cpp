@@ -1,17 +1,20 @@
 #pragma once
 
 #include "Context.h"
+#include <cmath>
 
 #include "ECS/Systems/ResourceGatherSystem.h"
 #include "ECS/Components/ResourceGatherComponent.h"
-#include "ECS/Components/VelocityComponent.h"
-#include "ECS/Components/AppearanceComponent.h"
-#include "ECS/Components/ResourceBlobComponent.h"
 #include "Enums/ResourceTypeEnum.h"
-#include <math.h>
+#include "ECS/Components/PositionComponent.h"
+#include "ECS/Components/ResourceSpawnComponent.h"
+#include "ECS/Components/PlayerComponent.h"
+#include "ECS/Components/InventoryComponent.h"
 
 namespace ECS {
 	namespace Systems {
+		using namespace Components;
+		
 		ResourceGatherSystem::ResourceGatherSystem(EntityManager & entityManager) : System(entityManager)
 		{
 			

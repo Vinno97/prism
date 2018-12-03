@@ -23,23 +23,30 @@ void BumpSystem::update(Context& context)
 			const auto boundingBox = &boundingBoxComponent->boundingBox;
 			auto vector = &boundingBoxComponent->collidesWith;
 			
-			if (boundingBoxComponent->didCollide) {
+			if (vector->size() > 0) {
 				const auto position = entityManager->getComponent<PositionComponent>(entity.id);
 				auto velocity = entityManager->getComponent<VelocityComponent>(entity.id);
 
-				BoundingBox testBox1(*boundingBox);
-				BoundingBox testBox2(*boundingBox);
+				//if (velocity->dx != 0.0 || velocity->dy != 0.0) {
+				BoundingBox testBoxXPlus(*boundingBox);
+				BoundingBox testBoxYPlus(*boundingBox);
+
+				BoundingBox testBoxXMin(*boundingBox);
+				BoundingBox testBoxYMin(*boundingBox);
+
 				float x = position->x;
 				float y = position->y;
 
-				testBox1.SetPosXY(x - velocity->dx*context.deltaTime, y);
-				testBox2.SetPosXY(x, y - velocity->dy*context.deltaTime);
-
-				if (CountCollisions(testBox1, *boundingBox, *vector) == 0) {
+				//testBoxXPlus.SetPosXY(x + velocity->dx*context.deltaTime, y);
+				//testBoxYPlus.SetPosXY(x, y + velocity->dy*context.deltaTime);
+				testBoxXMin.SetPosXY(x - velocity->dx*context.deltaTime, y);
+				testBoxYMin.SetPosXY(x, y - velocity->dy*context.deltaTime);
+				
+				if (CountCollisions(testBoxXMin, *vector) == 0) {
 					position->x -= velocity->dx*context.deltaTime;
 					velocity->dx = 0;
 				}
-				else if (CountCollisions(testBox2, *boundingBox, *vector) == 0) {
+				else if (CountCollisions(testBoxYMin, *vector) == 0) {
 					position->y -= velocity->dy*context.deltaTime;
 					velocity->dy = 0;
 				}
@@ -49,6 +56,7 @@ void BumpSystem::update(Context& context)
 					position->y -= velocity->dy * context.deltaTime;
 					velocity->dy = 0;
 				}
+				//}
 				boundingBoxComponent->didCollide = false;
 				boundingBoxComponent->collidesWith.clear();
 			}
@@ -57,12 +65,16 @@ void BumpSystem::update(Context& context)
 }
 
 
-int BumpSystem::CountCollisions(BoundingBox &box1, BoundingBox &adress, std::vector<const BoundingBox*> &vector)
+int BumpSystem::CountCollisions(BoundingBox &currentBox, std::vector<unsigned int> &vector)
 {
 	int count = 0;
-	for (int i = 0; i < vector.size(); i++) {
-		if (aabbCollider.CheckCollision(box1, *(vector[i]))) {
-			count++;
+
+	for (const auto& entity : vector) {
+		if (entityManager->hasComponent<BoundingBoxComponent>(entity)) {
+			auto bb = &entityManager->getComponent<BoundingBoxComponent>(entity)->boundingBox;
+			if (aabbCollider.CheckCollision(currentBox, *bb)) {
+				count++;
+			}
 		}
 	}
 	return count;

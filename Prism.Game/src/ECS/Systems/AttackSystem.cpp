@@ -10,6 +10,7 @@
 #include "States/PauseState.h"
 #include "ECS/Components/EnemyComponent.h"
 #include "ECS/Components/PlayerComponent.h"
+#include "ECS/Components/PositionComponent.h"
 
 
 ECS::Systems::AttackSystem::AttackSystem(EntityManager &entityManager) : System(entityManager) { }
@@ -18,6 +19,7 @@ ECS::Systems::AttackSystem::~AttackSystem()
 = default;
 
 using namespace States;
+using namespace ECS::Components;
 
 void ECS::Systems::AttackSystem::update(Context& context) {
 
@@ -32,19 +34,16 @@ void ECS::Systems::AttackSystem::update(Context& context) {
 			auto Position = entityManager->getComponent<PositionComponent>(entity.id);
 
 			boundingBoxComponent->boundingBox.SetPosXY(Position->x, Position->y);
-			std::vector<Physics::BoundingBox const *> vector;
+			std::vector<unsigned int> vector;
 
 			vector = boundingBoxComponent->collidesWith;
 			if (boundingBoxComponent->didCollide) {
 							   				
 				for (int i = 0; i < vector.size(); i++) {
-					for (const auto& entity1 : entityManager->getAllEntitiesWithComponent<PlayerComponent>()) {
-						auto CollideBoundingBox = &entityManager->getComponent<BoundingBoxComponent>(entity1.id)->boundingBox;
-						if (CollideBoundingBox == vector[i]) {
-							updateEntity(entity1.id, context);
-							updateEntity(entity.id, context);
-							context.audioManager->playSound("EnemyKill");
-						}
+					if (entityManager->hasComponent<PlayerComponent>(vector[i])) {
+						updateEntity(vector[i], context);
+						updateEntity(entity.id, context);
+						context.audioManager->playSound("EnemyKill");
 					}
 				}
 

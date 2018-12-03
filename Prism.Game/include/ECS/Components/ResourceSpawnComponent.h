@@ -14,8 +14,8 @@ namespace ECS {
 			float SpawnTimer = 1;
 			const float value = 1;
 
-			Component* Clone() override {
-				return new ResourceSpawnComponent(SpawnTimer, resourceType, value);
+			std::unique_ptr<Component> clone() override {
+				return std::make_unique<ResourceSpawnComponent>(SpawnTimer, resourceType, value);
 			}
 		};
 	}
