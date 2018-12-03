@@ -3,6 +3,7 @@
 #include <map>
 #include <list>
 #include <typeindex>
+#include <algorithm>
 
 #include "State.h"
 

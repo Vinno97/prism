@@ -8,6 +8,7 @@
 #include "ECS/Components/PositionComponent.h"
 #include "ECS/Components/VelocityComponent.h"
 #include "ECS/Components/AppearanceComponent.h"
+#include "ECS/Components/EnemyComponent.h"
 #include "ECS/Components/DragComponent.h"
 #include "ECS/Components/KeyboardInputComponent.h"
 #include "ECS/Systems/EnemyPathFindingSystem.h"
@@ -101,10 +102,10 @@ namespace States {
 
 			//4
 			.registerSystem<4, ProjectileAttackSystem>(entityManager)
+			.registerSystem<4, AttackSystem>(entityManager)
 
 			//5
 			.registerSystem<5, RenderSystem>(entityManager, context.window->width, context.window->height)
-			.registerSystem<5, AttackSystem>(entityManager)
 			.registerSystem<5, BumpSystem>(entityManager);
 	}
 

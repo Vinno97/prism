@@ -13,6 +13,8 @@
 
 namespace ECS {
 	namespace Systems {
+		using namespace Components;
+		
 		KeyboardInputSystem::KeyboardInputSystem(EntityManager &entityManager) : System(entityManager) {
 		}
 

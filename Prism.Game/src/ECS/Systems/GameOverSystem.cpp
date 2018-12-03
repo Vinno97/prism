@@ -10,21 +10,27 @@
 #include "ECS/Components/EnemyComponent.h"
 #include "ECS/Components/PlayerComponent.h"
 
+namespace ECS {
+	namespace Systems {
+		using namespace Components;
+		using namespace States;
 
-ECS::Systems::GameOverSystem::GameOverSystem(EntityManager &entityManager) : System(entityManager) { }
+		GameOverSystem::GameOverSystem(EntityManager &entityManager) : System(entityManager) { }
 
-ECS::Systems::GameOverSystem::~GameOverSystem()
-= default;
+		void ECS::Systems::GameOverSystem::update(Context& context) {
+			for (auto entity : entityManager->getAllEntitiesWithComponent<PlayerComponent>()) {
+				auto healthComponent = entityManager->getComponent<HealthComponent>(entity.id);
 
-using namespace States;
+				if (healthComponent->health <= 0) {
 
-void ECS::Systems::GameOverSystem::update(Context& context) {
-	for (auto entity : entityManager->getAllEntitiesWithComponent<PlayerComponent>()) {
-		auto healthComponent = entityManager->getComponent<HealthComponent>(entity.id);
-		
-		if (healthComponent->health <= 0) {
-
-			context.stateMachine->setState<EndState>(context); 
+					context.stateMachine->setState<EndState>(context);
+				}
+			}
 		}
+
+		GameOverSystem::~GameOverSystem()
+			= default;
+
 	}
 }
+
