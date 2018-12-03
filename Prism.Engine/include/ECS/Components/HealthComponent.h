@@ -12,7 +12,7 @@ namespace ECS
 			/// <summary>
 			///	The position in units
 			/// </summary>
-			int health{0};
+			float health{0};
 
 			HealthComponent(int healthIn) : health(healthIn)
 			{
