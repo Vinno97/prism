@@ -7,7 +7,7 @@
 #include "ECS/SystemManager.h"
 #include "EntityFactory.h"
 #include "State.h"
-
+#include <memory>
 
 namespace States
 {

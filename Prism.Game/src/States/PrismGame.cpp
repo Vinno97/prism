@@ -67,7 +67,7 @@ namespace States {
 		context.stateMachine->addState<EndState>(context);
 
 		menuBuilder.addControl(-0.35, -0.7, 0.6, 0.18, "img/QuitGameButton.png");
-		auto c = menuBuilder.addTextControl(0, 0, 0.001, Math::Vector3f{ 0.f, 1.f, 1. - 0.f }, "Hey Louis");
+		//auto c = menuBuilder.addTextControl(0, 0, 0.001, Math::Vector3f{ 0.f, 1.f, 1. - 0.f }, "Hey Louis");
 		menu = menuBuilder.buildMenu();
 		
 		std::function<void()> callback = [context, &canPress = canPressEscape]() mutable { canPress = false; context.stateMachine->setState<PauseState>(); };
@@ -115,7 +115,6 @@ namespace States {
 		if (menu->handleInput(*context.inputManager, context.window->width, context.window->height)) {
 			return;
 		}
-
 		for (auto& systemList : systemManager.getAllSystems()) {
 			for (auto& system : systemList.second) {
 				system.second->update(context);
