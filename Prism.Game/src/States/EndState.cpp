@@ -23,7 +23,7 @@ namespace States {
 		context.window->swapScreen();
 	}
 
-	void EndState::onEnter()
+	void EndState::onEnter(Context & context)
 	{
 		menuBuilder.addControl(0, 0, 1, 0.17, "img/gameover.png");
 		menu = menuBuilder.buildMenu();
@@ -31,7 +31,7 @@ namespace States {
 		renderDevice->setClearColour(1.f, 1.f, 1.f, 1.f);
 	}
 
-	void EndState::onLeave()
+	void EndState::onLeave(Context & context)
 	{
 	}
 

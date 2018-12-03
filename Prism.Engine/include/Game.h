@@ -12,8 +12,8 @@ public:
 
 	virtual void onInit(Context &context) override;
 	virtual void onUpdate(Context &context) override;
-	virtual void onEnter() override;
-	virtual void onLeave() override;
+	virtual void onEnter(Context & context) override;
+	virtual void onLeave(Context & context) override;
 
 private:
 	Context context;

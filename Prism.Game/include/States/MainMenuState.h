@@ -14,8 +14,8 @@ namespace States {
 
 		void onInit(Context &context) override;
 		void onUpdate(Context &context) override;
-		void onEnter() override;
-		void onLeave() override;
+		void onEnter(Context & context) override;
+		void onLeave(Context & context) override;
 
 		MainMenuState(const MainMenuState &obj);
 
@@ -25,7 +25,6 @@ namespace States {
 		Menu::MenuRenderer menuRenderer;
 		Menu::MenuBuilder menuBuilder;
 		Menu::Menu menu;
-		Context *contextReference;
 	};
 }
 

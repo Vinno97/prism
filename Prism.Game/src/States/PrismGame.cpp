@@ -66,7 +66,7 @@ namespace States {
 
 		context.stateMachine->addState<EndState>(context);
 		
-		std::function<void()> callback = [context, &canPress = canPressEscape]() mutable { canPress = false; context.stateMachine->setState<PauseState>(); };
+		std::function<void()> callback = [context, &canPress = canPressEscape]() mutable { canPress = false; context.stateMachine->setState<PauseState>(context); };
 	}
 
 	/// <summary>
@@ -129,7 +129,7 @@ namespace States {
 
 		if (input->isKeyPressed(Key::KEY_ESCAPE) && canPressEscape) {
 			canPressEscape = false;
-			context.stateMachine->setState<PauseState>();
+			context.stateMachine->setState<PauseState>(context);
 		}
 	}
 
@@ -142,10 +142,9 @@ namespace States {
 		context.audioManager->addSound("Resource", "ResourceGathering.wav");
 	}
 
-	void PrismGame::onEnter() {
+	void PrismGame::onEnter(Context &context) {
+		context.audioManager->playMusic("Ambience");
 	}
-	void PrismGame::onLeave() {
+	void PrismGame::onLeave(Context &context) {
 	}
 }
-
-
