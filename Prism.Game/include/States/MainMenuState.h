@@ -25,6 +25,7 @@ namespace States {
 		Menu::MenuRenderer menuRenderer;
 		Menu::MenuBuilder menuBuilder;
 		Menu::Menu menu;
+		Context *contextReference;
 	};
 }
 

@@ -31,8 +31,8 @@
 void start() {
 	CoreEngine ce = CoreEngine();
 	ce.InitWindow("prism", 1920 / 2, 1080 / 2, 100, 100);
-	ce.addState<States::PrismGame>();
-	ce.setEntryPoint<States::PrismGame>();
+	ce.addState<States::MainMenuState>();
+	ce.setEntryPoint<States::MainMenuState>();
 
 	ce.Run();
 }

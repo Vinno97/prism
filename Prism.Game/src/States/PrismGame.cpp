@@ -136,12 +136,10 @@ namespace States {
 	void PrismGame::loadAudio(Context &context) const
 	{
 		context.audioManager->addMusic("Ambience", "Ambience.wav");
+		context.audioManager->addMusic("MainMenu", "MainMenu.wav");
 		context.audioManager->addSound("Bullet", "Bullet.wav");
 		context.audioManager->addSound("EnemyKill", "EnemyKill.wav");
 		context.audioManager->addSound("Resource", "ResourceGathering.wav");
-
-		//Temporarily in here, will be moved to onEnter once context is accessible.
-		context.audioManager->playMusic("Ambience");
 	}
 
 	void PrismGame::onEnter() {

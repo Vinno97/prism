@@ -15,6 +15,9 @@ namespace States {
 	{
 		PrismGame game = PrismGame();
 		context.stateMachine->addState<PrismGame>(context);
+		
+		contextReference = &context;
+		context.audioManager->playMusic("MainMenu");
 
 		std::function<void()> callback = [context]() { context.stateMachine->setState<PrismGame>(); };
 		menuBuilder.addControl(-0.35,  0.4, 0.6, 0.18, "img/NewGameButton.png", callback);
@@ -48,6 +51,8 @@ namespace States {
 
 	void MainMenuState::onLeave()
 	{
+		contextReference->audioManager->stopMusic();
+		contextReference->audioManager->playMusic("Ambience");
 	}
 
 	MainMenuState::MainMenuState(const MainMenuState & obj)
