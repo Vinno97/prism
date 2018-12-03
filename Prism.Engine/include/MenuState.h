@@ -8,7 +8,7 @@ public:
 	~MenuState();
 
 	void onUpdate(Context &context) override;
-	void onEnter() override;
-	void onLeave() override;
+	void onEnter(Context & context) override;
+	void onLeave(Context & context) override;
 };
 

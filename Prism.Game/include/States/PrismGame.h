@@ -17,8 +17,8 @@ class PrismGame : public Game
 	PrismGame() = default;
 	void onInit(Context &context) override;
 	void onUpdate(Context &context) override;
-	void onEnter() override;
-	void onLeave() override;
+	void onEnter(Context & context) override;
+	void onLeave(Context & context) override;
 
   private:
 	ECS::EntityManager entityManager;
