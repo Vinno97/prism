@@ -24,36 +24,134 @@ void BumpSystem::update(Context& context)
 			const auto boundingBox = &boundingBoxComponent->boundingBox;
 			auto vector = &boundingBoxComponent->collidesWith;
 			
+
 			if (vector->size() > 0) {
-				const auto position = entityManager->getComponent<PositionComponent>(entity.id);
-				auto velocity = entityManager->getComponent<VelocityComponent>(entity.id);
-
-				BoundingBox testBoxXPlus(*boundingBox);
-				BoundingBox testBoxYPlus(*boundingBox);
-
-				BoundingBox testBoxXMin(*boundingBox);
-				BoundingBox testBoxYMin(*boundingBox);
-
-				float x = position->x;
-				float y = position->y;
-
-				testBoxXMin.SetPosXY(x - velocity->dx*context.deltaTime, y);
-				testBoxYMin.SetPosXY(x, y - velocity->dy*context.deltaTime);
+				auto currentPosition = entityManager->getComponent<PositionComponent>(entity.id);
+				auto currentVelocity = entityManager->getComponent<VelocityComponent>(entity.id);
 				
-				if (CountCollisions(testBoxXMin, *vector) == 0) {
-					position->x -= velocity->dx*context.deltaTime;
-					velocity->dx = 0;
+				int total = 0;
+
+				bool xCol = false;
+				bool yCol = false;
+				float tXcol = 0.0;
+				float tYcol = 0.0;
+
+				for (auto& id : *vector) {	
+					if (entityManager->hasComponent<PositionComponent>(id)) {
+						auto colliderPosition = entityManager->getComponent<PositionComponent>(id);
+						auto didColide = entityManager->getComponent<BoundingBoxComponent>(id)->didCollide;
+
+						bool cx1 = currentPosition->x > colliderPosition->x && currentVelocity->dx < 0;
+						bool cx2 = currentPosition->x < colliderPosition->x && currentVelocity->dx > 0;
+						bool cy1 = currentPosition->y > colliderPosition->y && currentVelocity->dy < 0;
+						bool cy2 = currentPosition->y < colliderPosition->y && currentVelocity->dy > 0;
+
+						if ((cx1 || cx2) && (cy1 || cy2)) {
+							const auto colliderBoundingBox = &(*entityManager->getComponent<BoundingBoxComponent>(id)).boundingBox;
+							
+							if (cx1) {
+								tXcol += std::abs(colliderBoundingBox->GetEast() + colliderBoundingBox->GetPosX() - (boundingBox->GetWest() + boundingBox->GetPosX()));
+							}
+							else if (cx2) {
+								tXcol += std::abs((boundingBox->GetEast() + boundingBox->GetPosX()) - colliderBoundingBox->GetWest() + colliderBoundingBox->GetPosX());
+							}
+
+							if (cy1) {
+								tYcol += std::abs((colliderBoundingBox->GetPosY() - colliderBoundingBox->GetSouth()) - (boundingBox->GetPosY() - boundingBox->GetNorth()));
+							} else if (cy2) {
+								tYcol += std::abs((boundingBox->GetPosY() - boundingBox->GetSouth()) -(colliderBoundingBox->GetPosY() - colliderBoundingBox->GetNorth()));
+							}
+							xCol = true;
+							yCol = true;
+							total++;
+						}
+						else if (cx1 || cx2) {
+							xCol = true;
+							total++;
+						}
+						else if (currentPosition->y > colliderPosition->y && currentVelocity->dy < 0) {
+							yCol = true;
+							total++;
+						}
+					}
 				}
-				else if (CountCollisions(testBoxYMin, *vector) == 0) {
-					position->y -= velocity->dy*context.deltaTime;
-					velocity->dy = 0;
+
+				
+				if (xCol && yCol) {
+					/*
+					BoundingBox testBoxPlusX(*boundingBox);
+					BoundingBox testBoxPlusY(*boundingBox);
+
+					//BoundingBox testBoxMinX(*boundingBox);
+					//BoundingBox testBoxMinY(*boundingBox);
+					//BoundingBox testBoxMinXPlusY(*boundingBox);
+					//BoundingBox testBoxMinYPlusX(*boundingBox);
+
+					float x = currentPosition->x;
+					float y = currentPosition->y;
+
+					testBoxPlusX.SetPosXY(x - currentVelocity->dx*context.deltaTime, y - currentVelocity->dy*context.deltaTime);
+					testBoxPlusY.SetPosXY(x - currentVelocity->dx*context.deltaTime, y - currentVelocity->dy*context.deltaTime);
+
+					//testBoxMinX.SetPosXY(x - currentVelocity->dx*context.deltaTime*1.5, y);
+					//testBoxMinY.SetPosXY(x, y - currentVelocity->dy*context.deltaTime*1.5);
+					//testBoxMinXPlusY.SetPosXY(x - currentVelocity->dx*context.deltaTime, y + currentVelocity->dy*context.deltaTime);
+					//testBoxMinYPlusX.SetPosXY(x + currentVelocity->dx*context.deltaTime, y - currentVelocity->dy*context.deltaTime);
+
+					//bool t1 = CountCollisions(testBoxMinXPlusY, *vector) == 0;
+					//bool t2 = CountCollisions(testBoxMinYPlusX, *vector) == 0;
+
+					//auto i1 = CountCollisions(testBoxXMin, *vector);
+					//auto i2 = CountCollisions(testBoxYMin, *vector);
+
+					int n = (vector->size() - total);
+					//bool t1 = CountCollisions(testBoxMinX, *vector) - n == 0;
+					//bool t2 = CountCollisions(testBoxMinY, *vector) - n == 0;
+					
+					//bool t1 = CountCollisions(testBoxMinX, *vector) == 0;
+					//bool t2 = CountCollisions(testBoxMinY, *vector) == 0;
+
+					bool t1 = CountCollisions(testBoxPlusX, *vector) == 0;
+					bool t2 = CountCollisions(testBoxPlusY, *vector) == 0;
+
+					if (t1) {
+						currentPosition->x -= currentVelocity->dx*context.deltaTime;
+						currentVelocity->dx = 0;
+					}
+					else if (t2) {
+						currentPosition->y -= currentVelocity->dy*context.deltaTime;
+						currentVelocity->dy = 0;
+					}
+					else {
+						currentPosition->x -= currentVelocity->dx*context.deltaTime;
+						currentVelocity->dx = 0;
+						currentPosition->y -= currentVelocity->dy*context.deltaTime;
+						currentVelocity->dy = 0;
+					}*/
+					if (tXcol < tYcol) {
+						currentPosition->x -= currentVelocity->dx*context.deltaTime;
+						currentVelocity->dx = 0;
+					}
+					else if (tYcol < tXcol) {
+						currentPosition->y -= currentVelocity->dy*context.deltaTime;
+						currentVelocity->dy = 0;
+					}
+					else {
+						currentPosition->x -= currentVelocity->dx*context.deltaTime;
+						currentVelocity->dx = 0;
+						currentPosition->y -= currentVelocity->dy*context.deltaTime;
+						currentVelocity->dy = 0;
+					}
 				}
-				else {
-					position->x -= velocity->dx * context.deltaTime;
-					velocity->dx = 0;
-					position->y -= velocity->dy * context.deltaTime;
-					velocity->dy = 0;
+				else if (xCol) {
+					currentPosition->x -= currentVelocity->dx*context.deltaTime;
+					currentVelocity->dx = 0;
+				} 
+				else if (yCol) {
+					currentPosition->y -= currentVelocity->dy*context.deltaTime;
+					currentVelocity->dy = 0;
 				}
+				
 				boundingBoxComponent->didCollide = false;
 				boundingBoxComponent->collidesWith.clear();
 			}
@@ -75,5 +173,34 @@ int BumpSystem::CountCollisions(BoundingBox &currentBox, std::vector<unsigned in
 		}
 	}
 	return count;
+}
+
+int ECS::Systems::BumpSystem::CountCollisionsX(unsigned int id, std::vector<unsigned int>& vector)
+{
+	int count = 0;
+	const auto currentBox = entityManager->getComponent<BoundingBoxComponent>(id)->boundingBox;
+	const auto currentVelocity = entityManager->getComponent<VelocityComponent>(id);
+
+	for (const auto& entity : vector) {
+		if (entityManager->hasComponent<BoundingBoxComponent>(entity)) {
+			if (entityManager->hasComponent<VelocityComponent>(entity)) {
+				const auto colliderBox = &entityManager->getComponent<BoundingBoxComponent>(entity)->boundingBox;
+				const auto colliderVelocity = &entityManager->getComponent<BoundingBoxComponent>(entity)->boundingBox;
+
+				const auto currentX = currentBox.GetPosX();
+				const auto collideX = colliderBox->GetPosX();
+
+				if (aabbCollider.CheckCollision(currentBox, *colliderBox) && (true)) {
+					count++;
+				}
+			}
+		}
+	}
+	return count;
+}
+
+int ECS::Systems::BumpSystem::CountCollisionsY(unsigned int id, std::vector<unsigned int>& vector)
+{
+	return 0;
 }
 
