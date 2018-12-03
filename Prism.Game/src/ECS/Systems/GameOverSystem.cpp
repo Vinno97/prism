@@ -24,7 +24,7 @@ void ECS::Systems::GameOverSystem::update(Context& context) {
 		
 		if (healthComponent->health <= 0) {
 
-			context.stateMachine->setState<EndState>();
+			context.stateMachine->setState<EndState>(context); 
 		}
 	}
 }
