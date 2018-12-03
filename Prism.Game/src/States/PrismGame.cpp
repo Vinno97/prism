@@ -66,10 +66,9 @@ namespace States {
 		context.stateMachine->addState<PauseState>(context);
 		context.stateMachine->addState<EndState>(context);
 
-		menuBuilder.addControl(-0.35, -0.7, 0.6, 0.18, "img/QuitGameButton.png");
-		redResource = &menuBuilder.addTextControl(-1, 1, 0.005, Math::Vector3f{ 0.f, 1.f, 1. - 0.f }, "Hey Louis");
-		//greenResource = &menuBuilder.addTextControl(-1, -0.9, 0.005, Math::Vector3f{ 0.f, 1.f, 1. - 0.f }, "Hey Louis");
-		//blueResource = &menuBuilder.addTextControl(-1, -0.8, 0.005, Math::Vector3f{ 0.f, 1.f, 1. - 0.f }, "Hey Louis");
+		redResource = menuBuilder.addTextControl(-0.9, 0.94, 0.0007, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
+		greenResource = menuBuilder.addTextControl(-0.9, 0.90, 0.0007, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
+		blueResource = menuBuilder.addTextControl(-0.9,  0.86, 0.0007, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
 		menu = menuBuilder.buildMenu();
 		
 		std::function<void()> callback = [context, &canPress = canPressEscape]() mutable { canPress = false; context.stateMachine->setState<PauseState>(); };
@@ -122,8 +121,11 @@ namespace States {
 				system.second->update(context);
 			}
 		}
-			
-		redResource->text = std::to_string(context.deltaTime);
+
+		auto inventory = entityManager.getAllEntitiesWithComponent<InventoryComponent>()[0].component;
+		redResource->text =   "Red:   " + std::to_string(static_cast<int>(inventory->redResource));
+		blueResource->text =  "Blue:  " + std::to_string(static_cast<int>(inventory->blueResource));
+		greenResource->text = "Green: " + std::to_string(static_cast<int>(inventory->greenResource));
 
 		menuRenderer.renderMenu(*menu, float(context.window->width) / float(context.window->height));
 		

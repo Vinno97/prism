@@ -61,7 +61,7 @@ namespace Menu {
 		renderDevice->useDepthTest(true);
 
 		for (auto& control : menu.textControls) {
-			textRenderer.RenderText(control);
+			textRenderer.RenderText(*control);
 		}
 	}
 }
