@@ -24,6 +24,7 @@
 #include "Physics/QuadTree.h"
 #include "States/PrismGame.h"
 #include "States/MainMenuState.h"
+#include "States/CreditsState.h"
 
 #define _CRTDBG_MAP_ALLOC
 
