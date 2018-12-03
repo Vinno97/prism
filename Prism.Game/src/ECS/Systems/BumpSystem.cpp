@@ -25,6 +25,7 @@ void BumpSystem::update(Context& context)
 			auto vector = &boundingBoxComponent->collidesWith;
 			
 			if (vector->size()>0) {
+				//for(auto collision : vec)
 				const auto position = entityManager->getComponent<PositionComponent>(entity.id);
 				auto velocity = entityManager->getComponent<VelocityComponent>(entity.id);
 

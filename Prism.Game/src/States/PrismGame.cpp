@@ -84,8 +84,8 @@ namespace States {
 			.registerSystem<1, EnemyPathFindingSystem>(entityManager, 10)
 
 			//2
-			.registerSystem<2, CollisionSystem>(entityManager, context.window->width, context.window->height, 0, 0, 2)
 			.registerSystem<2, MotionSystem>(entityManager)
+			.registerSystem<2, CollisionSystem>(entityManager, context.window->width, context.window->height, 0, 0, 2)
 			.registerSystem<2, AnimationSystem>(entityManager)
 			.registerSystem<2, AimingSystem>(entityManager)
 			.registerSystem<2, ResourceGatherSystem>(entityManager)
@@ -101,7 +101,7 @@ namespace States {
 
 			//5
 			.registerSystem<5, RenderSystem>(entityManager, context.window->width, context.window->height)
-			.registerSystem<5, AttackSystem>(entityManager)
+			//.registerSystem<5, AttackSystem>(entityManager)
 			.registerSystem<5, BumpSystem>(entityManager);
 	}
 
@@ -110,7 +110,7 @@ namespace States {
 	void PrismGame::onUpdate(Context &context)
 	{
 		std::cout << "FPS:   \t" << 1.0 / context.deltaTime << std::endl;
-		context.deltaTime *= 2.5;
+		//context.deltaTime *= 2.5;
 
 		auto input = context.inputManager;
 		if (menu.handleInput(*context.inputManager, context.window->width, context.window->height)) { 
