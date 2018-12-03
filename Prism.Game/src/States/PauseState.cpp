@@ -21,7 +21,7 @@ namespace States {
 		auto input = context.inputManager;
 		if (input->isKeyPressed(Key::KEY_ESCAPE) && canPressEscape) {
 			canPressEscape = false;
-			context.stateMachine->setState<PrismGame>();
+			context.stateMachine->setState<PrismGame>(context);
 		}
 
 		if (!input->isKeyPressed(Key::KEY_ESCAPE)) {
@@ -34,7 +34,7 @@ namespace States {
 		context.window->swapScreen();
 	}
 
-	void PauseState::onEnter()
+	void PauseState::onEnter(Context & context)
 	{
 		menuBuilder.addControl(-0.5, 0, 1, 0.21, "img/pause.png");
 		menu = menuBuilder.buildMenu();
@@ -42,7 +42,7 @@ namespace States {
 		renderDevice->setClearColour(1.f, 1.f, 1.f, 1.f);
 	}
 
-	void PauseState::onLeave()
+	void PauseState::onLeave(Context & context)
 	{
 	}
 

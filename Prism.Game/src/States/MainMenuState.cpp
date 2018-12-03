@@ -14,8 +14,9 @@ namespace States {
 	void MainMenuState::onInit(Context & context)
 	{
 		context.stateMachine->addState<PrismGame>(context);
+		context.audioManager->playMusic("MainMenu");
 
-		std::function<void()> callback = [context]() { context.stateMachine->setState<PrismGame>(); };
+		std::function<void()> callback = [&context]() { context.stateMachine->setState<PrismGame>(context); };
 		menuBuilder.addControl(-0.35,  0.4, 0.6, 0.18, "img/NewGameButton.png", callback);
 		menuBuilder.addControl(-0.35,  0.1, 0.6, 0.18, "img/LoadGameButton.png");
 		menuBuilder.addControl(-0.35, -0.7, 0.6, 0.18, "img/QuitGameButton.png");
@@ -40,13 +41,14 @@ namespace States {
 		context.window->swapScreen();
 	}
 
-	void MainMenuState::onEnter()
+	void MainMenuState::onEnter(Context & context)
 	{
-
+		context.audioManager->playMusic("MainMenu");
 	}
 
-	void MainMenuState::onLeave()
+	void MainMenuState::onLeave(Context & context)
 	{
+		context.audioManager->stopMusic();
 	}
 
 	MainMenuState::~MainMenuState()
