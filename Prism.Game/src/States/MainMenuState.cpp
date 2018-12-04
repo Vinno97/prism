@@ -44,7 +44,7 @@ namespace States {
 
 	void MainMenuState::onLeave()
 	{
-	}
+ 	}
 
 	MainMenuState::MainMenuState(const MainMenuState & obj)
 	{

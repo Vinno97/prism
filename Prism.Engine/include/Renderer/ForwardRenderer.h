@@ -44,6 +44,7 @@ namespace Renderer {
 		Camera shadowCamera;
 
 		glm::mat4 projection = glm::mat4(1.0f);
+		glm::mat4 shadowProjection = glm::mat4(1.0f);
 		std::unique_ptr<Renderer::Graphics::Pipeline> geometryPipeline;
 		std::unique_ptr<Renderer::Graphics::Pipeline> shadowPipeline;
 		std::unique_ptr<Renderer::Graphics::RenderTarget> renderTarget;
@@ -78,6 +79,13 @@ namespace Renderer {
 			0, 1, 3,   // first triangle
 			1, 2, 3    // second triangle
 		};
+
+		glm::mat4 biasMatrix = glm::mat4(
+			0.5, 0.0, 0.0, 0.0,
+			0.0, 0.5, 0.0, 0.0,
+			0.0, 0.0, 0.5, 0.0,
+			0.5, 0.5, 0.5, 1.0
+		);
 
 	};
 }

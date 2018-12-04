@@ -42,17 +42,18 @@ namespace Renderer {
 		renderTarget->setDepthBuffer(depthBuffer);
 
 		shadowDepthBuffer = renderDevice->createTexture(true);
-		shadowDepthTarget = renderDevice->createRenderTarget(true);
+		shadowDepthTarget = renderDevice->createRenderTarget(true); 
 		shadowDepthTarget->setDepthBuffer(shadowDepthBuffer);
 
 		loadPipelines();
 		createTargetQuad();
 
-	    projection = glm::perspective(glm::radians(45.0f), (float) width/height, 0.5f, 100.0f);
+	    projection = glm::perspective(glm::radians(45.0f), (float) width/height, 0.5f, 100.f);
+	    shadowProjection = glm::perspective(glm::radians(45.0f), (float)width / height, 0.5f, 100.f);
 
 		renderDevice->setClearColour(1.f, 1.f, 1.f, 1.f);
-		shadowCamera.position = glm::vec3{ -45.1785889, 5.00000000, 4.11635685 };
-		shadowCamera.rotation = glm::vec3{ 0.f, 0.f, 0.f };
+		shadowCamera.position = glm::vec3{ -55.1785889, 5.00000000, -13 };
+		shadowCamera.rotation = glm::vec3{ -50.f, -30.f, 0.f };
 	}
 
 	float i = 0;
@@ -97,7 +98,9 @@ namespace Renderer {
 
 		shadowDepthTarget->bind();
 		shadowPipeline->run();
-		auto shadowView = shadowCamera.getCameraMatrix();
+		renderDevice->clearScreen();
+		auto shadowView = camera.getCameraMatrix();
+		glCullFace(GL_FRONT);
 
 		for (const auto& renderable : renderables) {
 			model = renderable.getMatrix();
@@ -115,7 +118,7 @@ namespace Renderer {
 				renderDevice->DrawTriangles(0, renderable.model->mesh->verticesLength);
 			}
 		}
-
+		glCullFace(GL_BACK);
 		shadowPipeline->stop();
 		shadowDepthTarget->unbind();
 
@@ -130,6 +133,7 @@ namespace Renderer {
 		quadPipeline->setUniformFloat("gDirectionalLight.AmbientIntensity", 0.6f);
 		quadPipeline->setUniformFloat("gDirectionalLight.DiffuseIntensity", 0.5f);
 
+		quadPipeline->setUniformMatrix4f("shadowView", shadowView);
 		quadPipeline->setUniformMatrix4f("view", view);
 		quadPipeline->setUniformMatrix4f("proj", projection);
 		
@@ -164,6 +168,7 @@ namespace Renderer {
 		normalBuffer->bind(textures[1]);
 		albedoBuffer->bind(textures[2]);
 		depthBuffer->bind(textures[3]);
+		shadowDepthBuffer->bind(textures[4]);
 
 		quadMesh->vertexArrayObject->bind();
 		quadMesh->indexBuffer->bind();
@@ -234,7 +239,10 @@ namespace Renderer {
 		//quadPipeline->createUniform("gPointLight.Exp");
 
 		quadPipeline->createUniform("view");
+		quadPipeline->createUniform("shadowView");
 		quadPipeline->createUniform("proj");
+		quadPipeline->createUniform("bias");
+
 
 		//setup shadow shader
 

@@ -5,6 +5,7 @@ out vec4 color;
 
 uniform mat4 view;
 uniform mat4 proj;
+uniform mat4 shadowView;
 
 struct DirectionalLight {
     vec3 Direction;
@@ -30,8 +31,23 @@ layout(binding = 0) uniform sampler2D gPosition;
 layout(binding = 1) uniform sampler2D gNormal;
 layout(binding = 2) uniform sampler2D gAlbedo;
 layout(binding = 3) uniform sampler2D gDepth;
+layout(binding = 4) uniform sampler2D gShadowMap;
 
-vec3 WorldPosFromDepth(float depth) {
+float CalcShadowFactor(vec4 LightSpacePos)
+{
+    vec3 ProjCoords = LightSpacePos.xyz / LightSpacePos.w;
+    vec2 UVCoords;
+    UVCoords.x = 0.5 * ProjCoords.x + 0.5;
+    UVCoords.y = 0.5 * ProjCoords.y + 0.5;
+    float z = 0.5 * ProjCoords.z + 0.5;
+    float Depth = texture(gShadowMap, UVCoords).x;
+    if (Depth < (z + 0.00001))
+        return 0.5;
+    else
+        return 1.0;
+}
+
+vec4 WorldPosFromDepth(float depth, mat4 camera) {
     float z = depth * 2.0 - 1.0;
 
     vec4 clipSpacePosition = vec4(UV * 2.0 - 1.0, z, 1.0);
@@ -40,9 +56,16 @@ vec3 WorldPosFromDepth(float depth) {
     // Perspective division
     viewSpacePosition /= viewSpacePosition.w;
 
-    vec4 worldSpacePosition = inverse(view) * viewSpacePosition;
+    vec4 worldSpacePosition = inverse(camera) * viewSpacePosition;
 
-    return worldSpacePosition.xyz;
+    return worldSpacePosition;
+}
+
+float LinearizeDepth(in vec2 uv, float depth)
+{
+    float zNear = 0.5; 
+    float zFar  = 100.0;
+    return (2.0 * zNear) / (zFar + zNear - depth * (zFar - zNear));
 }
 
 void main() {
@@ -50,7 +73,30 @@ void main() {
     vec3 Normal = texture(gNormal, UV).rgb;
     vec3 Albedo = texture(gAlbedo, UV).rgb;
 	vec3 Depth = texture(gDepth, UV).rgb;
-	vec3 worldPos = WorldPosFromDepth(Depth.x);
+	
+	vec3 worldPos = WorldPosFromDepth(Depth.x, view).xyz;
+	
+	vec4 shadowPos = proj * shadowView * vec4(worldPos, 1.0);
+	vec3 shadowCoord = shadowPos.xyz / shadowPos.w;
+	shadowCoord = shadowCoord * 0.5 + 0.5; 
+	
+	float bias = 0.0005;
+	float t1 = texture(gShadowMap, shadowCoord.xy).r;
+	float t2 = shadowCoord.z-bias;
+	
+	float shadow = 0;
+	
+	vec2 texelSize = 1.0 / textureSize(gShadowMap, 0);
+	for(int x = -1; x <= 1; ++x)
+	{
+		for(int y = -1; y <= 1; ++y)
+		{
+			float pcfDepth = texture(gShadowMap, shadowCoord.xy + vec2(x, y) * texelSize).r; 
+			shadow += t2 - bias > pcfDepth ? -2.0 : 1.0;        
+		}    
+	}
+	shadow /= 9.0;
+	
 	
 	vec4 AmbientColor = vec4(gDirectionalLight.Color * gDirectionalLight.AmbientIntensity, 1.0f);
 	float DiffuseFactor = dot(normalize(Normal), -gDirectionalLight.Direction);
@@ -63,6 +109,8 @@ void main() {
     else {
         DiffuseColor = vec4(0, 0, 0, 0);
     }
-	color = vec4(Albedo, 1) * (AmbientColor + DiffuseColor);
+	color = vec4(Albedo, 1) * (AmbientColor + (shadow * DiffuseColor));
+	//float t = LinearizeDepth(UV, texture(gShadowMap, UV).x);
+	//color = vec4(t, t, t, 1.0);
 }
 

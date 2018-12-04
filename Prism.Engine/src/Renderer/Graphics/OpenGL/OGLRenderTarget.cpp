@@ -24,6 +24,11 @@ namespace Renderer {
 
 			void OGLRenderTarget::bind()
 			{
+				if (bufferAmount <= 0) {
+					glBindFramebuffer(GL_FRAMEBUFFER, FBO);
+					glDrawBuffer(GL_NONE);
+					return;
+				}
 				GLenum* drawBuffers = new GLenum[bufferAmount];
 				for (int i = 0; i < bufferAmount; i++) {
 					drawBuffers[i] = GL_COLOR_ATTACHMENT0 + i;
