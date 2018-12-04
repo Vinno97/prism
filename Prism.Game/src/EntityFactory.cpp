@@ -25,6 +25,7 @@
 #include "ECS/Components/TowerComponent.h"
 #include "ECS/Components/VelocityComponent.h"
 #include "ECS/Components/WallComponent.h"
+#include "ECS/Components/AccelerationComponent.h"
 #include "ECS/EntityBuilder.h"
 #include "Renderer/Camera.h"
 #include "Renderer/Graphics/Loader/ModelLoader.h"
@@ -64,6 +65,7 @@ unsigned EntityFactory::createPlayer(unsigned entity, EntityManager& entityManag
 	       .addComponent<DynamicComponent>()
 	       .addComponent<HealthComponent>(100)
 	       .addComponent<DragComponent>(5.f)
+	       .addComponent<AccelerationComponent>(10)
 	       .addComponent<BoundingBoxComponent>(.3, .3)
 	       .addComponent(appearance)
 	       .getEntity();
@@ -90,6 +92,8 @@ unsigned EntityFactory::createEnemy(unsigned entity, EntityManager& entityManage
 	       .addComponent<PositionComponent>()
 	       .addComponent<EnemyComponent>()
 	       .addComponent<DynamicComponent>()
+	       .addComponent<AccelerationComponent>(10)
+	       .addComponent<TargetComponent>()
 	       .addComponent<HealthComponent>(100)
 	       .addComponent<DragComponent>(5.f)
 	       .addComponent<BoundingBoxComponent>(.4, .4)
@@ -324,8 +328,9 @@ unsigned EntityFactory::createResourceBlob(unsigned entity,
 	return EntityBuilder(entityManager, entity)
 	       .addComponent<PositionComponent>()
 	       .addComponent<VelocityComponent>()
-	       .addComponent<DragComponent>()
-           .addComponent<TargetComponent>()
+	       .addComponent<DragComponent>(10)
+	       .addComponent<AccelerationComponent>(15.f)
+	       .addComponent<TargetComponent>()
 	       .addComponent(resource)
 	       .addComponent(appearance)
 	       .getEntity();

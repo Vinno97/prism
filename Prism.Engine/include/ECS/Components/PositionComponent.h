@@ -13,11 +13,11 @@ namespace ECS {
             };
 
             // NOLINTNEXTLINE(google-explicit-constructor)
-            PositionComponent(Math::Vector2<double>& vector) : x(vector.x), y(vector.y) {
+            PositionComponent(Math::Vector2d& vector) : x(vector.x), y(vector.y) {
             };
 
             // NOLINTNEXTLINE(google-explicit-constructor)
-            operator Math::Vector2<double>() const { return Math::Vector2<double>{x, y}; }
+            operator Math::Vector2<double>() const { return Math::Vector2d{x, y}; }
 
             /// <summary>
             ///	The position in units

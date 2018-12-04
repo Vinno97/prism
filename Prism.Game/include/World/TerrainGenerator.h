@@ -2,7 +2,7 @@
 
 #include <vector>
 #include <memory>
-#include <Math/Vector3f.h>
+#include <Math/Vector3.h>
 #include "Renderer/Graphics/Models/Model.h"
 
 namespace World {

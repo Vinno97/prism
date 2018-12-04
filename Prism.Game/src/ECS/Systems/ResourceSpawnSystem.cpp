@@ -4,7 +4,7 @@
 #include <cmath>
 #include <algorithm>
 
-#include "ECS/Systems/ResourceGatherSystem.h"
+#include "ECS/Systems/ResourceSpawnSystem.h"
 #include "ECS/Components/ResourceGatherComponent.h"
 #include "Enums/ResourceTypeEnum.h"
 #include "ECS/Components/PositionComponent.h"

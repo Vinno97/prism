@@ -1,6 +1,6 @@
 #include "States/PrismGame.h"
 
-#include "Math/Vector3f.h"
+#include "Math/Vector3.h"
 #include "StateMachine.h"
 #include "States/PauseState.h"
 #include "States/EndState.h"
@@ -11,7 +11,7 @@
 #include "ECS/Components/EnemyComponent.h"
 #include "ECS/Components/DragComponent.h"
 #include "ECS/Components/KeyboardInputComponent.h"
-#include "ECS/Systems/EnemyPathFindingSystem.h"
+#include "ECS/Systems/PathFindingSystem.h"
 #include "ECS/Systems/MotionSystem.h"
 #include "ECS/Systems/GameOverSystem.h"
 #include "ECS/Systems/AttackSystem.h"
@@ -24,8 +24,8 @@
 #include "ECS/Systems/BumpSystem.h"
 #include "ECS/Systems/CollisionSystem.h"
 #include "ECS/Systems/CheatSystem.h"
-#include "ECS/Systems/ResourceGatherSystem.h"
-#include "ECS/Systems/ResourceBlobSystem.h"
+#include "ECS/Systems/ResourceSpawnSystem.h"
+#include "ECS/Systems/ResourceCollectionSystem.h"
 #include "ECS/Systems/ShootingSystem.h"
 #include "ECS/Systems/ProjectileAttackSystem.h"
 #include "ECS/Systems/AimingSystem.h"
@@ -86,7 +86,7 @@ namespace States {
 			//1
 			.registerSystem<1, KeyboardInputSystem>(entityManager)
 			.registerSystem<1, MousePointSystem>(entityManager)
-			.registerSystem<1, EnemyPathFindingSystem>(entityManager, 10)
+			.registerSystem<1, PathFindingSystem>(entityManager)
 			.registerSystem<1, CheatSystem>(entityManager)
 
 			//2

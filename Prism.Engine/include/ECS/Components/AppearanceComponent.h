@@ -1,7 +1,7 @@
 #pragma once
 #include "Component.h"
 #include "Renderer/Graphics/Models/Model.h"
-#include "Math/Vector3f.h"
+#include "Math/Vector3.h"
 
 namespace ECS {
 	namespace Components {

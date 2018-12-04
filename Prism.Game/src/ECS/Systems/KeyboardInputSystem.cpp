@@ -8,8 +8,9 @@
 #include "ECS/Components/AppearanceComponent.h"
 #include "ECS/Components/PlayerComponent.h"
 #include "ECS/Components/HealthComponent.h"
+#include "ECS/Components/AccelerationComponent.h"
 #include "ECS/Components/KeyboardInputComponent.h"
-#include "Math/Vector3f.h"
+#include "Math/Vector2.h"
 
 namespace ECS {
 	namespace Systems {
@@ -22,49 +23,33 @@ namespace ECS {
 			= default;
 
 		void KeyboardInputSystem::update(Context& context) {
-			// 1 unit/second^2
-			//double acceleration = 5;
-			double acceleration = 5;
-
 			auto input = context.inputManager;
-			
-			float dirX = 0;
-			float dirY = 0;
-
 
 			for (auto entity : entityManager->getAllEntitiesWithComponent<KeyboardInputComponent>()) {
 				auto velocity = entityManager->getComponent<VelocityComponent>(entity.id);
+				auto acceleration = entityManager->getComponent<AccelerationComponent>(entity.id)->force;
+				Math::Vector2d direction;
 
 				if (input->isKeyPressed(Key::KEY_W))
 				{
-					dirY -= acceleration;
+					direction.y -= 1;
 				}
 				if (input->isKeyPressed(Key::KEY_S))
 				{
-					dirY += acceleration;
+					direction.y += 1;
 				}
 				if (input->isKeyPressed(Key::KEY_A))
 				{
-					dirX -= acceleration;
+					direction.x -= 1;
 				}
 				if (input->isKeyPressed(Key::KEY_D))
 				{
-					dirX += acceleration;
+					direction.x += 1;
 				}
 
-				//	//TODO MOET WAARSCHIJNLIJK ANDERS
-				//	if (input->isMouseButtonPressed(Key::MOUSE_BUTTON_LEFT))
-				//	{
-				//		auto position = entityManager->getComponent<PositionComponent>(entity.id);
-				//		std::vector<int> pos = input->GetMousePoisiton();
-				//		float x = (pos[0] - context.window->width / 2.0)*0.006;
-				//		float y = (pos[1] - context.window->height / 2.0)*0.006;
-				//		velocity->dx = -1 * (position->x - x);
-				//		velocity->dy = -1 * (position->y - y);
-				//		//position->x = x;
-				//		//position->y = y;
-				//	}
-
+				direction.normalize();
+				velocity->dx += direction.x * acceleration*context.deltaTime;
+				velocity->dy += direction.y * acceleration*context.deltaTime;
 
 				if (entityManager->hasComponent<AppearanceComponent>(entity.id)) {
 					auto appearance = entityManager->getComponent<AppearanceComponent>(entity.id);
@@ -77,12 +62,6 @@ namespace ECS {
 						appearance->rotationY += context.deltaTime * 50;
 					}
 				}
-				
-				Math::Vector3f v = Math::Vector3f(dirX, dirY, 0);
-				v.normalize();
-				velocity->dx += v.x * acceleration*context.deltaTime;
-				velocity->dy += v.y * acceleration*context.deltaTime;
-			
 			}
 		}
 	}

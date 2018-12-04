@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Math/Vector3f.h"
+#include "Math/Vector3.h"
 #include "Renderer/DirectionalLight.h"
 
 namespace Renderer {

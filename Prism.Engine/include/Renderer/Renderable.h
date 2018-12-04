@@ -1,7 +1,7 @@
 #pragma once
 #include <glm/glm.hpp>
 #include <tuple>
-#include "Math/Vector3f.h"
+#include "Math/Vector3.h"
 #include "Renderer/Graphics/Models/Model.h"
 
 class Renderable

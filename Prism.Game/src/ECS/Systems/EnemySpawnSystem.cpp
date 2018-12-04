@@ -1,9 +1,8 @@
 #include "ECS/Systems/EnemySpawnSystem.h"
 #include "ECS/Components/EnemySpawnComponent.h"
-#include "EntityFactory.h"
-#include "Context.h"
-#include "InputManager.h"
 #include "ECS/Components/PositionComponent.h"
+#include "ECS/Components/TargetComponent.h"
+#include "ECS/Components/PlayerComponent.h"
 
 namespace ECS {
 	namespace Systems {
@@ -16,25 +15,22 @@ namespace ECS {
 			= default;
 
 		void EnemySpawnSystem::update(Context& context) {
-			auto time = context.deltaTime;
-			auto input = context.inputManager;
-			EntityFactory entityFactory;
 
 			for (const auto& spawnPoint : entityManager->getAllEntitiesWithComponent<EnemySpawnComponent>()) {
 				auto component = spawnPoint.component;
 
-				if (!component->enabled)
-					return;
+				if (!component->enabled) return;
 
-				auto position = entityManager->getComponent<PositionComponent>(spawnPoint.id);
-
-				component->timeSinceLastSpawn += time;
+				component->timeSinceLastSpawn += context.deltaTime;
 
 				if (component->timeSinceLastSpawn > component->spawnInterval) {
 					component->timeSinceLastSpawn = 0;
+					auto position = entityManager->getComponent<PositionComponent>(spawnPoint.id);
 					auto enemy = entityFactory.createEnemy(*entityManager);
+					auto player = entityManager->getAllEntitiesWithComponent<PlayerComponent>()[0];
 					entityManager->getComponent<PositionComponent>(enemy)->x += position->x+1;
 					entityManager->getComponent<PositionComponent>(enemy)->y += position->y+1;
+					entityManager->getComponent<TargetComponent>(enemy)->target = player.id;
 				}
 			}
 		}

@@ -1,6 +1,6 @@
 #include "World/TerrainGenerator.h"
 #include "Renderer/Graphics/Models/Model.h"
-#include <Math/Vector3f.h>
+#include <Math/Vector3.h>
 #include <memory>
 #include <ctime>
 #include <random>
