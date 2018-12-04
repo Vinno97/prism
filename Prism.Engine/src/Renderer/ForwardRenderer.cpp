@@ -49,21 +49,22 @@ namespace Renderer {
 		createTargetQuad();
 
 	    projection = glm::perspective(glm::radians(45.0f), (float) width/height, 0.5f, 100.f);
-	    shadowProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, 0.f, 7.5f);
+	    shadowProjection = glm::ortho(-5.0f, 5.0f, -5.0f, 5.0f, 0.f, 7.5f);
 
 		renderDevice->setClearColour(1.f, 1.f, 1.f, 1.f);
-		shadowCamera.position = glm::vec3{ -45.f, 2.0f, -20 };
-		shadowCamera.rotation = glm::vec3{ -75.f, 0.f, 0.f };
+		shadowCamera.position = glm::vec3{ -45.f, 1.0f, -15 };
+		shadowCamera.rotation = glm::vec3{ -40.f, 0.f, 0.f };
 	}
 
 	float i = 0;
 
-	void ForwardRenderer::draw(const Camera& camera, const std::vector<Renderable>& renderables, const Scene& scene, const std::vector<PointLight>& pointLights)
+	void ForwardRenderer::draw(const Camera& camera, const std::vector<Renderable>& renderables, const Scene& scene, const std::vector<PointLight>& pointLights, Math::Vector3f position)
 	{
 
 		i += 0.01;
 		glm::mat4 model;
 		const glm::mat4 view = camera.getCameraMatrix();
+		shadowCamera.position = glm::vec3(position.x, position.y, position.z);
 		renderDevice->clearScreen();
 			
 		renderTarget->bind();

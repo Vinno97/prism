@@ -10,6 +10,10 @@ InputManager::InputManager() {
 	keyMap[Key::KEY_Q] = SDL_SCANCODE_Q;
 	keyMap[Key::KEY_E] = SDL_SCANCODE_E;
 	keyMap[Key::KEY_H] = SDL_SCANCODE_H;
+	keyMap[Key::KEY_I] = SDL_SCANCODE_I;
+	keyMap[Key::KEY_J] = SDL_SCANCODE_J;
+	keyMap[Key::KEY_K] = SDL_SCANCODE_K;
+	keyMap[Key::KEY_L] = SDL_SCANCODE_L;
 	keyMap[Key::KEY_ESCAPE] = SDL_SCANCODE_ESCAPE;
 	buttonMap[Key::MOUSE_BUTTON_LEFT] = SDL_BUTTON_LEFT;
 }

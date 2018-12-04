@@ -23,6 +23,9 @@
 #include "Renderer/DirectionalLight.h"
 #include "Renderer/PointLight.h"
 #include "Renderer/Scene.h"
+#include "Math/Vector3f.h"
+
+
 
 namespace Renderer {
 	class ForwardRenderer
@@ -33,13 +36,13 @@ namespace Renderer {
 		/// <summary>
 		/// Draws the list of renderables from the viewpoint of a given camera
 		/// </summary>
-		void draw(const Camera& camera, const std::vector<Renderable>& renderables, const Renderer::Scene& scene, const std::vector<PointLight>& pointLights);
+		void draw(const Camera& camera, const std::vector<Renderable>& renderables, const Renderer::Scene& scene, const std::vector<PointLight>& pointLights, Math::Vector3f position);
 
 		int width;
 		int height;
+		void loadPipelines();
 	private: 
 		void createTargetQuad();
-		void loadPipelines();
 
 		Camera shadowCamera;
 

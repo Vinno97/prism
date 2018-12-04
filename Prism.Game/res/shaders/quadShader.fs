@@ -1,4 +1,4 @@
-#version 420 core
+#version 330 core
 
 in vec2 UV;
 out vec4 color;
@@ -32,6 +32,14 @@ vec2 poissonDisk[4] = vec2[](
   vec2( -0.094184101, -0.92938870 ),
   vec2( 0.34495938, 0.29387760 )
 );
+
+uniform vec2 kernel[9] = vec2[]
+(
+   vec2(0.95581, -0.18159), vec2(0.50147, -0.35807), vec2(0.69607, 0.35559),
+   vec2(-0.003682, -0.5915), vec2(0.1593, 0.08975), vec2(-0.6503, 0.05818),
+   vec2(0.11915, 0.78449), vec2(-0.34296, 0.51575), vec2(-0.6038, -0.41527)
+);
+
 
 uniform DirectionalLight gDirectionalLight;
 
@@ -72,13 +80,14 @@ vec4 WorldPosFromDepth(float depth, mat4 camera) {
 float LinearizeDepth(in vec2 uv, float depth)
 {
     float zNear = 0.5; 
-    float zFar  = 100.0;
+    float zFar  = 7.5;
     return (2.0 * zNear) / (zFar + zNear - depth * (zFar - zNear));
 }
 
-float random(vec4 seed4) {
+float random(vec3 seed, int i){
+	vec4 seed4 = vec4(seed,i);
 	float dot_product = dot(seed4, vec4(12.9898,78.233,45.164,94.673));
-    return fract(sin(dot_product) * 43758.5453);
+	return fract(sin(dot_product) * 43758.5453);
 }
 
 void main() {
@@ -90,30 +99,44 @@ void main() {
 	vec3 worldPos = WorldPosFromDepth(Depth.x, view).xyz;
 	
 	vec4 shadowPos = shadowProj * shadowView * vec4(worldPos, 1.0);
-	vec3 shadowCoord = shadowPos.xyz / shadowPos.w;
-	shadowCoord = shadowCoord * 0.5 + 0.5; 
+	vec3 shadowCoordTemp = shadowPos.xyz / shadowPos.w;
+	
+	shadowCoordTemp = shadowCoordTemp * 0.5 + 0.5; 
+	vec4 shadowCoord = vec4(shadowCoordTemp, 1.0);
 	
 	float bias = 0.005;
 	float t1 = texture(gShadowMap, shadowCoord.xy).r;
 	float t2 = shadowCoord.z-bias;
 	
-	float shadow = 1;
+	float shadow = 0;
+
+//	Raw shadow checking without sampling	
+//	if(t2 > t1) {
+//		shadow = -1;
+//	}
 	
-	if(t2 > t1) {
-		shadow = -1;
+//	Pretty simple PCF sampling
+	vec2 texelSize = 1.0 / textureSize(gShadowMap, 0);
+	for(int x = -1; x <= 1; ++x)
+	{
+		for(int y = -1; y <= 1; ++y)
+		{
+			float pcfDepth = texture(gShadowMap, shadowCoord.xy + vec2(x, y) * texelSize).r; 
+			shadow += t2 - bias > pcfDepth ? -2.0 : 1.0;        
+		}    
+	}
+	shadow /= 9.0;
+	
+// Poisson sampling
+	float visibility = 1;
+	for (int i=0;i<4;i++){
+		int index = int(16.0*random(worldPos.xyy, i))%16;
+		if ( texture( gShadowMap, shadowCoord.xy + poissonDisk[i]/700.0 ).r  <  shadowCoord.z-bias ){
+			visibility -= 0.5;
+		}
 	}
 	
-//vec2 texelSize = 1.0 / textureSize(gShadowMap, 0);
-//for(int x = -1; x <= 1; ++x)
-//{
-//	for(int y = -1; y <= 1; ++y)
-//	{
-//		float pcfDepth = texture(gShadowMap, shadowCoord.xy + vec2(x, y) * texelSize).r; 
-//		shadow += t2 - bias > pcfDepth ? -2.0 : 1.0;        
-//	}    
-//}
-//shadow /= 9.0;
-	
+// Stratified poisson disc sampling	
 	
 	vec4 AmbientColor = vec4(gDirectionalLight.Color * gDirectionalLight.AmbientIntensity, 1.0f);
 	float DiffuseFactor = dot(normalize(Normal), -gDirectionalLight.Direction);
@@ -126,7 +149,7 @@ void main() {
     else {
         DiffuseColor = vec4(0, 0, 0, 0);
     }
-	color = vec4(Albedo, 1) * (AmbientColor + (visibility * DiffuseColor));
+	color = vec4(Albedo, 1) * (AmbientColor + (shadow * DiffuseColor));
 	//float t = LinearizeDepth(UV, texture(gShadowMap, UV).x);
 	//color = vec4(t, t, t, 1.0);
 }

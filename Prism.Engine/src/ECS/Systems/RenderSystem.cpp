@@ -23,7 +23,7 @@ namespace ECS {
 			auto cameraComponent = this->entityManager->getAllEntitiesWithComponent<CameraComponent>()[0].component;
 			auto camera = &cameraComponent->camera;
 			camera->move(0, 3.f, 4.f);
-			camera->rotate(-25.f, 0.f, 0.f);
+			camera->rotate(-0.f, 0.f, 0.f);
 		}
 
 		ECS::Systems::RenderSystem::~RenderSystem()
@@ -77,7 +77,32 @@ namespace ECS {
 			pl.exp = 1.8f;
 			
 			lights.push_back(pl);
-			forwardRenderer->draw(cameraComponent->camera, rendererData, sceneComponent->scene, lights);
+
+			//TODO: Remove this test code
+			auto input = context.inputManager;
+
+			if (input->isKeyPressed(Key::KEY_I)) {
+				pos.z -= 0.1;
+			}
+			if (input->isKeyPressed(Key::KEY_J)) {
+				pos.x -= 0.1;
+			}
+			if (input->isKeyPressed(Key::KEY_K)) {
+				pos.z += 0.1;
+			}
+			if (input->isKeyPressed(Key::KEY_L)) {
+				pos.x += 0.1;
+			}
+
+			if (input->isKeyPressed(Key::KEY_E)) {
+				pos.y += 0.1;
+			}
+
+			if (input->isKeyPressed(Key::KEY_Q)) {
+				forwardRenderer->loadPipelines();
+			}
+
+			forwardRenderer->draw(cameraComponent->camera, rendererData, sceneComponent->scene, lights, pos);
 		}
 
 		System * RenderSystem::clone()
