@@ -15,7 +15,7 @@ namespace States {
 	void CreditsState::onInit(Context & context)
 	{
 		std::function<void()> callback = [&context]() { context.stateMachine->setState<MainMenuState>(context); };
-		menuBuilder.addControl(-1, 0.4, 0.1, 0.1, "img/Back.png", callback);
+		menuBuilder.addControl(-0.9f, 0.8, 0.3, 0.1, "img/Back.png", callback);
 		menuBuilder.addControl(-0.37f, -0.86f, 0.77f, 1.77f, "img/credits.png");
 
 		menu = menuBuilder.buildMenu();

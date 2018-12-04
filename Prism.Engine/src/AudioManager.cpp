@@ -54,9 +54,9 @@ const void AudioManager::playSound(const std::string name)
 
 const void AudioManager::playMusic(const std::string name)
 {
-	if (music.count(name) && playing_music != name)
+	if (music.count(name) && current_music_playing != name)
 	{
-		playing_music = name;
+		current_music_playing = name;
 		Mix_PlayMusic(music[name], -1);
 	}
 	else {

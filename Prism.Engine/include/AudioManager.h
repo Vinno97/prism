@@ -13,7 +13,7 @@ public:
 	
 	std::map<std::string, Mix_Chunk *> sounds;
 	std::map<std::string, Mix_Music *> music;
-	std::string playing_music;
+	std::string current_music_playing;
 
 	void addSound(const std::string name, const std::string file);
 	void addMusic(const std::string name, const std::string file);
