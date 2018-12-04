@@ -29,7 +29,7 @@ namespace States {
 		menuBuilder.addControl(-0.5, 0.5, 1, 0.24, "img/gameover.png");
 
 		menuBuilder.addControl(-0.35, 0.1, 0.7, 0.18, "img/mainMenuButton.png", callbackMainMenu);
-		menuBuilder.addControl(-0.35, -0.2, 0.7, 0.16, "img/restart.png", callBackRestart);
+		menuBuilder.addControl(-0.35, -0.2, 0.7, 0.18, "img/restart.png", callBackRestart);
 
 		menu = menuBuilder.buildMenu();
 
