@@ -80,11 +80,10 @@ namespace States {
 			//1
 			.registerSystem<1, KeyboardInputSystem>(entityManager)
 			.registerSystem<1, MousePointSystem>(entityManager)
-			.registerSystem<1, EnemyPathFindingSystem>(entityManager, 10)
+			.registerSystem<1, EnemyPathFindingSystem>(entityManager, 15)
 
 			//2
 			.registerSystem<2, MotionSystem>(entityManager)
-			.registerSystem<3, CollisionSystem>(entityManager, context.window->width, context.window->height, 0, 0, 2)
 			.registerSystem<2, AnimationSystem>(entityManager)
 			.registerSystem<2, AimingSystem>(entityManager)
 			.registerSystem<2, ResourceGatherSystem>(entityManager)
@@ -93,14 +92,17 @@ namespace States {
 			//3
 			.registerSystem<3, ResourceBlobSystem>(entityManager)
 			.registerSystem<3, ShootingSystem>(entityManager)
+			.registerSystem<3, CollisionSystem>(entityManager, context.window->width, context.window->height, 0, 0, 2)
 
 			//4
+			.registerSystem<4, BumpSystem>(entityManager)
 			.registerSystem<4, ProjectileAttackSystem>(entityManager)
 
 			//5
-			.registerSystem<5, RenderSystem>(entityManager, context.window->width, context.window->height)
-			//.registerSystem<5, AttackSystem>(entityManager)
-			.registerSystem<5, BumpSystem>(entityManager);
+			.registerSystem<5, AttackSystem>(entityManager)
+			.registerSystem<5, RenderSystem>(entityManager, context.window->width, context.window->height);
+			
+			
 	}
 
 
