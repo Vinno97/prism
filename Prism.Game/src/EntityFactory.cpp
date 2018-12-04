@@ -246,7 +246,7 @@ int EntityFactory::createFloor(int entity, EntityManager & entityManager) {
 	appearance.translationY = -scale / 15;
 
 	appearance.model = std::move(model);
-	appearance.color = Math::Vector3f{ 1.f, 1.f, 1.f };
+	appearance.color = Math::Vector3f{ 0.75f, 0.9f, 1.f };
 	
 	entityManager.addComponentToEntity(entity, PositionComponent());
 	entityManager.addComponentToEntity(entity, appearance);

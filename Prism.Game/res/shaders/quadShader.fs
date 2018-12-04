@@ -129,10 +129,10 @@ void main() {
 	
 // Poisson sampling
 	float visibility = 1;
-	for (int i=0;i<4;i++){
+	for (int i=0;i<8;i++){
 		int index = int(16.0*random(worldPos.xyy, i))%16;
 		if ( texture( gShadowMap, shadowCoord.xy + poissonDisk[i]/700.0 ).r  <  shadowCoord.z-bias ){
-			visibility -= 0.5;
+			visibility -= 0.1;
 		}
 	}
 	
@@ -149,7 +149,7 @@ void main() {
     else {
         DiffuseColor = vec4(0, 0, 0, 0);
     }
-	color = vec4(Albedo, 1) * (AmbientColor + (shadow * DiffuseColor));
+	color = vec4(Albedo, 1) * (AmbientColor + (visibility * DiffuseColor));
 	//float t = LinearizeDepth(UV, texture(gShadowMap, UV).x);
 	//color = vec4(t, t, t, 1.0);
 }

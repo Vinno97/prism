@@ -53,7 +53,7 @@ namespace Renderer {
 
 		renderDevice->setClearColour(1.f, 1.f, 1.f, 1.f);
 		shadowCamera.position = glm::vec3{ -45.f, 1.0f, -15 };
-		shadowCamera.rotation = glm::vec3{ -40.f, 0.f, 0.f };
+		shadowCamera.rotation = glm::vec3{ -40.f, -20.f, 0.f };
 	}
 
 	float i = 0;

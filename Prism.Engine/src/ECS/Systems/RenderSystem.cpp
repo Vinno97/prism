@@ -99,6 +99,10 @@ namespace ECS {
 			}
 
 			if (input->isKeyPressed(Key::KEY_Q)) {
+				pos.y -= 0.1;
+			}
+
+			if (input->isKeyPressed(Key::KEY_ESCAPE)) {
 				forwardRenderer->loadPipelines();
 			}
 
