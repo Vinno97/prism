@@ -652,7 +652,7 @@
                  "name":"",
                  "rotation":0,
                  "type":"",
-                 "visible":false,
+                 "visible":true,
                  "width":10,
                  "x":-580,
                  "y":-140
@@ -664,7 +664,7 @@
                  "name":"",
                  "rotation":0,
                  "type":"",
-                 "visible":false,
+                 "visible":true,
                  "width":10,
                  "x":-560,
                  "y":-140
@@ -676,7 +676,7 @@
                  "name":"",
                  "rotation":0,
                  "type":"",
-                 "visible":false,
+                 "visible":true,
                  "width":10,
                  "x":-550,
                  "y":-140
@@ -688,7 +688,7 @@
                  "name":"",
                  "rotation":0,
                  "type":"",
-                 "visible":false,
+                 "visible":true,
                  "width":10,
                  "x":-540,
                  "y":-140
