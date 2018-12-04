@@ -49,11 +49,11 @@ namespace Renderer {
 		createTargetQuad();
 
 	    projection = glm::perspective(glm::radians(45.0f), (float) width/height, 0.5f, 100.f);
-	    shadowProjection = glm::perspective(glm::radians(45.0f), (float)width / height, 0.5f, 100.f);
+	    shadowProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, 0.f, 7.5f);
 
 		renderDevice->setClearColour(1.f, 1.f, 1.f, 1.f);
-		shadowCamera.position = glm::vec3{ -55.1785889, 5.00000000, -13 };
-		shadowCamera.rotation = glm::vec3{ -50.f, -30.f, 0.f };
+		shadowCamera.position = glm::vec3{ -45.f, 2.0f, -20 };
+		shadowCamera.rotation = glm::vec3{ -75.f, 0.f, 0.f };
 	}
 
 	float i = 0;
@@ -99,14 +99,14 @@ namespace Renderer {
 		shadowDepthTarget->bind();
 		shadowPipeline->run();
 		renderDevice->clearScreen();
-		auto shadowView = camera.getCameraMatrix();
+		auto shadowView = shadowCamera.getCameraMatrix();
 		glCullFace(GL_FRONT);
 
 		for (const auto& renderable : renderables) {
 			model = renderable.getMatrix();
 
 			shadowPipeline->setUniformMatrix4f("view", shadowView);
-			shadowPipeline->setUniformMatrix4f("proj", projection);
+			shadowPipeline->setUniformMatrix4f("proj", shadowProjection);
 			shadowPipeline->setUniformMatrix4f("model", model);
 
 			renderable.model->mesh->vertexArrayObject->bind();
@@ -136,6 +136,7 @@ namespace Renderer {
 		quadPipeline->setUniformMatrix4f("shadowView", shadowView);
 		quadPipeline->setUniformMatrix4f("view", view);
 		quadPipeline->setUniformMatrix4f("proj", projection);
+		quadPipeline->setUniformMatrix4f("shadowProj", shadowProjection);
 		
 	//	int i = 0;
 	//	for (auto const& light : pointLights) {
@@ -240,8 +241,8 @@ namespace Renderer {
 
 		quadPipeline->createUniform("view");
 		quadPipeline->createUniform("shadowView");
+		quadPipeline->createUniform("shadowProj");
 		quadPipeline->createUniform("proj");
-		quadPipeline->createUniform("bias");
 
 
 		//setup shadow shader
