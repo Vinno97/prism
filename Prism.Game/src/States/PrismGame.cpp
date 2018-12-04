@@ -64,12 +64,14 @@ namespace States {
 		loader.save("saves/Sample Save", entityManager);
 
 		loadAudio(context);
-
 		registerSystems(context);
 
-		context.stateMachine->addState<PauseState>(context);
-
-		context.stateMachine->addState<EndState>(context);
+		if (!context.stateMachine->hasState<PauseState>()) {
+			context.stateMachine->addState<PauseState>(context);
+		}
+		if (!context.stateMachine->hasState<EndState>()) {
+			context.stateMachine->addState<EndState>(context);
+		}
 		
 		std::function<void()> callback = [context, &canPress = canPressEscape]() mutable { canPress = false; context.stateMachine->setState<PauseState>(context); };
 	}
@@ -80,13 +82,12 @@ namespace States {
 	/// <param name="context">The context that is needed to register the systems</param>
 	void PrismGame::registerSystems(Context &context)
 	{
-		systemManager
+			systemManager
 			//1
 			.registerSystem<1, KeyboardInputSystem>(entityManager)
 			.registerSystem<1, MousePointSystem>(entityManager)
 			.registerSystem<1, EnemyPathFindingSystem>(entityManager, 10)
 			.registerSystem<1, CheatSystem>(entityManager)
-			.registerSystem<1, GameOverSystem>(entityManager)
 
 			//2
 			.registerSystem<2, MotionSystem>(entityManager)
@@ -106,10 +107,9 @@ namespace States {
 
 			//5
 			.registerSystem<5, RenderSystem>(entityManager, context.window->width, context.window->height)
-			.registerSystem<5, BumpSystem>(entityManager);
+			.registerSystem<5, BumpSystem>(entityManager)
+			.registerSystem<5, GameOverSystem>(entityManager);
 	}
-
-
 
 	void PrismGame::onUpdate(Context &context)
 	{

@@ -230,5 +230,6 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\img\gameover.png" />
+    <Image Include="res\img\restart.png" />
   </ItemGroup>
 </Project>

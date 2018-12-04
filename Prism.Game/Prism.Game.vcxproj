@@ -177,6 +177,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\img\gameover.png" />
+    <Image Include="res\img\restart.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
