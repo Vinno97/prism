@@ -5,6 +5,7 @@
 #include "Renderer/Graphics/OpenGL/OGLRenderDevice.h"
 #include "Renderer/Graphics/OpenGL/OGLVertexShader.h"
 #include "Renderer/Graphics/OpenGL/OGLPipeline.h"
+#include "Util/AdvertisementSystem.h"
 
 namespace States {
 	MainMenuState::MainMenuState()
@@ -22,6 +23,9 @@ namespace States {
 		menuBuilder.addControl(-0.35,  0.1, 0.6, 0.18, "img/LoadGameButton.png");
 		menuBuilder.addControl(-0.35, -0.7, 0.6, 0.18, "img/QuitGameButton.png");
 
+		//Util::AdvertisementSystem as;
+		//std::string file = "img/advertisements/" + as.RandomAdvertisement();
+		//menuBuilder.addControl(0, 0, 1, 1, file.c_str());
 
 		menu = menuBuilder.buildMenu();
 		Renderer::Graphics::RenderDevice* renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
