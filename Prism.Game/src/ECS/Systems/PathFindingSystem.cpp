@@ -1,19 +1,24 @@
 #include <cmath>
 
 #include "ECS/Systems/PathFindingSystem.h"
+
 #include "ECS/Components/VelocityComponent.h"
 #include "ECS/Components/PositionComponent.h"
 #include "ECS/Components/EnemyComponent.h"
 #include "ECS/Components/PlayerComponent.h"
 #include "ECS/Components/TargetComponent.h"
 #include "ECS/Components/AccelerationComponent.h"
+
+#include <PathFinding/LinearPathFindingStrategy.h>
 #include "Math/Vector3.h"
 
 namespace ECS {
 	namespace Systems {
 		using namespace Components;
 
-		PathFindingSystem::PathFindingSystem(ECS::EntityManager &entityManager) : System(entityManager) {}
+		PathFindingSystem::PathFindingSystem(ECS::EntityManager &entityManager) : System(entityManager) {
+			strategies[PathFinding::Strategies::LINEAR] = std::make_unique<PathFinding::LinearPathFinding>();
+		}
 
 		PathFindingSystem::~PathFindingSystem() = default;
 
@@ -28,12 +33,13 @@ namespace ECS {
 				if (subjectPosition != nullptr && subjectVelocity != nullptr && targetPosition != nullptr) {
 					auto acceleration{subjectAcceleration != nullptr ? subjectAcceleration->force : 1};
 
-					auto vector = Math::Vector2d(targetPosition->x - subjectPosition->x,
-					                             targetPosition->y - subjectPosition->y);
+					Math::Vector2d source = *subjectPosition;
+					Math::Vector2d target = *targetPosition;
 
-					vector.normalize();
-					subjectVelocity->dx += acceleration * vector.x * context.deltaTime;
-					subjectVelocity->dy += acceleration * vector.y * context.deltaTime;
+					Math::Vector2d direction = strategies[subject.component->strategy]->operator()(*entityManager, source, target);
+
+					subjectVelocity->dx += acceleration * direction.x * context.deltaTime;
+					subjectVelocity->dy += acceleration * direction.y * context.deltaTime;
 				}
 			}
 		}
