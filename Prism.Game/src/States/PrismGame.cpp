@@ -8,6 +8,7 @@
 #include "ECS/Components/PositionComponent.h"
 #include "ECS/Components/VelocityComponent.h"
 #include "ECS/Components/AppearanceComponent.h"
+#include "ECS/Components/EnemyComponent.h"
 #include "ECS/Components/DragComponent.h"
 #include "ECS/Components/KeyboardInputComponent.h"
 #include "ECS/Systems/EnemyPathFindingSystem.h"
@@ -72,12 +73,7 @@ namespace States {
 			context.stateMachine->addState<EndState>(context);
 		}
 		
-		std::function<void()> callback = [context, &canPress = canPressEscape]() mutable { 
-			canPress = false; 
-			context.stateMachine->setState<PauseState>();
-			context.stateMachine->getState<PauseState>()->onEnter(context);
-		};
-
+		std::function<void()> callback = [context, &canPress = canPressEscape]() mutable { canPress = false; context.stateMachine->setState<PauseState>(context); };
 	}
 
 	/// <summary>
@@ -91,6 +87,7 @@ namespace States {
 			.registerSystem<1, KeyboardInputSystem>(entityManager)
 			.registerSystem<1, MousePointSystem>(entityManager)
 			.registerSystem<1, EnemyPathFindingSystem>(entityManager, 10)
+			.registerSystem<1, CheatSystem>(entityManager)
 
 			//2
 			.registerSystem<2, MotionSystem>(entityManager)
@@ -106,30 +103,28 @@ namespace States {
 
 			//4
 			.registerSystem<4, ProjectileAttackSystem>(entityManager)
+			.registerSystem<4, AttackSystem>(entityManager)
 
 			//5
 			.registerSystem<5, RenderSystem>(entityManager, context.window->width, context.window->height)
-			.registerSystem<5, AttackSystem>(entityManager)
 			.registerSystem<5, BumpSystem>(entityManager)
 			.registerSystem<5, GameOverSystem>(entityManager);
 	}
 
 	void PrismGame::onUpdate(Context &context)
 	{
+		std::cout << 1.0 / context.deltaTime << "\r";
 		auto input = context.inputManager;
 		if (menu.handleInput(*context.inputManager, context.window->width, context.window->height)) { 
 			return; 
 		}
 
-		for (auto& systemList : systemManager.getAllSystems()) {	
+		for (auto& systemList : systemManager.getAllSystems()) {
 			for (auto& system : systemList.second) {
 				system.second->update(context);
 			}
 		}
-
-	
-		std::cout << 1.0/context.deltaTime << std::endl;
-
+			
 		context.window->swapScreen();
 
 		if (!input->isKeyPressed(Key::KEY_ESCAPE)) {
@@ -138,48 +133,22 @@ namespace States {
 
 		if (input->isKeyPressed(Key::KEY_ESCAPE) && canPressEscape) {
 			canPressEscape = false;
-			context.stateMachine->setState<PauseState>();
-			context.stateMachine->getState<PauseState>()->onEnter(context);
+			context.stateMachine->setState<PauseState>(context);
 		}
 	}
 
 	void PrismGame::loadAudio(Context &context) const
 	{
 		context.audioManager->addMusic("Ambience", "Ambience.wav");
+		context.audioManager->addMusic("MainMenu", "MainMenu.wav");
 		context.audioManager->addSound("Bullet", "Bullet.wav");
 		context.audioManager->addSound("EnemyKill", "EnemyKill.wav");
 		context.audioManager->addSound("Resource", "ResourceGathering.wav");
+	}
 
-		//Temporarily in here, will be moved to onEnter once context is accessible.
+	void PrismGame::onEnter(Context &context) {
 		context.audioManager->playMusic("Ambience");
 	}
-
-	void PrismGame::onEnter(Context & contexts) {
-	}
-	void PrismGame::onLeave() {
-	}
-
-	void States::PrismGame::cheat(Context &context)
-	{
-		auto input = context.inputManager;
-		auto cheatSystem = systemManager.getSystem<CheatSystem>();
-
-		// TODO: Later naar in game buttons
-		if (input->isKeyPressed(Key::KEY_H))
-		{
-			cheatSystem->increaseHealth();
-		}
-		else if (input->isKeyPressed(Key::KEY_J)) {
-			cheatSystem->decreaseHealth();
-		}
-		else if (input->isKeyPressed(Key::KEY_R)) {
-			cheatSystem->increaseResources();
-		}
-		else if (input->isKeyPressed(Key::KEY_T)) {
-			cheatSystem->decreaseResources();
-		}
-
-
-
+	void PrismGame::onLeave(Context &context) {
 	}
 }

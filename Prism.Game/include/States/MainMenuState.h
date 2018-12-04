@@ -15,7 +15,8 @@ namespace States {
 		void onInit(Context &context) override;
 		void onUpdate(Context &context) override;
 		void onEnter(Context & context) override;
-		void onLeave() override;
+		void onLeave(Context & context) override;
+
 		MainMenuState(const MainMenuState &obj);
 		~MainMenuState();
 

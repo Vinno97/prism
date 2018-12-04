@@ -7,8 +7,8 @@ namespace ECS {
 		struct BulletComponent : Component {
 			float lifeTime;
 
-			Component* Clone() override {
-				return new BulletComponent();
+			std::unique_ptr<Component> clone() override {
+				return std::make_unique<BulletComponent>();
 			}
 		};
 	}

@@ -19,7 +19,7 @@ class PrismGame : public Game
 	void onInit(Context &context) override;
 	void onUpdate(Context &context) override;
 	void onEnter(Context & context) override;
-	void onLeave() override;
+	void onLeave(Context & context) override;
 
   private:
 	ECS::EntityManager entityManager;
@@ -28,7 +28,6 @@ class PrismGame : public Game
 	Menu::MenuBuilder menuBuilder;
 	Menu::MenuRenderer menuRenderer;
 	Menu::Menu menu;
-	void cheat(Context &context);
 	bool canPressEscape;
 	void registerSystems(Context &context);
 	void loadAudio(Context &context) const;

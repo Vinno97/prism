@@ -12,4 +12,7 @@ enum class Key {
 	KEY_R,
 	KEY_ESCAPE,
 	MOUSE_BUTTON_LEFT,
+	KEY_PLUS,
+	KEY_MIN,
+	KEY_END,
 };

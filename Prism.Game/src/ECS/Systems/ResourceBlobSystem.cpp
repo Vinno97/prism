@@ -1,16 +1,19 @@
 #pragma once
 
+#include <cmath>
 #include "ECS/Systems/ResourceBlobSystem.h"
 #include "ECS//Components/ResourceBlobComponent.h"
 #include "ECS/Components/PlayerComponent.h"
 #include "Math/Vector3f.h"
 #include "ECS/Components/VelocityComponent.h"
 #include "ECS/Components/InventoryComponent.h"
+#include "ECS/Components/PositionComponent.h"
 #include "Enums/ResourceTypeEnum.h"
-#include <math.h>
 
 namespace ECS {
 	namespace Systems {
+		using namespace Components;
+		
 		ResourceBlobSystem::ResourceBlobSystem(EntityManager & entityManager) : System(entityManager)
 		{
 		}

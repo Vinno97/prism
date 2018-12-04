@@ -17,11 +17,11 @@ namespace States {
 
 	void EndState::onInit(Context & context)
 	{
-		std::function<void()> callbackMainMenu = [context]() { context.stateMachine->setState<MainMenuState>(); };
+		std::function<void()> callbackMainMenu = [context]()mutable { context.stateMachine->setState<MainMenuState>(context); };
 		std::function<void()> callBackRestart = [context]()mutable {
 			if (!context.stateMachine->hasState<PrismGame>()) {
 				context.stateMachine->addState<PrismGame>(context);
-				context.stateMachine->setState<PrismGame>();
+				context.stateMachine->setState<PrismGame>(context);
 
 			}
 		};
@@ -49,13 +49,14 @@ namespace States {
 		context.window->swapScreen();
 	}
 
-	void EndState::onEnter(Context &context)
+	void EndState::onEnter(Context & context)
 	{
 		context.stateMachine->removeState<PrismGame>();
 	}
 
-	void EndState::onLeave()
+	void EndState::onLeave(Context & context)
 	{
+		context.audioManager->stopMusic();
 	}
 
 	EndState::EndState(const EndState & obj)

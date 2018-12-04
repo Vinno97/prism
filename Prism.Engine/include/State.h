@@ -29,5 +29,5 @@ public:
 	/// <summary>
 	/// Method to leave the state
 	/// </summary>
-	virtual void onLeave();
+	virtual void onLeave(Context & context);
 };

@@ -9,9 +9,9 @@ State* StateMachine::getCurrentState() const
 	return this->currentState;
 }
 
-void StateMachine::setState(std::type_index type) {
+void StateMachine::setState(std::type_index type, Context & context) {
 	if (this->currentState != nullptr)
-		this->currentState->onLeave();
+		this->currentState->onLeave(context);
 
 	this->currentState = getState(type);
 }

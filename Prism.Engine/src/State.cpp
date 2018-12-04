@@ -14,7 +14,7 @@ void State::onEnter(Context & context)
 {
 }
 
-void State::onLeave()
+void State::onLeave(Context & context)
 {
 }
 

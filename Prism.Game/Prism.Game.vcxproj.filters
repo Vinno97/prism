@@ -25,6 +25,9 @@
     <ClCompile Include="src\ECS\Systems\EnemyPathFindingSystem.cpp" />
     <ClCompile Include="src\World\Assemblers\EnemySpawnAssembler.cpp" />
     <ClCompile Include="src\States\MainMenuState.cpp" />
+    <ClCompile Include="src\ECS\Systems\EnemySpawnSystem.cpp" />
+    <ClCompile Include="src\ECS\Systems\EnemyPathFindingSystem.cpp" />
+    <ClCompile Include="src\World\Assemblers\EnemySpawnAssembler.cpp" />
     <ClCompile Include="src\States\EndState.cpp" />
     <ClCompile Include="src\ECS\Systems\GameOverSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\CheatSystem.cpp" />
@@ -125,6 +128,13 @@
     <ClInclude Include="include\ECS\Systems\EnemySpawnSystem.h" />
     <ClInclude Include="include\World\Assemblers\EnemySpawnAssembler.h" />
     <ClInclude Include="include\States\MainMenuState.h" />
+    <ClCompile Include="src\States\PrismGame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClInclude Include="include\ECS\Components\EnemySpawnComponent.h" />
+    <ClInclude Include="include\ECS\Systems\EnemyPathFindingSystem.h" />
+    <ClInclude Include="include\ECS\Systems\EnemySpawnSystem.h" />
+    <ClInclude Include="include\World\Assemblers\EnemySpawnAssembler.h" />
     <ClInclude Include="include\ECS\Systems\GameOverSystem.h" />
     <ClInclude Include="include\ECS\Systems\CheatSystem.h" />
     <ClInclude Include="include\States\EndState.h" />

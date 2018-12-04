@@ -26,7 +26,7 @@ public:
 	template<typename T, typename = std::enable_if_t < std::is_base_of<State, T>::type::value>>
 	void setEntryPoint()
 	{
-		context.stateMachine->setState<T>();
+		context.stateMachine->setState<T>(context);
 	}
 
 	/// <summary>

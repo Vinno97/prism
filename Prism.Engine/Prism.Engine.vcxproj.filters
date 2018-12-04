@@ -153,6 +153,8 @@
     <ClInclude Include="include\World\Assemblers\HealthAssembler.h" />
     <ClInclude Include="include\Renderer\Graphics\RenderTarget.h" />
     <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLRenderTarget.h" />
+    <ClInclude Include="include\ECS\Components\DynamicComponent.h" />
+    <ClInclude Include="include\ECS\EntityBuilder.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\x64\SDL2test.lib" />

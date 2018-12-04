@@ -22,7 +22,6 @@ void Game::onEnter(Context & context)
 {
 }
 
-
-void Game::onLeave()
+void Game::onLeave(Context & context)
 {
 }

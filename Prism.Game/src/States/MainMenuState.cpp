@@ -19,7 +19,7 @@ namespace States {
 				PrismGame newGame = PrismGame();
 				context.stateMachine->addState<PrismGame>(context);
 			}
-			context.stateMachine->setState<PrismGame>();
+			context.stateMachine->setState<PrismGame>(context);
 		};
 
 		std::function<void()> quitCallback = [&]() {
@@ -54,11 +54,12 @@ namespace States {
 
 	void MainMenuState::onEnter(Context & context)
 	{
-
+		context.audioManager->playMusic("MainMenu");
 	}
 
-	void MainMenuState::onLeave()
+	void MainMenuState::onLeave(Context & context)
 	{
+		context.audioManager->stopMusic();
 	}
 
 	MainMenuState::MainMenuState(const MainMenuState & obj)

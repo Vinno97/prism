@@ -7,61 +7,65 @@
 #include "ECS/Components/BoundingBoxComponent.h"
 #include "ECS/Components/EnemyComponent.h"
 #include "ECS/Components/PlayerComponent.h"
+#include "ECS/Components/PositionComponent.h"
 
 
-ECS::Systems::AttackSystem::AttackSystem(EntityManager &entityManager) : System(entityManager) { }
 
-ECS::Systems::AttackSystem::~AttackSystem()
-= default;
+namespace ECS {
+	namespace Systems {
+		using namespace Components;
 
+		AttackSystem::AttackSystem(EntityManager &entityManager) : System(entityManager) { }
 
-void ECS::Systems::AttackSystem::update(Context& context) {
+		AttackSystem::~AttackSystem()
+			= default;
 
-	for (auto entity : entityManager->getAllEntitiesWithComponent<EnemyComponent>())
-	{
-		if (entityManager->hasComponent<PositionComponent>(entity.id)
-			&& entityManager->hasComponent<BoundingBoxComponent>(entity.id)
-			&& entityManager->hasComponent<VelocityComponent>(entity.id)
-			&& entityManager->hasComponent<HealthComponent>(entity.id)) {
+		void AttackSystem::update(Context& context) {
 
-			auto boundingBoxComponent = entityManager->getComponent<BoundingBoxComponent>(entity.id);
-			auto Position = entityManager->getComponent<PositionComponent>(entity.id);
+			for (auto entity : entityManager->getAllEntitiesWithComponent<EnemyComponent>())
+			{
+				if (entityManager->hasComponent<PositionComponent>(entity.id)
+					&& entityManager->hasComponent<BoundingBoxComponent>(entity.id)
+					&& entityManager->hasComponent<VelocityComponent>(entity.id)
+					&& entityManager->hasComponent<HealthComponent>(entity.id)) {
 
-			boundingBoxComponent->boundingBox.SetPosXY(Position->x, Position->y);
-			std::vector<Physics::BoundingBox const *> vector;
+					auto boundingBoxComponent = entityManager->getComponent<BoundingBoxComponent>(entity.id);
+					auto Position = entityManager->getComponent<PositionComponent>(entity.id);
 
-			vector = boundingBoxComponent->collidesWith;
-			if (boundingBoxComponent->didCollide) {
-							   				
-				for (int i = 0; i < vector.size(); i++) {
-					for (const auto& entity1 : entityManager->getAllEntitiesWithComponent<PlayerComponent>()) {
-						auto CollideBoundingBox = &entityManager->getComponent<BoundingBoxComponent>(entity1.id)->boundingBox;
-						if (CollideBoundingBox == vector[i]) {
-							updateEntity(entity1.id, context);
-							updateEntity(entity.id, context);
-							context.audioManager->playSound("EnemyKill");
+					boundingBoxComponent->boundingBox.SetPosXY(Position->x, Position->y);
+					std::vector<unsigned int> vector;
+
+					vector = boundingBoxComponent->collidesWith;
+					if (boundingBoxComponent->didCollide) {
+
+						for (int i = 0; i < vector.size(); i++) {
+							if (entityManager->hasComponent<PlayerComponent>(vector[i])) {
+								updateEntity(vector[i], context);
+								updateEntity(entity.id, context);
+								context.audioManager->playSound("EnemyKill");
+							}
 						}
 					}
 				}
 			}
 		}
-	}
-}
 
-void ECS::Systems::AttackSystem::updateEntity(int id, Context& context) {
-	if (entityManager->hasComponent<EnemyComponent>(id)) {
-		entityManager->removeEntity(id);
-		// Print (Remove after review)
-		std::cout << "Enemy is exploded" << std::endl;
-	}
+		void AttackSystem::updateEntity(int id, Context& context) {
+			if (entityManager->hasComponent<EnemyComponent>(id)) {
+				entityManager->removeEntity(id);
+				// Print (Remove after review)
+				std::cout << "Enemy is exploded" << std::endl;
+			}
 
-	if (entityManager->hasComponent<HealthComponent>(id)) {
-		auto currentComponent = entityManager->getComponent<HealthComponent>(id);
+			if (entityManager->hasComponent<HealthComponent>(id)) {
+				auto currentComponent = entityManager->getComponent<HealthComponent>(id);
 
-		currentComponent->health -= 10;
+				currentComponent->health -= 10;
 
-		// Print (Remove after review)
-		std::cout << "Speler: " << currentComponent->health << std::endl;
+				// Print (Remove after review)
+				std::cout << "Speler: " << currentComponent->health << std::endl;
+			}
+		}
 	}
 }
 
