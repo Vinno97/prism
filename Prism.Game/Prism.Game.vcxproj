@@ -127,8 +127,11 @@
     <ClInclude Include="include\ECS\Systems\ShootingSystem.h" />
     <ClInclude Include="include\States\PauseState.h" />
     <ClInclude Include="include\World\TerrainGenerator.h" />
+    <ClInclude Include="include\ECS\Components\ScoreComponent.h" />
+    <ClInclude Include="include\ECS\Systems\ScoreSystem.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\ECS\Systems\ScoreSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\AimingSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\AttackSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\ProjectileAttackSystem.cpp" />
