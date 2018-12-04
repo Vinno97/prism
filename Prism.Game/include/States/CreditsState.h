@@ -22,7 +22,6 @@ namespace States {
 		~CreditsState();
 
 	private:
-		bool canPressEscape = false;
 		Menu::MenuRenderer menuRenderer;
 		Menu::MenuBuilder menuBuilder;
 		Menu::Menu menu;
