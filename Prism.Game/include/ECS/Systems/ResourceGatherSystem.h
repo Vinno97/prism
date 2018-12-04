@@ -2,21 +2,20 @@
 
 #include "Context.h"
 #include "ECS/Systems/System.h"
-#include "ECS/Components/InventoryComponent.h"
-#include "ECS/Components/PlayerComponent.h"
-#include "ECS/Components/ResourceSpawnComponent.h"
-#include "ECS/Components/InventoryComponent.h"
+#include "ECS/Components/PositionComponent.h"
 #include "EntityFactory.h"
 #include "Enums/ResourceTypeEnum.h"
+
 namespace ECS {
 	namespace Systems {
+		using namespace Components;
+
 		class ResourceGatherSystem : public System
 		{
 		public:
 			ResourceGatherSystem(EntityManager &entityManager);
 			~ResourceGatherSystem() = default;
 			void update(Context& context) override;
-			System* clone() override;
 		private:
 			
 			EntityFactory entityFactory;

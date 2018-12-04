@@ -5,8 +5,8 @@
 namespace ECS {
 	namespace Components {
 		struct KeyboardInputComponent : Component {
-			Component* Clone() override {
-				return new KeyboardInputComponent();
+			std::unique_ptr<Component> clone() override {
+				return std::make_unique<KeyboardInputComponent>();
 			}
 		};
 	}

@@ -15,10 +15,10 @@ void MenuState::onUpdate(Context &context)
 {
 }
 
-void MenuState::onEnter()
+void MenuState::onEnter(Context & context)
 {
 }
 
-void MenuState::onLeave()
+void MenuState::onLeave(Context & context)
 {
 }

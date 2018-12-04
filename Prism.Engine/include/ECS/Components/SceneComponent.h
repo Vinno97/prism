@@ -3,13 +3,17 @@
 #include "Component.h"
 #include "Renderer/Scene.h"
 
-namespace ECS {
-	namespace Components {
-		struct SceneComponent: Component {
+namespace ECS
+{
+	namespace Components
+	{
+		struct SceneComponent : Component
+		{
 			Renderer::Scene scene;
 
-			Component* Clone() override { 
-				SceneComponent* component = new SceneComponent();
+			std::unique_ptr<Component> clone() override
+			{
+				auto component = std::make_unique<SceneComponent>();
 				component->scene = scene;
 				return component;
 			}

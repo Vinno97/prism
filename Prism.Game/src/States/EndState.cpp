@@ -23,16 +23,17 @@ namespace States {
 		context.window->swapScreen();
 	}
 
-	void EndState::onEnter()
+	void EndState::onEnter(Context & context)
 	{
-		menuBuilder.addControl(0, 0, 1, 0.17, "img/gameover.png");
+		menuBuilder.addControl(-0.5, 0.4, 1, 0.24, "img/gameover.png");
 		menu = menuBuilder.buildMenu();
 		Renderer::Graphics::RenderDevice* renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
 		renderDevice->setClearColour(1.f, 1.f, 1.f, 1.f);
 	}
 
-	void EndState::onLeave()
+	void EndState::onLeave(Context & context)
 	{
+		context.audioManager->stopMusic();
 	}
 
 	EndState::EndState(const EndState & obj)

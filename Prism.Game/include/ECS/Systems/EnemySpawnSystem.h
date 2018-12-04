@@ -12,7 +12,6 @@ namespace ECS {
 			EnemySpawnSystem(EntityManager &entityManager);
 			~EnemySpawnSystem();
 			void update(Context& context) override;
-			System* clone() override;
 		};
 	}
 }
