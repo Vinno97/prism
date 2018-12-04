@@ -2,6 +2,7 @@
 #include "ECS/Components/BoundingBoxComponent.h"
 #include "ECS/Components/VelocityComponent.h"
 #include "ECS/Components/PositionComponent.h"
+#include "ECS/Components/PlayerComponent.h"
 #include "ECS/Components/DynamicComponent.h"
 
 using namespace ECS;
@@ -42,6 +43,9 @@ void BumpSystem::update(Context& context)
 				BoundingBox bbXYMin = BoundingBox(currentBB);
 				bbXYMin.SetPosXY(x - currentVelocity->dx * context.deltaTime, y - currentVelocity->dy * context.deltaTime);
 
+				//float lowestDx = -1.0;
+				//float lowestDy = -1.0;
+
 				for (auto& id : collisions) {
 					if (entityManager->hasComponent<PositionComponent>(id)) {
 						auto colliderPosition = entityManager->getComponent<PositionComponent>(id);
@@ -51,66 +55,208 @@ void BumpSystem::update(Context& context)
 						bool cx1 = currentPosition->x > colliderPosition->x && currentVelocity->dx < 0;
 						bool cy1 = currentPosition->y > colliderPosition->y && currentVelocity->dy < 0;
 						bool cy2 = currentPosition->y < colliderPosition->y && currentVelocity->dy > 0;
+
+						
 						const auto &colliderBB = entityManager->getComponent<BoundingBoxComponent>(id)->boundingBox;
 
-						//If collisions on both axis, determine axis of collision
-						if ((cx1 || cx2) && (cy1 || cy2)) {
-							//const auto &colliderBB = entityManager->getComponent<BoundingBoxComponent>(id)->boundingBox;
+						auto currentX = currentBB.GetPosX();
+						auto currentY = currentBB.GetPosY();
+						auto colliderX = colliderBB.GetPosX();
+						auto colliderY = colliderBB.GetPosY();
 
-							auto currentX = currentBB.GetPosX();
-							auto currentY = currentBB.GetPosY();
-							auto colliderX = colliderBB.GetPosX();
-							auto colliderY = colliderBB.GetPosY();
+						float xColT = 0.0;
+						float yColT = 0.0;
 
-							//Calculate total collision on each axis
-							float xColT = 0.0;
-							float yColT = 0.0;
+						auto x1 = std::abs((colliderX + colliderBB.GetEast()) - (currentX + currentBB.GetWest()));
+						auto x2 = std::abs((currentX + currentBB.GetEast()) - (colliderX + colliderBB.GetWest()));
+						auto y1 = std::abs((colliderY - colliderBB.GetSouth()) - (currentY - currentBB.GetNorth()));
+						auto y2 = std::abs((colliderY - colliderBB.GetNorth()) - (currentY - currentBB.GetSouth()));
 
-							if (cx1) {
-								xColT = std::abs((colliderX + colliderBB.GetEast()) - (currentX + currentBB.GetWest()));
+						if (currentPosition->x > colliderPosition->x) {
+							xColT = std::abs((colliderX + colliderBB.GetEast()) - (currentX + currentBB.GetWest()));
+							if (entityManager->hasComponent<PlayerComponent>(entity.id)) {
+								//std::cout << "Xavier" << std::endl;
 							}
-							else if (cx2) {
-								xColT = std::abs((currentX + currentBB.GetEast()) - (colliderX + colliderBB.GetWest()));
+						}
+						else if (currentPosition->x < colliderPosition->x) {
+							xColT = std::abs((currentX + currentBB.GetEast()) - (colliderX + colliderBB.GetWest()));
+							if (entityManager->hasComponent<PlayerComponent>(entity.id)) {
+								//std::cout << "Xavier" << std::endl;
 							}
-
-							if (cy1) {
-								yColT = std::abs((colliderY - colliderBB.GetSouth()) - (currentY - currentBB.GetNorth()));
+						}
+							
+						if (currentPosition->y > colliderPosition->y) {
+							yColT = std::abs((colliderY - colliderBB.GetSouth()) - (currentY - currentBB.GetNorth()));
+							if (entityManager->hasComponent<PlayerComponent>(entity.id)) {
+								//std::cout << "Yvonne" << std::endl;
 							}
-							else if (cy2) {
-								yColT = std::abs((colliderY - colliderBB.GetNorth()) - (currentY - currentBB.GetSouth()));
+						}
+						else if (currentPosition->y < colliderPosition->y) {
+							yColT = std::abs((colliderY - colliderBB.GetNorth()) - (currentY - currentBB.GetSouth()));
+							if (entityManager->hasComponent<PlayerComponent>(entity.id)) {
+								//std::cout << "Yvonne" << std::endl;
 							}
-
-							//The side with the least amount of collision needs te be resolved
-							if (xColT < yColT) {
+						}
+							
+								//The side with the least amount of collision needs te be resolved
+						if (xColT < yColT) {
+							if (entityManager->hasComponent<PlayerComponent>(entity.id)) {
+//								std::cout << "Xigbar" << std::endl;
+							}
+							if ((cx1 || cx2)) {
 								xCol = true;
-								if (aabbCollider.CheckCollision(bbXMin, colliderBB)) {
-									collisionsCopy.erase(std::remove(collisionsCopy.begin(), collisionsCopy.end(), id), collisionsCopy.end());
+								if (entityManager->hasComponent<PlayerComponent>(entity.id)) {
+									std::cout << "Xigie" << std::endl;
 								}
-							}
-							else if (yColT < xColT) {
-								yCol = true;
-								if (aabbCollider.CheckCollision(bbYMin, colliderBB)) {
-									collisionsCopy.erase(std::remove(collisionsCopy.begin(), collisionsCopy.end(), id), collisionsCopy.end());
-								}
+								//if (aabbCollider.CheckCollision(bbXMin, colliderBB)) {
+								//	collisionsCopy.erase(std::remove(collisionsCopy.begin(), collisionsCopy.end(), id), collisionsCopy.end());
+								//}
 							}
 							else {
-								xCol = true;
+								//xCol = true;
+								//yCol = true;
+							}
+						}
+						else if (yColT < xColT) {
+							if (entityManager->hasComponent<PlayerComponent>(entity.id)) {
+//								std::cout << "Yllian" << std::endl;
+							}
+							if ((cy1 || cy2)) {
 								yCol = true;
-								if (aabbCollider.CheckCollision(bbXYMin, colliderBB)) {
-									collisionsCopy.erase(std::remove(collisionsCopy.begin(), collisionsCopy.end(), id), collisionsCopy.end());
+								if (entityManager->hasComponent<PlayerComponent>(entity.id)) {
+									std::cout << "Ysolda" << std::endl;
 								}
+								//if (aabbCollider.CheckCollision(bbYMin, colliderBB)) {
+								//	collisionsCopy.erase(std::remove(collisionsCopy.begin(), collisionsCopy.end(), id), collisionsCopy.end());
+								//}
+							}
+							else {
+								//xCol = true;
+								//yCol = true;
+							}
+						}
+						else {
+							//xCol = true;
+							//yCol = true;
+							if (entityManager->hasComponent<PlayerComponent>(entity.id)) {
+								std::cout << "Casper" << std::endl;
+							}
+							if (aabbCollider.CheckCollision(bbXYMin, colliderBB)) {
+								collisionsCopy.erase(std::remove(collisionsCopy.begin(), collisionsCopy.end(), id), collisionsCopy.end());
 							}
 						}
 
-						else if (cx1 || cx2) {
-							xCol = true;
-						}
-						else if (cy1 || cy2) {
-							yCol = true;
-						}
-						else {
-							collisionsCopy.erase(std::remove(collisionsCopy.begin(), collisionsCopy.end(), id), collisionsCopy.end());
-						}
+						/*
+						VelocityComponent* c = nullptr;
+						if (entityManager->hasComponent<VelocityComponent>(id)) {
+							c = entityManager->getComponent<VelocityComponent>(entity.id);
+							if (currentVelocity->dx * c->dx > 0 && (std::abs(c->dx)<lowestDx || lowestDx == -1)) {
+								lowestDx = c->dx;
+							}
+							if (currentVelocity->dy * c->dy > 0 && (std::abs(c->dy) < lowestDx || lowestDy == -1)) {
+								lowestDy = c->dy;
+							}
+						}*/
+
+						//if (entityManager->hasComponent<PlayerComponent>(entity.id)) {
+						//	//std::cout << "Cavani" << std::endl;
+						//}
+						//
+						////If collisions on both axis, determine axis of collision
+						//if ((cx1 || cx2) && (cy1 || cy2)) {
+						//	//const auto &colliderBB = entityManager->getComponent<BoundingBoxComponent>(id)->boundingBox;
+						//
+						//	auto currentX = currentBB.GetPosX();
+						//	auto currentY = currentBB.GetPosY();
+						//	auto colliderX = colliderBB.GetPosX();
+						//	auto colliderY = colliderBB.GetPosY();
+						//
+						//	//Calculate total collision on each axis
+						//	float xColT = 0.0;
+						//	float yColT = 0.0;
+						//
+						//	auto x1 = std::abs((colliderX + colliderBB.GetEast()) - (currentX + currentBB.GetWest()));
+						//	auto x2 = std::abs((currentX + currentBB.GetEast()) - (colliderX + colliderBB.GetWest()));
+						//	auto y1 = std::abs((colliderY - colliderBB.GetSouth()) - (currentY - currentBB.GetNorth()));
+						//	auto y2 = std::abs((colliderY - colliderBB.GetNorth()) - (currentY - currentBB.GetSouth()));
+						//	
+						//	if (entityManager->hasComponent<PlayerComponent>(entity.id)) {
+						//		std::cout << "Carlos" << std::endl;
+						//	}
+						//
+						//	if (currentPosition->x > colliderPosition->x) {
+						//		xColT = std::abs((colliderX + colliderBB.GetEast()) - (currentX + currentBB.GetWest()));
+						//		if (entityManager->hasComponent<PlayerComponent>(entity.id)) {
+						//			std::cout << "Xavier" << std::endl;
+						//		}
+						//	}
+						//	else if (currentPosition->x < colliderPosition->x) {
+						//		xColT = std::abs((currentX + currentBB.GetEast()) - (colliderX + colliderBB.GetWest()));
+						//		if (entityManager->hasComponent<PlayerComponent>(entity.id)) {
+						//			std::cout << "Xavier" << std::endl;
+						//		}
+						//	}
+						//
+						//	if (currentPosition->y > colliderPosition->y) {
+						//		yColT = std::abs((colliderY - colliderBB.GetSouth()) - (currentY - currentBB.GetNorth()));
+						//		if (entityManager->hasComponent<PlayerComponent>(entity.id)) {
+						//			std::cout << "Yvonne" << std::endl;
+						//		}
+						//	}
+						//	else if (currentPosition->y < colliderPosition->y) {
+						//		yColT = std::abs((colliderY - colliderBB.GetNorth()) - (currentY - currentBB.GetSouth()));
+						//		if (entityManager->hasComponent<PlayerComponent>(entity.id)) {
+						//			std::cout << "Yvonne" << std::endl;
+						//		}
+						//	}
+						//
+						//	//The side with the least amount of collision needs te be resolved
+						//	if (xColT < yColT) {
+						//		xCol = true;
+						//		if (entityManager->hasComponent<PlayerComponent>(entity.id)) {
+						//			std::cout << "Xigbar" << std::endl;
+						//		}
+						//		//if (aabbCollider.CheckCollision(bbXMin, colliderBB)) {
+						//		//	collisionsCopy.erase(std::remove(collisionsCopy.begin(), collisionsCopy.end(), id), collisionsCopy.end());
+						//		//}
+						//	}
+						//	else if (yColT < xColT) {
+						//		yCol = true;
+						//		if (entityManager->hasComponent<PlayerComponent>(entity.id)) {
+						//			std::cout << "Yllian" << std::endl;
+						//		}
+						//		//if (aabbCollider.CheckCollision(bbYMin, colliderBB)) {
+						//		//	collisionsCopy.erase(std::remove(collisionsCopy.begin(), collisionsCopy.end(), id), collisionsCopy.end());
+						//		//}
+						//	}
+						//	else {
+						//		xCol = true;
+						//		yCol = true;
+						//		if (entityManager->hasComponent<PlayerComponent>(entity.id)) {
+						//			std::cout << "Casper" << std::endl;
+						//		}
+						//		//if (aabbCollider.CheckCollision(bbXYMin, colliderBB)) {
+						//		//	collisionsCopy.erase(std::remove(collisionsCopy.begin(), collisionsCopy.end(), id), collisionsCopy.end());
+						//		//}
+						//	}
+						//}
+						//
+						//else if (cx1 || cx2) {
+						//	xCol = true;
+						//	if (entityManager->hasComponent<PlayerComponent>(entity.id)) {
+						//		std::cout << "Xi" << std::endl;
+						//	}
+						//}
+						//else if (cy1 || cy2) {
+						//	yCol = true;
+						//	if (entityManager->hasComponent<PlayerComponent>(entity.id)) {
+						//		std::cout << "Yan" << std::endl;
+						//	}
+						//}
+						//else {
+						//	collisionsCopy.erase(std::remove(collisionsCopy.begin(), collisionsCopy.end(), id), collisionsCopy.end());
+						//	//std::cout << "Courtois" <<std::endl;
+						//}
 					}
 				}
 
@@ -118,26 +264,26 @@ void BumpSystem::update(Context& context)
 				if (xCol && yCol) {
 					if (CountCollisions(bbXMin, collisionsCopy) == 0) {
 						currentPosition->x -= currentVelocity->dx*context.deltaTime;
-						currentVelocity->dx = 0;
+						currentVelocity->dx = 0;//lowestDx;
 					}
 					else if (CountCollisions(bbYMin, collisionsCopy) == 0) {
 						currentPosition->y -= currentVelocity->dy*context.deltaTime;
-						currentVelocity->dy = 0;
+						currentVelocity->dy = 0;//lowestDy;
 					} 
 					else {
 						currentPosition->x -= currentVelocity->dx*context.deltaTime;
-						currentVelocity->dx = 0;
+						currentVelocity->dx = 0;//lowestDx;
 						currentPosition->y -= currentVelocity->dy*context.deltaTime;
-						currentVelocity->dy = 0;
+						currentVelocity->dy = 0;//lowestDy;
 					}
 				}
 				else if (xCol) {
 					currentPosition->x -= currentVelocity->dx*context.deltaTime;
-					currentVelocity->dx = 0;
+					currentVelocity->dx = 0;//lowestDx;
 				}
 				else if (yCol) {
 					currentPosition->y -= currentVelocity->dy*context.deltaTime;
-					currentVelocity->dy = 0;
+					currentVelocity->dy = 0;//lowestDy;
 				}
 			}
 		}
