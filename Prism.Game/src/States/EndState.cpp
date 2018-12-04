@@ -17,8 +17,8 @@ namespace States {
 
 	void EndState::onInit(Context & context)
 	{
-		std::function<void()> callbackMainMenu = [context]()mutable { context.stateMachine->setState<MainMenuState>(context); };
-		std::function<void()> callBackRestart = [context]()mutable {
+		std::function<void()> callbackMainMenu = [&context](){ context.stateMachine->setState<MainMenuState>(context); };
+		std::function<void()> callBackRestart = [&context](){
 			if (!context.stateMachine->hasState<PrismGame>()) {
 				context.stateMachine->addState<PrismGame>(context);
 				context.stateMachine->setState<PrismGame>(context);
@@ -26,9 +26,11 @@ namespace States {
 			}
 		};
 
-		menuBuilder.addControl(-0.35, -0.1, 0.7, 0.16, "img/mainMenuButton.png", callbackMainMenu);
-		menuBuilder.addControl(-0.35, 0.1, 0.7, 0.16, "img/restart.png", callBackRestart);
-		menuBuilder.addControl(-0.5, 0.4, 1, 0.24, "img/gameover.png");
+		menuBuilder.addControl(-0.5, 0.5, 1, 0.24, "img/gameover.png");
+
+		menuBuilder.addControl(-0.35, 0.1, 0.7, 0.18, "img/mainMenuButton.png", callbackMainMenu);
+		menuBuilder.addControl(-0.35, -0.2, 0.7, 0.16, "img/restart.png", callBackRestart);
+
 		menu = menuBuilder.buildMenu();
 
 		Renderer::Graphics::RenderDevice* renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
