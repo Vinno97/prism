@@ -3,16 +3,14 @@
 #include "Context.h"
 #include "ECS/Systems/System.h"
 
-
-
 namespace ECS {
 	namespace Systems {
-		class KeyboardInputSystem : public System
-		{
+		class GameOverSystem : public System {
 		public:
-			KeyboardInputSystem(EntityManager &entityManager);
-			~KeyboardInputSystem();
+			GameOverSystem(EntityManager &entityManager);
+			~GameOverSystem();
 			void update(Context& context) override;
 		};
 	}
 }
+

@@ -30,6 +30,8 @@
     <ClCompile Include="src\World\Assemblers\EnemySpawnAssembler.cpp" />
     <ClCompile Include="src\States\EndState.cpp" />
     <ClCompile Include="src\States\CreditsState.cpp" />
+    <ClCompile Include="src\ECS\Systems\GameOverSystem.cpp" />
+    <ClCompile Include="src\ECS\Systems\CheatSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ECS\Components\BulletComponent.h" />
@@ -133,6 +135,8 @@
     <ClInclude Include="include\World\Assemblers\EnemySpawnAssembler.h" />
     <ClInclude Include="include\States\EndState.h" />
     <ClInclude Include="include\States\CreditsState.h" />
+    <ClInclude Include="include\ECS\Systems\GameOverSystem.h" />
+    <ClInclude Include="include\ECS\Systems\CheatSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="lib\assimp-vc140-mtd.dll" />
