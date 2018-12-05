@@ -18,7 +18,7 @@ public:
 	void addSound(const std::string name, const std::string file);
 	void addMusic(const std::string name, const std::string file);
 
-	const void playSound(const std::string name);
+	const void playSound(const std::string name, int loops = 0);
 	const void playMusic(const std::string name);
 	void pauseMusic() const;
 	void resumeMusic() const;
