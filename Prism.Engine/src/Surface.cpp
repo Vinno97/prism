@@ -5,6 +5,11 @@ Surface::Surface(const char* path)
 	this->surface = IMG_Load(path);
 }
 
+Surface::~Surface()
+{
+	delete surface;
+}
+
 int Surface::width()
 {
 	return this->surface->w;
