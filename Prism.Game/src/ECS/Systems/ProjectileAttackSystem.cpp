@@ -7,6 +7,8 @@
 
 namespace ECS {
 	namespace Systems {
+		using namespace Components;
+		
 		ProjectileAttackSystem::ProjectileAttackSystem(EntityManager& entityManager) : System(entityManager)
 		{
 		}
@@ -26,10 +28,9 @@ namespace ECS {
 					auto vector = boundingBoxComponent->collidesWith;
 					bool isEnemy = false;
 					for (auto collider : vector) {
-
+						
 						if (entityManager->hasComponent<EnemyComponent>(collider)) {
 							isEnemy = true;
-
 
 							if (entityManager->hasComponent<HealthComponent>(entity.id) && entityManager->hasComponent<HealthComponent>(collider)) {
 								auto ProjectileHealth = entityManager->getComponent<HealthComponent>(entity.id);
@@ -42,6 +43,7 @@ namespace ECS {
 								}
 								if (EnemyHealth->health <= 0) {
 									entityManager->removeEntity(collider);
+									context.audioManager->playSound("EnemyKill");
 									break;
 								}
 							}
@@ -51,8 +53,10 @@ namespace ECS {
 						entityManager->removeEntity(entity.id);
 					}
 				}
-				boundingBoxComponent->didCollide = false;
-				boundingBoxComponent->collidesWith.clear();
+
+				// TODO: Wat doet deze code hier eigenlijk? De game crasht hierop, maar werkt correct als het uitgeschakeld staat. Ik kan me ook niet bedenken wat dit zou horen te doen.
+				// boundingBoxComponent->didCollide = false;
+				// boundingBoxComponent->collidesWith.clear();
 			}
 		}
 	}

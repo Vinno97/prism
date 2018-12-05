@@ -42,11 +42,22 @@ void CoreEngine::Run()
 	auto lastTime = std::chrono::system_clock::now();
 	int count = 0;
 
+	//Current State
+	State * currentState = nullptr;
+
 	//While the window is unclosed run the gameloop
 	while (!context.window->shouldClose())
 	{
 		//Holds the time in which the current gameupdat is being called
 		auto startTime = std::chrono::system_clock::now();
+
+
+		//Check if state is changed
+		if (context.stateMachine->getCurrentState() != currentState) {
+			context.stateMachine->getCurrentState()->onLeave(context);
+			currentState = context.stateMachine->getCurrentState();
+			context.stateMachine->getCurrentState()->onEnter(context);
+		}
 
 		//Deltatime in microseconds
 		auto deltaTime = std::chrono::duration_cast<std::chrono::microseconds>(startTime - lastTime);
@@ -55,7 +66,6 @@ void CoreEngine::Run()
 		//Sets the right values in context
 		context.deltaTime = deltaTime.count() / 1000000.f;
 		context.stateMachine->getCurrentState()->onUpdate(context);
-
 	}
 }
 

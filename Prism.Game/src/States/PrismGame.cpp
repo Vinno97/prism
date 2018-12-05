@@ -13,13 +13,17 @@
 #include "ECS/Components/KeyboardInputComponent.h"
 #include "ECS/Systems/EnemyPathFindingSystem.h"
 #include "ECS/Systems/MotionSystem.h"
+#include "ECS/Systems/GameOverSystem.h"
 #include "ECS/Systems/AttackSystem.h"
 #include "ECS/Systems/RenderSystem.h"
+#include "ECS/Systems/EnemySpawnSystem.h"
+#include "ECS/Systems/MousePointSystem.h"
 #include "ECS/Systems/KeyboardInputSystem.h"
 #include "ECS/Systems/AnimationSystem.h"
 #include "ECS/Systems/AttackSystem.h"
 #include "ECS/Systems/BumpSystem.h"
 #include "ECS/Systems/CollisionSystem.h"
+#include "ECS/Systems/CheatSystem.h"
 #include "ECS/Systems/ResourceGatherSystem.h"
 #include "ECS/Systems/ResourceBlobSystem.h"
 #include "ECS/Systems/ShootingSystem.h"
@@ -60,14 +64,16 @@ namespace States {
 		loader.save("saves/Sample Save", entityManager);
 
 		loadAudio(context);
-
 		registerSystems(context);
 
-		context.stateMachine->addState<PauseState>(context);
-
-		context.stateMachine->addState<EndState>(context);
+		if (!context.stateMachine->hasState<PauseState>()) {
+			context.stateMachine->addState<PauseState>(context);
+		}
+		if (!context.stateMachine->hasState<EndState>()) {
+			context.stateMachine->addState<EndState>(context);
+		}
 		
-		std::function<void()> callback = [context, &canPress = canPressEscape]() mutable { canPress = false; context.stateMachine->setState<PauseState>(); };
+		std::function<void()> callback = [context, &canPress = canPressEscape]() mutable { canPress = false; context.stateMachine->setState<PauseState>(context); };
 	}
 
 	/// <summary>
@@ -76,10 +82,11 @@ namespace States {
 	/// <param name="context">The context that is needed to register the systems</param>
 	void PrismGame::registerSystems(Context &context)
 	{
-		systemManager
+			systemManager
 			//1
 			.registerSystem<1, KeyboardInputSystem>(entityManager)
 			.registerSystem<1, MousePointSystem>(entityManager)
+			.registerSystem<1, CheatSystem>(entityManager)
 			.registerSystem<1, EnemyPathFindingSystem>(entityManager, 15)
 
 			//2
@@ -87,7 +94,7 @@ namespace States {
 			.registerSystem<2, AnimationSystem>(entityManager)
 			.registerSystem<2, AimingSystem>(entityManager)
 			.registerSystem<2, ResourceGatherSystem>(entityManager)
-			.registerSystem<2, EnemySpawnSystem>(entityManager)
+			//.registerSystem<2, EnemySpawnSystem>(entityManager)
 
 			//3
 			.registerSystem<3, ResourceBlobSystem>(entityManager)
@@ -95,17 +102,14 @@ namespace States {
 			.registerSystem<3, CollisionSystem>(entityManager, context.window->width, context.window->height, 0, 0, 2)
 
 			//4
-			.registerSystem<4, BumpSystem>(entityManager)
 			.registerSystem<4, ProjectileAttackSystem>(entityManager)
+			//.registerSystem<4, AttackSystem>(entityManager)
 
 			//5
-			.registerSystem<5, AttackSystem>(entityManager)
-			.registerSystem<5, RenderSystem>(entityManager, context.window->width, context.window->height);
-			
-			
+			.registerSystem<5, BumpSystem>(entityManager)
+			.registerSystem<5, RenderSystem>(entityManager, context.window->width, context.window->height)
+			.registerSystem<5, GameOverSystem>(entityManager);
 	}
-
-
 
 	void PrismGame::onUpdate(Context &context)
 	{
@@ -131,25 +135,22 @@ namespace States {
 
 		if (input->isKeyPressed(Key::KEY_ESCAPE) && canPressEscape) {
 			canPressEscape = false;
-			context.stateMachine->setState<PauseState>();
+			context.stateMachine->setState<PauseState>(context);
 		}
 	}
 
 	void PrismGame::loadAudio(Context &context) const
 	{
 		context.audioManager->addMusic("Ambience", "Ambience.wav");
+		context.audioManager->addMusic("MainMenu", "MainMenu.wav");
 		context.audioManager->addSound("Bullet", "Bullet.wav");
 		context.audioManager->addSound("EnemyKill", "EnemyKill.wav");
 		context.audioManager->addSound("Resource", "ResourceGathering.wav");
+	}
 
-		//Temporarily in here, will be moved to onEnter once context is accessible.
+	void PrismGame::onEnter(Context &context) {
 		context.audioManager->playMusic("Ambience");
 	}
-
-	void PrismGame::onEnter() {
-	}
-	void PrismGame::onLeave() {
+	void PrismGame::onLeave(Context &context) {
 	}
 }
-
-

@@ -5,10 +5,10 @@
 namespace ECS {
 	namespace Components {
 		struct DynamicComponent : Component {
-			float lifeTime;
+			float lifeTime{0};
 
-			Component* Clone() override {
-				return new DynamicComponent();
+			std::unique_ptr<Component> clone() override {
+				return std::make_unique<DynamicComponent>();
 			}
 		};
 	}

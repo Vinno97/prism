@@ -114,9 +114,9 @@ void BumpSystem::update(Context& context)
 							if (entityManager->hasComponent<PlayerComponent>(entity.id)) {
 								std::cout << "Casper" << std::endl;
 							}
-							if (aabbCollider.CheckCollision(bbXYMin, colliderBB)) {
-								collisionsCopy.erase(std::remove(collisionsCopy.begin(), collisionsCopy.end(), id), collisionsCopy.end());
-							}
+							//if (aabbCollider.CheckCollision(bbXYMin, colliderBB)) {
+							//	collisionsCopy.erase(std::remove(collisionsCopy.begin(), collisionsCopy.end(), id), collisionsCopy.end());
+							//}
 						}
 
 						
