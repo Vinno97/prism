@@ -6,6 +6,7 @@
 
 namespace ECS {
 	namespace Systems {
+
 		class ScoreSystem : public System {
 		public:
 			ScoreSystem(EntityManager &entityManager);

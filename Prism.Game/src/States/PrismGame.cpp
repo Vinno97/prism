@@ -29,6 +29,7 @@
 #include "ECS/Systems/BumpSystem.h"
 #include "ECS/Systems/CollisionSystem.h"
 #include "ECS/Systems/CheatSystem.h"
+#include "ECS/Systems/ScoreSystem.h"
 #include "ECS/Systems/ResourceGatherSystem.h"
 #include "ECS/Systems/ResourceBlobSystem.h"
 #include "ECS/Systems/ShootingSystem.h"
@@ -92,7 +93,7 @@ namespace States {
 		blueResource = menuBuilder.addTextControl(0.39,  0.91, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
 
 		fps = menuBuilder.addTextControl(0.725, 0.90, 0.0015, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "");
-		score = menuBuilder.addTextControl(0.725, 0.80, 0.0015, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
+		score = menuBuilder.addTextControl(0.65, 0.85, 0.0015, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
 
 
 		menu = menuBuilder.buildMenu();
@@ -133,7 +134,8 @@ namespace States {
 			//5
 			.registerSystem<5, RenderSystem>(entityManager, context.window->width, context.window->height)
 			.registerSystem<5, BumpSystem>(entityManager)
-			.registerSystem<5, GameOverSystem>(entityManager);
+			.registerSystem<5, GameOverSystem>(entityManager)
+			.registerSystem<5, ScoreSystem>(entityManager);
 	}
 
 	void PrismGame::onUpdate(Context &context)
@@ -156,7 +158,7 @@ namespace States {
 		int totalScore;
 		for (const auto& entity : entityManager.getAllEntitiesWithComponent<PlayerComponent>()) {
 			playerHealth = entityManager.getComponent<HealthComponent>(entity.id)->health;
-			totalScore = entityManager.getComponent<ScoreComponent>(entity.id)->killedEnemies;
+			totalScore = entityManager.getComponent<ScoreComponent>(entity.id)->totalScore;
 		}
 
 		redResource->text =   "Red:   " + std::to_string(static_cast<int>(inventory->redResource));

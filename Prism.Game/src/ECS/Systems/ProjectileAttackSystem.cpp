@@ -2,6 +2,7 @@
 #include "ECS/Components/ProjectileAttackComponent.h"
 #include "ECS/Components/BoundingBoxComponent.h"
 #include "ECS/Components/EnemyComponent.h"
+#include "ECS/Components/ScoreComponent.h"
 #include "ECS/Components/HealthComponent.h"
 #include "ECS/Components/PlayerComponent.h"
 
@@ -18,7 +19,7 @@ namespace ECS {
 
 		void ProjectileAttackSystem::update(Context& context)
 		{
-			auto players = entityManager->getAllEntitiesWithComponent<PlayerComponent>();
+			auto player = entityManager->getAllEntitiesWithComponent<PlayerComponent>()[0];
 
 			for (auto entity : entityManager->getAllEntitiesWithComponent<ProjectileAttackComponent>()) {
 				auto boundingBoxComponent = entityManager->getComponent<BoundingBoxComponent>(entity.id);
@@ -42,6 +43,9 @@ namespace ECS {
 									entityManager->removeEntity(entity.id);
 								}
 								if (EnemyHealth->health <= 0) {
+
+									auto scoreComponent = entityManager->getComponent<ScoreComponent>(player.id);
+									scoreComponent->killedEnemies += 1;
 
 									entityManager->removeEntity(collider);
 									context.audioManager->playSound("EnemyKill");
