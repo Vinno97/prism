@@ -68,21 +68,18 @@ namespace States {
 		context.stateMachine->addState<PauseState>(context);
 		context.stateMachine->addState<EndState>(context);
 
-
 		menuBuilder.addControl(-0.97, 0.89, 0.06, 0.066, "img/heart.png");
-
-
-
 		health = menuBuilder.addTextControl(-0.9, 0.9, 0.0014, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "100");
-		redResource = menuBuilder.addTextControl(-0.9, 0.8, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
-		greenResource = menuBuilder.addTextControl(-0.9, 0.75, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
-		blueResource = menuBuilder.addTextControl(-0.9,  0.7, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
+
+		menuBuilder.addControl(-0.50, 0.9, 0.06, 0.06, "img/reddot.png");
+		redResource = menuBuilder.addTextControl(-0.43, 0.91, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
 
 
-		resourceRedDot = menuBuilder.addTextControl(-0.97, 0.80, 0.005, Math::Vector3f{ 0.8f, 0.1f, 0.1f }, ".");
-		resourceGreenDot = menuBuilder.addTextControl(-0.97, 0.75, 0.005, Math::Vector3f{ 0.1f, 0.8f, 0.1f }, ".");
-		resourceBlueDot = menuBuilder.addTextControl(-0.97, 0.7, 0.005, Math::Vector3f{ 0.1f, 0.1f, 0.8f }, ".");
+		menuBuilder.addControl(-0.10, 0.9, 0.06, 0.06, "img/greendot.png");
+		greenResource = menuBuilder.addTextControl(-0.03, 0.91, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
 
+		menuBuilder.addControl(0.32, 0.9, 0.06, 0.06, "img/bluedot.png");
+		blueResource = menuBuilder.addTextControl(0.39,  0.91, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
 
 		fps = menuBuilder.addTextControl(0.725, 0.90, 0.0015, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "");
 
