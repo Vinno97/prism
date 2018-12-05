@@ -47,8 +47,6 @@ void CollisionSystem::update(Context& context)
 			
 			auto velocity = entityManager->getComponent<VelocityComponent>(entity.id);
 			auto position = entityManager->getComponent<PositionComponent>(entity.id);
-			//auto testBox = boundingBoxComponent->boundingBox;
-			//testBox.SetPosXY(position->x + velocity->dx * context.deltaTime, position->y + velocity->dy * context.deltaTime);
 
 			std::list<Physics::BoundingBox const *> boundingBoxes;
 			quadTree.RetrieveAll(boundingBoxes, boundingBoxComponent->boundingBox);

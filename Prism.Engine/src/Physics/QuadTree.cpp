@@ -134,17 +134,23 @@ int QuadTree::GetIndex(BoundingBox const &box) const
 
 	float bX = box.GetPosX();
 	float bY = box.GetPosY();
-	float bNorth = box.GetNorth() + bY;
-	float bEast = box.GetEast() + bX;
-	float bSouth = box.GetSouth() + bY;
-	float bWest = box.GetWest() + bX;
+	float bNorth = std::abs(box.GetAbsNorth());
+	float bEast = std::abs(box.GetAbsEast());
+	float bSouth = std::abs(box.GetAbsSouth());
+	float bWest = std::abs(box.GetAbsWest());
 
 
-	bool fitTop = bNorth <= qNorth && bSouth >= qY;
-	bool fitRight = bEast <= qEast && bWest >= qX;
+	bool fitTop = qNorth - bNorth >= 0 && bSouth - qY >= 0;
+	bool fitRight = qEast - bEast >= 0 && bWest - qX >= 0;
 
-	bool fitBottom = bNorth <= qY && bSouth >= qSouth;
-	bool fitLeft = bEast <= qX && bWest >= qWest;
+	bool fitBottom = qY - bNorth >= 0  && bSouth - qSouth >= 0;
+	bool fitLeft = qX - bEast >= 0 && bWest - qWest >= 0;
+
+	//bool fitTop = bNorth <= qNorth && bSouth >= qY;
+	//bool fitRight = bEast <= qEast && bWest >= qX;
+
+	//bool fitBottom = bNorth <= qY && bSouth >= qSouth;
+	//bool fitLeft = bEast <= qX && bWest >= qWest;
 
 
 	if (fitTop) {

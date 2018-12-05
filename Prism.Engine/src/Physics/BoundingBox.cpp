@@ -57,9 +57,19 @@ float BoundingBox::GetNorth() const
 	return north;
 }
 
+float Physics::BoundingBox::GetAbsNorth() const
+{
+	return posY+north;
+}
+
 float BoundingBox::GetEast() const
 {
 	return east;
+}
+
+float Physics::BoundingBox::GetAbsEast() const
+{
+	return posX+east;
 }
 
 float BoundingBox::GetSouth() const
@@ -67,7 +77,17 @@ float BoundingBox::GetSouth() const
 	return south;
 }
 
+float Physics::BoundingBox::GetAbsSouth() const
+{
+	return posY+south;
+}
+
 float BoundingBox::GetWest() const
 {
 	return west;
+}
+
+float Physics::BoundingBox::GetAbsWest() const
+{
+	return posX+west;
 }

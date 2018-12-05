@@ -62,34 +62,54 @@ namespace Physics {
 		void SetBounds(float north, float east, float south, float west);
 
 		/// <summary>
-		/// Set the bounds of the boundingbox
+		/// Get the x position of the boundingbox
 		/// </summary>
 		float GetPosX() const;
 
 		/// <summary>
-		/// Set the bounds of the boundingbox
+		/// Get the y position of the boundingbox
 		/// </summary>
 		float GetPosY() const;
 
 		/// <summary>
-		/// Set the bounds of the boundingbox
+		/// Get the north bound of the boundingbox
 		/// </summary>
 		float GetNorth() const;
 
 		/// <summary>
-		/// Set the bounds of the boundingbox
+		/// Get the north coördinate of the boundingbox
 		/// </summary>
-		float GetEast() const;
+		float GetAbsNorth() const;
 
 		/// <summary>
-		/// Set the bounds of the boundingbox
+		/// Get the east bound of the boundingbox
+		/// </summary>
+		float GetEast() const;
+		
+		/// <summary>
+		/// Get the east coördinate of the boundingbox
+		/// </summary>
+		float GetAbsEast() const;
+
+		/// <summary>
+		/// Get the south bound of the boundingbox
 		/// </summary>
 		float GetSouth() const;
 
 		/// <summary>
-		/// Set the bounds of the boundingbox
+		/// Get the south coördinate of the boundingbox
+		/// </summary>
+		float GetAbsSouth() const;
+
+		/// <summary>
+		/// Get the west bound of the boundingbox
 		/// </summary>
 		float GetWest() const;
+
+		/// <summary>
+		/// Get the west coördinate of the boundingbox
+		/// </summary>
+		float GetAbsWest() const;
 
 	private:
 

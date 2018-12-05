@@ -28,7 +28,7 @@ namespace Physics {
 		/// <param name="height">Total height of the highest level quadtree</param>
 		/// <param name="width">The center x coördinate of the highest level quadtree</param>
 		/// <param name="width">Total width of the highest level quadtree</param>
-		QuadTree(float width, float heigt, float x, float y, unsigned int maxObject);
+		QuadTree(float north, float east, float south, float west, unsigned int maxObjects);
 
 		/// <summary>
 		/// Clear the contents of the quadtree
