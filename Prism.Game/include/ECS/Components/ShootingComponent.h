@@ -7,6 +7,9 @@ namespace ECS {
 		struct ShootingComponent : Component {
 			float xdirection;
 			float ydirection;
+
+			float zPosition;
+			bool shotByTower = true;
 			bool isShooting;
 			float pastTime = 0;
 			float cooldown = 0.2;

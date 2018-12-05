@@ -36,6 +36,7 @@ void ECS::Systems::TowerAimingSystem::update(Context & context)
 
 				shootingComponent->xdirection = vec.x;
 				shootingComponent->ydirection = vec.y;
+				shootingComponent->zPosition = 0;
 				
 				shootingComponent->isShooting = true;
 			}

@@ -24,7 +24,7 @@ void CollisionSystem::update(Context& context)
 			auto boundingBox = &entityManager->getComponent<BoundingBoxComponent>(entity.id)->boundingBox;
 			auto position = entityManager->getComponent<PositionComponent>(entity.id);
 
-			boundingBox->SetPosXY(position->x, position->y);
+			boundingBox->SetPosXYZ(position->x, position->y, position->z);
 			quadTree.Insert(*boundingBox);
 		}
 	}

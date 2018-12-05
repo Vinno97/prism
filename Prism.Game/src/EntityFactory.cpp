@@ -58,7 +58,7 @@ int EntityFactory::createPlayer(int entity, EntityManager& entityManager) {
 	entityManager.addComponentToEntity(entity, HealthComponent(100));
 	entityManager.addComponentToEntity(entity, KeyboardInputComponent());
 	entityManager.addComponentToEntity(entity, PlayerComponent());
-	entityManager.addComponentToEntity(entity, BoundingBoxComponent(.3,.3));
+	entityManager.addComponentToEntity(entity, BoundingBoxComponent(.3, .3, .3));
 	entityManager.addComponentToEntity(entity, InventoryComponent());
 	entityManager.addComponentToEntity(entity, ResourceGatherComponent());
 	entityManager.addComponentToEntity(entity, appearance);
@@ -84,11 +84,11 @@ int EntityFactory::createEnemy(int entity, EntityManager& entityManager) {
 	entityManager.addComponentToEntity(entity, VelocityComponent());
 	entityManager.addComponentToEntity(entity, PositionComponent());
 	entityManager.addComponentToEntity(entity, HealthComponent(100));
-	entityManager.addComponentToEntity(entity, DragComponent(5.f)); 
+	entityManager.addComponentToEntity(entity, DragComponent(5.f));
 	entityManager.addComponentToEntity(entity, EnemyComponent());
 	entityManager.addComponentToEntity(entity, appearance);
-	entityManager.addComponentToEntity(entity, BoundingBoxComponent(.4, .4));
-	
+	entityManager.addComponentToEntity(entity, BoundingBoxComponent(.4, .4, 2));
+
 	return entity;
 }
 
@@ -145,7 +145,7 @@ int EntityFactory::createTower(int entity, EntityManager & entityManager)
 	entityManager.addComponentToEntity(entity, TowerComponent());
 	entityManager.addComponentToEntity(entity, PositionComponent());
 	entityManager.addComponentToEntity(entity, appearance);
-	//entityManager.addComponentToEntity(entity, BoundingBoxComponent(1.0, 1.0));
+	entityManager.addComponentToEntity(entity, BoundingBoxComponent(1.0, 1.0, 1.0));
 	entityManager.addComponentToEntity(entity, ShootingComponent());
 	return entity;
 }
@@ -168,7 +168,7 @@ int EntityFactory::createWall(int entity, EntityManager & entityManager)
 	entityManager.addComponentToEntity(entity, WallComponent());
 	entityManager.addComponentToEntity(entity, PositionComponent());
 	entityManager.addComponentToEntity(entity, appearance);
-	entityManager.addComponentToEntity(entity, BoundingBoxComponent(1.0, 1.0));
+	entityManager.addComponentToEntity(entity, BoundingBoxComponent(1.0, 1.0, 1.0));
 	return entity;
 }
 
@@ -214,11 +214,11 @@ int EntityFactory::createProjectile(EntityManager & entityManager) {
 	appearance.model = std::move(model);
 
 	return entityManager.createEntity(
-		VelocityComponent(), 
-		PositionComponent(), 
+		VelocityComponent(),
+		PositionComponent(),
 		BulletComponent(),
 		HealthComponent(15),
-		BoundingBoxComponent(0.1, 0.1), 
+		BoundingBoxComponent(0.1, 0.1, 0.1),
 		ProjectileAttackComponent(), appearance);
 }
 
@@ -249,7 +249,7 @@ int EntityFactory::createFloor(int entity, EntityManager & entityManager) {
 
 	appearance.model = std::move(model);
 	appearance.color = Math::Vector3f{ 0.8f, 0.8f, 0.82f };
-	
+
 	entityManager.addComponentToEntity(entity, PositionComponent());
 	entityManager.addComponentToEntity(entity, appearance);
 	return entity;
@@ -307,16 +307,16 @@ int EntityFactory::createEnemySpawn(int entity, ECS::EntityManager & entityManag
 {
 	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
 	auto model = ml.loadModel("./res/spawner.obj");
-	
+
 	AppearanceComponent appearance;
 	appearance.scaleX = 0.15f;
 	appearance.scaleY = 0.15f;
 	appearance.scaleZ = 0.15f;
 	appearance.color = Math::Vector3f{ 0.22, 0.22, 0.22 };
-	
+
 	PositionComponent position;
 	position.y = 0;
-	
+
 	appearance.model = std::move(model);
 	EnemySpawnComponent spawnComponent = EnemySpawnComponent{ spawnInterval, 0.f, enabled };
 
@@ -339,4 +339,4 @@ int EntityFactory::createCamera(ECS::EntityManager & entityManager)
 	return entityManager.createEntity(component);
 }
 
-	
+

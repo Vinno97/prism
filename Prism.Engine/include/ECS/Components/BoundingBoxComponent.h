@@ -8,6 +8,7 @@ namespace ECS {
 		struct BoundingBoxComponent : Component {
 
 			BoundingBoxComponent(float width, float height) : boundingBox(Physics::BoundingBox(height / 2.0, width / 2.0, -1 * height / 2.0, -1 * width / 2.0)) {};
+			BoundingBoxComponent(float width, float height, float depth) : boundingBox(Physics::BoundingBox(height / 2.0, width / 2.0, -1 * height / 2.0, -1 * width / 2.0, depth/ 2.0, -1* depth/2.0)) {};
 
 			Physics::BoundingBox boundingBox;
 			bool didCollide = false;
@@ -16,7 +17,7 @@ namespace ECS {
 			
 			Component* Clone() override
 			{
-				auto newComponent = new BoundingBoxComponent(boundingBox.GetEast() - boundingBox.GetWest(), boundingBox.GetNorth() - boundingBox.GetSouth());
+				auto newComponent = new BoundingBoxComponent(boundingBox.GetEast() - boundingBox.GetWest(), boundingBox.GetNorth() - boundingBox.GetSouth(), boundingBox.GetDown() - boundingBox.GetUp());
 				newComponent->didCollide = this->didCollide;
 				for (int i = 0;i < collidesWith.size();i++) {
 					newComponent->collidesWith.push_back(collidesWith[i]);
