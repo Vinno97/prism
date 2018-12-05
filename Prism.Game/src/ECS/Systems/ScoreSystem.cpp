@@ -19,7 +19,7 @@ namespace ECS {
 			auto player = entityManager->getAllEntitiesWithComponent<PlayerComponent>()[0];
 			auto score = entityManager->getComponent<ScoreComponent>(player.id);
 
-			score->totalScore = floor((score->killedEnemies * 10) + ((score->gatheredBlueResources + score->gatheredGreenResources + score->gatheredRedResources) / 3));
+			score->totalScore = floor((score->killedEnemies * 100) + ((score->gatheredBlueResources  + score->gatheredGreenResources + score->gatheredRedResources) * 3.3));
 
 		}
 	}
