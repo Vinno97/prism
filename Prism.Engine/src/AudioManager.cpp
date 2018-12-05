@@ -85,6 +85,11 @@ void AudioManager::stopMusic() const
 	Mix_HaltMusic();
 }
 
+void AudioManager::stopSound(int channel) const
+{
+	Mix_HaltChannel(channel);
+}
+
 AudioManager::~AudioManager()
 {
 	sounds.clear();

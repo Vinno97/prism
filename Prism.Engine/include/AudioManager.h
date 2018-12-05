@@ -23,6 +23,7 @@ public:
 	void pauseMusic() const;
 	void resumeMusic() const;
 	void stopMusic() const;
+	void stopSound(int channel = -1) const;
 
 	~AudioManager();
 private:
