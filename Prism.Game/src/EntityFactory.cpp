@@ -12,6 +12,7 @@
 #include "ECS/Components/InventoryComponent.h"
 #include "ECS/Components/KeyboardInputComponent.h"
 #include "ECS/Components/MineComponent.h"
+#include "ECS/Components/TargetComponent.h"
 #include "ECS/Components/MousePointerComponent.h"
 #include "ECS/Components/PlayerComponent.h"
 #include "ECS/Components/PositionComponent.h"
@@ -204,6 +205,7 @@ unsigned EntityFactory::createMine(unsigned entity, EntityManager& entityManager
 	return EntityBuilder(entityManager, entity)
 	       .addComponent<MineComponent>()
 	       .addComponent<PositionComponent>()
+	       .addComponent<ResourceGatherComponent>()
 	       .addComponent(appearance)
 	       .getEntity();
 }
@@ -323,6 +325,7 @@ unsigned EntityFactory::createResourceBlob(unsigned entity,
 	       .addComponent<PositionComponent>()
 	       .addComponent<VelocityComponent>()
 	       .addComponent<DragComponent>()
+           .addComponent<TargetComponent>()
 	       .addComponent(resource)
 	       .addComponent(appearance)
 	       .getEntity();
