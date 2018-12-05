@@ -10,12 +10,17 @@
 #include "Renderer/ForwardRenderer.h"
 #include "Renderer/Scene.h"
 #include "Renderer/Graphics/Loader/ModelLoader.h"
+#include "ECS/Components/PositionComponent.h"
 
 using namespace Renderer;
+using namespace ECS;
+using namespace Systems;
+using namespace Components;
 using namespace std;
 
 namespace ECS {
 	namespace Systems {
+		using namespace Components;
 
 		RenderSystem::RenderSystem(EntityManager &entityManager, int windowWidth, int windowHeight)
 			: System(entityManager) {
@@ -41,7 +46,7 @@ namespace ECS {
 				auto playerPosition = entityManager->getComponent<PositionComponent>(players.front().id);
 				camera->position.x -= (camera->position.x - playerPosition->x) * context.deltaTime * 2;
 				camera->position.z -= (camera->position.z - 4.f - playerPosition->y) * context.deltaTime * 2;
-			}			
+			}
 
 
 			for (unsigned int i = 0; i < appearanceEntities.size(); i++)

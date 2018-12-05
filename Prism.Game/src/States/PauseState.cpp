@@ -25,7 +25,7 @@ namespace States {
 		auto input = context.inputManager;
 		if (input->isKeyPressed(Key::KEY_ESCAPE) && canPressEscape) {
 			canPressEscape = false;
-			context.stateMachine->setState<PrismGame>();
+			context.stateMachine->setState<PrismGame>(context);
 		}
 
 		if (!input->isKeyPressed(Key::KEY_ESCAPE)) {
@@ -38,12 +38,12 @@ namespace States {
 		context.window->swapScreen();
 	}
 
-	void PauseState::onEnter()
+	void PauseState::onEnter(Context & context)
 	{
 
 	}
 
-	void PauseState::onLeave()
+	void PauseState::onLeave(Context & context)
 	{
 	}
 

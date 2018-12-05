@@ -5,8 +5,8 @@
 namespace ECS {
 	namespace Components {
 		struct MineComponent : Component {
-			Component* Clone() override {
-				return new MineComponent();
+			std::unique_ptr<Component> clone() override {
+				return std::make_unique<MineComponent>();
 			}
 		};
 	}
