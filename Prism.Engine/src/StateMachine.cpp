@@ -4,19 +4,13 @@
 StateMachine::StateMachine()
 = default;
 
-
-
 State* StateMachine::getCurrentState() const
 {
 	return this->currentState;
 }
 
-void StateMachine::setState(std::type_index type) {
-	if (this->currentState != nullptr)
-		this->currentState->onLeave();
-
+void StateMachine::setState(std::type_index type, Context & context) {
 	this->currentState = getState(type);
-	this->currentState->onEnter();
 }
 
 State* StateMachine::getState(std::type_index type) const {

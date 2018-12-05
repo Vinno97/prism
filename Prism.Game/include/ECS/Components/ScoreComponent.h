@@ -10,10 +10,10 @@ namespace ECS {
 			int gatheredRedResources = 0;
 			int gatheredGreenResources = 0;
 			int gatheredBlueResources = 0;
-			int survivedTime = 0;
+			double survivedTime = 0;
 
-			Component* Clone() override {
-				auto component = new ScoreComponent();
+			std::unique_ptr<Component> clone() override {
+				auto component = std::make_unique<ScoreComponent>();
 				component->killedEnemies = killedEnemies;
 				component->gatheredBlueResources = gatheredBlueResources;
 				component->gatheredGreenResources = gatheredGreenResources;

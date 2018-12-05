@@ -53,6 +53,8 @@ if (MSVC)
 endif ()
 set_target_properties(Prism.Engine PROPERTIES
         VERSION ${PROJECT_VERSION}
+        CXX_STANDARD 17
+        CXX_EXTENSIONS OFF
         SOVERSION 1)
 
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")

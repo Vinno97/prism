@@ -14,13 +14,12 @@ namespace States {
 
 		void onInit(Context &context) override;
 		void onUpdate(Context &context) override;
-		void onEnter() override;
-		void onLeave() override;
+		void onEnter(Context & context) override;
+		void onLeave(Context & context) override;
 
 		~EndState();
 
 	private:
-		bool canPressEscape = false;
 		Menu::MenuRenderer menuRenderer;
 		Menu::MenuBuilder menuBuilder;
 		std::unique_ptr<Menu::Menu> menu;
