@@ -24,6 +24,7 @@
 #include "Physics/BoundingBox.h"
 #include "Physics/QuadTree.h"
 #include "States/MainMenuState.h"
+#include "States/CreditsState.h"
 
 #define _CRTDBG_MAP_ALLOC
 
