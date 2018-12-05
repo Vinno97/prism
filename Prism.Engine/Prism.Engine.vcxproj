@@ -103,7 +103,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Util\AdvertisementSystem.cpp" />
-    <ClCompile Include="include\Renderer\Graphics\RenderTarget.cpp" />
     <ClCompile Include="src\AudioManager.cpp" />
     <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLRenderTarget.cpp" />
     <ClCompile Include="src\World\Assemblers\AppearanceAssembler.cpp" />

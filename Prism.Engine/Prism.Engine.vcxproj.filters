@@ -55,7 +55,6 @@
     <ClCompile Include="src\World\Assemblers\HealthAssembler.cpp" />
     <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLRenderTarget.cpp" />
     <ClCompile Include="src\Util\AdvertisementSystem.cpp" />
-    <ClCompile Include="include\Renderer\Graphics\RenderTarget.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ECS\Components\HealthComponent.h" />
