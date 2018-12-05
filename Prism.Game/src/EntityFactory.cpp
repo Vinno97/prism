@@ -24,6 +24,7 @@
 #include "ECS/Components/ShootingComponent.h"
 #include "ECS/Components/TowerComponent.h"
 #include "ECS/Components/VelocityComponent.h"
+#include "ECS/Components/PointLightComponent.h"
 #include "ECS/Components/WallComponent.h"
 #include "ECS/EntityBuilder.h"
 #include "Renderer/Camera.h"
