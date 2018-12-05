@@ -98,7 +98,7 @@ vec3 calcPointLight(vec3 normal, vec3 worldPos, PointLight pointLight) {
 	float distance = length(pointLight.Position-worldPos);
 
 	
-	float Attenuation = gPointLights[0].Constant + 0 * distance + 1 * distance * distance;
+	float Attenuation = gPointLights[0].Constant + pointLight.Linear * distance + pointLight.Exp * distance * distance;
 	return pointLight.Color/Attenuation;
 }
 
@@ -122,23 +122,6 @@ void main() {
 	
 	float shadow = 0;
 
-//	Raw shadow checking without sampling	
-//	if(t2 > t1) {
-//		shadow = -1;
-//	}
-	
-//	Pretty simple PCF sampling
-	vec2 texelSize = 1.0 / textureSize(gShadowMap, 0);
-	for(int x = -1; x <= 1; ++x)
-	{
-		for(int y = -1; y <= 1; ++y)
-		{
-			float pcfDepth = texture(gShadowMap, shadowCoord.xy + vec2(x, y) * texelSize).r; 
-			shadow += t2 - bias > pcfDepth ? -2.0 : 1.0;        
-		}    
-	}
-	shadow /= 9.0;
-	
 // Poisson sampling
 	float visibility = 1;
 	for (int i=0;i<8;i++){
@@ -146,14 +129,6 @@ void main() {
 		if ( texture( gShadowMap, shadowCoord.xy + poissonDisk[i]/700.0 ).r  <  shadowCoord.z-bias ){
 			visibility -= 0.1;
 		}
-	}
-	
-// Stratified poisson disc sampling	
-	
-	vec4 pointColor = vec4(0, 0, 0, 1);
-	
-	for(int i = 0; i < numPointLights; i++) {
-		pointColor += vec4(calcPointLight(Normal, worldPos, gPointLights[i]), 1.0);
 	}
 	
 	vec4 AmbientColor = vec4(gDirectionalLight.Color * gDirectionalLight.AmbientIntensity, 1.0f);
@@ -170,7 +145,7 @@ void main() {
 	
 	
 	
-	color = vec4(Albedo, 1) * (AmbientColor + (visibility * (DiffuseColor+pointColor)));
+	color = vec4(Albedo, 1) * (AmbientColor  + pointColor + DiffuseColor);
 	//float t = LinearizeDepth(UV, texture(gShadowMap, UV).r);
 	//color = vec4(t, t, t, 1.0);
 	//color = pointColor;

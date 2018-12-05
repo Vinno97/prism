@@ -94,26 +94,26 @@ namespace ECS {
 			//TODO: Remove this test code
 			auto input = context.inputManager;
 
-			if (input->isKeyPressed(Key::KEY_I)) {
-				pos.z -= 0.1;
-			}
-			if (input->isKeyPressed(Key::KEY_J)) {
-				pos.x -= 0.1;
-			}
-			if (input->isKeyPressed(Key::KEY_K)) {
-				pos.z += 0.1;
-			}
-			if (input->isKeyPressed(Key::KEY_L)) {
-				pos.x += 0.1;
-			}
+			//if (input->isKeyPressed(Key::KEY_I)) {
+			//	pos.z -= 0.1;
+			//}
+			//if (input->isKeyPressed(Key::KEY_H)) {
+			//	pos.x -= 0.1;
+			//}
+			//if (input->isKeyPressed(Key::KEY_K)) {
+			//	pos.z += 0.1;
+			//}
+			//if (input->isKeyPressed(Key::KEY_L)) {
+			//	pos.x += 0.1;
+			//}
+			//
+			//if (input->isKeyPressed(Key::KEY_E)) {
+			//	pos.y += 0.1;
+			//}
 
-			if (input->isKeyPressed(Key::KEY_E)) {
-				pos.y += 0.1;
-			}
-
-			if (input->isKeyPressed(Key::KEY_Q)) {
-				pos.y -= 0.1;
-			}
+			//if (input->isKeyPressed(Key::KEY_Q)) {
+			//	pos.y -= 0.1;
+			//}
 
 			if (input->isKeyPressed(Key::KEY_H)) {
 				forwardRenderer->loadPipelines();

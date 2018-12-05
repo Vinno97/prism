@@ -61,7 +61,7 @@ namespace Renderer {
 
 	float i = 0;
 
-	void ForwardRenderer::draw(const Camera& camera, const std::vector<Renderable>& renderables, const Scene& scene, const std::vector<PointLight>& pointLights, Math::Vector3f position)
+	void ForwardRenderer::draw(const Camera& camera, const std::vector<Renderable>& renderables, const Scene& scene, std::vector<PointLight>& pointLights, Math::Vector3f position)
 	{
 
 		i += 0.01;
@@ -155,14 +155,15 @@ namespace Renderer {
 	//		quadPipeline->setUniformFloat(index.append(".Exp").c_str(), light.exp);
 	//	}
 
-		PointLight pl{ Math::Vector3f{-44.f, 1, -15.f}, Math::Vector3f{1.f, 0, 0.f} };
+		PointLight pl{ Math::Vector3f{-42.f, 1, -10.f}, Math::Vector3f{1.f, 1.f, 1.f} };
 
 		pl.constant = 1.0f;
 		pl.linear = 0.f;
 		pl.exp = 1.8f;
 
+		pointLights.emplace_back(pl);
 
-		quadPipeline->setUniformFloat("numPointLights", 1.f);
+		quadPipeline->setUniformFloat("numPointLights", pointLights.size());
 
 		int index = 0;
 

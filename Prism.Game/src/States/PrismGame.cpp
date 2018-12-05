@@ -72,9 +72,9 @@ namespace States {
 		appearance.translationY = 0.5f;
 		appearance.model = std::move(model);
 
-		entityManager.addComponentToEntity(entity, PositionComponent(double(-42.f), double(-15.f)));
+		entityManager.addComponentToEntity(entity, PositionComponent(double(-42.f), double(-10.f)));
 		entityManager.addComponentToEntity(entity, appearance);
-		entityManager.addComponentToEntity(entity, PointLightComponent(Math::Vector3f{ 1.f, 1.f, 0.f }));
+		entityManager.addComponentToEntity(entity, PointLightComponent(Math::Vector3f{ 1.f, 0.f, 1.f }, 1, 0));
 
 		loader.load("levels/Sample World", entityManager);
 		// Dit is hoe een wereld zou worden opgeslagen en weer ingeladen.

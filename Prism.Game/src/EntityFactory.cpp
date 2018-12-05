@@ -24,6 +24,7 @@
 #include "ECS/Components/ShootingComponent.h"
 #include "ECS/Components/TowerComponent.h"
 #include "ECS/Components/VelocityComponent.h"
+#include "ECS/Components/PointLightComponent.h"
 #include "ECS/Components/WallComponent.h"
 #include "ECS/EntityBuilder.h"
 #include "Renderer/Camera.h"
@@ -65,7 +66,7 @@ unsigned EntityFactory::createPlayer(unsigned entity, EntityManager& entityManag
 	       .addComponent<HealthComponent>(100)
 	       .addComponent<DragComponent>(5.f)
 	       .addComponent<BoundingBoxComponent>(.3, .3)
-		   .addComponent<PointLightComponent>(Math::Vector3f{ 1.f, 1.f, 0.f })
+		   .addComponent<PointLightComponent>(Math::Vector3f{ 1.f, 1.f, 0.f }, 1.f, 0.f)
 	       .addComponent(appearance)
 	       .getEntity();
 }
@@ -246,6 +247,7 @@ unsigned EntityFactory::createProjectile(unsigned entity, EntityManager& entityM
 	       .addComponent<BoundingBoxComponent>(0.1, 0.1)
 	       .addComponent<ProjectileAttackComponent>()
 	       .addComponent<DynamicComponent>()
+		   .addComponent<PointLightComponent>(Math::Vector3f{ 1.f, 1.f, 0.f }, 1.0f, 0.f)
 	       .addComponent(appearance)
 	       .getEntity();
 }
@@ -278,7 +280,7 @@ unsigned EntityFactory::createFloor(unsigned entity, EntityManager& entityManage
 	appearance.translationY = -scale / 15;
 
 	appearance.model = std::move(model);
-	appearance.color = Math::Vector3f{0.8f, 0.8f, 0.82f};
+	appearance.color = Math::Vector3f{0.8f, 0.8f, 0.8f };
 
 	return EntityBuilder(entityManager, entity)
 	       .addComponent<PositionComponent>()
