@@ -44,7 +44,6 @@
     <ClCompile Include="src\World\Assemblers\PositionAssembler.cpp" />
     <ClCompile Include="src\World\Assemblers\EntityAssembler.cpp" />
     <ClCompile Include="src\AudioManager.cpp" />
-    <ClCompile Include="src\Util\lodepng.cpp" />
     <ClCompile Include="src\Menu\MenuBuilder.cpp" />
     <ClCompile Include="src\Menu\Control.cpp" />
     <ClCompile Include="src\Menu\MenuRenderer.cpp" />
@@ -116,7 +115,6 @@
     <ClInclude Include="include\Math\Vector3f.h" />
     <ClInclude Include="include\Renderer\DirectionalLight.h" />
     <ClInclude Include="include\Renderer\Scene.h" />
-    <ClInclude Include="include\Util\lodepng.h" />
     <ClInclude Include="include\Menu\MenuBuilder.h" />
     <ClInclude Include="include\Menu\Control.h" />
     <ClInclude Include="include\Menu\MenuRenderer.h" />
