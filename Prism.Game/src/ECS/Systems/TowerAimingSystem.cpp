@@ -4,6 +4,7 @@
 #include "ECS/Components/ShootingComponent.h"
 #include "ECS/Components/VelocityComponent.h"
 #include "Math/Vector3f.h"
+#include <math.h>
 
 using namespace ECS;
 using namespace Systems;
