@@ -32,6 +32,7 @@ namespace Renderer {
 		positionBuffer = renderDevice->createTexture(false);
 		normalBuffer = renderDevice->createTexture(false);
 		albedoBuffer = renderDevice->createTexture(false);
+		test = renderDevice->createTexture(false);
 		depthBuffer = renderDevice->createTexture(true);
 
 		renderTarget = renderDevice->createRenderTarget(true);
@@ -41,18 +42,20 @@ namespace Renderer {
 		renderTarget->addBuffer(albedoBuffer);
 		renderTarget->setDepthBuffer(depthBuffer);
 
-		shadowDepthBuffer = renderDevice->createTexture(true);
 		shadowDepthTarget = renderDevice->createRenderTarget(true); 
+		shadowDepthBuffer = renderDevice->createTexture(true);
 		shadowDepthTarget->setDepthBuffer(shadowDepthBuffer);
+		shadowDepthTarget->addBuffer(test);
 
 		loadPipelines();
 		createTargetQuad();
 
 	    projection = glm::perspective(glm::radians(45.0f), (float) width/height, 0.5f, 100.f);
-	    shadowProjection = glm::ortho(-5.0f, 5.0f, -5.0f, 5.0f, 0.f, 7.5f);
+		shadowProjection = glm::ortho(-3.0f, 3.0f, -3.0f, 3.0f, 0.f, 7.5f);
 
 		renderDevice->setClearColour(1.f, 1.f, 1.f, 1.f);
 		shadowCamera.position = glm::vec3{ -45.f, 1.0f, -15 };
+
 		shadowCamera.rotation = glm::vec3{ -40.f, -20.f, 0.f };
 	}
 
@@ -65,6 +68,7 @@ namespace Renderer {
 		glm::mat4 model;
 		const glm::mat4 view = camera.getCameraMatrix();
 		shadowCamera.position = glm::vec3(position.x, position.y, position.z);
+	//	shadowCamera.position = glm::lookAt{ glm::vec3(position.x, position.y, position.z), glm::vec3(-45.f, 1.0f, -15), glm::vec3(0, 1, 0) };
 		renderDevice->clearScreen();
 			
 		renderTarget->bind();
@@ -95,13 +99,14 @@ namespace Renderer {
 		renderTarget->unbind();
 		geometryPipeline->stop();
 
-		//Render shadowmap
-
+		//test
 		shadowDepthTarget->bind();
-		shadowPipeline->run();
+		renderDevice->useDepthTest(true);
 		renderDevice->clearScreen();
-		auto shadowView = shadowCamera.getCameraMatrix();
-		glCullFace(GL_FRONT);
+		shadowPipeline->run();
+
+		auto shadowView = glm::lookAt( glm::vec3(position.x, position.y, position.z), glm::vec3(-45.f, 1.0f, -15), glm::vec3(0, 1, 0) );
+
 
 		for (const auto& renderable : renderables) {
 			model = renderable.getMatrix();
@@ -119,11 +124,40 @@ namespace Renderer {
 				renderDevice->DrawTriangles(0, renderable.model->mesh->verticesLength);
 			}
 		}
-		glCullFace(GL_BACK);
-		shadowPipeline->stop();
-		shadowDepthTarget->unbind();
 
-		//End render shadowmap
+		shadowDepthTarget->unbind();
+		shadowPipeline->stop();
+		//end test
+
+//		//Render shadowmap
+//		renderDevice->clearScreen();
+//		shadowDepthTarget->bind();
+//		renderDevice->clearScreen();
+//		shadowPipeline->run();
+//		renderDevice->useDepthTest(true);
+//	//	glCullFace(GL_FRONT);
+//
+//		for (const auto& renderable : renderables) {
+//			model = renderable.getMatrix();
+//
+//			shadowPipeline->setUniformMatrix4f("view", view);
+//			shadowPipeline->setUniformMatrix4f("proj", projection);
+//			shadowPipeline->setUniformMatrix4f("model", model);
+//
+//			renderable.model->mesh->vertexArrayObject->bind();
+//			if (renderable.model->mesh->isIndiced) {
+//				renderable.model->mesh->indexBuffer->bind();
+//				renderDevice->DrawTrianglesIndexed(0, renderable.model->mesh->indicesLength);
+//			}
+//			else {
+//				renderDevice->DrawTriangles(0, renderable.model->mesh->verticesLength);
+//			}
+//		}
+//	//	glCullFace(GL_BACK);
+//		shadowPipeline->stop();
+//		shadowDepthTarget->unbind();
+//
+//		//End render shadowmap
 
 		renderDevice->useDepthTest(false);
 		quadPipeline->run();
@@ -256,7 +290,7 @@ namespace Renderer {
 
 		shadowPipeline = move(renderDevice->createPipeline(*vertexShader, *fragmentShader));
 
-		geometryPipeline->createUniform("model");
+		shadowPipeline->createUniform("model");
 		shadowPipeline->createUniform("view");
 		shadowPipeline->createUniform("proj");
 	}

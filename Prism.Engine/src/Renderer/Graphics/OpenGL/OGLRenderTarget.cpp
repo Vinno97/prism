@@ -29,6 +29,7 @@ namespace Renderer {
 					glDrawBuffer(GL_NONE);
 					return;
 				}
+
 				GLenum* drawBuffers = new GLenum[bufferAmount];
 				for (int i = 0; i < bufferAmount; i++) {
 					drawBuffers[i] = GL_COLOR_ATTACHMENT0 + i;
@@ -55,9 +56,9 @@ namespace Renderer {
 
 			void OGLRenderTarget::setDepthBuffer(std::shared_ptr<Texture> texture)
 			{
-				bind();
+				glBindFramebuffer(GL_FRAMEBUFFER, FBO);
 				glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, texture->getID(), 0);
-				unbind();
+				glBindFramebuffer(GL_FRAMEBUFFER, 0);
 			}
 
 			int OGLRenderTarget::getID()

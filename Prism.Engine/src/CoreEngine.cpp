@@ -30,7 +30,7 @@ CoreEngine::CoreEngine()
 
 const void CoreEngine::InitWindow(const char* title, const int width, const int height, const int x, const int y) {
 	context.window->init(title, width, height, x, y);
-	context.window->createOpenGLContext(4, 2, false);
+	context.window->createOpenGLContext(3, 2, true);
 }
 
 //Runns the gameloop

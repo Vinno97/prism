@@ -1,4 +1,4 @@
-#version 330 core
+#version 420 core
 
 in vec2 UV;
 out vec4 color;
@@ -150,7 +150,7 @@ void main() {
         DiffuseColor = vec4(0, 0, 0, 0);
     }
 	color = vec4(Albedo, 1) * (AmbientColor + (visibility * DiffuseColor));
-	//float t = LinearizeDepth(UV, texture(gShadowMap, UV).x);
+	//float t = LinearizeDepth(UV, texture(gShadowMap, UV).r);
 	//color = vec4(t, t, t, 1.0);
 }
 
