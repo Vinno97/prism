@@ -210,6 +210,7 @@ unsigned EntityFactory::createMine(unsigned entity, EntityManager& entityManager
 	return EntityBuilder(entityManager, entity)
 	       .addComponent<MineComponent>()
 	       .addComponent<PositionComponent>()
+		   .addComponent<BoundingBoxComponent>(1.0, 1.0)
 	       .addComponent<ResourceGatherComponent>()
 		   .addComponent<PlacableComponent>()
 	       .addComponent(appearance)

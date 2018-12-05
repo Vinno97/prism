@@ -36,7 +36,9 @@ namespace ECS {
 			Math::Vector3f buildingColor;
 			float buildingScaleX;
 			float buildingScaleZ;
-			bool hasDynamic = false;
+			float posX = 0;
+			float posY = 0;
+
 			float wallRequirements = 10;
 			float towerRequirements = 10;
 			float factoryRequirements = 10;

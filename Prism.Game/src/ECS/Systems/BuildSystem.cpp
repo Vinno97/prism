@@ -47,32 +47,20 @@ void ECS::Systems::BuildSystem::update(Context& context) {
 				if (key1Pressed && currentBuild != BuildingType::WALL) {
 					buildingId = buildEntity(BuildingType::WALL);
 					currentBuild = BuildingType::WALL;
-					buildingColor = entityManager->getComponent<AppearanceComponent>(buildingId)->color;
-					buildingScaleX = entityManager->getComponent<AppearanceComponent>(buildingId)->scaleX;
-					buildingScaleZ = entityManager->getComponent<AppearanceComponent>(buildingId)->scaleZ;
 				}
 				else if (key2Pressed && currentBuild != BuildingType::TOWER) {
 					buildingId = buildEntity(BuildingType::TOWER);
 					currentBuild = BuildingType::TOWER;
-					buildingColor = entityManager->getComponent<AppearanceComponent>(buildingId)->color;
-					buildingScaleX = entityManager->getComponent<AppearanceComponent>(buildingId)->scaleX;
-					buildingScaleZ = entityManager->getComponent<AppearanceComponent>(buildingId)->scaleZ;
 				}
 				else if (key3Pressed && currentBuild != BuildingType::MINE) {
 					buildingId = buildEntity(BuildingType::MINE);
 					currentBuild = BuildingType::MINE;
-					buildingColor = entityManager->getComponent<AppearanceComponent>(buildingId)->color;
-					buildingScaleX = entityManager->getComponent<AppearanceComponent>(buildingId)->scaleX;
-					buildingScaleZ = entityManager->getComponent<AppearanceComponent>(buildingId)->scaleZ;
 				}
 				else {
 					currentBuild = BuildingType::NONE;
 				}
 			}
 		}
-
-
-
 
 		auto iBuilding = currentBuild != BuildingType::NONE;
 
@@ -92,7 +80,6 @@ void ECS::Systems::BuildSystem::update(Context& context) {
 			}
 
 			bool canPlace = !boundingBoxComponent->didCollide;
-			//boundingBoxComponent->didCollide = false;
 			
 			auto appearance = entityManager->getComponent<AppearanceComponent>(buildingId);
 			appearance->color = buildingColor;
@@ -104,11 +91,20 @@ void ECS::Systems::BuildSystem::update(Context& context) {
 
 			if (canPlace && enoughResources) {
 				if (context.inputManager->isMouseButtonPressed(Key::MOUSE_BUTTON_LEFT)) {
-					currentBuild = BuildingType::NONE;
-					entityManager->addComponentToEntity(buildingId, PlacableComponent());
-					if (!hasDynamic) {
-						entityManager->removeComponentFromEntity<DynamicComponent>(buildingId);
+					entityManager->removeEntity(buildingId);
+					if (currentBuild == BuildingType::WALL) {
+						buildingId = ef.createWall(*entityManager);
 					}
+					else if (currentBuild == BuildingType::TOWER) {
+						buildingId = ef.createTower(*entityManager);
+					}
+					else if (currentBuild == BuildingType::MINE) {
+						buildingId = ef.createMine(*entityManager);
+					}
+					currentBuild = BuildingType::NONE;
+					auto position = entityManager->getComponent<PositionComponent>(buildingId);
+					position->x = posX;
+					position->y = posY;
 					buildingId = -1;
 				}
 			}
@@ -132,8 +128,8 @@ void ECS::Systems::BuildSystem::update(Context& context) {
 				auto entityId = entities[0].id;
 				auto mousePosition3D = entityManager->getComponent<ECS::Components:: PositionComponent>(entityId);
 				auto buildingPosition = entityManager->getComponent<PositionComponent>(buildingId);
-				buildingPosition->x = (int)mousePosition3D->x;
-				buildingPosition->y = (int)mousePosition3D->y;
+				buildingPosition->x = posX = (int)mousePosition3D->x;
+				buildingPosition->y = posY = (int)mousePosition3D->y;
 			}
 		}
 	}
@@ -151,24 +147,21 @@ unsigned int ECS::Systems::BuildSystem::buildEntity(BuildingType buildingType)
 		newBuildingId = ef.createTower(*entityManager);
 		break;
 	case ECS::Systems::BuildSystem::MINE:
-		//TODO :: vervang FACTORY
-		newBuildingId = ef.createEnemy(*entityManager);
+		newBuildingId = ef.createMine(*entityManager);
 		break;
 	default:
-		break;
+		return -1;
 	}
 
-	if (buildingType != BuildingType::NONE) {
-		if (!entityManager->hasComponent<DynamicComponent>(newBuildingId)) {
-			//entityManager->addComponentToEntity(newBuildingId, VelocityComponent());
-			entityManager->addComponentToEntity(newBuildingId, DynamicComponent());
-		}
-		else {
-			hasDynamic = true;
-		}
-		if (entityManager->hasComponent<PlacableComponent>(newBuildingId)) {
-			entityManager->removeComponentFromEntity<PlacableComponent>(newBuildingId);
-		}
-	}
+	auto appearance = entityManager->getComponent<AppearanceComponent>(newBuildingId);
+	auto boundingBox = entityManager->getComponent<BoundingBoxComponent>(newBuildingId);
+	auto position = entityManager->getComponent<PositionComponent>(newBuildingId);
+
+	newBuildingId = entityManager->createEntity(*appearance, *boundingBox, *position);
+	
+	buildingColor = appearance->color;
+	buildingScaleX = appearance->scaleX;
+	buildingScaleZ = appearance->scaleZ;
+
 	return newBuildingId;
 }
