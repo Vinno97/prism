@@ -25,7 +25,10 @@ namespace ECS {
 			void update(Context& context) override;
 
 		private:
-			unsigned int buildEntity();
+			void setCurrentBuild(Context &context);
+			void placeCurrentBuild(Context &context, unsigned int playerId);
+			void moveCurrentBuilt();
+
 			int buildingId = -1;
 			BuildingType currentBuild = BuildingType::NONE;
 

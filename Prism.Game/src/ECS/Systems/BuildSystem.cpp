@@ -30,166 +30,140 @@ void ECS::Systems::BuildSystem::update(Context& context) {
 	auto players = entityManager->getAllEntitiesWithComponent<PlayerComponent>();
 	if (players.size() > 0) {
 		auto playerId = players[0].id;
+		setCurrentBuild(context);
+		placeCurrentBuild(context,playerId);
+		moveCurrentBuilt();
+	}
+}
 
-		if (deltaTime > pressTime) {
-			auto key1Pressed = context.inputManager->isKeyPressed(Key::KEY_1);
-			auto key2Pressed = context.inputManager->isKeyPressed(Key::KEY_2);
-			auto key3Pressed = context.inputManager->isKeyPressed(Key::KEY_3);
-			auto keyTabPressed = context.inputManager->isKeyPressed(Key::KEY_TAB);
-			BuildingType newBuild;
+void ECS::Systems::BuildSystem::setCurrentBuild(Context &context)
+{
+	if (deltaTime > pressTime) {
+		auto key1Pressed = context.inputManager->isKeyPressed(Key::KEY_1);
+		auto key2Pressed = context.inputManager->isKeyPressed(Key::KEY_2);
+		auto key3Pressed = context.inputManager->isKeyPressed(Key::KEY_3);
+		auto keyTabPressed = context.inputManager->isKeyPressed(Key::KEY_TAB);
+		BuildingType newBuild;
 
-			if (key1Pressed || key2Pressed || key3Pressed || keyTabPressed) {
-				deltaTime = 0;
-				int tempBuildId = -1;
+		if (key1Pressed || key2Pressed || key3Pressed || keyTabPressed) {
+			deltaTime = 0;
+			int tempBuildId = -1;
 
-				if (currentBuild != BuildingType::NONE) {
-					entityManager->removeEntity(buildingId);
-					buildingId = -1;
-				}
-
-				if (key1Pressed && currentBuild != BuildingType::WALL) {
-					tempBuildId = ef.createWall(*entityManager);
-					currentBuild = BuildingType::WALL;
-				}
-				else if (key2Pressed && currentBuild != BuildingType::TOWER) {
-					tempBuildId = ef.createTower(*entityManager);
-					currentBuild = BuildingType::TOWER;
-				}
-				else if (key3Pressed && currentBuild != BuildingType::MINE) {
-					tempBuildId = ef.createMine(*entityManager);
-					currentBuild = BuildingType::MINE;
-				}
-				else {
-					currentBuild = BuildingType::NONE;
-				}
-
-				if (currentBuild != BuildingType::NONE) {
-					auto appearance = entityManager->getComponent<AppearanceComponent>(tempBuildId);
-					auto boundingBox = entityManager->getComponent<BoundingBoxComponent>(tempBuildId);
-					auto position = entityManager->getComponent<PositionComponent>(tempBuildId);
-
-					if (appearance != nullptr && boundingBox != nullptr && position != nullptr) {
-						buildingId = entityManager->createEntity(*appearance, *boundingBox, *position, DynamicComponent());
-						buildingColor = appearance->color;
-						buildingScaleX = appearance->scaleX;
-						buildingScaleZ = appearance->scaleZ;
-						entityManager->removeEntity(tempBuildId);
-					}
-					else 
-					{
-						currentBuild = BuildingType::NONE;
-					}
-				}
-			}
-		}
-
-		auto iBuilding = currentBuild != BuildingType::NONE;
-
-		if (currentBuild != BuildingType::NONE) {
-			auto boundingBoxComponent = entityManager->getComponent<BoundingBoxComponent>(buildingId);
-			auto inventory = entityManager->getComponent<InventoryComponent>(playerId);
-
-			bool enoughResources = false;
-			if (currentBuild == BuildingType::WALL && inventory->greenResource >= wallRequirements) {
-				enoughResources = true;
-			}
-			else if (currentBuild == BuildingType::TOWER && inventory->redResource >= towerRequirements) {
-				enoughResources = true;
-			}
-			else if (currentBuild == BuildingType::MINE && inventory->blueResource >= towerRequirements) {
-				enoughResources = true;
+			if (currentBuild != BuildingType::NONE) {
+				entityManager->removeEntity(buildingId);
+				buildingId = -1;
 			}
 
-			bool canPlace = !boundingBoxComponent->didCollide;
-			
-			auto appearance = entityManager->getComponent<AppearanceComponent>(buildingId);
-			appearance->color = buildingColor;
-			appearance->scaleX = buildingScaleX;
-			appearance->scaleZ = buildingScaleZ;
-
-			auto shooting = entityManager->getComponent<ShootingComponent>(playerId);
-			shooting->isShooting = false;
-
-			if (canPlace && enoughResources) {
-				if (context.inputManager->isMouseButtonPressed(Key::MOUSE_BUTTON_LEFT)) {
-					entityManager->removeEntity(buildingId);
-					if (currentBuild == BuildingType::WALL) {
-						buildingId = ef.createWall(*entityManager);
-					}
-					else if (currentBuild == BuildingType::TOWER) {
-						buildingId = ef.createTower(*entityManager);
-					}
-					else if (currentBuild == BuildingType::MINE) {
-						buildingId = ef.createMine(*entityManager);
-					}
-					currentBuild = BuildingType::NONE;
-					auto position = entityManager->getComponent<PositionComponent>(buildingId);
-					if (position != nullptr) {
-						position->x = posX;
-						position->y = posY;
-					}
-					buildingId = -1;
-				}
+			if (key1Pressed && currentBuild != BuildingType::WALL) {
+				tempBuildId = ef.createWall(*entityManager);
+				currentBuild = BuildingType::WALL;
+			}
+			else if (key2Pressed && currentBuild != BuildingType::TOWER) {
+				tempBuildId = ef.createTower(*entityManager);
+				currentBuild = BuildingType::TOWER;
+			}
+			else if (key3Pressed && currentBuild != BuildingType::MINE) {
+				tempBuildId = ef.createMine(*entityManager);
+				currentBuild = BuildingType::MINE;
 			}
 			else {
-				if (!canPlace) {
-					//TODO :: leuk muziekje?
-				}
-				if (!enoughResources) {
-					//TODO :: leuk muziekje?
-				}
-				appearance->color = Math::Vector3f{ 1.0f, 0.5f, 0.5f };
-				appearance->scaleX = buildingScaleX * 1.1;
-				appearance->scaleZ = buildingScaleZ * 1.1;
+				currentBuild = BuildingType::NONE;
 			}
-			boundingBoxComponent->didCollide = false;
-		}
 
-		if (currentBuild != BuildingType::NONE) {
-			auto entities = entityManager->getAllEntitiesWithComponent<MousePointerComponent>();
-			if (entities.size() > 0) {
-				auto entityId = entities[0].id;
-				auto mousePosition3D = entityManager->getComponent<ECS::Components:: PositionComponent>(entityId);
-				auto buildingPosition = entityManager->getComponent<PositionComponent>(buildingId);
-				buildingPosition->x = posX = std::ceil(mousePosition3D->x);
-				buildingPosition->y = posY = std::ceil(mousePosition3D->y);
+			if (currentBuild != BuildingType::NONE) {
+				auto appearance = entityManager->getComponent<AppearanceComponent>(tempBuildId);
+				auto boundingBox = entityManager->getComponent<BoundingBoxComponent>(tempBuildId);
+				auto position = entityManager->getComponent<PositionComponent>(tempBuildId);
+
+				if (appearance != nullptr && boundingBox != nullptr && position != nullptr) {
+					buildingId = entityManager->createEntity(*appearance, *boundingBox, *position, DynamicComponent());
+					buildingColor = appearance->color;
+					buildingScaleX = appearance->scaleX;
+					buildingScaleZ = appearance->scaleZ;
+					entityManager->removeEntity(tempBuildId);
+				}
+				else
+				{
+					currentBuild = BuildingType::NONE;
+				}
 			}
 		}
 	}
 }
 
-unsigned int ECS::Systems::BuildSystem::buildEntity()
+void ECS::Systems::BuildSystem::placeCurrentBuild(Context &context, unsigned int playerId)
 {
-	unsigned int newBuildingId;
-	unsigned int tempBuildId;
-	switch (currentBuild)
-	{
-	case ECS::Systems::BuildSystem::WALL:
-		tempBuildId = ef.createWall(*entityManager);
-		break;
-	case ECS::Systems::BuildSystem::TOWER:
-		tempBuildId = ef.createTower(*entityManager);
-		break;
-	case ECS::Systems::BuildSystem::MINE:
-		tempBuildId = ef.createMine(*entityManager);
-		break;
-	default:
-		return -1;
-	}
+	if (currentBuild != BuildingType::NONE) {
+		auto boundingBoxComponent = entityManager->getComponent<BoundingBoxComponent>(buildingId);
+		auto inventory = entityManager->getComponent<InventoryComponent>(playerId);
 
-	auto appearance = entityManager->getComponent<AppearanceComponent>(tempBuildId);
-	auto boundingBox = entityManager->getComponent<BoundingBoxComponent>(tempBuildId);
-	auto position = entityManager->getComponent<PositionComponent>(tempBuildId);
+		bool enoughResources = false;
+		if (currentBuild == BuildingType::WALL && inventory->greenResource >= wallRequirements) {
+			enoughResources = true;
+		}
+		else if (currentBuild == BuildingType::TOWER && inventory->redResource >= towerRequirements) {
+			enoughResources = true;
+		}
+		else if (currentBuild == BuildingType::MINE && inventory->blueResource >= towerRequirements) {
+			enoughResources = true;
+		}
 
-	if (appearance == nullptr && boundingBox != nullptr && position != nullptr) {
-		newBuildingId = entityManager->createEntity(*appearance, *boundingBox, *position);
-		buildingColor = appearance->color;
-		buildingScaleX = appearance->scaleX;
-		buildingScaleZ = appearance->scaleZ;
-		entityManager->removeEntity(tempBuildId);
-		return newBuildingId;
+		bool canPlace = !boundingBoxComponent->didCollide;
+
+		auto appearance = entityManager->getComponent<AppearanceComponent>(buildingId);
+		appearance->color = buildingColor;
+		appearance->scaleX = buildingScaleX;
+		appearance->scaleZ = buildingScaleZ;
+
+		auto shooting = entityManager->getComponent<ShootingComponent>(playerId);
+		shooting->isShooting = false;
+
+		if (canPlace && enoughResources) {
+			if (context.inputManager->isMouseButtonPressed(Key::MOUSE_BUTTON_LEFT)) {
+				entityManager->removeEntity(buildingId);
+				if (currentBuild == BuildingType::WALL) {
+					buildingId = ef.createWall(*entityManager);
+				}
+				else if (currentBuild == BuildingType::TOWER) {
+					buildingId = ef.createTower(*entityManager);
+				}
+				else if (currentBuild == BuildingType::MINE) {
+					buildingId = ef.createMine(*entityManager);
+				}
+				currentBuild = BuildingType::NONE;
+				auto position = entityManager->getComponent<PositionComponent>(buildingId);
+				if (position != nullptr) {
+					position->x = posX;
+					position->y = posY;
+				}
+				buildingId = -1;
+			}
+		}
+		else {
+			if (!canPlace) {
+				//TODO :: leuk muziekje?
+			}
+			if (!enoughResources) {
+				//TODO :: leuk muziekje?
+			}
+			appearance->color = Math::Vector3f{ 1.0f, 0.5f, 0.5f };
+			appearance->scaleX = buildingScaleX * 1.1;
+			appearance->scaleZ = buildingScaleZ * 1.1;
+		}
+		boundingBoxComponent->didCollide = false;
 	}
-	else {
-		return -1;
+}
+
+void ECS::Systems::BuildSystem::moveCurrentBuilt()
+{
+	if (currentBuild != BuildingType::NONE) {
+		auto entities = entityManager->getAllEntitiesWithComponent<MousePointerComponent>();
+		if (entities.size() > 0) {
+			auto entityId = entities[0].id;
+			auto mousePosition3D = entityManager->getComponent<ECS::Components::PositionComponent>(entityId);
+			auto buildingPosition = entityManager->getComponent<PositionComponent>(buildingId);
+			buildingPosition->x = posX = std::ceil(mousePosition3D->x);
+			buildingPosition->y = posY = std::ceil(mousePosition3D->y);
+		}
 	}
 }
