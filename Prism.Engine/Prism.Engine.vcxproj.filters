@@ -10,7 +10,6 @@
     <ClCompile Include="src\Renderer\Renderable.cpp" />
     <ClCompile Include="src\Util\FileSystem.cpp" />
     <ClCompile Include="src\Renderer\ForwardRenderer.cpp" />
-    <ClCompile Include="src\MenuState.cpp" />
     <ClCompile Include="src\ECS\EntityManager.cpp" />
     <ClCompile Include="src\Renderer\Graphics\Loader\ModelLoader.cpp" />
     <ClCompile Include="src\Renderer\Graphics\Loader\TextureLoader.cpp" />
@@ -104,7 +103,6 @@
     <ClInclude Include="include\State.h" />
     <ClInclude Include="include\StateMachine.h" />
     <ClInclude Include="include\Window.h" />
-    <ClInclude Include="include\MenuState.h" />
     <ClInclude Include="include\ECS\SystemManager.h" />
     <ClInclude Include="include\Renderer\Graphics\RenderDevice.h" />
     <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLFragmentShader.h" />

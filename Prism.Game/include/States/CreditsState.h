@@ -7,19 +7,19 @@
 #include "Menu/MenuRenderer.h"
 
 namespace States {
-	class EndState : public State
+	class CreditsState : public State
 	{
 	public:
-		EndState();
+		CreditsState();
 
 		void onInit(Context &context) override;
 		void onUpdate(Context &context) override;
 		void onEnter(Context & context) override;
 		void onLeave(Context & context) override;
 
-		EndState(const EndState &obj);
+		CreditsState(const CreditsState &obj);
 
-		~EndState();
+		~CreditsState();
 
 	private:
 		Menu::MenuRenderer menuRenderer;

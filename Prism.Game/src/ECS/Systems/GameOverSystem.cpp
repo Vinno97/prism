@@ -7,6 +7,7 @@
 #include "ECS/Components/BoundingBoxComponent.h"
 #include "StateMachine.h"
 #include "States/EndState.h"
+#include "States/PrismGame.h"
 #include "ECS/Components/EnemyComponent.h"
 #include "ECS/Components/PlayerComponent.h"
 

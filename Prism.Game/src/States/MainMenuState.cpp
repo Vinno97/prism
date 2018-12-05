@@ -1,11 +1,13 @@
 #include "States/MainMenuState.h"
 #include "StateMachine.h";
 #include "States/PrismGame.h"; 
+#include "States/CreditsState.h"; 
 #include "Renderer/Graphics/RenderDevice.h"
 #include "Renderer/Graphics/OpenGL/OGLRenderDevice.h"
 #include "Renderer/Graphics/OpenGL/OGLVertexShader.h"
 #include "Renderer/Graphics/OpenGL/OGLPipeline.h"
 #include "Util/AdvertisementSystem.h"
+#include <cstdlib>
 
 namespace States {
 	MainMenuState::MainMenuState()
@@ -14,19 +16,30 @@ namespace States {
 
 	void MainMenuState::onInit(Context & context)
 	{
-		PrismGame game = PrismGame();
-		context.stateMachine->addState<PrismGame>(context);
-		context.audioManager->playMusic("MainMenu");
-
-		std::function<void()> callback = [&context]() { context.stateMachine->setState<PrismGame>(context); };
-		menuBuilder.addControl(-0.35,  0.4, 0.6, 0.18, "img/NewGameButton.png", callback);
-		menuBuilder.addControl(-0.35,  0.1, 0.6, 0.18, "img/LoadGameButton.png");
-		menuBuilder.addControl(-0.35, -0.7, 0.6, 0.18, "img/QuitGameButton.png");
-
 		//Util::AdvertisementSystem as;
 		//std::string file = "img/advertisements/" + as.RandomAdvertisement();
 		//menuBuilder.addControl(0, 0, 1, 1, file.c_str());
+		std::function<void()> callback = [context]()mutable{ 
+			if (!context.stateMachine->hasState<PrismGame>()) {
+				PrismGame newGame = PrismGame();
+				context.stateMachine->addState<PrismGame>(context);
+			}
+			context.stateMachine->setState<PrismGame>(context);
+		};
 
+		std::function<void()> quitCallback = [&]() {
+			if (exitBool) {
+				exit(0);
+			}
+			exitBool = true;
+		};
+    
+    std::function<void()> creditsCallback = [&context]() { context.stateMachine->setState<CreditsState>(context); };
+    context.stateMachine->addState<CreditsState>(context);
+		menuBuilder.addControl(-0.35,  0.4, 0.6, 0.18, "img/NewGameButton.png", callback);
+		menuBuilder.addControl(-0.35,  0.1, 0.6, 0.18, "img/LoadGameButton.png");
+    	menuBuilder.addControl(-0.35, -0.2, 0.6, 0.18, "img/ToCredits.png", creditsCallback);
+		menuBuilder.addControl(-0.35, -0.7, 0.6, 0.18, "img/QuitGameButton.png", quitCallback);
 		menu = menuBuilder.buildMenu();
 		Renderer::Graphics::RenderDevice* renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
 		renderDevice->setClearColour(1.f, 1.f, 1.f, 1.f);
@@ -53,7 +66,6 @@ namespace States {
 
 	void MainMenuState::onLeave(Context & context)
 	{
-		context.audioManager->stopMusic();
 	}
 
 	MainMenuState::MainMenuState(const MainMenuState & obj)

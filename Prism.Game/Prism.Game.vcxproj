@@ -112,6 +112,7 @@
     <ClInclude Include="include\ECS\Systems\ResourceBlobSystem.h" />
     <ClInclude Include="include\ECS\Systems\ResourceGatherSystem.h" />
     <ClInclude Include="include\EntityFactory.h" />
+    <ClInclude Include="include\States\CreditsState.h" />
     <ClInclude Include="include\States\EndState.h" />
     <ClInclude Include="include\States\MainMenuState.h" />
     <ClInclude Include="include\States\PrismGame.h" />
@@ -122,6 +123,7 @@
     <ClInclude Include="include\World\Assemblers\TowerAssembler.h" />
     <ClInclude Include="include\World\Assemblers\WallAssembler.h" />
     <ClInclude Include="include\World\Assemblers\PrismEntityAssembler.h" />
+    <ClInclude Include="include\World\Assemblers\MineAssembler.h" />
     <ClInclude Include="include\PrismGame.h" />
     <ClInclude Include="include\ECS\Components\KeyboardInputComponent.h" />
     <ClInclude Include="include\ECS\Systems\KeyboardInputSystem.h" />
@@ -137,6 +139,7 @@
     <ClCompile Include="src\ECS\Systems\GameOverSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\ProjectileAttackSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\ShootingSystem.cpp" />
+    <ClCompile Include="src\States\CreditsState.cpp" />
     <ClCompile Include="src\States\EndState.cpp" />
     <ClCompile Include="src\ECS\Systems\AnimationSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\BumpSystem.cpp" />
@@ -157,7 +160,8 @@
     <ClCompile Include="src\World\Assemblers\ResourceSpawnAssembler.cpp" />
     <ClCompile Include="src\World\Assemblers\TowerAssembler.cpp" />
     <ClCompile Include="src\World\Assemblers\WallAssembler.cpp" />
-    <ClCompile Include="src\World\TerrainGenerator.cpp" />
+    <ClCompile Include="src\World\Assemblers\MineAssembler.cpp" />
+     <ClCompile Include="src\World\TerrainGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="lib\assimp-vc140-mtd.dll" />
@@ -175,6 +179,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\img\gameover.png" />
+    <Image Include="res\img\restart.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
