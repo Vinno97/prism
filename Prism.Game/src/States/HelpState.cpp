@@ -16,7 +16,8 @@ namespace States {
 	{
 		std::function<void()> callback = [&context]() { context.stateMachine->setState<MainMenuState>(context); };
 		menuBuilder.addControl(-0.9f, 0.8, 0.3, 0.1, "img/Back.png", callback);
-		menuBuilder.addControl(-1.0f, -1.0f, 2.0f, 1.77f, "img/HelpScreen.png");
+		menuBuilder.addControl(-0.5f, 0.7f, 1.2f, 0.2f, "img/goal.png");
+		menuBuilder.addControl(-1.f, -1.0f, 2.0f, 1.5f, "img/HelpScreen.jpg");
 
 		menu = menuBuilder.buildMenu();
 		Renderer::Graphics::RenderDevice* renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
