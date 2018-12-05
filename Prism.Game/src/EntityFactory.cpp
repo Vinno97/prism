@@ -161,7 +161,8 @@ unsigned EntityFactory::createTower(unsigned entity, EntityManager& entityManage
 	       .addComponent<PositionComponent>()
 	       .addComponent<BoundingBoxComponent>(1.0, 1.0)
 		   .addComponent<PlacableComponent>()
-	       .addComponent(appearance)
+		   .addComponent<HealthComponent>(50)
+		   .addComponent(appearance)
 	       .getEntity();
 }
 
@@ -187,6 +188,7 @@ unsigned EntityFactory::createWall(unsigned entity, EntityManager& entityManager
 	       .addComponent<PositionComponent>()
 	       .addComponent<BoundingBoxComponent>(1.0, 1.0)
 		   .addComponent<PlacableComponent>()
+		   .addComponent<HealthComponent>(50)
 	       .addComponent(appearance)
 	       .getEntity();
 }
@@ -213,6 +215,7 @@ unsigned EntityFactory::createMine(unsigned entity, EntityManager& entityManager
 		   .addComponent<BoundingBoxComponent>(1.0, 1.0)
 	       .addComponent<ResourceGatherComponent>()
 		   .addComponent<PlacableComponent>()
+		   .addComponent<HealthComponent>(50)
 	       .addComponent(appearance)
 	       .getEntity();
 }
