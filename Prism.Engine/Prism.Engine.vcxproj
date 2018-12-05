@@ -74,7 +74,6 @@
     <ClInclude Include="include\Key.h" />
     <ClInclude Include="include\State.h" />
     <ClInclude Include="include\StateMachine.h" />
-    <ClInclude Include="include\Util\lodepng.h" />
     <ClInclude Include="include\Window.h" />
     <ClInclude Include="include\ECS\SystemManager.h" />
     <ClInclude Include="include\Renderer\Graphics\RenderDevice.h" />
@@ -143,7 +142,6 @@
     <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLVertexShader.cpp" />
     <ClCompile Include="src\State.cpp" />
     <ClCompile Include="src\StateMachine.cpp" />
-    <ClCompile Include="src\Util\lodepng.cpp" />
     <ClCompile Include="src\Window.cpp" />
     <ClCompile Include="src\Renderer\Graphics\Loader\StaticMeshLoader.cpp" />
     <ClCompile Include="src\ECS\SystemManager.cpp" />
