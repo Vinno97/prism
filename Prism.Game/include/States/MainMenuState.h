@@ -5,6 +5,7 @@
 #include "Menu/MenuBuilder.h"
 #include "Menu/Menu.h"
 #include "Menu/MenuRenderer.h"
+#include "Util/AdvertisementSystem.h"
 
 namespace States {
 	class MainMenuState : public State

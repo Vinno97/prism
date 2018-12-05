@@ -6,6 +6,7 @@
 #include "Renderer/Graphics/OpenGL/OGLRenderDevice.h"
 #include "Renderer/Graphics/OpenGL/OGLVertexShader.h"
 #include "Renderer/Graphics/OpenGL/OGLPipeline.h"
+#include "Util/AdvertisementSystem.h"
 
 namespace States {
 	CreditsState::CreditsState()
@@ -16,7 +17,11 @@ namespace States {
 	{
 		std::function<void()> callback = [&context]() { context.stateMachine->setState<MainMenuState>(context); };
 		menuBuilder.addControl(-0.9f, 0.8, 0.3, 0.1, "img/Back.png", callback);
-		menuBuilder.addControl(-0.37f, -0.86f, 0.77f, 1.77f, "img/credits.png");
+		menuBuilder.addControl(-0.37f, -0.86f, 0.7, 1.777f, "img/credits.png");
+
+		Util::AdvertisementSystem as;
+		std::string filepath = "img/advertisements/" + as.RandomAdvertisement();
+		menuBuilder.addControl(0.55, -1, 0.25, (1.777 / 4), filepath.c_str());
 
 		menu = menuBuilder.buildMenu();
 		Renderer::Graphics::RenderDevice* renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
