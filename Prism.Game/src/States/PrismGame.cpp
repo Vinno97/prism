@@ -99,9 +99,9 @@ namespace States {
 
 			//3
 			.registerSystem<3, ResourceBlobSystem>(entityManager)
-			.registerSystem<3, BuildSystem>(entityManager)
 			.registerSystem<3, ShootingSystem>(entityManager)
 			.registerSystem<3, CollisionSystem>(entityManager, context.window->width, context.window->height, 0, 0, 2)
+			.registerSystem<3, BuildSystem>(entityManager)
 
 			//4
 			.registerSystem<4, ProjectileAttackSystem>(entityManager)

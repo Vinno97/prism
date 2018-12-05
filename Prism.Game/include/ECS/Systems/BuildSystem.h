@@ -5,6 +5,7 @@
 #include "Physics/AABBCollider.h"
 #include "EntityFactory.h"
 #include "Math/Vector3f.h"
+#include "ECS/Components/AppearanceComponent.h"
 
 namespace ECS {
 	namespace Systems {
@@ -14,7 +15,7 @@ namespace ECS {
 		{
 			WALL,
 			TOWER,
-			FACTORY,	
+			MINE,	
 			NONE
 		};
 
@@ -33,6 +34,9 @@ namespace ECS {
 			float pressTime = 0.5;
 			
 			Math::Vector3f buildingColor;
+			float buildingScaleX;
+			float buildingScaleZ;
+			bool hasDynamic = false;
 			float wallRequirements = 10;
 			float towerRequirements = 10;
 			float factoryRequirements = 10;

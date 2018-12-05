@@ -39,17 +39,21 @@ void CollisionSystem::update(Context& context)
 
 	for (auto entity : entityManager->getAllEntitiesWithComponent<DynamicComponent>())
 	{
-		if (entityManager->hasComponent<PositionComponent>(entity.id) &&
+		if (/*entityManager->hasComponent<PositionComponent>(entity.id) &&*/
 			entityManager->hasComponent<BoundingBoxComponent>(entity.id)) {
 
 			auto boundingBoxComponent = entityManager->getComponent<BoundingBoxComponent>(entity.id);
+			auto position = entityManager->getComponent<PositionComponent>(entity.id);
 			boundingBoxComponent->didCollide = false;
 			boundingBoxComponent->collidesWith.clear();
+			boundingBoxComponent->boundingBox.SetPosXY(position->x, position->y);
+
+			//auto velocity = entityManager->getComponent<VelocityComponent>(entity.id);
 			
-			auto velocity = entityManager->getComponent<VelocityComponent>(entity.id);
-			auto position = entityManager->getComponent<PositionComponent>(entity.id);
 			//auto testBox = boundingBoxComponent->boundingBox;
 			//testBox.SetPosXY(position->x + velocity->dx * context.deltaTime, position->y + velocity->dy * context.deltaTime);
+
+
 
 			std::list<Physics::BoundingBox const *> boundingBoxes;
 			quadTree.RetrieveAll(boundingBoxes, boundingBoxComponent->boundingBox);

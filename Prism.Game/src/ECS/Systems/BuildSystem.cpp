@@ -2,10 +2,10 @@
 #include "ECS/EntityManager.h";
 #include "ECS/SystemManager.h";
 #include "ECS/Components/HealthComponent.h"
-#include "ECS/Components/VelocityComponent.h"
 #include "ECS/Components/BoundingBoxComponent.h"
 #include "ECS/Components/MousePointerComponent.h"
 #include "ECS/Components/PlayerComponent.h"
+#include "ECS/Components/PositionComponent.h"
 #include "ECS/Components/ShootingComponent.h"
 #include "ECS/Components/AppearanceComponent.h"
 #include "ECS/Components/DynamicComponent.h"
@@ -48,16 +48,22 @@ void ECS::Systems::BuildSystem::update(Context& context) {
 					buildingId = buildEntity(BuildingType::WALL);
 					currentBuild = BuildingType::WALL;
 					buildingColor = entityManager->getComponent<AppearanceComponent>(buildingId)->color;
+					buildingScaleX = entityManager->getComponent<AppearanceComponent>(buildingId)->scaleX;
+					buildingScaleZ = entityManager->getComponent<AppearanceComponent>(buildingId)->scaleZ;
 				}
 				else if (key2Pressed && currentBuild != BuildingType::TOWER) {
 					buildingId = buildEntity(BuildingType::TOWER);
 					currentBuild = BuildingType::TOWER;
 					buildingColor = entityManager->getComponent<AppearanceComponent>(buildingId)->color;
+					buildingScaleX = entityManager->getComponent<AppearanceComponent>(buildingId)->scaleX;
+					buildingScaleZ = entityManager->getComponent<AppearanceComponent>(buildingId)->scaleZ;
 				}
-				else if (key3Pressed && currentBuild != BuildingType::FACTORY) {
-					buildingId = buildEntity(BuildingType::FACTORY);
-					currentBuild = BuildingType::FACTORY;
+				else if (key3Pressed && currentBuild != BuildingType::MINE) {
+					buildingId = buildEntity(BuildingType::MINE);
+					currentBuild = BuildingType::MINE;
 					buildingColor = entityManager->getComponent<AppearanceComponent>(buildingId)->color;
+					buildingScaleX = entityManager->getComponent<AppearanceComponent>(buildingId)->scaleX;
+					buildingScaleZ = entityManager->getComponent<AppearanceComponent>(buildingId)->scaleZ;
 				}
 				else {
 					currentBuild = BuildingType::NONE;
@@ -81,14 +87,18 @@ void ECS::Systems::BuildSystem::update(Context& context) {
 			else if (currentBuild == BuildingType::TOWER && inventory->redResource >= towerRequirements) {
 				enoughResources = true;
 			}
-			else if (currentBuild == BuildingType::FACTORY && inventory->blueResource >= towerRequirements) {
+			else if (currentBuild == BuildingType::MINE && inventory->blueResource >= towerRequirements) {
 				enoughResources = true;
 			}
 
 			bool canPlace = !boundingBoxComponent->didCollide;
-			boundingBoxComponent->didCollide = false;
+			//boundingBoxComponent->didCollide = false;
+			
 			auto appearance = entityManager->getComponent<AppearanceComponent>(buildingId);
 			appearance->color = buildingColor;
+			appearance->scaleX = buildingScaleX;
+			appearance->scaleZ = buildingScaleZ;
+
 			auto shooting = entityManager->getComponent<ShootingComponent>(playerId);
 			shooting->isShooting = false;
 
@@ -96,8 +106,9 @@ void ECS::Systems::BuildSystem::update(Context& context) {
 				if (context.inputManager->isMouseButtonPressed(Key::MOUSE_BUTTON_LEFT)) {
 					currentBuild = BuildingType::NONE;
 					entityManager->addComponentToEntity(buildingId, PlacableComponent());
-					entityManager->removeComponentFromEntity<DynamicComponent>(buildingId);
-					entityManager->removeComponentFromEntity<VelocityComponent>(buildingId);
+					if (!hasDynamic) {
+						entityManager->removeComponentFromEntity<DynamicComponent>(buildingId);
+					}
 					buildingId = -1;
 				}
 			}
@@ -109,14 +120,17 @@ void ECS::Systems::BuildSystem::update(Context& context) {
 					//TODO :: leuk muziekje?
 				}
 				appearance->color = Math::Vector3f{ 1.0f, 0.5f, 0.5f };
+				appearance->scaleX = buildingScaleX * 1.001;
+				appearance->scaleZ = buildingScaleZ * 1.001;
 			}
+			boundingBoxComponent->didCollide = false;
 		}
 
 		if (currentBuild != BuildingType::NONE) {
 			auto entities = entityManager->getAllEntitiesWithComponent<MousePointerComponent>();
 			if (entities.size() > 0) {
 				auto entityId = entities[0].id;
-				auto mousePosition3D = entityManager->getComponent<PositionComponent>(entityId);
+				auto mousePosition3D = entityManager->getComponent<ECS::Components:: PositionComponent>(entityId);
 				auto buildingPosition = entityManager->getComponent<PositionComponent>(buildingId);
 				buildingPosition->x = (int)mousePosition3D->x;
 				buildingPosition->y = (int)mousePosition3D->y;
@@ -136,7 +150,7 @@ unsigned int ECS::Systems::BuildSystem::buildEntity(BuildingType buildingType)
 	case ECS::Systems::BuildSystem::TOWER:
 		newBuildingId = ef.createTower(*entityManager);
 		break;
-	case ECS::Systems::BuildSystem::FACTORY:
+	case ECS::Systems::BuildSystem::MINE:
 		//TODO :: vervang FACTORY
 		newBuildingId = ef.createEnemy(*entityManager);
 		break;
@@ -146,8 +160,11 @@ unsigned int ECS::Systems::BuildSystem::buildEntity(BuildingType buildingType)
 
 	if (buildingType != BuildingType::NONE) {
 		if (!entityManager->hasComponent<DynamicComponent>(newBuildingId)) {
-			entityManager->addComponentToEntity(newBuildingId, VelocityComponent());
+			//entityManager->addComponentToEntity(newBuildingId, VelocityComponent());
 			entityManager->addComponentToEntity(newBuildingId, DynamicComponent());
+		}
+		else {
+			hasDynamic = true;
 		}
 		if (entityManager->hasComponent<PlacableComponent>(newBuildingId)) {
 			entityManager->removeComponentFromEntity<PlacableComponent>(newBuildingId);

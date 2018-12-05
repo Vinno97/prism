@@ -29,6 +29,7 @@
     <ClCompile Include="src\ECS\Systems\GameOverSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\CheatSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\BuildSystem.cpp" />
+    <ClCompile Include="src\World\Assemblers\MineAssembler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ECS\Components\BulletComponent.h" />
@@ -133,6 +134,8 @@
     <ClInclude Include="include\ECS\Systems\CheatSystem.h" />
     <ClInclude Include="include\States\EndState.h" />
     <ClInclude Include="include\ECS\Systems\BuildSystem.h" />
+    <ClInclude Include="include\World\Assemblers\MineAssembler.h" />
+    <ClInclude Include="include\ECS\Components\TargetComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="lib\assimp-vc140-mtd.dll" />

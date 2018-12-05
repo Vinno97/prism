@@ -88,6 +88,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\ECS\Components\TargetComponent.h" />
     <ClInclude Include="include\ECS\Systems\GameOverSystem.h" />
     <ClInclude Include="include\ECS\Components\BulletComponent.h" />
     <ClInclude Include="include\ECS\Components\EnemyComponent.h" />
@@ -161,7 +162,7 @@
     <ClCompile Include="src\World\Assemblers\TowerAssembler.cpp" />
     <ClCompile Include="src\World\Assemblers\WallAssembler.cpp" />
     <ClCompile Include="src\World\Assemblers\MineAssembler.cpp" />
-     <ClCompile Include="src\World\TerrainGenerator.cpp" />
+    <ClCompile Include="src\World\TerrainGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="lib\assimp-vc140-mtd.dll" />

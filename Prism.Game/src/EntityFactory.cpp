@@ -25,6 +25,7 @@
 #include "ECS/Components/TowerComponent.h"
 #include "ECS/Components/VelocityComponent.h"
 #include "ECS/Components/WallComponent.h"
+#include "ECS/Components/PlacableComponent.h"
 #include "ECS/EntityBuilder.h"
 #include "Renderer/Camera.h"
 #include "Renderer/Graphics/Loader/ModelLoader.h"
@@ -65,6 +66,7 @@ unsigned EntityFactory::createPlayer(unsigned entity, EntityManager& entityManag
 	       .addComponent<HealthComponent>(100)
 	       .addComponent<DragComponent>(5.f)
 	       .addComponent<BoundingBoxComponent>(.3, .3)
+		   .addComponent<PlacableComponent>()
 	       .addComponent(appearance)
 	       .getEntity();
 }
@@ -93,6 +95,7 @@ unsigned EntityFactory::createEnemy(unsigned entity, EntityManager& entityManage
 	       .addComponent<HealthComponent>(100)
 	       .addComponent<DragComponent>(5.f)
 	       .addComponent<BoundingBoxComponent>(.4, .4)
+		   .addComponent<PlacableComponent>()
 	       .addComponent(appearance)
 	       .getEntity();
 }
@@ -157,6 +160,7 @@ unsigned EntityFactory::createTower(unsigned entity, EntityManager& entityManage
 	       .addComponent<TowerComponent>()
 	       .addComponent<PositionComponent>()
 	       .addComponent<BoundingBoxComponent>(1.0, 1.0)
+		   .addComponent<PlacableComponent>()
 	       .addComponent(appearance)
 	       .getEntity();
 }
@@ -182,6 +186,7 @@ unsigned EntityFactory::createWall(unsigned entity, EntityManager& entityManager
 	       .addComponent<WallComponent>()
 	       .addComponent<PositionComponent>()
 	       .addComponent<BoundingBoxComponent>(1.0, 1.0)
+		   .addComponent<PlacableComponent>()
 	       .addComponent(appearance)
 	       .getEntity();
 }
@@ -206,6 +211,7 @@ unsigned EntityFactory::createMine(unsigned entity, EntityManager& entityManager
 	       .addComponent<MineComponent>()
 	       .addComponent<PositionComponent>()
 	       .addComponent<ResourceGatherComponent>()
+		   .addComponent<PlacableComponent>()
 	       .addComponent(appearance)
 	       .getEntity();
 }
