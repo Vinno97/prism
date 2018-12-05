@@ -3,10 +3,16 @@
 #include "ECS/Components/MousePointerComponent.h"
 #include "ECS/Components/PlayerComponent.h"
 #include <math.h>
+#include "ECS/Components/PositionComponent.h"
 
+using namespace ECS;
+using namespace Systems;
+using namespace Components;
 
 namespace ECS {
 	namespace Systems {
+		using namespace Components;
+
 		AimingSystem::AimingSystem(EntityManager& entityManager) : System(entityManager)
 		{
 		}

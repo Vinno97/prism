@@ -4,6 +4,7 @@
 #include "Menu/MenuRenderer.h"
 #include "Menu/Menu.h"
 #include "ECS/EntityManager.h"
+#include "ECS/Systems/System.h"
 #include "ECS/SystemManager.h"
 #include "EntityFactory.h"
 #include "State.h"
@@ -27,7 +28,6 @@ class PrismGame : public Game
 	Menu::MenuBuilder menuBuilder;
 	Menu::MenuRenderer menuRenderer;
 	Menu::Menu menu;
-
 	bool canPressEscape;
 	void registerSystems(Context &context);
 	void loadAudio(Context &context) const;

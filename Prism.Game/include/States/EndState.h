@@ -20,7 +20,6 @@ namespace States {
 		~EndState();
 
 	private:
-		bool canPressEscape = false;
 		Menu::MenuRenderer menuRenderer;
 		Menu::MenuBuilder menuBuilder;
 		std::unique_ptr<Menu::Menu> menu;

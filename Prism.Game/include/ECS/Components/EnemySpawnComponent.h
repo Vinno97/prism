@@ -12,8 +12,8 @@ namespace ECS {
 			float timeSinceLastSpawn = 0;
 			bool enabled = true;
 
-			Component* Clone() override {
-				return new EnemySpawnComponent( spawnInterval, timeSinceLastSpawn, enabled );
+			std::unique_ptr<Component> clone() override {
+				return std::make_unique<EnemySpawnComponent>( spawnInterval, timeSinceLastSpawn, enabled );
 			}
 		};
 	}

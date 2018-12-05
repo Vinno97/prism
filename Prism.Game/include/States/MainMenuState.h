@@ -5,6 +5,7 @@
 #include "Menu/MenuBuilder.h"
 #include "Menu/Menu.h"
 #include "Menu/MenuRenderer.h"
+#include "Util/AdvertisementSystem.h"
 
 namespace States {
 	class MainMenuState : public State
@@ -21,6 +22,7 @@ namespace States {
 
 	private:
 		Menu::MenuRenderer menuRenderer;
+		bool exitBool = false;
 		Menu::MenuBuilder menuBuilder;
 		std::unique_ptr<Menu::Menu> menu;
 		Renderer::Graphics::RenderDevice* renderDevice;
