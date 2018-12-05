@@ -7,7 +7,7 @@ Surface::Surface(const char* path)
 
 Surface::~Surface()
 {
-	delete surface;
+	SDL_FreeSurface(surface);
 }
 
 int Surface::width()
