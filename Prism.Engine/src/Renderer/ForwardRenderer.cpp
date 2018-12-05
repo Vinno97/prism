@@ -171,25 +171,25 @@ namespace Renderer {
 			location.append("[").append(std::to_string(index).append("]"));
 
 			auto color = location + ".Color";
-			quadPipeline->setUniformVector(color.c_str(), pl.color.x, pl.color.y, pl.color.z);
+			quadPipeline->setUniformVector(color.c_str(), light.color.x, light.color.y, light.color.z);
 
 			color = location + ".Position";
-			quadPipeline->setUniformVector(color.c_str(), pl.position.x, pl.position.y, pl.position.z);
+			quadPipeline->setUniformVector(color.c_str(), light.position.x, light.position.y, light.position.z);
 
 			color = location + ".AmbientIntensity";
-			quadPipeline->setUniformFloat(color.c_str(), pl.ambientIntensity);
+			quadPipeline->setUniformFloat(color.c_str(), light.ambientIntensity);
 
 			color = location + ".DiffuseIntensity";
-			quadPipeline->setUniformFloat(color.c_str(), pl.diffuseIntensity);
+			quadPipeline->setUniformFloat(color.c_str(), light.diffuseIntensity);
 
 			color = location + ".Constant";
-			quadPipeline->setUniformFloat(color.c_str(), pl.constant);
+			quadPipeline->setUniformFloat(color.c_str(), light.constant);
 
 			color = location + ".Linear";
-			quadPipeline->setUniformFloat(color.c_str(), pl.linear);
+			quadPipeline->setUniformFloat(color.c_str(), light.linear);
 
 			color = location + ".Exp";
-			quadPipeline->setUniformFloat(color.c_str(), pl.exp);
+			quadPipeline->setUniformFloat(color.c_str(), light.exp);
 
 
 			index++;
@@ -203,7 +203,7 @@ namespace Renderer {
 
 		quadMesh->vertexArrayObject->bind();
 		quadMesh->indexBuffer->bind();
-		glViewport(0, 0, 1920/2, 1080/2); 
+		glViewport(0, 0, 1920 / 2, 1080 / 2); 
 		renderDevice->DrawTrianglesIndexed(0, quadMesh->indicesLength);
 
 		quadMesh->vertexArrayObject->unbind();

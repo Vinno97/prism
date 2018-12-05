@@ -3,9 +3,12 @@
 #include "EntityFactory.h"
 #include "Context.h"
 #include "InputManager.h"
+#include "ECS/Components/PositionComponent.h"
 
 namespace ECS {
 	namespace Systems {
+		using namespace Components;
+
 		EnemySpawnSystem::EnemySpawnSystem(EntityManager& entityManager) : System(entityManager) {
 		}
 
@@ -34,10 +37,6 @@ namespace ECS {
 					entityManager->getComponent<PositionComponent>(enemy)->y += position->y+1;
 				}
 			}
-		}
-		System * EnemySpawnSystem::clone()
-		{
-			return new EnemySpawnSystem(*entityManager);
 		}
 	}
 }

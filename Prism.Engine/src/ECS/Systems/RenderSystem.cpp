@@ -11,12 +11,17 @@
 #include "Renderer/ForwardRenderer.h"
 #include "Renderer/Scene.h"
 #include "Renderer/Graphics/Loader/ModelLoader.h"
+#include "ECS/Components/PositionComponent.h"
 
 using namespace Renderer;
+using namespace ECS;
+using namespace Systems;
+using namespace Components;
 using namespace std;
 
 namespace ECS {
 	namespace Systems {
+		using namespace Components;
 
 		RenderSystem::RenderSystem(EntityManager &entityManager, int windowWidth, int windowHeight)
 			: System(entityManager) {
@@ -43,7 +48,7 @@ namespace ECS {
 				auto playerPosition = entityManager->getComponent<PositionComponent>(players.front().id);
 				camera->position.x -= (camera->position.x - playerPosition->x) * context.deltaTime * 2;
 				camera->position.z -= (camera->position.z - 4.f - playerPosition->y) * context.deltaTime * 2;
-			}			
+			}
 
 
 			for (unsigned int i = 0; i < appearanceEntities.size(); i++)
@@ -70,19 +75,21 @@ namespace ECS {
 
 				rendererData.push_back(renderable);
 			}
-			std::vector<PointLight> lights;
+			std::vector<Renderer::PointLight> lights;
 			auto lightEntities = entityManager->getAllEntitiesWithComponent<PointLightComponent>();
-			for (unsigned int i = 0; i < lights.size(); i++) {
-				auto light = this->entityManager->getComponent<PointLightComponent>(lights[i].id);
+			for (unsigned int i = 0; i < lightEntities.size(); i++) {
+				auto position = this->entityManager->getComponent<PositionComponent>(lightEntities[i].id);
+				Renderer::PointLight pl{ Math::Vector3f{float(position->x), 1, float(position->y)}, lightEntities[i].component->color };
+				lights.push_back(pl);
 			}
 
-			PointLight pl{ Math::Vector3f{-41.f, 1.f, -15.f}, Math::Vector3f{0.f, 1.f, 0.f} };
-		
-			pl.constant = 1.0f;
-			pl.linear = 0.7f;
-			pl.exp = 1.8f;
-			
-			lights.push_back(pl);
+		//	PointLight pl{ Math::Vector3f{-41.f, 1.f, -15.f}, Math::Vector3f{0.f, 1.f, 0.f} };
+		//
+		//	pl.constant = 1.0f;
+		//	pl.linear = 0.7f;
+		//	pl.exp = 1.8f;
+		//	
+		//	lights.push_back(pl);
 
 			//TODO: Remove this test code
 			auto input = context.inputManager;
@@ -113,12 +120,6 @@ namespace ECS {
 			}
 
 			forwardRenderer->draw(cameraComponent->camera, rendererData, sceneComponent->scene, lights, pos);
-		}
-
-		System * RenderSystem::clone()
-		{
-			RenderSystem* system = new RenderSystem(*entityManager, forwardRenderer->width, forwardRenderer->height);
-			return system;
 		}
 	}
 }

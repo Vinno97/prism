@@ -2,6 +2,7 @@
 
 #include "World/Assemblers/AppearanceAssembler.h"
 #include "World/Assemblers/PositionAssembler.h"
+#include "World/Assemblers/HealthAssembler.h"
 
 using namespace World;
 using namespace World::Assemblers;
@@ -10,6 +11,7 @@ World::Assemblers::EntityAssembler::EntityAssembler()
 {
 	addAssembler(std::make_unique<AppearanceAssembler>(), PRIORITY_NORMAL);
 	addAssembler(std::make_unique<PositionAssembler>(), PRIORITY_NORMAL);
+	addAssembler(std::make_unique<HealthAssembler>(), PRIORITY_NORMAL);
 }
 
 void EntityAssembler::addAssembler(std::unique_ptr<BaseAssembler> &&assembler, int priority)

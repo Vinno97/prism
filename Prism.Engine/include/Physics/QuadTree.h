@@ -1,5 +1,7 @@
 #pragma once
 #include <vector>
+#include <list>
+#include <array>
 #include "BoundingBox.h"
 
 namespace Physics {
@@ -48,8 +50,8 @@ namespace Physics {
 		/// Retrieve a vector with all the boundingboxes that can collide with the given boundingbox
 		/// </summary>
 		///<param name="searchBox">A vector will be returned that could collide with this boundingbox</param>
-		std::vector<BoundingBox const *> RetrieveAll(std::vector<BoundingBox const *> &vector, BoundingBox const &searchBox);
-
+		//void RetrieveAll(std::vector<BoundingBox const *> &vector, BoundingBox const &searchBox);
+		void RetrieveAll(std::list<BoundingBox const *> &vector, BoundingBox const &searchBox);
 
 		/// <summary>
 		/// Get the bounds of the quadtree;
