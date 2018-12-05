@@ -16,9 +16,6 @@ namespace States {
 
 	void MainMenuState::onInit(Context & context)
 	{
-		//Util::AdvertisementSystem as;
-		//std::string file = "img/advertisements/" + as.RandomAdvertisement();
-		//menuBuilder.addControl(0, 0, 1, 1, file.c_str());
 		std::function<void()> callback = [context]()mutable{ 
 			if (!context.stateMachine->hasState<PrismGame>()) {
 				PrismGame newGame = PrismGame();
