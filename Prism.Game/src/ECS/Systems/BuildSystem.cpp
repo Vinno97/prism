@@ -12,6 +12,7 @@
 #include "ECS/Components/InventoryComponent.h"
 #include "ECS/Components/PlacableComponent.h"
 #include <algorithm>
+#include <cmath>
 
 using namespace ECS;
 using namespace ECS::Components;
@@ -46,15 +47,21 @@ void ECS::Systems::BuildSystem::update(Context& context) {
 
 				if (key1Pressed && currentBuild != BuildingType::WALL) {
 					buildingId = buildEntity(BuildingType::WALL);
-					currentBuild = BuildingType::WALL;
+					if (buildingId != -1) {
+						currentBuild = BuildingType::WALL;
+					}
 				}
 				else if (key2Pressed && currentBuild != BuildingType::TOWER) {
 					buildingId = buildEntity(BuildingType::TOWER);
-					currentBuild = BuildingType::TOWER;
+					if (buildingId != -1) {
+						currentBuild = BuildingType::TOWER;
+					}
 				}
 				else if (key3Pressed && currentBuild != BuildingType::MINE) {
 					buildingId = buildEntity(BuildingType::MINE);
-					currentBuild = BuildingType::MINE;
+					if (buildingId != -1) {
+						currentBuild = BuildingType::MINE;
+					}
 				}
 				else {
 					currentBuild = BuildingType::NONE;
@@ -103,8 +110,10 @@ void ECS::Systems::BuildSystem::update(Context& context) {
 					}
 					currentBuild = BuildingType::NONE;
 					auto position = entityManager->getComponent<PositionComponent>(buildingId);
-					position->x = posX;
-					position->y = posY;
+					if (position != nullptr) {
+						position->x = posX;
+						position->y = posY;
+					}
 					buildingId = -1;
 				}
 			}
@@ -128,8 +137,8 @@ void ECS::Systems::BuildSystem::update(Context& context) {
 				auto entityId = entities[0].id;
 				auto mousePosition3D = entityManager->getComponent<ECS::Components:: PositionComponent>(entityId);
 				auto buildingPosition = entityManager->getComponent<PositionComponent>(buildingId);
-				buildingPosition->x = posX = (int)mousePosition3D->x;
-				buildingPosition->y = posY = (int)mousePosition3D->y;
+				buildingPosition->x = posX = std::ceil(mousePosition3D->x);
+				buildingPosition->y = posY = std::ceil(mousePosition3D->y);
 			}
 		}
 	}
@@ -157,11 +166,16 @@ unsigned int ECS::Systems::BuildSystem::buildEntity(BuildingType buildingType)
 	auto boundingBox = entityManager->getComponent<BoundingBoxComponent>(newBuildingId);
 	auto position = entityManager->getComponent<PositionComponent>(newBuildingId);
 
-	newBuildingId = entityManager->createEntity(*appearance, *boundingBox, *position);
-	
-	buildingColor = appearance->color;
-	buildingScaleX = appearance->scaleX;
-	buildingScaleZ = appearance->scaleZ;
+	if (appearance == nullptr && boundingBox != nullptr && position != nullptr) {
+		newBuildingId = entityManager->createEntity(*appearance, *boundingBox, *position);
 
-	return newBuildingId;
+		buildingColor = appearance->color;
+		buildingScaleX = appearance->scaleX;
+		buildingScaleZ = appearance->scaleZ;
+
+		return newBuildingId;
+	}
+	else {
+		return -1;
+	}
 }

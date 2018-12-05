@@ -22,42 +22,34 @@ CollisionSystem::~CollisionSystem()
 
 void CollisionSystem::update(Context& context)
 {
-	for (auto entity : entityManager->getAllEntitiesWithComponent<PlacableComponent>())//ECS::Components::DynamicComponent>())
+	for (auto entity : entityManager->getAllEntitiesWithComponent<PlacableComponent>())
 	{
-		if (entityManager->hasComponent<PositionComponent>(entity.id) && entityManager->hasComponent<BoundingBoxComponent>(entity.id)) {
-			auto &boundingBox = entityManager->getComponent<BoundingBoxComponent>(entity.id)->boundingBox;
-			auto position = entityManager->getComponent<PositionComponent>(entity.id);
-			
+		auto boundingBoxComponent = entityManager->getComponent<BoundingBoxComponent>(entity.id);
+		auto position = entityManager->getComponent<PositionComponent>(entity.id);
+		if (boundingBoxComponent != nullptr && position != nullptr) {
+			auto &boundingBox = boundingBoxComponent->boundingBox;
+
 			boundingBox.SetPosXY(position->x, position->y);
 
 			if (!entityManager->hasComponent<BoundingBoxComponent>(boundingBoxMap[&boundingBox])) {
 				boundingBoxMap[&boundingBox] = entity.id;
-			}			
+			}
 			quadTree.Insert(boundingBox);
 		}
 	}
 
 	for (auto entity : entityManager->getAllEntitiesWithComponent<DynamicComponent>())
 	{
-		if (/*entityManager->hasComponent<PositionComponent>(entity.id) &&*/
-			entityManager->hasComponent<BoundingBoxComponent>(entity.id)) {
-
-			auto boundingBoxComponent = entityManager->getComponent<BoundingBoxComponent>(entity.id);
-			auto position = entityManager->getComponent<PositionComponent>(entity.id);
+		auto boundingBoxComponent = entityManager->getComponent<BoundingBoxComponent>(entity.id);
+		auto position = entityManager->getComponent<PositionComponent>(entity.id);
+		if (boundingBoxComponent != nullptr && position != nullptr) {
 			boundingBoxComponent->didCollide = false;
 			boundingBoxComponent->collidesWith.clear();
 			boundingBoxComponent->boundingBox.SetPosXY(position->x, position->y);
 
-			//auto velocity = entityManager->getComponent<VelocityComponent>(entity.id);
-			
-			//auto testBox = boundingBoxComponent->boundingBox;
-			//testBox.SetPosXY(position->x + velocity->dx * context.deltaTime, position->y + velocity->dy * context.deltaTime);
-
-
-
 			std::list<Physics::BoundingBox const *> boundingBoxes;
 			quadTree.RetrieveAll(boundingBoxes, boundingBoxComponent->boundingBox);
-			
+
 			for (const auto& currentBox : boundingBoxes) {
 				if (&boundingBoxComponent->boundingBox != currentBox && aabbCollider.CheckCollision(boundingBoxComponent->boundingBox, *currentBox)) {
 					boundingBoxComponent->didCollide = true;
