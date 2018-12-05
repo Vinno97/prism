@@ -169,7 +169,7 @@ namespace States {
 		animationSystem->update(context);
 		resourceGatherSystem->update(context);
 		resourceBlobSystem->update(context);
-		enemySpawnSystem->update(context);
+	//	enemySpawnSystem->update(context);
 		renderSystem->update(context);
 
 		std::cout << 1.0/context.deltaTime << std::endl;

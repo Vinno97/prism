@@ -129,36 +129,6 @@ namespace Renderer {
 		shadowPipeline->stop();
 		//end test
 
-//		//Render shadowmap
-//		renderDevice->clearScreen();
-//		shadowDepthTarget->bind();
-//		renderDevice->clearScreen();
-//		shadowPipeline->run();
-//		renderDevice->useDepthTest(true);
-//	//	glCullFace(GL_FRONT);
-//
-//		for (const auto& renderable : renderables) {
-//			model = renderable.getMatrix();
-//
-//			shadowPipeline->setUniformMatrix4f("view", view);
-//			shadowPipeline->setUniformMatrix4f("proj", projection);
-//			shadowPipeline->setUniformMatrix4f("model", model);
-//
-//			renderable.model->mesh->vertexArrayObject->bind();
-//			if (renderable.model->mesh->isIndiced) {
-//				renderable.model->mesh->indexBuffer->bind();
-//				renderDevice->DrawTrianglesIndexed(0, renderable.model->mesh->indicesLength);
-//			}
-//			else {
-//				renderDevice->DrawTriangles(0, renderable.model->mesh->verticesLength);
-//			}
-//		}
-//	//	glCullFace(GL_BACK);
-//		shadowPipeline->stop();
-//		shadowDepthTarget->unbind();
-//
-//		//End render shadowmap
-
 		renderDevice->useDepthTest(false);
 		quadPipeline->run();
 		
@@ -185,20 +155,45 @@ namespace Renderer {
 	//		quadPipeline->setUniformFloat(index.append(".Exp").c_str(), light.exp);
 	//	}
 
-		PointLight pl{ Math::Vector3f{-41.f, 3, -15.f}, Math::Vector3f{1.f, 0, 0.f} };
+		PointLight pl{ Math::Vector3f{-44.f, 1, -15.f}, Math::Vector3f{1.f, 0, 0.f} };
 
 		pl.constant = 1.0f;
-		pl.linear = 0.7f;
+		pl.linear = 0.f;
 		pl.exp = 1.8f;
 
-	//quadPipeline->setUniformVector("gPointLight.Color", pl.color.x, pl.color.y, pl.color.z);
-	//quadPipeline->setUniformVector("gPointLight.Position", pl.position.x, pl.position.y, pl.position.z);
-	//
-	//quadPipeline->setUniformFloat("gPointLight.AmbientIntensity", pl.ambientIntensity);
-	//quadPipeline->setUniformFloat("gPointLight.DiffuseIntensity", pl.diffuseIntensity);
-	//quadPipeline->setUniformFloat("gPointLight.Constant", pl.constant);
-	//quadPipeline->setUniformFloat("gPointLight.Linear", pl.linear);
-	//quadPipeline->setUniformFloat("gPointLight.Exp", pl.exp);
+
+		quadPipeline->setUniformFloat("numPointLights", 1.f);
+
+		int index = 0;
+
+		for (auto const& light : pointLights) {
+			std::string location = "gPointLights";
+			location.append("[").append(std::to_string(index).append("]"));
+
+			auto color = location + ".Color";
+			quadPipeline->setUniformVector(color.c_str(), pl.color.x, pl.color.y, pl.color.z);
+
+			color = location + ".Position";
+			quadPipeline->setUniformVector(color.c_str(), pl.position.x, pl.position.y, pl.position.z);
+
+			color = location + ".AmbientIntensity";
+			quadPipeline->setUniformFloat(color.c_str(), pl.ambientIntensity);
+
+			color = location + ".DiffuseIntensity";
+			quadPipeline->setUniformFloat(color.c_str(), pl.diffuseIntensity);
+
+			color = location + ".Constant";
+			quadPipeline->setUniformFloat(color.c_str(), pl.constant);
+
+			color = location + ".Linear";
+			quadPipeline->setUniformFloat(color.c_str(), pl.linear);
+
+			color = location + ".Exp";
+			quadPipeline->setUniformFloat(color.c_str(), pl.exp);
+
+
+			index++;
+		}
 		
 		positionBuffer->bind(textures[0]);
 		normalBuffer->bind(textures[1]);
@@ -208,7 +203,7 @@ namespace Renderer {
 
 		quadMesh->vertexArrayObject->bind();
 		quadMesh->indexBuffer->bind();
-		glViewport(0, 0, 1920, 1080); 
+		glViewport(0, 0, 1920/2, 1080/2); 
 		renderDevice->DrawTrianglesIndexed(0, quadMesh->indicesLength);
 
 		quadMesh->vertexArrayObject->unbind();
@@ -266,13 +261,34 @@ namespace Renderer {
 		quadPipeline->createUniform("gDirectionalLight.AmbientIntensity");
 		quadPipeline->createUniform("gDirectionalLight.DiffuseIntensity");
 
-		//quadPipeline->createUniform("gPointLight.Color");
-		//quadPipeline->createUniform("gPointLight.Position");
-		//quadPipeline->createUniform("gPointLight.AmbientIntensity");
-		//quadPipeline->createUniform("gPointLight.DiffuseIntensity");
-		//quadPipeline->createUniform("gPointLight.Constant");
-		//quadPipeline->createUniform("gPointLight.Linear");
-		//quadPipeline->createUniform("gPointLight.Exp");
+		for (int i = 0; i < 100; i++) {
+			std::string location = "gPointLights";
+			location.append("[").append(std::to_string(i).append("]"));
+
+			auto color = location + ".Color";
+			quadPipeline->createUniform(color.c_str());
+
+			color = location + ".Position";
+			quadPipeline->createUniform(color.c_str());
+
+			color = location + ".AmbientIntensity";
+			quadPipeline->createUniform(color.c_str());
+
+			color = location + ".DiffuseIntensity";
+			quadPipeline->createUniform(color.c_str());
+
+			color = location + ".Constant";
+			quadPipeline->createUniform(color.c_str());
+
+			color = location + ".Linear";
+			quadPipeline->createUniform(color.c_str());
+
+			color = location + ".Exp";
+			quadPipeline->createUniform(color.c_str());
+		}
+
+
+		quadPipeline->createUniform("numPointLights");
 
 		quadPipeline->createUniform("view");
 		quadPipeline->createUniform("shadowView");

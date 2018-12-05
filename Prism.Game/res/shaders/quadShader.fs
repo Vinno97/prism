@@ -42,6 +42,8 @@ uniform vec2 kernel[9] = vec2[]
 
 
 uniform DirectionalLight gDirectionalLight;
+uniform PointLight gPointLights[100];
+uniform float numPointLights;
 
 layout(binding = 0) uniform sampler2D gPosition;
 layout(binding = 1) uniform sampler2D gNormal;
@@ -88,6 +90,16 @@ float random(vec3 seed, int i){
 	vec4 seed4 = vec4(seed,i);
 	float dot_product = dot(seed4, vec4(12.9898,78.233,45.164,94.673));
 	return fract(sin(dot_product) * 43758.5453);
+}
+
+vec3 calcPointLight(vec3 normal, vec3 worldPos, PointLight pointLight) {
+	vec3 ambientColor = pointLight.Color * pointLight.AmbientIntensity;
+	float diffuse = dot(normal, -pointLight.Position);
+	float distance = length(pointLight.Position-worldPos);
+
+	
+	float Attenuation = gPointLights[0].Constant + 0 * distance + 1 * distance * distance;
+	return pointLight.Color/Attenuation;
 }
 
 void main() {
@@ -138,6 +150,12 @@ void main() {
 	
 // Stratified poisson disc sampling	
 	
+	vec4 pointColor = vec4(0, 0, 0, 1);
+	
+	for(int i = 0; i < numPointLights; i++) {
+		pointColor += vec4(calcPointLight(Normal, worldPos, gPointLights[i]), 1.0);
+	}
+	
 	vec4 AmbientColor = vec4(gDirectionalLight.Color * gDirectionalLight.AmbientIntensity, 1.0f);
 	float DiffuseFactor = dot(normalize(Normal), -gDirectionalLight.Direction);
 	
@@ -149,8 +167,12 @@ void main() {
     else {
         DiffuseColor = vec4(0, 0, 0, 0);
     }
-	color = vec4(Albedo, 1) * (AmbientColor + (visibility * DiffuseColor));
+	
+	
+	
+	color = vec4(Albedo, 1) * (AmbientColor + (visibility * (DiffuseColor+pointColor)));
 	//float t = LinearizeDepth(UV, texture(gShadowMap, UV).r);
 	//color = vec4(t, t, t, 1.0);
+	//color = pointColor;
 }
 

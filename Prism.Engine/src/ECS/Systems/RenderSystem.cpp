@@ -4,6 +4,7 @@
 #include "ECS/Components/PlayerComponent.h"
 #include "ECS/Components/SceneComponent.h"
 #include "ECS/Components/CameraComponent.h"
+#include "ECS/Components/PointLightComponent.h"
 #include "glm/glm.hpp"
 #include <tuple>
 #include "Renderer/Renderable.h"
@@ -70,7 +71,12 @@ namespace ECS {
 				rendererData.push_back(renderable);
 			}
 			std::vector<PointLight> lights;
-			PointLight pl{ Math::Vector3f{-41.f, 1, -15.f}, Math::Vector3f{1.f, 0, 0.f} };
+			auto lightEntities = entityManager->getAllEntitiesWithComponent<PointLightComponent>();
+			for (unsigned int i = 0; i < lights.size(); i++) {
+				auto light = this->entityManager->getComponent<PointLightComponent>(lights[i].id);
+			}
+
+			PointLight pl{ Math::Vector3f{-41.f, 1.f, -15.f}, Math::Vector3f{0.f, 1.f, 0.f} };
 		
 			pl.constant = 1.0f;
 			pl.linear = 0.7f;
