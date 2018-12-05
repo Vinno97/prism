@@ -9,6 +9,8 @@
 
 namespace ECS {
 	namespace Systems {
+		using namespace Components;
+		
 		EnemyPathFindingSystem::EnemyPathFindingSystem(ECS::EntityManager &entityManager, float enemySpeed) : System(entityManager)
 		{
 			this->enemySpeed = enemySpeed;
@@ -41,11 +43,6 @@ namespace ECS {
 					}
 				}
 			}
-		}
-
-		ECS::Systems::System* EnemyPathFindingSystem::clone()
-		{
-			return new EnemyPathFindingSystem(*entityManager,enemySpeed);
 		}
 	}
 }

@@ -61,4 +61,15 @@ namespace Util {
         outfile << data;
         outfile.close();
     }
+
+	std::vector<std::string> FileSystem::getFilenamesInDirectory(const std::string &path) const
+	{
+		std::vector<std::string> filenames;
+		std::string newpath = this->getResourcePath(path);
+		
+		for (auto & p : filesystem::directory_iterator(newpath))
+			filenames.push_back(p.path().filename().string());
+
+		return filenames;
+	}
 }

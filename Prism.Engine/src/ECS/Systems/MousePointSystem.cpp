@@ -4,8 +4,12 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "Context.h"
 #include "ECS/Components/CameraComponent.h"
+#include "ECS/Components/PositionComponent.h"
+
+using namespace glm;
 
 namespace ECS {
+	using namespace Components;
 	namespace Systems {
 		MousePointSystem::MousePointSystem(EntityManager& entityManager) : System(entityManager) {
 			
@@ -66,9 +70,5 @@ namespace ECS {
 			}
 		}
 
-		System * MousePointSystem::clone()
-		{
-			return new MousePointSystem(*entityManager);
-		}
 	}
 }

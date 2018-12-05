@@ -10,11 +10,17 @@
 #include "Renderer/ForwardRenderer.h"
 #include "Renderer/Scene.h"
 #include "Renderer/Graphics/Loader/ModelLoader.h"
+#include "ECS/Components/PositionComponent.h"
 
 using namespace Renderer;
+using namespace ECS;
+using namespace Systems;
+using namespace Components;
+using namespace std;
 
 namespace ECS {
 	namespace Systems {
+		using namespace Components;
 
 		RenderSystem::RenderSystem(EntityManager &entityManager, int windowWidth, int windowHeight)
 			: System(entityManager) {
@@ -41,7 +47,7 @@ namespace ECS {
 				auto playerPosition = entityManager->getComponent<PositionComponent>(players.front().id);
 				camera->position.x -= (camera->position.x - playerPosition->x) * context.deltaTime * 2;
 				camera->position.z -= (camera->position.z - 4.f - playerPosition->y) * context.deltaTime * 2;
-			}			
+			}
 
 
 			for (unsigned int i = 0; i < appearanceEntities.size(); i++)
@@ -52,17 +58,17 @@ namespace ECS {
 				Renderable renderable;
 				renderable.model = appearance->model.get();
 
-				get<0>(renderable.position) = position->x + appearance->translationX;
-				get<1>(renderable.position) = appearance->translationY;
-				get<2>(renderable.position) = position->y + appearance->translationZ;
+				std::get<0>(renderable.position) = position->x + appearance->translationX;
+				std::get<1>(renderable.position) = appearance->translationY;
+				std::get<2>(renderable.position) = position->y + appearance->translationZ;
 
-				get<0>(renderable.scale) = appearance->scaleX;
-				get<1>(renderable.scale) = appearance->scaleY;
-				get<2>(renderable.scale) = appearance->scaleZ;
+				std::get<0>(renderable.scale) = appearance->scaleX;
+				std::get<1>(renderable.scale) = appearance->scaleY;
+				std::get<2>(renderable.scale) = appearance->scaleZ;
 
-				get<0>(renderable.rotation) = appearance->rotationX;
-				get<1>(renderable.rotation) = appearance->rotationY;
-				get<2>(renderable.rotation) = appearance->rotationZ;
+				std::get<0>(renderable.rotation) = appearance->rotationX;
+				std::get<1>(renderable.rotation) = appearance->rotationY;
+				std::get<2>(renderable.rotation) = appearance->rotationZ;
 
 				renderable.color = appearance->color;
 
@@ -70,12 +76,6 @@ namespace ECS {
 			}
 
 			forwardRenderer->draw(cameraComponent->camera, rendererData, sceneComponent->scene);
-		}
-
-		System * RenderSystem::clone()
-		{
-			RenderSystem* system = new RenderSystem(*entityManager, forwardRenderer->width, forwardRenderer->height);
-			return system;
 		}
 	}
 }

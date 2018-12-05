@@ -5,8 +5,8 @@ namespace ECS {
 		struct ProjectileAttackComponent : Component {
 			int damage;
 
-			Component* Clone() override {
-				return new ProjectileAttackComponent();
+			std::unique_ptr<Component> clone() override {
+				return std::make_unique<ProjectileAttackComponent>();
 			}
 		};
 	}

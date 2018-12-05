@@ -8,7 +8,7 @@ using namespace World::Assemblers;
 void EnemySpawnAssembler::assemble(int entity, const WorldObject& worldObject, ECS::EntityManager& entityManager) const {
 	if (worldObject.gid == 8) {
 
-		float spawnInterval = 10;
+		float spawnInterval = 5;
 		bool enabled = true;
 
 		if (worldObject.additionalProperties.find("spawnInterval") != worldObject.additionalProperties.end()) {

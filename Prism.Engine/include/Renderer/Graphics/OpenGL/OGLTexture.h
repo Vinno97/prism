@@ -1,5 +1,5 @@
 #pragma once
-
+#include <GL/glew.h>
 #include <SDL2/SDL_opengl.h>
 #include "Renderer/Graphics/Texture.h"
 #include "Surface.h"
@@ -11,7 +11,9 @@ namespace Renderer {
 			{
 			public:
 				OGLTexture(const char* path);
-				void bind() override;
+				OGLTexture();
+				int getID() override;
+				void bind(int target) override;
 			private:
 				GLuint textureID;
 			};
