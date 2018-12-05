@@ -17,13 +17,22 @@ namespace States {
 
 	void MainMenuState::onInit(Context & context)
 	{
-		PrismGame game = PrismGame();
+	
+
 		context.stateMachine->addState<PrismGame>(context);
 		context.stateMachine->addState<CreditsState>(context);
 		context.stateMachine->addState<HelpState>(context);
 
+		std::function<void()> callback = [context]()mutable {
+			if (!context.stateMachine->hasState<PrismGame>()) {
+				PrismGame newGame = PrismGame();
+				context.stateMachine->addState<PrismGame>(context);
+			}
+			context.stateMachine->setState<PrismGame>(context);
+		};
+
+
 		std::function<void()> creditsCallback = [&context]() { context.stateMachine->setState<CreditsState>(context); };
-		std::function<void()> callback = [&context]() { context.stateMachine->setState<PrismGame>(context); };
 		std::function<void()> helpCallback = [&]() {context.stateMachine->setState<HelpState>(context); };
 
 
