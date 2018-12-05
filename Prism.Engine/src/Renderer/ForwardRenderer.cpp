@@ -99,7 +99,7 @@ namespace Renderer {
 		renderTarget->unbind();
 		geometryPipeline->stop();
 
-		//test
+		//Shadow depth map render
 		shadowDepthTarget->bind();
 		renderDevice->useDepthTest(true);
 		renderDevice->clearScreen();
@@ -127,7 +127,7 @@ namespace Renderer {
 
 		shadowDepthTarget->unbind();
 		shadowPipeline->stop();
-		//end test
+		//End shadow depth map render
 
 		renderDevice->useDepthTest(false);
 		quadPipeline->run();
