@@ -9,7 +9,7 @@ namespace Util {
 		FileSystem fs;
 		std::vector<std::string> filenames = fs.getFilenamesInDirectory("img/advertisements");
 		
-		// Deze seed kan uiteindelijk weg
+		// Deze seed kan na mergen hopelijk weg
 		srand(time(NULL));
 		int randomIndex = rand() % filenames.size();
 
