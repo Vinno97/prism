@@ -8,6 +8,7 @@
 #include "ECS/Components/VelocityComponent.h"
 #include "ECS/Components/InventoryComponent.h"
 #include "ECS/Components/PositionComponent.h"
+#include "ECS/Components/TargetComponent.h"
 #include "Enums/ResourceTypeEnum.h"
 
 namespace ECS {
@@ -21,22 +22,21 @@ namespace ECS {
 		void ResourceBlobSystem::update(Context & context)
 		{
 			auto resouceBlobs = entityManager->getAllEntitiesWithComponent<ResourceBlobComponent>();
-			auto player = entityManager->getAllEntitiesWithComponent<PlayerComponent>()[0];
-			auto playerLocation = entityManager->getComponent<PositionComponent>(player.id);
 
 			for (auto blob : resouceBlobs) {
-
+                auto target = entityManager->getComponent<TargetComponent>(blob.id);
 				auto blobPosition = entityManager->getComponent<PositionComponent>(blob.id);
+                auto targetLocation = entityManager->getComponent<PositionComponent>(target->target);
 
 				auto blobVelocity = entityManager->getComponent<VelocityComponent>(blob.id);
-				auto direction = Math::Vector3f{ float(playerLocation->x - blobPosition->x), float(playerLocation->y - blobPosition->y), 0.f };
+				auto direction = Math::Vector3f{ float(targetLocation->x - blobPosition->x), float(targetLocation->y - blobPosition->y), 0.f };
 
 				direction.normalize();
 
 				blobVelocity->dx = direction.x;
 				blobVelocity->dy = direction.y;
 
-				removeResourceBlobs(*playerLocation, *blobPosition, blob.id, context);
+				removeResourceBlobs(*targetLocation, *blobPosition, blob.id, context);
 			}
 		}
 
