@@ -25,7 +25,7 @@ namespace ECS {
 			void update(Context& context) override;
 
 		private:
-			unsigned int buildEntity(BuildingType buildingType);
+			unsigned int buildEntity();
 			int buildingId = -1;
 			BuildingType currentBuild = BuildingType::NONE;
 

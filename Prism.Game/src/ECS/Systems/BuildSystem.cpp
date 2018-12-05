@@ -40,31 +40,45 @@ void ECS::Systems::BuildSystem::update(Context& context) {
 
 			if (key1Pressed || key2Pressed || key3Pressed || keyTabPressed) {
 				deltaTime = 0;
+				int tempBuildId = -1;
+
 				if (currentBuild != BuildingType::NONE) {
 					entityManager->removeEntity(buildingId);
 					buildingId = -1;
 				}
 
 				if (key1Pressed && currentBuild != BuildingType::WALL) {
-					buildingId = buildEntity(BuildingType::WALL);
-					if (buildingId != -1) {
-						currentBuild = BuildingType::WALL;
-					}
+					tempBuildId = ef.createWall(*entityManager);
+					currentBuild = BuildingType::WALL;
 				}
 				else if (key2Pressed && currentBuild != BuildingType::TOWER) {
-					buildingId = buildEntity(BuildingType::TOWER);
-					if (buildingId != -1) {
-						currentBuild = BuildingType::TOWER;
-					}
+					tempBuildId = ef.createTower(*entityManager);
+					currentBuild = BuildingType::TOWER;
 				}
 				else if (key3Pressed && currentBuild != BuildingType::MINE) {
-					buildingId = buildEntity(BuildingType::MINE);
-					if (buildingId != -1) {
-						currentBuild = BuildingType::MINE;
-					}
+					tempBuildId = ef.createMine(*entityManager);
+					currentBuild = BuildingType::MINE;
 				}
 				else {
 					currentBuild = BuildingType::NONE;
+				}
+
+				if (currentBuild != BuildingType::NONE) {
+					auto appearance = entityManager->getComponent<AppearanceComponent>(tempBuildId);
+					auto boundingBox = entityManager->getComponent<BoundingBoxComponent>(tempBuildId);
+					auto position = entityManager->getComponent<PositionComponent>(tempBuildId);
+
+					if (appearance != nullptr && boundingBox != nullptr && position != nullptr) {
+						buildingId = entityManager->createEntity(*appearance, *boundingBox, *position, DynamicComponent());
+						buildingColor = appearance->color;
+						buildingScaleX = appearance->scaleX;
+						buildingScaleZ = appearance->scaleZ;
+						entityManager->removeEntity(tempBuildId);
+					}
+					else 
+					{
+						currentBuild = BuildingType::NONE;
+					}
 				}
 			}
 		}
@@ -125,8 +139,8 @@ void ECS::Systems::BuildSystem::update(Context& context) {
 					//TODO :: leuk muziekje?
 				}
 				appearance->color = Math::Vector3f{ 1.0f, 0.5f, 0.5f };
-				appearance->scaleX = buildingScaleX * 1.001;
-				appearance->scaleZ = buildingScaleZ * 1.001;
+				appearance->scaleX = buildingScaleX * 1.1;
+				appearance->scaleZ = buildingScaleZ * 1.1;
 			}
 			boundingBoxComponent->didCollide = false;
 		}
@@ -144,35 +158,35 @@ void ECS::Systems::BuildSystem::update(Context& context) {
 	}
 }
 
-unsigned int ECS::Systems::BuildSystem::buildEntity(BuildingType buildingType)
+unsigned int ECS::Systems::BuildSystem::buildEntity()
 {
 	unsigned int newBuildingId;
-	switch (buildingType)
+	unsigned int tempBuildId;
+	switch (currentBuild)
 	{
 	case ECS::Systems::BuildSystem::WALL:
-		newBuildingId = ef.createWall(*entityManager);
+		tempBuildId = ef.createWall(*entityManager);
 		break;
 	case ECS::Systems::BuildSystem::TOWER:
-		newBuildingId = ef.createTower(*entityManager);
+		tempBuildId = ef.createTower(*entityManager);
 		break;
 	case ECS::Systems::BuildSystem::MINE:
-		newBuildingId = ef.createMine(*entityManager);
+		tempBuildId = ef.createMine(*entityManager);
 		break;
 	default:
 		return -1;
 	}
 
-	auto appearance = entityManager->getComponent<AppearanceComponent>(newBuildingId);
-	auto boundingBox = entityManager->getComponent<BoundingBoxComponent>(newBuildingId);
-	auto position = entityManager->getComponent<PositionComponent>(newBuildingId);
+	auto appearance = entityManager->getComponent<AppearanceComponent>(tempBuildId);
+	auto boundingBox = entityManager->getComponent<BoundingBoxComponent>(tempBuildId);
+	auto position = entityManager->getComponent<PositionComponent>(tempBuildId);
 
 	if (appearance == nullptr && boundingBox != nullptr && position != nullptr) {
 		newBuildingId = entityManager->createEntity(*appearance, *boundingBox, *position);
-
 		buildingColor = appearance->color;
 		buildingScaleX = appearance->scaleX;
 		buildingScaleZ = appearance->scaleZ;
-
+		entityManager->removeEntity(tempBuildId);
 		return newBuildingId;
 	}
 	else {
