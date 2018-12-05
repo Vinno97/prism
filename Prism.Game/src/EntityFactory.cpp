@@ -54,7 +54,7 @@ unsigned EntityFactory::createPlayer(EntityManager& entityManager) const
 	return createPlayer(entityManager.createEntity(), entityManager);
 }
 
-unsigned EntityFactory::createPlayer(unsigned entity, EntityManager& entityManager) const
+unsigned EntityFactory::createPlayer(unsigned entity, EntityManager& entityManager) const {
 	auto model = moderLoader.loadModel("./res/player.obj");
 
 	AppearanceComponent appearance;

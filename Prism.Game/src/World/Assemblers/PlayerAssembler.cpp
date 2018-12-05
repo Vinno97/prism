@@ -7,7 +7,7 @@ using namespace World::Assemblers;
 
 void PlayerAssembler::assemble(int entity, const WorldObject& worldObject, ECS::EntityManager& entityManager) const {
 	if (worldObject.gid == 4) {
-		EntityFactory().createPlayer(entity, entityManager);
+		EntityFactory::getInstance().createPlayer(entity, entityManager);
 	}
 }
 

@@ -30,7 +30,7 @@ namespace ECS {
 
 				if (component->timeSinceLastSpawn > component->spawnInterval) {
 					component->timeSinceLastSpawn = 0;
-					auto enemy = entityFactory.createEnemy(*entityManager);
+					auto enemy = EntityFactory::getInstance().createEnemy(*entityManager);
 					entityManager->getComponent<PositionComponent>(enemy)->x += position->x+1;
 					entityManager->getComponent<PositionComponent>(enemy)->y += position->y+1;
 				}

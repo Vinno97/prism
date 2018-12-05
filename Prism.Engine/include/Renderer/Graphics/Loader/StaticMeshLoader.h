@@ -11,12 +11,12 @@ namespace Renderer {
 			class StaticMeshLoader {
 			public:
 				StaticMeshLoader();
-				std::shared_ptr<Renderer::Graphics::Models::Mesh> loadMesh(std::string path);
+				std::shared_ptr<Renderer::Graphics::Models::Mesh> loadMesh(std::string path) const;
 				~StaticMeshLoader();
 			private:
 				RenderDevice* renderDevice;
-				std::map<std::string, std::shared_ptr<Mesh>> loadedMeshes;
-
+				// The cache can be mutable, since it does not affect the logical state of StaticMeshLoader.
+				mutable std::map<std::string, std::shared_ptr<Models::Mesh>> loadedMeshes;
 			};
 		}
 	}

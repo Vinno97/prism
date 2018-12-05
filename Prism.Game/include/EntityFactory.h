@@ -5,6 +5,12 @@
 
 class EntityFactory {
 public:
+	static EntityFactory& getInstance()
+	{
+		static EntityFactory instance;
+		return instance;
+	}
+
 	unsigned createPlayer(ECS::EntityManager& entityManager) const;
 	unsigned createPlayer(unsigned entity, ECS::EntityManager& entityManager) const;
 
@@ -41,5 +47,6 @@ public:
 	unsigned createCamera(ECS::EntityManager & entityManager);
 	unsigned createCameraPointer(ECS::EntityManager & entityManager);
 private:
+	static std::unique_ptr<EntityFactory> instance;
 	Renderer::Graphics::Loader::ModelLoader moderLoader;
 };
