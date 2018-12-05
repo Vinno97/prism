@@ -359,3 +359,5 @@ CTestTestfile.cmake
 !Prism.*/lib/x86/
 
 *.ini
+
+Prism.Game/res/saves/

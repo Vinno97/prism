@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClInclude Include="include\AudioManager.h" />
     <ClInclude Include="include\ECS\Components\DynamicComponent.h" />
+    <ClInclude Include="include\ECS\EntityBuilder.h" />
     <ClInclude Include="include\ECS\Components\PlacableComponent.h" />
     <ClInclude Include="include\Menu\Control.h" />
     <ClInclude Include="include\ECS\Components\PlayerComponent.h" />
@@ -75,7 +76,6 @@
     <ClInclude Include="include\StateMachine.h" />
     <ClInclude Include="include\Util\lodepng.h" />
     <ClInclude Include="include\Window.h" />
-    <ClInclude Include="include\MenuState.h" />
     <ClInclude Include="include\ECS\SystemManager.h" />
     <ClInclude Include="include\Renderer\Graphics\RenderDevice.h" />
     <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLFragmentShader.h" />
@@ -121,7 +121,6 @@
     <ClCompile Include="src\Renderer\Renderable.cpp" />
     <ClCompile Include="src\Util\FileSystem.cpp" />
     <ClCompile Include="src\Renderer\ForwardRenderer.cpp" />
-    <ClCompile Include="src\MenuState.cpp" />
     <ClCompile Include="src\ECS\EntityManager.cpp" />
     <ClCompile Include="src\Renderer\Graphics\Loader\ModelLoader.cpp" />
     <ClCompile Include="src\Renderer\Graphics\Loader\TextureLoader.cpp" />

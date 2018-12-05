@@ -4,6 +4,7 @@
 #include "Menu/MenuRenderer.h"
 #include "Menu/Menu.h"
 #include "ECS/EntityManager.h"
+#include "ECS/Systems/System.h"
 #include "ECS/SystemManager.h"
 #include "EntityFactory.h"
 #include "State.h"
@@ -17,8 +18,8 @@ class PrismGame : public Game
 	PrismGame() = default;
 	void onInit(Context &context) override;
 	void onUpdate(Context &context) override;
-	void onEnter() override;
-	void onLeave() override;
+	void onEnter(Context & context) override;
+	void onLeave(Context & context) override;
 
   private:
 	ECS::EntityManager entityManager;
@@ -27,7 +28,6 @@ class PrismGame : public Game
 	Menu::MenuBuilder menuBuilder;
 	Menu::MenuRenderer menuRenderer;
 	Menu::Menu menu;
-
 	bool canPressEscape;
 	void registerSystems(Context &context);
 	void loadAudio(Context &context) const;

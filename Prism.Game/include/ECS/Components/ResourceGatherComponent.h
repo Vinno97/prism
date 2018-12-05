@@ -11,10 +11,8 @@ namespace ECS {
 
 			const float gatherRange = 1;
 
-			Component* Clone() override {
-				auto temp = new ResourceGatherComponent();
-		
-				return temp;
+			std::unique_ptr<Component> clone() override {
+				return std::make_unique<ResourceGatherComponent>();
 			}
 		};
 	}

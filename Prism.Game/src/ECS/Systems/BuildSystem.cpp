@@ -13,6 +13,9 @@
 #include "ECS/Components/PlacableComponent.h"
 #include <algorithm>
 
+using namespace ECS;
+using namespace ECS::Components;
+using namespace ECS::Systems;
 
 ECS::Systems::BuildSystem::BuildSystem(EntityManager &entityManager) : System(entityManager) { }
 

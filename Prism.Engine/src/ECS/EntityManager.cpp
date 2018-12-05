@@ -1,128 +1,47 @@
 #include "ECS/EntityManager.h"
-#include <iostream>
 #include <vector>
 #include <unordered_map>
 #include <typeindex>
 #include <string>
-#include <initializer_list>
 
 #include "ECS/Components/PositionComponent.h"
 
 namespace ECS {
 	using namespace Components;
 
-	EntityManager::EntityManager()
-		= default;
-
-	EntityManager & EntityManager::operator=(const EntityManager & other)
+	Component* EntityManager::getComponent(unsigned int entityId, std::type_index componentType) const noexcept
 	{
-		if (this != &other) {
-			lastEntityId = other.lastEntityId;
-
-			for (auto it = other.entityComponents.begin(); it != other.entityComponents.end(); it++)
-			{
-				std::unordered_map<unsigned int, Component*> newMap;
-				for (auto itSub = it->second.begin(); itSub != it->second.end(); itSub++)
-				{
-					newMap[itSub->first] = itSub->second->Clone();
-				}
-				entityComponents[it->first] = newMap;
-
-				this->entityComponents.insert(other.entityComponents.begin(), other.entityComponents.end());
-			}
+		auto&& entityList = entityComponents.find(componentType);
+		if (entityList != entityComponents.end()) {
+			const auto component = entityList->second.find(entityId);
+			if (component != entityList->second.end()) return component->second.get();
 		}
-		return *this;
+		return nullptr;
 	}
 
-	EntityManager::EntityManager(EntityManager && other)
+	bool EntityManager::hasComponent(unsigned int entityId, std::type_index componentType) const  noexcept
 	{
-		for (auto it = other.entityComponents.begin(); it != other.entityComponents.end(); it++)
-		{
-			std::unordered_map<unsigned int, Component*> newMap;
-			for (auto itSub = it->second.begin(); itSub != it->second.end(); itSub++)
-			{
-				newMap[itSub->first] = itSub->second->Clone();
-			}
-			this->entityComponents[it->first] = newMap;
-
-			this->entityComponents.insert(other.entityComponents.begin(), other.entityComponents.end());
-		}
-
-		this->lastEntityId = other.lastEntityId;
-		other.entityComponents.clear();
-		other.lastEntityId = 0;
+		const auto entityList = entityComponents.find(componentType);
+		return entityList != entityComponents.end() && entityList->second.find(entityId) != entityList->second.end();
 	}
 
-	EntityManager & EntityManager::operator=(EntityManager && other)
+	EntityManager& EntityManager::removeComponentFromEntity(unsigned int entityId, std::type_index componentType)
 	{
-		if (this != &other) {
-			for (auto it = other.entityComponents.begin(); it != other.entityComponents.end(); it++)
-			{
-				std::unordered_map<unsigned int, Component*> newMap;
-				for (auto itSub = it->second.begin(); itSub != it->second.end(); itSub++)
-				{
-					newMap[itSub->first] = itSub->second->Clone();
-				}
-				this->entityComponents[it->first] = newMap;
-
-				this->entityComponents.insert(other.entityComponents.begin(), other.entityComponents.end());
-			}
-			this->lastEntityId = other.lastEntityId;
-			other.entityComponents.clear();
-			other.lastEntityId = 0;
-		}
-		return *this;
-	}
-
-	EntityManager::~EntityManager() {
-		entityComponents.clear();
-		/*
-		for (const auto typePair : entityComponents) {
-			for (const auto componentPair : typePair.second) {
-				delete componentPair.second;
-			}
-		}
-		*/
-	}
-
-	Component* EntityManager::getComponent(unsigned int entityId, std::type_index componentType) const
-	{
-		try {
-			return entityComponents.at(componentType).at(entityId);
-		}
-		catch (const std::out_of_range&) {
-			throw std::runtime_error(std::string("No component of type ") + componentType.name() + " found for entity " + std::to_string(entityId));
-		}
-	}
-
-	bool EntityManager::hasComponent(unsigned int entityId, std::type_index componentType) const
-	{
-		if (entityComponents.find(componentType) != entityComponents.end()) {
-			auto entityList = &entityComponents.at(componentType);
-			return entityList->find(entityId) != entityList->end();
-		}
-		return false;
-	}
-
-	void EntityManager::removeComponentFromEntity(unsigned int entityId, std::type_index componentType)
-	{
-		try {
-			delete entityComponents.at(componentType).at(entityId);
-			entityComponents.at(componentType).erase(entityId);
-			if (entityComponents.at(componentType).empty()) {
+		auto&& entityList = entityComponents.find(componentType);
+		if (entityList != entityComponents.end()) {
+			entityList->second.erase(entityId);
+			if (entityList->second.empty()) {
 				entityComponents.erase(componentType);
 			}
 		}
-		catch (const std::out_of_range&) {
-			throw std::runtime_error(std::string("No component of type ") + componentType.name() + " found for entity " + std::to_string(entityId));
-		}
+		return *this;
 	}
 
-	void EntityManager::removeEntity(unsigned int entityId) {
-		auto itr = entityComponents.begin();
+	EntityManager& EntityManager::removeEntity(unsigned int entityId) {
+		auto&& itr = entityComponents.begin();
 		while (itr != entityComponents.end()) {
 			itr->second.erase(entityId);
-
+			
 			if (itr->second.empty()) {
 				itr = entityComponents.erase(itr);
 			}
@@ -130,11 +49,10 @@ namespace ECS {
 				++itr;
 			}
 		}
-
-		
+		return *this;
 	}
 
-	std::set<int> EntityManager::getAllEntities()
+	std::set<int> EntityManager::getAllEntities() const noexcept
 	{
 		std::set<int> entityIds;
 
@@ -147,40 +65,20 @@ namespace ECS {
 		return entityIds;
 	}
 
-	EntityManager::EntityManager(const EntityManager& other)
-	{
-		lastEntityId = other.lastEntityId;
-		for (auto it = other.entityComponents.begin(); it != other.entityComponents.end(); it++ )
-		{
-			std::unordered_map<unsigned int, Component*> newMap;
-			for (auto itSub = it->second.begin(); itSub != it->second.end(); itSub++ )
-			{
-				newMap[itSub->first] = itSub->second->Clone();
-			}
-			entityComponents[it->first] = newMap;
-		}
-	}
-
 	std::vector<Entity<Component*>> EntityManager::getAllEntitiesWithComponent(const std::type_index& componentType) const {
 		std::vector<Entity<Component*>> result;
-		try {
-			auto const entities = entityComponents.at(componentType);
+		auto&& entityList = entityComponents.find(componentType);
+		if (entityList != entityComponents.end()) {
+			result.reserve(entityList->second.size());
 
-			result.reserve(entities.size());
-
-			for (auto const& entry : entities) {
-				Entity<Component*> entity;
+			for (auto const& entry : entityList->second) {
+				Entity<Component*> entity{};
 				entity.id = entry.first;
-				entity.component = entry.second;
+				entity.component = entry.second.get();
 
 				result.push_back(entity);
 			}
-		
-			return result;
 		}
-		catch (const std::out_of_range&) {} // No entities found, returning an empty array.
 		return result;
 	}
-
-
 }

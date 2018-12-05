@@ -9,8 +9,8 @@ namespace ECS {
 			float redResource = 0;
 			float greenResource = 0;
 			float blueResource = 0;
-			Component* Clone() override {
-				auto temp = new InventoryComponent();
+			std::unique_ptr<Component> clone() override {
+				auto temp = std::make_unique<InventoryComponent>();
 				temp->blueResource = this->blueResource;
 				temp->redResource = this->redResource;
 				temp->greenResource = this->greenResource;

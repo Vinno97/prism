@@ -2,11 +2,14 @@
 
 #include "Context.h"
 #include "ECS/Systems/System.h"
+#include "ECS/Components/PositionComponent.h"
 #include "ECS/Components/InventoryComponent.h"
 #include "Enums/ResourceTypeEnum.h"
 
 namespace ECS {
 	namespace Systems {
+		using namespace Components;
+
 		class ResourceBlobSystem : public System
 		{
 		public:

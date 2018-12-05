@@ -7,8 +7,8 @@ namespace ECS {
 		struct PlacableComponent : Component {
 			float lifeTime;
 
-			Component* Clone() override {
-				return new PlacableComponent();
+			std::unique_ptr<Component> clone() override {
+				return std::make_unique<PlacableComponent>();
 			}
 		};
 	}

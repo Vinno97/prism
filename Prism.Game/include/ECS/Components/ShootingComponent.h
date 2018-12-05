@@ -9,8 +9,8 @@ namespace ECS {
 			float ydirection;
 			bool isShooting;
 
-			Component* Clone() override {
-				return new ShootingComponent();
+			std::unique_ptr<Component> clone() override {
+				return std::make_unique<ShootingComponent>();
 			}
 		};
 	}
