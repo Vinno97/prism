@@ -5,25 +5,24 @@
 #include "Menu/MenuBuilder.h"
 #include "Menu/Menu.h"
 #include "Menu/MenuRenderer.h"
-#include "Util/AdvertisementSystem.h"
 
 namespace States {
-	class MainMenuState : public State
+	class CreditsState : public State
 	{
 	public:
-		MainMenuState();
+		CreditsState();
 
 		void onInit(Context &context) override;
 		void onUpdate(Context &context) override;
 		void onEnter(Context & context) override;
 		void onLeave(Context & context) override;
 
-		MainMenuState(const MainMenuState &obj);
-		~MainMenuState();
+		CreditsState(const CreditsState &obj);
+
+		~CreditsState();
 
 	private:
 		Menu::MenuRenderer menuRenderer;
-		bool exitBool = false;
 		Menu::MenuBuilder menuBuilder;
 		Menu::Menu menu;
 	};
