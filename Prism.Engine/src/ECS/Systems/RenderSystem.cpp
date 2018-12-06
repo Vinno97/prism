@@ -83,38 +83,9 @@ namespace ECS {
 				lights.push_back(pl);
 			}
 
-		//	PointLight pl{ Math::Vector3f{-41.f, 1.f, -15.f}, Math::Vector3f{0.f, 1.f, 0.f} };
-		//
-		//	pl.constant = 1.0f;
-		//	pl.linear = 0.7f;
-		//	pl.exp = 1.8f;
-		//	
-		//	lights.push_back(pl);
-
-			//TODO: Remove this test code
 			auto input = context.inputManager;
 
 			//if (input->isKeyPressed(Key::KEY_I)) {
-			//	pos.z -= 0.1;
-			//}
-			//if (input->isKeyPressed(Key::KEY_H)) {
-			//	pos.x -= 0.1;
-			//}
-			//if (input->isKeyPressed(Key::KEY_K)) {
-			//	pos.z += 0.1;
-			//}
-			//if (input->isKeyPressed(Key::KEY_L)) {
-			//	pos.x += 0.1;
-			//}
-			//
-			//if (input->isKeyPressed(Key::KEY_E)) {
-			//	pos.y += 0.1;
-			//}
-
-			//if (input->isKeyPressed(Key::KEY_Q)) {
-			//	pos.y -= 0.1;
-			//}
-
 			if (input->isKeyPressed(Key::KEY_H)) {
 				forwardRenderer->loadPipelines();
 			}

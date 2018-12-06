@@ -142,26 +142,6 @@ namespace Renderer {
 		quadPipeline->setUniformMatrix4f("view", view);
 		quadPipeline->setUniformMatrix4f("proj", projection);
 		quadPipeline->setUniformMatrix4f("shadowProj", shadowProjection);
-		
-	//	int i = 0;
-	//	for (auto const& light : pointLights) {
-	//		std::string index = "gPointLights[" + std::to_string(i) + "]";
-	//		quadPipeline->setUniformVector(index.append(".Color").c_str(), 1.0f, 0.0f, 0.0f);
-	//		quadPipeline->setUniformVector(index.append(".Position").c_str(), 1.0f, 0.0f, 0.0f);
-	//		quadPipeline->setUniformFloat(index.append(".AmbientIntensity").c_str(), light.ambientIntensity);
-	//		quadPipeline->setUniformFloat(index.append(".DiffuseIntensity").c_str(), light.ambientIntensity);
-	//		quadPipeline->setUniformFloat(index.append(".Constant").c_str(), light.constant);
-	//		quadPipeline->setUniformFloat(index.append(".Linear").c_str(), light.linear);
-	//		quadPipeline->setUniformFloat(index.append(".Exp").c_str(), light.exp);
-	//	}
-
-		PointLight pl{ Math::Vector3f{-42.f, 1, -10.f}, Math::Vector3f{1.f, 1.f, 1.f} };
-
-		pl.constant = 1.0f;
-		pl.linear = 0.f;
-		pl.exp = 1.8f;
-
-		pointLights.emplace_back(pl);
 
 		quadPipeline->setUniformFloat("numPointLights", pointLights.size());
 
