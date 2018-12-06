@@ -98,7 +98,7 @@ vec3 calcPointLight(vec3 normal, vec3 worldPos, PointLight pointLight) {
 	float distance = length(pointLight.Position-worldPos);
 
 	
-	float Attenuation = gPointLights[0].Constant + 0 * distance + 1 * distance * distance;
+	float Attenuation = gPointLights[0].Constant + pointLight.Linear * distance + pointLight.Exp * distance * distance;
 	return pointLight.Color/Attenuation;
 }
 
@@ -148,8 +148,6 @@ void main() {
 		}
 	}
 	
-// Stratified poisson disc sampling	
-	
 	vec4 pointColor = vec4(0, 0, 0, 1);
 	
 	for(int i = 0; i < numPointLights; i++) {
@@ -170,7 +168,7 @@ void main() {
 	
 	
 	
-	color = vec4(Albedo, 1) * (AmbientColor + (visibility * (DiffuseColor+pointColor)));
+	color = vec4(Albedo, 1) * (AmbientColor  + pointColor + DiffuseColor);
 	//float t = LinearizeDepth(UV, texture(gShadowMap, UV).r);
 	//color = vec4(t, t, t, 1.0);
 	//color = pointColor;
