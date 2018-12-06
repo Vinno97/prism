@@ -18,6 +18,7 @@
     <ClInclude Include="include\ECS\Components\PlayerComponent.h" />
     <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLRenderTarget.h" />
     <ClInclude Include="include\Renderer\Graphics\RenderTarget.h" />
+    <ClInclude Include="include\Util\AdvertisementSystem.h" />
     <ClInclude Include="include\World\Assemblers\AppearanceAssembler.h" />
     <ClInclude Include="include\World\Assemblers\HealthAssembler.h" />
     <ClInclude Include="include\World\EntityConfigurators\AppearanceConfigurator.h" />
@@ -73,7 +74,6 @@
     <ClInclude Include="include\Key.h" />
     <ClInclude Include="include\State.h" />
     <ClInclude Include="include\StateMachine.h" />
-    <ClInclude Include="include\Util\lodepng.h" />
     <ClInclude Include="include\Window.h" />
     <ClInclude Include="include\ECS\SystemManager.h" />
     <ClInclude Include="include\Renderer\Graphics\RenderDevice.h" />
@@ -100,6 +100,7 @@
     <ClInclude Include="include\Surface.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Util\AdvertisementSystem.cpp" />
     <ClCompile Include="src\AudioManager.cpp" />
     <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLRenderTarget.cpp" />
     <ClCompile Include="src\World\Assemblers\AppearanceAssembler.cpp" />
@@ -141,7 +142,6 @@
     <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLVertexShader.cpp" />
     <ClCompile Include="src\State.cpp" />
     <ClCompile Include="src\StateMachine.cpp" />
-    <ClCompile Include="src\Util\lodepng.cpp" />
     <ClCompile Include="src\Window.cpp" />
     <ClCompile Include="src\Renderer\Graphics\Loader\StaticMeshLoader.cpp" />
     <ClCompile Include="src\ECS\SystemManager.cpp" />
