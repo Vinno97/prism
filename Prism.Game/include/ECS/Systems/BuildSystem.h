@@ -20,13 +20,24 @@ namespace ECS {
 		};
 
 		public:
-			BuildSystem(EntityManager &entityManager);
+			BuildSystem(EntityManager &entityManager, float wallRequirements, float towerRequirements, float mineRequirements);
 			~BuildSystem();
 			void update(Context& context) override;
 
 		private:
+			/// <summary>
+			/// Decides what needs to be build based on user input
+			/// </summary>
 			void setCurrentBuild(Context &context);
+			
+			/// <summary>
+			/// Places a building if the requirements are met
+			/// </summary>
 			void placeCurrentBuild(Context &context, unsigned int playerId);
+
+			/// <summary>
+			/// Moves the building based on mouse movement
+			/// </summary>
 			void moveCurrentBuilt();
 
 			int buildingId = -1;
@@ -42,9 +53,9 @@ namespace ECS {
 			float posX = 0;
 			float posY = 0;
 
-			float wallRequirements = 10;
-			float towerRequirements = 10;
-			float factoryRequirements = 10;
+			float wallRequirements;
+			float towerRequirements;
+			float mineRequirements;
 		};
 	}
 }

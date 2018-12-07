@@ -18,7 +18,11 @@ using namespace ECS;
 using namespace ECS::Components;
 using namespace ECS::Systems;
 
-ECS::Systems::BuildSystem::BuildSystem(EntityManager &entityManager) : System(entityManager) { }
+ECS::Systems::BuildSystem::BuildSystem(EntityManager &entityManager, float wallRequirements, float towerRequirements, float mineRequirements) : System(entityManager) {
+	this->wallRequirements = wallRequirements;
+	this->towerRequirements = towerRequirements;
+	this->mineRequirements = mineRequirements;
+}
 
 ECS::Systems::BuildSystem::~BuildSystem()
 = default;
@@ -123,12 +127,15 @@ void ECS::Systems::BuildSystem::placeCurrentBuild(Context &context, unsigned int
 				entityManager->removeEntity(buildingId);
 				if (currentBuild == BuildingType::WALL) {
 					buildingId = ef.createWall(*entityManager);
+					inventory->greenResource -= wallRequirements;
 				}
 				else if (currentBuild == BuildingType::TOWER) {
 					buildingId = ef.createTower(*entityManager);
+					inventory->redResource -= towerRequirements;
 				}
 				else if (currentBuild == BuildingType::MINE) {
 					buildingId = ef.createMine(*entityManager);
+					inventory->blueResource -= mineRequirements;
 				}
 				currentBuild = BuildingType::NONE;
 				auto position = entityManager->getComponent<PositionComponent>(buildingId);
