@@ -145,6 +145,7 @@ namespace States {
 		context.audioManager->addSound("Bullet", "Bullet.wav");
 		context.audioManager->addSound("EnemyKill", "EnemyKill.wav");
 		context.audioManager->addSound("Resource", "ResourceGathering.wav");
+		context.audioManager->addSound("Heartbeat", "Heartbeat.wav");
 	}
 
 	void PrismGame::onEnter(Context &context) {
