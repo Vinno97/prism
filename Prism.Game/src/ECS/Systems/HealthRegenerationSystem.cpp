@@ -23,6 +23,9 @@ void ECS::Systems::HealthRegenerationSystem::update(Context & context)
 		if (health != nullptr) {
 			if (deltaTime <= 0 && health->health < 100) {
 				health->health++;
+				if (health->health > 100) {
+					health->health = 100;
+				}
 				deltaTime = regenTime;
 			}
 		}
