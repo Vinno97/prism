@@ -33,9 +33,9 @@ void BumpSystem::update(Context& context)
 					//Collision on y
 					bool yCol = false;
 
-					for (auto& id : collisions) {
-						if (entityManager->hasComponent<PositionComponent>(id)) {
-							auto colliderPosition = entityManager->getComponent<PositionComponent>(id);
+					for (auto& colliderId : collisions) {
+						if (entityManager->hasComponent<PositionComponent>(colliderId)) {
+							auto colliderPosition = entityManager->getComponent<PositionComponent>(colliderId);
 
 							//Various checks for collisions. Only in theses situations does the collisions need to be resolved
 							bool cx2 = currentPosition->x < colliderPosition->x && currentVelocity->dx > 0;
@@ -43,11 +43,7 @@ void BumpSystem::update(Context& context)
 							bool cy1 = currentPosition->y > colliderPosition->y && currentVelocity->dy < 0;
 							bool cy2 = currentPosition->y < colliderPosition->y && currentVelocity->dy > 0;
 
-							const auto &colliderBB = entityManager->getComponent<BoundingBoxComponent>(id)->boundingBox;
-
-
-							auto colliderX = colliderBB.GetPosX();
-							auto colliderY = colliderBB.GetPosY();
+							const auto &colliderBB = entityManager->getComponent<BoundingBoxComponent>(colliderId)->boundingBox;
 
 							//Depth of collision on x-axis
 							float xColT = 0.0;
@@ -63,24 +59,21 @@ void BumpSystem::update(Context& context)
 
 							//TODO north and south are wrong
 							if (currentPosition->y > colliderPosition->y) {
-								yColT = std::abs((colliderBB.GetAbsSouth()) - (currentBB.GetAbsNorth()));
+								yColT = std::abs((colliderBB.GetAbsNorth()) - (currentBB.GetAbsSouth()));
+								
 							}
 							else if (currentPosition->y < colliderPosition->y) {
-								yColT = std::abs((colliderBB.GetAbsNorth()) - (currentBB.GetAbsSouth()));
+								yColT = std::abs((colliderBB.GetAbsSouth()) - (currentBB.GetAbsNorth()));
 							}
 
 							//The side with the least amount of collision needs te be resolved
-							if (xColT < yColT) {
-								if ((cx1 || cx2)) {
-									xCol = true;
-								}
+							if (xColT < yColT && (cx1 || cx2)) {
+								xCol = true;
 							}
-							else if (yColT < xColT) {
-								if ((cy1 || cy2)) {
-									yCol = true;
-								}
+							else if (yColT < xColT && (cy1 || cy2)) {
+								yCol = true;
 							}
-							else {
+							else if (xColT == yColT){
 								xCol = true;
 								yCol = true;
 							}
