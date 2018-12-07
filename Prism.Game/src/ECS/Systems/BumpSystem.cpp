@@ -57,7 +57,6 @@ void BumpSystem::update(Context& context)
 								xColT = std::abs((currentBB.GetAbsEast()) - (colliderBB.GetAbsWest()));
 							}
 
-							//TODO north and south are wrong
 							if (currentPosition->y > colliderPosition->y) {
 								yColT = std::abs((colliderBB.GetAbsNorth()) - (currentBB.GetAbsSouth()));
 								
