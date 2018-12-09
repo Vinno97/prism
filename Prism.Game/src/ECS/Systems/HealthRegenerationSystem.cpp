@@ -21,10 +21,10 @@ void ECS::Systems::HealthRegenerationSystem::update(Context & context)
 	for (auto & entity : entityManager->getAllEntitiesWithComponent<PlayerComponent>()) {
 		auto health = entityManager->getComponent<HealthComponent>(entity.id);
 		if (health != nullptr) {
-			if (deltaTime <= 0 && health->health < 100) {
-				health->health = std::ceil(health->health + context.deltaTime);
-				if (health->health > 100) {
-					health->health = 100;
+			if (deltaTime <= 0 && health->currentHealth < health->maxHealth) {
+				health->currentHealth = std::ceil(health->currentHealth + context.deltaTime);
+				if (health->currentHealth > health->maxHealth) {
+					health->currentHealth = health->maxHealth;
 				}
 				deltaTime = regenTime;
 			}
