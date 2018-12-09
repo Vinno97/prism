@@ -1,6 +1,7 @@
 #include "ECS/Systems/HealthRegenerationSystem.h"
 #include "ECS/Components/HealthComponent.h"
 #include "ECS/Components/PlayerComponent.h"
+#include <cmath>
 
 using namespace ECS;
 using namespace ECS::Systems;
