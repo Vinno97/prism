@@ -51,18 +51,18 @@ void BumpSystem::update(Context& context)
 							float yColT = 0.0;
 
 							if (currentPosition->x > colliderPosition->x) {
-								xColT = std::abs((colliderBB.GetAbsEast()) - (currentBB.GetAbsWest()));
+								xColT = std::abs((colliderBB.GetEastCoordinate()) - (currentBB.GetWestCoordinate()));
 							}
 							else if (currentPosition->x < colliderPosition->x) {
-								xColT = std::abs((currentBB.GetAbsEast()) - (colliderBB.GetAbsWest()));
+								xColT = std::abs((currentBB.GetEastCoordinate()) - (colliderBB.GetWestCoordinate()));
 							}
 
 							if (currentPosition->y > colliderPosition->y) {
-								yColT = std::abs((colliderBB.GetAbsNorth()) - (currentBB.GetAbsSouth()));
+								yColT = std::abs((colliderBB.GetNorthCoordinate()) - (currentBB.GetSouthCoordinate()));
 								
 							}
 							else if (currentPosition->y < colliderPosition->y) {
-								yColT = std::abs((colliderBB.GetAbsSouth()) - (currentBB.GetAbsNorth()));
+								yColT = std::abs((colliderBB.GetSouthCoordinate()) - (currentBB.GetNorthCoordinate()));
 							}
 
 							//The side with the least amount of collision needs te be resolved

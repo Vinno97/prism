@@ -52,42 +52,42 @@ float BoundingBox::GetPosY() const
 	return posY;
 }
 
-float BoundingBox::GetNorth() const
+float BoundingBox::GetNorthBound() const
 {
 	return north;
 }
 
-float Physics::BoundingBox::GetAbsNorth() const
+float Physics::BoundingBox::GetNorthCoordinate() const
 {
 	return posY+north;
 }
 
-float BoundingBox::GetEast() const
+float BoundingBox::GetEastBound() const
 {
 	return east;
 }
 
-float Physics::BoundingBox::GetAbsEast() const
+float Physics::BoundingBox::GetEastCoordinate() const
 {
 	return posX+east;
 }
 
-float BoundingBox::GetSouth() const
+float BoundingBox::GetSouthBound() const
 {
 	return south;
 }
 
-float Physics::BoundingBox::GetAbsSouth() const
+float Physics::BoundingBox::GetSouthCoordinate() const
 {
 	return posY+south;
 }
 
-float BoundingBox::GetWest() const
+float BoundingBox::GetWestBound() const
 {
 	return west;
 }
 
-float Physics::BoundingBox::GetAbsWest() const
+float Physics::BoundingBox::GetWestCoordinate() const
 {
 	return posX+west;
 }

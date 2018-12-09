@@ -93,17 +93,17 @@ namespace States {
 			.registerSystem<2, MotionSystem>(entityManager)
 			.registerSystem<2, AnimationSystem>(entityManager)
 			.registerSystem<2, AimingSystem>(entityManager)
-			//.registerSystem<2, ResourceGatherSystem>(entityManager)
+			.registerSystem<2, ResourceGatherSystem>(entityManager)
 			.registerSystem<2, EnemySpawnSystem>(entityManager)
 
 			//3
-			//.registerSystem<3, ResourceBlobSystem>(entityManager)
+			.registerSystem<3, ResourceBlobSystem>(entityManager)
 			.registerSystem<3, ShootingSystem>(entityManager)
 			.registerSystem<3, CollisionSystem>(entityManager, context.window->width, context.window->height, 0, 0, 2)
 
 			//4
 			.registerSystem<4, ProjectileAttackSystem>(entityManager)
-			//.registerSystem<4, AttackSystem>(entityManager)
+			.registerSystem<4, AttackSystem>(entityManager)
 
 			//5
 			.registerSystem<5, BumpSystem>(entityManager)

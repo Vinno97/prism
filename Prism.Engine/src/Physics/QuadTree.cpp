@@ -95,8 +95,8 @@ void QuadTree::Clear()
 
 void QuadTree::Split()
 {
-	float width = bounds.GetEast();
-	float height = bounds.GetNorth();
+	float width = bounds.GetEastBound();
+	float height = bounds.GetNorthBound();
 	float halfwidth = width / 2.0;
 	float halfHeight = height / 2.0;
 	float east = halfwidth + bounds.GetPosX();
@@ -127,17 +127,17 @@ int QuadTree::GetIndex(BoundingBox const &box) const
 
 	float qX = bounds.GetPosX();
 	float qY = bounds.GetPosY();
-	float qNorth = bounds.GetNorth() + qY;
-	float qEast = bounds.GetEast() + qX;
-	float qSouth = bounds.GetSouth() + qY;
-	float qWest = bounds.GetWest() + qX;
+	float qNorth = std::abs(bounds.GetNorthCoordinate());
+	float qEast = std::abs(bounds.GetEastCoordinate());
+	float qSouth = std::abs(bounds.GetSouthCoordinate());
+	float qWest = std::abs(bounds.GetWestCoordinate());
 
 	float bX = box.GetPosX();
 	float bY = box.GetPosY();
-	float bNorth = std::abs(box.GetAbsNorth());
-	float bEast = std::abs(box.GetAbsEast());
-	float bSouth = std::abs(box.GetAbsSouth());
-	float bWest = std::abs(box.GetAbsWest());
+	float bNorth = std::abs(box.GetNorthCoordinate());
+	float bEast = std::abs(box.GetEastCoordinate());
+	float bSouth = std::abs(box.GetSouthCoordinate());
+	float bWest = std::abs(box.GetWestCoordinate());
 
 
 	bool fitTop = qNorth - bNorth >= 0 && bSouth - qY >= 0;
@@ -145,13 +145,6 @@ int QuadTree::GetIndex(BoundingBox const &box) const
 
 	bool fitBottom = qY - bNorth >= 0  && bSouth - qSouth >= 0;
 	bool fitLeft = qX - bEast >= 0 && bWest - qWest >= 0;
-
-	//bool fitTop = bNorth <= qNorth && bSouth >= qY;
-	//bool fitRight = bEast <= qEast && bWest >= qX;
-
-	//bool fitBottom = bNorth <= qY && bSouth >= qSouth;
-	//bool fitLeft = bEast <= qX && bWest >= qWest;
-
 
 	if (fitTop) {
 		if (fitRight) {

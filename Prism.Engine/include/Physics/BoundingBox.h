@@ -74,42 +74,42 @@ namespace Physics {
 		/// <summary>
 		/// Get the north bound of the boundingbox
 		/// </summary>
-		float GetNorth() const;
+		float GetNorthBound() const;
 
 		/// <summary>
-		/// Get the north coördinate of the boundingbox
+		/// Get the north coordinate of the boundingbox
 		/// </summary>
-		float GetAbsNorth() const;
+		float GetNorthCoordinate() const;
 
 		/// <summary>
 		/// Get the east bound of the boundingbox
 		/// </summary>
-		float GetEast() const;
+		float GetEastBound() const;
 		
 		/// <summary>
-		/// Get the east coördinate of the boundingbox
+		/// Get the east coordinate of the boundingbox
 		/// </summary>
-		float GetAbsEast() const;
+		float GetEastCoordinate() const;
 
 		/// <summary>
 		/// Get the south bound of the boundingbox
 		/// </summary>
-		float GetSouth() const;
+		float GetSouthBound() const;
 
 		/// <summary>
-		/// Get the south coördinate of the boundingbox
+		/// Get the south coordinate of the boundingbox
 		/// </summary>
-		float GetAbsSouth() const;
+		float GetSouthCoordinate() const;
 
 		/// <summary>
 		/// Get the west bound of the boundingbox
 		/// </summary>
-		float GetWest() const;
+		float GetWestBound() const;
 
 		/// <summary>
-		/// Get the west coördinate of the boundingbox
+		/// Get the west coordinate of the boundingbox
 		/// </summary>
-		float GetAbsWest() const;
+		float GetWestCoordinate() const;
 
 	private:
 
