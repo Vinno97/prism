@@ -1,7 +1,7 @@
 #pragma once
 #include "Renderer/Graphics/RenderTarget.h"
 #include "Renderer/Graphics/Texture.h"
-#include "Renderer/Graphics/OpenGL/OGlTexture.h"
+#include "Renderer/Graphics/OpenGL/OGLTexture.h"
 #include <vector>
 #include <SDL2/SDL_opengl.h>
 
