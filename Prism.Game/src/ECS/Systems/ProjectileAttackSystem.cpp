@@ -35,13 +35,13 @@ namespace ECS {
 							if (entityManager->hasComponent<HealthComponent>(entity.id) && entityManager->hasComponent<HealthComponent>(collider)) {
 								auto ProjectileHealth = entityManager->getComponent<HealthComponent>(entity.id);
 								auto EnemyHealth = entityManager->getComponent<HealthComponent>(collider);
-								int tempEnemyHealth = EnemyHealth->health;
-								EnemyHealth->health -= ProjectileHealth->health;
-								ProjectileHealth->health -= tempEnemyHealth;
-								if (ProjectileHealth->health <= 0) {
+								int tempEnemyHealth = EnemyHealth->currentHealth;
+								EnemyHealth->currentHealth -= ProjectileHealth->currentHealth;
+								ProjectileHealth->currentHealth -= tempEnemyHealth;
+								if (ProjectileHealth->currentHealth <= 0) {
 									entityManager->removeEntity(entity.id);
 								}
-								if (EnemyHealth->health <= 0) {
+								if (EnemyHealth->currentHealth <= 0) {
 									entityManager->removeEntity(collider);
 									context.audioManager->playSound("EnemyKill");
 									break;
