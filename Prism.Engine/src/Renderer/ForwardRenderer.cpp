@@ -29,11 +29,10 @@ namespace Renderer {
 	{
 		renderDevice = OGLRenderDevice::getRenderDevice();
 
-		positionBuffer = renderDevice->createTexture(false);
-		normalBuffer = renderDevice->createTexture(false);
-		albedoBuffer = renderDevice->createTexture(false);
-		test = renderDevice->createTexture(false);
-		depthBuffer = renderDevice->createTexture(true);
+		positionBuffer = renderDevice->createTexture(false, width, height);
+		normalBuffer = renderDevice->createTexture(false, width, height);
+		albedoBuffer = renderDevice->createTexture(false, width, height);
+		depthBuffer = renderDevice->createTexture(true, width, height);
 
 		renderTarget = renderDevice->createRenderTarget(true);
 
@@ -43,9 +42,8 @@ namespace Renderer {
 		renderTarget->setDepthBuffer(depthBuffer);
 
 		shadowDepthTarget = renderDevice->createRenderTarget(true); 
-		shadowDepthBuffer = renderDevice->createTexture(true);
+		shadowDepthBuffer = renderDevice->createTexture(true, width ,height);
 		shadowDepthTarget->setDepthBuffer(shadowDepthBuffer);
-		shadowDepthTarget->addBuffer(test);
 
 		loadPipelines();
 		createTargetQuad();
@@ -68,14 +66,15 @@ namespace Renderer {
 		glm::mat4 model;
 		const glm::mat4 view = camera.getCameraMatrix();
 		shadowCamera.position = glm::vec3(position.x, position.y, position.z);
-	//	shadowCamera.position = glm::lookAt{ glm::vec3(position.x, position.y, position.z), glm::vec3(-45.f, 1.0f, -15), glm::vec3(0, 1, 0) };
+
+		glViewport(0, 0, width, height);
+		//Do GBuffer pass
 		renderDevice->clearScreen();
 			
 		renderTarget->bind();
 		renderDevice->useDepthTest(true);
 		renderDevice->clearScreen();
 		geometryPipeline->run();
-		
 
 		for (const auto& renderable : renderables) {
 			model = renderable.getMatrix();
@@ -98,6 +97,7 @@ namespace Renderer {
 
 		renderTarget->unbind();
 		geometryPipeline->stop();
+		//End GBuffer pass
 
 		//Shadow depth map render
 		shadowDepthTarget->bind();
@@ -129,6 +129,7 @@ namespace Renderer {
 		shadowPipeline->stop();
 		//End shadow depth map render
 
+		//Do lighting pass
 		renderDevice->useDepthTest(false);
 		quadPipeline->run();
 		
@@ -146,7 +147,6 @@ namespace Renderer {
 		quadPipeline->setUniformFloat("numPointLights", pointLights.size());
 
 		int index = 0;
-
 		for (auto const& light : pointLights) {
 			std::string location = "gPointLights";
 			location.append("[").append(std::to_string(index).append("]"));
@@ -184,12 +184,12 @@ namespace Renderer {
 
 		quadMesh->vertexArrayObject->bind();
 		quadMesh->indexBuffer->bind();
-		glViewport(0, 0, 1920 / 2, 1080 / 2); 
 		renderDevice->DrawTrianglesIndexed(0, quadMesh->indicesLength);
 
 		quadMesh->vertexArrayObject->unbind();
 
 		quadPipeline->stop();
+		//End lighting pass
 	}
 	void ForwardRenderer::createTargetQuad()
 	{

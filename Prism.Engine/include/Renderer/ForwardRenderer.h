@@ -63,7 +63,6 @@ namespace Renderer {
 		std::shared_ptr<Renderer::Graphics::Texture> normalBuffer;
 		std::shared_ptr<Renderer::Graphics::Texture> albedoBuffer;
 		std::shared_ptr<Renderer::Graphics::Texture> depthBuffer;
-		std::shared_ptr<Renderer::Graphics::Texture> test;
 
 		const float vertices[8] = {
 			 1.0f,  1.0f,  // top right

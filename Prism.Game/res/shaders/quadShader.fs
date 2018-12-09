@@ -139,7 +139,7 @@ void main() {
     }
 	
 	color = vec4(Albedo, 1) * (AmbientColor  + pointColor + DiffuseColor);
-	//float t = LinearizeDepth(UV, texture(gShadowMap, UV).r);
+	//float t = LinearizeDepth(UV, texture(gDepth, UV).r);
 	//color = vec4(t, t, t, 1.0);
 	//color = pointColor;
 }

@@ -65,7 +65,7 @@ namespace Renderer {
 			/// <summary>
 			/// Create a new texture 
 			/// </summary>
-			virtual std::shared_ptr<Texture> createTexture(bool deptb) const = 0;
+			virtual std::shared_ptr<Texture> createTexture(bool depth, int width, int height) const = 0;
 
 			/// <summary>
 			/// Set the colour that the screen will be cleared with
