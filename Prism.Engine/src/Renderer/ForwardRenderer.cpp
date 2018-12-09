@@ -16,11 +16,12 @@
 #include "Renderer/Graphics/Models/Model.h"
 #include "Util/FileSystem.h"
 #include <SDL2/SDL_opengl.h>
+#include <chrono>
 
 using namespace Renderer;
 using namespace Renderer::Graphics;
 using namespace Renderer::Graphics::OpenGL;
-
+using namespace std::chrono;
 using namespace Renderer::Graphics::Models;
 
 namespace Renderer {
@@ -46,6 +47,8 @@ namespace Renderer {
 		renderDevice->setClearColour(1.f, 1.f, 1.f, 1.f);
 	}
 
+	float i = 20;
+
 	void ForwardRenderer::draw(const Camera& camera, const std::vector<Renderable>& renderables, const Scene& scene)
 	{
 		glm::mat4 model;
@@ -57,6 +60,12 @@ namespace Renderer {
 		renderDevice->clearScreen();
 		geometryPipeline->run();
 
+		milliseconds ms = duration_cast<milliseconds>(
+			system_clock::now().time_since_epoch()
+			);
+
+		
+		i -= 0.7;
 
 		for (const auto& renderable : renderables) {
 			model = renderable.getMatrix();
@@ -64,6 +73,8 @@ namespace Renderer {
 			geometryPipeline->setUniformMatrix4f("view", view);
 			geometryPipeline->setUniformMatrix4f("proj", projection);
 			geometryPipeline->setUniformMatrix4f("model", model);
+			geometryPipeline->setUniformFloat("time", float(i));
+			
 
 			geometryPipeline->setUniformVector("objectColor", renderable.color.x, renderable.color.y, renderable.color.z);
 
@@ -129,14 +140,18 @@ namespace Renderer {
 		Util::FileSystem fileReader;
 		std::string vertexSource = fileReader.readResourceFileIntoString("/shaders/simpleGeometry.vs");
 		std::string fragmentSource = fileReader.readResourceFileIntoString("/shaders/simpleGeometry.fs");
+		std::string geometrySource = fileReader.readResourceFileIntoString("/shaders/simpleGeometryCollapse.gs");
 		std::unique_ptr<VertexShader> vertexShader = renderDevice->createVertexShader(vertexSource.c_str());
 		std::unique_ptr<FragmentShader> fragmentShader = renderDevice->createFragmentShader(fragmentSource.c_str());
-		geometryPipeline = move(renderDevice->createPipeline(*vertexShader, *fragmentShader));
+		std::unique_ptr<GeometryShader> geometryShader = renderDevice->createGeometryShader(geometrySource.c_str());
+
+		geometryPipeline = move(renderDevice->createPipeline(*vertexShader, *fragmentShader, *geometryShader));
 
 		geometryPipeline->createUniform("objectColor");
 		geometryPipeline->createUniform("model");
 		geometryPipeline->createUniform("view");
 		geometryPipeline->createUniform("proj");
+		geometryPipeline->createUniform("time");
 
 		//Setup quad shaders
 		vertexSource = fileReader.readResourceFileIntoString("/shaders/quadShader.vs");
