@@ -22,17 +22,17 @@ namespace Renderer {
 				glTexImage2D(GL_TEXTURE_2D, 0, mode, surface.width(), surface.height(), 0, mode, GL_UNSIGNED_BYTE, surface.pixels()); //GL_BITMAP
 			}
 
-			OGLTexture::OGLTexture(bool depth)
+			OGLTexture::OGLTexture(bool depth, int width, int height)
 			{
 				glGenTextures(1, &textureID);
 				glBindTexture(GL_TEXTURE_2D, textureID);
 
 				// Give an empty image to OpenGL ( the last "0" )
 				if (depth) {
-					glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, 1920/2, 1080/2, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
+					glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, width, height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
 				}
 				else {
-					glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 1920/2, 1080/2, 0, GL_RGB, GL_UNSIGNED_BYTE, 0);
+					glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, 0);
 				}
 
 				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);

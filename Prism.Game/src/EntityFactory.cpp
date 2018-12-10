@@ -82,6 +82,7 @@ unsigned EntityFactory::createEnemy(unsigned entity, EntityManager& entityManage
 	auto model = ml.loadModel("./res/uglyenemy.obj");
 
 	AppearanceComponent appearance;
+	appearance.color = Math::Vector3f{0.22, 0.22, 0.22};
 	appearance.scaleX = 0.002f;
 	appearance.scaleY = 0.002f;
 	appearance.scaleZ = 0.002f;
@@ -247,7 +248,7 @@ unsigned EntityFactory::createProjectile(unsigned entity, EntityManager& entityM
 	       .addComponent<BoundingBoxComponent>(0.1, 0.1)
 	       .addComponent<ProjectileAttackComponent>()
 	       .addComponent<DynamicComponent>()
-		   .addComponent<PointLightComponent>(Math::Vector3f{ 1.f, 1.f, 0.f }, 1.0f, 0.f)
+		   .addComponent<PointLightComponent>(Math::Vector3f{ 1.f, 0.f, 0.f }, 4.0f, 0.f)
 	       .addComponent(appearance)
 	       .getEntity();
 }

@@ -59,22 +59,6 @@ namespace States {
 		sceneComponent->scene.sun.direction = Math::Vector3f{ -0.3, -1.0f, -.3f };
 
 		World::LevelManager loader{ std::make_unique<PrismEntityAssembler>() };
-		auto entity = entityManager.createEntity();
-
-		Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
-		auto model = ml.loadModel("./res/wall.obj");
-
-		AppearanceComponent appearance;
-		appearance.scaleX = 0.1f;
-		appearance.scaleY = 0.1f;
-		appearance.scaleZ = 0.1f;
-
-		appearance.translationY = 0.5f;
-		appearance.model = std::move(model);
-
-		entityManager.addComponentToEntity(entity, PositionComponent(double(-42.f), double(-10.f)));
-		entityManager.addComponentToEntity(entity, appearance);
-		entityManager.addComponentToEntity(entity, PointLightComponent(Math::Vector3f{ 1.f, 0.f, 1.f }, 1, 0));
 
 		loader.load("levels/Sample World", entityManager);
 		// Dit is hoe een wereld zou worden opgeslagen en weer ingeladen.

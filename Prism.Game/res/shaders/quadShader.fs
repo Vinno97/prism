@@ -120,34 +120,6 @@ void main() {
 	float t1 = texture(gShadowMap, shadowCoord.xy).r;
 	float t2 = shadowCoord.z-bias;
 	
-	float shadow = 0;
-
-//	Raw shadow checking without sampling	
-//	if(t2 > t1) {
-//		shadow = -1;
-//	}
-	
-//	Pretty simple PCF sampling
-	vec2 texelSize = 1.0 / textureSize(gShadowMap, 0);
-	for(int x = -1; x <= 1; ++x)
-	{
-		for(int y = -1; y <= 1; ++y)
-		{
-			float pcfDepth = texture(gShadowMap, shadowCoord.xy + vec2(x, y) * texelSize).r; 
-			shadow += t2 - bias > pcfDepth ? -2.0 : 1.0;        
-		}    
-	}
-	shadow /= 9.0;
-	
-// Poisson sampling
-	float visibility = 1;
-	for (int i=0;i<8;i++){
-		int index = int(16.0*random(worldPos.xyy, i))%16;
-		if ( texture( gShadowMap, shadowCoord.xy + poissonDisk[i]/700.0 ).r  <  shadowCoord.z-bias ){
-			visibility -= 0.1;
-		}
-	}
-	
 	vec4 pointColor = vec4(0, 0, 0, 1);
 	
 	for(int i = 0; i < numPointLights; i++) {
@@ -166,10 +138,8 @@ void main() {
         DiffuseColor = vec4(0, 0, 0, 0);
     }
 	
-	
-	
 	color = vec4(Albedo, 1) * (AmbientColor  + pointColor + DiffuseColor);
-	//float t = LinearizeDepth(UV, texture(gShadowMap, UV).r);
+	//float t = LinearizeDepth(UV, texture(gDepth, UV).r);
 	//color = vec4(t, t, t, 1.0);
 	//color = pointColor;
 }

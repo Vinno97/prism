@@ -29,11 +29,10 @@ namespace Renderer {
 	{
 		renderDevice = OGLRenderDevice::getRenderDevice();
 
-		positionBuffer = renderDevice->createTexture(false);
-		normalBuffer = renderDevice->createTexture(false);
-		albedoBuffer = renderDevice->createTexture(false);
-		test = renderDevice->createTexture(false);
-		depthBuffer = renderDevice->createTexture(true);
+		positionBuffer = renderDevice->createTexture(false, width, height);
+		normalBuffer = renderDevice->createTexture(false, width, height);
+		albedoBuffer = renderDevice->createTexture(false, width, height);
+		depthBuffer = renderDevice->createTexture(true, width, height);
 
 		renderTarget = renderDevice->createRenderTarget(true);
 
@@ -43,9 +42,8 @@ namespace Renderer {
 		renderTarget->setDepthBuffer(depthBuffer);
 
 		shadowDepthTarget = renderDevice->createRenderTarget(true); 
-		shadowDepthBuffer = renderDevice->createTexture(true);
+		shadowDepthBuffer = renderDevice->createTexture(true, width ,height);
 		shadowDepthTarget->setDepthBuffer(shadowDepthBuffer);
-		shadowDepthTarget->addBuffer(test);
 
 		loadPipelines();
 		createTargetQuad();
@@ -68,14 +66,15 @@ namespace Renderer {
 		glm::mat4 model;
 		const glm::mat4 view = camera.getCameraMatrix();
 		shadowCamera.position = glm::vec3(position.x, position.y, position.z);
-	//	shadowCamera.position = glm::lookAt{ glm::vec3(position.x, position.y, position.z), glm::vec3(-45.f, 1.0f, -15), glm::vec3(0, 1, 0) };
+
+		glViewport(0, 0, width, height);
+		//Do GBuffer pass
 		renderDevice->clearScreen();
 			
 		renderTarget->bind();
 		renderDevice->useDepthTest(true);
 		renderDevice->clearScreen();
 		geometryPipeline->run();
-		
 
 		for (const auto& renderable : renderables) {
 			model = renderable.getMatrix();
@@ -98,6 +97,7 @@ namespace Renderer {
 
 		renderTarget->unbind();
 		geometryPipeline->stop();
+		//End GBuffer pass
 
 		//Shadow depth map render
 		shadowDepthTarget->bind();
@@ -129,6 +129,7 @@ namespace Renderer {
 		shadowPipeline->stop();
 		//End shadow depth map render
 
+		//Do lighting pass
 		renderDevice->useDepthTest(false);
 		quadPipeline->run();
 		
@@ -142,31 +143,10 @@ namespace Renderer {
 		quadPipeline->setUniformMatrix4f("view", view);
 		quadPipeline->setUniformMatrix4f("proj", projection);
 		quadPipeline->setUniformMatrix4f("shadowProj", shadowProjection);
-		
-	//	int i = 0;
-	//	for (auto const& light : pointLights) {
-	//		std::string index = "gPointLights[" + std::to_string(i) + "]";
-	//		quadPipeline->setUniformVector(index.append(".Color").c_str(), 1.0f, 0.0f, 0.0f);
-	//		quadPipeline->setUniformVector(index.append(".Position").c_str(), 1.0f, 0.0f, 0.0f);
-	//		quadPipeline->setUniformFloat(index.append(".AmbientIntensity").c_str(), light.ambientIntensity);
-	//		quadPipeline->setUniformFloat(index.append(".DiffuseIntensity").c_str(), light.ambientIntensity);
-	//		quadPipeline->setUniformFloat(index.append(".Constant").c_str(), light.constant);
-	//		quadPipeline->setUniformFloat(index.append(".Linear").c_str(), light.linear);
-	//		quadPipeline->setUniformFloat(index.append(".Exp").c_str(), light.exp);
-	//	}
-
-		PointLight pl{ Math::Vector3f{-42.f, 1, -10.f}, Math::Vector3f{1.f, 1.f, 1.f} };
-
-		pl.constant = 1.0f;
-		pl.linear = 0.f;
-		pl.exp = 1.8f;
-
-		pointLights.emplace_back(pl);
 
 		quadPipeline->setUniformFloat("numPointLights", pointLights.size());
 
 		int index = 0;
-
 		for (auto const& light : pointLights) {
 			std::string location = "gPointLights";
 			location.append("[").append(std::to_string(index).append("]"));
@@ -204,12 +184,12 @@ namespace Renderer {
 
 		quadMesh->vertexArrayObject->bind();
 		quadMesh->indexBuffer->bind();
-		glViewport(0, 0, 1920 / 2, 1080 / 2); 
 		renderDevice->DrawTrianglesIndexed(0, quadMesh->indicesLength);
 
 		quadMesh->vertexArrayObject->unbind();
 
 		quadPipeline->stop();
+		//End lighting pass
 	}
 	void ForwardRenderer::createTargetQuad()
 	{
