@@ -52,9 +52,7 @@ namespace Renderer {
 		shadowProjection = glm::ortho(-3.0f, 3.0f, -3.0f, 3.0f, 0.f, 7.5f);
 
 		renderDevice->setClearColour(1.f, 1.f, 1.f, 1.f);
-		shadowCamera.position = glm::vec3{ -45.f, 1.0f, -15 };
-
-		shadowCamera.rotation = glm::vec3{ -40.f, -20.f, 0.f };
+		shadowCamera.position = glm::vec3{ -55.f, 11.0f, -25 };
 	}
 
 	float i = 0;
@@ -105,8 +103,7 @@ namespace Renderer {
 		renderDevice->clearScreen();
 		shadowPipeline->run();
 
-		auto shadowView = glm::lookAt( glm::vec3(position.x, position.y, position.z), glm::vec3(-45.f, 1.0f, -15), glm::vec3(0, 1, 0) );
-
+		auto shadowView = camera.getCameraMatrix();
 
 		for (const auto& renderable : renderables) {
 			model = renderable.getMatrix();

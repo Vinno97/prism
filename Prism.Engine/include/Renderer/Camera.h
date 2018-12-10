@@ -22,11 +22,11 @@ namespace Renderer {
 		/// <summary>
 		/// Translates the camera by the values given
 		/// </summary>
-		void rotate(float x, float y, float z);
+		void moveTarget(float x, float y, float z);
 
 		// TODO: Deze moeten mss enkel readonly getters zijn (en dat het renderSystem gewoon de delta voor move() uitrekent).
 		glm::vec3 position;
-		glm::vec3 rotation;
+		glm::vec3 target;
 		~Camera();
 	};
 }

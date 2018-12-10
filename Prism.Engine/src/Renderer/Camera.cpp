@@ -9,19 +9,13 @@ using namespace glm;
 namespace Renderer {
 	Camera::Camera()
 	{
-		position = vec3(0.f, 0.f, 0.f);
-		rotation = vec3(0.f, 0.f, -1.f);
+		position = vec3(-45.f, 4.f, 10.f);
+		target = vec3(-45.f, 0.f, -15.f);
 	}
 
 	mat4 Camera::getCameraMatrix() const
 	{
-		mat4 cameraMatrix = mat4(1.f);
-		cameraMatrix = translate(cameraMatrix, position);
-		cameraMatrix = glm::rotate(cameraMatrix, radians(rotation.x), vec3(1.f, 0.f, 0.f));
-		cameraMatrix = glm::rotate(cameraMatrix, radians(rotation.y), vec3(0.f, 1.f, 0.f));
-		cameraMatrix = glm::rotate(cameraMatrix, radians(rotation.z), vec3(0.f, 0.f, 1.f));
-		cameraMatrix = inverse(cameraMatrix);
-		return cameraMatrix;
+		return glm::lookAt(position, target, glm::vec3(0.f, 1.f, 0.f));
 	}
 
 	void Camera::move(float x, float y, float z)
@@ -31,11 +25,11 @@ namespace Renderer {
 		position.z += z;
 	}
 
-	void Camera::rotate(float x, float y, float z)
+	void Camera::moveTarget(float x, float y, float z)
 	{
-		rotation.x += x;
-		rotation.y += y;
-		rotation.z += z;
+		target.x += x;
+		target.y += y;
+		target.z += z;
 	}
 
 	Camera::~Camera()
