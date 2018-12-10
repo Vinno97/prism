@@ -35,10 +35,6 @@ class PrismGame : public Game
 	Menu::TextControl* greenResource;
 	Menu::TextControl* blueResource;
 	Menu::TextControl* health;
-	Menu::TextControl* healthDot;
-	Menu::TextControl* resourceRedDot;
-	Menu::TextControl* resourceBlueDot;
-	Menu::TextControl* resourceGreenDot;
 	Menu::TextControl* fps;
 
 	bool canPressEscape;
