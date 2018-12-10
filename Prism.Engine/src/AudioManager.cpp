@@ -104,6 +104,12 @@ void AudioManager::stopSound(int channel) const
 
 AudioManager::~AudioManager()
 {
+	for (auto const& x : sounds) {
+		Mix_FreeChunk(x.second);
+	}
+	for (auto const& x : music) {
+		Mix_FreeMusic(x.second);
+	}
 	sounds.clear();
 	music.clear();
 	Mix_Quit();
