@@ -25,7 +25,8 @@ namespace States {
 		bool exitBool = false;
 		Menu::MenuBuilder menuBuilder;
 		std::unique_ptr<Menu::Menu> menu;
-
+		float cooldown = 0.0f;
+		float maxCooldown = 1.0f;
 		Renderer::Graphics::RenderDevice* renderDevice;
 	};
 }

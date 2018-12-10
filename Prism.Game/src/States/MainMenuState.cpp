@@ -28,6 +28,15 @@ namespace States {
 			context.stateMachine->setState<PrismGame>(context);
 		};
 
+		std::function<void()> nightmareModeCallback = [&]() { 
+			if (context.stateMachine->hasState<PrismGame>() && cooldown > maxCooldown) {
+				auto prismgame = context.stateMachine->getState<PrismGame>();
+				prismgame->toggleNightmare();
+				cooldown = 0;
+			}
+		};
+
+
 		std::function<void()> creditsCallback = [&context]() { context.stateMachine->setState<CreditsState>(context); };
 		std::function<void()> helpCallback = [&]() {context.stateMachine->setState<HelpState>(context); };
 		std::function<void()> quitCallback = [&]() {
@@ -42,6 +51,7 @@ namespace States {
 		menuBuilder.addControl(-0.35, -0.2, 0.6, 0.18, "img/ToCredits.png", creditsCallback);
 		menuBuilder.addControl(-0.35, -0.5, 0.6, 0.18, "img/ToHelp.png", helpCallback);
 		menuBuilder.addControl(-0.35, -0.8, 0.6, 0.18, "img/QuitGameButton.png", quitCallback);
+		menuBuilder.addControl(-0.7, 0.5, 0.35, 0.1, "img/NewGameButton.png", nightmareModeCallback);
 
 		menu = menuBuilder.buildMenu();
 
@@ -51,6 +61,7 @@ namespace States {
 
 	void MainMenuState::onUpdate(Context & context)
 	{
+		cooldown += context.deltaTime;
 		renderDevice->clearScreen();
 		menuRenderer.renderMenu(*menu, float(context.window->width) / float(context.window->height));
 

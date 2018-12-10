@@ -134,10 +134,11 @@ unsigned EntityFactory::createResourcePoint(unsigned entity, EntityManager& enti
 		appearance.color = Math::Vector3f{0.6f, 1.0f, 0.6f};
 	}
 	return EntityBuilder(entityManager, entity)
-	       .addComponent<PositionComponent>()
-	       .addComponent<ResourceSpawnComponent>(gatherRate, type, value)
-	       .addComponent(appearance)
-	       .getEntity();
+			.addComponent<PositionComponent>()
+			.addComponent<ResourceSpawnComponent>(gatherRate, type, value)
+			.addComponent(appearance)
+			.addComponent<PointLightComponent>(appearance.color, 4.0f, 0.f)
+			.getEntity();
 }
 
 unsigned EntityFactory::createTower(EntityManager& entityManager) const
@@ -157,11 +158,12 @@ unsigned EntityFactory::createTower(unsigned entity, EntityManager& entityManage
 	appearance.model = std::move(model);
 
 	return EntityBuilder(entityManager, entity)
-	       .addComponent<TowerComponent>()
-	       .addComponent<PositionComponent>()
-	       .addComponent<BoundingBoxComponent>(1.0, 1.0)
-	       .addComponent(appearance)
-	       .getEntity();
+			.addComponent<TowerComponent>()
+			.addComponent<PositionComponent>()
+			.addComponent<BoundingBoxComponent>(1.0, 1.0)
+			.addComponent<PointLightComponent>(Math::Vector3f(0.2f, 0.2f, 0.2f), 4.0f, 0.f)
+			.addComponent(appearance)
+			.getEntity();
 }
 
 unsigned EntityFactory::createWall(EntityManager& entityManager) const
@@ -182,11 +184,12 @@ unsigned EntityFactory::createWall(unsigned entity, EntityManager& entityManager
 	appearance.color = Math::Vector3f{0.9f, 0.9f, 0.9f};
 
 	return EntityBuilder(entityManager, entity)
-	       .addComponent<WallComponent>()
-	       .addComponent<PositionComponent>()
-	       .addComponent<BoundingBoxComponent>(1.0, 1.0)
-	       .addComponent(appearance)
-	       .getEntity();
+			.addComponent<WallComponent>()
+			.addComponent<PositionComponent>()
+			.addComponent<BoundingBoxComponent>(1.0, 1.0)
+			.addComponent<PointLightComponent>(Math::Vector3f(0.2f, 0.2f, 0.2f), 4.0f, 0.f)
+			.addComponent(appearance)
+			.getEntity();
 }
 
 unsigned EntityFactory::createMine(EntityManager& entityManager) const
@@ -206,11 +209,12 @@ unsigned EntityFactory::createMine(unsigned entity, EntityManager& entityManager
 	appearance.model = std::move(model);
 
 	return EntityBuilder(entityManager, entity)
-	       .addComponent<MineComponent>()
-	       .addComponent<PositionComponent>()
-	       .addComponent<ResourceGatherComponent>()
-	       .addComponent(appearance)
-	       .getEntity();
+			.addComponent<MineComponent>()
+			.addComponent<PositionComponent>()
+			.addComponent<PointLightComponent>(appearance.color, 4.0f, 0.f)
+			.addComponent<ResourceGatherComponent>()
+			.addComponent(appearance)
+			.getEntity();
 }
 
 unsigned EntityFactory::createScene(EntityManager& entityManager) const
