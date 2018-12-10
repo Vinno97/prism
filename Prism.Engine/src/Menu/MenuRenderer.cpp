@@ -27,7 +27,6 @@ namespace Menu {
 		std::unique_ptr<FragmentShader> fragmentShader = renderDevice->createFragmentShader(fragmentSource.c_str());
 		menuPipeline = move(renderDevice->createPipeline(*vertexShader, *fragmentShader));
 
-		//menuPipeline->createUniform("view");
 		menuPipeline->createUniform("model");
 	}
 
@@ -35,9 +34,7 @@ namespace Menu {
 	{
 		renderDevice->useDepthTest(false);
 		menuPipeline->run();
-	//	menuPipeline->setUniformMatrix4f("view", projection);
 		renderDevice->useBlending(true);
-		projection = glm::ortho(-aspect, aspect, -1.f, 1.f, -1.0f, 1.0f);
 
 		menu.mesh->vertexArrayObject->bind();
 		menu.mesh->indexBuffer->bind();
@@ -62,5 +59,9 @@ namespace Menu {
 		glDisable(GL_BLEND);
 		menuPipeline->stop();
 		renderDevice->useDepthTest(true);
+
+		for (auto& control : menu.textControls) {
+			textRenderer.RenderText(control);
+		}
 	}
 }
