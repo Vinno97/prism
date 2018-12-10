@@ -1,3 +1,4 @@
+#include "Menu/TextRenderer.h"
 #include "States/PrismGame.h"
 
 #include "Math/Vector3f.h"
@@ -117,8 +118,8 @@ namespace States {
 	{
 		std::cout << 1.0 / context.deltaTime << "\r";
 		auto input = context.inputManager;
-		if (menu.handleInput(*context.inputManager, context.window->width, context.window->height)) { 
-			return; 
+		if (menu.handleInput(*context.inputManager, context.window->width, context.window->height)) {
+			return;
 		}
 
 		for (auto& systemList : systemManager.getAllSystems()) {

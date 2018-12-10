@@ -375,8 +375,8 @@ unsigned EntityFactory::createCamera(ECS::EntityManager& entityManager)
 {
 	Renderer::Camera camera;
 
-	camera.move(0, 2.f, 3.f);
-	camera.rotate(-35.f, 0.f, 0.f);
+	camera.move(0.f, 7.f, 12.f);
+	camera.rotate(-50.f, 0.f, 0.f);
 
 	CameraComponent component;
 	component.camera = camera;
