@@ -1,6 +1,6 @@
 #include "ECS/Systems/MoveCurrentBuildSystem.h"
-#include "ECS/EntityManager.h";
-#include "ECS/SystemManager.h";
+#include "ECS/EntityManager.h"
+#include "ECS/SystemManager.h"
 #include "ECS/Components/HealthComponent.h"
 #include "ECS/Components/BoundingBoxComponent.h"
 #include "ECS/Components/MousePointerComponent.h"
@@ -46,17 +46,6 @@ void ECS::Systems::MoveCurrentBuildSystem::update(Context& context) {
 
 					buildingPosition->x = builderComponent->posX = std::ceil(mousePosition->x);
 					buildingPosition->y = builderComponent->posY = std::ceil(mousePosition->y);
-
-
-
-
-
-
-
-
-					std::cout << builderComponent->posX << " " << builderComponent->posY << std::endl;
-					auto p = entityManager->getComponent<PositionComponent>(builderId);
-					std::cout << p->x << " " << p->y << std::endl;
 				}
 			}
 		}

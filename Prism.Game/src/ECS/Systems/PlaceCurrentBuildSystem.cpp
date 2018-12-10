@@ -1,6 +1,6 @@
 #include "ECS/Systems/PlaceCurrentBuildSystem.h"
-#include "ECS/EntityManager.h";
-#include "ECS/SystemManager.h";
+#include "ECS/EntityManager.h"
+#include "ECS/SystemManager.h"
 #include "ECS/Components/HealthComponent.h"
 #include "ECS/Components/BoundingBoxComponent.h"
 #include "ECS/Components/MousePointerComponent.h"

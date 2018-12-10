@@ -1,6 +1,6 @@
 #include "ECS/Systems/SetCurrentBuildSystem.h"
-#include "ECS/EntityManager.h";
-#include "ECS/SystemManager.h";
+#include "ECS/EntityManager.h"
+#include "ECS/SystemManager.h"
 #include "ECS/Components/HealthComponent.h"
 #include "ECS/Components/BoundingBoxComponent.h"
 #include "ECS/Components/MousePointerComponent.h"
@@ -46,10 +46,9 @@ void ECS::Systems::SetCurrentBuildSystem::update(Context& context) {
 				buildDeltaTime = waitTime;
 				int tempBuildId = -1;
 
-				if (builderComponent->currentBuild != BuildTypes::NONE) {
+				if (builderComponent->isBuilding) {
 					entityManager->removeEntity(builderComponent->buildingId);
 					builderComponent->buildingId = -1;
-					builderComponent->isBuilding = false;
 				}
 
 				if (key1Pressed && builderComponent->currentBuild != BuildTypes::WALL) {
@@ -66,13 +65,13 @@ void ECS::Systems::SetCurrentBuildSystem::update(Context& context) {
 					tempBuildId = ef.createMine(*entityManager);
 					builderComponent->currentBuild = BuildTypes::MINE;
 					builderComponent->isBuilding = true;
-				}
-				else {
+				} 
+				else{
 					builderComponent->currentBuild = BuildTypes::NONE;
 					builderComponent->isBuilding = false;
 				}
 
-				if (builderComponent->currentBuild != BuildTypes::NONE) {
+				if (builderComponent->isBuilding) {
 					auto appearance = entityManager->getComponent<AppearanceComponent>(tempBuildId);
 					auto boundingBox = entityManager->getComponent<BoundingBoxComponent>(tempBuildId);
 					auto position = entityManager->getComponent<PositionComponent>(tempBuildId);
@@ -88,6 +87,7 @@ void ECS::Systems::SetCurrentBuildSystem::update(Context& context) {
 					else
 					{
 						builderComponent->currentBuild = BuildTypes::NONE;
+						builderComponent->isBuilding = false;
 					}
 				}
 			}
