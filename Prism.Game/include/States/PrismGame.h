@@ -1,4 +1,5 @@
-#pragma once
+#include <utility>
+
 #include "Game.h"
 #include "Menu/MenuBuilder.h"
 #include "Menu/MenuRenderer.h"
@@ -16,11 +17,13 @@ namespace States
 class PrismGame : public Game
 {
   public:
-	PrismGame() = default;
+    explicit PrismGame(std::string levelPath) : levelPath(std::move(levelPath)){};
 	void onInit(Context &context) override;
 	void onUpdate(Context &context) override;
 	void onEnter(Context & context) override;
 	void onLeave(Context & context) override;
+
+	std::string getLevel() const { return levelPath; }
 
   private:
 	ECS::EntityManager entityManager;
@@ -31,15 +34,16 @@ class PrismGame : public Game
 	std::unique_ptr<Menu::Menu> menu;
 
 	//Textcontrols
-	Menu::TextControl* redResource;
-	Menu::TextControl* greenResource;
-	Menu::TextControl* blueResource;
-	Menu::TextControl* health;
-	Menu::TextControl* fps;
+	Menu::TextControl* redResource{nullptr};
+	Menu::TextControl* greenResource{nullptr};
+	Menu::TextControl* blueResource{nullptr};
+	Menu::TextControl* health{nullptr};
+	Menu::TextControl* fps{nullptr};
 
-	bool canPressEscape;
-	bool canPressF3;
-	bool showFPS;
+	std::string levelPath;
+	bool canPressEscape{false};
+	bool canPressF3{false};
+	bool showFPS{false};
 	void registerSystems(Context &context);
 	void toggleFPS(Context &context);
 	void loadAudio(Context &context) const;

@@ -65,10 +65,7 @@ namespace States {
 
 		World::LevelManager loader{ std::make_unique<PrismEntityAssembler>() };
 
-		loader.load("levels/Sample World", entityManager);
-		// Dit is hoe een wereld zou worden opgeslagen en weer ingeladen.
-		//loader.load("saves/Sample Save", entityManager);
-		loader.save("saves/Sample Save", entityManager);
+		loader.load(levelPath, entityManager);
 
 		loadAudio(context);
 		registerSystems(context);
@@ -86,8 +83,6 @@ namespace States {
 		blueResource = menuBuilder.addTextControl(0.65, 0.83, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
 		redResource = menuBuilder.addTextControl(0.65, 0.64, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
 		greenResource = menuBuilder.addTextControl(0.65, 0.45, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
-
-
 
 		fps = menuBuilder.addTextControl(0.83, 0.3, 0.0009, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "");
 

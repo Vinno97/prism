@@ -1,31 +1,36 @@
 #include "States/MainMenuState.h"
-#include "StateMachine.h";
-#include "States/PrismGame.h"; 
-#include "States/CreditsState.h"; 
+#include "StateMachine.h"
+#include "States/PrismGame.h"
+#include "States/CreditsState.h"
 #include "States/HelpState.h"
+#include "States/SelectLevelState.h"
 #include "Renderer/Graphics/RenderDevice.h"
 #include "Renderer/Graphics/OpenGL/OGLRenderDevice.h"
 #include "Renderer/Graphics/OpenGL/OGLVertexShader.h"
 #include "Renderer/Graphics/OpenGL/OGLPipeline.h"
 #include "Util/AdvertisementSystem.h"
-#include <cstdlib>
+#include "Variables.h"
 
 namespace States {
-	MainMenuState::MainMenuState()
-	{
-	}
+	MainMenuState::MainMenuState() = default;
 
 	void MainMenuState::onInit(Context & context)
 	{
-		context.stateMachine->addState<PrismGame>(context);
 		context.stateMachine->addState<CreditsState>(context);
 		context.stateMachine->addState<HelpState>(context);
 
 		std::function<void()> callback = [&context](){
-			if (!context.stateMachine->hasState<PrismGame>()) {
-				context.stateMachine->addState<PrismGame>(context);
+            if (!context.stateMachine->hasState<SelectLevelState>()) {
+                context.stateMachine->addState<SelectLevelState>(context, Variables::Resources::LEVELS);
+            }
+            context.stateMachine->setState<SelectLevelState>(context);
+		};
+
+		std::function<void()> loadCallback = [&context](){
+			if (!context.stateMachine->hasState<SelectLevelState>()) {
+				context.stateMachine->addState<SelectLevelState>(context, Variables::Resources::SAVES);
 			}
-			context.stateMachine->setState<PrismGame>(context);
+			context.stateMachine->setState<SelectLevelState>(context);
 		};
 
 		std::function<void()> creditsCallback = [&context]() { context.stateMachine->setState<CreditsState>(context); };
@@ -38,7 +43,7 @@ namespace States {
 		};
     
 		menuBuilder.addControl(-0.35,  0.4, 0.6, 0.18, "img/NewGameButton.png", callback);
-		menuBuilder.addControl(-0.35,  0.1, 0.6, 0.18, "img/LoadGameButton.png");
+		menuBuilder.addControl(-0.35,  0.1, 0.6, 0.18, "img/LoadGameButton.png", loadCallback);
 		menuBuilder.addControl(-0.35, -0.2, 0.6, 0.18, "img/ToCredits.png", creditsCallback);
 		menuBuilder.addControl(-0.35, -0.5, 0.6, 0.18, "img/ToHelp.png", helpCallback);
 		menuBuilder.addControl(-0.35, -0.8, 0.6, 0.18, "img/QuitGameButton.png", quitCallback);

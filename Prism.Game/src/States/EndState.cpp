@@ -11,19 +11,14 @@
 #include "Renderer/Graphics/OpenGL/OGLPipeline.h"
 
 namespace States {
-	EndState::EndState()
-	{
-	}
-
 	void EndState::onInit(Context & context)
 	{
 		std::function<void()> callbackMainMenu = [&context](){ context.stateMachine->setState<MainMenuState>(context); };
 		std::function<void()> callBackRestart = [&context](){
-			if (!context.stateMachine->hasState<PrismGame>()) {
-				context.stateMachine->addState<PrismGame>(context);
-				context.stateMachine->setState<PrismGame>(context);
-
-			}
+			auto level = context.stateMachine->getState<PrismGame>()->getLevel();
+			context.stateMachine->removeState<PrismGame>();
+			context.stateMachine->addState<PrismGame>(context, level);
+			context.stateMachine->setState<PrismGame>(context);
 		};
 
 		menuBuilder.addControl(-0.5, 0.5, 1, 0.24, "img/gameover.png");
@@ -49,11 +44,6 @@ namespace States {
 		}
 
 		context.window->swapScreen();
-	}
-
-	void EndState::onEnter(Context & context)
-	{
-		context.stateMachine->removeState<PrismGame>();
 	}
 
 	void EndState::onLeave(Context & context)

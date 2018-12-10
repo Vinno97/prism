@@ -10,11 +10,10 @@ namespace States {
 	class EndState : public State
 	{
 	public:
-		EndState();
+		EndState() = default;
 
 		void onInit(Context &context) override;
 		void onUpdate(Context &context) override;
-		void onEnter(Context & context) override;
 		void onLeave(Context & context) override;
 
 		~EndState();

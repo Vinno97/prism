@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include <sstream>
+#include <algorithm>
 
 using namespace std;
 using namespace std::experimental;
@@ -65,11 +66,11 @@ namespace Util {
 	std::vector<std::string> FileSystem::getFilenamesInDirectory(const std::string &path) const
 	{
 		std::vector<std::string> filenames;
-		std::string newpath = this->getResourcePath(path);
+		std::string fullPath = this->getResourcePath(path);
 		
-		for (auto & p : filesystem::directory_iterator(newpath))
+		for (auto & p : filesystem::directory_iterator(fullPath))
 			filenames.push_back(p.path().filename().string());
-
+        std::sort(filenames.begin(), filenames.end());
 		return filenames;
 	}
 }
