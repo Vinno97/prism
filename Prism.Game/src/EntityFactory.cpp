@@ -70,9 +70,9 @@ unsigned EntityFactory::createPlayer(unsigned entity, EntityManager& entityManag
 	       .addComponent<BoundingBoxComponent>(.3, .3)
 		   .addComponent<PointLightComponent>(Math::Vector3f{ 1.f, 1.f, 0.f }, 1.f, 0.f)
 	       .addComponent(appearance)
-	       .getEntity();
-		.addComponent<CollidableComponent>()
-		.addComponent<BuildComponent>()
+		   .addComponent<CollidableComponent>()
+		   .addComponent<BuildComponent>()
+		   .getEntity();
 }
 
 unsigned EntityFactory::createEnemy(EntityManager& entityManager) const
