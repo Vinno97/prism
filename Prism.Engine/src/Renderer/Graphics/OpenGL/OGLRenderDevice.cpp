@@ -56,6 +56,11 @@ namespace Renderer {
 				return make_unique<OGLVertexBuffer>(size, data);
 			}
 
+			unique_ptr<VertexBuffer> OGLRenderDevice::createDynamicVertexBuffer() const
+			{
+				return make_unique<OGLVertexBuffer>();
+			}
+
 			unique_ptr<IndexBuffer> OGLRenderDevice::createIndexBuffer(long size, const void * data) const
 			{
 				return make_unique<OGLIndexBuffer>(size, data);
@@ -76,9 +81,14 @@ namespace Renderer {
 				return make_shared<OGLTexture>(path);
 			}
 
-			std::unique_ptr<RenderTarget> OGLRenderDevice::createRenderTarget(bool useDepthBuffer) const
+			shared_ptr<Texture> OGLRenderDevice::createTexture(int width, int height, unsigned char* pixels, bool useRGB) const
 			{
-				return std::make_unique<OGLRenderTarget>(useDepthBuffer);
+				return make_shared<OGLTexture>(width, height, pixels, useRGB);
+			}
+
+			unique_ptr<RenderTarget> OGLRenderDevice::createRenderTarget(bool useDepthBuffer) const
+			{
+				return make_unique<OGLRenderTarget>(useDepthBuffer);
 			}
 
 			void OGLRenderDevice::useBlending(const bool blend) const

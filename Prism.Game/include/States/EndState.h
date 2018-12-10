@@ -17,14 +17,12 @@ namespace States {
 		void onEnter(Context & context) override;
 		void onLeave(Context & context) override;
 
-		EndState(const EndState &obj);
-
 		~EndState();
 
 	private:
 		Menu::MenuRenderer menuRenderer;
 		Menu::MenuBuilder menuBuilder;
-		Menu::Menu menu;
+		std::unique_ptr<Menu::Menu> menu;
 	};
 }
 

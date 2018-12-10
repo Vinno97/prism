@@ -34,7 +34,7 @@ namespace States {
 
 		Renderer::Graphics::RenderDevice* renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
 		renderDevice->clearScreen();
-		menuRenderer.renderMenu(menu, float(context.window->width) / float(context.window->height));
+		menuRenderer.renderMenu(*menu, float(context.window->width) / float(context.window->height));
 		context.window->swapScreen();
 	}
 
@@ -45,11 +45,6 @@ namespace States {
 
 	void PauseState::onLeave(Context & context)
 	{
-	}
-
-	PauseState::PauseState(const PauseState & obj)
-	{
-		menu = obj.menu;
 	}
 
 	PauseState::~PauseState()

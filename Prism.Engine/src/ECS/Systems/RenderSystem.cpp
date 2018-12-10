@@ -28,8 +28,7 @@ namespace ECS {
 			forwardRenderer = std::make_shared<ForwardRenderer>(windowWidth, windowHeight);
 			auto cameraComponent = this->entityManager->getAllEntitiesWithComponent<CameraComponent>()[0].component;
 			auto camera = &cameraComponent->camera;
-			camera->move(0, 3.f, 4.f);
-			camera->rotate(-0.f, 0.f, 0.f);
+
 		}
 
 		ECS::Systems::RenderSystem::~RenderSystem()

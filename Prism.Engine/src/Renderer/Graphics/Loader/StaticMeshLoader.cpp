@@ -89,7 +89,7 @@ namespace Renderer {
 					throw std::runtime_error("Assimp mesh loading.");
 				}
 
-				vertexArrayObject->addVertexBuffer(move(vertexBuffer), 0, 3 * sizeof(float), 0, 3);
+				vertexArrayObject->addVertexBuffer(vertexBuffer.get(), 0, 3 * sizeof(float), 0, 3);
 
 
 				//Load normals
@@ -112,7 +112,7 @@ namespace Renderer {
 					throw std::runtime_error("Assimp mesh loading.");
 				}
 
-				vertexArrayObject->addVertexBuffer(move(normalBuffer), 1, 3 * sizeof(float), 0, 3);
+				vertexArrayObject->addVertexBuffer(normalBuffer.get(), 1, 3 * sizeof(float), 0, 3);
 
 
 				/*
