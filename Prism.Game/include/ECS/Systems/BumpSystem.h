@@ -17,8 +17,8 @@ namespace ECS {
 
 			/// <summary>
 			/// this method returns the amount of collisions there are with a given boundingbox;
-			/// </sumaary>
-			int CountCollisions(Physics::BoundingBox &currentBox, std::vector<unsigned int> &vector);
+			/// </summary>
+			int CountCollisions(const Physics::BoundingBox &currentBox, const std::vector<unsigned int> &vector) const;	
 		};
 	}
 }
