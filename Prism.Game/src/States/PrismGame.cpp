@@ -1,16 +1,20 @@
 #include "Menu/TextRenderer.h"
 #include "States/PrismGame.h"
-
+#include <iomanip>
+#include <iostream>
 #include "Math/Vector3f.h"
 #include "StateMachine.h"
 #include "States/PauseState.h"
 #include "States/EndState.h"
 #include "ECS/Components/SceneComponent.h"
+#include "ECS/Components/PlayerComponent.h"
 #include "ECS/Components/PositionComponent.h"
 #include "ECS/Components/VelocityComponent.h"
+#include "ECS/Components/PointLightComponent.h"
 #include "ECS/Components/AppearanceComponent.h"
 #include "ECS/Components/EnemyComponent.h"
 #include "ECS/Components/DragComponent.h"
+#include "ECS/Components/HealthComponent.h"
 #include "ECS/Components/KeyboardInputComponent.h"
 #include "ECS/Systems/EnemyPathFindingSystem.h"
 #include "ECS/Systems/MotionSystem.h"
@@ -37,6 +41,7 @@
 #include "ECS/Systems/MousePointSystem.h"
 #include "ECS/Systems/EnemySpawnSystem.h"
 #include "ECS/Systems/HealthRegenerationSystem.h"
+#include "Renderer/PointLight.h"
 #include <functional>
 #include "ECS/Systems/BuildSystem.h"
 
@@ -56,8 +61,8 @@ namespace States {
 
 		sceneComponent->scene.ambientLightColor = Math::Vector3f{ 1.0f, 1.0f, 1.0f };
 		sceneComponent->scene.ambientLightStrength = 0.95f;
-		sceneComponent->scene.sun.color = Math::Vector3f{ .20f, .20f, .20f };
-		sceneComponent->scene.sun.direction = Math::Vector3f{ 25.f, 150.0f, 100.0f };
+		sceneComponent->scene.sun.color = Math::Vector3f{ 1.f, 1.f, 1.f };
+		sceneComponent->scene.sun.direction = Math::Vector3f{ -0.3, -1.0f, -.3f };
 
 		World::LevelManager loader{ std::make_unique<PrismEntityAssembler>() };
 
@@ -68,13 +73,27 @@ namespace States {
 
 		loadAudio(context);
 		registerSystems(context);
-
+		
 		if (!context.stateMachine->hasState<PauseState>()) {
 			context.stateMachine->addState<PauseState>(context);
 		}
 		if (!context.stateMachine->hasState<EndState>()) {
 			context.stateMachine->addState<EndState>(context);
 		}
+
+		menuBuilder.addControl(0.6, 0.35, 0.40, 0.65, "img/resources.png");
+		menuBuilder.addControl(-1, 0.83, 0.4, 0.15, "img/healthbar.png");
+		health = menuBuilder.addTextControl(-0.98, 0.89, 0.0012, Math::Vector3f{ 1.0f, 1.0f, 1.0f }, "100");
+		blueResource = menuBuilder.addTextControl(0.65, 0.83, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
+		redResource = menuBuilder.addTextControl(0.65, 0.64, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
+		greenResource = menuBuilder.addTextControl(0.65, 0.45, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
+
+
+
+		fps = menuBuilder.addTextControl(0.83, 0.3, 0.0009, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "");
+
+		menu = menuBuilder.buildMenu();
+
 		
 		std::function<void()> callback = [context, &canPress = canPressEscape]() mutable { canPress = false; context.stateMachine->setState<PauseState>(context); };
 	}
@@ -119,19 +138,33 @@ namespace States {
 	void PrismGame::onUpdate(Context &context)
 	{
 		std::cout << "FPS:   \t" << 1.0 / context.deltaTime << std::endl;
-
+		toggleFPS(context);
 		auto input = context.inputManager;
-		if (menu.handleInput(*context.inputManager, context.window->width, context.window->height)) {
-			return;
-		}
-
+	
 		for (auto& systemList : systemManager.getAllSystems()) {
 			for (auto& system : systemList.second) {
 				system.second->update(context);
 			}
 		}
+			
+		auto inventory = entityManager.getAllEntitiesWithComponent<InventoryComponent>()[0].component;
+		int playerHealth;
+		for (const auto& entity : entityManager.getAllEntitiesWithComponent<PlayerComponent>()) {
+			playerHealth = entityManager.getComponent<HealthComponent>(entity.id)->currentHealth;
+		}
 
+		redResource->text = std::to_string(static_cast<int>(inventory->redResource));
+		blueResource->text = std::to_string(static_cast<int>(inventory->blueResource));
+		greenResource->text = std::to_string(static_cast<int>(inventory->greenResource));
+		health->text = "Health: " + std::to_string(playerHealth);
+
+		menuRenderer.renderMenu(*menu, float(context.window->width) / float(context.window->height));
 		context.window->swapScreen();
+
+		if (menu->handleInput(*context.inputManager, context.window->width, context.window->height)) {
+			return;
+		}
+
 
 		if (!input->isKeyPressed(Key::KEY_ESCAPE)) {
 			canPressEscape = true;
@@ -156,6 +189,36 @@ namespace States {
 	void PrismGame::onEnter(Context &context) {
 		context.audioManager->playMusic("Ambience");
 	}
+
+	int PrismGame::Fps(Context &context)
+	{
+		double fps = 1.0 / context.deltaTime;
+		return(floor(fps));
+	}
+
+	void PrismGame::toggleFPS(Context & context)
+	{
+		auto input = context.inputManager;
+		if (!input->isKeyPressed(Key::KEY_F3)) {
+			canPressF3 = true;
+		}
+		if (input->isKeyPressed(Key::KEY_F3) && !showFPS  && canPressF3) {
+			canPressF3 = false;
+			showFPS = true;
+			fps->text = "FPS: " + std::to_string(Fps(context));
+		}
+
+		else if (input->isKeyPressed(Key::KEY_F3) && showFPS && canPressF3) {
+			canPressF3 = false;
+			showFPS = false;
+			fps->text = "";
+		}
+
+		if (showFPS) {
+			fps->text = "FPS: " + std::to_string(Fps(context));
+		}
+	}
+
 	void PrismGame::onLeave(Context &context) {
 	}
 }

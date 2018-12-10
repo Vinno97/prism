@@ -25,16 +25,16 @@ namespace Menu {
 		this->initMesh();
 	}
 
-	TextControl& MenuBuilder::addTextControl(float x, float y, float scale, Math::Vector3f colour, std::string text)
+	TextControl* MenuBuilder::addTextControl(float x, float y, float scale, Math::Vector3f colour, std::string text)
 	{
-		TextControl textControl{ text };
-		textControl.position.x = x;
-		textControl.position.y = y;
-		textControl.colour = colour;
-		textControl.scale = scale;
-		menu->textControls.push_back(textControl);
-	
-		return *(--menu->textControls.end());
+		std::unique_ptr<TextControl> textControl = std::make_unique<TextControl>(text);
+		textControl->position.x = x;
+		textControl->position.y = y;
+		textControl->colour = colour;
+		textControl->scale = scale;
+		menu->textControls.push_back(std::move(textControl));
+
+		return menu->textControls[menu->textControls.size() - 1].get();
 	}
 
 	//Create a single mesh so we can reuse it

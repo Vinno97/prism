@@ -24,6 +24,7 @@
 #include "ECS/Components/ShootingComponent.h"
 #include "ECS/Components/TowerComponent.h"
 #include "ECS/Components/VelocityComponent.h"
+#include "ECS/Components/PointLightComponent.h"
 #include "ECS/Components/WallComponent.h"
 #include "ECS/Components/CollidableComponent.h"
 #include "ECS/Components/BuildComponent.h"
@@ -56,21 +57,22 @@ unsigned EntityFactory::createPlayer(unsigned entity, EntityManager& entityManag
 	appearance.color = Math::Vector3f{1.0f, 0.5f, 0.5f};
 
 	return EntityBuilder(entityManager, entity)
-		.addComponent<VelocityComponent>()
-		.addComponent<PositionComponent>()
-		.addComponent<KeyboardInputComponent>()
-		.addComponent<PlayerComponent>()
-		.addComponent<InventoryComponent>()
-		.addComponent<ResourceGatherComponent>()
-		.addComponent<ShootingComponent>()
-		.addComponent<DynamicComponent>()
-		.addComponent<HealthComponent>(100)
-		.addComponent<DragComponent>(5.f)
-		.addComponent<BoundingBoxComponent>(.3, .3)
+	       .addComponent<VelocityComponent>()
+	       .addComponent<PositionComponent>()
+	       .addComponent<KeyboardInputComponent>()
+	       .addComponent<PlayerComponent>()
+	       .addComponent<InventoryComponent>()
+	       .addComponent<ResourceGatherComponent>()
+	       .addComponent<ShootingComponent>()
+	       .addComponent<DynamicComponent>()
+	       .addComponent<HealthComponent>(100)
+	       .addComponent<DragComponent>(5.f)
+	       .addComponent<BoundingBoxComponent>(.3, .3)
+		   .addComponent<PointLightComponent>(Math::Vector3f{ 1.f, 1.f, 0.f }, 1.f, 0.f)
+	       .addComponent(appearance)
+	       .getEntity();
 		.addComponent<CollidableComponent>()
 		.addComponent<BuildComponent>()
-	    .addComponent(appearance)
-	    .getEntity();
 }
 
 unsigned EntityFactory::createEnemy(EntityManager& entityManager) const
@@ -84,6 +86,7 @@ unsigned EntityFactory::createEnemy(unsigned entity, EntityManager& entityManage
 	auto model = ml.loadModel("./res/uglyenemy.obj");
 
 	AppearanceComponent appearance;
+	appearance.color = Math::Vector3f{0.22, 0.22, 0.22};
 	appearance.scaleX = 0.002f;
 	appearance.scaleY = 0.002f;
 	appearance.scaleZ = 0.002f;
@@ -257,6 +260,7 @@ unsigned EntityFactory::createProjectile(unsigned entity, EntityManager& entityM
 	       .addComponent<BoundingBoxComponent>(0.1, 0.1)
 	       .addComponent<ProjectileAttackComponent>()
 	       .addComponent<DynamicComponent>()
+		   .addComponent<PointLightComponent>(Math::Vector3f{ 1.f, 0.f, 0.f }, 4.0f, 0.f)
 	       .addComponent(appearance)
 	       .getEntity();
 }
@@ -289,7 +293,7 @@ unsigned EntityFactory::createFloor(unsigned entity, EntityManager& entityManage
 	appearance.translationY = -scale / 15;
 
 	appearance.model = std::move(model);
-	appearance.color = Math::Vector3f{0.8f, 0.8f, 0.82f};
+	appearance.color = Math::Vector3f{0.8f, 0.8f, 0.8f };
 
 	return EntityBuilder(entityManager, entity)
 	       .addComponent<PositionComponent>()

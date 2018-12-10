@@ -25,6 +25,7 @@ namespace States {
 		bool exitBool = false;
 		Menu::MenuBuilder menuBuilder;
 		std::unique_ptr<Menu::Menu> menu;
+
 		Renderer::Graphics::RenderDevice* renderDevice;
 	};
 }

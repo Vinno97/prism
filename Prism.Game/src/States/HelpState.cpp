@@ -45,11 +45,6 @@ namespace States {
 	{
 	}
 
-	HelpState::HelpState(const HelpState & obj)
-	{
-		
-	}
-
 	HelpState::~HelpState()
 	{
 	}

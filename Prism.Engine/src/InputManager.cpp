@@ -13,6 +13,10 @@ InputManager::InputManager() {
 	keyMap[Key::KEY_R] = SDL_SCANCODE_R;
 	keyMap[Key::KEY_T] = SDL_SCANCODE_T;
 	keyMap[Key::KEY_J] = SDL_SCANCODE_J;
+	keyMap[Key::KEY_I] = SDL_SCANCODE_I;
+	keyMap[Key::KEY_K] = SDL_SCANCODE_K;
+	keyMap[Key::KEY_L] = SDL_SCANCODE_L;
+	keyMap[Key::KEY_F3] = SDL_SCANCODE_F3;
 	keyMap[Key::KEY_1] = SDL_SCANCODE_1;
 	keyMap[Key::KEY_2] = SDL_SCANCODE_2;
 	keyMap[Key::KEY_3] = SDL_SCANCODE_3;
