@@ -38,7 +38,7 @@ namespace ECS {
 			/// <summary>
 			/// Moves the building based on mouse movement
 			/// </summary>
-			void moveCurrentBuilt();
+			//void moveCurrentBuilt(unsigned int builderId);
 
 			int buildingId = -1;
 			BuildingType currentBuild = BuildingType::NONE;
@@ -58,6 +58,7 @@ namespace ECS {
 			float wallRequirements;
 			float towerRequirements;
 			float mineRequirements;
+			float buildRange = 5;
 		};
 	}
 }
