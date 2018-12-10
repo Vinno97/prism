@@ -147,32 +147,26 @@ void ECS::Systems::BuildSystem::placeCurrentBuild(Context &context, unsigned int
 			if (canPlace && enoughResources) {
 				if (context.inputManager->isMouseButtonPressed(Key::MOUSE_BUTTON_LEFT)) {
 					unsigned int tempId;
-					//entityManager->removeEntity(buildingId);
 					if (currentBuild == BuildingType::WALL) {
-						//buildingId = ef.createWall(*entityManager);
 						tempId = ef.createWall(*entityManager);
 						inventory->greenResource -= wallRequirements;
 						shootDeltaTime = waitTime;
 					}
 					else if (currentBuild == BuildingType::TOWER) {
-						//buildingId = ef.createTower(*entityManager);
-						tempId = ef.createWall(*entityManager);
+						tempId = ef.createTower(*entityManager);
 						inventory->redResource -= towerRequirements;
 						shootDeltaTime = waitTime;
 					}
 					else if (currentBuild == BuildingType::MINE) {
-						//buildingId = ef.createMine(*entityManager);
-						tempId = ef.createWall(*entityManager);
+						tempId = ef.createMine(*entityManager);
 						inventory->blueResource -= mineRequirements;
 						shootDeltaTime = waitTime;
 					}
-					//currentBuild = BuildingType::NONE;
 					auto position = entityManager->getComponent<PositionComponent>(tempId);
 					if (position != nullptr) {
 						position->x = posX;
 						position->y = posY;
 					}
-					//buildingId = -1;
 				}
 			}
 			else {
