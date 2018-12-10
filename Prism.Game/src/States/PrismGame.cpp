@@ -119,7 +119,7 @@ namespace States {
 			.registerSystem<2, AnimationSystem>(entityManager)
 			.registerSystem<2, AimingSystem>(entityManager)
 			.registerSystem<2, ResourceGatherSystem>(entityManager)
-			//.registerSystem<2, EnemySpawnSystem>(entityManager)
+			.registerSystem<2, EnemySpawnSystem>(entityManager)
 			.registerSystem<2, MoveCurrentBuildSystem>(entityManager)
 
 			//3
@@ -142,7 +142,6 @@ namespace States {
 
 	void PrismGame::onUpdate(Context &context)
 	{
-		//std::cout << "FPS:   \t" << 1.0 / context.deltaTime << std::endl;
 		toggleFPS(context);
 		auto input = context.inputManager;
 	

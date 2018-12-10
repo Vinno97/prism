@@ -31,7 +31,6 @@
     <ClCompile Include="src\ECS\Systems\CheatSystem.cpp" />
     <ClCompile Include="src\States\HelpState.cpp" />
     <ClCompile Include="src\ECS\Systems\HealthRegenerationSystem.cpp" />
-    <ClCompile Include="src\ECS\Systems\BuildSystem.cpp" />
     <ClCompile Include="src\World\Assemblers\MineAssembler.cpp" />
     <ClCompile Include="src\ECS\Systems\SetCurrentBuildSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\PlaceCurrentBuildSystem.cpp" />
@@ -139,7 +138,6 @@
     <ClInclude Include="include\ECS\Systems\CheatSystem.h" />
     <ClInclude Include="include\States\HelpState.h" />
     <ClInclude Include="include\ECS\Components\TargetComponent.h" />
-    <ClInclude Include="include\ECS\Systems\BuildSystem.h" />
     <ClInclude Include="include\World\Assemblers\MineAssembler.h" />
     <ClInclude Include="include\ECS\Components\TargetComponent.h" />
     <ClInclude Include="include\ECS\Systems\HealthRegenerationSystem.h" />
