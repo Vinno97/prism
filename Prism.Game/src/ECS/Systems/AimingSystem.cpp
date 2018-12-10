@@ -29,7 +29,7 @@ namespace ECS {
 				auto buildComponent = entityManager->getComponent<BuildComponent>(player.id);
 				bool canShoot = true;
 				if (buildComponent != nullptr) {
-					if (buildComponent->isBuilding) {
+					if (buildComponent->isUsingMouse) {
 						canShoot = false;
 					}
 				}
@@ -55,7 +55,6 @@ namespace ECS {
 						else {
 							playerShooting->isShooting = false;
 						}
-
 					}
 				}
 			}

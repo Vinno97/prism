@@ -18,8 +18,6 @@ namespace ECS {
 
 		private:
 			EntityFactory ef;
-			float shootDeltaTime = 0;
-			float waitTime = 0.1;
 
 			float wallRequirements;
 			float towerRequirements;

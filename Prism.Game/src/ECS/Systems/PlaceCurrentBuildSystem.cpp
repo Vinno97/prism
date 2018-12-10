@@ -31,9 +31,6 @@ ECS::Systems::PlaceCurrentBuildSystem::~PlaceCurrentBuildSystem()
 
 
 void ECS::Systems::PlaceCurrentBuildSystem::update(Context& context) {
-	if (shootDeltaTime > 0) {
-		shootDeltaTime -= context.deltaTime;
-	}
 
 	for (auto builder : entityManager->getAllEntitiesWithComponent<BuildComponent>()) {
 		auto builderId = builder.id;
@@ -83,17 +80,17 @@ void ECS::Systems::PlaceCurrentBuildSystem::update(Context& context) {
 						if (builderComponent->currentBuild == BuildTypes::WALL) {
 							tempId = ef.createWall(*entityManager);
 							inventory->greenResource -= wallRequirements;
-							shootDeltaTime = waitTime;
+							//shootDeltaTime = waitTime;
 						}
 						else if (builderComponent->currentBuild == BuildTypes::TOWER) {
 							tempId = ef.createTower(*entityManager);
 							inventory->redResource -= towerRequirements;
-							shootDeltaTime = waitTime;
+							//shootDeltaTime = waitTime;
 						}
 						else if (builderComponent->currentBuild == BuildTypes::MINE) {
 							tempId = ef.createMine(*entityManager);
 							inventory->blueResource -= mineRequirements;
-							shootDeltaTime = waitTime;
+							//shootDeltaTime = waitTime;
 						}
 						auto position = entityManager->getComponent<PositionComponent>(tempId);
 						if (position != nullptr) {

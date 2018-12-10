@@ -28,22 +28,27 @@ ECS::Systems::SetCurrentBuildSystem::~SetCurrentBuildSystem()
 
 
 void ECS::Systems::SetCurrentBuildSystem::update(Context& context) {
-	if (buildDeltaTime > 0) {
-		buildDeltaTime -= context.deltaTime;
+	if (buildWaitTime > 0) {
+		buildWaitTime -= context.deltaTime;
+	}
+
+	if (shootWaitTime > 0) {
+		shootWaitTime -= context.deltaTime;
 	}
 
 	for (auto builder : entityManager->getAllEntitiesWithComponent<BuildComponent>()) {
 		auto builderId = builder.id;
 		auto &builderComponent = builder.component;
 
-		if (buildDeltaTime <= 0) {
+		if (buildWaitTime <= 0) {
 			auto key1Pressed = context.inputManager->isKeyPressed(Key::KEY_1);
 			auto key2Pressed = context.inputManager->isKeyPressed(Key::KEY_2);
 			auto key3Pressed = context.inputManager->isKeyPressed(Key::KEY_3);
 			auto keyTabPressed = context.inputManager->isKeyPressed(Key::KEY_TAB);
 
 			if (key1Pressed || key2Pressed || key3Pressed || keyTabPressed) {
-				buildDeltaTime = waitTime;
+				buildWaitTime = waitTime;
+
 				int tempBuildId = -1;
 
 				if (builderComponent->isBuilding) {
@@ -68,6 +73,9 @@ void ECS::Systems::SetCurrentBuildSystem::update(Context& context) {
 				} 
 				else{
 					builderComponent->currentBuild = BuildTypes::NONE;
+					if (shootWaitTime <= 0) {
+						builderComponent->isUsingMouse = false;
+					}
 					builderComponent->isBuilding = false;
 				}
 
@@ -77,11 +85,15 @@ void ECS::Systems::SetCurrentBuildSystem::update(Context& context) {
 					auto position = entityManager->getComponent<PositionComponent>(tempBuildId);
 
 					if (appearance != nullptr && boundingBox != nullptr && position != nullptr) {
+						shootWaitTime = waitTime;
+						builderComponent->isUsingMouse = true;
+
 						builderComponent->buildingId = entityManager->createEntity(*appearance, *boundingBox, *position, DynamicComponent());
 						builderComponent->buildingColor = appearance->color;
 						builderComponent->buildingScaleX = appearance->scaleX;
 						builderComponent->buildingScaleY = appearance->scaleY;
 						builderComponent->buildingScaleZ = appearance->scaleZ;
+
 						entityManager->removeEntity(tempBuildId);
 					}
 					else

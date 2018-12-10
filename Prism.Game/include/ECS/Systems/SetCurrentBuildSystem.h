@@ -18,7 +18,8 @@ namespace ECS {
 
 		private:
 			EntityFactory ef;
-			float buildDeltaTime = 0;
+			float buildWaitTime = 0;
+			float shootWaitTime = 0;
 			float waitTime = 0.1;
 		};
 	}
