@@ -17,7 +17,7 @@ TextRenderer::TextRenderer()
 		std::cout << "ERROR::FREETYPE: Could not init FreeType Library" << std::endl;
 
 	FT_Face face;
-	if (FT_New_Face(ft, "./res/fonts/square.ttf", 0, &face))
+	if (FT_New_Face(ft, "./res/fonts/arial.ttf", 0, &face))
 		std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;
 
 	FT_Set_Pixel_Sizes(face, 0, 48);
@@ -64,24 +64,25 @@ TextRenderer::TextRenderer()
 
 void TextRenderer::RenderText(const Menu::TextControl& control)
 {
-	// Activate corresponding render state	
+//// Activate corresponding render state	
 	textPipeline->run();
 	textPipeline->setUniformVector("textColor", control.colour.x, control.colour.y, control.colour.z);
-	renderDevice->useBlending(true);
 	VAO2->bind();
-
+	renderDevice->useBlending(true);
+	renderDevice->useDepthTest(false);
+	
 	float x = control.position.x;
 	float y = control.position.y;
-
+	glEnable(GL_BLEND);
 	// Iterate through all characters
 	std::string::const_iterator c;
 	for (c = control.text.begin(); c != control.text.end(); c++)
 	{
 		Character ch = Characters[*c];
-
+	
 		GLfloat xpos = x + ch.Bearing.x * control.scale;
 		GLfloat ypos = y - (ch.Size.y - ch.Bearing.y) * control.scale;
-
+	
 		GLfloat w = ch.Size.x * control.scale;
 		GLfloat h = ch.Size.y * control.scale;
 		// Update VBO for each character
@@ -89,7 +90,7 @@ void TextRenderer::RenderText(const Menu::TextControl& control)
 			{ xpos,     ypos + h,   0.0, 0.0 },
 			{ xpos,     ypos,       0.0, 1.0 },
 			{ xpos + w, ypos,       1.0, 1.0 },
-
+	
 			{ xpos,     ypos + h,   0.0, 0.0 },
 			{ xpos + w, ypos,       1.0, 1.0 },
 			{ xpos + w, ypos + h,   1.0, 0.0 }
@@ -107,7 +108,8 @@ void TextRenderer::RenderText(const Menu::TextControl& control)
 		x += (ch.Advance >> 6) * control.scale; // Bitshift by 6 to get value in pixels (2^6 = 64)
 	}
 
-	VAO2->unbind();
-
-	renderDevice->useBlending(false);
+  VAO2->unbind();
+  textPipeline->stop();
+  renderDevice->useBlending(false);
+  renderDevice->useDepthTest(true);
 }

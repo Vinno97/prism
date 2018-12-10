@@ -30,7 +30,7 @@ namespace World {
 		float i = 0;
 		for (int y = 0; y < height; y++) {
 			for (int x = 0; x < width; x++) {
-				heightMap[y][x] = distribution(generator)/10;
+				heightMap[y][x] = 0;
 			}
 		}
 

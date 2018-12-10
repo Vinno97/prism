@@ -49,10 +49,6 @@ namespace States {
 	{
 	}
 
-	CreditsState::CreditsState(const CreditsState & obj)
-	{
-	}
-
 	CreditsState::~CreditsState()
 	{
 	}
