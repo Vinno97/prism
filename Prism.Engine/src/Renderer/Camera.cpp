@@ -19,6 +19,7 @@ namespace Renderer {
 		cameraMatrix = translate(cameraMatrix, position);
 		cameraMatrix = glm::rotate(cameraMatrix, radians(rotation.x), vec3(1.f, 0.f, 0.f));
 		cameraMatrix = glm::rotate(cameraMatrix, radians(rotation.y), vec3(0.f, 1.f, 0.f));
+		cameraMatrix = glm::rotate(cameraMatrix, radians(rotation.z), vec3(0.f, 0.f, 1.f));
 		cameraMatrix = inverse(cameraMatrix);
 		return cameraMatrix;
 	}

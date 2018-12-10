@@ -70,7 +70,7 @@ namespace States {
 
 	void MainMenuState::onLeave(Context & context)
 	{
-	}
+ 	}
 
 	MainMenuState::~MainMenuState()
 	{

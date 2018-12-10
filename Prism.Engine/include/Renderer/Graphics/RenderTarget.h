@@ -20,6 +20,11 @@ namespace Renderer {
 			virtual void unbind() = 0;
 
 			/// <summary>
+			/// Set a depthbuffer to be drawn to
+			/// </summary>
+			virtual void setDepthBuffer(std::shared_ptr<Texture> texture) = 0;
+
+			/// <summary>
 			/// Add a colourbuffer to be drawn to
 			/// </summary>
 			virtual void addBuffer(std::shared_ptr<Texture> texture) = 0;
