@@ -28,7 +28,7 @@ namespace ECS {
 			/// <summary>
 			/// Decides what needs to be build based on user input
 			/// </summary>
-			void setCurrentBuild(Context &context);
+			int setCurrentBuild(Context &context);
 			
 			/// <summary>
 			/// Places a building if the requirements are met
@@ -45,10 +45,11 @@ namespace ECS {
 
 			EntityFactory ef;
 			float deltaTime;
-			float pressTime = 0.5;
+			float waitTime = 0.5;
 			
 			Math::Vector3f buildingColor;
 			float buildingScaleX;
+			float buildingScaleY;
 			float buildingScaleZ;
 			float posX = 0;
 			float posY = 0;
