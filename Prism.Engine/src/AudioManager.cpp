@@ -6,7 +6,7 @@ AudioManager::AudioManager()
 	{
 		std::cout << "SDL_mixer could not initialize! SDL_mixer Error: " << Mix_GetError() << "\n";
 	}
-	Mix_AllocateChannels(64);
+	Mix_AllocateChannels(channels);
 }
 
 
@@ -41,11 +41,23 @@ void AudioManager::addMusic(const std::string name, const std::string file)
 	}
 }
 
-const void AudioManager::playSound(const std::string name, int loops)
+const void AudioManager::playSound(const std::string name, int distance, int loops)
 {
 	if (sounds.count(name))
 	{
-		Mix_PlayChannel(-1, sounds[name], loops);
+		for (int i = 0; i < channels; ++i)
+		{
+			if (Mix_Playing(i) == 0) {
+				int volume = 50 - (distance / 5);
+				if (volume < 0) {
+					volume = 0;
+				}
+				
+				Mix_Volume(i, volume);
+				Mix_PlayChannel(i, sounds[name], loops);
+				break;
+			}
+		}
 	}
 	else {
 		std::runtime_error("Failed to play sound! " + name + " does not exist.");
