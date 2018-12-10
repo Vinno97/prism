@@ -4,6 +4,9 @@
 #include "ECS/Components/EnemyComponent.h"
 #include "ECS/Components/HealthComponent.h"
 #include "ECS/Components/PlayerComponent.h"
+#include "ECS/Components/PositionComponent.h"
+#include "Util/DistanceUtil.h"
+#include <cmath>
 
 namespace ECS {
 	namespace Systems {
@@ -43,7 +46,12 @@ namespace ECS {
 								}
 								if (EnemyHealth->currentHealth <= 0) {
 									entityManager->removeEntity(collider);
-									context.audioManager->playSound("EnemyKill");
+									Util::DistanceUtil distanceUtil;
+									int BoxX = boundingBoxComponent->boundingBox.GetPosX();
+									int BoxY = boundingBoxComponent->boundingBox.GetPosY();
+									int PlayerX = entityManager->getComponent<PositionComponent>(players[0].id)->x;
+									int PlayerY = entityManager->getComponent<PositionComponent>(players[0].id)->x;
+									context.audioManager->playSound("EnemyKill", distanceUtil.CalculateDistance(BoxX, BoxY, PlayerX, PlayerY));
 									break;
 								}
 							}
@@ -54,7 +62,8 @@ namespace ECS {
 					}
 				}
 
-				// TODO: Wat doet deze code hier eigenlijk? De game crasht hierop, maar werkt correct als het uitgeschakeld staat. Ik kan me ook niet bedenken wat dit zou horen te doen.
+				// TODO: Wat doet deze code hier eigenlijk? De game crasht hierop, maar werkt correct als het uitgeschakeld staat. 
+				// Ik kan me ook niet bedenken wat dit zou horen te doen.
 				// boundingBoxComponent->didCollide = false;
 				// boundingBoxComponent->collidesWith.clear();
 			}
