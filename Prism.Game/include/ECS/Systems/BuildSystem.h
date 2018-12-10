@@ -35,11 +35,6 @@ namespace ECS {
 			/// </summary>
 			void placeCurrentBuild(Context &context, unsigned int buildId);
 
-			/// <summary>
-			/// Moves the building based on mouse movement
-			/// </summary>
-			//void moveCurrentBuilt(unsigned int builderId);
-
 			int buildingId = -1;
 			BuildingType currentBuild = BuildingType::NONE;
 

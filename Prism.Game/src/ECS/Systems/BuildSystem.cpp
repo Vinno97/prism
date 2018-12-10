@@ -211,33 +211,3 @@ void ECS::Systems::BuildSystem::placeCurrentBuild(Context &context, unsigned int
 		}
 	}
 }
-/*
-void ECS::Systems::BuildSystem::moveCurrentBuilt(unsigned int builderId)
-{
-	if (currentBuild != BuildingType::NONE) {
-		auto entities = entityManager->getAllEntitiesWithComponent<MousePointerComponent>();
-		if (entities.size() > 0) {
-			auto entityId = entities[0].id;
-			auto mousePosition3D = entityManager->getComponent<PositionComponent>(entityId);
-			auto buildingPosition = entityManager->getComponent<PositionComponent>(buildingId);
-			auto builderPosition = entityManager->getComponent<PositionComponent>(builderId);
-			
-			auto x = std::ceil(mousePosition3D->x);
-			auto y = std::ceil(mousePosition3D->y);
-
-			auto xDistance = std::abs(std::ceil(mousePosition3D->x) - builderPosition->x);
-			auto yDistance = std::abs(std::ceil(mousePosition3D->y) - builderPosition->y);
-
-			buildingPosition->x = posX = x;
-			buildingPosition->y = posY = y;
-
-			auto appearance = entityManager->getComponent<AppearanceComponent>(buildingId);
-			if (appearance != nullptr && std::sqrt((xDistance*xDistance) + (yDistance*yDistance)) > buildRange) {
-				appearance->color = Math::Vector3f{ 1.0f, 0.5f, 0.5f };
-				appearance->scaleX = buildingScaleX * 1.1;
-				appearance->scaleY = buildingScaleY * 1.1;
-				appearance->scaleZ = buildingScaleZ * 1.1;
-			}
-		}
-	}
-}*/
