@@ -1,4 +1,3 @@
-#pragma once
 #include <thread>
 #include "Context.h"
 #include "InputManager.h"

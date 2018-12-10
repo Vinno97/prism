@@ -1,4 +1,3 @@
-#pragma once
 #include <glm/glm.hpp>
 #include "Renderer/Graphics/Models/Model.h"
 #include "Renderer/Graphics/Models/Mesh.h"

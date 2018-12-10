@@ -1,5 +1,3 @@
-#pragma once
-
 #include "Renderer/Graphics/Loader/StaticMeshLoader.h"
 #include "Renderer/Graphics/OpenGL/OGLRenderDevice.h"
 #include "Renderer/Graphics/Models/Mesh.h"
