@@ -51,7 +51,7 @@ namespace States {
 		menuBuilder.addControl(-0.35, -0.2, 0.6, 0.18, "img/ToCredits.png", creditsCallback);
 		menuBuilder.addControl(-0.35, -0.5, 0.6, 0.18, "img/ToHelp.png", helpCallback);
 		menuBuilder.addControl(-0.35, -0.8, 0.6, 0.18, "img/QuitGameButton.png", quitCallback);
-		menuBuilder.addControl(-0.7, 0.5, 0.35, 0.1, "img/NewGameButton.png", nightmareModeCallback);
+		menuBuilder.addControl(-0.7, 0.49, 0.35, 0.1, "img/nightmare_mode.png", nightmareModeCallback);
 
 		menu = menuBuilder.buildMenu();
 
