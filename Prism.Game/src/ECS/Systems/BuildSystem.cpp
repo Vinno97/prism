@@ -30,29 +30,32 @@ ECS::Systems::BuildSystem::~BuildSystem()
 
 
 void ECS::Systems::BuildSystem::update(Context& context) {
-	auto builderId = setCurrentBuild(context);
-	if (builderId != -1) {
-		placeCurrentBuild(context, builderId);
-		//moveCurrentBuilt(builderId);
-	}
-}
-
-int ECS::Systems::BuildSystem::setCurrentBuild(Context &context)
-{
+	/*
 	auto builders = entityManager->getAllEntitiesWithComponent<BuildComponent>();
+	if (buildDeltaTime > 0) {
+		buildDeltaTime -= context.deltaTime;
+	}
+
+	if (shootDeltaTime > 0) {
+		shootDeltaTime -= context.deltaTime;
+	}
 	if (builders.size() > 0) {
 		auto &builder = builders[0];
 		auto &builderComponent = builder.component;
 		auto builderId = builder.id;
 
-		if (buildDeltaTime > 0) {
-			buildDeltaTime -= context.deltaTime;
-		}
+		//placeCurrentBuild(context, builderId);
+		//setCurrentBuild(context,builderId);
+		//(builderId != -1)
+		//moveCurrentBuilt(builderId);
+	}*/
 
-		if (shootDeltaTime > 0) {
-			shootDeltaTime -= context.deltaTime;
-		}
-
+}
+/*
+void ECS::Systems::BuildSystem::setCurrentBuild(Context &context, int builderId)
+{
+	auto builderComponent = entityManager->getComponent<BuildComponent>(builderId);
+	if (builderComponent != nullptr) {
 		if (buildDeltaTime <= 0) {
 			auto key1Pressed = context.inputManager->isKeyPressed(Key::KEY_1);
 			auto key2Pressed = context.inputManager->isKeyPressed(Key::KEY_2);
@@ -109,12 +112,11 @@ int ECS::Systems::BuildSystem::setCurrentBuild(Context &context)
 				}
 			}
 		}
-		return builderId;
+
 	}
-	return -1;
 }
 
-void ECS::Systems::BuildSystem::placeCurrentBuild(Context &context, unsigned int builderId)
+void ECS::Systems::BuildSystem::placeCurrentBuild(Context &context, int builderId)
 {
 	if (currentBuild != BuildingType::NONE) {
 		auto mouseComponents = entityManager->getAllEntitiesWithComponent<MousePointerComponent>();
@@ -131,14 +133,13 @@ void ECS::Systems::BuildSystem::placeCurrentBuild(Context &context, unsigned int
 				auto x = std::ceil(mousePosition->x);
 				auto y = std::ceil(mousePosition->y);
 
-				auto xDistance = std::abs(std::ceil(mousePosition->x) - builderPosition->x);
-				auto yDistance = std::abs(std::ceil(mousePosition->y) - builderPosition->y);
+				auto xDistance = std::abs(x - builderPosition->x);
+				auto yDistance = std::abs(y - builderPosition->y);
 
 				buildingPosition->x = posX = x;
 				buildingPosition->y = posY = y;
 
 				bool inRange = true;
-
 				auto appearance = entityManager->getComponent<AppearanceComponent>(buildingId);
 				if (appearance != nullptr && std::sqrt((xDistance*xDistance) + (yDistance*yDistance)) > buildRange) {
 					inRange = false;
@@ -207,7 +208,9 @@ void ECS::Systems::BuildSystem::placeCurrentBuild(Context &context, unsigned int
 					}
 					boundingBoxComponent->didCollide = false;
 				}
+
 			}
 		}
 	}
-}
+	*/
+//}

@@ -33,6 +33,9 @@
     <ClCompile Include="src\ECS\Systems\HealthRegenerationSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\BuildSystem.cpp" />
     <ClCompile Include="src\World\Assemblers\MineAssembler.cpp" />
+    <ClCompile Include="src\ECS\Systems\SetCurrentBuildSystem.cpp" />
+    <ClCompile Include="src\ECS\Systems\PlaceCurrentBuildSystem.cpp" />
+    <ClCompile Include="src\ECS\Systems\MoveCurrentBuildSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ECS\Components\BulletComponent.h" />
@@ -141,6 +144,10 @@
     <ClInclude Include="include\ECS\Components\TargetComponent.h" />
     <ClInclude Include="include\ECS\Systems\HealthRegenerationSystem.h" />
     <ClInclude Include="include\ECS\Components\BuildComponent.h" />
+    <ClInclude Include="include\ECS\Systems\SetCurrentBuildSystem.h" />
+    <ClInclude Include="include\Enums\BuildTypes.h" />
+    <ClInclude Include="include\ECS\Systems\PlaceCurrentBuildSystem.h" />
+    <ClInclude Include="include\ECS\Systems\MoveCurrentBuildSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="lib\assimp-vc140-mtd.dll" />

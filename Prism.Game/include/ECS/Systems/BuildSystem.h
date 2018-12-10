@@ -28,12 +28,17 @@ namespace ECS {
 			/// <summary>
 			/// Decides what needs to be build based on user input
 			/// </summary>
-			int setCurrentBuild(Context &context);
+			//int setCurrentBuild(Context &context, int builderId);
 			
 			/// <summary>
 			/// Places a building if the requirements are met
 			/// </summary>
-			void placeCurrentBuild(Context &context, unsigned int buildId);
+			//void placeCurrentBuild(Context &context, int buildId);
+
+			/// <summary>
+			/// Moves the building based on mouse movement
+			/// </summary>
+			//void moveCurrentBuilt(unsigned int builderId);
 
 			int buildingId = -1;
 			BuildingType currentBuild = BuildingType::NONE;
