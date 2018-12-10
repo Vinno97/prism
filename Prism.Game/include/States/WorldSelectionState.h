@@ -15,9 +15,9 @@
 #include <Menu/MenuRenderer.h>
 
 namespace States {
-    class SelectLevelState : public State {
+    class WorldSelectionState : public State {
     public:
-        explicit SelectLevelState(std::string levelDirectory) : levelDirectory(std::move(levelDirectory)) {};
+        explicit WorldSelectionState(std::string levelDirectory) : levelDirectory(std::move(levelDirectory)) {};
 
         void onInit(Context &context) override;
 
@@ -29,6 +29,6 @@ namespace States {
         std::string levelDirectory;
         std::array<std::string,
                 Variables::Visual::LevelSelection::ROWS * Variables::Visual::LevelSelection::COLUMNS> levels{""};
-        Renderer::Graphics::RenderDevice* renderDevice;
+        Renderer::Graphics::RenderDevice* renderDevice{nullptr};
     };
 }

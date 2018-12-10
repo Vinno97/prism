@@ -3,7 +3,8 @@
 #include "States/PrismGame.h"
 #include "States/CreditsState.h"
 #include "States/HelpState.h"
-#include "States/SelectLevelState.h"
+#include "States/LevelSelectionState.h"
+#include "States/SaveSelectionState.h"
 #include "Renderer/Graphics/RenderDevice.h"
 #include "Renderer/Graphics/OpenGL/OGLRenderDevice.h"
 #include "Renderer/Graphics/OpenGL/OGLVertexShader.h"
@@ -20,17 +21,17 @@ namespace States {
 		context.stateMachine->addState<HelpState>(context);
 
 		std::function<void()> callback = [&context](){
-            if (!context.stateMachine->hasState<SelectLevelState>()) {
-                context.stateMachine->addState<SelectLevelState>(context, Variables::Resources::LEVELS);
-            }
-            context.stateMachine->setState<SelectLevelState>(context);
+			if (!context.stateMachine->hasState<LevelSelectionState>()) {
+				context.stateMachine->addState<LevelSelectionState>(context);
+			}
+			context.stateMachine->setState<LevelSelectionState>(context);
 		};
 
 		std::function<void()> loadCallback = [&context](){
-			if (!context.stateMachine->hasState<SelectLevelState>()) {
-				context.stateMachine->addState<SelectLevelState>(context, Variables::Resources::SAVES);
+			if (!context.stateMachine->hasState<SaveSelectionState>()) {
+				context.stateMachine->addState<SaveSelectionState>(context);
 			}
-			context.stateMachine->setState<SelectLevelState>(context);
+			context.stateMachine->setState<SaveSelectionState>(context);
 		};
 
 		std::function<void()> creditsCallback = [&context]() { context.stateMachine->setState<CreditsState>(context); };
