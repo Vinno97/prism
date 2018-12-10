@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include "State.h"
 #include "ECS/Systems/KeyboardInputSystem.h"
 #include "Menu/MenuBuilder.h"

@@ -2,11 +2,11 @@
 
 AudioManager::AudioManager()
 {
-	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
+	if (Mix_OpenAudio(88200, MIX_DEFAULT_FORMAT, 2, 4096) < 0)
 	{
 		std::cout << "SDL_mixer could not initialize! SDL_mixer Error: " << Mix_GetError() << "\n";
 	}
-	Mix_AllocateChannels(16);
+	Mix_AllocateChannels(64);
 }
 
 
@@ -41,11 +41,11 @@ void AudioManager::addMusic(const std::string name, const std::string file)
 	}
 }
 
-const void AudioManager::playSound(const std::string name)
+const void AudioManager::playSound(const std::string name, int loops)
 {
 	if (sounds.count(name))
 	{
-		Mix_PlayChannel(-1, sounds[name], 0);
+		Mix_PlayChannel(-1, sounds[name], loops);
 	}
 	else {
 		std::runtime_error("Failed to play sound! " + name + " does not exist.");
@@ -83,6 +83,11 @@ void AudioManager::resumeMusic() const
 void AudioManager::stopMusic() const
 {
 	Mix_HaltMusic();
+}
+
+void AudioManager::stopSound(int channel) const
+{
+	Mix_HaltChannel(channel);
 }
 
 AudioManager::~AudioManager()

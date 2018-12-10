@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include "State.h"
 #include "ECS/Systems/KeyboardInputSystem.h"
 #include "Menu/MenuBuilder.h"
@@ -16,7 +17,6 @@ namespace States {
 		void onUpdate(Context &context) override;
 		void onEnter(Context & context) override;
 		void onLeave(Context & context) override;
-
 		~HelpState();
 
 	private:
