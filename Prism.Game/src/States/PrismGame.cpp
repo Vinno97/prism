@@ -134,12 +134,9 @@ namespace States {
 	void PrismGame::onUpdate(Context &context)
 	{
 		std::cout << "FPS:   \t" << 1.0 / context.deltaTime << std::endl;
-
 		toggleFPS(context);
 		auto input = context.inputManager;
-		if (menu->handleInput(*context.inputManager, context.window->width, context.window->height)) {
-			return;
-		}
+	
 		for (auto& systemList : systemManager.getAllSystems()) {
 			for (auto& system : systemList.second) {
 				system.second->update(context);
@@ -160,6 +157,9 @@ namespace States {
 		menuRenderer.renderMenu(*menu, float(context.window->width) / float(context.window->height));
 		context.window->swapScreen();
 
+		if (menu->handleInput(*context.inputManager, context.window->width, context.window->height)) {
+			return;
+		}
 
 
 		if (!input->isKeyPressed(Key::KEY_ESCAPE)) {
