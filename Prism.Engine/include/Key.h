@@ -7,6 +7,7 @@ enum class Key {
 	KEY_Q,
 	KEY_E,
 	KEY_H,
+	KEY_F3,
 	KEY_J,
 	KEY_T,
 	KEY_R,

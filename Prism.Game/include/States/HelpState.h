@@ -17,9 +17,6 @@ namespace States {
 		void onUpdate(Context &context) override;
 		void onEnter(Context & context) override;
 		void onLeave(Context & context) override;
-
-		HelpState(const HelpState &obj);
-
 		~HelpState();
 
 	private:

@@ -32,7 +32,7 @@ namespace Renderer {
 				glBindFramebuffer(GL_FRAMEBUFFER, FBO);
 				glDrawBuffers(bufferAmount, drawBuffers);
 				
-				delete drawBuffers;
+				delete[] drawBuffers;
 			}
 
 			void OGLRenderTarget::unbind()

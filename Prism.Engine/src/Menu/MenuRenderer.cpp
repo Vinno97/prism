@@ -32,8 +32,8 @@ namespace Menu {
 
 	void MenuRenderer::renderMenu(Menu& menu, float aspect)
 	{
-		renderDevice->useDepthTest(false);
 		menuPipeline->run();
+		renderDevice->useDepthTest(false);
 		renderDevice->useBlending(true);
 
 		menu.mesh->vertexArrayObject->bind();
@@ -61,7 +61,7 @@ namespace Menu {
 		renderDevice->useDepthTest(true);
 
 		for (auto& control : menu.textControls) {
-			textRenderer.RenderText(control);
+			textRenderer.RenderText(*control);
 		}
 	}
 }
