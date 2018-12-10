@@ -49,7 +49,7 @@ namespace Renderer {
 		createTargetQuad();
 
 	    projection = glm::perspective(glm::radians(45.0f), (float) width/height, 0.5f, 100.f);
-		shadowProjection = glm::ortho(-3.0f, 3.0f, -3.0f, 3.0f, 0.f, 7.5f);
+		shadowProjection = glm::ortho(-5.f, 5.f, -5.f, 5.f, 0.f, 30.f);
 
 		renderDevice->setClearColour(1.f, 1.f, 1.f, 1.f);
 		shadowCamera.position = glm::vec3{ -55.f, 11.0f, -25 };
@@ -63,7 +63,10 @@ namespace Renderer {
 		i += 0.01;
 		glm::mat4 model;
 		const glm::mat4 view = camera.getCameraMatrix();
-		shadowCamera.position = glm::vec3(position.x, position.y, position.z);
+		shadowCamera.position = camera.position;
+		shadowCamera.position.x -= 4;
+		shadowCamera.position.y -= 1;
+		shadowCamera.target = camera.target;
 
 		glViewport(0, 0, width, height);
 		//Do GBuffer pass
@@ -103,7 +106,7 @@ namespace Renderer {
 		renderDevice->clearScreen();
 		shadowPipeline->run();
 
-		auto shadowView = camera.getCameraMatrix();
+		auto shadowView = shadowCamera.getCameraMatrix();
 
 		for (const auto& renderable : renderables) {
 			model = renderable.getMatrix();

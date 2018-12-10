@@ -116,7 +116,7 @@ void main() {
 	shadowCoordTemp = shadowCoordTemp * 0.5 + 0.5; 
 	vec4 shadowCoord = vec4(shadowCoordTemp, 1.0);
 	
-	float bias = 0.005;
+	float bias = 0.0005;
 	float t1 = texture(gShadowMap, shadowCoord.xy).r;
 	float t2 = shadowCoord.z-bias;
 	float visibility = 1.0;
@@ -143,9 +143,9 @@ void main() {
         DiffuseColor = vec4(0, 0, 0, 0);
     }
 	
-	color = vec4(Albedo, 1) * (AmbientColor  + pointColor + (DiffuseColor));
+	color = vec4(Albedo, 1) * (AmbientColor  + pointColor + (DiffuseColor*visibility));
 	//float t = LinearizeDepth(UV, texture(gShadowMap, UV).r);
-	//color = vec4(t, t, t, 1.0);
+	// color = vec4(t, t, t, 1.0);
 	//color = pointColor;
 }
 
