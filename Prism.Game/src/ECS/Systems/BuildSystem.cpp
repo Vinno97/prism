@@ -49,9 +49,6 @@ int ECS::Systems::BuildSystem::setCurrentBuild(Context &context)
 
 		if (shootDeltaTime > 0) {
 			shootDeltaTime -= context.deltaTime;
-			if (shootDeltaTime <= 0) {
-				builderComponent->isBuilding = false;
-			}
 		}
 
 		if (buildDeltaTime <= 0) {

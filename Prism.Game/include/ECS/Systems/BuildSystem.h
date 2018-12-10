@@ -46,7 +46,7 @@ namespace ECS {
 			EntityFactory ef;
 			float buildDeltaTime = 0;
 			float shootDeltaTime = 0;
-			float waitTime = 0.5;
+			float waitTime = 0.1;
 			
 			Math::Vector3f buildingColor;
 			float buildingScaleX;
