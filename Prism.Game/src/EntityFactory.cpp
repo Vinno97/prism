@@ -68,7 +68,7 @@ unsigned EntityFactory::createPlayer(unsigned entity, EntityManager& entityManag
 		.addComponent<DragComponent>(5.f)
 		.addComponent<BoundingBoxComponent>(.3, .3)
 		.addComponent<CollidableComponent>()
-		//.addComponent<BuildComponent>()
+		.addComponent<BuildComponent>()
 	    .addComponent(appearance)
 	    .getEntity();
 }

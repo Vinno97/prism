@@ -99,6 +99,7 @@ int ECS::Systems::BuildSystem::setCurrentBuild(Context &context)
 						buildingId = entityManager->createEntity(*appearance, *boundingBox, *position, DynamicComponent());
 						buildingColor = appearance->color;
 						buildingScaleX = appearance->scaleX;
+						buildingScaleY = appearance->scaleY;
 						buildingScaleZ = appearance->scaleZ;
 						entityManager->removeEntity(tempBuildId);
 					}
@@ -166,7 +167,7 @@ void ECS::Systems::BuildSystem::placeCurrentBuild(Context &context, unsigned int
 						shootDeltaTime = waitTime;
 					}
 					//currentBuild = BuildingType::NONE;
-					auto position = entityManager->getComponent<PositionComponent>(buildingId);
+					auto position = entityManager->getComponent<PositionComponent>(tempId);
 					if (position != nullptr) {
 						position->x = posX;
 						position->y = posY;
