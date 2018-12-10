@@ -19,16 +19,16 @@ namespace States {
 		PrismGame game = PrismGame();
 		context.stateMachine->addState<PrismGame>(context);
 
-		std::function<void()> callback = [context]() { context.stateMachine->setState<PrismGame>(); };
-		std::function<void(Vector3f& position, Vector3f& size)> hoverCallback = [](Vector3f& position, Vector3f& size) { position.y -= 0.01; };
-		std::function<void(Vector3f& position, Vector3f& size)> leaveCallback = [](Vector3f& position, Vector3f& size) { position.y += 0.01; };
+		auto callback = [context]() { context.stateMachine->setState<PrismGame>(); };
+		auto hoverCallback = [](Vector3f& position, Vector3f& size) { position.y -= 0.01; };
+		auto leaveCallback = [](Vector3f& position, Vector3f& size) { position.y += 0.01; };
 		menuBuilder.addControl(-0.35,  0.4, 0.6, 0.18, "img/NewGameButton.png", callback, hoverCallback, leaveCallback);
 		menuBuilder.addControl(-0.35,  0.1, 0.6, 0.18, "img/LoadGameButton.png", hoverCallback, leaveCallback);
 		menuBuilder.addControl(-0.35, -0.7, 0.6, 0.18, "img/QuitGameButton.png", hoverCallback, leaveCallback);
 
 
 		menu = menuBuilder.buildMenu();
-		Renderer::Graphics::RenderDevice* renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
+		auto renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
 		renderDevice->setClearColour(1.f, 1.f, 1.f, 1.f);
 	}
 

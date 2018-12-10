@@ -10,7 +10,7 @@ namespace Menu {
 		ControlBuilder();
 
 		Control buildControl();
-		void setClickCallback(std::function<void()> callback));
+		void setClickCallback(std::function<void()> callback);
 		void setLeaveCallback(std::function<void(Math::Vector3f&position, Math::Vector3f&size)> callback);
 		void setEnterCallback(std::function<void(Math::Vector3f&position, Math::Vector3f&size)> callback);
 		void setTexture(const char *path);
