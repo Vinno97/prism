@@ -36,6 +36,7 @@
 #include "World/Assemblers/PrismEntityAssembler.h"
 #include "ECS/Systems/MousePointSystem.h"
 #include "ECS/Systems/EnemySpawnSystem.h"
+#include "ECS/Systems/HealthRegenerationSystem.h"
 #include <functional>
 
 namespace States {
@@ -109,6 +110,7 @@ namespace States {
 			//5
 			.registerSystem<5, RenderSystem>(entityManager, context.window->width, context.window->height)
 			.registerSystem<5, BumpSystem>(entityManager)
+			.registerSystem<5, HealthRegenerationSystem>(entityManager)
 			.registerSystem<5, GameOverSystem>(entityManager);
 	}
 
