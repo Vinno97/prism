@@ -16,7 +16,7 @@ namespace Physics {
 		/// </summary>
 		/// <param name="box1">A boundingbox </param>
 		/// <param name="box2">A boundingbox </param>
-		bool CheckCollision(BoundingBox const &box1, BoundingBox const &box2);
+		bool CheckCollision(BoundingBox const &box1, BoundingBox const &box2) const;
 	};
 }
 

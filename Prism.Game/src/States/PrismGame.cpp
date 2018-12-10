@@ -105,8 +105,8 @@ namespace States {
 			//1
 			.registerSystem<1, KeyboardInputSystem>(entityManager)
 			.registerSystem<1, MousePointSystem>(entityManager)
-			.registerSystem<1, EnemyPathFindingSystem>(entityManager, 10)
 			.registerSystem<1, CheatSystem>(entityManager)
+			.registerSystem<1, EnemyPathFindingSystem>(entityManager, 15)
 
 			//2
 			.registerSystem<2, MotionSystem>(entityManager)
@@ -116,25 +116,26 @@ namespace States {
 			.registerSystem<2, EnemySpawnSystem>(entityManager)
 
 			//3
-			.registerSystem<3, CollisionSystem>(entityManager, context.window->width, context.window->height, 0, 0, 2)
 			.registerSystem<3, ResourceBlobSystem>(entityManager)
 			.registerSystem<3, ShootingSystem>(entityManager)
+			.registerSystem<3, CollisionSystem>(entityManager, context.window->width, context.window->height, 0, 0, 2)
 
 			//4
 			.registerSystem<4, ProjectileAttackSystem>(entityManager)
 			.registerSystem<4, AttackSystem>(entityManager)
 
 			//5
-			.registerSystem<5, RenderSystem>(entityManager, context.window->width, context.window->height)
 			.registerSystem<5, BumpSystem>(entityManager)
+			.registerSystem<5, RenderSystem>(entityManager, context.window->width, context.window->height)
 			.registerSystem<5, HealthRegenerationSystem>(entityManager)
 			.registerSystem<5, GameOverSystem>(entityManager);
 	}
 
 	void PrismGame::onUpdate(Context &context)
 	{
+		std::cout << "FPS:   \t" << 1.0 / context.deltaTime << std::endl;
+
 		toggleFPS(context);
-		std::cout << 1.0 / context.deltaTime << "\r";
 		auto input = context.inputManager;
 		if (menu->handleInput(*context.inputManager, context.window->width, context.window->height)) {
 			return;
