@@ -26,6 +26,7 @@
 #include "ECS/Components/VelocityComponent.h"
 #include "ECS/Components/WallComponent.h"
 #include "ECS/Components/CollidableComponent.h"
+#include "ECS/Components/BuildComponent.h"
 #include "ECS/EntityBuilder.h"
 #include "Renderer/Camera.h"
 #include "Renderer/Graphics/Loader/ModelLoader.h"
@@ -55,20 +56,21 @@ unsigned EntityFactory::createPlayer(unsigned entity, EntityManager& entityManag
 	appearance.color = Math::Vector3f{1.0f, 0.5f, 0.5f};
 
 	return EntityBuilder(entityManager, entity)
-	       .addComponent<VelocityComponent>()
-	       .addComponent<PositionComponent>()
-	       .addComponent<KeyboardInputComponent>()
-	       .addComponent<PlayerComponent>()
-	       .addComponent<InventoryComponent>()
-	       .addComponent<ResourceGatherComponent>()
-	       .addComponent<ShootingComponent>()
-	       .addComponent<DynamicComponent>()
-	       .addComponent<HealthComponent>(100)
-	       .addComponent<DragComponent>(5.f)
-	       .addComponent<BoundingBoxComponent>(.3, .3)
-		   .addComponent<CollidableComponent>()
-	       .addComponent(appearance)
-	       .getEntity();
+		.addComponent<VelocityComponent>()
+		.addComponent<PositionComponent>()
+		.addComponent<KeyboardInputComponent>()
+		.addComponent<PlayerComponent>()
+		.addComponent<InventoryComponent>()
+		.addComponent<ResourceGatherComponent>()
+		.addComponent<ShootingComponent>()
+		.addComponent<DynamicComponent>()
+		.addComponent<HealthComponent>(100)
+		.addComponent<DragComponent>(5.f)
+		.addComponent<BoundingBoxComponent>(.3, .3)
+		.addComponent<CollidableComponent>()
+		//.addComponent<BuildComponent>()
+	    .addComponent(appearance)
+	    .getEntity();
 }
 
 unsigned EntityFactory::createEnemy(EntityManager& entityManager) const

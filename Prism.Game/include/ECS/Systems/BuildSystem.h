@@ -33,7 +33,7 @@ namespace ECS {
 			/// <summary>
 			/// Places a building if the requirements are met
 			/// </summary>
-			void placeCurrentBuild(Context &context, unsigned int playerId);
+			void placeCurrentBuild(Context &context, unsigned int buildId);
 
 			/// <summary>
 			/// Moves the building based on mouse movement
@@ -44,7 +44,8 @@ namespace ECS {
 			BuildingType currentBuild = BuildingType::NONE;
 
 			EntityFactory ef;
-			float deltaTime;
+			float buildDeltaTime = 0;
+			float shootDeltaTime = 0;
 			float waitTime = 0.5;
 			
 			Math::Vector3f buildingColor;

@@ -11,6 +11,7 @@
 #include "ECS/Components/DynamicComponent.h"
 #include "ECS/Components/InventoryComponent.h"
 #include "ECS/Components/CollidableComponent.h"
+#include "ECS/Components/BuildComponent.h"
 #include <algorithm>
 #include <cmath>
 
@@ -29,58 +30,64 @@ ECS::Systems::BuildSystem::~BuildSystem()
 
 
 void ECS::Systems::BuildSystem::update(Context& context) {
-	auto playerId = setCurrentBuild(context);
-	placeCurrentBuild(context,playerId);
+	auto builderId = setCurrentBuild(context);
+	placeCurrentBuild(context, builderId);
 	moveCurrentBuilt();
 }
 
 int ECS::Systems::BuildSystem::setCurrentBuild(Context &context)
 {
-	auto players = entityManager->getAllEntitiesWithComponent<PlayerComponent>();
-	if (players.size() > 0) {
-		auto &player = players[0];
-		auto &playerComponent = player.component;
-		auto playerId = player.id;
+	auto builders = entityManager->getAllEntitiesWithComponent<BuildComponent>();
+	if (builders.size() > 0) {
+		auto &builder = builders[0];
+		auto &builderComponent = builder.component;
+		auto builderId = builder.id;
 
-		if (deltaTime > 0) {
-			deltaTime -= context.deltaTime;
+		if (buildDeltaTime > 0) {
+			buildDeltaTime -= context.deltaTime;
 		}
 
-		if (deltaTime == 0) {
+		if (shootDeltaTime > 0) {
+			shootDeltaTime -= context.deltaTime;
+			if (shootDeltaTime <= 0) {
+				builderComponent->isBuilding = false;
+			}
+		}
+
+		if (buildDeltaTime <= 0) {
 			auto key1Pressed = context.inputManager->isKeyPressed(Key::KEY_1);
 			auto key2Pressed = context.inputManager->isKeyPressed(Key::KEY_2);
 			auto key3Pressed = context.inputManager->isKeyPressed(Key::KEY_3);
 			auto keyTabPressed = context.inputManager->isKeyPressed(Key::KEY_TAB);
-			BuildingType newBuild;
 
 			if (key1Pressed || key2Pressed || key3Pressed || keyTabPressed) {
-				deltaTime = waitTime;
+				buildDeltaTime = waitTime;
 				int tempBuildId = -1;
 
 				if (currentBuild != BuildingType::NONE) {
 					entityManager->removeEntity(buildingId);
 					buildingId = -1;
-					playerComponent->isBuilding = false;
+					builderComponent->isBuilding = false;
 				}
 
 				if (key1Pressed && currentBuild != BuildingType::WALL) {
 					tempBuildId = ef.createWall(*entityManager);
 					currentBuild = BuildingType::WALL;
-					playerComponent->isBuilding = true;
+					builderComponent->isBuilding = true;
 				}
 				else if (key2Pressed && currentBuild != BuildingType::TOWER) {
 					tempBuildId = ef.createTower(*entityManager);
 					currentBuild = BuildingType::TOWER;
-					playerComponent->isBuilding = true;
+					builderComponent->isBuilding = true;
 				}
 				else if (key3Pressed && currentBuild != BuildingType::MINE) {
 					tempBuildId = ef.createMine(*entityManager);
 					currentBuild = BuildingType::MINE;
-					playerComponent->isBuilding = true;
+					builderComponent->isBuilding = true;
 				}
 				else {
 					currentBuild = BuildingType::NONE;
-					playerComponent->isBuilding = false;
+					builderComponent->isBuilding = false;
 				}
 
 				if (currentBuild != BuildingType::NONE) {
@@ -102,78 +109,85 @@ int ECS::Systems::BuildSystem::setCurrentBuild(Context &context)
 				}
 			}
 		}
+		return builderId;
 	}
+	return -1;
 }
 
-void ECS::Systems::BuildSystem::placeCurrentBuild(Context &context, unsigned int playerId)
+void ECS::Systems::BuildSystem::placeCurrentBuild(Context &context, unsigned int builderId)
 {
 	if (currentBuild != BuildingType::NONE) {
 		auto boundingBoxComponent = entityManager->getComponent<BoundingBoxComponent>(buildingId);
-		auto inventory = entityManager->getComponent<InventoryComponent>(playerId);
+		auto inventory = entityManager->getComponent<InventoryComponent>(builderId);
 
-		bool enoughResources = false;
-		if (currentBuild == BuildingType::WALL && inventory->greenResource >= wallRequirements) {
-			enoughResources = true;
-		}
-		else if (currentBuild == BuildingType::TOWER && inventory->redResource >= towerRequirements) {
-			enoughResources = true;
-		}
-		else if (currentBuild == BuildingType::MINE && inventory->blueResource >= towerRequirements) {
-			enoughResources = true;
-		}
-
-		bool canPlace = !boundingBoxComponent->didCollide;
-
-		auto appearance = entityManager->getComponent<AppearanceComponent>(buildingId);
-		appearance->color = buildingColor;
-		appearance->scaleX = buildingScaleX;
-		appearance->scaleY = buildingScaleY;
-		appearance->scaleZ = buildingScaleZ;
-
-		auto shooting = entityManager->getComponent<ShootingComponent>(playerId);
-		shooting->isShooting = false;
-
-		if (canPlace && enoughResources) {
-			if (context.inputManager->isMouseButtonPressed(Key::MOUSE_BUTTON_LEFT)) {
-				unsigned int tempId;
-				//entityManager->removeEntity(buildingId);
-				if (currentBuild == BuildingType::WALL) {
-					//buildingId = ef.createWall(*entityManager);
-					tempId = ef.createWall(*entityManager);
-					inventory->greenResource -= wallRequirements;
-				}
-				else if (currentBuild == BuildingType::TOWER) {
-					//buildingId = ef.createTower(*entityManager);
-					tempId = ef.createWall(*entityManager);
-					inventory->redResource -= towerRequirements;
-				}
-				else if (currentBuild == BuildingType::MINE) {
-					//buildingId = ef.createMine(*entityManager);
-					tempId = ef.createWall(*entityManager);
-					inventory->blueResource -= mineRequirements;
-				}
-				//currentBuild = BuildingType::NONE;
-				auto position = entityManager->getComponent<PositionComponent>(buildingId);
-				if (position != nullptr) {
-					position->x = posX;
-					position->y = posY;
-				}
-				//buildingId = -1;
+		if (inventory != nullptr) {
+			bool enoughResources = false;
+			if (currentBuild == BuildingType::WALL && inventory->greenResource >= wallRequirements) {
+				enoughResources = true;
 			}
-		}
-		else {
-			if (!canPlace) {
-				//TODO :: leuk muziekje?
+			else if (currentBuild == BuildingType::TOWER && inventory->redResource >= towerRequirements) {
+				enoughResources = true;
 			}
-			if (!enoughResources) {
-				//TODO :: leuk muziekje?
+			else if (currentBuild == BuildingType::MINE && inventory->blueResource >= towerRequirements) {
+				enoughResources = true;
 			}
-			appearance->color = Math::Vector3f{ 1.0f, 0.5f, 0.5f };
-			appearance->scaleX = buildingScaleX * 1.1;
-			appearance->scaleY = buildingScaleY * 1.1;
-			appearance->scaleZ = buildingScaleZ * 1.1;
+
+			bool canPlace = !boundingBoxComponent->didCollide;
+
+			auto appearance = entityManager->getComponent<AppearanceComponent>(buildingId);
+			appearance->color = buildingColor;
+			appearance->scaleX = buildingScaleX;
+			appearance->scaleY = buildingScaleY;
+			appearance->scaleZ = buildingScaleZ;
+
+			auto shooting = entityManager->getComponent<ShootingComponent>(builderId);
+			shooting->isShooting = false;
+
+			if (canPlace && enoughResources) {
+				if (context.inputManager->isMouseButtonPressed(Key::MOUSE_BUTTON_LEFT)) {
+					unsigned int tempId;
+					//entityManager->removeEntity(buildingId);
+					if (currentBuild == BuildingType::WALL) {
+						//buildingId = ef.createWall(*entityManager);
+						tempId = ef.createWall(*entityManager);
+						inventory->greenResource -= wallRequirements;
+						shootDeltaTime = waitTime;
+					}
+					else if (currentBuild == BuildingType::TOWER) {
+						//buildingId = ef.createTower(*entityManager);
+						tempId = ef.createWall(*entityManager);
+						inventory->redResource -= towerRequirements;
+						shootDeltaTime = waitTime;
+					}
+					else if (currentBuild == BuildingType::MINE) {
+						//buildingId = ef.createMine(*entityManager);
+						tempId = ef.createWall(*entityManager);
+						inventory->blueResource -= mineRequirements;
+						shootDeltaTime = waitTime;
+					}
+					//currentBuild = BuildingType::NONE;
+					auto position = entityManager->getComponent<PositionComponent>(buildingId);
+					if (position != nullptr) {
+						position->x = posX;
+						position->y = posY;
+					}
+					//buildingId = -1;
+				}
+			}
+			else {
+				if (!canPlace) {
+					//TODO :: leuk muziekje?
+				}
+				if (!enoughResources) {
+					//TODO :: leuk muziekje?
+				}
+				appearance->color = Math::Vector3f{ 1.0f, 0.5f, 0.5f };
+				appearance->scaleX = buildingScaleX * 1.1;
+				appearance->scaleY = buildingScaleY * 1.1;
+				appearance->scaleZ = buildingScaleZ * 1.1;
+			}
+			boundingBoxComponent->didCollide = false;
 		}
-		boundingBoxComponent->didCollide = false;
 	}
 }
 

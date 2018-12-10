@@ -140,7 +140,7 @@
     <ClInclude Include="include\World\Assemblers\MineAssembler.h" />
     <ClInclude Include="include\ECS\Components\TargetComponent.h" />
     <ClInclude Include="include\ECS\Systems\HealthRegenerationSystem.h" />
-    <ClInclude Include="include\ECS\Components\PlayerComponent.h" />
+    <ClInclude Include="include\ECS\Components\BuildComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="lib\assimp-vc140-mtd.dll" />

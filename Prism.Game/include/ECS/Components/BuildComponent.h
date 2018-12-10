@@ -4,10 +4,12 @@
 
 namespace ECS {
 	namespace Components {
-		struct PlayerComponent : Component {
+		struct BuildComponent : Component {
 			bool isBuilding = false;
 			std::unique_ptr<Component> clone() override {
-				return std::make_unique<PlayerComponent>();
+				BuildComponent component;
+				component.isBuilding = this->isBuilding;
+				return std::make_unique<BuildComponent>(component);
 			}
 		};
 	}

@@ -158,6 +158,7 @@
     <ClInclude Include="include\Menu\TextRenderer.h" />
     <ClInclude Include="include\Menu\TextControl.h" />
     <ClInclude Include="include\ECS\Components\CollidableComponent.h" />
+    <ClInclude Include="include\ECS\Components\PlayerComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\x64\SDL2test.lib" />
