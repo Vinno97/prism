@@ -14,12 +14,14 @@
     <ClInclude Include="include\AudioManager.h" />
     <ClInclude Include="include\ECS\Components\DynamicComponent.h" />
     <ClInclude Include="include\ECS\EntityBuilder.h" />
+    <ClInclude Include="include\ECS\Components\PointLightComponent.h" />
     <ClInclude Include="include\Menu\Control.h" />
     <ClInclude Include="include\ECS\Components\PlayerComponent.h" />
     <ClInclude Include="include\Menu\TextControl.h" />
     <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLRenderTarget.h" />
     <ClInclude Include="include\Renderer\Graphics\RenderTarget.h" />
     <ClInclude Include="include\Util\AdvertisementSystem.h" />
+    <ClInclude Include="include\Renderer\PointLight.h" />
     <ClInclude Include="include\World\Assemblers\AppearanceAssembler.h" />
     <ClInclude Include="include\World\Assemblers\HealthAssembler.h" />
     <ClInclude Include="include\World\EntityConfigurators\AppearanceConfigurator.h" />

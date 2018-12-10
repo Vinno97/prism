@@ -158,6 +158,8 @@
     <ClInclude Include="include\Util\AdvertisementSystem.h" />
     <ClInclude Include="include\Menu\TextRenderer.h" />
     <ClInclude Include="include\Menu\TextControl.h" />
+    <ClInclude Include="include\Renderer\PointLight.h" />
+    <ClInclude Include="include\ECS\Components\PointLightComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\x64\SDL2test.lib" />
