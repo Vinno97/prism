@@ -61,10 +61,10 @@ namespace ECS {
 			if (entityManager->hasComponent<HealthComponent>(id)) {
 				auto currentComponent = entityManager->getComponent<HealthComponent>(id);
 
-				currentComponent->health -= 10;
+				currentComponent->currentHealth -= 10;
 
 				// Print (Remove after review)
-				std::cout << "Speler: " << currentComponent->health << std::endl;
+				std::cout << "Speler: " << currentComponent->currentHealth << std::endl;
 			}
 		}
 	}

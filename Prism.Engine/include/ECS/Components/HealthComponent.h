@@ -9,19 +9,20 @@ namespace ECS
 		{
 			HealthComponent() = default;
 
-			/// <summary>
-			///	The position in units
-			/// </summary>
-			float health{0};
+			//The current health of this entity
+			float currentHealth{0};
 
-			HealthComponent(int healthIn) : health(healthIn)
+			//the Maximum health of this entity
+			float maxHealth{0};
+			HealthComponent(float maxHealth) : currentHealth(maxHealth) , maxHealth(maxHealth)
 			{
 			};
 
 			std::unique_ptr<Component> clone() override
 			{
 				auto component = std::make_unique<HealthComponent>();
-				component->health = health;
+				component->currentHealth = currentHealth;
+				component->maxHealth = maxHealth;
 				return component;
 			}
 		};

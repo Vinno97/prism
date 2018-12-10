@@ -41,6 +41,7 @@
 #include "World/Assemblers/PrismEntityAssembler.h"
 #include "ECS/Systems/MousePointSystem.h"
 #include "ECS/Systems/EnemySpawnSystem.h"
+#include "ECS/Systems/HealthRegenerationSystem.h"
 #include <functional>
 
 namespace States {
@@ -79,21 +80,15 @@ namespace States {
 			context.stateMachine->addState<EndState>(context);
 		}
 
-		menuBuilder.addControl(-0.97, 0.89, 0.06, 0.066, "img/heart.png");
-		health = menuBuilder.addTextControl(-0.9, 0.9, 0.0014, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "100");
+		menuBuilder.addControl(0.6, 0.35, 0.40, 0.65, "img/resources.png");
+		menuBuilder.addControl(-1, 0.83, 0.4, 0.15, "img/healthbar.png");
+		health = menuBuilder.addTextControl(-0.98, 0.89, 0.0012, Math::Vector3f{ 1.0f, 1.0f, 1.0f }, "100");
+		blueResource = menuBuilder.addTextControl(0.65, 0.83, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
+		redResource = menuBuilder.addTextControl(0.65, 0.64, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
+		greenResource = menuBuilder.addTextControl(0.65, 0.45, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
 
-		menuBuilder.addControl(-0.50, 0.9, 0.06, 0.06, "img/reddot.png");
-		redResource = menuBuilder.addTextControl(-0.43, 0.91, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
-
-
-		menuBuilder.addControl(-0.10, 0.9, 0.06, 0.06, "img/greendot.png");
-		greenResource = menuBuilder.addTextControl(-0.03, 0.91, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
-
-		menuBuilder.addControl(0.32, 0.9, 0.06, 0.06, "img/bluedot.png");
-		blueResource = menuBuilder.addTextControl(0.39,  0.91, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
-
-		fps = menuBuilder.addTextControl(0.725, 0.90, 0.0015, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "");
-		score = menuBuilder.addTextControl(0.65, 0.85, 0.0015, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
+		fps = menuBuilder.addTextControl(0.725, 0.25, 0.0015, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "");
+		score = menuBuilder.addTextControl(-0.9, -0.8, 0.0015, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
 
 
 		menu = menuBuilder.buildMenu();
@@ -112,8 +107,8 @@ namespace States {
 			//1
 			.registerSystem<1, KeyboardInputSystem>(entityManager)
 			.registerSystem<1, MousePointSystem>(entityManager)
-			.registerSystem<1, EnemyPathFindingSystem>(entityManager, 10)
 			.registerSystem<1, CheatSystem>(entityManager)
+			.registerSystem<1, EnemyPathFindingSystem>(entityManager, 15)
 
 			//2
 			.registerSystem<2, MotionSystem>(entityManager)
@@ -123,54 +118,56 @@ namespace States {
 			.registerSystem<2, EnemySpawnSystem>(entityManager)
 
 			//3
-			.registerSystem<3, CollisionSystem>(entityManager, context.window->width, context.window->height, 0, 0, 2)
 			.registerSystem<3, ResourceBlobSystem>(entityManager)
 			.registerSystem<3, ShootingSystem>(entityManager)
+			.registerSystem<3, CollisionSystem>(entityManager, context.window->width, context.window->height, 0, 0, 2)
 
 			//4
 			.registerSystem<4, ProjectileAttackSystem>(entityManager)
 			.registerSystem<4, AttackSystem>(entityManager)
 
 			//5
-			.registerSystem<5, RenderSystem>(entityManager, context.window->width, context.window->height)
 			.registerSystem<5, BumpSystem>(entityManager)
 			.registerSystem<5, GameOverSystem>(entityManager)
-			.registerSystem<5, ScoreSystem>(entityManager);
+			.registerSystem<5, ScoreSystem>(entityManager)
+			.registerSystem<5, RenderSystem>(entityManager, context.window->width, context.window->height)
+			.registerSystem<5, HealthRegenerationSystem>(entityManager);
 	}
 
 	void PrismGame::onUpdate(Context &context)
 	{
-		std::cout << 1.0 / context.deltaTime << "\r";
+		std::cout << "FPS:   \t" << 1.0 / context.deltaTime << std::endl;
+
 		toggleFPS(context);
 		auto input = context.inputManager;
-		if (menu->handleInput(*context.inputManager, context.window->width, context.window->height)) {
-			return;
-		}
+	
 		for (auto& systemList : systemManager.getAllSystems()) {
 			for (auto& system : systemList.second) {
 				system.second->update(context);
 			}
 		}
 			
-
 		auto inventory = entityManager.getAllEntitiesWithComponent<InventoryComponent>()[0].component;
 		int playerHealth;
 		int totalScore;
 		for (const auto& entity : entityManager.getAllEntitiesWithComponent<PlayerComponent>()) {
-			playerHealth = entityManager.getComponent<HealthComponent>(entity.id)->health;
+			playerHealth = entityManager.getComponent<HealthComponent>(entity.id)->currentHealth;
 			totalScore = entityManager.getComponent<ScoreComponent>(entity.id)->totalScore;
 		}
 
-		redResource->text =   "Red:   " + std::to_string(static_cast<int>(inventory->redResource));
-		blueResource->text =  "Blue:  " + std::to_string(static_cast<int>(inventory->blueResource));
-		greenResource->text = "Green: " + std::to_string(static_cast<int>(inventory->greenResource));
+		redResource->text = std::to_string(static_cast<int>(inventory->redResource));
+		blueResource->text = std::to_string(static_cast<int>(inventory->blueResource));
+		greenResource->text = std::to_string(static_cast<int>(inventory->greenResource));
 		health->text = "Health: " + std::to_string(playerHealth);
 		score->text = "Score: " + std::to_string(totalScore);
 
 		menuRenderer.renderMenu(*menu, float(context.window->width) / float(context.window->height));
 		context.window->swapScreen();
 
-	
+		if (menu->handleInput(*context.inputManager, context.window->width, context.window->height)) {
+			return;
+		}
+
 
 		if (!input->isKeyPressed(Key::KEY_ESCAPE)) {
 			canPressEscape = true;
@@ -189,6 +186,7 @@ namespace States {
 		context.audioManager->addSound("Bullet", "Bullet.wav");
 		context.audioManager->addSound("EnemyKill", "EnemyKill.wav");
 		context.audioManager->addSound("Resource", "ResourceGathering.wav");
+		context.audioManager->addSound("Heartbeat", "Heartbeat.wav");
 	}
 
 	void PrismGame::onEnter(Context &context) {
