@@ -55,7 +55,7 @@ unsigned EntityFactory::createPlayer(EntityManager& entityManager) const
 }
 
 unsigned EntityFactory::createPlayer(unsigned entity, EntityManager& entityManager) const {
-	auto model = moderLoader.loadModel("./res/player.obj");
+	auto model = modelLoader.loadModel("./res/player.obj");
 
 	AppearanceComponent appearance;
 	appearance.scaleX = 0.002f;
@@ -87,7 +87,7 @@ unsigned EntityFactory::createEnemy(EntityManager& entityManager) const
 
 unsigned EntityFactory::createEnemy(unsigned entity, EntityManager& entityManager) const
 {
-	auto model = moderLoader.loadModel("./res/uglyenemy.obj");
+	auto model = modelLoader.loadModel("./res/uglyenemy.obj");
 
 	AppearanceComponent appearance;
 	appearance.scaleX = 0.002f;
@@ -119,7 +119,7 @@ unsigned EntityFactory::createResourcePoint(unsigned entity, EntityManager& enti
                                             Enums::ResourceType type, int gatherRate,
                                             float value) const
 {
-	auto model = moderLoader.loadModel("./res/resource2.obj");
+	auto model = modelLoader.loadModel("./res/resource2.obj");
 
 	AppearanceComponent appearance;
 	appearance.scaleX = 0.002f;
@@ -153,7 +153,7 @@ unsigned EntityFactory::createTower(EntityManager& entityManager) const
 
 unsigned EntityFactory::createTower(unsigned entity, EntityManager& entityManager) const
 {
-	auto model = moderLoader.loadModel("./res/wall.obj");
+	auto model = modelLoader.loadModel("./res/wall.obj");
 
 	AppearanceComponent appearance;
 	appearance.scaleX = 0.5f;
@@ -176,7 +176,7 @@ unsigned EntityFactory::createWall(EntityManager& entityManager) const
 
 unsigned EntityFactory::createWall(unsigned entity, EntityManager& entityManager) const
 {
-	auto model = moderLoader.loadModel("./res/wall.obj");
+	auto model = modelLoader.loadModel("./res/wall.obj");
 
 	AppearanceComponent appearance;
 	appearance.scaleX = 0.5f;
@@ -200,7 +200,7 @@ unsigned EntityFactory::createMine(EntityManager& entityManager) const
 
 unsigned EntityFactory::createMine(unsigned entity, EntityManager& entityManager) const
 {
-	auto model = moderLoader.loadModel("./res/uglyenemy.obj");
+	auto model = modelLoader.loadModel("./res/uglyenemy.obj");
 
 	AppearanceComponent appearance;
 	appearance.scaleX = 0.005f;
@@ -234,7 +234,7 @@ unsigned EntityFactory::createProjectile(EntityManager& entityManager) const
 
 unsigned EntityFactory::createProjectile(unsigned entity, EntityManager& entityManager) const
 {
-	auto model = moderLoader.loadModel("./res/projectile.obj");
+	auto model = modelLoader.loadModel("./res/projectile.obj");
 
 	AppearanceComponent appearance;
 	appearance.scaleX = 0.1f;
@@ -352,7 +352,7 @@ unsigned EntityFactory::createEnemySpawn(unsigned entity,
                                          ECS::EntityManager& entityManager,
                                          float spawnInterval, bool enabled) const
 {
-	auto model = moderLoader.loadModel("./res/spawner.obj");
+	auto model = modelLoader.loadModel("./res/spawner.obj");
 	
 	AppearanceComponent appearance;
 	appearance.scaleX = 0.15f;

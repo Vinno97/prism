@@ -48,5 +48,5 @@ public:
 	unsigned createCameraPointer(ECS::EntityManager & entityManager);
 private:
 	static std::unique_ptr<EntityFactory> instance;
-	Renderer::Graphics::Loader::ModelLoader moderLoader;
+	Renderer::Graphics::Loader::ModelLoader modelLoader;
 };
