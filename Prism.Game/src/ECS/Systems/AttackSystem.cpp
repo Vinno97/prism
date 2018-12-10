@@ -60,15 +60,15 @@ namespace ECS {
 			if (entityManager->hasComponent<HealthComponent>(id)) {
 				auto currentComponent = entityManager->getComponent<HealthComponent>(id);
 
-				currentComponent->health -= 10;
+				currentComponent->currentHealth -= 10;
 
-				if (!entityManager->hasComponent<PlayerComponent>(id) && currentComponent->health <= 0) {
+				if (!entityManager->hasComponent<PlayerComponent>(id) && currentComponent->currentHealth <= 0) {
 					//context.stateMachine->setState<EndState>();
 					entityManager->removeEntity(id);
 				}
 
 				// Print (Remove after review)
-				std::cout << "Speler: " << currentComponent->health << std::endl;
+				std::cout << "Speler: " << currentComponent->currentHealth << std::endl;
 			}
 		}
 	}

@@ -23,7 +23,7 @@ namespace ECS {
 				if (ticks == 0)
 				{
 					ticks = 1;;
-					healthComponent->health += 100;
+					healthComponent->currentHealth += 100;
 				}
 				else {
 					ticks++;
@@ -40,13 +40,13 @@ namespace ECS {
 				auto healthComponent = entityManager->getComponent<HealthComponent>(entity.id);
 				if (ticks == 0)
 				{
-					if (healthComponent->health <= 100) {
-						healthComponent->health = 0;
+					if (healthComponent->currentHealth <= 100) {
+						healthComponent->currentHealth = 0;
 
 
 					}
 					else {
-						healthComponent->health -= 100;
+						healthComponent->currentHealth -= 100;
 					}
 
 					ticks = 1;

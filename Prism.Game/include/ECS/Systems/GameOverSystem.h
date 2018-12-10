@@ -10,6 +10,8 @@ namespace ECS {
 			GameOverSystem(EntityManager &entityManager);
 			~GameOverSystem();
 			void update(Context& context) override;
+		private:
+			bool health_sound_is_playing = false;
 		};
 	}
 }

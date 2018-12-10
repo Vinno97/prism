@@ -1,3 +1,4 @@
+#include "Menu/TextRenderer.h"
 #include "States/PrismGame.h"
 
 #include "Math/Vector3f.h"
@@ -35,6 +36,7 @@
 #include "World/Assemblers/PrismEntityAssembler.h"
 #include "ECS/Systems/MousePointSystem.h"
 #include "ECS/Systems/EnemySpawnSystem.h"
+#include "ECS/Systems/HealthRegenerationSystem.h"
 #include <functional>
 #include "ECS/Systems/BuildSystem.h"
 
@@ -110,17 +112,17 @@ namespace States {
 			//5
 			.registerSystem<5, BumpSystem>(entityManager)
 			.registerSystem<5, RenderSystem>(entityManager, context.window->width, context.window->height)
+			.registerSystem<5, HealthRegenerationSystem>(entityManager)
 			.registerSystem<5, GameOverSystem>(entityManager);
 	}
 
 	void PrismGame::onUpdate(Context &context)
 	{
 		std::cout << "FPS:   \t" << 1.0 / context.deltaTime << std::endl;
-		//context.deltaTime *= 2.5;
 
 		auto input = context.inputManager;
-		if (menu.handleInput(*context.inputManager, context.window->width, context.window->height)) { 
-			return; 
+		if (menu.handleInput(*context.inputManager, context.window->width, context.window->height)) {
+			return;
 		}
 
 		for (auto& systemList : systemManager.getAllSystems()) {
@@ -148,6 +150,7 @@ namespace States {
 		context.audioManager->addSound("Bullet", "Bullet.wav");
 		context.audioManager->addSound("EnemyKill", "EnemyKill.wav");
 		context.audioManager->addSound("Resource", "ResourceGathering.wav");
+		context.audioManager->addSound("Heartbeat", "Heartbeat.wav");
 	}
 
 	void PrismGame::onEnter(Context &context) {

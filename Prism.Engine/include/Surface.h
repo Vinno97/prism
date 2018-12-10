@@ -6,6 +6,7 @@ class Surface
 {
 public:
 	Surface(const char* path);
+	~Surface();
 	int width();
 	int height();
 	void* pixels();

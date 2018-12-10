@@ -18,86 +18,61 @@ BumpSystem::~BumpSystem()
 void BumpSystem::update(Context& context)
 {
 	for (auto entity : entityManager->getAllEntitiesWithComponent<DynamicComponent>()) {
-		auto boundingBoxComponent = entityManager->getComponent<BoundingBoxComponent>(entity.id);		
-		if (boundingBoxComponent != nullptr) {
-			auto currentPosition = entityManager->getComponent<PositionComponent>(entity.id);
-			auto currentVelocity = entityManager->getComponent<VelocityComponent>(entity.id);
+		auto boundingBoxComponent = entityManager->getComponent<BoundingBoxComponent>(entity.id);
+		if(boundingBoxComponent != nullptr){
+			auto & collisions = boundingBoxComponent->collidesWith;
 
-			if (currentPosition != nullptr && currentVelocity != nullptr) {
-
-				auto & collisions = boundingBoxComponent->collidesWith;
-				auto collisionsCopy = collisions;
-
-				if (collisions.size() > 0) {
+			if (collisions.size() > 0) {
+				auto currentPosition = entityManager->getComponent<PositionComponent>(entity.id);
+				auto currentVelocity = entityManager->getComponent<VelocityComponent>(entity.id);
+				if (currentPosition != nullptr && currentVelocity != nullptr) {
 					const auto & currentBB = boundingBoxComponent->boundingBox;
-					
+
+					//Collision on x
 					bool xCol = false;
+					//Collision on y
 					bool yCol = false;
 
-					int forceX = 0;
-					int forceY = 0;
+					for (auto& colliderId : collisions) {
+						if (entityManager->hasComponent<PositionComponent>(colliderId)) {
+							auto colliderPosition = entityManager->getComponent<PositionComponent>(colliderId);
 
-					float x = currentPosition->x;
-					float y = currentPosition->y;
-					BoundingBox bbXMin = BoundingBox(currentBB);
-					bbXMin.SetPosXY(x - currentVelocity->dx * context.deltaTime, y);
-					BoundingBox bbYMin = BoundingBox(currentBB);
-					bbYMin.SetPosXY(x, y - currentVelocity->dy * context.deltaTime);
-					BoundingBox bbXYMin = BoundingBox(currentBB);
-					bbXYMin.SetPosXY(x - currentVelocity->dx * context.deltaTime, y - currentVelocity->dy * context.deltaTime);
-
-					for (auto& id : collisions) {
-						auto colliderPosition = entityManager->getComponent<PositionComponent>(id);
-						if (colliderPosition != nullptr) {
-							
-							//Various checks for collisions
+							//Various checks for collisions. Only in theses situations does the collisions need to be resolved
 							bool cx2 = currentPosition->x < colliderPosition->x && currentVelocity->dx > 0;
 							bool cx1 = currentPosition->x > colliderPosition->x && currentVelocity->dx < 0;
 							bool cy1 = currentPosition->y > colliderPosition->y && currentVelocity->dy < 0;
 							bool cy2 = currentPosition->y < colliderPosition->y && currentVelocity->dy > 0;
 
-							const auto &colliderBB = entityManager->getComponent<BoundingBoxComponent>(id)->boundingBox;
+							const auto &colliderBB = entityManager->getComponent<BoundingBoxComponent>(colliderId)->boundingBox;
 
-							auto currentX = currentBB.GetPosX();
-							auto currentY = currentBB.GetPosY();
-							auto colliderX = colliderBB.GetPosX();
-							auto colliderY = colliderBB.GetPosY();
-
+							//Depth of collision on x-axis
 							float xColT = 0.0;
+							//Depth of collision on y-axis
 							float yColT = 0.0;
 
-							auto x1 = std::abs((colliderX + colliderBB.GetEast()) - (currentX + currentBB.GetWest()));
-							auto x2 = std::abs((currentX + currentBB.GetEast()) - (colliderX + colliderBB.GetWest()));
-							auto y1 = std::abs((colliderY - colliderBB.GetSouth()) - (currentY - currentBB.GetNorth()));
-							auto y2 = std::abs((colliderY - colliderBB.GetNorth()) - (currentY - currentBB.GetSouth()));
-
 							if (currentPosition->x > colliderPosition->x) {
-								xColT = std::abs((colliderX + colliderBB.GetEast()) - (currentX + currentBB.GetWest()));
+								xColT = std::abs((colliderBB.GetEastCoordinate()) - (currentBB.GetWestCoordinate()));
 							}
 							else if (currentPosition->x < colliderPosition->x) {
-								xColT = std::abs((currentX + currentBB.GetEast()) - (colliderX + colliderBB.GetWest()));
+								xColT = std::abs((currentBB.GetEastCoordinate()) - (colliderBB.GetWestCoordinate()));
 							}
 
 							if (currentPosition->y > colliderPosition->y) {
-								yColT = std::abs((colliderY - colliderBB.GetSouth()) - (currentY - currentBB.GetNorth()));
+								yColT = std::abs((colliderBB.GetNorthCoordinate()) - (currentBB.GetSouthCoordinate()));
+								
 							}
 							else if (currentPosition->y < colliderPosition->y) {
-								yColT = std::abs((colliderY - colliderBB.GetNorth()) - (currentY - currentBB.GetSouth()));
+								yColT = std::abs((colliderBB.GetSouthCoordinate()) - (currentBB.GetNorthCoordinate()));
 							}
 
 							//The side with the least amount of collision needs te be resolved
-							if (xColT < yColT) {
-								if ((cx1 || cx2)) {
-									xCol = true;
-								}
+							if (xColT < yColT && (cx1 || cx2)) {
+								xCol = true;
 							}
-							else if (yColT < xColT) {
-								if ((cy1 || cy2)) {
-									yCol = true;
-									
-								}
+							else if (yColT < xColT && (cy1 || cy2)) {
+								yCol = true;
 							}
-							else {
+							else if (xColT == yColT){
 								xCol = true;
 								yCol = true;
 							}
@@ -106,11 +81,20 @@ void BumpSystem::update(Context& context)
 
 					//Based on the axis of the collision, the positions needs to be reset
 					if (xCol && yCol) {
-						if (CountCollisions(bbXMin, collisionsCopy) == 0) {
+						//Rare case of multicollision try to fix with only one step
+						float x = currentPosition->x;
+						float y = currentPosition->y;
+						BoundingBox bbXMin = BoundingBox(currentBB);
+						bbXMin.SetPosXY(x - currentVelocity->dx * context.deltaTime, y);
+						BoundingBox bbYMin = BoundingBox(currentBB);
+						bbYMin.SetPosXY(x, y - currentVelocity->dy * context.deltaTime);
+						BoundingBox bbXYMin = BoundingBox(currentBB);
+						bbXYMin.SetPosXY(x - currentVelocity->dx * context.deltaTime, y - currentVelocity->dy * context.deltaTime);
+						if (CountCollisions(bbXMin, collisions) == 0) {
 							currentPosition->x -= currentVelocity->dx*context.deltaTime;
 							currentVelocity->dx = 0;
 						}
-						else if (CountCollisions(bbYMin, collisionsCopy) == 0) {
+						else if (CountCollisions(bbYMin, collisions) == 0) {
 							currentPosition->y -= currentVelocity->dy*context.deltaTime;
 							currentVelocity->dy = 0;
 						}
@@ -141,7 +125,7 @@ int BumpSystem::CountCollisions(const BoundingBox &currentBox, const std::vector
 	for (const auto& entity : vector) {
 		auto bbComponent = entityManager->getComponent<BoundingBoxComponent>(entity);
 		if (bbComponent != nullptr) {
-			auto & bb = bbComponent->boundingBox;
+			auto& bb = bbComponent->boundingBox;
 			if (aabbCollider.CheckCollision(currentBox, bb)) {
 				count++;
 			}

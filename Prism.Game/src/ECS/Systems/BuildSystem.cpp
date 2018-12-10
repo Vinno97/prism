@@ -10,7 +10,7 @@
 #include "ECS/Components/AppearanceComponent.h"
 #include "ECS/Components/DynamicComponent.h"
 #include "ECS/Components/InventoryComponent.h"
-#include "ECS/Components/PlacableComponent.h"
+#include "ECS/Components/CollidableComponent.h"
 #include <algorithm>
 #include <cmath>
 

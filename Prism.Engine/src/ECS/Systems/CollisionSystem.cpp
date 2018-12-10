@@ -2,7 +2,7 @@
 #include "ECS/Components/BoundingBoxComponent.h"
 #include "ECS/Components/VelocityComponent.h"
 #include "ECS/Components/PositionComponent.h"
-#include "ECS/Components/PlacableComponent.h"
+#include "ECS/Components/CollidableComponent.h"
 #include "ECS/Components/DynamicComponent.h"
 #include <list>
 
@@ -22,7 +22,7 @@ CollisionSystem::~CollisionSystem()
 
 void CollisionSystem::update(Context& context)
 {
-	for (auto entity : entityManager->getAllEntitiesWithComponent<PlacableComponent>())
+	for (auto entity : entityManager->getAllEntitiesWithComponent<CollidableComponent>())
 	{
 		auto boundingBoxComponent = entityManager->getComponent<BoundingBoxComponent>(entity.id);
 		auto position = entityManager->getComponent<PositionComponent>(entity.id);

@@ -4,11 +4,11 @@
 
 namespace ECS {
 	namespace Components {
-		struct PlacableComponent : Component {
+		struct CollidableComponent : Component {
 			float lifeTime;
 
 			std::unique_ptr<Component> clone() override {
-				return std::make_unique<PlacableComponent>();
+				return std::make_unique<CollidableComponent>();
 			}
 		};
 	}

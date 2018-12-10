@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include "State.h"
 #include "ECS/Systems/KeyboardInputSystem.h"
 #include "Menu/MenuBuilder.h"
@@ -24,7 +25,7 @@ namespace States {
 	private:
 		Menu::MenuRenderer menuRenderer;
 		Menu::MenuBuilder menuBuilder;
-		Menu::Menu menu;
+		std::unique_ptr<Menu::Menu> menu;
 	};
 }
 
