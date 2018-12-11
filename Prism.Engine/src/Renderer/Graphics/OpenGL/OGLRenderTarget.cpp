@@ -30,15 +30,13 @@ namespace Renderer {
 					return;
 				}
 
-				GLenum* drawBuffers = new GLenum[bufferAmount];
+				GLenum drawBuffers [bufferAmount];
 				for (int i = 0; i < bufferAmount; i++) {
 					drawBuffers[i] = GL_COLOR_ATTACHMENT0 + i;
 				}
 
 				glBindFramebuffer(GL_FRAMEBUFFER, FBO);
 				glDrawBuffers(bufferAmount, drawBuffers);
-				
-				delete[] drawBuffers;
 			}
 
 			void OGLRenderTarget::unbind()
