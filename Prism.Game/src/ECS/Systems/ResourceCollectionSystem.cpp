@@ -10,6 +10,7 @@
 #include "ECS/Components/PositionComponent.h"
 #include "ECS/Components/TargetComponent.h"
 #include "Enums/ResourceTypeEnum.h"
+#include "Util/DistanceUtil.h"
 
 namespace ECS {
 	namespace Systems {
@@ -29,12 +30,17 @@ namespace ECS {
 				Math::Vector2d targetPosition = *entityManager->getComponent<PositionComponent>(target->target);
 
 				if (Math::distance(blobPosition, targetPosition) < 0.05f ) {
-					auto resource = entityManager->getComponent<ResourceBlobComponent>(blob.id);
-					auto player = entityManager->getAllEntitiesWithComponent<PlayerComponent>()[0];
-					auto playerInventory = entityManager->getComponent<InventoryComponent>(player.id);
+					const auto resource = entityManager->getComponent<ResourceBlobComponent>(blob.id);
+					const auto player = entityManager->getAllEntitiesWithComponent<PlayerComponent>()[0];
+					const auto playerInventory = entityManager->getComponent<InventoryComponent>(player.id);
+					Math::Vector2d playerPosition = *entityManager->getComponent<PositionComponent>(player.id);
+
 					increaseResource(resource->resourceType, *playerInventory, resource->value);
 
-					context.audioManager->playSound("Resource");
+					const auto distance = Math::distance(blobPosition, playerPosition);
+					Util::DistanceUtil distanceUtil;
+					context.audioManager->playSound("Resource", distanceUtil.CalculateDistance(blobPosition.x, blobPosition.y, playerPosition.x, playerPosition.y));
+					// context.audioManager->playSound("Resource", distance);
 					entityManager->removeEntity(blob.id);
 				}
 			}

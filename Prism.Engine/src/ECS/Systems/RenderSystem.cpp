@@ -4,6 +4,7 @@
 #include "ECS/Components/PlayerComponent.h"
 #include "ECS/Components/SceneComponent.h"
 #include "ECS/Components/CameraComponent.h"
+#include "ECS/Components/PointLightComponent.h"
 #include "glm/glm.hpp"
 #include <tuple>
 #include "Renderer/Renderable.h"
@@ -27,8 +28,7 @@ namespace ECS {
 			forwardRenderer = std::make_shared<ForwardRenderer>(windowWidth, windowHeight);
 			auto cameraComponent = this->entityManager->getAllEntitiesWithComponent<CameraComponent>()[0].component;
 			auto camera = &cameraComponent->camera;
-			camera->move(0, 3.f, 4.f);
-			camera->rotate(-25.f, 0.f, 0.f);
+
 		}
 
 		ECS::Systems::RenderSystem::~RenderSystem()
@@ -74,8 +74,22 @@ namespace ECS {
 
 				rendererData.push_back(renderable);
 			}
+			std::vector<Renderer::PointLight> lights;
+			auto lightEntities = entityManager->getAllEntitiesWithComponent<PointLightComponent>();
+			for (unsigned int i = 0; i < lightEntities.size(); i++) {
+				auto position = this->entityManager->getComponent<PositionComponent>(lightEntities[i].id);
+				Renderer::PointLight pl{ Math::Vector3f{float(position->x), 1, float(position->y)}, lightEntities[i].component->color };
+				lights.push_back(pl);
+			}
 
-			forwardRenderer->draw(cameraComponent->camera, rendererData, sceneComponent->scene);
+			auto input = context.inputManager;
+
+			//if (input->isKeyPressed(Key::KEY_I)) {
+			if (input->isKeyPressed(Key::KEY_H)) {
+				forwardRenderer->loadPipelines();
+			}
+
+			forwardRenderer->draw(cameraComponent->camera, rendererData, sceneComponent->scene, lights, pos);
 		}
 	}
 }

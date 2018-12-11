@@ -30,19 +30,18 @@ namespace ECS {
 					&& entityManager->hasComponent<HealthComponent>(entity.id)) {
 
 					auto boundingBoxComponent = entityManager->getComponent<BoundingBoxComponent>(entity.id);
-					auto Position = entityManager->getComponent<PositionComponent>(entity.id);
+					auto position = entityManager->getComponent<PositionComponent>(entity.id);
 
-					boundingBoxComponent->boundingBox.SetPosXY(Position->x, Position->y);
+					boundingBoxComponent->boundingBox.SetPosXY(position->x, position->y);
 					std::vector<unsigned int> vector;
 
 					vector = boundingBoxComponent->collidesWith;
 					if (boundingBoxComponent->didCollide) {
-
-						for (int i = 0; i < vector.size(); i++) {
-							if (entityManager->hasComponent<PlayerComponent>(vector[i])) {
-								updateEntity(vector[i], context);
+						for (unsigned int i : vector) {
+							if (entityManager->hasComponent<PlayerComponent>(i)) {
+								updateEntity(i, context);
 								updateEntity(entity.id, context);
-								context.audioManager->playSound("EnemyKill");
+								context.audioManager->playSound("EnemyKill", 0);
 							}
 						}
 					}
@@ -60,10 +59,10 @@ namespace ECS {
 			if (entityManager->hasComponent<HealthComponent>(id)) {
 				auto currentComponent = entityManager->getComponent<HealthComponent>(id);
 
-				currentComponent->health -= 10;
+				currentComponent->currentHealth -= 10;
 
 				// Print (Remove after review)
-				std::cout << "Speler: " << currentComponent->health << std::endl;
+				std::cout << "Speler: " << currentComponent->currentHealth << std::endl;
 			}
 		}
 	}
