@@ -94,7 +94,7 @@ namespace States {
 		menu = menuBuilder.buildMenu();
 
 		
-		std::function<void()> callback = [context, &canPress = canPressEscape]() mutable { canPress = false; context.stateMachine->setState<PauseState>(context); };
+		std::function<void()> callback = [&context, &canPress = canPressEscape]() mutable { canPress = false; context.stateMachine->setState<PauseState>(context); };
 	}
 
 	/// <summary>
@@ -137,7 +137,7 @@ namespace States {
 	{
 		std::cout << "FPS:   \t" << 1.0 / context.deltaTime << std::endl;
 		toggleFPS(context);
-		auto input = context.inputManager;
+		auto& input = context.inputManager;
 	
 		for (auto& systemList : systemManager.getAllSystems()) {
 			for (auto& system : systemList.second) {
@@ -196,7 +196,7 @@ namespace States {
 
 	void PrismGame::toggleFPS(Context & context)
 	{
-		auto input = context.inputManager;
+		auto& input = context.inputManager;
 		if (!input->isKeyPressed(Key::KEY_F3)) {
 			canPressF3 = true;
 		}

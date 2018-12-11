@@ -8,10 +8,6 @@
 #include "Renderer/Graphics/OpenGL/OGLPipeline.h"
 
 namespace States {
-	PauseState::PauseState()
-	{
-	}
-
 	void PauseState::onInit(Context & context)
 	{
 		std::function<void()> callbackEndstate = [&context]() { 
@@ -29,7 +25,7 @@ namespace States {
 	void PauseState::onUpdate(Context & context)
 	{
 
-		auto input = context.inputManager;
+		auto& input = context.inputManager;
 		if (input->isKeyPressed(Key::KEY_ESCAPE) && canPressEscape) {
 			canPressEscape = false;
 			context.stateMachine->setState<PrismGame>(context);
@@ -55,10 +51,6 @@ namespace States {
 	}
 
 	void PauseState::onLeave(Context & context)
-	{
-	}
-
-	PauseState::~PauseState()
 	{
 	}
 }

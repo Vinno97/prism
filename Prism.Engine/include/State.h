@@ -1,5 +1,6 @@
 #pragma once
-#include "Context.h"
+
+class Context;
 
 /// <summary>
 /// Abstract State class

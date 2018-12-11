@@ -23,7 +23,7 @@ namespace ECS {
 
 		void AimingSystem::update(Context& context)
 		{
-			auto input = context.inputManager;
+			auto& input = context.inputManager;
 			for (auto player : entityManager->getAllEntitiesWithComponent<PlayerComponent>()) {
 				if (entityManager->hasComponent<PositionComponent>(player.id) && entityManager->hasComponent<ShootingComponent>(player.id)) {
 					auto playerPosition = entityManager->getComponent<PositionComponent>(player.id);

@@ -48,19 +48,14 @@ public:
 	/// <param name="height">Height of window</param>
 	/// <param name="x">X position of window</param>
 	/// <param name="y">Y position of window</param>
-	const void InitWindow(const char* title, const int width, const int height, const int x, const int y);
+	const void InitWindow(const char* title, int width, int height, int x, int y);
 
 	/// <summary>
 	/// Starts the gameloop 
 	/// </summary>
 	void Run();
-	~CoreEngine();
 
 private:
 	Context context;
-	/// <summary>
-	/// frees memorys from the heap
-	/// </summary>
-	void CleanUp();
 };
 

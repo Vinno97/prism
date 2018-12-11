@@ -26,7 +26,7 @@ namespace ECS {
 			//double acceleration = 10;
 			double acceleration = 15;
 
-			auto input = context.inputManager;
+			auto& input = context.inputManager;
 			
 			float dirX = 0;
 			float dirY = 0;

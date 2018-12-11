@@ -82,7 +82,7 @@ namespace ECS {
 				lights.push_back(pl);
 			}
 
-			auto input = context.inputManager;
+			auto& input = context.inputManager;
 
 			//if (input->isKeyPressed(Key::KEY_I)) {
 			if (input->isKeyPressed(Key::KEY_H)) {

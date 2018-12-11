@@ -157,7 +157,7 @@ namespace ECS {
 		{
 			context.deltaTime *= multiplier;
 
-			auto input = context.inputManager;
+			auto& input = context.inputManager;
 
 			// TODO: Later naar in game buttons
 			if (input->isKeyPressed(Key::KEY_H))

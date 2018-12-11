@@ -19,11 +19,9 @@ namespace ECS {
 			= default;
 
 		void MousePointSystem::update(Context& context) {
-			auto input = context.inputManager;
+			auto& input = context.inputManager;
 
 			auto cameraEntity = this->entityManager->getAllEntitiesWithComponent<CameraComponent>()[0].component;
-
-			cameraEntity->camera;
 
 			if (input->isMouseButtonPressed(Key::MOUSE_BUTTON_LEFT))
 			{

@@ -17,7 +17,7 @@ namespace ECS {
 
 		void EnemySpawnSystem::update(Context& context) {
 			auto time = context.deltaTime;
-			auto input = context.inputManager;
+			auto& input = context.inputManager;
 			EntityFactory entityFactory;
 
 			for (const auto& spawnPoint : entityManager->getAllEntitiesWithComponent<EnemySpawnComponent>()) {

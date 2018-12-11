@@ -22,10 +22,10 @@ using namespace Renderer::Graphics::Loader;
 
 CoreEngine::CoreEngine()
 {
-	context.window = new Window();
-	context.stateMachine = new StateMachine();
-	context.inputManager = new InputManager();
-	context.audioManager = new AudioManager();
+	context.window = std::make_unique<Window>();
+	context.stateMachine = std::make_unique<StateMachine>();
+	context.inputManager = std::make_unique<InputManager>();
+	context.audioManager = std::make_unique<AudioManager>();
 }
 
 const void CoreEngine::InitWindow(const char* title, const int width, const int height, const int x, const int y) {
@@ -67,17 +67,4 @@ void CoreEngine::Run()
 		context.deltaTime = deltaTime.count() / 1000000.f;
 		context.stateMachine->getCurrentState()->onUpdate(context);
 	}
-}
-
-void CoreEngine::CleanUp() {
-	//Free memory
-	delete context.stateMachine;
-	delete context.window;
-	delete context.inputManager;
-	delete context.audioManager;
-}
-
-CoreEngine::~CoreEngine()
-{
-	CleanUp();
 }
