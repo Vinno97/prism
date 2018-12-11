@@ -6,7 +6,7 @@ namespace ECS {
 	namespace Components {
 		struct EnemySpawnComponent : Component {
 			EnemySpawnComponent() = default;
-			EnemySpawnComponent(float interval, float timeSinceLastSpawn, bool enabled) : spawnInterval( interval ), timeSinceLastSpawn( timeSinceLastSpawn ), enabled( enabled ) {};
+			EnemySpawnComponent(float interval, float timeSinceLastSpawn, bool enabled) : spawnInterval( 200 ), timeSinceLastSpawn( timeSinceLastSpawn ), enabled( enabled ) {};
 
 			float spawnInterval = 10; // Spawn a new enemy when this time has passed (in seconds)
 			float timeSinceLastSpawn = 0;

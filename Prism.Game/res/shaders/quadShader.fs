@@ -82,7 +82,7 @@ vec4 WorldPosFromDepth(float depth, mat4 camera) {
 float LinearizeDepth(in vec2 uv, float depth)
 {
     float zNear = 0.5; 
-    float zFar  = 7.5;
+    float zFar  = 30;
     return (2.0 * zNear) / (zFar + zNear - depth * (zFar - zNear));
 }
 
@@ -121,9 +121,17 @@ void main() {
 	float t2 = shadowCoord.z-bias;
 	float visibility = 1.0;
 	
-	if(t1 < t2) {
-		visibility = 0.2;
+	//if(t1 < t2)
+	//	visibility = 0.2;
+	
+	for (int i=0;i<4;i++){
+	  if ( texture( gShadowMap, shadowCoord.xy + poissonDisk[i]/4000.0 ).r  <  shadowCoord.z-bias ){
+		visibility-=0.3;
+	  }
 	}
+	
+	if(shadowCoord.z > 1.0)
+        visibility = 1.0;
 	
 	vec4 pointColor = vec4(0, 0, 0, 1);
 	
@@ -145,7 +153,7 @@ void main() {
 	
 	color = vec4(Albedo, 1) * (AmbientColor  + pointColor + (DiffuseColor*visibility));
 	//float t = LinearizeDepth(UV, texture(gShadowMap, UV).r);
-	// color = vec4(t, t, t, 1.0);
+	//color = vec4(t, t, t, 1.0);
 	//color = pointColor;
 }
 
