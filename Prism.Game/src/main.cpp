@@ -1,30 +1,6 @@
-#pragma once
-
-#include <cstdlib>
 //#include <crtdbg.h>
-#include <iostream>
 #include "CoreEngine.h"
-#include "InputManager.h"
-#include "Key.h"
-#include "Window.h"
-#include "ECS/EntityManager.h"
-#include "ECS/Components/Component.h"
-#include "ECS/Components/DragComponent.h"
-#include "ECS/Components/PositionComponent.h"
-#include "ECS/Components/VelocityComponent.h"
-#include "InputManager.h"
-#include "Key.h"
-#include "Game.h"
-#include <string>
-#include "Context.h"
-#include "StateMachine.h"
-#include "ECS/Components/KeyboardInputComponent.h"
-#include "ECS/Systems/KeyboardInputSystem.h"
-#include "ECS/Systems/MotionSystem.h"
-#include "Physics/BoundingBox.h"
-#include "Physics/QuadTree.h"
 #include "States/MainMenuState.h"
-#include "States/CreditsState.h"
 
 #define _CRTDBG_MAP_ALLOC
 

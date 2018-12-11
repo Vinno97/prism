@@ -109,8 +109,8 @@
     <ClInclude Include="include\ECS\Systems\PathFindingSystem.h" />
     <ClInclude Include="include\ECS\Systems\BumpSystem.h" />
     <ClInclude Include="include\ECS\Systems\EnemySpawnSystem.h" />
-    <ClInclude Include="include\ECS\Systems\ResourceBlobSystem.h" />
-    <ClInclude Include="include\ECS\Systems\ResourceGatherSystem.h" />
+    <ClInclude Include="include\ECS\Systems\ResourceSpawnSystem.h" />
+    <ClInclude Include="include\ECS\Systems\ResourceCollectionSystem.h" />
     <ClInclude Include="include\EntityFactory.h" />
     <ClInclude Include="include\States\CreditsState.h" />
     <ClInclude Include="include\States\EndState.h" />
@@ -144,8 +144,8 @@
     <ClCompile Include="src\States\EndState.cpp" />
     <ClCompile Include="src\ECS\Systems\AnimationSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\BumpSystem.cpp" />
-    <ClCompile Include="src\ECS\Systems\ResourceBlobSystem.cpp" />
-    <ClCompile Include="src\ECS\Systems\ResourceGatherSystem.cpp" />
+    <ClCompile Include="src\ECS\Systems\ResourceSpawnSystem.cpp" />
+    <ClCompile Include="src\ECS\Systems\ResourceCollectionSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\EnemySpawnSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\PathFindingSystem.cpp" />
     <ClCompile Include="src\States\HelpState.cpp" />

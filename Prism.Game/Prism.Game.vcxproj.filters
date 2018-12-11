@@ -7,8 +7,8 @@
     <ClCompile Include="src\ECS\Systems\ShootingSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\AnimationSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\BumpSystem.cpp" />
-    <ClCompile Include="src\ECS\Systems\ResourceBlobSystem.cpp" />
-    <ClCompile Include="src\ECS\Systems\ResourceGatherSystem.cpp" />
+    <ClCompile Include="src\ECS\Systems\ResourceSpawnSystem.cpp" />
+    <ClCompile Include="src\ECS\Systems\ResourceCollectionSystem.cpp" />
     <ClCompile Include="src\States\PauseState.cpp" />
     <ClCompile Include="src\ECS\Systems\KeyboardInputSystem.cpp" />
     <ClCompile Include="src\EntityFactory.cpp" />
@@ -50,8 +50,8 @@
     <ClInclude Include="include\ECS\Components\ResourceSpawnComponent.h" />
     <ClInclude Include="include\ECS\Systems\ProjectileAttackSystem.h" />
     <ClInclude Include="include\ECS\Systems\BumpSystem.h" />
-    <ClInclude Include="include\ECS\Systems\ResourceBlobSystem.h" />
-    <ClInclude Include="include\ECS\Systems\ResourceGatherSystem.h" />
+    <ClInclude Include="include\ECS\Systems\ResourceSpawnSystem.h" />
+    <ClInclude Include="include\ECS\Systems\ResourceCollectionSystem.h" />
     <ClInclude Include="include\EntityFactory.h" />
     <ClInclude Include="include\States\PrismGame.h" />
     <ClInclude Include="include\World\Assemblers\EnemyAssembler.h" />
@@ -80,7 +80,7 @@
     <ClCompile Include="src\EntityFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\ECS\Systems\ResourceGatherSystem.cpp">
+    <ClCompile Include="src\ECS\Systems\ResourceCollectionSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\States\PauseState.cpp">
@@ -92,7 +92,7 @@
     <ClCompile Include="src\World\TerrainGenerator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\ECS\Systems\ResourceBlobSystem.cpp">
+    <ClCompile Include="src\ECS\Systems\ResourceSpawnSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\World\Assemblers\EnemyAssembler.cpp">
@@ -165,7 +165,7 @@
     <ClInclude Include="include\EntityFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\ECS\Systems\ResourceGatherSystem.h">
+    <ClInclude Include="include\ECS\Systems\ResourceCollectionSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\ECS\Components\InventoryComponent.h">
@@ -186,7 +186,7 @@
     <ClInclude Include="include\ECS\Components\ResourceBlobComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\ECS\Systems\ResourceBlobSystem.h">
+    <ClInclude Include="include\ECS\Systems\ResourceSpawnSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Enums\ResourceTypeEnum.h">
