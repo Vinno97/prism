@@ -73,9 +73,6 @@ void ECS::Systems::SetCurrentBuildSystem::update(Context& context) {
 				} 
 				else{
 					builderComponent->currentBuild = BuildTypes::NONE;
-					if (shootWaitTime <= 0) {
-						builderComponent->isUsingMouse = false;
-					}
 					builderComponent->isBuilding = false;
 				}
 
@@ -103,6 +100,9 @@ void ECS::Systems::SetCurrentBuildSystem::update(Context& context) {
 					}
 				}
 			}
+		}
+		if (shootWaitTime <= 0 && !builderComponent->isBuilding) {
+			builderComponent->isUsingMouse = false;
 		}
 	}
 }
