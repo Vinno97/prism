@@ -39,7 +39,7 @@ namespace ECS {
 					if (boundingBoxComponent->didCollide) {
 
 						for (int i = 0; i < vector.size(); i++) {
-							if (entityManager->hasComponent<HealthComponent>(vector[i])) {
+							if (entityManager->hasComponent<HealthComponent>(vector[i]) && !entityManager->hasComponent<EnemyComponent>(vector[i])) {
 								updateEntity(vector[i], context);
 								updateEntity(entity.id, context);
 								context.audioManager->playSound("EnemyKill", 0);
