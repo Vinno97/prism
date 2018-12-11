@@ -2,6 +2,7 @@
 #include <vector>
 #include <list>
 #include <array>
+#include <memory>
 #include "BoundingBox.h"
 
 namespace Physics {
@@ -11,15 +12,7 @@ namespace Physics {
 		/// <summary>
 		/// create quadtree
 		/// </summary>
-		QuadTree();
-
-		QuadTree(const QuadTree& other);
-		QuadTree & operator=(const QuadTree& other);
-
-		QuadTree(QuadTree&& other);
-		QuadTree & operator=(QuadTree&& other);
-
-		~QuadTree();
+		QuadTree() = default;
 
 		/// <summary>
 		/// create quadtree
@@ -71,7 +64,7 @@ namespace Physics {
 		//1 = South East
 		//2 = South West
 		//3 = North East
-		QuadTree *nodes[4]{ nullptr };
+		std::unique_ptr<QuadTree> nodes[4]{ nullptr };
 
 		/// <summary>
 		/// Get the index of the where the new boundingbox should be placed

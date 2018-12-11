@@ -3,93 +3,16 @@
 
 using namespace Physics;
 
-QuadTree::QuadTree()
-= default;
-
-QuadTree::~QuadTree() {
-	Clear();
-}
-
 QuadTree::QuadTree(float width, float heigt, float x, float y, unsigned int maxObjects)
 {
 	float halfwidth = width / 2.0;
 	float halfHeigth = heigt / 2.0;
 	this->bounds = BoundingBox(halfHeigth, halfwidth, -1 * halfHeigth, -1 * halfwidth, x, y);
-	nodes[0] = nullptr;
-	nodes[1] = nullptr;
-	nodes[2] = nullptr;
-	nodes[3] = nullptr;
 	this->maxObjects = maxObjects;
-}
-
-QuadTree::QuadTree(const QuadTree& other)
-{
-	this->maxObjects = other.maxObjects;
-	this->objects = other.objects;
-	this->bounds = other.bounds;
-	if (other.nodes[0] != nullptr) {
-		for (int i = 0; i < 4;i++) {
-			nodes[i] = new QuadTree();
-			*nodes[i] = *other.nodes[i];
-		}
-	}
-}
-
-QuadTree & QuadTree::operator=(const QuadTree& other)
-{
-	if (this != &other) {
-		this->maxObjects = other.maxObjects;
-		this->objects = other.objects;
-		this->bounds = other.bounds;
-		if (other.nodes[0] != nullptr) {
-			for (int i = 0; i < 4;i++) {
-				nodes[i] = new QuadTree();
-				*nodes[i] = *other.nodes[i];
-			}
-		}
-		return *this;
-	}
-}
-
-QuadTree::QuadTree(QuadTree&& other)
-{
-	this->maxObjects = other.maxObjects;
-	other.maxObjects = 0;
-	this->objects = other.objects;
-	other.objects.clear();
-	this->bounds = other.bounds;
-	other.bounds = BoundingBox();
-	for (int i = 0; i < 4;i++) {
-		nodes[i] = other.nodes[i];
-		other.nodes[i] = nullptr;
-	}
-}
-
-QuadTree & QuadTree::operator=(QuadTree&& other)
-{
-	if (this != &other) {
-		this->maxObjects = other.maxObjects;
-		other.maxObjects = 0;
-		this->objects = other.objects;
-		other.objects.clear();
-		this->bounds = other.bounds;
-		other.bounds = BoundingBox();
-		for (int i = 0; i < 4;i++) {
-			nodes[i] = other.nodes[i];
-			other.nodes[i] = nullptr;
-		}
-	}
-	return *this;
 }
 
 void QuadTree::Clear()
 {
-	if (nodes[0] != nullptr) {
-		for (auto i = 0;i < 4; i++) {
-			delete nodes[i];
-			nodes[i] = nullptr;
-		}
-	}
 	objects.clear();
 }
 
@@ -104,10 +27,10 @@ void QuadTree::Split()
 	float north = halfHeight + bounds.GetPosY();
 	float south = (-1 * halfHeight) + bounds.GetPosY();
 
-	nodes[0] = new QuadTree(width, height, east, north, maxObjects);
-	nodes[1] = new QuadTree(width, height, east, south, maxObjects);
-	nodes[2] = new QuadTree(width, height, west, south, maxObjects);
-	nodes[3] = new QuadTree(width, height, west, north, maxObjects);
+	nodes[0] = std::make_unique<QuadTree>(width, height, east, north, maxObjects);
+	nodes[1] = std::make_unique<QuadTree>(width, height, east, south, maxObjects);
+	nodes[2] = std::make_unique<QuadTree>(width, height, west, south, maxObjects);
+	nodes[3] = std::make_unique<QuadTree>(width, height, west, north, maxObjects);
 
 	for (auto it = objects.begin(); it != objects.end();) {
 		int index = GetIndex(*(*it));
