@@ -43,7 +43,9 @@
 #include "ECS/Systems/HealthRegenerationSystem.h"
 #include "Renderer/PointLight.h"
 #include <functional>
-#include "ECS/Systems/BuildSystem.h"
+#include "ECS/Systems/SetCurrentBuildSystem.h"
+#include "ECS/Systems/MoveCurrentBuildSystem.h"
+#include "ECS/Systems/PlaceCurrentBuildSystem.h"
 
 namespace States {
 	using namespace ECS;
@@ -110,6 +112,7 @@ namespace States {
 			.registerSystem<1, MousePointSystem>(entityManager)
 			.registerSystem<1, CheatSystem>(entityManager)
 			.registerSystem<1, EnemyPathFindingSystem>(entityManager, 15)
+			.registerSystem<1, SetCurrentBuildSystem>(entityManager)
 
 			//2
 			.registerSystem<2, MotionSystem>(entityManager)
@@ -117,14 +120,16 @@ namespace States {
 			.registerSystem<2, AimingSystem>(entityManager)
 			.registerSystem<2, ResourceGatherSystem>(entityManager)
 			.registerSystem<2, EnemySpawnSystem>(entityManager)
+			.registerSystem<2, MoveCurrentBuildSystem>(entityManager)
 
 			//3
 			.registerSystem<3, ResourceBlobSystem>(entityManager)
 			.registerSystem<3, ShootingSystem>(entityManager)
 			.registerSystem<3, CollisionSystem>(entityManager, context.window->width, context.window->height, 0, 0, 2)
+			
 
 			//4
-			.registerSystem<4, BuildSystem>(entityManager,10,10,10)
+			.registerSystem<4, PlaceCurrentBuildSystem>(entityManager, 10, 10, 10)
 			.registerSystem<4, ProjectileAttackSystem>(entityManager)
 			.registerSystem<4, AttackSystem>(entityManager)
 
@@ -137,7 +142,6 @@ namespace States {
 
 	void PrismGame::onUpdate(Context &context)
 	{
-		std::cout << "FPS:   \t" << 1.0 / context.deltaTime << std::endl;
 		toggleFPS(context);
 		auto input = context.inputManager;
 	
