@@ -134,8 +134,10 @@
     <ClInclude Include="include\ECS\Systems\ShootingSystem.h" />
     <ClInclude Include="include\States\PauseState.h" />
     <ClInclude Include="include\World\TerrainGenerator.h" />
+    <ClInclude Include="include\States\ResolutionMenuState.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\States\ResolutionMenuState.cpp" />
     <ClCompile Include="src\ECS\Systems\AimingSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\AttackSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\CheatSystem.cpp" />

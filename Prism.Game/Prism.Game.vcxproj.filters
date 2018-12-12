@@ -32,6 +32,7 @@
     <ClCompile Include="src\States\HelpState.cpp" />
     <ClCompile Include="src\World\Assemblers\MineAssembler.cpp" />
     <ClCompile Include="src\ECS\Systems\HealthRegenerationSystem.cpp" />
+    <ClCompile Include="src\States\ResolutionMenuState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ECS\Components\BulletComponent.h" />
@@ -137,6 +138,7 @@
     <ClInclude Include="include\World\Assemblers\MineAssembler.h" />
     <ClInclude Include="include\ECS\Components\TargetComponent.h" />
     <ClInclude Include="include\ECS\Systems\HealthRegenerationSystem.h" />
+    <ClInclude Include="include\States\ResolutionMenuState.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="lib\assimp-vc140-mtd.dll" />
