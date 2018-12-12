@@ -76,22 +76,22 @@ unsigned EntityFactory::createPlayer(unsigned entity, EntityManager& entityManag
 	appearance.color = Math::Vector3f{1.0f, 0.5f, 0.5f};
 
 	return EntityBuilder(entityManager, entity)
-	       .addComponent<VelocityComponent>()
-	       .addComponent<PositionComponent>()
-	       .addComponent<KeyboardInputComponent>()
-	       .addComponent<PlayerComponent>()
-	       .addComponent<InventoryComponent>()
-	       .addComponent<ResourceGatherComponent>()
-	       .addComponent<ShootingComponent>()
-	       .addComponent<DynamicComponent>()
-	       .addComponent<HealthComponent>(100)
-	       .addComponent<DragComponent>(5.f)
-	       .addComponent<BoundingBoxComponent>(.3, .3)
-		   .addComponent<PointLightComponent>(Math::Vector3f{ 1.f, 1.f, 0.f }, 1.f, 0.f)
-	       .addComponent(appearance)
-		   .addComponent<CollidableComponent>()
-		   .addComponent<BuildComponent>()
-		   .getEntity();
+		.addComponent<VelocityComponent>()
+		.addComponent<PositionComponent>()
+		.addComponent<KeyboardInputComponent>()
+		.addComponent<PlayerComponent>()
+		.addComponent<InventoryComponent>()
+		.addComponent<ResourceGatherComponent>()
+		.addComponent<ShootingComponent>()
+		.addComponent<DynamicComponent>()
+		.addComponent<HealthComponent>(100)
+		.addComponent<DragComponent>(5.f)
+		.addComponent<BoundingBoxComponent>(.3, .3)
+		.addComponent<PointLightComponent>(Math::Vector3f{ 1.f, 1.f, 0.f }, 1.f, 0.f)
+		.addComponent(appearance)
+		.addComponent<CollidableComponent>()
+		.addComponent<BuildComponent>()
+		.getEntity();
 }
 
 unsigned EntityFactory::createEnemy(EntityManager& entityManager) const
@@ -112,16 +112,16 @@ unsigned EntityFactory::createEnemy(unsigned entity, EntityManager& entityManage
 	appearance.model = std::move(model);
 
 	return EntityBuilder(entityManager, entity)
-	       .addComponent<VelocityComponent>()
-	       .addComponent<PositionComponent>()
-	       .addComponent<EnemyComponent>()
-	       .addComponent<DynamicComponent>()
-	       .addComponent<HealthComponent>(100)
-	       .addComponent<DragComponent>(5.f)
-	       .addComponent<BoundingBoxComponent>(.4, .4)
-		   .addComponent<CollidableComponent>()
-	       .addComponent(appearance)
-	       .getEntity();
+		.addComponent<VelocityComponent>()
+		.addComponent<PositionComponent>()
+		.addComponent<EnemyComponent>()
+		.addComponent<DynamicComponent>()
+		.addComponent<HealthComponent>(100)
+		.addComponent<DragComponent>(5.f)
+		.addComponent<BoundingBoxComponent>(.4, .4)
+		.addComponent<CollidableComponent>()
+		.addComponent(appearance)
+		.getEntity();
 }
 
 unsigned EntityFactory::createResourcePoint(EntityManager& entityManager,
@@ -181,13 +181,13 @@ unsigned EntityFactory::createTower(unsigned entity, EntityManager& entityManage
 	appearance.model = std::move(model);
 
 	return EntityBuilder(entityManager, entity)
-	       .addComponent<TowerComponent>()
-	       .addComponent<PositionComponent>()
-	       .addComponent<BoundingBoxComponent>(1.0, 1.0)
-		   .addComponent<CollidableComponent>()
-		   .addComponent<HealthComponent>(50)
-		   .addComponent(appearance)
-	       .getEntity();
+		.addComponent<TowerComponent>()
+		.addComponent<PositionComponent>()
+		.addComponent<BoundingBoxComponent>(1.0, 1.0)
+		.addComponent<CollidableComponent>()
+		.addComponent<HealthComponent>(50)
+		.addComponent(appearance)
+		.getEntity();
 }
 
 unsigned EntityFactory::createWall(EntityManager& entityManager) const
@@ -208,13 +208,13 @@ unsigned EntityFactory::createWall(unsigned entity, EntityManager& entityManager
 	appearance.color = Math::Vector3f{0.9f, 0.9f, 0.9f};
 
 	return EntityBuilder(entityManager, entity)
-	       .addComponent<WallComponent>()
-	       .addComponent<PositionComponent>()
-	       .addComponent<BoundingBoxComponent>(1.0, 1.0)
-		   .addComponent<CollidableComponent>()
-		   .addComponent<HealthComponent>(50)
-	       .addComponent(appearance)
-	       .getEntity();
+		.addComponent<WallComponent>()
+		.addComponent<PositionComponent>()
+		.addComponent<BoundingBoxComponent>(1.0, 1.0)
+		.addComponent<CollidableComponent>()
+		.addComponent<HealthComponent>(50)
+		.addComponent(appearance)
+		.getEntity();
 }
 
 unsigned EntityFactory::createCliff(EntityManager & entityManager, int rotation) const{
@@ -237,6 +237,7 @@ unsigned EntityFactory::createCliff(unsigned entity, EntityManager & entityManag
 	entityManager.addComponentToEntity(entity, PositionComponent());
 	entityManager.addComponentToEntity(entity, appearance);
 	entityManager.addComponentToEntity(entity, BoundingBoxComponent(1.0, 1.0));
+	entityManager.addComponentToEntity(entity, CollidableComponent());
 	return entity;
 }
 
@@ -259,6 +260,7 @@ unsigned EntityFactory::createCliffFiller(unsigned entity, EntityManager & entit
 	entityManager.addComponentToEntity(entity, PositionComponent());
 	entityManager.addComponentToEntity(entity, appearance);
 	entityManager.addComponentToEntity(entity, BoundingBoxComponent(1.0, 1.0));
+	entityManager.addComponentToEntity(entity, CollidableComponent());
 	return entity;
 }
 
@@ -282,6 +284,7 @@ unsigned EntityFactory::createCliffCorner(unsigned entity, EntityManager & entit
 	entityManager.addComponentToEntity(entity, PositionComponent());
 	entityManager.addComponentToEntity(entity, appearance);
 	entityManager.addComponentToEntity(entity, BoundingBoxComponent(1.0, 1.0));
+	entityManager.addComponentToEntity(entity, CollidableComponent());
 	return entity;
 }
 
@@ -306,6 +309,7 @@ unsigned EntityFactory::createTree(unsigned entity, EntityManager & entityManage
 	entityManager.addComponentToEntity(entity, PositionComponent());
 	entityManager.addComponentToEntity(entity, appearance);
 	entityManager.addComponentToEntity(entity, BoundingBoxComponent(0.6, 0.6));
+	entityManager.addComponentToEntity(entity, CollidableComponent());
 	return entity;
 }
 
@@ -330,6 +334,7 @@ unsigned EntityFactory::createRock(unsigned entity, EntityManager & entityManage
 	entityManager.addComponentToEntity(entity, PositionComponent());
 	entityManager.addComponentToEntity(entity, appearance);
 	entityManager.addComponentToEntity(entity, BoundingBoxComponent(1.2, 1.2));
+	entityManager.addComponentToEntity(entity, CollidableComponent());
 	return entity;
 }
 
@@ -350,14 +355,14 @@ unsigned EntityFactory::createMine(unsigned entity, EntityManager& entityManager
 	appearance.model = std::move(model);
 
 	return EntityBuilder(entityManager, entity)
-	       .addComponent<MineComponent>()
-	       .addComponent<PositionComponent>()
-		   .addComponent<BoundingBoxComponent>(1.0, 1.0)
-	       .addComponent<ResourceGatherComponent>()
-		   .addComponent<CollidableComponent>()
-		   .addComponent<HealthComponent>(50)
-	       .addComponent(appearance)
-	       .getEntity();
+		.addComponent<MineComponent>()
+		.addComponent<PositionComponent>()
+		.addComponent<BoundingBoxComponent>(1.0, 1.0)
+		.addComponent<ResourceGatherComponent>()
+		.addComponent<CollidableComponent>()
+		.addComponent<HealthComponent>(50)
+		.addComponent(appearance)
+		.getEntity();
 }
 
 unsigned EntityFactory::createScene(EntityManager& entityManager) const
@@ -388,16 +393,17 @@ unsigned EntityFactory::createProjectile(unsigned entity, EntityManager& entityM
 	appearance.model = std::move(model);
 
 	return EntityBuilder(entityManager, entity)
-	       .addComponent<VelocityComponent>()
-	       .addComponent<PositionComponent>()
-	       .addComponent<BulletComponent>()
-	       .addComponent<HealthComponent>(15)
-	       .addComponent<BoundingBoxComponent>(0.1, 0.1)
-	       .addComponent<ProjectileAttackComponent>()
-	       .addComponent<DynamicComponent>()
-		   .addComponent<PointLightComponent>(Math::Vector3f{ 1.f, 0.f, 0.f }, 4.0f, 0.f)
-	       .addComponent(appearance)
-	       .getEntity();
+		.addComponent<VelocityComponent>()
+		.addComponent<PositionComponent>()
+		.addComponent<BulletComponent>()
+		.addComponent<HealthComponent>(15)
+		.addComponent<BoundingBoxComponent>(0.1, 0.1)
+		.addComponent<CollidableComponent>()
+		.addComponent<ProjectileAttackComponent>()
+		.addComponent<DynamicComponent>()
+		.addComponent<PointLightComponent>(Math::Vector3f{ 1.f, 0.f, 0.f }, 4.0f, 0.f)
+		.addComponent(appearance)
+		.getEntity();
 }
 
 unsigned EntityFactory::createFloor(ECS::EntityManager& entityManager) const
@@ -431,9 +437,9 @@ unsigned EntityFactory::createFloor(unsigned entity, EntityManager& entityManage
 	appearance.color = Math::Vector3f{0.8f, 0.8f, 0.8f };
 
 	return EntityBuilder(entityManager, entity)
-	       .addComponent<PositionComponent>()
-	       .addComponent(appearance)
-	       .getEntity();
+		.addComponent<PositionComponent>()
+		.addComponent(appearance)
+		.getEntity();
 }
 
 unsigned EntityFactory::createResourceBlob(ECS::EntityManager& entityManager,
@@ -473,13 +479,13 @@ unsigned EntityFactory::createResourceBlob(unsigned entity,
 	ResourceBlobComponent resource = ResourceBlobComponent(value, type);
 
 	return EntityBuilder(entityManager, entity)
-	       .addComponent<PositionComponent>()
-	       .addComponent<VelocityComponent>()
-	       .addComponent<DragComponent>()
-           .addComponent<TargetComponent>()
-	       .addComponent(resource)
-	       .addComponent(appearance)
-	       .getEntity();
+		.addComponent<PositionComponent>()
+		.addComponent<VelocityComponent>()
+		.addComponent<DragComponent>()
+		.addComponent<TargetComponent>()
+		.addComponent(resource)
+		.addComponent(appearance)
+		.getEntity();
 }
 
 unsigned EntityFactory::createCameraPointer(ECS::EntityManager& entityManager)
@@ -516,10 +522,10 @@ unsigned EntityFactory::createEnemySpawn(unsigned entity,
 		EnemySpawnComponent{spawnInterval, 0.f, enabled};
 
 	return EntityBuilder(entityManager, entity)
-	       .addComponent(position)
-	       .addComponent(spawnComponent)
-	       .addComponent(appearance)
-	       .getEntity();
+		.addComponent(position)
+		.addComponent(spawnComponent)
+		.addComponent(appearance)
+		.getEntity();
 }
 
 unsigned EntityFactory::createCamera(ECS::EntityManager& entityManager)
