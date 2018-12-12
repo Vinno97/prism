@@ -20,7 +20,6 @@
     <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLPipeline.cpp" />
     <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLFragmentShader.cpp" />
     <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLVertexArrayObject.cpp" />
-    <ClCompile Include="src\Context.cpp" />
     <ClCompile Include="src\CoreEngine.cpp" />
     <ClCompile Include="src\ECS\Systems\MotionSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\RenderSystem.cpp" />
