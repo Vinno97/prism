@@ -20,10 +20,11 @@ using namespace ECS::Components;
 using namespace ECS::Systems;
 using namespace Enums;
 
-ECS::Systems::PlaceCurrentBuildSystem::PlaceCurrentBuildSystem(EntityManager &entityManager, float wallRequirements, float towerRequirements, float mineRequirements) : System(entityManager) {
+ECS::Systems::PlaceCurrentBuildSystem::PlaceCurrentBuildSystem(EntityManager &entityManager, float wallRequirements, float towerRequirements, float mineRequirements, float buildRange) : System(entityManager) {
 	this->wallRequirements = wallRequirements;
 	this->towerRequirements = towerRequirements;
 	this->mineRequirements = mineRequirements;
+	this->buildRange = buildRange;
 }
 
 ECS::Systems::PlaceCurrentBuildSystem::~PlaceCurrentBuildSystem()

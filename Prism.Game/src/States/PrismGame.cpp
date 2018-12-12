@@ -129,7 +129,7 @@ namespace States {
 			
 
 			//4
-			.registerSystem<4, PlaceCurrentBuildSystem>(entityManager, 10, 10, 10)
+			.registerSystem<4, PlaceCurrentBuildSystem>(entityManager, 10, 10, 10,5)
 			.registerSystem<4, ProjectileAttackSystem>(entityManager)
 			.registerSystem<4, AttackSystem>(entityManager)
 

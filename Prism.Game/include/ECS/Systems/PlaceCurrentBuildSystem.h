@@ -12,7 +12,7 @@ namespace ECS {
 		class PlaceCurrentBuildSystem : public System {
 
 		public:
-			PlaceCurrentBuildSystem(EntityManager &entityManager, float wallRequirements, float towerRequirements, float mineRequirements);
+			PlaceCurrentBuildSystem(EntityManager &entityManager, float wallRequirements, float towerRequirements, float mineRequirements , float buildRange);
 			~PlaceCurrentBuildSystem();
 			void update(Context& context) override;
 
@@ -24,7 +24,7 @@ namespace ECS {
 			float wallRequirements;
 			float towerRequirements;
 			float mineRequirements;
-			float buildRange = 5;
+			float buildRange;
 		};
 	}
 }
