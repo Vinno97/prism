@@ -41,6 +41,11 @@ public:
 	/// <summary>
 	/// Return true when the close button is pressed on the window
 	/// </summary>
+	bool setSize(const int newWidth, const int newHeight);
+
+	/// <summary>
+	/// Return true when the close button is pressed on the window
+	/// </summary>
 	bool shouldClose();
 
 	/// <summary>

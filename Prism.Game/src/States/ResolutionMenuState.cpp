@@ -21,7 +21,7 @@ namespace States {
 		context.stateMachine->addState<CreditsState>(context);
 		context.stateMachine->addState<HelpState>(context);
 
-		std::function<void()> setRes1 = [&context]() { };
+		std::function<void()> setRes1 = [&context]() { context.window->setSize(1920, 1080); };
 
 		menuBuilder.addControl(-0.35, 0.4, 0.6, 0.18, "img/NewGameButton.png", setRes1);
 		menuBuilder.addControl(-0.35, 0.1, 0.6, 0.18, "img/LoadGameButton.png", setRes1);

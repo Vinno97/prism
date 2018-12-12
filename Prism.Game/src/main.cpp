@@ -33,8 +33,8 @@
 void start() {
     CoreEngine ce = CoreEngine();
     ce.InitWindow("prism", 1920 / 2, 1080 / 2, 100, 100);
-    ce.addState<States::MainMenuState>();
-    ce.setEntryPoint<States::MainMenuState>();
+    ce.addState<States::ResolutionMenuState>();
+    ce.setEntryPoint<States::ResolutionMenuState>();
 
     ce.Run();
 }

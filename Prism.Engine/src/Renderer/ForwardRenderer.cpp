@@ -59,15 +59,15 @@ namespace Renderer {
 
 	float i = 0;
 
-	void ForwardRenderer::draw(const Camera& camera, const std::vector<Renderable>& renderables, const Scene& scene, std::vector<PointLight>& pointLights, Math::Vector3f position)
+	void ForwardRenderer::draw(const Camera& camera, const std::vector<Renderable>& renderables, const Scene& scene, std::vector<PointLight>& pointLights, Math::Vector3f position, const int wWidth, const int wHeight)
 	{
-
+		projection = glm::perspective(glm::radians(45.0f), (float)width / height, 0.5f, 100.f);
 		i += 0.01;
 		glm::mat4 model;
 		const glm::mat4 view = camera.getCameraMatrix();
 		shadowCamera.position = glm::vec3(position.x, position.y, position.z);
 
-		glViewport(0, 0, width, height);
+		glViewport(0, 0, wWidth, wHeight);
 		//Do GBuffer pass
 		renderDevice->clearScreen();
 			
