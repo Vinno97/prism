@@ -41,14 +41,14 @@ void AudioManager::addMusic(const std::string name, const std::string file)
 	}
 }
 
-const void AudioManager::playSound(const std::string name, int distance, int loops)
+const int AudioManager::playSound(const std::string name, int distance, int loops)
 {
 	if (sounds.count(name))
 	{
 		for (int i = 0; i < channels; ++i)
 		{
 			if (Mix_Playing(i) == 0) {
-				int volume = 50 - (distance / 5);
+				int volume = 75 - (distance / 5);
 				if (volume < 0) {
 					volume = 0;
 				}
