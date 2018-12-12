@@ -45,7 +45,7 @@
 #include "ECS/Components/WallComponent.h"
 #include "ECS/EntityBuilder.h"
 #include "Renderer/Camera.h"
-#include <stdlib.h> /* srand, rand */
+#include <stdlib.h>
 #include <time.h>
 #include "Renderer/Graphics/Loader/ModelLoader.h"
 #include "World/TerrainGenerator.h"

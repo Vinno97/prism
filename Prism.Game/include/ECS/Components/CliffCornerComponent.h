@@ -5,8 +5,8 @@
 namespace ECS {
 	namespace Components {
 		struct CliffCornerComponent : Component {
-			Component* Clone() override {
-				return new CliffCornerComponent();
+			std::unique_ptr<Component> clone() override {
+				return std::make_unique<CliffCornerComponent>();
 			}
 		};
 	}

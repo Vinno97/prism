@@ -19,9 +19,9 @@ void CliffAssembler::assemble(int entity, const WorldObject& worldObject, ECS::E
 
 void CliffAssembler::disassemble(int entity, WorldObject& worldObject, const ECS::EntityManager& entityManager) const {
 	if (entityManager.hasComponent<ECS::Components::CliffComponent>(entity)) {
+		worldObject.gid = 9;
+		worldObject.gid = 10;
 		worldObject.gid = 11;
 		worldObject.gid = 12;
-		worldObject.gid = 13;
-		worldObject.gid = 14;
 	}
 }

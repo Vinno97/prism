@@ -5,8 +5,8 @@
 namespace ECS {
 	namespace Components {
 		struct TreeComponent : Component {
-			Component* Clone() override {
-				return new TreeComponent();
+			std::unique_ptr<Component> clone() override {
+				return std::make_unique<TreeComponent>();
 			}
 		};
 	}
