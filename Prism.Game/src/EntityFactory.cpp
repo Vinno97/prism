@@ -65,7 +65,7 @@ unsigned EntityFactory::createPlayer(unsigned entity, EntityManager& entityManag
 		.addComponent<DynamicComponent>()
 		.addComponent<HealthComponent>(100)
 		.addComponent<DragComponent>(5.f)
-		.addComponent<BoundingBoxComponent>(.3, .3, .1)
+		.addComponent<BoundingBoxComponent>(.3, .3, 10)
 		.addComponent<PointLightComponent>(Math::Vector3f{ 1.f, 1.f, 0.f }, 1.f, 0.f)
 		.addComponent(appearance)
 		.getEntity();
@@ -160,7 +160,7 @@ unsigned EntityFactory::createTower(unsigned entity, EntityManager& entityManage
 	return EntityBuilder(entityManager, entity)
 		.addComponent<TowerComponent>()
 		.addComponent<PositionComponent>()
-		.addComponent<BoundingBoxComponent>(1.0, 1.0, 0.1)
+		.addComponent<BoundingBoxComponent>(1.0, 1.0, 10)
 		.addComponent<ShootingComponent>()
 		.addComponent(appearance)
 		.getEntity();
@@ -186,7 +186,7 @@ unsigned EntityFactory::createWall(unsigned entity, EntityManager& entityManager
 	return EntityBuilder(entityManager, entity)
 		.addComponent<WallComponent>()
 		.addComponent<PositionComponent>()
-		.addComponent<BoundingBoxComponent>(1.0, 1.0, 1.0)
+		.addComponent<BoundingBoxComponent>(1.0, 1.0, 10.0)
 		.addComponent(appearance)
 		.getEntity();
 }
@@ -247,7 +247,7 @@ unsigned EntityFactory::createProjectile(unsigned entity, EntityManager& entityM
 		.addComponent<PositionComponent>()
 		.addComponent<BulletComponent>()
 		.addComponent<HealthComponent>(15)
-		.addComponent<BoundingBoxComponent>(0.1, 0.1 , 0.1)
+		.addComponent<BoundingBoxComponent>(0.1, 0.1 , 10.1)
 		.addComponent<ProjectileAttackComponent>()
 		.addComponent<DynamicComponent>()
 		.addComponent<PointLightComponent>(Math::Vector3f{ 1.f, 0.f, 0.f }, 4.0f, 0.f)

@@ -18,7 +18,7 @@ BoundingBox::BoundingBox(float north, float east, float south, float west)
 }
 BoundingBox::BoundingBox(float north, float east, float south, float west, float up, float down) {
 
-	SetPosXY(0, 0);
+	SetPosXYZ(0, 0, 0);
 	SetBounds(north, east, south, west, up, down);
 }
 

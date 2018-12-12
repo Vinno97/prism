@@ -44,14 +44,16 @@ void CollisionSystem::update(Context& context)
 			auto boundingBoxComponent = entityManager->getComponent<BoundingBoxComponent>(entity.id);
 			boundingBoxComponent->didCollide = false;
 			boundingBoxComponent->collidesWith.clear();
-			
+
 			auto velocity = entityManager->getComponent<VelocityComponent>(entity.id);
 			auto position = entityManager->getComponent<PositionComponent>(entity.id);
+			boundingBoxComponent->boundingBox.SetPosXYZ(position->x, position->y,position->z);
 
 			std::list<Physics::BoundingBox const *> boundingBoxes;
 			quadTree.RetrieveAll(boundingBoxes, boundingBoxComponent->boundingBox);
 			
 			for (const auto& currentBox : boundingBoxes) {
+				auto k = aabbCollider.CheckCollision(boundingBoxComponent->boundingBox, *currentBox);
 				if (&boundingBoxComponent->boundingBox != currentBox && aabbCollider.CheckCollision(boundingBoxComponent->boundingBox, *currentBox)) {
 					boundingBoxComponent->didCollide = true;
 					boundingBoxComponent->collidesWith.push_back(boundingBoxMap[currentBox]);
