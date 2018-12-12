@@ -16,6 +16,29 @@ namespace States {
 
 	void HighScoreState::onInit(Context & context)
 	{
+
+	}
+
+	void HighScoreState::onUpdate(Context & context)
+	{
+		Renderer::Graphics::RenderDevice* renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
+		renderDevice->clearScreen();
+		menuRenderer.renderMenu(*menu, float(context.window->width) / float(context.window->height));
+		context.window->swapScreen();
+
+		auto input = context.inputManager;
+		if (menu->handleInput(*context.inputManager, context.window->width, context.window->height)) {
+			return;
+		}
+	}
+
+	void HighScoreState::onEnter(Context & context)
+	{
+		if (menu != nullptr) {
+			menu = nullptr;
+			menuBuilder = Menu::MenuBuilder();
+		}
+
 		menuBuilder.addControl(-0.5, 0.5, 1, 0.24, "img/HighscoreButton.png");
 
 
@@ -49,29 +72,11 @@ namespace States {
 			test -= 0.2;
 		}
 
-	   	std::function<void()> callback = [&context]() { context.stateMachine->setState<MainMenuState>(context); };
+		std::function<void()> callback = [&context]() { context.stateMachine->setState<MainMenuState>(context); };
 		menuBuilder.addControl(-0.9f, 0.8, 0.3, 0.1, "img/Back.png", callback);
 		Renderer::Graphics::RenderDevice* renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
 		renderDevice->setClearColour(1.f, 1.f, 1.f, 1.f);
 		menu = menuBuilder.buildMenu();
-	}
-
-	void HighScoreState::onUpdate(Context & context)
-	{
-		Renderer::Graphics::RenderDevice* renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
-		renderDevice->clearScreen();
-		menuRenderer.renderMenu(*menu, float(context.window->width) / float(context.window->height));
-		context.window->swapScreen();
-
-		auto input = context.inputManager;
-		if (menu->handleInput(*context.inputManager, context.window->width, context.window->height)) {
-			return;
-		}
-	}
-
-	void HighScoreState::onEnter(Context & context)
-	{
-
 	}
 
 	void HighScoreState::onLeave(Context & context)

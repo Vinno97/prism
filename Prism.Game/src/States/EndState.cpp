@@ -1,5 +1,7 @@
 #include "States/EndState.h"
 #include <iostream>
+#include <sstream>
+#include <iterator>
 #include <fstream>
 #include "StateMachine.h"
 #include "States/PrismGame.h"
@@ -38,8 +40,8 @@ namespace States {
 		green = menuBuilder.addTextControl(-0.5, -0.60, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
 		score = menuBuilder.addTextControl(-0.5, -0.65, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
 
-		std::function<void()> callbackMainMenu = [&context](){ context.stateMachine->setState<MainMenuState>(context); };
-		std::function<void()> callBackRestart = [&](){
+		std::function<void()> callbackMainMenu = [&context]() { context.stateMachine->setState<MainMenuState>(context); };
+		std::function<void()> callBackRestart = [&]() {
 			if (!context.stateMachine->hasState<PrismGame>()) {
 				context.stateMachine->addState<PrismGame>(context);
 				context.stateMachine->setState<PrismGame>(context);
@@ -65,7 +67,7 @@ namespace States {
 		blue->text = std::to_string(resourceBlue);
 		green->text = std::to_string(resourceGreen);
 		killedEnemies->text = std::to_string(kills);
-	   	Renderer::Graphics::RenderDevice* renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
+		Renderer::Graphics::RenderDevice* renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
 		renderDevice->clearScreen();
 		menuRenderer.renderMenu(*menu, float(context.window->width) / float(context.window->height));
 
@@ -81,10 +83,55 @@ namespace States {
 	{
 		context.stateMachine->removeState<PrismGame>();
 
-		std::fstream filestr;
-		filestr.open("res/saves/scores.txt", std::fstream::in | std::fstream::out | std::fstream::app);
-		filestr << totalscore << std::endl;
+		std::fstream file;
+		std::vector<int> numbers;
+		int newScore = totalscore;
+		file.open("res/saves/scores.txt", std::fstream::in | std::fstream::out | std::fstream::app);
+
+		if (file.is_open())
+		{
+			if (file.peek() == std::ifstream::traits_type::eof()) {
+				numbers.push_back(newScore);
+			}
+			else {
+				int count = 0;
+				int num;
+				while (file >> num)
+				{
+					if (count == 5) {
+						break;
+					}
+
+					if (newScore >= num) {
+						numbers.push_back(newScore);
+						newScore = 0;
+						count++;
+					}
+					
+					if(count < 5) {
+						numbers.push_back(num);
+						count++;
+					}
+				}
+
+				if (count <= 4 && newScore != 0) {
+					numbers.push_back(newScore);
+				}
+			}
+
+			std::sort(numbers.begin(), numbers.end());
+			std::reverse(numbers.begin(), numbers.end());
+
+			std::ofstream out("res/saves/scores.txt", std::ios_base::trunc);
+
+			if (out.is_open()) {
+				std::copy(numbers.begin(), numbers.end(), std::ostream_iterator<int>(out, "\n"));
+			}
+
+		}
 	}
+
+
 
 	void EndState::onLeave(Context & context)
 	{
