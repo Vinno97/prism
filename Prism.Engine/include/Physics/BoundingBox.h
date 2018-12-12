@@ -43,7 +43,7 @@ namespace Physics {
 		/// <summary>
 		/// Deconstruct boundingbox
 		/// </summary>
-		~BoundingBox();
+		~BoundingBox() = default;
 
 		/// <summary>
 		/// Set the center position of the boundingbox

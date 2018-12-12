@@ -162,6 +162,7 @@
     <ClInclude Include="include\Util\DistanceUtil.h" />
     <ClInclude Include="include\Renderer\PointLight.h" />
     <ClInclude Include="include\ECS\Components\PointLightComponent.h" />
+    <ClInclude Include="include\Math\Vector2.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\x64\SDL2test.lib" />

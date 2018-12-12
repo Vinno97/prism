@@ -5,36 +5,31 @@ using namespace Physics;
 BoundingBox::BoundingBox()
 = default;
 
-BoundingBox::BoundingBox(float radius, float posX, float posY)
+BoundingBox::BoundingBox(const float radius, const float posX, const float posY)
 {
 	SetPosXY(posX, posY);
 	SetBounds(radius, radius, -1 * radius, -1 * radius);
 }
 
-BoundingBox::BoundingBox(float north, float east, float south, float west)
+BoundingBox::BoundingBox(const float north, const float east, const float south, const float west)
 {
 	SetPosXY(0, 0);
 	SetBounds(north, east, south, west);
 }
 
-BoundingBox::BoundingBox(float north, float east, float south, float west, float posX, float posY)
+BoundingBox::BoundingBox(const float north, const float east, const float south, const float west, const float posX, const float posY)
 {
 	SetPosXY(posX, posY);
 	SetBounds(north, east, south, west);
 }
 
-
-BoundingBox::~BoundingBox()
-{
-}
-
-void BoundingBox::SetPosXY(float posX, float posY)
+void BoundingBox::SetPosXY(const float posX, const float posY)
 {
 	this->posX = posX;
 	this->posY = posY;
 }
 
-void BoundingBox::SetBounds(float north, float east, float south, float west)
+void BoundingBox::SetBounds(const float north, const float east, const float south, const float west)
 {
 	this->north = north;
 	this->east = east;

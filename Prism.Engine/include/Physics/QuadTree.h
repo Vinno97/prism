@@ -11,13 +11,13 @@ namespace Physics {
 		/// <summary>
 		/// create quadtree
 		/// </summary>
-		QuadTree();
+		QuadTree() = default;
 
 		QuadTree(const QuadTree& other);
 		QuadTree & operator=(const QuadTree& other);
 
-		QuadTree(QuadTree&& other);
-		QuadTree & operator=(QuadTree&& other);
+		QuadTree(QuadTree&& other) noexcept;
+		QuadTree & operator=(QuadTree&& other) noexcept;
 
 		~QuadTree();
 
@@ -29,7 +29,7 @@ namespace Physics {
 		/// <param name="x">The center x coordinate of the highest level quadtree</param>
 		/// <param name="y">The center y coordinate of the highest level quadtree</param>
 		/// <param name="maxObjects">Maximum amount of objects in one quad before it splits</param>
-		QuadTree(float width, float heigt, float x, float y, unsigned int maxObjects);
+		QuadTree(float width, float height, float x, float y, unsigned int maxObjects);
 
 		/// <summary>
 		/// Clear the contents of the quadtree

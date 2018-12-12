@@ -15,6 +15,7 @@
     <ClInclude Include="include\ECS\Components\DynamicComponent.h" />
     <ClInclude Include="include\ECS\EntityBuilder.h" />
     <ClInclude Include="include\ECS\Components\PointLightComponent.h" />
+    <ClInclude Include="include\Math\Vector2.h" />
     <ClInclude Include="include\Menu\Control.h" />
     <ClInclude Include="include\ECS\Components\PlayerComponent.h" />
     <ClInclude Include="include\Menu\TextControl.h" />
