@@ -1,5 +1,4 @@
 #pragma once
-#include "ECS/Components/ResourceGatherComponent.h"
 #include "EntityManager.h"
 
 class EntityBuilder
