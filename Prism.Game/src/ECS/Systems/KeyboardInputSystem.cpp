@@ -13,19 +13,18 @@
 
 namespace ECS {
 	namespace Systems {
+		using namespace Components;
+		
 		KeyboardInputSystem::KeyboardInputSystem(EntityManager &entityManager) : System(entityManager) {
 		}
-
-
-
 
 		KeyboardInputSystem::~KeyboardInputSystem()
 			= default;
 
 		void KeyboardInputSystem::update(Context& context) {
 			// 1 unit/second^2
-			//double acceleration = 5;
-			double acceleration = 10;
+			//double acceleration = 10;
+			double acceleration = 15;
 
 			auto input = context.inputManager;
 			
@@ -52,8 +51,6 @@ namespace ECS {
 				{
 					dirX += acceleration;
 				}
-
-
 
 				//	//TODO MOET WAARSCHIJNLIJK ANDERS
 				//	if (input->isMouseButtonPressed(Key::MOUSE_BUTTON_LEFT))
@@ -85,23 +82,8 @@ namespace ECS {
 				v.normalize();
 				velocity->dx += v.x * acceleration*context.deltaTime;
 				velocity->dy += v.y * acceleration*context.deltaTime;
-				
-				// Cheat option to increase health of the Player
-				if (entityManager->hasComponent<PlayerComponent>(entity.id)) {
-					auto healthComponent = entityManager->getComponent<HealthComponent>(entity.id);
-
-					if (input->isKeyPressed(Key::KEY_H))
-					{
-						// healthComponent->increase();
-					}
-				}
+			
 			}
-		}
-
-		System * KeyboardInputSystem::clone()
-		{
-			auto test = new KeyboardInputSystem(*entityManager);
-			return test;
 		}
 	}
 }

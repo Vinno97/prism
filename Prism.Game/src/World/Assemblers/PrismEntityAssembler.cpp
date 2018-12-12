@@ -11,6 +11,7 @@
 #include "World/Assemblers/TreeAssembler.h"
 #include "World/Assemblers/RockAssembler.h"
 #include "World/Assemblers/EnemySpawnAssembler.h"
+#include "World/Assemblers/MineAssembler.h"
 
 using namespace World::Assemblers;
 
@@ -27,4 +28,5 @@ World::Assemblers::PrismEntityAssembler::PrismEntityAssembler() : EntityAssemble
 	addAssembler(std::make_unique<TreeAssembler>(), PRIORITY_HIGH);
 	addAssembler(std::make_unique<RockAssembler>(), PRIORITY_HIGH);
 	addAssembler(std::make_unique<CliffFillerAssembler>(), PRIORITY_HIGH);
+	addAssembler(std::make_unique<MineAssembler>(), PRIORITY_HIGH);
 }

@@ -5,14 +5,16 @@ using namespace Physics;
 AABBCollider::AABBCollider()
 = default;
 
-bool AABBCollider::CheckCollision(BoundingBox const &box1, BoundingBox const &box2)
+bool AABBCollider::CheckCollision(BoundingBox const &box1, BoundingBox const &box2) const
 {
-	float vert1 = (box1.GetNorth() + box1.GetPosY()) - (box2.GetSouth() + box2.GetPosY());
-	float vert2 = (box1.GetSouth() + box1.GetPosY()) - (box2.GetNorth() + box2.GetPosY());
+	//check for collision on vertical axis
+	float vert1 = (box1.GetNorthCoordinate()) - (box2.GetSouthCoordinate());
+	float vert2 = (box1.GetSouthCoordinate()) - (box2.GetNorthCoordinate());
 	float vert = vert1 * vert2;
 
-	float horz1 = (box1.GetEast() + box1.GetPosX()) - (box2.GetWest() + box2.GetPosX());
-	float horz2 = (box1.GetWest() + box1.GetPosX()) - (box2.GetEast() + box2.GetPosX());
+	//check for collision on horizontal axis
+	float horz1 = (box1.GetEastCoordinate()) - (box2.GetWestCoordinate());
+	float horz2 = (box1.GetWestCoordinate()) - (box2.GetEastCoordinate());
 	float horz = horz1 * horz2;
 
 	return vert < 0 && horz < 0;

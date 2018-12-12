@@ -7,6 +7,7 @@ namespace World {
 	namespace Assemblers {
 		class BaseAssembler {
 		public:
+			virtual ~BaseAssembler() = default;
 			BaseAssembler() = default;
 
 			virtual void assemble(int entity, const WorldObject& worldObject, ECS::EntityManager& entityManager) const = 0;

@@ -14,10 +14,8 @@ namespace States {
 
 		void onInit(Context &context) override;
 		void onUpdate(Context &context) override;
-		void onEnter() override;
-		void onLeave() override;
-
-		PauseState(const PauseState &obj);
+		void onEnter(Context & context) override;
+		void onLeave(Context & context) override;
 
 		~PauseState();
 
@@ -25,7 +23,7 @@ namespace States {
 		bool canPressEscape = false;
 		Menu::MenuRenderer menuRenderer;
 		Menu::MenuBuilder menuBuilder;
-		Menu::Menu menu;
+		std::unique_ptr<Menu::Menu> menu;
 	};
 }
 

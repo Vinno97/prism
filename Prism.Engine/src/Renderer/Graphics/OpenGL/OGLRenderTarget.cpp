@@ -15,7 +15,7 @@ namespace Renderer {
 					GLuint depthrenderbuffer;
 					glGenRenderbuffers(1, &depthrenderbuffer);
 					glBindRenderbuffer(GL_RENDERBUFFER, depthrenderbuffer);
-					glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, 1920, 1080);
+					glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, 1920 / 2, 1080 / 2);
 					glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthrenderbuffer);
 				}
 
@@ -24,6 +24,12 @@ namespace Renderer {
 
 			void OGLRenderTarget::bind()
 			{
+				if (bufferAmount <= 0) {
+					glBindFramebuffer(GL_FRAMEBUFFER, FBO);
+					glDrawBuffer(GL_NONE);
+					return;
+				}
+
 				GLenum* drawBuffers = new GLenum[bufferAmount];
 				for (int i = 0; i < bufferAmount; i++) {
 					drawBuffers[i] = GL_COLOR_ATTACHMENT0 + i;
@@ -32,7 +38,7 @@ namespace Renderer {
 				glBindFramebuffer(GL_FRAMEBUFFER, FBO);
 				glDrawBuffers(bufferAmount, drawBuffers);
 				
-				delete drawBuffers;
+				delete[] drawBuffers;
 			}
 
 			void OGLRenderTarget::unbind()
@@ -46,6 +52,13 @@ namespace Renderer {
 				glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0+bufferAmount, GL_TEXTURE_2D, texture->getID(), 0);
 				bufferAmount++;
 				unbind();
+			}
+
+			void OGLRenderTarget::setDepthBuffer(std::shared_ptr<Texture> texture)
+			{
+				glBindFramebuffer(GL_FRAMEBUFFER, FBO);
+				glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, texture->getID(), 0);
+				glBindFramebuffer(GL_FRAMEBUFFER, 0);
 			}
 
 			int OGLRenderTarget::getID()

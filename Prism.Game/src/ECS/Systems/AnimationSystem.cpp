@@ -11,9 +11,12 @@
 #include "ECS/Components/AppearanceComponent.h"
 #include "ECS/Components/ResourceSpawnComponent.h"
 #include "ECS/Components/EnemySpawnComponent.h"
+#include "ECS/Components/PositionComponent.h"
 
 namespace ECS {
 	namespace Systems {
+		using namespace Components;
+		
 		AnimationSystem::AnimationSystem(EntityManager& entityManager) : System(entityManager) {
 		}
 
@@ -62,10 +65,6 @@ namespace ECS {
 
 				appearance->rotationY= result;
 			}
-		}
-		System * AnimationSystem::clone()
-		{
-			return new AnimationSystem(*entityManager);
 		}
 	}
 }

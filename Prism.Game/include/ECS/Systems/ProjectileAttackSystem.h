@@ -12,7 +12,6 @@ namespace ECS {
 			~ProjectileAttackSystem();
 
 			void update(Context& context) override;
-			System* clone() override;
 		private:
 		};
 	}

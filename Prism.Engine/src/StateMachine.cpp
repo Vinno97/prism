@@ -4,29 +4,19 @@
 StateMachine::StateMachine()
 = default;
 
-StateMachine::~StateMachine() {
-	for (const auto type : existingStates) {
-		delete type.second;
-	}
-}
-
 State* StateMachine::getCurrentState() const
 {
 	return this->currentState;
 }
 
-void StateMachine::setState(std::type_index type) {
-	if (this->currentState != nullptr)
-		this->currentState->onLeave();
-
+void StateMachine::setState(std::type_index type, Context & context) {
 	this->currentState = getState(type);
-	this->currentState->onEnter();
 }
 
 State* StateMachine::getState(std::type_index type) const {
 	try
 	{
-		return existingStates.at(type);
+		return existingStates.at(type).get();
 	}
 	catch (const std::runtime_error&)
 	{

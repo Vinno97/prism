@@ -4,26 +4,31 @@
 #include "ECS/Components/PlayerComponent.h"
 #include "ECS/Components/SceneComponent.h"
 #include "ECS/Components/CameraComponent.h"
+#include "ECS/Components/PointLightComponent.h"
 #include "glm/glm.hpp"
 #include <tuple>
 #include "Renderer/Renderable.h"
 #include "Renderer/ForwardRenderer.h"
 #include "Renderer/Scene.h"
 #include "Renderer/Graphics/Loader/ModelLoader.h"
+#include "ECS/Components/PositionComponent.h"
 
 using namespace Renderer;
+using namespace ECS;
+using namespace Systems;
+using namespace Components;
 using namespace std;
 
 namespace ECS {
 	namespace Systems {
+		using namespace Components;
 
 		RenderSystem::RenderSystem(EntityManager &entityManager, int windowWidth, int windowHeight)
 			: System(entityManager) {
 			forwardRenderer = std::make_shared<ForwardRenderer>(windowWidth, windowHeight);
 			auto cameraComponent = this->entityManager->getAllEntitiesWithComponent<CameraComponent>()[0].component;
 			auto camera = &cameraComponent->camera;
-			camera->move(0, 3.f, 4.f);
-			camera->rotate(-25.f, 0.f, 0.f);
+
 		}
 
 		ECS::Systems::RenderSystem::~RenderSystem()
@@ -42,7 +47,7 @@ namespace ECS {
 				auto playerPosition = entityManager->getComponent<PositionComponent>(players.front().id);
 				camera->position.x -= (camera->position.x - playerPosition->x) * context.deltaTime * 2;
 				camera->position.z -= (camera->position.z - 4.f - playerPosition->y) * context.deltaTime * 2;
-			}			
+			}
 
 
 			for (unsigned int i = 0; i < appearanceEntities.size(); i++)
@@ -69,14 +74,22 @@ namespace ECS {
 
 				rendererData.push_back(renderable);
 			}
+			std::vector<Renderer::PointLight> lights;
+			auto lightEntities = entityManager->getAllEntitiesWithComponent<PointLightComponent>();
+			for (unsigned int i = 0; i < lightEntities.size(); i++) {
+				auto position = this->entityManager->getComponent<PositionComponent>(lightEntities[i].id);
+				Renderer::PointLight pl{ Math::Vector3f{float(position->x), 1, float(position->y)}, lightEntities[i].component->color };
+				lights.push_back(pl);
+			}
 
-			forwardRenderer->draw(cameraComponent->camera, rendererData, sceneComponent->scene);
-		}
+			auto input = context.inputManager;
 
-		System * RenderSystem::clone()
-		{
-			RenderSystem* system = new RenderSystem(*entityManager, forwardRenderer->width, forwardRenderer->height);
-			return system;
+			//if (input->isKeyPressed(Key::KEY_I)) {
+			if (input->isKeyPressed(Key::KEY_H)) {
+				forwardRenderer->loadPipelines();
+			}
+
+			forwardRenderer->draw(cameraComponent->camera, rendererData, sceneComponent->scene, lights, pos);
 		}
 	}
 }

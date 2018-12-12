@@ -1,24 +1,34 @@
+#include "Menu/TextRenderer.h"
 #include "States/PrismGame.h"
-
+#include <iomanip>
+#include <iostream>
 #include "Math/Vector3f.h"
 #include "StateMachine.h"
 #include "States/PauseState.h"
 #include "States/EndState.h"
 #include "ECS/Components/SceneComponent.h"
+#include "ECS/Components/PlayerComponent.h"
 #include "ECS/Components/PositionComponent.h"
 #include "ECS/Components/VelocityComponent.h"
+#include "ECS/Components/PointLightComponent.h"
 #include "ECS/Components/AppearanceComponent.h"
+#include "ECS/Components/EnemyComponent.h"
 #include "ECS/Components/DragComponent.h"
+#include "ECS/Components/HealthComponent.h"
 #include "ECS/Components/KeyboardInputComponent.h"
 #include "ECS/Systems/EnemyPathFindingSystem.h"
 #include "ECS/Systems/MotionSystem.h"
+#include "ECS/Systems/GameOverSystem.h"
 #include "ECS/Systems/AttackSystem.h"
 #include "ECS/Systems/RenderSystem.h"
+#include "ECS/Systems/EnemySpawnSystem.h"
+#include "ECS/Systems/MousePointSystem.h"
 #include "ECS/Systems/KeyboardInputSystem.h"
 #include "ECS/Systems/AnimationSystem.h"
 #include "ECS/Systems/AttackSystem.h"
 #include "ECS/Systems/BumpSystem.h"
 #include "ECS/Systems/CollisionSystem.h"
+#include "ECS/Systems/CheatSystem.h"
 #include "ECS/Systems/ResourceGatherSystem.h"
 #include "ECS/Systems/ResourceBlobSystem.h"
 #include "ECS/Systems/ShootingSystem.h"
@@ -30,6 +40,8 @@
 #include "World/Assemblers/PrismEntityAssembler.h"
 #include "ECS/Systems/MousePointSystem.h"
 #include "ECS/Systems/EnemySpawnSystem.h"
+#include "ECS/Systems/HealthRegenerationSystem.h"
+#include "Renderer/PointLight.h"
 #include <functional>
 
 namespace States {
@@ -48,8 +60,8 @@ namespace States {
 
 		sceneComponent->scene.ambientLightColor = Math::Vector3f{ 1.0f, 1.0f, 1.0f };
 		sceneComponent->scene.ambientLightStrength = 0.95f;
-		sceneComponent->scene.sun.color = Math::Vector3f{ .20f, .20f, .20f };
-		sceneComponent->scene.sun.direction = Math::Vector3f{ 25.f, 150.0f, 100.0f };
+		sceneComponent->scene.sun.color = Math::Vector3f{ 1.f, 1.f, 1.f };
+		sceneComponent->scene.sun.direction = Math::Vector3f{ -0.3, -1.0f, -.3f };
 
 		World::LevelManager loader{ std::make_unique<PrismEntityAssembler>() };
 
@@ -59,15 +71,30 @@ namespace States {
 		loader.save("saves/Sample Save", entityManager);
 
 		loadAudio(context);
-
 		registerSystems(context);
-
-		PauseState ps = PauseState();
-		context.stateMachine->addState(ps, context);
-		EndState es = EndState();
-		context.stateMachine->addState(es, context);
 		
-		std::function<void()> callback = [context, &canPress = canPressEscape]() mutable { canPress = false; context.stateMachine->setState<PauseState>(); };
+		if (!context.stateMachine->hasState<PauseState>()) {
+			context.stateMachine->addState<PauseState>(context);
+		}
+		if (!context.stateMachine->hasState<EndState>()) {
+			context.stateMachine->addState<EndState>(context);
+		}
+
+		menuBuilder.addControl(0.6, 0.35, 0.40, 0.65, "img/resources.png");
+		menuBuilder.addControl(-1, 0.83, 0.4, 0.15, "img/healthbar.png");
+		health = menuBuilder.addTextControl(-0.98, 0.89, 0.0012, Math::Vector3f{ 1.0f, 1.0f, 1.0f }, "100");
+		blueResource = menuBuilder.addTextControl(0.65, 0.83, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
+		redResource = menuBuilder.addTextControl(0.65, 0.64, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
+		greenResource = menuBuilder.addTextControl(0.65, 0.45, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
+
+
+
+		fps = menuBuilder.addTextControl(0.83, 0.3, 0.0009, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "");
+
+		menu = menuBuilder.buildMenu();
+
+		
+		std::function<void()> callback = [context, &canPress = canPressEscape]() mutable { canPress = false; context.stateMachine->setState<PauseState>(context); };
 	}
 
 	/// <summary>
@@ -76,85 +103,66 @@ namespace States {
 	/// <param name="context">The context that is needed to register the systems</param>
 	void PrismGame::registerSystems(Context &context)
 	{
-		MotionSystem motionSystem = MotionSystem(entityManager);
-		RenderSystem renderSystem = RenderSystem(entityManager, context.window->width, context.window->height);
-		KeyboardInputSystem inputSystem = KeyboardInputSystem(entityManager);
-		EnemyPathFindingSystem enemyPathFindingSystem  = EnemyPathFindingSystem(entityManager, 10);
-		AnimationSystem animationSystem = AnimationSystem(entityManager);
-		CollisionSystem collisionSystem = CollisionSystem(entityManager, context.window->width, context.window->height, 0, 0, 2);
-		ShootingSystem shootingSystem = ShootingSystem(entityManager);
-		ProjectileAttackSystem projectileAttackSystem = ProjectileAttackSystem(entityManager);
-		ResourceBlobSystem resourceBlobSystem = ResourceBlobSystem(entityManager);
-		ResourceGatherSystem resourceGatherSystem = ResourceGatherSystem(entityManager);
-		EnemySpawnSystem enemySpawnSystem = EnemySpawnSystem(entityManager);
-		MousePointSystem pointSystem = MousePointSystem(entityManager);
-		BumpSystem bumpSystem = BumpSystem(entityManager);
-		AimingSystem aimSystem = AimingSystem(entityManager);
-		AttackSystem attackSystem = AttackSystem(entityManager);
+			systemManager
+			//1
+			.registerSystem<1, KeyboardInputSystem>(entityManager)
+			.registerSystem<1, MousePointSystem>(entityManager)
+			.registerSystem<1, CheatSystem>(entityManager)
+			.registerSystem<1, EnemyPathFindingSystem>(entityManager, 15)
 
-		systemManager.registerSystem(motionSystem);
-		systemManager.registerSystem(renderSystem);
-		systemManager.registerSystem(inputSystem);
-		systemManager.registerSystem(enemyPathFindingSystem);
+			//2
+			.registerSystem<2, MotionSystem>(entityManager)
+			.registerSystem<2, AnimationSystem>(entityManager)
+			.registerSystem<2, AimingSystem>(entityManager)
+			.registerSystem<2, ResourceGatherSystem>(entityManager)
+			.registerSystem<2, EnemySpawnSystem>(entityManager)
 
-		systemManager.registerSystem(animationSystem);
-		systemManager.registerSystem(collisionSystem);
-		systemManager.registerSystem(shootingSystem);
-		systemManager.registerSystem(projectileAttackSystem);
-		systemManager.registerSystem(aimSystem);
-		systemManager.registerSystem(bumpSystem);
-		systemManager.registerSystem(resourceGatherSystem);
-		systemManager.registerSystem(resourceBlobSystem);
-		systemManager.registerSystem(enemySpawnSystem);
-		systemManager.registerSystem(pointSystem);
-		systemManager.registerSystem(attackSystem);
+			//3
+			.registerSystem<3, ResourceBlobSystem>(entityManager)
+			.registerSystem<3, ShootingSystem>(entityManager)
+			.registerSystem<3, CollisionSystem>(entityManager, context.window->width, context.window->height, 0, 0, 2)
+
+			//4
+			.registerSystem<4, ProjectileAttackSystem>(entityManager)
+			.registerSystem<4, AttackSystem>(entityManager)
+
+			//5
+			.registerSystem<5, BumpSystem>(entityManager)
+			.registerSystem<5, RenderSystem>(entityManager, context.window->width, context.window->height)
+			.registerSystem<5, HealthRegenerationSystem>(entityManager)
+			.registerSystem<5, GameOverSystem>(entityManager);
 	}
-
-
 
 	void PrismGame::onUpdate(Context &context)
 	{
-
+		std::cout << "FPS:   \t" << 1.0 / context.deltaTime << std::endl;
+		toggleFPS(context);
 		auto input = context.inputManager;
-		if (menu.handleInput(*context.inputManager, context.window->width, context.window->height)) { 
-			return; 
+	
+		for (auto& systemList : systemManager.getAllSystems()) {
+			for (auto& system : systemList.second) {
+				system.second->update(context);
+			}
+		}
+			
+		auto inventory = entityManager.getAllEntitiesWithComponent<InventoryComponent>()[0].component;
+		int playerHealth;
+		for (const auto& entity : entityManager.getAllEntitiesWithComponent<PlayerComponent>()) {
+			playerHealth = entityManager.getComponent<HealthComponent>(entity.id)->currentHealth;
 		}
 
-		auto inputSystem = systemManager.getSystem<KeyboardInputSystem>();
-		auto enemyPathFindingSystem = systemManager.getSystem<EnemyPathFindingSystem>();
-		auto motionSystem = systemManager.getSystem<MotionSystem>();
-		auto collisionSystem = systemManager.getSystem<CollisionSystem>();
-		auto renderSystem = systemManager.getSystem<RenderSystem>();
-		auto animationSystem = systemManager.getSystem<AnimationSystem>();
-		auto shootingSystem = systemManager.getSystem<ShootingSystem>();
-		auto projectileAttackSystem = systemManager.getSystem<ProjectileAttackSystem>();
-		auto attackSystem = systemManager.getSystem<AttackSystem>();
-		auto bumpSystem = systemManager.getSystem<BumpSystem>();
-		auto enemySpawnSystem = systemManager.getSystem<EnemySpawnSystem>();
-		auto pointSystem = systemManager.getSystem<MousePointSystem>();
-		auto aimSystem = systemManager.getSystem<AimingSystem>();
-		auto resourceBlobSystem = systemManager.getSystem<ResourceBlobSystem>();
-		auto resourceGatherSystem = systemManager.getSystem<ResourceGatherSystem>();
+		redResource->text = std::to_string(static_cast<int>(inventory->redResource));
+		blueResource->text = std::to_string(static_cast<int>(inventory->blueResource));
+		greenResource->text = std::to_string(static_cast<int>(inventory->greenResource));
+		health->text = "Health: " + std::to_string(playerHealth);
 
-		inputSystem->update(context);
-		enemyPathFindingSystem->update(context);
-		motionSystem->update(context);
-		//collisionSystem->update(context);
-		pointSystem->update(context);
-		aimSystem->update(context);
-		shootingSystem->update(context);
-		projectileAttackSystem->update(context);
-		attackSystem->update(context);
-		//bumpSystem->update(context);
-		animationSystem->update(context);
-		resourceGatherSystem->update(context);
-		resourceBlobSystem->update(context);
-		enemySpawnSystem->update(context);
-		renderSystem->update(context);
-
-		std::cout << 1.0/context.deltaTime << std::endl;
-
+		menuRenderer.renderMenu(*menu, float(context.window->width) / float(context.window->height));
 		context.window->swapScreen();
+
+		if (menu->handleInput(*context.inputManager, context.window->width, context.window->height)) {
+			return;
+		}
+
 
 		if (!input->isKeyPressed(Key::KEY_ESCAPE)) {
 			canPressEscape = true;
@@ -162,25 +170,53 @@ namespace States {
 
 		if (input->isKeyPressed(Key::KEY_ESCAPE) && canPressEscape) {
 			canPressEscape = false;
-			context.stateMachine->setState<PauseState>();
+			context.stateMachine->setState<PauseState>(context);
 		}
 	}
 
 	void PrismGame::loadAudio(Context &context) const
 	{
 		context.audioManager->addMusic("Ambience", "Ambience.wav");
+		context.audioManager->addMusic("MainMenu", "MainMenu.wav");
 		context.audioManager->addSound("Bullet", "Bullet.wav");
 		context.audioManager->addSound("EnemyKill", "EnemyKill.wav");
 		context.audioManager->addSound("Resource", "ResourceGathering.wav");
+		context.audioManager->addSound("Heartbeat", "Heartbeat.wav");
+	}
 
-		//Temporarily in here, will be moved to onEnter once context is accessible.
+	void PrismGame::onEnter(Context &context) {
 		context.audioManager->playMusic("Ambience");
 	}
 
-	void PrismGame::onEnter() {
+	int PrismGame::Fps(Context &context)
+	{
+		double fps = 1.0 / context.deltaTime;
+		return(floor(fps));
 	}
-	void PrismGame::onLeave() {
+
+	void PrismGame::toggleFPS(Context & context)
+	{
+		auto input = context.inputManager;
+		if (!input->isKeyPressed(Key::KEY_F3)) {
+			canPressF3 = true;
+		}
+		if (input->isKeyPressed(Key::KEY_F3) && !showFPS  && canPressF3) {
+			canPressF3 = false;
+			showFPS = true;
+			fps->text = "FPS: " + std::to_string(Fps(context));
+		}
+
+		else if (input->isKeyPressed(Key::KEY_F3) && showFPS && canPressF3) {
+			canPressF3 = false;
+			showFPS = false;
+			fps->text = "";
+		}
+
+		if (showFPS) {
+			fps->text = "FPS: " + std::to_string(Fps(context));
+		}
+	}
+
+	void PrismGame::onLeave(Context &context) {
 	}
 }
-
-

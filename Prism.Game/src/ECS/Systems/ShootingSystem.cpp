@@ -4,7 +4,9 @@
 #include "ECS/Components/VelocityComponent.h"
 #include "ECS/Components/BulletComponent.h"
 #include "ECS/Components/AppearanceComponent.h"
+#include "ECS/Components/PositionComponent.h"
 
+using namespace ECS::Components;
 
 namespace ECS {
 	namespace Systems {
@@ -35,7 +37,7 @@ namespace ECS {
 						auto entityAppearance = entityManager->getComponent<AppearanceComponent>(entity.id);
 						auto projectileAppearance = entityManager->getComponent<AppearanceComponent>(projectileId);
 						projectileAppearance->color = entityAppearance->color;
-						context.audioManager->playSound("Bullet");
+						context.audioManager->playSound("Bullet", 0);
 					}
 					entityManager->getComponent<BulletComponent>(projectileId)->lifeTime = 2;
 					component->isShooting = false;
@@ -52,11 +54,6 @@ namespace ECS {
 				}
 			}
 
-		}
-
-		System * ShootingSystem::clone()
-		{
-			return new ShootingSystem(*entityManager);
 		}
 	}
 }
