@@ -8,6 +8,7 @@
 
 using namespace ECS;
 using namespace Systems;
+using namespace Components;
 
 ECS::Systems::TowerAimingSystem::TowerAimingSystem(EntityManager & entityManager) : System(entityManager)
 {
@@ -37,7 +38,7 @@ void ECS::Systems::TowerAimingSystem::update(Context & context)
 
 				shootingComponent->xdirection = vec.x;
 				shootingComponent->ydirection = vec.y;
-				shootingComponent->zPosition = 0;
+				shootingComponent->zPosition = 1;
 				
 				shootingComponent->isShooting = true;
 			}

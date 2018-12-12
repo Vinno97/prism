@@ -14,8 +14,8 @@ namespace ECS {
 			float pastTime = 0;
 			float cooldown = 0.2;
 
-			Component* Clone() override {
-				return new ShootingComponent();
+			std::unique_ptr<Component> clone() override {
+				return std::make_unique<ShootingComponent>();
 			}
 		};
 	}

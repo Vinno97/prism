@@ -2,6 +2,8 @@
 
 #include "Component.h"
 
+#include "Math/Vector2.h"
+
 namespace ECS {
 	namespace Components {
 		struct PositionComponent : Component {
@@ -14,21 +16,25 @@ namespace ECS {
 			/// </summary>
 			double x{ 0 };
 
+			// NOLINTNEXTLINE(google-explicit-constructor)
+			operator Math::Vector2<double>() const { return Math::Vector2<double>{x, y}; }
+
+            // NOLINTNEXTLINE(google-explicit-constructor)
+            PositionComponent(Math::Vector2<double>& vector) : x(vector.x), y(vector.y) {
+            };
 			/// <summary>
 			///	The position in units
 			/// </summary>
 			double y{ 0 };
 
 			double z{ 0 };
-
-			Component* Clone() override {
-				PositionComponent* component = new PositionComponent();
-				component->x = x;
-				component->y = y;
+            std::unique_ptr<Component> clone() override {
+                auto component = std::make_unique<PositionComponent>();
+                component->y = y;
+                component->x = x;
 				component->z = z;
-				return component;
-
-			}
-		};
-	}
+                return component;
+            }
+        };
+    }
 }

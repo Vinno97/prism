@@ -25,6 +25,12 @@ target_compile_features(Prism.Game PUBLIC cxx_std_17)
 target_link_libraries(Prism.Game PRIVATE Prism.Engine)
 target_include_directories(Prism.Game PRIVATE src)
 
+set_target_properties(Prism.Game PROPERTIES
+        CXX_STANDARD 17
+        CXX_EXTENSIONS OFF
+        SOVERSION 1)
+
+
 #add_custom_target(resources ALL
 #        COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_CURRENT_SOURCE_DIR}/resources" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/resources")
 

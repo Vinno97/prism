@@ -18,11 +18,23 @@ using namespace Renderer::Graphics::OpenGL;
 using namespace Renderer::Graphics::Models;
 
 namespace Menu {
-	MenuBuilder::MenuBuilder()
-	{
-		menu = Menu{};
+	MenuBuilder::MenuBuilder() {
+		menu = std::make_unique<Menu>();
+
 		renderDevice = OGLRenderDevice::getRenderDevice();
 		this->initMesh();
+	}
+
+	TextControl* MenuBuilder::addTextControl(float x, float y, float scale, Math::Vector3f colour, std::string text)
+	{
+		std::unique_ptr<TextControl> textControl = std::make_unique<TextControl>(text);
+		textControl->position.x = x;
+		textControl->position.y = y;
+		textControl->colour = colour;
+		textControl->scale = scale;
+		menu->textControls.push_back(std::move(textControl));
+
+		return menu->textControls[menu->textControls.size() - 1].get();
 	}
 
 	//Create a single mesh so we can reuse it
@@ -37,8 +49,8 @@ namespace Menu {
 		std::unique_ptr<VertexArrayObject> vertexArrayObject = renderDevice->createVertexArrayobject();
 		std::unique_ptr<VertexBuffer> texBuffer = renderDevice->createVertexBuffer(verticesSize, texCoords);
 
-		vertexArrayObject->addVertexBuffer(move(vertexBuffer), 0, 2 * sizeof(float), 0, 2);
-		vertexArrayObject->addVertexBuffer(move(texBuffer), 1, 2 * sizeof(float), 0, 2);
+		vertexArrayObject->addVertexBuffer(vertexBuffer.get(), 0, 2 * sizeof(float), 0, 2);
+		vertexArrayObject->addVertexBuffer(texBuffer.get(), 1, 2 * sizeof(float), 0, 2);
 
 		unique_ptr<IndexBuffer> indexBuffer = renderDevice->createIndexBuffer(6 * sizeof(unsigned int), indicesArray);
 
@@ -46,29 +58,26 @@ namespace Menu {
 		mesh->isIndiced = true;
 		mesh->indicesLength = 6;
 
-		menu.mesh = mesh;
+		menu->mesh = mesh;
 	}
 
 	void MenuBuilder::addControl(float x, float y, float width, float height, const char *path)
 	{
 		Control control{x, y, width, height, path };
 		Model model = Model{ mesh };
-		menu.controls.push_back(control);
+		menu->controls.push_back(control);
 	}
 
 	void MenuBuilder::addControl(float x, float y, float width, float height, const char * path, std::function<void()> callback_)
 	{
 		Control control{ x, y, width, height, path, callback_ };
 		Model model = Model{ mesh };
-		menu.controls.push_back(control);
+		menu->controls.push_back(control);
 	}
 
-	Menu MenuBuilder::buildMenu()
+	std::unique_ptr<Menu> MenuBuilder::buildMenu()
 	{
-		for (auto& c : menu.controls) {
-			c.onClick();
-		}
-		return menu;
+		return std::move(menu);
 	}
 }
 

@@ -4,9 +4,14 @@
 #include "ECS/Components/EnemyComponent.h"
 #include "ECS/Components/HealthComponent.h"
 #include "ECS/Components/PlayerComponent.h"
+#include "ECS/Components/PositionComponent.h"
+#include "Util/DistanceUtil.h"
+#include <cmath>
 
 namespace ECS {
 	namespace Systems {
+		using namespace Components;
+		
 		ProjectileAttackSystem::ProjectileAttackSystem(EntityManager& entityManager) : System(entityManager)
 		{
 		}
@@ -27,40 +32,41 @@ namespace ECS {
 					bool isEnemy = false;
 					for (auto collider : vector) {
 						
-						for (auto enemy : entityManager->getAllEntitiesWithComponent<EnemyComponent>()) {
-							auto other = entityManager->getComponent<BoundingBoxComponent>(enemy.id);
-							if (std::addressof(*collider) == std::addressof(other->boundingBox)){
-								isEnemy = true;
-								
-								
-								if (entityManager->hasComponent<HealthComponent>(entity.id) && entityManager->hasComponent<HealthComponent>(enemy.id)) {
-									auto ProjectileHealth = entityManager->getComponent<HealthComponent>(entity.id);
-									auto EnemyHealth = entityManager->getComponent<HealthComponent>(enemy.id);
-									int tempEnemyHealth = EnemyHealth->health;
-									EnemyHealth->health -= ProjectileHealth->health;
-									ProjectileHealth->health -= tempEnemyHealth;
-									if (ProjectileHealth->health <= 0) {
-										entityManager->removeEntity(entity.id);
-									}
-									if (EnemyHealth->health <= 0) {
-										entityManager->removeEntity(enemy.id);
-										context.audioManager->playSound("EnemyKill");
-										break;
-									}
+						if (entityManager->hasComponent<EnemyComponent>(collider)) {
+							isEnemy = true;
+
+							if (entityManager->hasComponent<HealthComponent>(entity.id) && entityManager->hasComponent<HealthComponent>(collider)) {
+								auto ProjectileHealth = entityManager->getComponent<HealthComponent>(entity.id);
+								auto EnemyHealth = entityManager->getComponent<HealthComponent>(collider);
+								int tempEnemyHealth = EnemyHealth->currentHealth;
+								EnemyHealth->currentHealth -= ProjectileHealth->currentHealth;
+								ProjectileHealth->currentHealth -= tempEnemyHealth;
+								if (ProjectileHealth->currentHealth <= 0) {
+									entityManager->removeEntity(entity.id);
+								}
+								if (EnemyHealth->currentHealth <= 0) {
+									entityManager->removeEntity(collider);
+									Util::DistanceUtil distanceUtil;
+									int BoxX = boundingBoxComponent->boundingBox.GetPosX();
+									int BoxY = boundingBoxComponent->boundingBox.GetPosY();
+									int PlayerX = entityManager->getComponent<PositionComponent>(players[0].id)->x;
+									int PlayerY = entityManager->getComponent<PositionComponent>(players[0].id)->x;
+									context.audioManager->playSound("EnemyKill", distanceUtil.CalculateDistance(BoxX, BoxY, PlayerX, PlayerY));
+									break;
 								}
 							}
 						}
-						
-						
 					}
 					if (!isEnemy) {
 						entityManager->removeEntity(entity.id);
 					}
 				}
-				boundingBoxComponent->didCollide = false;
-				boundingBoxComponent->collidesWith.clear();
-			}
 
+				// TODO: Wat doet deze code hier eigenlijk? De game crasht hierop, maar werkt correct als het uitgeschakeld staat. 
+				// Ik kan me ook niet bedenken wat dit zou horen te doen.
+				// boundingBoxComponent->didCollide = false;
+				// boundingBoxComponent->collidesWith.clear();
+			}
 		}
 	}
 }

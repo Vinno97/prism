@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ECS/Systems/System.h"
+#include "ECS/Components/PositionComponent.h"
 
 namespace ECS {
 	namespace Systems {
@@ -14,7 +15,7 @@ namespace ECS {
 			//System* clone() override;
 		private:
 			const float radius = 5;
-			bool enemyIsInRange(PositionComponent & playerPosition, PositionComponent & resourcePointPosition, float radius) const;
+			bool enemyIsInRange(ECS::Components::PositionComponent & playerPosition, ECS::Components::PositionComponent & resourcePointPosition, float radius) const;
 
 		};
 	}

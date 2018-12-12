@@ -1,5 +1,7 @@
 #pragma once
 #include <vector>
+#include <list>
+#include <array>
 #include "BoundingBox.h"
 
 namespace Physics {
@@ -24,9 +26,10 @@ namespace Physics {
 		/// </summary>
 		/// <param name="width">Total width of the highest level quadtree</param>
 		/// <param name="height">Total height of the highest level quadtree</param>
-		/// <param name="width">The center x coördinate of the highest level quadtree</param>
-		/// <param name="width">Total width of the highest level quadtree</param>
-		QuadTree(float width, float heigt, float x, float y, unsigned int maxObject);
+		/// <param name="x">The center x coordinate of the highest level quadtree</param>
+		/// <param name="y">The center y coordinate of the highest level quadtree</param>
+		/// <param name="maxObjects">Maximum amount of objects in one quad before it splits</param>
+		QuadTree(float width, float heigt, float x, float y, unsigned int maxObjects);
 
 		/// <summary>
 		/// Clear the contents of the quadtree
@@ -48,8 +51,7 @@ namespace Physics {
 		/// Retrieve a vector with all the boundingboxes that can collide with the given boundingbox
 		/// </summary>
 		///<param name="searchBox">A vector will be returned that could collide with this boundingbox</param>
-		std::vector<BoundingBox const *> RetrieveAll(std::vector<BoundingBox const *> &vector, BoundingBox const &searchBox);
-
+		void RetrieveAll(std::list<BoundingBox const *> &vector, BoundingBox const &searchBox);
 
 		/// <summary>
 		/// Get the bounds of the quadtree;

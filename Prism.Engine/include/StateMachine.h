@@ -3,6 +3,7 @@
 #include <map>
 #include <list>
 #include <typeindex>
+#include <algorithm>
 
 #include "State.h"
 
@@ -27,6 +28,19 @@ public:
 	}
 
 	/// <summary>
+	/// Remove state
+	/// </summary>
+	template<class T, typename = std::enable_if_t < std::is_base_of<State, T>::type::value>>
+	void removeState()
+	{
+		const std::type_index type{ std::type_index(typeid(T)) };
+		
+		if (hasState(type)) {
+			existingStates.erase(type);
+		}
+	}
+
+	/// <summary>
 	/// Add state to list of existing states
 	/// </summary>
 	/// <param name="context">The context</param>
@@ -35,7 +49,6 @@ public:
 	template<typename T, typename...Fs, typename = std::enable_if_t < std::is_base_of<State, T>::type::value>>
 	void addState(Context & context, Fs&&... fs )
 	{
-
 		const std::type_index type{ std::type_index(typeid(T)) };
 
 		if (hasState(type)) {
@@ -71,10 +84,8 @@ public:
 	/// <returns>Returns the current state </returns>
 	State *getCurrentState() const;
 
-
 private:
 	State *currentState;
-
 	// keeps a list of States
 	std::map<std::type_index, std::unique_ptr<State>> existingStates;
 

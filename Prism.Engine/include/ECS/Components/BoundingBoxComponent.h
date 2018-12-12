@@ -9,15 +9,16 @@ namespace ECS {
 
 			BoundingBoxComponent(float width, float height) : boundingBox(Physics::BoundingBox(height / 2.0, width / 2.0, -1 * height / 2.0, -1 * width / 2.0)) {};
 			BoundingBoxComponent(float width, float height, float depth) : boundingBox(Physics::BoundingBox(height / 2.0, width / 2.0, -1 * height / 2.0, -1 * width / 2.0, depth/ 2.0, -1* depth/2.0)) {};
+			BoundingBoxComponent(float north, float east, float south, float west) : boundingBox(Physics::BoundingBox(north,east,south,west)) {};
 
 			Physics::BoundingBox boundingBox;
 			bool didCollide = false;
 
-			std::vector<Physics::BoundingBox const *> collidesWith;
+			std::vector<unsigned int> collidesWith;
 			
-			Component* Clone() override
+			std::unique_ptr<Component> clone() override
 			{
-				auto newComponent = new BoundingBoxComponent(boundingBox.GetEast() - boundingBox.GetWest(), boundingBox.GetNorth() - boundingBox.GetSouth(), boundingBox.GetDown() - boundingBox.GetUp());
+				auto newComponent = std::make_unique <BoundingBoxComponent>(boundingBox.GetNorthBound(),boundingBox.GetEastBound(), boundingBox.GetSouthBound(),boundingBox.GetWestBound());
 				newComponent->didCollide = this->didCollide;
 				for (int i = 0;i < collidesWith.size();i++) {
 					newComponent->collidesWith.push_back(collidesWith[i]);
