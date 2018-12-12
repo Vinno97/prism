@@ -82,11 +82,15 @@ namespace States {
 	void EndState::onEnter(Context & context)
 	{
 		context.stateMachine->removeState<PrismGame>();
+		updateScores();
+		
+	}
 
+	void EndState::updateScores() {
 		std::fstream file;
 		std::vector<int> numbers;
 		int newScore = totalscore;
-		file.open("res/saves/scores.txt", std::fstream::in | std::fstream::out | std::fstream::app);
+		file.open("res/saves/scores.txt");
 
 		if (file.is_open())
 		{
@@ -98,17 +102,20 @@ namespace States {
 				int num;
 				while (file >> num)
 				{
+					// Max 5 highscores
 					if (count == 5) {
 						break;
 					}
 
+					// Add newScore when it belongs to the highscores
 					if (newScore >= num) {
 						numbers.push_back(newScore);
 						newScore = 0;
 						count++;
 					}
-					
-					if(count < 5) {
+
+					// Add current highscores
+					if (count < 5) {
 						numbers.push_back(num);
 						count++;
 					}
@@ -119,15 +126,15 @@ namespace States {
 				}
 			}
 
+			// Sort list
 			std::sort(numbers.begin(), numbers.end());
 			std::reverse(numbers.begin(), numbers.end());
 
-			std::ofstream out("res/saves/scores.txt", std::ios_base::trunc);
-
+			// Clear file scores.txt and copy values (vector: numbers) to file
+			std::ofstream out("res/saves/scores.txt");
 			if (out.is_open()) {
 				std::copy(numbers.begin(), numbers.end(), std::ostream_iterator<int>(out, "\n"));
 			}
-
 		}
 	}
 

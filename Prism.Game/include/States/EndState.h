@@ -42,6 +42,8 @@ namespace States {
 		Menu::TextControl* green;
 		Menu::TextControl* blue;
 
+		void updateScores();
+
 	};
 }
 

@@ -17,12 +17,12 @@ namespace States {
 		void onUpdate(Context &context) override;
 		void onEnter(Context & context) override;
 		void onLeave(Context & context) override;
-		void buildMenu(Context & context);
-		std::vector<int> getHighScore();
-		void showHighscore(std::vector<int> numbers, Context & context);
 		~HighScoreState();
 
 	private:
+		void buildMenu(Context & context);
+		std::vector<int> getHighScore();
+		void showHighscore(std::vector<int> numbers, Context & context);
 		Menu::MenuRenderer menuRenderer;
 		Menu::MenuBuilder menuBuilder;
 		std::unique_ptr<Menu::Menu> menu;
