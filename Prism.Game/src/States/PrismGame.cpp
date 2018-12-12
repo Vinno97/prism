@@ -68,7 +68,7 @@ namespace States {
 
 		World::LevelManager loader{ std::make_unique<PrismEntityAssembler>() };
 
-		loader.load("levels/Sample World", entityManager);
+		loader.load("levels/level_1", entityManager);
 		// Dit is hoe een wereld zou worden opgeslagen en weer ingeladen.
 		//loader.load("saves/Sample Save", entityManager);
 		loader.save("saves/Sample Save", entityManager);
