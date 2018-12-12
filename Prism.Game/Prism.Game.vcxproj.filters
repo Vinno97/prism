@@ -34,6 +34,7 @@
     <ClCompile Include="src\ECS\Systems\HealthRegenerationSystem.cpp" />
     <ClCompile Include="src\States\EndState.cpp" />
     <ClCompile Include="src\ECS\Systems\ScoreSystem.cpp" />
+    <ClCompile Include="src\States\HighScoreState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ECS\Components\BulletComponent.h" />
@@ -143,6 +144,7 @@
     <ClInclude Include="include\World\Assemblers\MineAssembler.h" />
     <ClInclude Include="include\ECS\Components\TargetComponent.h" />
     <ClInclude Include="include\ECS\Systems\HealthRegenerationSystem.h" />
+    <ClInclude Include="include\States\HighScoreState.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="lib\assimp-vc140-mtd.dll" />
@@ -248,5 +250,8 @@
   <ItemGroup>
     <Image Include="res\img\gameover.png" />
     <Image Include="res\img\restart.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="scores.txt" />
   </ItemGroup>
 </Project>
