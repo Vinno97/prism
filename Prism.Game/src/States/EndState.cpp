@@ -131,8 +131,6 @@ namespace States {
 		}
 	}
 
-
-
 	void EndState::onLeave(Context & context)
 	{
 	}

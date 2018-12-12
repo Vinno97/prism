@@ -34,14 +34,27 @@ namespace States {
 
 	void HighScoreState::onEnter(Context & context)
 	{
+		buildMenu(context);
+
+	}
+
+	void HighScoreState::buildMenu(Context & context) {
 		if (menu != nullptr) {
 			menu = nullptr;
 			menuBuilder = Menu::MenuBuilder();
 		}
 
 		menuBuilder.addControl(-0.5, 0.5, 1, 0.24, "img/HighscoreButton.png");
+		showHighscore(getHighScore(), context);
+		std::function<void()> callback = [&context]() { context.stateMachine->setState<MainMenuState>(context); };
+		menuBuilder.addControl(-0.9f, 0.8, 0.3, 0.1, "img/Back.png", callback);
+		Renderer::Graphics::RenderDevice* renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
+		renderDevice->setClearColour(1.f, 1.f, 1.f, 1.f);
+		menu = menuBuilder.buildMenu();
+	}
 
-
+	std::vector<int> HighScoreState::getHighScore()
+	{
 		std::ifstream infile;
 		infile.open("res/saves/scores.txt");
 		std::vector<int> numbers;
@@ -55,9 +68,11 @@ namespace States {
 			}
 		}
 
-		std::sort(numbers.begin(), numbers.end());
-		std::reverse(numbers.begin(), numbers.end());
+		return numbers;
+	}
 
+
+	void HighScoreState::showHighscore(std::vector<int> numbers, Context & context) {
 		int count = 1;
 		double test = 0.3;
 
@@ -71,17 +86,12 @@ namespace States {
 			count++;
 			test -= 0.2;
 		}
-
-		std::function<void()> callback = [&context]() { context.stateMachine->setState<MainMenuState>(context); };
-		menuBuilder.addControl(-0.9f, 0.8, 0.3, 0.1, "img/Back.png", callback);
-		Renderer::Graphics::RenderDevice* renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
-		renderDevice->setClearColour(1.f, 1.f, 1.f, 1.f);
-		menu = menuBuilder.buildMenu();
 	}
 
 	void HighScoreState::onLeave(Context & context)
 	{
 	}
+
 
 	HighScoreState::~HighScoreState()
 	{
