@@ -48,13 +48,13 @@ const int AudioManager::playSound(const std::string name, int distance, int loop
 		for (int i = 0; i < channels; ++i)
 		{
 			if (Mix_Playing(i) == 0) {
-				int volume = 75 - (distance / 5);
+				int volume = 100 - (distance / 5);
 				if (volume < 0) {
 					volume = 0;
 				}
 				
 				Mix_Volume(i, volume);
-				Mix_PlayChannel(i, sounds[name], loops);
+				return Mix_PlayChannel(i, sounds[name], loops);
 				break;
 			}
 		}
