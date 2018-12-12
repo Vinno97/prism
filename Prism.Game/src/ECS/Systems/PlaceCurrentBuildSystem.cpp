@@ -70,10 +70,7 @@ void ECS::Systems::PlaceCurrentBuildSystem::update(Context& context) {
 				auto appearance = entityManager->getComponent<AppearanceComponent>(builderComponent->buildingId);
 
 				if (canPlace && enoughResources && inRange) {
-					appearance->color = builderComponent->buildingColor;
-					appearance->scaleX = builderComponent->buildingScaleX;
-					appearance->scaleY = builderComponent->buildingScaleY;
-					appearance->scaleZ = builderComponent->buildingScaleZ;
+					appearance->color = canBuildColor;
 
 					if (context.inputManager->isMouseButtonPressed(Key::MOUSE_BUTTON_LEFT)) {
 						unsigned int tempId;
@@ -106,10 +103,7 @@ void ECS::Systems::PlaceCurrentBuildSystem::update(Context& context) {
 					if (!enoughResources) {
 						//TODO :: leuk muziekje?
 					}
-					appearance->color = Math::Vector3f{ 1.0f, 0.5f, 0.5f };
-					appearance->scaleX = builderComponent->buildingScaleX * 1.1;
-					appearance->scaleY = builderComponent->buildingScaleY * 1.1;
-					appearance->scaleZ = builderComponent->buildingScaleZ * 1.1;
+					appearance->color = CanNotBuildColor;
 				}
 			}
 		}

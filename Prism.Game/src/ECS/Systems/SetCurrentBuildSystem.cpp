@@ -78,6 +78,10 @@ void ECS::Systems::SetCurrentBuildSystem::update(Context& context) {
 
 				if (builderComponent->isBuilding) {
 					auto appearance = entityManager->getComponent<AppearanceComponent>(tempBuildId);
+					appearance->scaleX *= 1.1;
+					appearance->scaleY *= 1.1;
+					appearance->scaleZ *= 1.1;
+
 					auto boundingBox = entityManager->getComponent<BoundingBoxComponent>(tempBuildId);
 					auto position = entityManager->getComponent<PositionComponent>(tempBuildId);
 
@@ -86,11 +90,6 @@ void ECS::Systems::SetCurrentBuildSystem::update(Context& context) {
 						builderComponent->isUsingMouse = true;
 
 						builderComponent->buildingId = entityManager->createEntity(*appearance, *boundingBox, *position, DynamicComponent());
-						builderComponent->buildingColor = appearance->color;
-						builderComponent->buildingScaleX = appearance->scaleX;
-						builderComponent->buildingScaleY = appearance->scaleY;
-						builderComponent->buildingScaleZ = appearance->scaleZ;
-
 						entityManager->removeEntity(tempBuildId);
 					}
 					else

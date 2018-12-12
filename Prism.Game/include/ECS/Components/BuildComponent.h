@@ -13,10 +13,6 @@ namespace ECS {
 
 			int buildingId = -1;
 			Enums::BuildTypes currentBuild = Enums::BuildTypes::NONE;
-			Math::Vector3f buildingColor;
-			float buildingScaleX;
-			float buildingScaleY;
-			float buildingScaleZ;
 			float posX = 0;
 			float posY = 0;
 
