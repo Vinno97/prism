@@ -5,6 +5,7 @@
 #include "ECS/Components/BulletComponent.h"
 #include "ECS/Components/AppearanceComponent.h"
 #include "ECS/Components/PositionComponent.h"
+#include "ECS/Components/PointLightComponent.h"
 
 using namespace ECS::Components;
 
@@ -31,12 +32,14 @@ namespace ECS {
 					position->x = entityManager->getComponent<PositionComponent>(entity.id)->x + (component->xdirection / 4);
 					position->y = entityManager->getComponent<PositionComponent>(entity.id)->y + (component->ydirection / 4);
 					auto velocity = entityManager->getComponent<VelocityComponent>(projectileId);
+					auto pointLight = entityManager->getComponent<PointLightComponent>(projectileId);
 					velocity->dx = component->xdirection * 5;
 					velocity->dy = component->ydirection * 5;
 					if (entityManager->hasComponent<AppearanceComponent>(entity.id)) {
 						auto entityAppearance = entityManager->getComponent<AppearanceComponent>(entity.id);
 						auto projectileAppearance = entityManager->getComponent<AppearanceComponent>(projectileId);
 						projectileAppearance->color = entityAppearance->color;
+						pointLight->color = Math::Vector3f(entityAppearance->color.x * 1.2, entityAppearance->color.y * 1.2, entityAppearance->color.z * 1.2);;
 						context.audioManager->playSound("Bullet", 0);
 					}
 					entityManager->getComponent<BulletComponent>(projectileId)->lifeTime = 2;
