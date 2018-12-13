@@ -112,7 +112,7 @@ namespace States {
 			.registerSystem<1, KeyboardInputSystem>(entityManager)
 			.registerSystem<1, MousePointSystem>(entityManager)
 			.registerSystem<1, CheatSystem>(entityManager)
-			.registerSystem<1, EnemyPathFindingSystem>(entityManager, 15)
+			//.registerSystem<1, EnemyPathFindingSystem>(entityManager, 15)
 			.registerSystem<1, SetCurrentBuildSystem>(entityManager)
 
 			//2
@@ -120,7 +120,7 @@ namespace States {
 			.registerSystem<2, AnimationSystem>(entityManager)
 			.registerSystem<2, AimingSystem>(entityManager)
 			.registerSystem<2, ResourceGatherSystem>(entityManager)
-			.registerSystem<2, EnemySpawnSystem>(entityManager)
+			//.registerSystem<2, EnemySpawnSystem>(entityManager)
 			.registerSystem<2, MoveCurrentBuildSystem>(entityManager)
 
 			//3

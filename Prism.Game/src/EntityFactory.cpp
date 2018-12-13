@@ -162,7 +162,7 @@ unsigned EntityFactory::createResourcePoint(unsigned entity, EntityManager& enti
 		.addComponent<ResourceSpawnComponent>(gatherRate, type, value)
 		.addComponent(appearance)
 		.addComponent<CollidableComponent>()
-		.addComponent<BoundingBoxComponent>(1.0, 1.0)
+		.addComponent<BoundingBoxComponent>(.4, .4)
 		.getEntity();
 }
 
@@ -361,7 +361,7 @@ unsigned EntityFactory::createMine(unsigned entity, EntityManager& entityManager
 	return EntityBuilder(entityManager, entity)
 		.addComponent<MineComponent>()
 		.addComponent<PositionComponent>()
-		.addComponent<BoundingBoxComponent>(1.0, 1.0)
+		.addComponent<BoundingBoxComponent>(1.0, 1.0,1.0)
 		.addComponent<CollidableComponent>()
 		.addComponent<ResourceGatherComponent>()
 		.addComponent<HealthComponent>(50)

@@ -20,7 +20,7 @@ namespace ECS {
 			EntityFactory ef;
 			float buildWaitTime = 0;
 			float shootWaitTime = 0;
-			float waitTime = 0.1;
+			float waitTime = 0.2;
 		};
 	}
 }
