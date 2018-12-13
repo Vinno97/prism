@@ -43,6 +43,7 @@
 #include "ECS/Systems/HealthRegenerationSystem.h"
 #include "Renderer/PointLight.h"
 #include <functional>
+#include "ECS/Systems/TowerAimingSystem.h"
 #include "ECS/Systems/SetCurrentBuildSystem.h"
 #include "ECS/Systems/MoveCurrentBuildSystem.h"
 #include "ECS/Systems/PlaceCurrentBuildSystem.h"
@@ -68,7 +69,7 @@ namespace States {
 
 		World::LevelManager loader{ std::make_unique<PrismEntityAssembler>() };
 
-		loader.load("levels/level_1", entityManager);
+		loader.load("levels/motest", entityManager);
 		// Dit is hoe een wereld zou worden opgeslagen en weer ingeladen.
 		//loader.load("saves/Sample Save", entityManager);
 		loader.save("saves/Sample Save", entityManager);
@@ -125,6 +126,7 @@ namespace States {
 			//3
 			.registerSystem<3, ResourceBlobSystem>(entityManager)
 			.registerSystem<3, ShootingSystem>(entityManager)
+			.registerSystem<3, TowerAimingSystem>(entityManager)
 			.registerSystem<3, CollisionSystem>(entityManager, context.window->width, context.window->height, 0, 0, 2)
 			
 

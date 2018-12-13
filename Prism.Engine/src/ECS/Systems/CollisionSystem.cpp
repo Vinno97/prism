@@ -51,11 +51,15 @@ void CollisionSystem::update(Context& context)
 			quadTree.RetrieveAll(boundingBoxes, boundingBoxComponent->boundingBox);
 
 			for (const auto& currentBox : boundingBoxes) {
+				auto k = aabbCollider.CheckCollision(boundingBoxComponent->boundingBox, *currentBox);
 				if (&boundingBoxComponent->boundingBox != currentBox && aabbCollider.CheckCollision(boundingBoxComponent->boundingBox, *currentBox)) {
 					boundingBoxComponent->didCollide = true;
 					boundingBoxComponent->collidesWith.push_back(boundingBoxMap[currentBox]);
 				}
 			}
+			//if (boundingBoxComponent->didCollide) {
+			//	int k = 5;
+			//}
 		}
 	}
 	quadTree.Clear();

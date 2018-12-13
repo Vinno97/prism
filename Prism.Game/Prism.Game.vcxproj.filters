@@ -42,6 +42,7 @@
     <ClCompile Include="src\ECS\Systems\SetCurrentBuildSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\PlaceCurrentBuildSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\MoveCurrentBuildSystem.cpp" />
+    <ClCompile Include="src\ECS\Systems\TowerAimingSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ECS\Components\BulletComponent.h" />
@@ -158,6 +159,7 @@
     <ClInclude Include="include\World\Assemblers\MineAssembler.h" />
     <ClInclude Include="include\ECS\Components\TargetComponent.h" />
     <ClInclude Include="include\ECS\Systems\HealthRegenerationSystem.h" />
+    <ClInclude Include="include\ECS\Systems\TowerAimingSystem.h" />
     <ClInclude Include="include\ECS\Components\BuildComponent.h" />
     <ClInclude Include="include\ECS\Systems\SetCurrentBuildSystem.h" />
     <ClInclude Include="include\Enums\BuildTypes.h" />
