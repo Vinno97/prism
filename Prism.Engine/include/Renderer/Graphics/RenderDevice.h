@@ -5,7 +5,7 @@
 #include "Renderer/Graphics/Pipeline.h"
 #include "Renderer/Graphics/VertexBuffer.h"
 #include "Renderer/Graphics/IndexBuffer.h"
-#include "Renderer/Graphics/Texture.h"
+#include "Renderer/Graphics/Texture.h" 
 #include "Renderer/Graphics/VertexArrayObject.h"
 #include "Renderer/Graphics/RenderTarget.h"
 #include <memory>
@@ -60,7 +60,7 @@ namespace Renderer {
 			/// <summary>
 			/// Create a new vertexArrayObject
 			/// </summary>
-			virtual std::unique_ptr<RenderTarget> createRenderTarget(bool useDepthBuffer) const = 0;
+			virtual std::unique_ptr<RenderTarget> createRenderTarget(bool useDepthBuffer, int width, int height) const = 0;
 
 			/// <summary>
 			/// Create a new texture with image path

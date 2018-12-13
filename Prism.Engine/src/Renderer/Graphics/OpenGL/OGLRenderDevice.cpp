@@ -86,9 +86,9 @@ namespace Renderer {
 				return make_shared<OGLTexture>(width, height, pixels, useRGB);
 			}
 
-			unique_ptr<RenderTarget> OGLRenderDevice::createRenderTarget(bool useDepthBuffer) const
+			unique_ptr<RenderTarget> OGLRenderDevice::createRenderTarget(bool useDepthBuffer, int width, int height) const
 			{
-				return make_unique<OGLRenderTarget>(useDepthBuffer);
+				return make_unique<OGLRenderTarget>(useDepthBuffer, width, height);
 			}
 
 			void OGLRenderDevice::useBlending(const bool blend) const

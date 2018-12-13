@@ -32,6 +32,7 @@
 // This function makes sure all objects are cleared from the stack before the memory gets dumped.
 void start() {
     CoreEngine ce = CoreEngine();
+	srand(time(NULL));
     ce.InitWindow("prism", 1920 / 2, 1080 / 2, 100, 100);
     ce.addState<States::MainMenuState>();
     ce.setEntryPoint<States::MainMenuState>();
