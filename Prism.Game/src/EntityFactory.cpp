@@ -71,23 +71,23 @@ unsigned EntityFactory::createPlayer(unsigned entity, EntityManager& entityManag
 	appearance.scaleY = 0.002f;
 	appearance.scaleZ = 0.002f;
 	appearance.model = std::move(model);
-	appearance.color = Math::Vector3f{1.0f, 0.5f, 0.5f};
+	appearance.color = Math::Vector3f{ 1.0f, 0.5f, 0.5f };
 
 	return EntityBuilder(entityManager, entity)
-	       .addComponent<VelocityComponent>()
-	       .addComponent<PositionComponent>()
-	       .addComponent<KeyboardInputComponent>()
-	       .addComponent<PlayerComponent>()
-	       .addComponent<InventoryComponent>()
-	       .addComponent<ResourceGatherComponent>()
-	       .addComponent<ShootingComponent>()
-	       .addComponent<DynamicComponent>()
-	       .addComponent<HealthComponent>(100)
-	       .addComponent<DragComponent>(5.f)
-	       .addComponent<BoundingBoxComponent>(.3, .3)
-		   .addComponent<PointLightComponent>(Math::Vector3f{ 1.f, 1.f, 0.f }, 1.f, 0.f)
-	       .addComponent(appearance)
-	       .getEntity();
+		.addComponent<VelocityComponent>()
+		.addComponent<PositionComponent>()
+		.addComponent<KeyboardInputComponent>()
+		.addComponent<PlayerComponent>()
+		.addComponent<InventoryComponent>()
+		.addComponent<ResourceGatherComponent>()
+		.addComponent<ShootingComponent>()
+		.addComponent<DynamicComponent>()
+		.addComponent<HealthComponent>(100)
+		.addComponent<DragComponent>(5.f)
+		.addComponent<BoundingBoxComponent>(.3, .3, 10)
+		.addComponent<PointLightComponent>(Math::Vector3f{ 1.f, 1.f, 0.f }, 1.f, 0.f)
+		.addComponent(appearance)
+		.getEntity();
 }
 
 unsigned EntityFactory::createEnemy(EntityManager& entityManager) const
@@ -101,35 +101,35 @@ unsigned EntityFactory::createEnemy(unsigned entity, EntityManager& entityManage
 	auto model = ml.loadModel("./res/uglyenemy.obj");
 
 	AppearanceComponent appearance;
-	appearance.color = Math::Vector3f{0.22, 0.22, 0.22};
+	appearance.color = Math::Vector3f{ 0.22, 0.22, 0.22 };
 	appearance.scaleX = 0.002f;
 	appearance.scaleY = 0.002f;
 	appearance.scaleZ = 0.002f;
 	appearance.model = std::move(model);
 
 	return EntityBuilder(entityManager, entity)
-	       .addComponent<VelocityComponent>()
-	       .addComponent<PositionComponent>()
-	       .addComponent<EnemyComponent>()
-	       .addComponent<DynamicComponent>()
-	       .addComponent<HealthComponent>(100)
-	       .addComponent<DragComponent>(5.f)
-	       .addComponent<BoundingBoxComponent>(.4, .4)
-	       .addComponent(appearance)
-	       .getEntity();
+		.addComponent<VelocityComponent>()
+		.addComponent<PositionComponent>()
+		.addComponent<EnemyComponent>()
+		.addComponent<DynamicComponent>()
+		.addComponent<HealthComponent>(100)
+		.addComponent<DragComponent>(5.f)
+		.addComponent<BoundingBoxComponent>(.4, .4, 2)
+		.addComponent(appearance)
+		.getEntity();
 }
 
 unsigned EntityFactory::createResourcePoint(EntityManager& entityManager,
-                                            Enums::ResourceType type, int gatherRate,
-                                            float value) const
+	Enums::ResourceType type, int gatherRate,
+	float value) const
 {
 	return createResourcePoint(entityManager.createEntity(), entityManager, type,
-	                           gatherRate, value);
+		gatherRate, value);
 }
 
 unsigned EntityFactory::createResourcePoint(unsigned entity, EntityManager& entityManager,
-                                            Enums::ResourceType type, int gatherRate,
-                                            float value) const
+	Enums::ResourceType type, int gatherRate,
+	float value) const
 {
 	Renderer::Graphics::Loader::ModelLoader ml;
 	auto model = ml.loadModel("./res/resource2.obj");
@@ -142,15 +142,15 @@ unsigned EntityFactory::createResourcePoint(unsigned entity, EntityManager& enti
 
 	if (type == Enums::ResourceType::BLUE)
 	{
-		appearance.color = Math::Vector3f{0.6f, 0.6f, 1.0f};
+		appearance.color = Math::Vector3f{ 0.6f, 0.6f, 1.0f };
 	}
 	if (type == Enums::ResourceType::RED)
 	{
-		appearance.color = Math::Vector3f{1.0f, 0.6f, 0.6f};
+		appearance.color = Math::Vector3f{ 1.0f, 0.6f, 0.6f };
 	}
 	if (type == Enums::ResourceType::GREEN)
 	{
-		appearance.color = Math::Vector3f{0.6f, 1.0f, 0.6f};
+		appearance.color = Math::Vector3f{ 0.6f, 1.0f, 0.6f };
 	}
 	return EntityBuilder(entityManager, entity)
 			.addComponent<PositionComponent>()
@@ -158,6 +158,7 @@ unsigned EntityFactory::createResourcePoint(unsigned entity, EntityManager& enti
 			.addComponent(appearance)
 			.addComponent<PointLightComponent>(appearance.color, 4.0f, 0.f)
 			.getEntity();
+
 }
 
 unsigned EntityFactory::createTower(EntityManager& entityManager) const
@@ -175,12 +176,15 @@ unsigned EntityFactory::createTower(unsigned entity, EntityManager& entityManage
 	appearance.scaleY = 0.5f;
 	appearance.scaleZ = 0.5f;
 	appearance.model = std::move(model);
+	appearance.color = Math::Vector3f{ 0.9f, 0.9f, 0.9f };
 
 	return EntityBuilder(entityManager, entity)
+
 			.addComponent<TowerComponent>()
 			.addComponent<PositionComponent>()
 			.addComponent<BoundingBoxComponent>(1.0, 1.0)
 			.addComponent<PointLightComponent>(Math::Vector3f(0.2f, 0.2f, 0.2f), 4.0f, 0.f)
+			.addComponent<ShootingComponent>()
 			.addComponent(appearance)
 			.getEntity();
 }
@@ -200,7 +204,7 @@ unsigned EntityFactory::createWall(unsigned entity, EntityManager& entityManager
 	appearance.scaleY = 0.5f;
 	appearance.scaleZ = 0.5f;
 	appearance.model = std::move(model);
-	appearance.color = Math::Vector3f{0.9f, 0.9f, 0.9f};
+	appearance.color = Math::Vector3f{ 0.9f, 0.9f, 0.9f };
 
 	return EntityBuilder(entityManager, entity)
 			.addComponent<WallComponent>()
@@ -209,9 +213,10 @@ unsigned EntityFactory::createWall(unsigned entity, EntityManager& entityManager
 			.addComponent<PointLightComponent>(Math::Vector3f(0.2f, 0.2f, 0.2f), 4.0f, 0.f)
 			.addComponent(appearance)
 			.getEntity();
+
 }
 
-unsigned EntityFactory::createCliff(EntityManager & entityManager, int rotation) const{
+unsigned EntityFactory::createCliff(EntityManager & entityManager, int rotation) const {
 	return createCliff(entityManager.createEntity(), entityManager, rotation);
 }
 
@@ -234,7 +239,7 @@ unsigned EntityFactory::createCliff(unsigned entity, EntityManager & entityManag
 	return entity;
 }
 
-unsigned EntityFactory::createCliffFiller(EntityManager & entityManager) const{
+unsigned EntityFactory::createCliffFiller(EntityManager & entityManager) const {
 	return createCliffFiller(entityManager.createEntity(), entityManager);
 }
 
@@ -256,7 +261,7 @@ unsigned EntityFactory::createCliffFiller(unsigned entity, EntityManager & entit
 	return entity;
 }
 
-unsigned EntityFactory::createCliffCorner(EntityManager & entityManager, int rotation) const{
+unsigned EntityFactory::createCliffCorner(EntityManager & entityManager, int rotation) const {
 	return createCliffCorner(entityManager.createEntity(), entityManager, rotation);
 }
 
@@ -279,7 +284,7 @@ unsigned EntityFactory::createCliffCorner(unsigned entity, EntityManager & entit
 	return entity;
 }
 
-unsigned EntityFactory::createTree(EntityManager & entityManager) const{
+unsigned EntityFactory::createTree(EntityManager & entityManager) const {
 	return createTree(entityManager.createEntity(), entityManager);
 }
 
@@ -303,7 +308,7 @@ unsigned EntityFactory::createTree(unsigned entity, EntityManager & entityManage
 	return entity;
 }
 
-unsigned EntityFactory::createRock(EntityManager & entityManager) const{
+unsigned EntityFactory::createRock(EntityManager & entityManager) const {
 	return createRock(entityManager.createEntity(), entityManager);
 }
 
@@ -350,6 +355,7 @@ unsigned EntityFactory::createMine(unsigned entity, EntityManager& entityManager
 			.addComponent<ResourceGatherComponent>()
 			.addComponent(appearance)
 			.getEntity();
+
 }
 
 unsigned EntityFactory::createScene(EntityManager& entityManager) const
@@ -380,16 +386,16 @@ unsigned EntityFactory::createProjectile(unsigned entity, EntityManager& entityM
 	appearance.model = std::move(model);
 
 	return EntityBuilder(entityManager, entity)
-	       .addComponent<VelocityComponent>()
-	       .addComponent<PositionComponent>()
-	       .addComponent<BulletComponent>()
-	       .addComponent<HealthComponent>(15)
-	       .addComponent<BoundingBoxComponent>(0.1, 0.1)
-	       .addComponent<ProjectileAttackComponent>()
-	       .addComponent<DynamicComponent>()
-		   .addComponent<PointLightComponent>(Math::Vector3f{ 1.f, 0.f, 0.f }, 4.0f, 0.f)
-	       .addComponent(appearance)
-	       .getEntity();
+		.addComponent<VelocityComponent>()
+		.addComponent<PositionComponent>()
+		.addComponent<BulletComponent>()
+		.addComponent<HealthComponent>(15)
+		.addComponent<BoundingBoxComponent>(0.1, 0.1, 1.0)
+		.addComponent<ProjectileAttackComponent>()
+		.addComponent<DynamicComponent>()
+		.addComponent<PointLightComponent>(Math::Vector3f{ 1.f, 0.f, 0.f }, 4.0f, 0.f)
+		.addComponent(appearance)
+		.getEntity();
 }
 
 unsigned EntityFactory::createFloor(ECS::EntityManager& entityManager) const
@@ -399,9 +405,9 @@ unsigned EntityFactory::createFloor(ECS::EntityManager& entityManager) const
 
 unsigned EntityFactory::createFloor(unsigned entity, EntityManager& entityManager) const
 {
-	const int width{150};
-	const int height{150};
-	const float scale{0.5};
+	const int width{ 150 };
+	const int height{ 150 };
+	const float scale{ 0.5 };
 
 	Renderer::Graphics::Loader::ModelLoader ml;
 	auto model =
@@ -420,24 +426,24 @@ unsigned EntityFactory::createFloor(unsigned entity, EntityManager& entityManage
 	appearance.translationY = -scale / 15;
 
 	appearance.model = std::move(model);
-	appearance.color = Math::Vector3f{0.8f, 0.8f, 0.8f };
+	appearance.color = Math::Vector3f{ 0.8f, 0.8f, 0.8f };
 
 	return EntityBuilder(entityManager, entity)
-	       .addComponent<PositionComponent>()
-	       .addComponent(appearance)
-	       .getEntity();
+		.addComponent<PositionComponent>()
+		.addComponent(appearance)
+		.getEntity();
 }
 
 unsigned EntityFactory::createResourceBlob(ECS::EntityManager& entityManager,
-                                           Enums::ResourceType type, float value) const
+	Enums::ResourceType type, float value) const
 {
 	return createResourceBlob(entityManager.createEntity(), entityManager, type,
-	                          value);
+		value);
 }
 
 unsigned EntityFactory::createResourceBlob(unsigned entity,
-                                           ECS::EntityManager& entityManager,
-                                           Enums::ResourceType type, float value) const
+	ECS::EntityManager& entityManager,
+	Enums::ResourceType type, float value) const
 {
 	Renderer::Graphics::Loader::ModelLoader ml;
 	auto model = ml.loadModel("./res/blob.obj");
@@ -451,45 +457,45 @@ unsigned EntityFactory::createResourceBlob(unsigned entity,
 
 	if (type == Enums::ResourceType::BLUE)
 	{
-		appearance.color = Math::Vector3f{0.6f, 0.6f, 1.0f};
+		appearance.color = Math::Vector3f{ 0.6f, 0.6f, 1.0f };
 	}
 	if (type == Enums::ResourceType::RED)
 	{
-		appearance.color = Math::Vector3f{1.0f, 0.6f, 0.6f};
+		appearance.color = Math::Vector3f{ 1.0f, 0.6f, 0.6f };
 	}
 	if (type == Enums::ResourceType::GREEN)
 	{
-		appearance.color = Math::Vector3f{0.6f, 1.0f, 0.6f};
+		appearance.color = Math::Vector3f{ 0.6f, 1.0f, 0.6f };
 	}
 
 	ResourceBlobComponent resource = ResourceBlobComponent(value, type);
 
 	return EntityBuilder(entityManager, entity)
-	       .addComponent<PositionComponent>()
-	       .addComponent<VelocityComponent>()
-	       .addComponent<DragComponent>()
-           .addComponent<TargetComponent>()
-	       .addComponent(resource)
-	       .addComponent(appearance)
-	       .getEntity();
+		.addComponent<PositionComponent>()
+		.addComponent<VelocityComponent>()
+		.addComponent<DragComponent>()
+		.addComponent<TargetComponent>()
+		.addComponent(resource)
+		.addComponent(appearance)
+		.getEntity();
 }
 
 unsigned EntityFactory::createCameraPointer(ECS::EntityManager& entityManager)
 {
 	return entityManager.createEntity(MousePointerComponent(),
-	                                  PositionComponent());
+		PositionComponent());
 }
 
 unsigned EntityFactory::createEnemySpawn(ECS::EntityManager& entityManager,
-                                         float spawnInterval, bool enabled) const
+	float spawnInterval, bool enabled) const
 {
 	return createEnemySpawn(entityManager.createEntity(), entityManager,
-	                        spawnInterval, enabled);
+		spawnInterval, enabled);
 }
 
 unsigned EntityFactory::createEnemySpawn(unsigned entity,
-                                         ECS::EntityManager& entityManager,
-                                         float spawnInterval, bool enabled) const
+	ECS::EntityManager& entityManager,
+	float spawnInterval, bool enabled) const
 {
 	Renderer::Graphics::Loader::ModelLoader ml;
 	auto model = ml.loadModel("./res/spawner.obj");
@@ -498,20 +504,20 @@ unsigned EntityFactory::createEnemySpawn(unsigned entity,
 	appearance.scaleX = 0.15f;
 	appearance.scaleY = 0.15f;
 	appearance.scaleZ = 0.15f;
-	appearance.color = Math::Vector3f{0.22, 0.22, 0.22};
+	appearance.color = Math::Vector3f{ 0.22, 0.22, 0.22 };
 
 	PositionComponent position;
 	position.y = 0;
 
 	appearance.model = std::move(model);
 	EnemySpawnComponent spawnComponent =
-		EnemySpawnComponent{spawnInterval, 0.f, enabled};
+		EnemySpawnComponent{ spawnInterval, 0.f, enabled };
 
 	return EntityBuilder(entityManager, entity)
-	       .addComponent(position)
-	       .addComponent(spawnComponent)
-	       .addComponent(appearance)
-	       .getEntity();
+		.addComponent(position)
+		.addComponent(spawnComponent)
+		.addComponent(appearance)
+		.getEntity();
 }
 
 unsigned EntityFactory::createCamera(ECS::EntityManager& entityManager)
