@@ -30,9 +30,10 @@ namespace Menu {
 		menuPipeline->createUniform("model");
 	}
 
-	void MenuRenderer::renderMenu(Menu& menu, float aspect)
+	void MenuRenderer::renderMenu(Menu& menu, const int width, const int height)
 	{
 		menuPipeline->run();
+		renderDevice->setViewPort(width, height);
 		renderDevice->useDepthTest(false);
 		renderDevice->useBlending(true);
 

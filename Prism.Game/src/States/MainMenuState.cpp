@@ -17,6 +17,7 @@ namespace States {
 
 	void MainMenuState::onInit(Context & context)
 	{
+		context.window->setSize(1536, 864);
 		context.stateMachine->addState<PrismGame>(context);
 		context.stateMachine->addState<CreditsState>(context);
 		context.stateMachine->addState<HelpState>(context);
@@ -52,8 +53,7 @@ namespace States {
 	void MainMenuState::onUpdate(Context & context)
 	{
 		renderDevice->clearScreen();
-		menuRenderer.renderMenu(*menu, float(context.window->width) / float(context.window->height));
-
+		menuRenderer.renderMenu(*menu, context.window->width, context.window->height);
 
 		auto input = context.inputManager;
 		if (menu->handleInput(*context.inputManager, context.window->width, context.window->height)) {

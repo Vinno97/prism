@@ -88,6 +88,11 @@ namespace Renderer {
 			virtual void useDepthTest(bool enable) const = 0;
 
 			/// <summary>
+			/// Change rendering viewport size
+			/// </summary>
+			virtual void setViewPort(const int width, const int height) const = 0;
+
+			/// <summary>
 			/// clear the screen
 			/// </summary>
 			virtual void clearScreen() const = 0;

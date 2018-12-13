@@ -76,10 +76,11 @@ void Window::swapScreen() {
 	SDL_GL_SwapWindow(gWindow);
 }
 
-bool Window::setSize(const int newWidth, const int newHeight)
+void Window::setSize(const int newWidth, const int newHeight)
 {	
 	SDL_SetWindowSize(gWindow, newWidth, newHeight);
-	return true;
+	width = newWidth;
+	height = newHeight;
 }
 
 bool Window::shouldClose()

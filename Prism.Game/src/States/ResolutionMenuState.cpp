@@ -21,7 +21,7 @@ namespace States {
 		context.stateMachine->addState<CreditsState>(context);
 		context.stateMachine->addState<HelpState>(context);
 
-		std::function<void()> setRes1 = [&context]() { context.window->setSize(1920, 1080); };
+		std::function<void()> setRes1 = [&context]() { context.window->setSize(1536, 864); };
 
 		menuBuilder.addControl(-0.35, 0.4, 0.6, 0.18, "img/NewGameButton.png", setRes1);
 		menuBuilder.addControl(-0.35, 0.1, 0.6, 0.18, "img/LoadGameButton.png", setRes1);
@@ -38,8 +38,7 @@ namespace States {
 	void ResolutionMenuState::onUpdate(Context & context)
 	{
 		renderDevice->clearScreen();
-		menuRenderer.renderMenu(*menu, float(context.window->width) / float(context.window->height));
-
+		menuRenderer.renderMenu(*menu, context.window->width, context.window->height);
 
 		auto input = context.inputManager;
 		if (menu->handleInput(*context.inputManager, context.window->width, context.window->height)) {

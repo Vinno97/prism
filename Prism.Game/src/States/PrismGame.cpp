@@ -156,7 +156,7 @@ namespace States {
 		greenResource->text = std::to_string(static_cast<int>(inventory->greenResource));
 		health->text = "Health: " + std::to_string(playerHealth);
 
-		menuRenderer.renderMenu(*menu, float(context.window->width) / float(context.window->height));
+		menuRenderer.renderMenu(*menu, context.window->width, context.window->height);
 		context.window->swapScreen();
 
 		if (menu->handleInput(*context.inputManager, context.window->width, context.window->height)) {

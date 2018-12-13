@@ -41,6 +41,7 @@ namespace Renderer {
 				void useBlending(const bool blend) const override;
 				void setClearColour(float r, float g, float b, float w) const override;
 				void useDepthTest(bool enable) const override;
+				void setViewPort(const int width, const int height) const override;
 				void clearScreen() const override;
 				void DrawTrianglesIndexed(long offset, int count) const override;
 				void DrawTriangles(long offset, int count) const override;

@@ -67,7 +67,7 @@ namespace Renderer {
 		const glm::mat4 view = camera.getCameraMatrix();
 		shadowCamera.position = glm::vec3(position.x, position.y, position.z);
 
-		glViewport(0, 0, wWidth, wHeight);
+		renderDevice->setViewPort(wWidth, wHeight);
 		//Do GBuffer pass
 		renderDevice->clearScreen();
 			
@@ -106,7 +106,6 @@ namespace Renderer {
 		shadowPipeline->run();
 
 		auto shadowView = glm::lookAt( glm::vec3(position.x, position.y, position.z), glm::vec3(-45.f, 1.0f, -15), glm::vec3(0, 1, 0) );
-
 
 		for (const auto& renderable : renderables) {
 			model = renderable.getMatrix();

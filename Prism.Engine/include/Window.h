@@ -39,9 +39,9 @@ public:
 	void swapScreen();
 
 	/// <summary>
-	/// Return true when the close button is pressed on the window
+	/// Resizes the window
 	/// </summary>
-	bool setSize(const int newWidth, const int newHeight);
+	void setSize(const int newWidth, const int newHeight);
 
 	/// <summary>
 	/// Return true when the close button is pressed on the window
