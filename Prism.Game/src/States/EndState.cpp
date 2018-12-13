@@ -2,13 +2,9 @@
 #include "StateMachine.h"
 #include "States/PrismGame.h"
 #include "States/MainMenuState.h"
-#include "States/EndState.h"
-#include "States/PauseState.h"
-#include "States/MainMenuState.h"
 #include "Renderer/Graphics/RenderDevice.h"
 #include "Renderer/Graphics/OpenGL/OGLRenderDevice.h"
-#include "Renderer/Graphics/OpenGL/OGLVertexShader.h"
-#include "Renderer/Graphics/OpenGL/OGLPipeline.h"
+
 
 namespace States
 {

@@ -5,9 +5,6 @@
 #include "States/HelpState.h"
 #include "Renderer/Graphics/RenderDevice.h"
 #include "Renderer/Graphics/OpenGL/OGLRenderDevice.h"
-#include "Renderer/Graphics/OpenGL/OGLVertexShader.h"
-#include "Renderer/Graphics/OpenGL/OGLPipeline.h"
-#include "Util/AdvertisementSystem.h"
 #include <cstdlib>
 
 namespace States

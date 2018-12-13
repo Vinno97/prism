@@ -11,8 +11,8 @@ class StateMachine;
 struct Context
 {
 public:
-	Context();
-	~Context();
+	Context() = default;
+	~Context() = default;
 
 	//Holds the time that has been passed since the last gameupdate
 	float deltaTime = 0;
