@@ -45,8 +45,22 @@ namespace ECS {
 			auto players = entityManager->getAllEntitiesWithComponent<PlayerComponent>();
 			if (!players.empty()) {
 				auto playerPosition = entityManager->getComponent<PositionComponent>(players.front().id);
-				camera->position.x -= (camera->position.x - playerPosition->x) * context.deltaTime * 2;
-				camera->position.z -= (camera->position.z - 4.f - playerPosition->y) * context.deltaTime * 2;
+
+				camera->target.x = playerPosition->x;
+				camera->target.z = playerPosition->y;
+
+				camera->position.x = playerPosition->x;;
+				camera->position.z = playerPosition->y + 5;
+
+			//	camera->target.z = 1;
+			//
+			//	camera->position.x = playerPosition->x;
+			//	camera->position.y = playerPosition->y-5;
+			//	camera->position.z = 1;
+
+
+				//camera->position.x -= (camera->position.x - playerPosition->x) * context.deltaTime * 2;
+				//camera->position.z -= (camera->position.z - 4.f - playerPosition->y) * context.deltaTime * 2;
 			}
 
 

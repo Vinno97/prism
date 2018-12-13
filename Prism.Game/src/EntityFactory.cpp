@@ -535,10 +535,6 @@ unsigned EntityFactory::createEnemySpawn(unsigned entity,
 unsigned EntityFactory::createCamera(ECS::EntityManager& entityManager)
 {
 	Renderer::Camera camera;
-
-	camera.move(0.f, 7.f, 12.f);
-	camera.rotate(-50.f, 0.f, 0.f);
-
 	CameraComponent component;
 	component.camera = camera;
 	return entityManager.createEntity(component);
