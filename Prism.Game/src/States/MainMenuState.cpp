@@ -1,7 +1,7 @@
 #include "States/MainMenuState.h"
-#include "StateMachine.h";
-#include "States/PrismGame.h";
-#include "States/CreditsState.h";
+#include "StateMachine.h"
+#include "States/PrismGame.h"
+#include "States/CreditsState.h"
 #include "States/HelpState.h"
 #include "Renderer/Graphics/RenderDevice.h"
 #include "Renderer/Graphics/OpenGL/OGLRenderDevice.h"

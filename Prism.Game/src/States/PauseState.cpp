@@ -1,6 +1,6 @@
 #include "States/PauseState.h"
 #include "States/EndState.h"
-#include "StateMachine.h";
+#include "StateMachine.h"
 #include "States/PrismGame.h"
 #include "Renderer/Graphics/RenderDevice.h"
 #include "Renderer/Graphics/OpenGL/OGLRenderDevice.h"

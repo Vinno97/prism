@@ -1,4 +1,3 @@
-#pragma once
 #include <glm/glm.hpp>
 #include "Renderer/Graphics/OpenGL/OGLVertexBuffer.h"
 #include "Renderer/Graphics/VertexArrayObject.h"

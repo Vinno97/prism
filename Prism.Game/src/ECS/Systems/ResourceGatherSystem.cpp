@@ -1,5 +1,3 @@
-#pragma once
-
 #include "Context.h"
 #include <cmath>
 #include <algorithm>

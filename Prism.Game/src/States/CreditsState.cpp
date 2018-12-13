@@ -1,5 +1,5 @@
 #include "States/CreditsState.h"
-#include "StateMachine.h";
+#include "StateMachine.h"
 #include "States/PrismGame.h"
 #include "States/MainMenuState.h"
 #include "Renderer/Graphics/RenderDevice.h"

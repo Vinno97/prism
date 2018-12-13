@@ -1,4 +1,3 @@
-#pragma once
 #include "ECS/SystemManager.h"
 #include <map>
 
