@@ -10,7 +10,7 @@ namespace Renderer {
 		namespace OpenGL {
 			class OGLRenderTarget : public RenderTarget {
 			public:
-				OGLRenderTarget(bool useDepthBuffer);
+				OGLRenderTarget(bool useDepthBuffer, int width, int height);
 				void bind() override;
 				void unbind() override;
 				void addBuffer(std::shared_ptr<Texture> texture) override;
