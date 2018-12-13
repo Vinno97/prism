@@ -158,10 +158,12 @@ unsigned EntityFactory::createResourcePoint(unsigned entity, EntityManager& enti
 		appearance.color = Math::Vector3f{0.6f, 1.0f, 0.6f};
 	}
 	return EntityBuilder(entityManager, entity)
-	       .addComponent<PositionComponent>()
-	       .addComponent<ResourceSpawnComponent>(gatherRate, type, value)
-	       .addComponent(appearance)
-	       .getEntity();
+		.addComponent<PositionComponent>()
+		.addComponent<ResourceSpawnComponent>(gatherRate, type, value)
+		.addComponent(appearance)
+		.addComponent<BoundingBoxComponent>(1.0, 1.0)
+		.addComponent<CollidableComponent>()
+		.getEntity();
 }
 
 unsigned EntityFactory::createTower(EntityManager& entityManager) const
@@ -358,8 +360,8 @@ unsigned EntityFactory::createMine(unsigned entity, EntityManager& entityManager
 		.addComponent<MineComponent>()
 		.addComponent<PositionComponent>()
 		.addComponent<BoundingBoxComponent>(1.0, 1.0)
-		.addComponent<ResourceGatherComponent>()
 		.addComponent<CollidableComponent>()
+		.addComponent<ResourceGatherComponent>()
 		.addComponent<HealthComponent>(50)
 		.addComponent(appearance)
 		.getEntity();
@@ -525,6 +527,8 @@ unsigned EntityFactory::createEnemySpawn(unsigned entity,
 		.addComponent(position)
 		.addComponent(spawnComponent)
 		.addComponent(appearance)
+		.addComponent<BoundingBoxComponent>(1.0, 1.0)
+		.addComponent<CollidableComponent>()
 		.getEntity();
 }
 
