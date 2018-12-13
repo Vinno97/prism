@@ -7,7 +7,7 @@
 namespace Renderer {
 	namespace Graphics {
 		namespace OpenGL {
-			OGLRenderTarget::OGLRenderTarget(bool useDepthBuffer) {
+			OGLRenderTarget::OGLRenderTarget(bool useDepthBuffer, int width, int height) {
 				glGenFramebuffers(1, &FBO);
 				glBindFramebuffer(GL_FRAMEBUFFER, FBO);
 

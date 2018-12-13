@@ -61,11 +61,11 @@ namespace States {
 		sceneComponent->scene.ambientLightColor = Math::Vector3f{ 1.0f, 1.0f, 1.0f };
 		sceneComponent->scene.ambientLightStrength = 0.95f;
 		sceneComponent->scene.sun.color = Math::Vector3f{ 1.f, 1.f, 1.f };
-		sceneComponent->scene.sun.direction = Math::Vector3f{ -0.3, -1.0f, -.3f };
+		sceneComponent->scene.sun.direction = Math::Vector3f{ 2, -1.0f, -.3f };
 
 		World::LevelManager loader{ std::make_unique<PrismEntityAssembler>() };
 
-		loader.load("levels/Sample World", entityManager);
+		loader.load("levels/level_1", entityManager);
 		// Dit is hoe een wereld zou worden opgeslagen en weer ingeladen.
 		//loader.load("saves/Sample Save", entityManager);
 		loader.save("saves/Sample Save", entityManager);
