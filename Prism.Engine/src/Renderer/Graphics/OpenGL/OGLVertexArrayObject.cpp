@@ -4,26 +4,31 @@
 #include "Renderer/Graphics/OpenGL/OGLVertexArrayObject.h"
 #include "Renderer/Graphics/VertexBuffer.h"
 #include "Renderer/Graphics/OpenGL/OGLVertexBuffer.h"
-#include <iostream> 
+#include <iostream>
 #include <memory>
 
 using namespace std;
 
-namespace Renderer {
-	namespace Graphics {
-		namespace OpenGL {
-			OGLVertexArrayObject::OGLVertexArrayObject() {
+namespace Renderer
+{
+	namespace Graphics
+	{
+		namespace OpenGL
+		{
+			OGLVertexArrayObject::OGLVertexArrayObject()
+			{
 				glGenVertexArrays(1, &vaoID);
 				glBindVertexArray(vaoID);
 			}
 
-			void OGLVertexArrayObject::addVertexBuffer(VertexBuffer* vertexBuffer, int index, long long size, int start, int stride)
+			void OGLVertexArrayObject::addVertexBuffer(VertexBuffer* vertexBuffer, int index, long long size, int start,
+			                                           int stride)
 			{
 				bind();
-				OGLVertexBuffer *oglVertexBuffer = reinterpret_cast<OGLVertexBuffer *>(vertexBuffer);
+				OGLVertexBuffer* oglVertexBuffer = reinterpret_cast<OGLVertexBuffer *>(vertexBuffer);
 				oglVertexBuffer->bind();
 				glEnableVertexAttribArray(index);
-				glVertexAttribPointer(index, stride, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), 0);
+				glVertexAttribPointer(index, stride, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), nullptr);
 				unbind();
 			}
 

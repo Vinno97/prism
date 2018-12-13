@@ -1,21 +1,23 @@
 #pragma once;
 #include <GL/glew.h>
 #include <SDL2/SDL_opengl.h>
-#include <iostream> 
+#include <iostream>
 #include <string>
 #include "Renderer/Graphics/OpenGL/OGLFragmentShader.h"
 
 using namespace Renderer::Graphics;
 
-namespace Renderer {
-	namespace Graphics {
-		namespace OpenGL {
-
+namespace Renderer
+{
+	namespace Graphics
+	{
+		namespace OpenGL
+		{
 			OGLFragmentShader::OGLFragmentShader(const char* source)
 			{
 				fragmentID = glCreateShader(GL_FRAGMENT_SHADER);
 
-				glShaderSource(fragmentID, 1, &source, NULL);
+				glShaderSource(fragmentID, 1, &source, nullptr);
 
 				glCompileShader(fragmentID);
 
@@ -25,10 +27,10 @@ namespace Renderer {
 				{
 					int infologLength = 0;
 
-					int charsWritten  = 0;
-					char *infoLog;
+					int charsWritten = 0;
+					char* infoLog;
 
-					glGetShaderiv(fragmentID, GL_INFO_LOG_LENGTH,&infologLength);
+					glGetShaderiv(fragmentID, GL_INFO_LOG_LENGTH, &infologLength);
 
 					infoLog = (char *)malloc(infologLength);
 					glGetShaderInfoLog(fragmentID, infologLength, &charsWritten, infoLog);

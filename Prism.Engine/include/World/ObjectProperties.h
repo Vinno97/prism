@@ -4,11 +4,15 @@
 #include "nlohmann/json.hpp"
 
 
-namespace World {
-	struct ObjectProperties {
-
+namespace World
+{
+	struct ObjectProperties
+	{
 		ObjectProperties() = default;
-		ObjectProperties(std::string name_, std::string value_) : name(name_), value(value_) {};
+
+		ObjectProperties(std::string name_, std::string value_) : name(name_), value(value_)
+		{
+		};
 		std::string name;
 		std::string value;
 	};

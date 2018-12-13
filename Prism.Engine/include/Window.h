@@ -21,7 +21,7 @@ public:
 	/// <summary>
 	/// Initializes a new SDL window/context
 	/// </summary>
-	void init(const char* title, const int width, const int height, const int x, const int y);
+	void init(const char* title, int width, int height, int x, int y);
 
 	/// <summary>
 	/// Returns an inputmanager
@@ -53,6 +53,6 @@ public:
 
 	~Window();
 private:
-	SDL_Window *gWindow;
+	SDL_Window* gWindow;
 	SDL_GLContext gContext;
 };

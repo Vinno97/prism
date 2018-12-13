@@ -17,10 +17,12 @@
 
 using namespace std;
 
-namespace Renderer {
-	namespace Graphics {
-		namespace OpenGL {
-
+namespace Renderer
+{
+	namespace Graphics
+	{
+		namespace OpenGL
+		{
 			OGLRenderDevice::OGLRenderDevice()
 			{
 			}
@@ -30,18 +32,18 @@ namespace Renderer {
 				///QQQ Delete all devices and shaders etc
 			}
 
-			RenderDevice * OGLRenderDevice::getRenderDevice()
+			RenderDevice* OGLRenderDevice::getRenderDevice()
 			{
 				static OGLRenderDevice instance;
 				return &instance;
 			}
 
-			unique_ptr<VertexShader> OGLRenderDevice::createVertexShader(const char * source) const
+			unique_ptr<VertexShader> OGLRenderDevice::createVertexShader(const char* source) const
 			{
 				return std::make_unique<OGLVertexShader>(source);
 			}
 
-			unique_ptr<FragmentShader> OGLRenderDevice::createFragmentShader(const char * source) const
+			unique_ptr<FragmentShader> OGLRenderDevice::createFragmentShader(const char* source) const
 			{
 				return make_unique<OGLFragmentShader>(source);
 			}
@@ -51,7 +53,7 @@ namespace Renderer {
 				return make_unique<OGLPipeline>(vs, fs);
 			}
 
-			unique_ptr<VertexBuffer> OGLRenderDevice::createVertexBuffer(long size, const void * data) const
+			unique_ptr<VertexBuffer> OGLRenderDevice::createVertexBuffer(long size, const void* data) const
 			{
 				return make_unique<OGLVertexBuffer>(size, data);
 			}
@@ -61,7 +63,7 @@ namespace Renderer {
 				return make_unique<OGLVertexBuffer>();
 			}
 
-			unique_ptr<IndexBuffer> OGLRenderDevice::createIndexBuffer(long size, const void * data) const
+			unique_ptr<IndexBuffer> OGLRenderDevice::createIndexBuffer(long size, const void* data) const
 			{
 				return make_unique<OGLIndexBuffer>(size, data);
 			}
@@ -76,12 +78,13 @@ namespace Renderer {
 				return std::make_shared<OGLTexture>(depth, width, height);
 			}
 
-			shared_ptr<Texture> OGLRenderDevice::createTexture(const char * path) const
+			shared_ptr<Texture> OGLRenderDevice::createTexture(const char* path) const
 			{
 				return make_shared<OGLTexture>(path);
 			}
 
-			shared_ptr<Texture> OGLRenderDevice::createTexture(int width, int height, unsigned char* pixels, bool useRGB) const
+			shared_ptr<Texture> OGLRenderDevice::createTexture(int width, int height, unsigned char* pixels,
+			                                                   bool useRGB) const
 			{
 				return make_shared<OGLTexture>(width, height, pixels, useRGB);
 			}
@@ -93,11 +96,13 @@ namespace Renderer {
 
 			void OGLRenderDevice::useBlending(const bool blend) const
 			{
-				if (blend) {
+				if (blend)
+				{
 					glEnable(GL_BLEND);
 					glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 				}
-				else {
+				else
+				{
 					glDisable(GL_BLEND);
 				}
 			}
@@ -124,6 +129,7 @@ namespace Renderer {
 			{
 				glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, reinterpret_cast<const void *>(offset));
 			}
+
 			void OGLRenderDevice::DrawTriangles(long offset, int count) const
 			{
 				glDrawArrays(GL_TRIANGLES, 0, count);

@@ -134,7 +134,8 @@ namespace ECS
 		/// <summary>
 		/// Keeps a list of all instances of each component type.
 		/// </summary>
-		std::unordered_map<std::type_index, std::unordered_map<unsigned int, std::unique_ptr<Components::Component>>> entityComponents;
+		std::unordered_map<std::type_index, std::unordered_map<unsigned int, std::unique_ptr<Components::Component>>>
+		entityComponents;
 
 		/// <summary>
 		/// Keeps a list of all Listeners attached to the EntityManager.

@@ -3,15 +3,17 @@
 
 using namespace std;
 
-namespace Renderer {
-	namespace Graphics {
-		namespace Models {
-
-			class Material {
+namespace Renderer
+{
+	namespace Graphics
+	{
+		namespace Models
+		{
+			class Material
+			{
 			public:
 
 			private:
-
 			};
 		}
 	}

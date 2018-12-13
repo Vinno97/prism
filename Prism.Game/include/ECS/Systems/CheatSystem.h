@@ -5,11 +5,14 @@
 #include "Physics/QuadTree.h"
 #include "Physics/AABBCollider.h"
 
-namespace ECS {
-	namespace Systems {
-		class CheatSystem : public System {
+namespace ECS
+{
+	namespace Systems
+	{
+		class CheatSystem : public System
+		{
 		public:
-			CheatSystem(EntityManager &entityManager);
+			CheatSystem(EntityManager& entityManager);
 			~CheatSystem();
 			void update(Context& context) override;
 			float ticks = 0;
@@ -25,4 +28,3 @@ namespace ECS {
 		};
 	}
 }
-

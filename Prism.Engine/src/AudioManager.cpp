@@ -12,16 +12,17 @@ AudioManager::AudioManager()
 
 void AudioManager::addSound(const std::string name, const std::string file)
 {
-
 	auto filepath = fs.getResourcePath("audio/sounds/") += file;
-	Mix_Chunk *sound = Mix_LoadWAV(filepath.c_str());
+	Mix_Chunk* sound = Mix_LoadWAV(filepath.c_str());
 
-	if (sound == nullptr) {
+	if (sound == nullptr)
+	{
 		std::string error = "Failed to load sound effect! SDL_mixer Error: ";
 		error += Mix_GetError();
 		std::runtime_error(error.c_str());
 	}
-	else {
+	else
+	{
 		sounds.emplace(name, sound);
 	}
 }
@@ -29,14 +30,16 @@ void AudioManager::addSound(const std::string name, const std::string file)
 void AudioManager::addMusic(const std::string name, const std::string file)
 {
 	auto filepath = fs.getResourcePath("audio/music/") += file;
-	Mix_Music *mus = Mix_LoadMUS(filepath.c_str());
+	Mix_Music* mus = Mix_LoadMUS(filepath.c_str());
 
-	if (mus == nullptr) {
+	if (mus == nullptr)
+	{
 		std::string error = "Failed to load music! SDL_mixer Error: ";
 		error += Mix_GetError();
 		std::runtime_error(error.c_str());
 	}
-	else {
+	else
+	{
 		music.emplace(name, mus);
 	}
 }
@@ -47,19 +50,22 @@ const void AudioManager::playSound(const std::string name, int distance, int loo
 	{
 		for (int i = 0; i < channels; ++i)
 		{
-			if (Mix_Playing(i) == 0) {
+			if (Mix_Playing(i) == 0)
+			{
 				int volume = 50 - (distance / 5);
-				if (volume < 0) {
+				if (volume < 0)
+				{
 					volume = 0;
 				}
-				
+
 				Mix_Volume(i, volume);
 				Mix_PlayChannel(i, sounds[name], loops);
 				break;
 			}
 		}
 	}
-	else {
+	else
+	{
 		std::runtime_error("Failed to play sound! " + name + " does not exist.");
 	}
 }
@@ -71,7 +77,8 @@ const void AudioManager::playMusic(const std::string name)
 		current_music_playing = name;
 		Mix_PlayMusic(music[name], -1);
 	}
-	else {
+	else
+	{
 		std::runtime_error("Failed to play music! " + name + " does not exist.");
 	}
 }
@@ -104,10 +111,12 @@ void AudioManager::stopSound(int channel) const
 
 AudioManager::~AudioManager()
 {
-	for (auto const& x : sounds) {
+	for (auto const& x : sounds)
+	{
 		Mix_FreeChunk(x.second);
 	}
-	for (auto const& x : music) {
+	for (auto const& x : music)
+	{
 		Mix_FreeMusic(x.second);
 	}
 	sounds.clear();

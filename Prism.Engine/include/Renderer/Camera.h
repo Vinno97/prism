@@ -4,7 +4,8 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <tuple>
 
-namespace Renderer {
+namespace Renderer
+{
 	class Camera
 	{
 	public:
@@ -13,7 +14,7 @@ namespace Renderer {
 		/// Returns a 4f matrix with the camera transformation
 		/// </summary>
 		glm::mat4 getCameraMatrix() const;
-		
+
 		/// <summary>
 		/// Translates the camera by the values given
 		/// </summary>

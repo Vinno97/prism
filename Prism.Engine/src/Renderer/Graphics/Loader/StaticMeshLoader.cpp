@@ -16,9 +16,12 @@ using namespace std;
 using namespace Renderer::Graphics::Models;
 using namespace Renderer::Graphics::OpenGL;
 
-namespace Renderer {
-	namespace Graphics {
-		namespace Loader {
+namespace Renderer
+{
+	namespace Graphics
+	{
+		namespace Loader
+		{
 			StaticMeshLoader::StaticMeshLoader()
 			{
 				this->renderDevice = OGLRenderDevice::getRenderDevice();
@@ -60,7 +63,8 @@ namespace Renderer {
 				}
 
 				// iterate over the mesh's vertices and push the 3d coordinates into the vector.
-				for (unsigned int a = 0; a < mesh->mNumVertices; a = a + 1) {
+				for (unsigned int a = 0; a < mesh->mNumVertices; a = a + 1)
+				{
 					auto v = mesh->mVertices[a];
 					vertices.push_back(v.x);
 					vertices.push_back(v.y);
@@ -94,7 +98,8 @@ namespace Renderer {
 
 				//Load normals
 				vector<float> normals;
-				for (unsigned int a = 0; a < mesh->mNumVertices; a = a + 1) {
+				for (unsigned int a = 0; a < mesh->mNumVertices; a = a + 1)
+				{
 					auto v = mesh->mNormals[a];
 					normals.push_back(v.x);
 					normals.push_back(v.y);
@@ -133,7 +138,8 @@ namespace Renderer {
 				// Convert vector to array
 				int* indicesArray = indices.data();
 
-				unique_ptr<IndexBuffer> indexBuffer = renderDevice->createIndexBuffer(indices.size() * sizeof(unsigned int), indicesArray);
+				unique_ptr<IndexBuffer> indexBuffer = renderDevice->createIndexBuffer(
+					indices.size() * sizeof(unsigned int), indicesArray);
 
 				if (!indexBuffer)
 				{

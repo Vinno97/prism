@@ -29,20 +29,22 @@
 #define _CRTDBG_MAP_ALLOC
 
 // This function makes sure all objects are cleared from the stack before the memory gets dumped.
-void start() {
-    CoreEngine ce = CoreEngine();
-    ce.InitWindow("prism", 1920 / 2, 1080 / 2, 100, 100);
-    ce.addState<States::MainMenuState>();
-    ce.setEntryPoint<States::MainMenuState>();
+void start()
+{
+	CoreEngine ce = CoreEngine();
+	ce.InitWindow("prism", 1920 / 2, 1080 / 2, 100, 100);
+	ce.addState<States::MainMenuState>();
+	ce.setEntryPoint<States::MainMenuState>();
 
-    ce.Run();
+	ce.Run();
 }
 
-int main(int argc, char **argv) {
-    //_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+int main(int argc, char** argv)
+{
+	//_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
-    start();
+	start();
 
-//	_CrtDumpMemoryLeaks();
-    return 0;
+	//	_CrtDumpMemoryLeaks();
+	return 0;
 }

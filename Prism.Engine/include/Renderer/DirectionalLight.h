@@ -1,7 +1,9 @@
 #pragma once
 
 #include "Math/Vector3f.h"
-namespace Renderer {
+
+namespace Renderer
+{
 	class DirectionalLight
 	{
 	public:

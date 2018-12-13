@@ -32,7 +32,7 @@
 #include "World/TerrainGenerator.h"
 
 using namespace ECS;
-using namespace ECS::Components;
+using namespace Components;
 
 // TODO: Normaliseer alle modellen zodat øze goed gerendered kunnen worden met
 // een scale van 1.
@@ -66,7 +66,7 @@ unsigned EntityFactory::createPlayer(unsigned entity, EntityManager& entityManag
 	       .addComponent<HealthComponent>(100)
 	       .addComponent<DragComponent>(5.f)
 	       .addComponent<BoundingBoxComponent>(.3, .3)
-		   .addComponent<PointLightComponent>(Math::Vector3f{ 1.f, 1.f, 0.f }, 1.f, 0.f)
+	       .addComponent<PointLightComponent>(Math::Vector3f{1.f, 1.f, 0.f}, 1.f, 0.f)
 	       .addComponent(appearance)
 	       .getEntity();
 }
@@ -248,12 +248,12 @@ unsigned EntityFactory::createProjectile(unsigned entity, EntityManager& entityM
 	       .addComponent<BoundingBoxComponent>(0.1, 0.1)
 	       .addComponent<ProjectileAttackComponent>()
 	       .addComponent<DynamicComponent>()
-		   .addComponent<PointLightComponent>(Math::Vector3f{ 1.f, 0.f, 0.f }, 4.0f, 0.f)
+	       .addComponent<PointLightComponent>(Math::Vector3f{1.f, 0.f, 0.f}, 4.0f, 0.f)
 	       .addComponent(appearance)
 	       .getEntity();
 }
 
-unsigned EntityFactory::createFloor(ECS::EntityManager& entityManager) const
+unsigned EntityFactory::createFloor(EntityManager& entityManager) const
 {
 	return createFloor(entityManager.createEntity(), entityManager);
 }
@@ -281,7 +281,7 @@ unsigned EntityFactory::createFloor(unsigned entity, EntityManager& entityManage
 	appearance.translationY = -scale / 15;
 
 	appearance.model = std::move(model);
-	appearance.color = Math::Vector3f{0.8f, 0.8f, 0.8f };
+	appearance.color = Math::Vector3f{0.8f, 0.8f, 0.8f};
 
 	return EntityBuilder(entityManager, entity)
 	       .addComponent<PositionComponent>()
@@ -289,7 +289,7 @@ unsigned EntityFactory::createFloor(unsigned entity, EntityManager& entityManage
 	       .getEntity();
 }
 
-unsigned EntityFactory::createResourceBlob(ECS::EntityManager& entityManager,
+unsigned EntityFactory::createResourceBlob(EntityManager& entityManager,
                                            Enums::ResourceType type, float value) const
 {
 	return createResourceBlob(entityManager.createEntity(), entityManager, type,
@@ -297,7 +297,7 @@ unsigned EntityFactory::createResourceBlob(ECS::EntityManager& entityManager,
 }
 
 unsigned EntityFactory::createResourceBlob(unsigned entity,
-                                           ECS::EntityManager& entityManager,
+                                           EntityManager& entityManager,
                                            Enums::ResourceType type, float value) const
 {
 	Renderer::Graphics::Loader::ModelLoader ml;
@@ -329,19 +329,19 @@ unsigned EntityFactory::createResourceBlob(unsigned entity,
 	       .addComponent<PositionComponent>()
 	       .addComponent<VelocityComponent>()
 	       .addComponent<DragComponent>()
-           .addComponent<TargetComponent>()
+	       .addComponent<TargetComponent>()
 	       .addComponent(resource)
 	       .addComponent(appearance)
 	       .getEntity();
 }
 
-unsigned EntityFactory::createCameraPointer(ECS::EntityManager& entityManager)
+unsigned EntityFactory::createCameraPointer(EntityManager& entityManager)
 {
 	return entityManager.createEntity(MousePointerComponent(),
 	                                  PositionComponent());
 }
 
-unsigned EntityFactory::createEnemySpawn(ECS::EntityManager& entityManager,
+unsigned EntityFactory::createEnemySpawn(EntityManager& entityManager,
                                          float spawnInterval, bool enabled) const
 {
 	return createEnemySpawn(entityManager.createEntity(), entityManager,
@@ -349,7 +349,7 @@ unsigned EntityFactory::createEnemySpawn(ECS::EntityManager& entityManager,
 }
 
 unsigned EntityFactory::createEnemySpawn(unsigned entity,
-                                         ECS::EntityManager& entityManager,
+                                         EntityManager& entityManager,
                                          float spawnInterval, bool enabled) const
 {
 	Renderer::Graphics::Loader::ModelLoader ml;
@@ -375,7 +375,7 @@ unsigned EntityFactory::createEnemySpawn(unsigned entity,
 	       .getEntity();
 }
 
-unsigned EntityFactory::createCamera(ECS::EntityManager& entityManager)
+unsigned EntityFactory::createCamera(EntityManager& entityManager)
 {
 	Renderer::Camera camera;
 

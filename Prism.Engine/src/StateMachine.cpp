@@ -9,11 +9,13 @@ State* StateMachine::getCurrentState() const
 	return this->currentState;
 }
 
-void StateMachine::setState(std::type_index type, Context & context) {
+void StateMachine::setState(std::type_index type, Context& context)
+{
 	this->currentState = getState(type);
 }
 
-State* StateMachine::getState(std::type_index type) const {
+State* StateMachine::getState(std::type_index type) const
+{
 	try
 	{
 		return existingStates.at(type).get();
@@ -24,6 +26,7 @@ State* StateMachine::getState(std::type_index type) const {
 	}
 }
 
-bool StateMachine::hasState(std::type_index type) const {
+bool StateMachine::hasState(std::type_index type) const
+{
 	return existingStates.find(type) != existingStates.end();
 }

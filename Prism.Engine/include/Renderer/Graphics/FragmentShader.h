@@ -3,9 +3,12 @@
 #include <iostream>
 #include <map>
 
-namespace Renderer {
-	namespace Graphics {
-		class FragmentShader {
+namespace Renderer
+{
+	namespace Graphics
+	{
+		class FragmentShader
+		{
 		public:
 			GLuint fragmentID;
 		};

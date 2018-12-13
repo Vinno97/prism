@@ -4,7 +4,8 @@
 #include <array>
 #include "BoundingBox.h"
 
-namespace Physics {
+namespace Physics
+{
 	class QuadTree
 	{
 	public:
@@ -14,10 +15,10 @@ namespace Physics {
 		QuadTree() = default;
 
 		QuadTree(const QuadTree& other);
-		QuadTree & operator=(const QuadTree& other);
+		QuadTree& operator=(const QuadTree& other);
 
 		QuadTree(QuadTree&& other) noexcept;
-		QuadTree & operator=(QuadTree&& other) noexcept;
+		QuadTree& operator=(QuadTree&& other) noexcept;
 
 		~QuadTree();
 
@@ -45,13 +46,13 @@ namespace Physics {
 		/// Insert a new boundingbox in the quadtree
 		/// </summary>
 		/// <param name="newBox">The boundingbox that needs to be inserted in the quadtree</param>
-		void Insert(BoundingBox const &newBox);
+		void Insert(BoundingBox const& newBox);
 
 		/// <summary>
 		/// Retrieve a vector with all the boundingboxes that can collide with the given boundingbox
 		/// </summary>
 		///<param name="searchBox">A vector will be returned that could collide with this boundingbox</param>
-		void RetrieveAll(std::list<BoundingBox const *> &vector, BoundingBox const &searchBox);
+		void RetrieveAll(std::list<BoundingBox const *>& vector, BoundingBox const& searchBox);
 
 		/// <summary>
 		/// Get the bounds of the quadtree;
@@ -64,19 +65,19 @@ namespace Physics {
 		unsigned int GetMaxObject() const;
 	private:
 		unsigned int maxObjects;
-		std::vector<BoundingBox const * > objects;
-		Physics::BoundingBox bounds;
+		std::vector<BoundingBox const *> objects;
+		BoundingBox bounds;
 
 		//0 = North East
 		//1 = South East
 		//2 = South West
 		//3 = North East
-		QuadTree *nodes[4]{ nullptr };
+		QuadTree* nodes[4]{nullptr};
 
 		/// <summary>
 		/// Get the index of the where the new boundingbox should be placed
 		/// </summary>
 		/// <param name="box">The boundingbox of which the index is needed</param>
-		int GetIndex(BoundingBox const &box) const;
+		int GetIndex(BoundingBox const& box) const;
 	};
 }

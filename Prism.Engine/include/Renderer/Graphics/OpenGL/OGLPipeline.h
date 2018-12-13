@@ -6,9 +6,12 @@
 #include <glm/glm.hpp>
 #include <memory>
 
-namespace Renderer {
-	namespace Graphics {
-		namespace OpenGL {
+namespace Renderer
+{
+	namespace Graphics
+	{
+		namespace OpenGL
+		{
 			class OGLPipeline : public Pipeline
 			{
 			public:

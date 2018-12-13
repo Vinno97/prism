@@ -13,36 +13,36 @@
 
 namespace States
 {
-class PrismGame : public Game
-{
-  public:
-	PrismGame() = default;
-	void onInit(Context &context) override;
-	void onUpdate(Context &context) override;
-	void onEnter(Context & context) override;
-	void onLeave(Context & context) override;
+	class PrismGame : public Game
+	{
+	public:
+		PrismGame() = default;
+		void onInit(Context& context) override;
+		void onUpdate(Context& context) override;
+		void onEnter(Context& context) override;
+		void onLeave(Context& context) override;
 
-  private:
-	ECS::EntityManager entityManager;
-	ECS::SystemManager systemManager;
-	EntityFactory entityFactory;
-	Menu::MenuRenderer menuRenderer;
-	Menu::MenuBuilder menuBuilder;
-	std::unique_ptr<Menu::Menu> menu;
+	private:
+		ECS::EntityManager entityManager;
+		ECS::SystemManager systemManager;
+		EntityFactory entityFactory;
+		Menu::MenuRenderer menuRenderer;
+		Menu::MenuBuilder menuBuilder;
+		std::unique_ptr<Menu::Menu> menu;
 
-	//Textcontrols
-	Menu::TextControl* redResource;
-	Menu::TextControl* greenResource;
-	Menu::TextControl* blueResource;
-	Menu::TextControl* health;
-	Menu::TextControl* fps;
+		//Textcontrols
+		Menu::TextControl* redResource;
+		Menu::TextControl* greenResource;
+		Menu::TextControl* blueResource;
+		Menu::TextControl* health;
+		Menu::TextControl* fps;
 
-	bool canPressEscape;
-	bool canPressF3;
-	bool showFPS;
-	void registerSystems(Context &context);
-	void toggleFPS(Context &context);
-	void loadAudio(Context &context) const;
-	int Fps(Context &context);
-};
+		bool canPressEscape;
+		bool canPressF3;
+		bool showFPS;
+		void registerSystems(Context& context);
+		void toggleFPS(Context& context);
+		void loadAudio(Context& context) const;
+		int Fps(Context& context);
+	};
 }

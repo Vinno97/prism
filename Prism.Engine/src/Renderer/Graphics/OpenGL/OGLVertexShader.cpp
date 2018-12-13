@@ -5,19 +5,22 @@
 #include <GL/glew.h>
 #include <SDL2/SDL_opengl.h>
 #include "Renderer/Graphics/OpenGL/OGLVertexShader.h"
-#include <iostream> 
+#include <iostream>
 #include <string>
 
-namespace Renderer {
-	namespace Graphics {
-		namespace OpenGL {
-			OGLVertexShader::OGLVertexShader(const char* source) {
-
+namespace Renderer
+{
+	namespace Graphics
+	{
+		namespace OpenGL
+		{
+			OGLVertexShader::OGLVertexShader(const char* source)
+			{
 				//Create vertex shader
 				vertexID = glCreateShader(GL_VERTEX_SHADER);
 
 				//Set vertex source
-				glShaderSource(vertexID, 1, &source, NULL);
+				glShaderSource(vertexID, 1, &source, nullptr);
 
 				//Compile vertex source
 				glCompileShader(vertexID);
@@ -28,10 +31,10 @@ namespace Renderer {
 				{
 					int infologLength = 0;
 
-					int charsWritten  = 0;
-					char *infoLog;
+					int charsWritten = 0;
+					char* infoLog;
 
-					glGetShaderiv(vertexID, GL_INFO_LOG_LENGTH,&infologLength);
+					glGetShaderiv(vertexID, GL_INFO_LOG_LENGTH, &infologLength);
 
 					infoLog = (char *)malloc(infologLength);
 					glGetShaderInfoLog(vertexID, infologLength, &charsWritten, infoLog);

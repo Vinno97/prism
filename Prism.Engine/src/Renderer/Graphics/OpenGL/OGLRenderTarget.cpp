@@ -2,16 +2,21 @@
 #include <GL/glew.h>
 #include <SDL2/SDL_opengl.h>
 #include "Renderer/Graphics/OpenGL/OGLRenderTarget.h"
-#include <iostream> 
+#include <iostream>
 
-namespace Renderer {
-	namespace Graphics {
-		namespace OpenGL {
-			OGLRenderTarget::OGLRenderTarget(bool useDepthBuffer) {
+namespace Renderer
+{
+	namespace Graphics
+	{
+		namespace OpenGL
+		{
+			OGLRenderTarget::OGLRenderTarget(bool useDepthBuffer)
+			{
 				glGenFramebuffers(1, &FBO);
 				glBindFramebuffer(GL_FRAMEBUFFER, FBO);
 
-				if (useDepthBuffer) {
+				if (useDepthBuffer)
+				{
 					GLuint depthrenderbuffer;
 					glGenRenderbuffers(1, &depthrenderbuffer);
 					glBindRenderbuffer(GL_RENDERBUFFER, depthrenderbuffer);
@@ -24,20 +29,22 @@ namespace Renderer {
 
 			void OGLRenderTarget::bind()
 			{
-				if (bufferAmount <= 0) {
+				if (bufferAmount <= 0)
+				{
 					glBindFramebuffer(GL_FRAMEBUFFER, FBO);
 					glDrawBuffer(GL_NONE);
 					return;
 				}
 
 				GLenum* drawBuffers = new GLenum[bufferAmount];
-				for (int i = 0; i < bufferAmount; i++) {
+				for (int i = 0; i < bufferAmount; i++)
+				{
 					drawBuffers[i] = GL_COLOR_ATTACHMENT0 + i;
 				}
 
 				glBindFramebuffer(GL_FRAMEBUFFER, FBO);
 				glDrawBuffers(bufferAmount, drawBuffers);
-				
+
 				delete[] drawBuffers;
 			}
 
@@ -49,7 +56,8 @@ namespace Renderer {
 			void OGLRenderTarget::addBuffer(std::shared_ptr<Texture> texture)
 			{
 				bind();
-				glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0+bufferAmount, GL_TEXTURE_2D, texture->getID(), 0);
+				glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + bufferAmount, GL_TEXTURE_2D,
+				                       texture->getID(), 0);
 				bufferAmount++;
 				unbind();
 			}

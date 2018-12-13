@@ -7,16 +7,17 @@
 #include "Menu/MenuRenderer.h"
 #include "Util/AdvertisementSystem.h"
 
-namespace States {
+namespace States
+{
 	class MainMenuState : public State
 	{
 	public:
 		MainMenuState();
 
-		void onInit(Context &context) override;
-		void onUpdate(Context &context) override;
-		void onEnter(Context & context) override;
-		void onLeave(Context & context) override;
+		void onInit(Context& context) override;
+		void onUpdate(Context& context) override;
+		void onEnter(Context& context) override;
+		void onLeave(Context& context) override;
 
 		~MainMenuState();
 
@@ -29,4 +30,3 @@ namespace States {
 		Renderer::Graphics::RenderDevice* renderDevice;
 	};
 }
-

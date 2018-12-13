@@ -2,15 +2,18 @@
 
 #include "ECS/Components/Component.h"
 
-namespace ECS {
-    namespace Components {
-        struct TargetComponent : Component {
+namespace ECS
+{
+	namespace Components
+	{
+		struct TargetComponent : Component
+		{
+			unsigned target;
 
-            unsigned target;
-
-            std::unique_ptr<Component> clone() override {
-                return std::make_unique<TargetComponent>();
-            }
-        };
-    }
+			std::unique_ptr<Component> clone() override
+			{
+				return std::make_unique<TargetComponent>();
+			}
+		};
+	}
 }

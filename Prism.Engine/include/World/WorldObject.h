@@ -7,8 +7,10 @@
 
 #include "ObjectProperties.h"
 
-namespace World {
-	struct WorldObject {
+namespace World
+{
+	struct WorldObject
+	{
 		int id = 0;
 		int gid = 0;
 		bool visible = false;

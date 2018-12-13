@@ -1,6 +1,7 @@
 #pragma once
 
-namespace Physics {
+namespace Physics
+{
 	class BoundingBox
 	{
 	public:
@@ -85,7 +86,7 @@ namespace Physics {
 		/// Get the east bound of the boundingbox
 		/// </summary>
 		float GetEastBound() const;
-		
+
 		/// <summary>
 		/// Get the east coordinate of the boundingbox
 		/// </summary>
@@ -132,4 +133,3 @@ namespace Physics {
 		float west = 0;
 	};
 }
-

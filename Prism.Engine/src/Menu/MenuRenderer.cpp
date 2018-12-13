@@ -12,10 +12,11 @@
 
 using namespace std;
 using namespace Renderer;
-using namespace Renderer::Graphics;
-using namespace Renderer::Graphics::OpenGL;
+using namespace Graphics;
+using namespace OpenGL;
 
-namespace Menu {
+namespace Menu
+{
 	MenuRenderer::MenuRenderer()
 	{
 		renderDevice = OGLRenderDevice::getRenderDevice();
@@ -39,19 +40,19 @@ namespace Menu {
 		menu.mesh->vertexArrayObject->bind();
 		menu.mesh->indexBuffer->bind();
 
-		for (auto& control : menu.controls) 
+		for (auto& control : menu.controls)
 		{
 			auto pos = control.position;
 			glm::mat4 model = glm::mat4(1.0f);
 
-			model = glm::translate(model, glm::vec3(pos.x, pos.y, 0.0f));
+			model = translate(model, glm::vec3(pos.x, pos.y, 0.0f));
 			model = glm::rotate(model, control.rotation, glm::vec3(0.f, 0.f, 1.f));
-			model = glm::scale(model, glm::vec3(control.size.x, control.size.y, 1.0f));
+			model = scale(model, glm::vec3(control.size.x, control.size.y, 1.0f));
 
 			menuPipeline->setUniformMatrix4f("model", model);
 
 			control.texture->bind(textures[0]);
-			renderDevice->DrawTrianglesIndexed(0, menu.mesh->indicesLength);	
+			renderDevice->DrawTrianglesIndexed(0, menu.mesh->indicesLength);
 		}
 		renderDevice->useBlending(false);
 		menu.mesh->vertexArrayObject->unbind();
@@ -60,7 +61,8 @@ namespace Menu {
 		menuPipeline->stop();
 		renderDevice->useDepthTest(true);
 
-		for (auto& control : menu.textControls) {
+		for (auto& control : menu.textControls)
+		{
 			textRenderer.RenderText(*control);
 		}
 	}

@@ -2,12 +2,16 @@
 
 #include "World/Assemblers/BaseAssembler.h"
 
-namespace World {
-	namespace Assemblers {
-		class PlayerAssembler : public BaseAssembler {
+namespace World
+{
+	namespace Assemblers
+	{
+		class PlayerAssembler : public BaseAssembler
+		{
 		public:
-			void assemble(int entity, const WorldObject& worldObject, ECS::EntityManager& entityManager) const;
-			void disassemble(int entity, WorldObject& worldObject, const ECS::EntityManager& entityManager) const;
+			void assemble(int entity, const WorldObject& worldObject, ECS::EntityManager& entityManager) const override;
+			void disassemble(int entity, WorldObject& worldObject,
+			                 const ECS::EntityManager& entityManager) const override;
 		};
 	}
 }

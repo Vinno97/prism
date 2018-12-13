@@ -1,6 +1,7 @@
 #pragma once
 
-namespace Util {
+namespace Util
+{
 	class DistanceUtil
 	{
 	public:

@@ -15,12 +15,16 @@
 #include <string>
 #include <memory>
 
-namespace Renderer {
-	namespace Graphics {
-		namespace Loader {
-			class ModelLoader {
+namespace Renderer
+{
+	namespace Graphics
+	{
+		namespace Loader
+		{
+			class ModelLoader
+			{
 			public:
-				std::unique_ptr<Renderer::Graphics::Models::Model> loadModel(std::string path);
+				std::unique_ptr<Models::Model> loadModel(std::string path);
 			private:
 				StaticMeshLoader staticMeshLoader;
 			};

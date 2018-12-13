@@ -3,8 +3,10 @@
 #include "Context.h"
 #include "ECS/Systems/System.h"
 
-namespace ECS {
-	namespace Systems {
+namespace ECS
+{
+	namespace Systems
+	{
 		class ProjectileAttackSystem : public System
 		{
 		public:

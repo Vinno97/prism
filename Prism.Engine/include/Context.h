@@ -17,9 +17,8 @@ public:
 	//Holds the time that has been passed since the last gameupdate
 	float deltaTime = 0;
 
-	Window *window;
-	StateMachine *stateMachine;
-	InputManager *inputManager;
-	AudioManager *audioManager;
+	Window* window;
+	StateMachine* stateMachine;
+	InputManager* inputManager;
+	AudioManager* audioManager;
 };
-

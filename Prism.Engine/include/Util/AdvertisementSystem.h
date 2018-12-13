@@ -2,7 +2,8 @@
 #include <string>
 #include <vector>
 
-namespace Util {
+namespace Util
+{
 	class AdvertisementSystem
 	{
 	public:

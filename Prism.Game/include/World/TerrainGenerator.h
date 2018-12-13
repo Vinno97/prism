@@ -5,7 +5,8 @@
 #include <Math/Vector3f.h>
 #include "Renderer/Graphics/Models/Model.h"
 
-namespace World {
+namespace World
+{
 	class TerrainGenerator
 	{
 	public:

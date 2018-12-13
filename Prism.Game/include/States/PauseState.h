@@ -6,16 +6,17 @@
 #include "Menu/Menu.h"
 #include "Menu/MenuRenderer.h"
 
-namespace States {
+namespace States
+{
 	class PauseState : public State
 	{
 	public:
 		PauseState();
 
-		void onInit(Context &context) override;
-		void onUpdate(Context &context) override;
-		void onEnter(Context & context) override;
-		void onLeave(Context & context) override;
+		void onInit(Context& context) override;
+		void onUpdate(Context& context) override;
+		void onEnter(Context& context) override;
+		void onLeave(Context& context) override;
 
 		~PauseState();
 
@@ -26,4 +27,3 @@ namespace States {
 		std::unique_ptr<Menu::Menu> menu;
 	};
 }
-

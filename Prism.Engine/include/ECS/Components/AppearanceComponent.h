@@ -3,9 +3,12 @@
 #include "Renderer/Graphics/Models/Model.h"
 #include "Math/Vector3f.h"
 
-namespace ECS {
-	namespace Components {
-		struct AppearanceComponent : Component {
+namespace ECS
+{
+	namespace Components
+	{
+		struct AppearanceComponent : Component
+		{
 			std::unique_ptr<Renderer::Graphics::Models::Model> model;
 			float translationX{0};
 			float translationY{0};
@@ -17,9 +20,9 @@ namespace ECS {
 			float rotationY{0};
 			float rotationZ{0};
 
-			Math::Vector3f color{ 1.f, 1.f, 1.f };
+			Math::Vector3f color{1.f, 1.f, 1.f};
 
-			std::unique_ptr<Component>  clone() override
+			std::unique_ptr<Component> clone() override
 			{
 				auto appearanceComponent = std::make_unique<AppearanceComponent>();
 
@@ -38,12 +41,12 @@ namespace ECS {
 				appearanceComponent->color = color;
 
 				// If model is null, this would throw an exception.
-				if (model) {
-                    appearanceComponent->model = std::make_unique<Renderer::Graphics::Models::Model>(*model);
-                }
+				if (model)
+				{
+					appearanceComponent->model = std::make_unique<Renderer::Graphics::Models::Model>(*model);
+				}
 				return appearanceComponent;
 			}
-
 		};
 	}
 }

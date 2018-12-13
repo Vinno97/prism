@@ -10,9 +10,12 @@
 #include <memory>
 #include <map>
 
-namespace Renderer {
-	namespace Graphics {
-		namespace OpenGL {
+namespace Renderer
+{
+	namespace Graphics
+	{
+		namespace OpenGL
+		{
 			class OGLRenderDevice : public RenderDevice
 			{
 			public:
@@ -29,16 +32,17 @@ namespace Renderer {
 				std::unique_ptr<VertexShader> createVertexShader(const char* source) const override;
 				std::unique_ptr<FragmentShader> createFragmentShader(const char* source) const override;
 				std::unique_ptr<Pipeline> createPipeline(VertexShader& vs, FragmentShader& fs) const override;
-				std::unique_ptr<VertexBuffer> createVertexBuffer(long size, const void *data) const override;
+				std::unique_ptr<VertexBuffer> createVertexBuffer(long size, const void* data) const override;
 				std::unique_ptr<VertexBuffer> createDynamicVertexBuffer() const override;
-				std::unique_ptr<IndexBuffer> createIndexBuffer(long size, const void *data) const override;
+				std::unique_ptr<IndexBuffer> createIndexBuffer(long size, const void* data) const override;
 				std::unique_ptr<VertexArrayObject> createVertexArrayobject() const override;
 				std::unique_ptr<RenderTarget> createRenderTarget(bool useDepthBuffer) const override;
 				std::shared_ptr<Texture> createTexture(const char* path) const override;
 				std::shared_ptr<Texture> createTexture(bool depth, int width, int height) const override;
-				std::shared_ptr<Texture> createTexture(int width, int height, unsigned char* pixels, bool useRGB) const override;
+				std::shared_ptr<Texture> createTexture(int width, int height, unsigned char* pixels, bool useRGB) const
+				override;
 
-				void useBlending(const bool blend) const override;
+				void useBlending(bool blend) const override;
 				void setClearColour(float r, float g, float b, float w) const override;
 				void useDepthTest(bool enable) const override;
 				void clearScreen() const override;
@@ -49,7 +53,7 @@ namespace Renderer {
 			};
 
 			static std::map<int, int> textures = {
-				{0, GL_TEXTURE0 },
+				{0, GL_TEXTURE0},
 				{1, GL_TEXTURE1},
 				{2, GL_TEXTURE2},
 				{3, GL_TEXTURE3},

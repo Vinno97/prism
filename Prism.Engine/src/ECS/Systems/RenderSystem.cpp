@@ -19,20 +19,22 @@ using namespace Systems;
 using namespace Components;
 using namespace std;
 
-namespace ECS {
-	namespace Systems {
+namespace ECS
+{
+	namespace Systems
+	{
 		using namespace Components;
 
-		RenderSystem::RenderSystem(EntityManager &entityManager, int windowWidth, int windowHeight)
-			: System(entityManager) {
+		RenderSystem::RenderSystem(EntityManager& entityManager, int windowWidth, int windowHeight)
+			: System(entityManager)
+		{
 			forwardRenderer = std::make_shared<ForwardRenderer>(windowWidth, windowHeight);
 			auto cameraComponent = this->entityManager->getAllEntitiesWithComponent<CameraComponent>()[0].component;
 			auto camera = &cameraComponent->camera;
-
 		}
 
-		ECS::Systems::RenderSystem::~RenderSystem()
-			= default;
+		RenderSystem::~RenderSystem()
+		= default;
 
 		void RenderSystem::update(Context& context)
 		{
@@ -43,7 +45,8 @@ namespace ECS {
 			auto camera = &cameraComponent->camera;
 
 			auto players = entityManager->getAllEntitiesWithComponent<PlayerComponent>();
-			if (!players.empty()) {
+			if (!players.empty())
+			{
 				auto playerPosition = entityManager->getComponent<PositionComponent>(players.front().id);
 				camera->position.x -= (camera->position.x - playerPosition->x) * context.deltaTime * 2;
 				camera->position.z -= (camera->position.z - 4.f - playerPosition->y) * context.deltaTime * 2;
@@ -74,18 +77,22 @@ namespace ECS {
 
 				rendererData.push_back(renderable);
 			}
-			std::vector<Renderer::PointLight> lights;
+			std::vector<PointLight> lights;
 			auto lightEntities = entityManager->getAllEntitiesWithComponent<PointLightComponent>();
-			for (unsigned int i = 0; i < lightEntities.size(); i++) {
+			for (unsigned int i = 0; i < lightEntities.size(); i++)
+			{
 				auto position = this->entityManager->getComponent<PositionComponent>(lightEntities[i].id);
-				Renderer::PointLight pl{ Math::Vector3f{float(position->x), 1, float(position->y)}, lightEntities[i].component->color };
+				PointLight pl{
+					Math::Vector3f{float(position->x), 1, float(position->y)}, lightEntities[i].component->color
+				};
 				lights.push_back(pl);
 			}
 
 			auto input = context.inputManager;
 
 			//if (input->isKeyPressed(Key::KEY_I)) {
-			if (input->isKeyPressed(Key::KEY_H)) {
+			if (input->isKeyPressed(Key::KEY_H))
+			{
 				forwardRenderer->loadPipelines();
 			}
 

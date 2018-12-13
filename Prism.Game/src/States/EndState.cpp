@@ -10,19 +10,24 @@
 #include "Renderer/Graphics/OpenGL/OGLVertexShader.h"
 #include "Renderer/Graphics/OpenGL/OGLPipeline.h"
 
-namespace States {
+namespace States
+{
 	EndState::EndState()
 	{
 	}
 
-	void EndState::onInit(Context & context)
+	void EndState::onInit(Context& context)
 	{
-		std::function<void()> callbackMainMenu = [&context](){ context.stateMachine->setState<MainMenuState>(context); };
-		std::function<void()> callBackRestart = [&context](){
-			if (!context.stateMachine->hasState<PrismGame>()) {
+		std::function<void()> callbackMainMenu = [&context]()
+		{
+			context.stateMachine->setState<MainMenuState>(context);
+		};
+		std::function<void()> callBackRestart = [&context]()
+		{
+			if (!context.stateMachine->hasState<PrismGame>())
+			{
 				context.stateMachine->addState<PrismGame>(context);
 				context.stateMachine->setState<PrismGame>(context);
-
 			}
 		};
 
@@ -37,26 +42,27 @@ namespace States {
 		renderDevice->setClearColour(1.f, 1.f, 1.f, 1.f);
 	}
 
-	void EndState::onUpdate(Context & context)
+	void EndState::onUpdate(Context& context)
 	{
-	   	Renderer::Graphics::RenderDevice* renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
+		Renderer::Graphics::RenderDevice* renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
 		renderDevice->clearScreen();
 		menuRenderer.renderMenu(*menu, float(context.window->width) / float(context.window->height));
 
 		auto input = context.inputManager;
-		if (menu->handleInput(*context.inputManager, context.window->width, context.window->height)) {
+		if (menu->handleInput(*context.inputManager, context.window->width, context.window->height))
+		{
 			return;
 		}
 
 		context.window->swapScreen();
 	}
 
-	void EndState::onEnter(Context & context)
+	void EndState::onEnter(Context& context)
 	{
 		context.stateMachine->removeState<PrismGame>();
 	}
 
-	void EndState::onLeave(Context & context)
+	void EndState::onLeave(Context& context)
 	{
 	}
 

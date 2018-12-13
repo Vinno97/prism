@@ -17,13 +17,15 @@
 
 using namespace std;
 using namespace Renderer::Graphics;
-using namespace Renderer::Graphics::OpenGL;
-using namespace Renderer::Graphics::Models;
+using namespace OpenGL;
+using namespace Models;
 
-namespace Renderer {
-	namespace Graphics {
-		namespace Loader {
-
+namespace Renderer
+{
+	namespace Graphics
+	{
+		namespace Loader
+		{
 			unique_ptr<Model> ModelLoader::loadModel(string path)
 			{
 				StaticMeshLoader staticMeshLoader = StaticMeshLoader();

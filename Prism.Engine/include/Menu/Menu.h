@@ -7,11 +7,12 @@
 #include <memory>
 #include "InputManager.h"
 
-namespace Menu {
+namespace Menu
+{
 	class Menu
 	{
 	public:
-		Menu()=default;
+		Menu() = default;
 		std::vector<Control> controls;
 		std::vector<std::unique_ptr<TextControl>> textControls;
 		std::shared_ptr<Renderer::Graphics::Models::Mesh> mesh;

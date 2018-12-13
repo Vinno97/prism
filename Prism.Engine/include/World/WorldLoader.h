@@ -9,32 +9,42 @@
 #include "World/JSONSerializer.h"
 #include <memory>
 
-namespace World {
+namespace World
+{
 	// TODO: Verzin een naam die zowel "LevelLoader", als "LevelSaver" betekent of insinueert.
 	class LevelManager
 	{
-
 	public:
-		LevelManager() : LevelManager(std::make_unique<Assemblers::EntityAssembler>()) {};
+		LevelManager() : LevelManager(std::make_unique<Assemblers::EntityAssembler>())
+		{
+		};
 
-		LevelManager(std::unique_ptr<Assemblers::BaseAssembler> &&entityAssembler_) 
-			: LevelManager(std::move(entityAssembler_), std::make_unique<JSONSerializer>()) {}
+		LevelManager(std::unique_ptr<Assemblers::BaseAssembler>&& entityAssembler_)
+			: LevelManager(std::move(entityAssembler_), std::make_unique<JSONSerializer>())
+		{
+		}
 
-		LevelManager(std::unique_ptr<Assemblers::BaseAssembler> &&entityAssembler_, std::unique_ptr<LevelSerializer> &&jsonSerializer_) :
-			entityAssembler(std::move(entityAssembler_)), serializer(std::move(jsonSerializer_)) {}
+		LevelManager(std::unique_ptr<Assemblers::BaseAssembler>&& entityAssembler_,
+		             std::unique_ptr<LevelSerializer>&& jsonSerializer_) :
+			serializer(std::move(jsonSerializer_)), entityAssembler(std::move(entityAssembler_))
+		{
+		}
 
 		~LevelManager() = default;
 
 		void load(const std::string& worldName, ECS::EntityManager& entityManager);
 		void save(const std::string& worldName, ECS::EntityManager& entityManager);
 
-		void setSerializer(std::unique_ptr<LevelSerializer> &&serializer_) {
+		void setSerializer(std::unique_ptr<LevelSerializer>&& serializer_)
+		{
 			serializer = std::move(serializer_);
 		}
 
-		void setEntityAssembler(std::unique_ptr<Assemblers::EntityAssembler> &&entityAssembler_) {
+		void setEntityAssembler(std::unique_ptr<Assemblers::EntityAssembler>&& entityAssembler_)
+		{
 			entityAssembler = std::move(entityAssembler_);
 		}
+
 	private:
 		std::unique_ptr<LevelSerializer> serializer;
 		std::unique_ptr<Assemblers::BaseAssembler> entityAssembler;

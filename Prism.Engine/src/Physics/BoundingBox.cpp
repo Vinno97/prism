@@ -17,7 +17,8 @@ BoundingBox::BoundingBox(const float north, const float east, const float south,
 	SetBounds(north, east, south, west);
 }
 
-BoundingBox::BoundingBox(const float north, const float east, const float south, const float west, const float posX, const float posY)
+BoundingBox::BoundingBox(const float north, const float east, const float south, const float west, const float posX,
+                         const float posY)
 {
 	SetPosXY(posX, posY);
 	SetBounds(north, east, south, west);
@@ -52,9 +53,9 @@ float BoundingBox::GetNorthBound() const
 	return north;
 }
 
-float Physics::BoundingBox::GetNorthCoordinate() const
+float BoundingBox::GetNorthCoordinate() const
 {
-	return posY+north;
+	return posY + north;
 }
 
 float BoundingBox::GetEastBound() const
@@ -62,9 +63,9 @@ float BoundingBox::GetEastBound() const
 	return east;
 }
 
-float Physics::BoundingBox::GetEastCoordinate() const
+float BoundingBox::GetEastCoordinate() const
 {
-	return posX+east;
+	return posX + east;
 }
 
 float BoundingBox::GetSouthBound() const
@@ -72,9 +73,9 @@ float BoundingBox::GetSouthBound() const
 	return south;
 }
 
-float Physics::BoundingBox::GetSouthCoordinate() const
+float BoundingBox::GetSouthCoordinate() const
 {
-	return posY+south;
+	return posY + south;
 }
 
 float BoundingBox::GetWestBound() const
@@ -82,7 +83,7 @@ float BoundingBox::GetWestBound() const
 	return west;
 }
 
-float Physics::BoundingBox::GetWestCoordinate() const
+float BoundingBox::GetWestCoordinate() const
 {
-	return posX+west;
+	return posX + west;
 }

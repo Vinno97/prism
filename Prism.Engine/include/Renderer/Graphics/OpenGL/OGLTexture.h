@@ -4,9 +4,12 @@
 #include "Renderer/Graphics/Texture.h"
 #include "Surface.h"
 
-namespace Renderer {
-	namespace Graphics {
-		namespace OpenGL {
+namespace Renderer
+{
+	namespace Graphics
+	{
+		namespace OpenGL
+		{
 			class OGLTexture : public Texture
 			{
 			public:
@@ -20,4 +23,4 @@ namespace Renderer {
 			};
 		}
 	}
-}  
+}

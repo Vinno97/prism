@@ -14,11 +14,13 @@
 
 using namespace std;
 using namespace Renderer::Graphics;
-using namespace Renderer::Graphics::OpenGL;
-using namespace Renderer::Graphics::Models;
+using namespace OpenGL;
+using namespace Models;
 
-namespace Menu {
-	MenuBuilder::MenuBuilder() {
+namespace Menu
+{
+	MenuBuilder::MenuBuilder()
+	{
 		menu = std::make_unique<Menu>();
 
 		renderDevice = OGLRenderDevice::getRenderDevice();
@@ -38,7 +40,8 @@ namespace Menu {
 	}
 
 	//Create a single mesh so we can reuse it
-	void MenuBuilder::initMesh() {
+	void MenuBuilder::initMesh()
+	{
 		float* verticesArray = vertices;
 		unsigned int* indicesArray = indices;
 
@@ -61,17 +64,18 @@ namespace Menu {
 		menu->mesh = mesh;
 	}
 
-	void MenuBuilder::addControl(float x, float y, float width, float height, const char *path)
+	void MenuBuilder::addControl(float x, float y, float width, float height, const char* path)
 	{
-		Control control{x, y, width, height, path };
-		Model model = Model{ mesh };
+		Control control{x, y, width, height, path};
+		Model model = Model{mesh};
 		menu->controls.push_back(control);
 	}
 
-	void MenuBuilder::addControl(float x, float y, float width, float height, const char * path, std::function<void()> callback_)
+	void MenuBuilder::addControl(float x, float y, float width, float height, const char* path,
+	                             std::function<void()> callback_)
 	{
-		Control control{ x, y, width, height, path, callback_ };
-		Model model = Model{ mesh };
+		Control control{x, y, width, height, path, callback_};
+		Model model = Model{mesh};
 		menu->controls.push_back(control);
 	}
 
@@ -80,5 +84,3 @@ namespace Menu {
 		return std::move(menu);
 	}
 }
-
-

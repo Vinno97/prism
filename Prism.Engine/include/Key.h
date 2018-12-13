@@ -1,5 +1,6 @@
 #pragma once
-enum class Key {
+enum class Key
+{
 	KEY_W,
 	KEY_A,
 	KEY_S,

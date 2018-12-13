@@ -7,16 +7,17 @@
 #include "Menu/Menu.h"
 #include "Menu/MenuRenderer.h"
 
-namespace States {
+namespace States
+{
 	class HelpState : public State
 	{
 	public:
 		HelpState();
 
-		void onInit(Context &context) override;
-		void onUpdate(Context &context) override;
-		void onEnter(Context & context) override;
-		void onLeave(Context & context) override;
+		void onInit(Context& context) override;
+		void onUpdate(Context& context) override;
+		void onEnter(Context& context) override;
+		void onLeave(Context& context) override;
 		~HelpState();
 
 	private:

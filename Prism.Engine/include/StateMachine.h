@@ -20,22 +20,23 @@ public:
 	/// <summary>
 	/// Set currentSate
 	/// </summary>
-	template<class T, typename = std::enable_if_t < std::is_base_of<State, T>::type::value>>
-	void setState(Context &context)
+	template <class T, typename = std::enable_if_t<std::is_base_of<State, T>::type::value>>
+	void setState(Context& context)
 	{
-		const std::type_index type{ std::type_index(typeid(T)) };
+		const std::type_index type{std::type_index(typeid(T))};
 		setState(type, context);
 	}
 
 	/// <summary>
 	/// Remove state
 	/// </summary>
-	template<class T, typename = std::enable_if_t < std::is_base_of<State, T>::type::value>>
+	template <class T, typename = std::enable_if_t<std::is_base_of<State, T>::type::value>>
 	void removeState()
 	{
-		const std::type_index type{ std::type_index(typeid(T)) };
-		
-		if (hasState(type)) {
+		const std::type_index type{std::type_index(typeid(T))};
+
+		if (hasState(type))
+		{
 			existingStates.erase(type);
 		}
 	}
@@ -46,12 +47,13 @@ public:
 	/// <param name="context">The context</param>
 	///<param name="fs">Constructor parameters for State</param>
 
-	template<typename T, typename...Fs, typename = std::enable_if_t < std::is_base_of<State, T>::type::value>>
-	void addState(Context & context, Fs&&... fs )
+	template <typename T, typename...Fs, typename = std::enable_if_t<std::is_base_of<State, T>::type::value>>
+	void addState(Context& context, Fs&&... fs)
 	{
-		const std::type_index type{ std::type_index(typeid(T)) };
+		const std::type_index type{std::type_index(typeid(T))};
 
-		if (hasState(type)) {
+		if (hasState(type))
+		{
 			throw std::runtime_error("There can only one type of " + *type.name() + *" registered");
 		}
 		existingStates[type] = std::make_unique<T>(std::forward<Fs>(fs)...);
@@ -62,9 +64,10 @@ public:
 	/// Get specific state
 	/// </summary>
 	/// <returns>Returns state </returns>
-	template<typename T, typename = std::enable_if_t < std::is_base_of<State, T>::type::value>>
-	T* getState() const {
-		const std::type_index type{ std::type_index(typeid(T)) };
+	template <typename T, typename = std::enable_if_t<std::is_base_of<State, T>::type::value>>
+	T* getState() const
+	{
+		const std::type_index type{std::type_index(typeid(T))};
 		return static_cast<T*>(getState(type));
 	}
 
@@ -72,9 +75,10 @@ public:
 	/// Check if state exist in list of existing states
 	/// </summary>
 	/// <returns>Returns boolean</returns>
-	template<class T>
-	bool hasState() const {
-		const std::type_index type{ std::type_index(typeid(T)) };
+	template <class T>
+	bool hasState() const
+	{
+		const std::type_index type{std::type_index(typeid(T))};
 		return hasState(type);
 	}
 
@@ -82,17 +86,15 @@ public:
 	/// Get current state
 	/// </summary>
 	/// <returns>Returns the current state </returns>
-	State *getCurrentState() const;
+	State* getCurrentState() const;
 
 private:
-	State *currentState;
+	State* currentState;
 	// keeps a list of States
 	std::map<std::type_index, std::unique_ptr<State>> existingStates;
 
-	void setState(std::type_index type, Context &context);
+	void setState(std::type_index type, Context& context);
 
 	State* getState(std::type_index type) const;
 	bool hasState(std::type_index type) const;
 };
-
-

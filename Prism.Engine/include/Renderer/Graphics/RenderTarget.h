@@ -3,9 +3,12 @@
 #include "Renderer/Graphics/Texture.h"
 #include <memory>
 
-namespace Renderer {
-	namespace Graphics {
-		class RenderTarget {
+namespace Renderer
+{
+	namespace Graphics
+	{
+		class RenderTarget
+		{
 		public:
 			RenderTarget() = default;
 

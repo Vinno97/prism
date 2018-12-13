@@ -6,35 +6,43 @@
 #include "ECS/Components/DynamicComponent.h"
 
 using namespace ECS;
-using namespace ECS::Components;
-using namespace ECS::Systems;
+using namespace Components;
+using namespace Systems;
 using namespace Physics;
 
-BumpSystem::BumpSystem(EntityManager &entityManager) : System(entityManager) {}
+BumpSystem::BumpSystem(EntityManager& entityManager) : System(entityManager)
+{
+}
 
 BumpSystem::~BumpSystem()
 = default;
 
 void BumpSystem::update(Context& context)
 {
-	for (auto entity : entityManager->getAllEntitiesWithComponent<DynamicComponent>()) {
+	for (auto entity : entityManager->getAllEntitiesWithComponent<DynamicComponent>())
+	{
 		auto boundingBoxComponent = entityManager->getComponent<BoundingBoxComponent>(entity.id);
-		if(boundingBoxComponent != nullptr){
-			auto & collisions = boundingBoxComponent->collidesWith;
+		if (boundingBoxComponent != nullptr)
+		{
+			auto& collisions = boundingBoxComponent->collidesWith;
 
-			if (collisions.size() > 0) {
+			if (collisions.size() > 0)
+			{
 				auto currentPosition = entityManager->getComponent<PositionComponent>(entity.id);
 				auto currentVelocity = entityManager->getComponent<VelocityComponent>(entity.id);
-				if (currentPosition != nullptr && currentVelocity != nullptr) {
-					const auto & currentBB = boundingBoxComponent->boundingBox;
+				if (currentPosition != nullptr && currentVelocity != nullptr)
+				{
+					const auto& currentBB = boundingBoxComponent->boundingBox;
 
 					//Collision on x
 					bool xCol = false;
 					//Collision on y
 					bool yCol = false;
 
-					for (auto& colliderId : collisions) {
-						if (entityManager->hasComponent<PositionComponent>(colliderId)) {
+					for (auto& colliderId : collisions)
+					{
+						if (entityManager->hasComponent<PositionComponent>(colliderId))
+						{
 							auto colliderPosition = entityManager->getComponent<PositionComponent>(colliderId);
 
 							//Various checks for collisions. Only in theses situations does the collisions need to be resolved
@@ -43,36 +51,43 @@ void BumpSystem::update(Context& context)
 							bool cy1 = currentPosition->y > colliderPosition->y && currentVelocity->dy < 0;
 							bool cy2 = currentPosition->y < colliderPosition->y && currentVelocity->dy > 0;
 
-							const auto &colliderBB = entityManager->getComponent<BoundingBoxComponent>(colliderId)->boundingBox;
+							const auto& colliderBB = entityManager
+							                         ->getComponent<BoundingBoxComponent>(colliderId)->boundingBox;
 
 							//Depth of collision on x-axis
 							float xColT = 0.0;
 							//Depth of collision on y-axis
 							float yColT = 0.0;
 
-							if (currentPosition->x > colliderPosition->x) {
+							if (currentPosition->x > colliderPosition->x)
+							{
 								xColT = std::abs((colliderBB.GetEastCoordinate()) - (currentBB.GetWestCoordinate()));
 							}
-							else if (currentPosition->x < colliderPosition->x) {
+							else if (currentPosition->x < colliderPosition->x)
+							{
 								xColT = std::abs((currentBB.GetEastCoordinate()) - (colliderBB.GetWestCoordinate()));
 							}
 
-							if (currentPosition->y > colliderPosition->y) {
+							if (currentPosition->y > colliderPosition->y)
+							{
 								yColT = std::abs((colliderBB.GetNorthCoordinate()) - (currentBB.GetSouthCoordinate()));
-								
 							}
-							else if (currentPosition->y < colliderPosition->y) {
+							else if (currentPosition->y < colliderPosition->y)
+							{
 								yColT = std::abs((colliderBB.GetSouthCoordinate()) - (currentBB.GetNorthCoordinate()));
 							}
 
 							//The side with the least amount of collision needs te be resolved
-							if (xColT < yColT && (cx1 || cx2)) {
+							if (xColT < yColT && (cx1 || cx2))
+							{
 								xCol = true;
 							}
-							else if (yColT < xColT && (cy1 || cy2)) {
+							else if (yColT < xColT && (cy1 || cy2))
+							{
 								yCol = true;
 							}
-							else if (xColT == yColT){
+							else if (xColT == yColT)
+							{
 								xCol = true;
 								yCol = true;
 							}
@@ -80,7 +95,8 @@ void BumpSystem::update(Context& context)
 					}
 
 					//Based on the axis of the collision, the positions needs to be reset
-					if (xCol && yCol) {
+					if (xCol && yCol)
+					{
 						//Rare case of multicollision try to fix with only one step
 						float x = currentPosition->x;
 						float y = currentPosition->y;
@@ -89,28 +105,34 @@ void BumpSystem::update(Context& context)
 						BoundingBox bbYMin = BoundingBox(currentBB);
 						bbYMin.SetPosXY(x, y - currentVelocity->dy * context.deltaTime);
 						BoundingBox bbXYMin = BoundingBox(currentBB);
-						bbXYMin.SetPosXY(x - currentVelocity->dx * context.deltaTime, y - currentVelocity->dy * context.deltaTime);
-						if (CountCollisions(bbXMin, collisions) == 0) {
-							currentPosition->x -= currentVelocity->dx*context.deltaTime;
+						bbXYMin.SetPosXY(x - currentVelocity->dx * context.deltaTime,
+						                 y - currentVelocity->dy * context.deltaTime);
+						if (CountCollisions(bbXMin, collisions) == 0)
+						{
+							currentPosition->x -= currentVelocity->dx * context.deltaTime;
 							currentVelocity->dx = 0;
 						}
-						else if (CountCollisions(bbYMin, collisions) == 0) {
-							currentPosition->y -= currentVelocity->dy*context.deltaTime;
+						else if (CountCollisions(bbYMin, collisions) == 0)
+						{
+							currentPosition->y -= currentVelocity->dy * context.deltaTime;
 							currentVelocity->dy = 0;
 						}
-						else {
-							currentPosition->x -= currentVelocity->dx*context.deltaTime;
+						else
+						{
+							currentPosition->x -= currentVelocity->dx * context.deltaTime;
 							currentVelocity->dx = 0;
-							currentPosition->y -= currentVelocity->dy*context.deltaTime;
+							currentPosition->y -= currentVelocity->dy * context.deltaTime;
 							currentVelocity->dy = 0;
 						}
 					}
-					else if (xCol) {
-						currentPosition->x -= currentVelocity->dx*context.deltaTime;
+					else if (xCol)
+					{
+						currentPosition->x -= currentVelocity->dx * context.deltaTime;
 						currentVelocity->dx = 0;
 					}
-					else if (yCol) {
-						currentPosition->y -= currentVelocity->dy*context.deltaTime;
+					else if (yCol)
+					{
+						currentPosition->y -= currentVelocity->dy * context.deltaTime;
 						currentVelocity->dy = 0;
 					}
 				}
@@ -119,14 +141,17 @@ void BumpSystem::update(Context& context)
 	}
 }
 
-int BumpSystem::CountCollisions(const BoundingBox &currentBox, const std::vector<unsigned int> &vector) const
+int BumpSystem::CountCollisions(const BoundingBox& currentBox, const std::vector<unsigned int>& vector) const
 {
 	int count = 0;
-	for (const auto& entity : vector) {
+	for (const auto& entity : vector)
+	{
 		auto bbComponent = entityManager->getComponent<BoundingBoxComponent>(entity);
-		if (bbComponent != nullptr) {
+		if (bbComponent != nullptr)
+		{
 			auto& bb = bbComponent->boundingBox;
-			if (aabbCollider.CheckCollision(currentBox, bb)) {
+			if (aabbCollider.CheckCollision(currentBox, bb))
+			{
 				count++;
 			}
 		}

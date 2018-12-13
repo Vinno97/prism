@@ -4,9 +4,12 @@
 #include "EntityFactory.h"
 #include "ECS/EntityManager.h"
 
-namespace World {
-	namespace Assemblers {
-		class PrismEntityAssembler : public EntityAssembler {
+namespace World
+{
+	namespace Assemblers
+	{
+		class PrismEntityAssembler : public EntityAssembler
+		{
 		public:
 			PrismEntityAssembler();
 			//PrismEntityAssembler(ECS::EntityManager& entityManager, EntityFactory& factory_);

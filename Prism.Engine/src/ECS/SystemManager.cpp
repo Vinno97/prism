@@ -3,8 +3,8 @@
 #include <map>
 
 
-namespace ECS {
-
+namespace ECS
+{
 	SystemManager::SystemManager()
 	{
 	}
@@ -12,7 +12,6 @@ namespace ECS {
 
 	SystemManager::~SystemManager()
 	{
-		
 	}
 
 	std::map<int, std::map<std::type_index, std::unique_ptr<System>>>& SystemManager::getAllSystems()
@@ -24,10 +23,10 @@ namespace ECS {
 	{
 		try
 		{
-			for (auto& systems : prioritizedSystems) {
+			for (auto& systems : prioritizedSystems)
+			{
 				systems.second.erase(systemType);
 			}
-
 		}
 		catch (const std::out_of_range&)
 		{
@@ -40,10 +39,10 @@ namespace ECS {
 	{
 		try
 		{
-			for (auto& systems : prioritizedSystems) {
+			for (auto& systems : prioritizedSystems)
+			{
 				return systems.second.at(systemType).get();
 			}
-
 		}
 		catch (const std::out_of_range&)
 		{

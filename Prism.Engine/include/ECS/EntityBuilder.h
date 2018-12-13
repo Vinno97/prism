@@ -5,11 +5,13 @@
 class EntityBuilder
 {
 public:
-    explicit EntityBuilder(ECS::EntityManager& entityManager_) : EntityBuilder(entityManager_, entityManager_.createEntity())
+	explicit EntityBuilder(ECS::EntityManager& entityManager_) : EntityBuilder(
+		entityManager_, entityManager_.createEntity())
 	{
 	}
 
-	EntityBuilder(ECS::EntityManager& entityManager_, unsigned entityId_) : entityId(entityId_), entityManager(entityManager_)
+	EntityBuilder(ECS::EntityManager& entityManager_, unsigned entityId_) : entityId(entityId_),
+	                                                                        entityManager(entityManager_)
 	{
 	}
 

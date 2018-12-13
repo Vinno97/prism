@@ -28,22 +28,21 @@ CoreEngine::CoreEngine()
 	context.audioManager = new AudioManager();
 }
 
-const void CoreEngine::InitWindow(const char* title, const int width, const int height, const int x, const int y) {
+const void CoreEngine::InitWindow(const char* title, const int width, const int height, const int x, const int y)
+{
 	context.window->init(title, width, height, x, y);
 	context.window->createOpenGLContext(3, 2, true);
 }
 
-//Runns the gameloop
+//Runs the gameloop
 void CoreEngine::Run()
-{	
-	
-
+{
 	//Holds the time in which the gameupdate was last called 
 	auto lastTime = std::chrono::system_clock::now();
 	int count = 0;
 
 	//Current State
-	State * currentState = nullptr;
+	State* currentState = nullptr;
 
 	//While the window is unclosed run the gameloop
 	while (!context.window->shouldClose())
@@ -53,7 +52,8 @@ void CoreEngine::Run()
 
 
 		//Check if state is changed
-		if (context.stateMachine->getCurrentState() != currentState) {
+		if (context.stateMachine->getCurrentState() != currentState)
+		{
 			context.stateMachine->getCurrentState()->onLeave(context);
 			currentState = context.stateMachine->getCurrentState();
 			context.stateMachine->getCurrentState()->onEnter(context);
@@ -69,7 +69,8 @@ void CoreEngine::Run()
 	}
 }
 
-void CoreEngine::CleanUp() {
+void CoreEngine::CleanUp()
+{
 	//Free memory
 	delete context.stateMachine;
 	delete context.window;

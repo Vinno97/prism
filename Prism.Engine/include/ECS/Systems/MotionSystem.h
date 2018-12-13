@@ -3,14 +3,16 @@
 #include "Context.h"
 #include "ECS/Systems/System.h"
 
-namespace ECS {
-	namespace Systems {
+namespace ECS
+{
+	namespace Systems
+	{
 		class MotionSystem : public System
 		{
 		public:
-			MotionSystem(EntityManager &entityManager);
+			MotionSystem(EntityManager& entityManager);
 			~MotionSystem();
-			void update(Context& context);
+			void update(Context& context) override;
 		};
 	}
 }

@@ -5,12 +5,14 @@
 #include <iostream>
 #include <memory>
 
-namespace Renderer {
-	namespace Graphics {
+namespace Renderer
+{
+	namespace Graphics
+	{
 		class VertexArrayObject
 		{
 		public:
-			VertexArrayObject()=default;
+			VertexArrayObject() = default;
 
 			/// <summary>
 			/// adds a vertexbuffer to the VAO. 
@@ -23,7 +25,8 @@ namespace Renderer {
 			/// <param name="size">Size of each block of data</param>
 			/// <param name="start">Start of the input within the vbo</param>
 			/// <param name="stride">Length of the block of data</param>
-			virtual void addVertexBuffer(VertexBuffer* vertexBuffer, int index, long long size, int start, int stride) = 0;
+			virtual void addVertexBuffer(VertexBuffer* vertexBuffer, int index, long long size, int start,
+			                             int stride) = 0;
 
 			/// <summary>
 			/// Make this the current active VAO

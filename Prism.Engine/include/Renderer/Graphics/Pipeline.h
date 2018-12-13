@@ -1,11 +1,13 @@
 #pragma once
 
-namespace Renderer {
-	namespace Graphics {
+namespace Renderer
+{
+	namespace Graphics
+	{
 		class Pipeline
 		{
 		public:
-			Pipeline()=default;
+			Pipeline() = default;
 
 			/// <summary>
 			/// Start this pipeline

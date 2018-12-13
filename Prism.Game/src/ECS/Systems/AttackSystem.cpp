@@ -10,25 +10,28 @@
 #include "ECS/Components/PositionComponent.h"
 
 
-
-namespace ECS {
-	namespace Systems {
+namespace ECS
+{
+	namespace Systems
+	{
 		using namespace Components;
 
-		AttackSystem::AttackSystem(EntityManager &entityManager) : System(entityManager) { }
+		AttackSystem::AttackSystem(EntityManager& entityManager) : System(entityManager)
+		{
+		}
 
 		AttackSystem::~AttackSystem()
-			= default;
+		= default;
 
-		void AttackSystem::update(Context& context) {
-
+		void AttackSystem::update(Context& context)
+		{
 			for (auto entity : entityManager->getAllEntitiesWithComponent<EnemyComponent>())
 			{
 				if (entityManager->hasComponent<PositionComponent>(entity.id)
 					&& entityManager->hasComponent<BoundingBoxComponent>(entity.id)
 					&& entityManager->hasComponent<VelocityComponent>(entity.id)
-					&& entityManager->hasComponent<HealthComponent>(entity.id)) {
-
+					&& entityManager->hasComponent<HealthComponent>(entity.id))
+				{
 					auto boundingBoxComponent = entityManager->getComponent<BoundingBoxComponent>(entity.id);
 					auto Position = entityManager->getComponent<PositionComponent>(entity.id);
 
@@ -36,10 +39,12 @@ namespace ECS {
 					std::vector<unsigned int> vector;
 
 					vector = boundingBoxComponent->collidesWith;
-					if (boundingBoxComponent->didCollide) {
-
-						for (int i = 0; i < vector.size(); i++) {
-							if (entityManager->hasComponent<PlayerComponent>(vector[i])) {
+					if (boundingBoxComponent->didCollide)
+					{
+						for (int i = 0; i < vector.size(); i++)
+						{
+							if (entityManager->hasComponent<PlayerComponent>(vector[i]))
+							{
 								updateEntity(vector[i], context);
 								updateEntity(entity.id, context);
 								context.audioManager->playSound("EnemyKill", 0);
@@ -50,14 +55,17 @@ namespace ECS {
 			}
 		}
 
-		void AttackSystem::updateEntity(int id, Context& context) {
-			if (entityManager->hasComponent<EnemyComponent>(id)) {
+		void AttackSystem::updateEntity(int id, Context& context)
+		{
+			if (entityManager->hasComponent<EnemyComponent>(id))
+			{
 				entityManager->removeEntity(id);
 				// Print (Remove after review)
 				std::cout << "Enemy is exploded" << std::endl;
 			}
 
-			if (entityManager->hasComponent<HealthComponent>(id)) {
+			if (entityManager->hasComponent<HealthComponent>(id))
+			{
 				auto currentComponent = entityManager->getComponent<HealthComponent>(id);
 
 				currentComponent->currentHealth -= 10;
@@ -68,4 +76,3 @@ namespace ECS {
 		}
 	}
 }
-

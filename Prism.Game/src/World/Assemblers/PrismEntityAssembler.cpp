@@ -10,7 +10,7 @@
 
 using namespace World::Assemblers;
 
-World::Assemblers::PrismEntityAssembler::PrismEntityAssembler() : EntityAssembler()
+PrismEntityAssembler::PrismEntityAssembler() : EntityAssembler()
 {
 	addAssembler(std::make_unique<PlayerAssembler>(), PRIORITY_HIGH);
 	addAssembler(std::make_unique<EnemyAssembler>(), PRIORITY_HIGH);

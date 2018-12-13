@@ -10,7 +10,7 @@
 #include <stdexcept>
 
 #ifdef _MSC_VER
-	#include <filesystem>
+#include <filesystem>
 #else
 	#include <experimental/filesystem>
 #endif
@@ -21,13 +21,14 @@
 using namespace std;
 using namespace std::experimental;
 using namespace Renderer::Graphics;
-using namespace Renderer::Graphics::OpenGL;
-using namespace Renderer::Graphics::Models;
+using namespace OpenGL;
+using namespace Models;
 
-namespace Menu {
-	Control::Control(float x, float y, float width, float height, const char *path)
+namespace Menu
+{
+	Control::Control(float x, float y, float width, float height, const char* path)
 	{
-		position = Math::Vector3f{ x, y, 0 };
+		position = Math::Vector3f{x, y, 0};
 		size = Math::Vector3f{width, height, 0};
 
 		RenderDevice* renderDevice = OGLRenderDevice::getRenderDevice();
@@ -35,7 +36,8 @@ namespace Menu {
 		auto pwd = filesystem::current_path();
 		auto filepath = pwd.concat("/res/").concat(path);
 
-		if (!filesystem::exists(filepath)) {
+		if (!exists(filepath))
+		{
 			throw std::invalid_argument("File does not exist");
 			return;
 		}
@@ -43,19 +45,19 @@ namespace Menu {
 		texture = renderDevice->createTexture(filepath.generic_string().c_str());
 	}
 
-	Control::Control(float x, float y, float width, float height, const char * path, std::function<void()> callback_) : Control(x, y, width, height, path)
+	Control::Control(float x, float y, float width, float height, const char* path,
+	                 std::function<void()> callback_) : Control(x, y, width, height, path)
 	{
 		callback = callback_;
 	}
 
-	void Control::UpdateTexture(const char *path)
+	void Control::UpdateTexture(const char* path)
 	{
-
 	}
 
 	void Control::onClick()
 	{
-		if(callback != nullptr)
+		if (callback != nullptr)
 			callback();
 	}
 }

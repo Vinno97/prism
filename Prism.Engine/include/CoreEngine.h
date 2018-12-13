@@ -23,7 +23,7 @@ public:
 	/// </summary>
 	/// <param name="state">The first state</param>
 
-	template<typename T, typename = std::enable_if_t < std::is_base_of<State, T>::type::value>>
+	template <typename T, typename = std::enable_if_t<std::is_base_of<State, T>::type::value>>
 	void setEntryPoint()
 	{
 		context.stateMachine->setState<T>(context);
@@ -34,7 +34,7 @@ public:
 	/// </summary>
 	/// <param name="state">The state that will be added</param>
 
-	template<typename T, typename...Fs, typename = std::enable_if_t < std::is_base_of<State, T>::type::value>>
+	template <typename T, typename...Fs, typename = std::enable_if_t<std::is_base_of<State, T>::type::value>>
 	void addState(Fs&&... fs)
 	{
 		context.stateMachine->addState<T>(context, std::forward<Fs>(fs)...);
@@ -48,7 +48,7 @@ public:
 	/// <param name="height">Height of window</param>
 	/// <param name="x">X position of window</param>
 	/// <param name="y">Y position of window</param>
-	const void InitWindow(const char* title, const int width, const int height, const int x, const int y);
+	const void InitWindow(const char* title, int width, int height, int x, int y);
 
 	/// <summary>
 	/// Starts the gameloop 
@@ -63,4 +63,3 @@ private:
 	/// </summary>
 	void CleanUp();
 };
-

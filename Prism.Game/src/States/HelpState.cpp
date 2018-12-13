@@ -7,12 +7,13 @@
 #include "Renderer/Graphics/OpenGL/OGLVertexShader.h"
 #include "Renderer/Graphics/OpenGL/OGLPipeline.h"
 
-namespace States {
+namespace States
+{
 	HelpState::HelpState()
 	{
 	}
 
-	void HelpState::onInit(Context & context)
+	void HelpState::onInit(Context& context)
 	{
 		std::function<void()> callback = [&context]() { context.stateMachine->setState<MainMenuState>(context); };
 		menuBuilder.addControl(-0.9f, 0.8, 0.3, 0.1, "img/Back.png", callback);
@@ -24,7 +25,7 @@ namespace States {
 		renderDevice->setClearColour(1.f, 1.f, 1.f, 1.f);
 	}
 
-	void HelpState::onUpdate(Context & context)
+	void HelpState::onUpdate(Context& context)
 	{
 		Renderer::Graphics::RenderDevice* renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
 		renderDevice->clearScreen();
@@ -32,16 +33,16 @@ namespace States {
 		context.window->swapScreen();
 
 		auto input = context.inputManager;
-		if (menu->handleInput(*context.inputManager, context.window->width, context.window->height)) {
-			return;
+		if (menu->handleInput(*context.inputManager, context.window->width, context.window->height))
+		{
 		}
 	}
 
-	void HelpState::onEnter(Context & context)
+	void HelpState::onEnter(Context& context)
 	{
 	}
 
-	void HelpState::onLeave(Context & context)
+	void HelpState::onLeave(Context& context)
 	{
 	}
 

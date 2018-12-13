@@ -10,13 +10,15 @@
 #include "Renderer/Graphics/RenderTarget.h"
 #include <memory>
 
-namespace Renderer {
-	namespace Graphics {
+namespace Renderer
+{
+	namespace Graphics
+	{
 		class RenderDevice
 		{
 		public:
-			RenderDevice()=default;
-			~RenderDevice()=default;
+			RenderDevice() = default;
+			~RenderDevice() = default;
 
 			/// <summary>
 			/// Create a new vertexshader
@@ -26,7 +28,7 @@ namespace Renderer {
 			/// <summary>
 			/// Create a new fragmentshader
 			/// </summary>
-			virtual std::unique_ptr<FragmentShader> createFragmentShader(const char* source)  const = 0;
+			virtual std::unique_ptr<FragmentShader> createFragmentShader(const char* source) const = 0;
 
 			/// <summary>
 			/// Create a new pipeline
@@ -38,7 +40,7 @@ namespace Renderer {
 			/// </summary>
 			/// <param name="size">Size of the index buffer</param>
 			/// <param name="data">Data that the buffer will be filled with (float array)</param>
-			virtual std::unique_ptr<VertexBuffer> createVertexBuffer(long size, const void *data) const = 0;
+			virtual std::unique_ptr<VertexBuffer> createVertexBuffer(long size, const void* data) const = 0;
 
 			/// <summary>
 			/// Create a new dynamic vertexbuffer
@@ -50,7 +52,7 @@ namespace Renderer {
 			/// </summary>
 			/// <param name="size">Size of the indice buffer</param>
 			/// <param name="data">Data that the buffer will be filled with (int array)</param>
-			virtual std::unique_ptr<IndexBuffer> createIndexBuffer(long size, const void *data) const = 0;
+			virtual std::unique_ptr<IndexBuffer> createIndexBuffer(long size, const void* data) const = 0;
 
 			/// <summary>
 			/// Create a new vertexArrayObject
@@ -70,7 +72,8 @@ namespace Renderer {
 			/// <summary>
 			/// Create a new texture with width and height
 			/// </summary>
-			virtual std::shared_ptr<Texture> createTexture(int width, int height, unsigned char* pixels, bool useRGB) const = 0;
+			virtual std::shared_ptr<Texture> createTexture(int width, int height, unsigned char* pixels,
+			                                               bool useRGB) const = 0;
 
 			/// <summary>
 			/// Create a new texture 
@@ -95,7 +98,7 @@ namespace Renderer {
 			/// <summary>
 			/// Toggle blending mode
 			/// </summary>
-			virtual void useBlending(const bool blend) const = 0;
+			virtual void useBlending(bool blend) const = 0;
 
 			/// <summary>
 			/// Draw the currently bound VBO's using indices 

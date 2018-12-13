@@ -3,13 +3,17 @@
 #include "World/Assemblers/BaseAssembler.h"
 #include "Enums/ResourceTypeEnum.h"
 
-namespace World {
-	namespace Assemblers {
-		class ResourceSpawnAssembler : public BaseAssembler {
+namespace World
+{
+	namespace Assemblers
+	{
+		class ResourceSpawnAssembler : public BaseAssembler
+		{
 		public:
 			ResourceSpawnAssembler();
-			void assemble(int entity, const WorldObject& worldObject, ECS::EntityManager& entityManager) const;
-			void disassemble(int entity, WorldObject& worldObject, const ECS::EntityManager& entityManager) const;
+			void assemble(int entity, const WorldObject& worldObject, ECS::EntityManager& entityManager) const override;
+			void disassemble(int entity, WorldObject& worldObject,
+			                 const ECS::EntityManager& entityManager) const override;
 		private:
 			std::map<int, Enums::ResourceType> resourceTypes;
 		};

@@ -12,6 +12,5 @@ public:
 	void* pixels();
 	int bytesperPixel();
 private:
-	SDL_Surface *surface;
+	SDL_Surface* surface;
 };
-

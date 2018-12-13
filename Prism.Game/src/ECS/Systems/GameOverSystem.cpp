@@ -11,21 +11,29 @@
 #include "ECS/Components/EnemyComponent.h"
 #include "ECS/Components/PlayerComponent.h"
 
-namespace ECS {
-	namespace Systems {
+namespace ECS
+{
+	namespace Systems
+	{
 		using namespace Components;
 		using namespace States;
 
-		GameOverSystem::GameOverSystem(EntityManager &entityManager) : System(entityManager) { }
+		GameOverSystem::GameOverSystem(EntityManager& entityManager) : System(entityManager)
+		{
+		}
 
-		void ECS::Systems::GameOverSystem::update(Context& context) {
-			for (auto entity : entityManager->getAllEntitiesWithComponent<PlayerComponent>()) {
+		void GameOverSystem::update(Context& context)
+		{
+			for (auto entity : entityManager->getAllEntitiesWithComponent<PlayerComponent>())
+			{
 				auto healthComponent = entityManager->getComponent<HealthComponent>(entity.id);
-				if (healthComponent->currentHealth <= 30 && !health_sound_is_playing) {
+				if (healthComponent->currentHealth <= 30 && !health_sound_is_playing)
+				{
 					context.audioManager->playSound("Heartbeat", -1);
 					this->health_sound_is_playing = true;
 				}
-				if (healthComponent->currentHealth <= 0) {
+				if (healthComponent->currentHealth <= 0)
+				{
 					context.audioManager->stopSound();
 					context.stateMachine->setState<EndState>(context);
 				}
@@ -33,8 +41,6 @@ namespace ECS {
 		}
 
 		GameOverSystem::~GameOverSystem()
-			= default;
-
+		= default;
 	}
 }
-

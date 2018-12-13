@@ -13,32 +13,39 @@
 #include "ECS/Components/EnemySpawnComponent.h"
 #include "ECS/Components/PositionComponent.h"
 
-namespace ECS {
-	namespace Systems {
+namespace ECS
+{
+	namespace Systems
+	{
 		using namespace Components;
-		
-		AnimationSystem::AnimationSystem(EntityManager& entityManager) : System(entityManager) {
+
+		AnimationSystem::AnimationSystem(EntityManager& entityManager) : System(entityManager)
+		{
 		}
 
 		AnimationSystem::~AnimationSystem()
-			= default;
+		= default;
 
-		void AnimationSystem::update(Context& context) {
+		void AnimationSystem::update(Context& context)
+		{
 			absoluteTime += context.deltaTime;
 			// TODO: Misschien kan dit mooier
-			for (const auto& player : entityManager->getAllEntitiesWithComponent<PlayerComponent>()) {
+			for (const auto& player : entityManager->getAllEntitiesWithComponent<PlayerComponent>())
+			{
 				auto appearance = entityManager->getComponent<AppearanceComponent>(player.id);
 				int rotationSpeed = 45;
 				appearance->rotationY += rotationSpeed * context.deltaTime;
 			}
-			for (const auto& resourcePoint : entityManager->getAllEntitiesWithComponent<ResourceSpawnComponent>()) {
+			for (const auto& resourcePoint : entityManager->getAllEntitiesWithComponent<ResourceSpawnComponent>())
+			{
 				auto appearance = entityManager->getComponent<AppearanceComponent>(resourcePoint.id);
 				double multiplier = .1;
 				auto sin = std::sin(absoluteTime) + 1;
 				appearance->translationY = multiplier * sin;
 			}
 
-			for (const auto& player : entityManager->getAllEntitiesWithComponent<EnemyComponent>()) {
+			for (const auto& player : entityManager->getAllEntitiesWithComponent<EnemyComponent>())
+			{
 				auto appearance = entityManager->getComponent<AppearanceComponent>(player.id);
 				double widthMultiplier = .05;
 				double heightMultiplier = .1;
@@ -50,7 +57,8 @@ namespace ECS {
 				appearance->scaleY = absoluteSize + absoluteSize * heightMultiplier * sin;
 				appearance->scaleZ = absoluteSize + absoluteSize * widthMultiplier * sin;
 			}
-			for (const auto& spawnPoint : entityManager->getAllEntitiesWithComponent<EnemySpawnComponent>()) {
+			for (const auto& spawnPoint : entityManager->getAllEntitiesWithComponent<EnemySpawnComponent>())
+			{
 				auto appearance = entityManager->getComponent<AppearanceComponent>(spawnPoint.id);
 				auto position = entityManager->getComponent<PositionComponent>(spawnPoint.id);
 				double widthMultiplier = .15;
@@ -63,7 +71,7 @@ namespace ECS {
 				auto x = sin / (1 - (-1));
 				auto result = 0 + (360 - 0) * x;
 
-				appearance->rotationY= result;
+				appearance->rotationY = result;
 			}
 		}
 	}

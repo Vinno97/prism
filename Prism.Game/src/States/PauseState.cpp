@@ -7,15 +7,17 @@
 #include "Renderer/Graphics/OpenGL/OGLVertexShader.h"
 #include "Renderer/Graphics/OpenGL/OGLPipeline.h"
 
-namespace States {
+namespace States
+{
 	PauseState::PauseState()
 	{
 	}
 
-	void PauseState::onInit(Context & context)
+	void PauseState::onInit(Context& context)
 	{
-		std::function<void()> callbackEndstate = [&context]() { 
-			context.stateMachine->setState<EndState>(context);			
+		std::function<void()> callbackEndstate = [&context]()
+		{
+			context.stateMachine->setState<EndState>(context);
 		};
 
 		menuBuilder.addControl(-0.5, 0, 1, 0.21, "img/pause.png");
@@ -26,20 +28,22 @@ namespace States {
 		renderDevice->setClearColour(1.f, 1.f, 1.f, 1.f);
 	}
 
-	void PauseState::onUpdate(Context & context)
+	void PauseState::onUpdate(Context& context)
 	{
-
 		auto input = context.inputManager;
-		if (input->isKeyPressed(Key::KEY_ESCAPE) && canPressEscape) {
+		if (input->isKeyPressed(Key::KEY_ESCAPE) && canPressEscape)
+		{
 			canPressEscape = false;
 			context.stateMachine->setState<PrismGame>(context);
 		}
 
-		if (!input->isKeyPressed(Key::KEY_ESCAPE)) {
+		if (!input->isKeyPressed(Key::KEY_ESCAPE))
+		{
 			canPressEscape = true;
 		}
 
-		if (menu->handleInput(*context.inputManager, context.window->width, context.window->height)) {
+		if (menu->handleInput(*context.inputManager, context.window->width, context.window->height))
+		{
 			return;
 		}
 
@@ -49,12 +53,11 @@ namespace States {
 		context.window->swapScreen();
 	}
 
-	void PauseState::onEnter(Context & context)
+	void PauseState::onEnter(Context& context)
 	{
-
 	}
 
-	void PauseState::onLeave(Context & context)
+	void PauseState::onLeave(Context& context)
 	{
 	}
 

@@ -10,7 +10,8 @@
 #include "Menu/Menu.h"
 #include "Menu/TextRenderer.h"
 
-namespace Menu {
+namespace Menu
+{
 	class MenuRenderer
 	{
 	public:

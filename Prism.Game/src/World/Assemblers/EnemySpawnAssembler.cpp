@@ -3,19 +3,22 @@
 #include "ECS/Components/EnemySpawnComponent.h"
 
 using namespace World;
-using namespace World::Assemblers;
+using namespace Assemblers;
 
-void EnemySpawnAssembler::assemble(int entity, const WorldObject& worldObject, ECS::EntityManager& entityManager) const {
-	if (worldObject.gid == 8) {
-
+void EnemySpawnAssembler::assemble(int entity, const WorldObject& worldObject, ECS::EntityManager& entityManager) const
+{
+	if (worldObject.gid == 8)
+	{
 		float spawnInterval = 5;
 		bool enabled = true;
 
-		if (worldObject.additionalProperties.find("spawnInterval") != worldObject.additionalProperties.end()) {
+		if (worldObject.additionalProperties.find("spawnInterval") != worldObject.additionalProperties.end())
+		{
 			spawnInterval = std::stoi(worldObject.additionalProperties.at("spawnInterval").value);
 		}
 
-		if (worldObject.additionalProperties.find("enabled") != worldObject.additionalProperties.end()) {
+		if (worldObject.additionalProperties.find("enabled") != worldObject.additionalProperties.end())
+		{
 			enabled = std::stoi(worldObject.additionalProperties.at("enabled").value);
 		}
 
@@ -23,12 +26,17 @@ void EnemySpawnAssembler::assemble(int entity, const WorldObject& worldObject, E
 	}
 }
 
-void EnemySpawnAssembler::disassemble(int entity, WorldObject& worldObject, const ECS::EntityManager& entityManager) const {
-	if (entityManager.hasComponent<ECS::Components::EnemySpawnComponent>(entity)) {
+void EnemySpawnAssembler::disassemble(int entity, WorldObject& worldObject,
+                                      const ECS::EntityManager& entityManager) const
+{
+	if (entityManager.hasComponent<ECS::Components::EnemySpawnComponent>(entity))
+	{
 		worldObject.gid = 8;
 		auto enemySpawnComponent = entityManager.getComponent<ECS::Components::EnemySpawnComponent>(entity);
 
-		worldObject.additionalProperties["spawnInterval"] = ObjectProperties("spawnInterval", std::to_string(enemySpawnComponent->spawnInterval));
-		worldObject.additionalProperties["enabled"] = ObjectProperties("enabled", std::to_string(enemySpawnComponent->enabled));
+		worldObject.additionalProperties["spawnInterval"] = ObjectProperties(
+			"spawnInterval", std::to_string(enemySpawnComponent->spawnInterval));
+		worldObject.additionalProperties["enabled"] = ObjectProperties(
+			"enabled", std::to_string(enemySpawnComponent->enabled));
 	}
 }

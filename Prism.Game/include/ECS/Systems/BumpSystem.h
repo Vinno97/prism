@@ -5,11 +5,14 @@
 #include "Physics/QuadTree.h"
 #include "Physics/AABBCollider.h"
 
-namespace ECS {
-	namespace Systems {
-		class BumpSystem : public System {
+namespace ECS
+{
+	namespace Systems
+	{
+		class BumpSystem : public System
+		{
 		public:
-			BumpSystem(ECS::EntityManager &entityManager);
+			BumpSystem(EntityManager& entityManager);
 			~BumpSystem();
 			void update(Context& context) override;
 		private:
@@ -18,10 +21,7 @@ namespace ECS {
 			/// <summary>
 			/// this method returns the amount of collisions there are with a given boundingbox;
 			/// </summary>
-			int CountCollisions(const Physics::BoundingBox &currentBox, const std::vector<unsigned int> &vector) const;	
+			int CountCollisions(const Physics::BoundingBox& currentBox, const std::vector<unsigned int>& vector) const;
 		};
 	}
 }
-
-
-	

@@ -5,11 +5,14 @@
 #include "Physics/QuadTree.h"
 #include "Physics/AABBCollider.h"
 
-namespace ECS {
-	namespace Systems {
-		class AttackSystem : public System {
+namespace ECS
+{
+	namespace Systems
+	{
+		class AttackSystem : public System
+		{
 		public:
-			AttackSystem(EntityManager &entityManager);
+			AttackSystem(EntityManager& entityManager);
 			~AttackSystem();
 			void update(Context& context) override;
 			///<summary>
@@ -23,4 +26,3 @@ namespace ECS {
 		};
 	}
 }
-

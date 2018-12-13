@@ -4,7 +4,8 @@
 using namespace Physics;
 
 
-QuadTree::~QuadTree() {
+QuadTree::~QuadTree()
+{
 	Clear();
 }
 
@@ -25,22 +26,27 @@ QuadTree::QuadTree(const QuadTree& other)
 	this->maxObjects = other.maxObjects;
 	this->objects = other.objects;
 	this->bounds = other.bounds;
-	if (other.nodes[0] != nullptr) {
-		for (int i = 0; i < 4;i++) {
+	if (other.nodes[0] != nullptr)
+	{
+		for (int i = 0; i < 4; i++)
+		{
 			nodes[i] = new QuadTree();
 			*nodes[i] = *other.nodes[i];
 		}
 	}
 }
 
-QuadTree & QuadTree::operator=(const QuadTree& other)
+QuadTree& QuadTree::operator=(const QuadTree& other)
 {
-	if (this != &other) {
+	if (this != &other)
+	{
 		this->maxObjects = other.maxObjects;
 		this->objects = other.objects;
 		this->bounds = other.bounds;
-		if (other.nodes[0] != nullptr) {
-			for (int i = 0; i < 4;i++) {
+		if (other.nodes[0] != nullptr)
+		{
+			for (int i = 0; i < 4; i++)
+			{
 				nodes[i] = new QuadTree();
 				*nodes[i] = *other.nodes[i];
 			}
@@ -57,22 +63,25 @@ QuadTree::QuadTree(QuadTree&& other) noexcept
 	other.objects.clear();
 	this->bounds = other.bounds;
 	other.bounds = BoundingBox();
-	for (int i = 0; i < 4;i++) {
+	for (int i = 0; i < 4; i++)
+	{
 		nodes[i] = other.nodes[i];
 		other.nodes[i] = nullptr;
 	}
 }
 
-QuadTree & QuadTree::operator=(QuadTree&& other) noexcept
+QuadTree& QuadTree::operator=(QuadTree&& other) noexcept
 {
-	if (this != &other) {
+	if (this != &other)
+	{
 		this->maxObjects = other.maxObjects;
 		other.maxObjects = 0;
 		this->objects = other.objects;
 		other.objects.clear();
 		this->bounds = other.bounds;
 		other.bounds = BoundingBox();
-		for (int i = 0; i < 4;i++) {
+		for (int i = 0; i < 4; i++)
+		{
 			nodes[i] = other.nodes[i];
 			other.nodes[i] = nullptr;
 		}
@@ -82,8 +91,10 @@ QuadTree & QuadTree::operator=(QuadTree&& other) noexcept
 
 void QuadTree::Clear()
 {
-	if (nodes[0] != nullptr) {
-		for (auto i = 0;i < 4; i++) {
+	if (nodes[0] != nullptr)
+	{
+		for (auto i = 0; i < 4; i++)
+		{
 			delete nodes[i];
 			nodes[i] = nullptr;
 		}
@@ -107,19 +118,22 @@ void QuadTree::Split()
 	nodes[2] = new QuadTree(width, height, west, south, maxObjects);
 	nodes[3] = new QuadTree(width, height, west, north, maxObjects);
 
-	for (auto it = objects.begin(); it != objects.end();) {
+	for (auto it = objects.begin(); it != objects.end();)
+	{
 		const int index = GetIndex(*(*it));
-		if (index != -1) {
+		if (index != -1)
+		{
 			nodes[index]->Insert(*(*it));
 			it = objects.erase(it);
 		}
-		else {
+		else
+		{
 			++it;
 		}
 	}
 }
 
-int QuadTree::GetIndex(BoundingBox const &box) const
+int QuadTree::GetIndex(BoundingBox const& box) const
 {
 	int index = -1;
 	const float qX = bounds.GetPosX();
@@ -127,7 +141,7 @@ int QuadTree::GetIndex(BoundingBox const &box) const
 	const float qNorth = std::abs(bounds.GetNorthCoordinate());
 	const float qEast = std::abs(bounds.GetEastCoordinate());
 	const float qSouth = std::abs(bounds.GetSouthCoordinate());
-	const float qWest = std::abs(bounds.GetWestCoordinate()); 
+	const float qWest = std::abs(bounds.GetWestCoordinate());
 	const float bX = box.GetPosX();
 	const float bY = box.GetPosY();
 	const float bNorth = std::abs(box.GetNorthCoordinate());
@@ -139,34 +153,42 @@ int QuadTree::GetIndex(BoundingBox const &box) const
 	const bool fitTop = qNorth - bNorth >= 0 && bSouth - qY >= 0;
 	const bool fitRight = qEast - bEast >= 0 && bWest - qX >= 0;
 
-	const bool fitBottom = qY - bNorth >= 0  && bSouth - qSouth >= 0;
+	const bool fitBottom = qY - bNorth >= 0 && bSouth - qSouth >= 0;
 	const bool fitLeft = qX - bEast >= 0 && bWest - qWest >= 0;
 
-	if (fitTop) {
-		if (fitRight) {
+	if (fitTop)
+	{
+		if (fitRight)
+		{
 			index = 0;
 		}
-		else if (fitLeft) {
+		else if (fitLeft)
+		{
 			index = 3;
 		}
 	}
-	else if (fitBottom) {
-		if (fitRight) {
+	else if (fitBottom)
+	{
+		if (fitRight)
+		{
 			index = 1;
 		}
-		else if (fitLeft) {
+		else if (fitLeft)
+		{
 			index = 2;
 		}
 	}
 	return index;
 }
 
-void QuadTree::Insert(BoundingBox const &newBox)
+void QuadTree::Insert(BoundingBox const& newBox)
 {
-	if (nodes[0] != nullptr) {
+	if (nodes[0] != nullptr)
+	{
 		const int index = GetIndex(newBox);
 
-		if (index != -1) {
+		if (index != -1)
+		{
 			nodes[index]->Insert(newBox);
 
 			return;
@@ -175,21 +197,24 @@ void QuadTree::Insert(BoundingBox const &newBox)
 
 	objects.push_back(&newBox);
 
-	if (objects.size() > maxObjects) {
-		if (nodes[0] == nullptr) {
+	if (objects.size() > maxObjects)
+	{
+		if (nodes[0] == nullptr)
+		{
 			Split();
-
 		}
 	}
 }
 
-void QuadTree::RetrieveAll(std::list<BoundingBox const *> &boundingBoxes, BoundingBox const &searchBox)
+void QuadTree::RetrieveAll(std::list<BoundingBox const *>& boundingBoxes, BoundingBox const& searchBox)
 {
 	const int index = GetIndex(searchBox);
-	if (index != -1 && nodes[0] != nullptr) {
+	if (index != -1 && nodes[0] != nullptr)
+	{
 		nodes[index]->RetrieveAll(boundingBoxes, searchBox);
 	}
-	else if (nodes[0] != nullptr) {
+	else if (nodes[0] != nullptr)
+	{
 		nodes[0]->RetrieveAll(boundingBoxes, searchBox);
 		nodes[1]->RetrieveAll(boundingBoxes, searchBox);
 		nodes[2]->RetrieveAll(boundingBoxes, searchBox);

@@ -3,8 +3,10 @@
 #include "Context.h"
 #include "ECS/Systems/System.h"
 
-namespace ECS {
-	namespace Systems {
+namespace ECS
+{
+	namespace Systems
+	{
 		class AimingSystem : public System
 		{
 		public:
@@ -13,7 +15,6 @@ namespace ECS {
 
 			void update(Context& context) override;
 		private:
-
 		};
 	}
 }

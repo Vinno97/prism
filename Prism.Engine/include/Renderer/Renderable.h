@@ -20,4 +20,3 @@ public:
 	std::tuple<float, float, float> scale;
 	Math::Vector3f color;
 };
-

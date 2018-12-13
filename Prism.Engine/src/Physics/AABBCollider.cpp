@@ -5,7 +5,7 @@ using namespace Physics;
 AABBCollider::AABBCollider()
 = default;
 
-bool AABBCollider::CheckCollision(BoundingBox const &box1, BoundingBox const &box2) const
+bool AABBCollider::CheckCollision(BoundingBox const& box1, BoundingBox const& box2) const
 {
 	//check for collision on vertical axis
 	float vert1 = (box1.GetNorthCoordinate()) - (box2.GetSouthCoordinate());

@@ -14,7 +14,8 @@ namespace ECS
 
 			//the Maximum health of this entity
 			float maxHealth{0};
-			HealthComponent(float maxHealth) : currentHealth(maxHealth) , maxHealth(maxHealth)
+
+			HealthComponent(float maxHealth) : currentHealth(maxHealth), maxHealth(maxHealth)
 			{
 			};
 

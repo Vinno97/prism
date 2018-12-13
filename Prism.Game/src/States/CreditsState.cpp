@@ -8,12 +8,13 @@
 #include "Renderer/Graphics/OpenGL/OGLPipeline.h"
 #include "Util/AdvertisementSystem.h"
 
-namespace States {
+namespace States
+{
 	CreditsState::CreditsState()
 	{
 	}
 
-	void CreditsState::onInit(Context & context)
+	void CreditsState::onInit(Context& context)
 	{
 		std::function<void()> callback = [&context]() { context.stateMachine->setState<MainMenuState>(context); };
 		menuBuilder.addControl(-0.9f, 0.8, 0.3, 0.1, "img/Back.png", callback);
@@ -28,7 +29,7 @@ namespace States {
 		renderDevice->setClearColour(1.f, 1.f, 1.f, 1.f);
 	}
 
-	void CreditsState::onUpdate(Context & context)
+	void CreditsState::onUpdate(Context& context)
 	{
 		Renderer::Graphics::RenderDevice* renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
 		renderDevice->clearScreen();
@@ -36,16 +37,16 @@ namespace States {
 		context.window->swapScreen();
 
 		auto input = context.inputManager;
-		if (menu->handleInput(*context.inputManager, context.window->width, context.window->height)) {
-			return;
+		if (menu->handleInput(*context.inputManager, context.window->width, context.window->height))
+		{
 		}
 	}
 
-	void CreditsState::onEnter(Context & context)
+	void CreditsState::onEnter(Context& context)
 	{
 	}
 
-	void CreditsState::onLeave(Context & context)
+	void CreditsState::onLeave(Context& context)
 	{
 	}
 

@@ -6,15 +6,14 @@ State::State()
 State::~State()
 = default;
 
-void State::onInit(Context &context)
+void State::onInit(Context& context)
 {
 }
 
-void State::onEnter(Context & context)
+void State::onEnter(Context& context)
 {
 }
 
-void State::onLeave(Context & context)
+void State::onLeave(Context& context)
 {
 }
-

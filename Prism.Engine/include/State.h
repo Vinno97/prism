@@ -4,30 +4,31 @@
 /// <summary>
 /// Abstract State class
 /// </summary>
-class State {
+class State
+{
 public:
 	State();
 	virtual ~State();
-	
+
 	/// <summary>
 	/// Method to initialize the state
 	/// </summary>
 	/// <param name="context">Contains context</param>
-	virtual void onInit(Context &context);
+	virtual void onInit(Context& context);
 
 	/// <summary>
 	/// Method to update the state
 	/// </summary>
 	/// <param name="context">Contains context</param>
-	virtual void onUpdate(Context &context) = 0;
+	virtual void onUpdate(Context& context) = 0;
 
 	/// <summary>
 	/// Method to enter the state
 	/// </summary>
-	virtual void onEnter(Context & context);
+	virtual void onEnter(Context& context);
 
 	/// <summary>
 	/// Method to leave the state
 	/// </summary>
-	virtual void onLeave(Context & context);
+	virtual void onLeave(Context& context);
 };

@@ -9,8 +9,10 @@ using namespace ECS;
 using namespace Systems;
 using namespace Components;
 
-namespace ECS {
-	namespace Systems {
+namespace ECS
+{
+	namespace Systems
+	{
 		using namespace Components;
 
 		AimingSystem::AimingSystem(EntityManager& entityManager) : System(entityManager)
@@ -19,17 +21,22 @@ namespace ECS {
 
 
 		AimingSystem::~AimingSystem()
-			= default;
+		= default;
 
 		void AimingSystem::update(Context& context)
 		{
 			auto input = context.inputManager;
-			for (auto player : entityManager->getAllEntitiesWithComponent<PlayerComponent>()) {
-				if (entityManager->hasComponent<PositionComponent>(player.id) && entityManager->hasComponent<ShootingComponent>(player.id)) {
+			for (auto player : entityManager->getAllEntitiesWithComponent<PlayerComponent>())
+			{
+				if (entityManager->hasComponent<PositionComponent>(player.id) && entityManager->hasComponent<
+					ShootingComponent>(player.id))
+				{
 					auto playerPosition = entityManager->getComponent<PositionComponent>(player.id);
 					auto playerShooting = entityManager->getComponent<ShootingComponent>(player.id);
-					if (input->isMouseButtonPressed(Key::MOUSE_BUTTON_LEFT)) {
-						for (auto entity : entityManager->getAllEntitiesWithComponent<MousePointerComponent>()) {
+					if (input->isMouseButtonPressed(Key::MOUSE_BUTTON_LEFT))
+					{
+						for (auto entity : entityManager->getAllEntitiesWithComponent<MousePointerComponent>())
+						{
 							auto component = entityManager->getComponent<PositionComponent>(entity.id);
 							float xDif = component->x - playerPosition->x;
 							float yDif = component->y - playerPosition->y;
@@ -41,12 +48,11 @@ namespace ECS {
 							playerShooting->ydirection = normalizedY;
 							playerShooting->isShooting = true;
 						}
-
 					}
-					else {
+					else
+					{
 						playerShooting->isShooting = false;
 					}
-
 				}
 			}
 		}

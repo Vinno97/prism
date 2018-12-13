@@ -6,27 +6,33 @@
 
 using namespace std;
 
-namespace Renderer {
-	namespace Graphics {
-		namespace Models {
-			Model::Model(shared_ptr<Mesh> m) : mesh{ m } { }
+namespace Renderer
+{
+	namespace Graphics
+	{
+		namespace Models
+		{
+			Model::Model(shared_ptr<Mesh> m) : mesh{m}
+			{
+			}
 
-			Model::Model(const Model & other)
+			Model::Model(const Model& other)
 			{
 				mesh = other.mesh;
 				texture = other.texture;
 			}
 
-			Model & Model::operator=(const Model & other)
+			Model& Model::operator=(const Model& other)
 			{
-				if (this != &other) {
+				if (this != &other)
+				{
 					mesh = other.mesh;
 					texture = other.texture;
 				}
 				return *this;
 			}
 
-			Model::Model(Model && other)
+			Model::Model(Model&& other)
 			{
 				mesh.swap(other.mesh);
 				texture.swap(other.texture);
@@ -34,15 +40,15 @@ namespace Renderer {
 				other.texture = nullptr;
 			}
 
-			Model & Model::operator=(Model && other)
+			Model& Model::operator=(Model&& other)
 			{
-				if (this != &other) {
+				if (this != &other)
+				{
 					mesh.swap(other.mesh);
 					texture.swap(other.texture);
 				}
 				return *this;
 			}
 		}
-		
 	}
 }

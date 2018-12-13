@@ -3,23 +3,35 @@
 #include "Physics/BoundingBox.h"
 #include <vector>
 
-namespace ECS {
-	namespace Components {
-		struct BoundingBoxComponent : Component {
+namespace ECS
+{
+	namespace Components
+	{
+		struct BoundingBoxComponent : Component
+		{
+			BoundingBoxComponent(float width, float height) : boundingBox(
+				Physics::BoundingBox(height / 2.0, width / 2.0, -1 * height / 2.0, -1 * width / 2.0))
+			{
+			};
 
-			BoundingBoxComponent(float width, float height) : boundingBox(Physics::BoundingBox(height / 2.0, width / 2.0, -1 * height / 2.0, -1 * width / 2.0)) {};
-			BoundingBoxComponent(float north, float east, float south, float west) : boundingBox(Physics::BoundingBox(north,east,south,west)) {};
+			BoundingBoxComponent(float north, float east, float south, float west) : boundingBox(
+				Physics::BoundingBox(north, east, south, west))
+			{
+			};
 
 			Physics::BoundingBox boundingBox;
 			bool didCollide = false;
 
 			std::vector<unsigned int> collidesWith;
-			
+
 			std::unique_ptr<Component> clone() override
 			{
-				auto newComponent = std::make_unique <BoundingBoxComponent>(boundingBox.GetNorthBound(),boundingBox.GetEastBound(), boundingBox.GetSouthBound(),boundingBox.GetWestBound());
+				auto newComponent = std::make_unique<BoundingBoxComponent>(
+					boundingBox.GetNorthBound(), boundingBox.GetEastBound(), boundingBox.GetSouthBound(),
+					boundingBox.GetWestBound());
 				newComponent->didCollide = this->didCollide;
-				for (int i = 0;i < collidesWith.size();i++) {
+				for (int i = 0; i < collidesWith.size(); i++)
+				{
 					newComponent->collidesWith.push_back(collidesWith[i]);
 				}
 				return newComponent;
@@ -27,4 +39,3 @@ namespace ECS {
 		};
 	}
 }
-

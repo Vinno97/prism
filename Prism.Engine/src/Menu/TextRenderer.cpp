@@ -1,12 +1,11 @@
-
 #include <ft2build.h>
-#include FT_FREETYPE_H  
+#include FT_FREETYPE_H
 
 #include "Menu/TextRenderer.h"
 #include "Renderer/Graphics/OpenGL/OGLRenderDevice.h"
 
 using namespace Renderer::Graphics;
-using namespace Renderer::Graphics::OpenGL;
+using namespace OpenGL;
 
 TextRenderer::TextRenderer()
 {
@@ -33,7 +32,8 @@ TextRenderer::TextRenderer()
 			continue;
 		}
 		// Generate texture
-		auto texture = renderDevice->createTexture(face->glyph->bitmap.width, face->glyph->bitmap.rows, face->glyph->bitmap.buffer, false);
+		auto texture = renderDevice->createTexture(face->glyph->bitmap.width, face->glyph->bitmap.rows,
+		                                           face->glyph->bitmap.buffer, false);
 
 		Character character = {
 			texture,
@@ -42,7 +42,6 @@ TextRenderer::TextRenderer()
 			face->glyph->advance.x
 		};
 		Characters.insert(std::pair<GLchar, Character>(c, character));
-
 	}
 
 	VAO2 = renderDevice->createVertexArrayobject();
@@ -64,39 +63,39 @@ TextRenderer::TextRenderer()
 
 void TextRenderer::RenderText(const Menu::TextControl& control)
 {
-//// Activate corresponding render state	
+	//// Activate corresponding render state	
 	textPipeline->run();
 	textPipeline->setUniformVector("textColor", control.colour.x, control.colour.y, control.colour.z);
 	VAO2->bind();
 	renderDevice->useBlending(true);
 	renderDevice->useDepthTest(false);
-	
+
 	float x = control.position.x;
 	float y = control.position.y;
 	glEnable(GL_BLEND);
 	// Iterate through all characters
 	std::string::const_iterator c;
-	for (c = control.text.begin(); c != control.text.end(); c++)
+	for (c = control.text.begin(); c != control.text.end(); ++c)
 	{
 		Character ch = Characters[*c];
-	
+
 		GLfloat xpos = x + ch.Bearing.x * control.scale;
 		GLfloat ypos = y - (ch.Size.y - ch.Bearing.y) * control.scale;
-	
+
 		GLfloat w = ch.Size.x * control.scale;
 		GLfloat h = ch.Size.y * control.scale;
 		// Update VBO for each character
 		GLfloat vertices[6][4] = {
-			{ xpos,     ypos + h,   0.0, 0.0 },
-			{ xpos,     ypos,       0.0, 1.0 },
-			{ xpos + w, ypos,       1.0, 1.0 },
-	
-			{ xpos,     ypos + h,   0.0, 0.0 },
-			{ xpos + w, ypos,       1.0, 1.0 },
-			{ xpos + w, ypos + h,   1.0, 0.0 }
+			{xpos, ypos + h, 0.0, 0.0},
+			{xpos, ypos, 0.0, 1.0},
+			{xpos + w, ypos, 1.0, 1.0},
+
+			{xpos, ypos + h, 0.0, 0.0},
+			{xpos + w, ypos, 1.0, 1.0},
+			{xpos + w, ypos + h, 1.0, 0.0}
 		};
 		// Render glyph texture over quad
-	//	glBindTexture(GL_TEXTURE_2D, ch.TextureID);
+		//	glBindTexture(GL_TEXTURE_2D, ch.TextureID);
 		ch.texture->bind(textures[0]);
 		// Update content of VBO memory
 		VBO2->bind();
@@ -108,8 +107,8 @@ void TextRenderer::RenderText(const Menu::TextControl& control)
 		x += (ch.Advance >> 6) * control.scale; // Bitshift by 6 to get value in pixels (2^6 = 64)
 	}
 
-  VAO2->unbind();
-  textPipeline->stop();
-  renderDevice->useBlending(false);
-  renderDevice->useDepthTest(true);
+	VAO2->unbind();
+	textPipeline->stop();
+	renderDevice->useBlending(false);
+	renderDevice->useDepthTest(true);
 }

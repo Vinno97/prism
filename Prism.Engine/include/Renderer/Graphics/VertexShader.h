@@ -4,11 +4,14 @@
 #include <iostream>
 #include <map>
 
-namespace Renderer {
-	namespace Graphics {
-		class VertexShader {
+namespace Renderer
+{
+	namespace Graphics
+	{
+		class VertexShader
+		{
 		public:
-			VertexShader()=default;
+			VertexShader() = default;
 			GLuint vertexID;
 		};
 	}

@@ -5,22 +5,27 @@
 #include "InputManager.h"
 #include "ECS/Components/PositionComponent.h"
 
-namespace ECS {
-	namespace Systems {
+namespace ECS
+{
+	namespace Systems
+	{
 		using namespace Components;
 
-		EnemySpawnSystem::EnemySpawnSystem(EntityManager& entityManager) : System(entityManager) {
+		EnemySpawnSystem::EnemySpawnSystem(EntityManager& entityManager) : System(entityManager)
+		{
 		}
 
 		EnemySpawnSystem::~EnemySpawnSystem()
-			= default;
+		= default;
 
-		void EnemySpawnSystem::update(Context& context) {
+		void EnemySpawnSystem::update(Context& context)
+		{
 			auto time = context.deltaTime;
 			auto input = context.inputManager;
 			EntityFactory entityFactory;
 
-			for (const auto& spawnPoint : entityManager->getAllEntitiesWithComponent<EnemySpawnComponent>()) {
+			for (const auto& spawnPoint : entityManager->getAllEntitiesWithComponent<EnemySpawnComponent>())
+			{
 				auto component = spawnPoint.component;
 
 				if (!component->enabled)
@@ -30,11 +35,12 @@ namespace ECS {
 
 				component->timeSinceLastSpawn += time;
 
-				if (component->timeSinceLastSpawn > component->spawnInterval) {
+				if (component->timeSinceLastSpawn > component->spawnInterval)
+				{
 					component->timeSinceLastSpawn = 0;
 					auto enemy = entityFactory.createEnemy(*entityManager);
-					entityManager->getComponent<PositionComponent>(enemy)->x += position->x+1;
-					entityManager->getComponent<PositionComponent>(enemy)->y += position->y+1;
+					entityManager->getComponent<PositionComponent>(enemy)->x += position->x + 1;
+					entityManager->getComponent<PositionComponent>(enemy)->y += position->y + 1;
 				}
 			}
 		}

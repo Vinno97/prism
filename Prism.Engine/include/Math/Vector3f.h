@@ -1,5 +1,6 @@
 #pragma once
-namespace Math {
+namespace Math
+{
 	class Vector3f
 	{
 	public:
@@ -10,9 +11,9 @@ namespace Math {
 		Vector3f substract(const Vector3f& vector);
 		//Vector3f normalize(const Vector3f& vector);
 
-		Vector3f operator+(const Vector3f other);
-		Vector3f operator-(const Vector3f other);
-		
+		Vector3f operator+(Vector3f other);
+		Vector3f operator-(Vector3f other);
+
 		Vector3f normalize();
 
 

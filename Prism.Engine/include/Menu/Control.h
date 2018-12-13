@@ -10,14 +10,15 @@
 #include "SDL2/SDL_image.h"
 #include <functional>
 
-namespace Menu {
+namespace Menu
+{
 	class Control
 	{
 	public:
 		Control() = default;
-		Control(float x, float y, float width, float height, const char *path);
-		Control(float x, float y, float width, float height, const char *path, std::function<void()> callback_);
-		void UpdateTexture(const char *path);
+		Control(float x, float y, float width, float height, const char* path);
+		Control(float x, float y, float width, float height, const char* path, std::function<void()> callback_);
+		void UpdateTexture(const char* path);
 		void onClick();
 
 		Math::Vector3f position;

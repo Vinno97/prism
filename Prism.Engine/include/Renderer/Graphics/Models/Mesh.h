@@ -3,10 +3,14 @@
 #include "Renderer/Graphics/IndexBuffer.h"
 #include <memory>
 
-namespace Renderer {
-	namespace Graphics {
-		namespace Models {
-			class Mesh {
+namespace Renderer
+{
+	namespace Graphics
+	{
+		namespace Models
+		{
+			class Mesh
+			{
 			public:
 				Mesh(std::unique_ptr<VertexArrayObject> vertexArrayObject, std::unique_ptr<IndexBuffer> indexBuffer);
 				Mesh(std::unique_ptr<VertexArrayObject> vertexArrayObject);

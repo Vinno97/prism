@@ -18,18 +18,19 @@
 #include <memory>
 
 #pragma once
-struct Character {
-	std::shared_ptr<Renderer::Graphics::Texture> texture;  // ID handle of the glyph texture
-	glm::ivec2 Size;       // Size of glyph
-	glm::ivec2 Bearing;    // Offset from baseline to left/top of glyph
-	long Advance;    // Offset to advance to next glyph
+struct Character
+{
+	std::shared_ptr<Renderer::Graphics::Texture> texture; // ID handle of the glyph texture
+	glm::ivec2 Size; // Size of glyph
+	glm::ivec2 Bearing; // Offset from baseline to left/top of glyph
+	long Advance; // Offset to advance to next glyph
 };
 
 class TextRenderer
 {
 public:
 	TextRenderer();
-	~TextRenderer()=default;
+	~TextRenderer() = default;
 	void RenderText(const Menu::TextControl& control);
 
 	std::unique_ptr<Renderer::Graphics::Pipeline> textPipeline;
@@ -41,4 +42,3 @@ private:
 	std::unique_ptr<Renderer::Graphics::VertexBuffer> VBO2;
 	std::unique_ptr<Renderer::Graphics::VertexArrayObject> VAO2;
 };
-

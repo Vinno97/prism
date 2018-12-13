@@ -4,7 +4,7 @@
 using namespace World;
 using namespace nlohmann;
 
-std::vector<WorldObject> World::JSONSerializer::deserialize(std::basic_istream<char>& input)
+std::vector<WorldObject> JSONSerializer::deserialize(std::basic_istream<char>& input)
 {
 	std::vector<WorldObject> objects;
 
@@ -15,10 +15,11 @@ std::vector<WorldObject> World::JSONSerializer::deserialize(std::basic_istream<c
 	int tileWidth = j["tilewidth"];
 
 	auto layers = j["layers"];
-	for (const auto &layer : layers)
+	for (const auto& layer : layers)
 	{
-		if (layer["type"] == "objectgroup") {
-			for (const auto &object : layer["objects"])
+		if (layer["type"] == "objectgroup")
+		{
+			for (const auto& object : layer["objects"])
 			{
 				WorldObject wo = object;
 				wo.x /= tileWidth;
@@ -34,7 +35,7 @@ std::vector<WorldObject> World::JSONSerializer::deserialize(std::basic_istream<c
 	return objects;
 }
 
-void World::JSONSerializer::serialize(std::vector<WorldObject> worldObjects, std::basic_ostream<char>& output)
+void JSONSerializer::serialize(std::vector<WorldObject> worldObjects, std::basic_ostream<char>& output)
 {
 	json j;
 

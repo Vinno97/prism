@@ -15,11 +15,11 @@ public:
 	std::map<std::string, Mix_Music *> music;
 	std::string current_music_playing;
 
-	void addSound(const std::string name, const std::string file);
-	void addMusic(const std::string name, const std::string file);
+	void addSound(std::string name, std::string file);
+	void addMusic(std::string name, std::string file);
 
-	const void playSound(const std::string name, int distance, int loops = 0);
-	const void playMusic(const std::string name);
+	const void playSound(std::string name, int distance, int loops = 0);
+	const void playMusic(std::string name);
 	void pauseMusic() const;
 	void resumeMusic() const;
 	void stopMusic() const;
@@ -29,4 +29,3 @@ public:
 private:
 	Util::FileSystem fs;
 };
-

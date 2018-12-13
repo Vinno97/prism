@@ -44,13 +44,14 @@
 #include "Renderer/PointLight.h"
 #include <functional>
 
-namespace States {
+namespace States
+{
 	using namespace ECS;
-	using namespace ECS::Components;
+	using namespace Components;
 	using namespace World;
-	using namespace World::Assemblers;
+	using namespace Assemblers;
 
-	void PrismGame::onInit(Context & context)
+	void PrismGame::onInit(Context& context)
 	{
 		auto floor = entityFactory.createFloor(entityManager);
 		auto scene = entityFactory.createScene(entityManager);
@@ -58,12 +59,12 @@ namespace States {
 		auto mousePointer = entityFactory.createCameraPointer(entityManager);
 		auto sceneComponent = entityManager.getComponent<SceneComponent>(scene);
 
-		sceneComponent->scene.ambientLightColor = Math::Vector3f{ 1.0f, 1.0f, 1.0f };
+		sceneComponent->scene.ambientLightColor = Math::Vector3f{1.0f, 1.0f, 1.0f};
 		sceneComponent->scene.ambientLightStrength = 0.95f;
-		sceneComponent->scene.sun.color = Math::Vector3f{ 1.f, 1.f, 1.f };
-		sceneComponent->scene.sun.direction = Math::Vector3f{ -0.3, -1.0f, -.3f };
+		sceneComponent->scene.sun.color = Math::Vector3f{1.f, 1.f, 1.f};
+		sceneComponent->scene.sun.direction = Math::Vector3f{-0.3, -1.0f, -.3f};
 
-		World::LevelManager loader{ std::make_unique<PrismEntityAssembler>() };
+		LevelManager loader{std::make_unique<PrismEntityAssembler>()};
 
 		loader.load("levels/Sample World", entityManager);
 		// Dit is hoe een wereld zou worden opgeslagen en weer ingeladen.
@@ -72,38 +73,43 @@ namespace States {
 
 		loadAudio(context);
 		registerSystems(context);
-		
-		if (!context.stateMachine->hasState<PauseState>()) {
+
+		if (!context.stateMachine->hasState<PauseState>())
+		{
 			context.stateMachine->addState<PauseState>(context);
 		}
-		if (!context.stateMachine->hasState<EndState>()) {
+		if (!context.stateMachine->hasState<EndState>())
+		{
 			context.stateMachine->addState<EndState>(context);
 		}
 
 		menuBuilder.addControl(0.6, 0.35, 0.40, 0.65, "img/resources.png");
 		menuBuilder.addControl(-1, 0.83, 0.4, 0.15, "img/healthbar.png");
-		health = menuBuilder.addTextControl(-0.98, 0.89, 0.0012, Math::Vector3f{ 1.0f, 1.0f, 1.0f }, "100");
-		blueResource = menuBuilder.addTextControl(0.65, 0.83, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
-		redResource = menuBuilder.addTextControl(0.65, 0.64, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
-		greenResource = menuBuilder.addTextControl(0.65, 0.45, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
+		health = menuBuilder.addTextControl(-0.98, 0.89, 0.0012, Math::Vector3f{1.0f, 1.0f, 1.0f}, "100");
+		blueResource = menuBuilder.addTextControl(0.65, 0.83, 0.001, Math::Vector3f{0.1f, 0.1f, 0.1f}, "0");
+		redResource = menuBuilder.addTextControl(0.65, 0.64, 0.001, Math::Vector3f{0.1f, 0.1f, 0.1f}, "0");
+		greenResource = menuBuilder.addTextControl(0.65, 0.45, 0.001, Math::Vector3f{0.1f, 0.1f, 0.1f}, "0");
 
 
-
-		fps = menuBuilder.addTextControl(0.83, 0.3, 0.0009, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "");
+		fps = menuBuilder.addTextControl(0.83, 0.3, 0.0009, Math::Vector3f{0.1f, 0.1f, 0.1f}, "");
 
 		menu = menuBuilder.buildMenu();
 
-		
-		std::function<void()> callback = [context, &canPress = canPressEscape]() mutable { canPress = false; context.stateMachine->setState<PauseState>(context); };
+
+		std::function<void()> callback = [context, &canPress = canPressEscape]() mutable
+		{
+			canPress = false;
+			context.stateMachine->setState<PauseState>(context);
+		};
 	}
 
 	/// <summary>
 	/// register systems in system manager
 	/// </summary>
 	/// <param name="context">The context that is needed to register the systems</param>
-	void PrismGame::registerSystems(Context &context)
+	void PrismGame::registerSystems(Context& context)
 	{
-			systemManager
+		systemManager
 			//1
 			.registerSystem<1, KeyboardInputSystem>(entityManager)
 			.registerSystem<1, MousePointSystem>(entityManager)
@@ -133,21 +139,24 @@ namespace States {
 			.registerSystem<5, GameOverSystem>(entityManager);
 	}
 
-	void PrismGame::onUpdate(Context &context)
+	void PrismGame::onUpdate(Context& context)
 	{
 		std::cout << "FPS:   \t" << 1.0 / context.deltaTime << std::endl;
 		toggleFPS(context);
 		auto input = context.inputManager;
-	
-		for (auto& systemList : systemManager.getAllSystems()) {
-			for (auto& system : systemList.second) {
+
+		for (auto& systemList : systemManager.getAllSystems())
+		{
+			for (auto& system : systemList.second)
+			{
 				system.second->update(context);
 			}
 		}
-			
+
 		auto inventory = entityManager.getAllEntitiesWithComponent<InventoryComponent>()[0].component;
 		int playerHealth;
-		for (const auto& entity : entityManager.getAllEntitiesWithComponent<PlayerComponent>()) {
+		for (const auto& entity : entityManager.getAllEntitiesWithComponent<PlayerComponent>())
+		{
 			playerHealth = entityManager.getComponent<HealthComponent>(entity.id)->currentHealth;
 		}
 
@@ -159,22 +168,25 @@ namespace States {
 		menuRenderer.renderMenu(*menu, float(context.window->width) / float(context.window->height));
 		context.window->swapScreen();
 
-		if (menu->handleInput(*context.inputManager, context.window->width, context.window->height)) {
+		if (menu->handleInput(*context.inputManager, context.window->width, context.window->height))
+		{
 			return;
 		}
 
 
-		if (!input->isKeyPressed(Key::KEY_ESCAPE)) {
+		if (!input->isKeyPressed(Key::KEY_ESCAPE))
+		{
 			canPressEscape = true;
 		}
 
-		if (input->isKeyPressed(Key::KEY_ESCAPE) && canPressEscape) {
+		if (input->isKeyPressed(Key::KEY_ESCAPE) && canPressEscape)
+		{
 			canPressEscape = false;
 			context.stateMachine->setState<PauseState>(context);
 		}
 	}
 
-	void PrismGame::loadAudio(Context &context) const
+	void PrismGame::loadAudio(Context& context) const
 	{
 		context.audioManager->addMusic("Ambience", "Ambience.wav");
 		context.audioManager->addMusic("MainMenu", "MainMenu.wav");
@@ -184,39 +196,45 @@ namespace States {
 		context.audioManager->addSound("Heartbeat", "Heartbeat.wav");
 	}
 
-	void PrismGame::onEnter(Context &context) {
+	void PrismGame::onEnter(Context& context)
+	{
 		context.audioManager->playMusic("Ambience");
 	}
 
-	int PrismGame::Fps(Context &context)
+	int PrismGame::Fps(Context& context)
 	{
 		double fps = 1.0 / context.deltaTime;
-		return(floor(fps));
+		return (floor(fps));
 	}
 
-	void PrismGame::toggleFPS(Context & context)
+	void PrismGame::toggleFPS(Context& context)
 	{
 		auto input = context.inputManager;
-		if (!input->isKeyPressed(Key::KEY_F3)) {
+		if (!input->isKeyPressed(Key::KEY_F3))
+		{
 			canPressF3 = true;
 		}
-		if (input->isKeyPressed(Key::KEY_F3) && !showFPS  && canPressF3) {
+		if (input->isKeyPressed(Key::KEY_F3) && !showFPS && canPressF3)
+		{
 			canPressF3 = false;
 			showFPS = true;
 			fps->text = "FPS: " + std::to_string(Fps(context));
 		}
 
-		else if (input->isKeyPressed(Key::KEY_F3) && showFPS && canPressF3) {
+		else if (input->isKeyPressed(Key::KEY_F3) && showFPS && canPressF3)
+		{
 			canPressF3 = false;
 			showFPS = false;
 			fps->text = "";
 		}
 
-		if (showFPS) {
+		if (showFPS)
+		{
 			fps->text = "FPS: " + std::to_string(Fps(context));
 		}
 	}
 
-	void PrismGame::onLeave(Context &context) {
+	void PrismGame::onLeave(Context& context)
+	{
 	}
 }

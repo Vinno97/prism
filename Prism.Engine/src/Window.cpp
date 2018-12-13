@@ -7,7 +7,7 @@
 #include <string>
 
 Window::Window()
-	= default;
+= default;
 
 void Window::init(const char* title, const int width, const int height, const int x, const int y)
 {
@@ -20,8 +20,9 @@ void Window::init(const char* title, const int width, const int height, const in
 	else
 	{
 		//Create window
-		gWindow = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
-		if (gWindow == NULL)
+		gWindow = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height,
+		                           SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
+		if (gWindow == nullptr)
 		{
 			printf("Window could not be created! SDL Error: %s\n", SDL_GetError());
 		}
@@ -30,8 +31,8 @@ void Window::init(const char* title, const int width, const int height, const in
 
 void Window::createOpenGLContext(const int majorVersion, const int minorVersion, const bool useCompatibilityProfile)
 {
-
-	if (gWindow == nullptr) {
+	if (gWindow == nullptr)
+	{
 		std::cout << "SDL_Window does not exist. Has init() been called?" << std::endl;
 		throw "SDL_Window does not exist";
 		return;
@@ -40,38 +41,38 @@ void Window::createOpenGLContext(const int majorVersion, const int minorVersion,
 	SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1); //Always set this to 1 obviousbly
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, majorVersion);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, minorVersion);
-	if (useCompatibilityProfile) {
+	if (useCompatibilityProfile)
+	{
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_COMPATIBILITY);
 	}
-	else {
+	else
+	{
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 	}
 	gContext = SDL_GL_CreateContext(gWindow);
 	if (gContext == nullptr)
 	{
 		printf("OpenGL context could not be created! SDL Error: %s\n",
-			SDL_GetError());
+		       SDL_GetError());
 		success = false;
 		throw "OpenGL Context could not be created";
 	}
-	else
+	//Initialize GLEW
+	bool glewExperimental = GL_TRUE;
+	GLenum glewError = glewInit();
+	if (glewError != GLEW_OK)
 	{
-		//Initialize GLEW
-		bool glewExperimental = GL_TRUE;
-		GLenum glewError = glewInit();
-		if (glewError != GLEW_OK)
-		{
-			printf("Error initializing GLEW! %s\n", glewGetErrorString(glewError));
-		}
-		//Use Vsync
-		if (SDL_GL_SetSwapInterval(1) < 0)
-		{
-			printf("Warning: Unable to set VSync! SDL Error: %s\n", SDL_GetError());
-		}
+		printf("Error initializing GLEW! %s\n", glewGetErrorString(glewError));
+	}
+	//Use Vsync
+	if (SDL_GL_SetSwapInterval(1) < 0)
+	{
+		printf("Warning: Unable to set VSync! SDL Error: %s\n", SDL_GetError());
 	}
 }
 
-void Window::swapScreen() {
+void Window::swapScreen()
+{
 	SDL_GL_SwapWindow(gWindow);
 }
 
@@ -93,7 +94,8 @@ bool Window::shouldClose()
 
 void Window::close()
 {
-	if (gWindow == nullptr) {
+	if (gWindow == nullptr)
+	{
 		std::cout << "Window was never initialized" << std::endl;
 		SDL_DestroyWindow(gWindow);
 	}

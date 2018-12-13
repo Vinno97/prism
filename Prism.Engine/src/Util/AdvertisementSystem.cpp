@@ -2,18 +2,17 @@
 #include "Util/FileSystem.h"
 #include <time.h>
 
-namespace Util {
-
+namespace Util
+{
 	std::string AdvertisementSystem::RandomAdvertisement()
 	{
 		FileSystem fs;
 		std::vector<std::string> filenames = fs.getFilenamesInDirectory("img/advertisements");
-		
+
 		// Deze seed kan na mergen hopelijk weg
-		srand(time(NULL));
+		srand(time(nullptr));
 		int randomIndex = rand() % filenames.size();
 
 		return filenames[randomIndex].c_str();
 	}
-
 }
