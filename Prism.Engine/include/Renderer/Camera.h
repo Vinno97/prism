@@ -17,12 +17,12 @@ namespace Renderer {
 		/// <summary>
 		/// Translates the camera by the values given
 		/// </summary>
-		void move(float x, float y, float z);
+		void move(const float x, const float y, const float z);
 
 		/// <summary>
 		/// Translates the camera by the values given
 		/// </summary>
-		void moveTarget(float x, float y, float z);
+		void moveTarget(const float x, const float y, const float z);
 
 		// TODO: Deze moeten mss enkel readonly getters zijn (en dat het renderSystem gewoon de delta voor move() uitrekent).
 		glm::vec3 position;

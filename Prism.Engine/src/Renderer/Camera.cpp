@@ -18,14 +18,14 @@ namespace Renderer {
 		return glm::lookAt(position, target, glm::vec3(0.f, 1.f, 0.f));
 	}
 
-	void Camera::move(float x, float y, float z)
+	void Camera::move(const float x, const float y, const float z)
 	{
 		position.x += x;
 		position.y += y;
 		position.z += z;
 	}
 
-	void Camera::moveTarget(float x, float y, float z)
+	void Camera::moveTarget(const float x, const float y, const float z)
 	{
 		target.x += x;
 		target.y += y;
