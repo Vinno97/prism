@@ -114,7 +114,7 @@ unsigned EntityFactory::createEnemy(unsigned entity, EntityManager& entityManage
 		.addComponent<DynamicComponent>()
 		.addComponent<HealthComponent>(100)
 		.addComponent<DragComponent>(5.f)
-		.addComponent<BoundingBoxComponent>(.4, .4, 8)
+		.addComponent<BoundingBoxComponent>(.4, .4, 2)
 		.addComponent(appearance)
 		.getEntity();
 }
@@ -179,7 +179,7 @@ unsigned EntityFactory::createTower(unsigned entity, EntityManager& entityManage
 	return EntityBuilder(entityManager, entity)
 		.addComponent<TowerComponent>()
 		.addComponent<PositionComponent>()
-		.addComponent<BoundingBoxComponent>(1.0, 1.0, 10)
+		.addComponent<BoundingBoxComponent>(1.0, 1.0, 1.0)
 		.addComponent<ShootingComponent>()
 		.addComponent(appearance)
 		.getEntity();
@@ -205,12 +205,12 @@ unsigned EntityFactory::createWall(unsigned entity, EntityManager& entityManager
 	return EntityBuilder(entityManager, entity)
 		.addComponent<WallComponent>()
 		.addComponent<PositionComponent>()
-		.addComponent<BoundingBoxComponent>(1.0, 1.0, 10.0)
+		.addComponent<BoundingBoxComponent>(1.0, 1.0, 1.0)
 		.addComponent(appearance)
 		.getEntity();
 }
 
-unsigned EntityFactory::createCliff(EntityManager & entityManager, int rotation) const{
+unsigned EntityFactory::createCliff(EntityManager & entityManager, int rotation) const {
 	return createCliff(entityManager.createEntity(), entityManager, rotation);
 }
 
@@ -233,7 +233,7 @@ unsigned EntityFactory::createCliff(unsigned entity, EntityManager & entityManag
 	return entity;
 }
 
-unsigned EntityFactory::createCliffFiller(EntityManager & entityManager) const{
+unsigned EntityFactory::createCliffFiller(EntityManager & entityManager) const {
 	return createCliffFiller(entityManager.createEntity(), entityManager);
 }
 
@@ -255,7 +255,7 @@ unsigned EntityFactory::createCliffFiller(unsigned entity, EntityManager & entit
 	return entity;
 }
 
-unsigned EntityFactory::createCliffCorner(EntityManager & entityManager, int rotation) const{
+unsigned EntityFactory::createCliffCorner(EntityManager & entityManager, int rotation) const {
 	return createCliffCorner(entityManager.createEntity(), entityManager, rotation);
 }
 
@@ -278,7 +278,7 @@ unsigned EntityFactory::createCliffCorner(unsigned entity, EntityManager & entit
 	return entity;
 }
 
-unsigned EntityFactory::createTree(EntityManager & entityManager) const{
+unsigned EntityFactory::createTree(EntityManager & entityManager) const {
 	return createTree(entityManager.createEntity(), entityManager);
 }
 
@@ -302,7 +302,7 @@ unsigned EntityFactory::createTree(unsigned entity, EntityManager & entityManage
 	return entity;
 }
 
-unsigned EntityFactory::createRock(EntityManager & entityManager) const{
+unsigned EntityFactory::createRock(EntityManager & entityManager) const {
 	return createRock(entityManager.createEntity(), entityManager);
 }
 
@@ -382,7 +382,7 @@ unsigned EntityFactory::createProjectile(unsigned entity, EntityManager& entityM
 		.addComponent<PositionComponent>()
 		.addComponent<BulletComponent>()
 		.addComponent<HealthComponent>(15)
-		.addComponent<BoundingBoxComponent>(0.1, 0.1 , 10.1)
+		.addComponent<BoundingBoxComponent>(0.1, 0.1, 1.0)
 		.addComponent<ProjectileAttackComponent>()
 		.addComponent<DynamicComponent>()
 		.addComponent<PointLightComponent>(Math::Vector3f{ 1.f, 0.f, 0.f }, 4.0f, 0.f)

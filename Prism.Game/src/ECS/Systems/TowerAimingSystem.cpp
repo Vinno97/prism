@@ -31,8 +31,8 @@ void ECS::Systems::TowerAimingSystem::update(Context & context)
 
 			if (enemyIsInRange(*towerPosition, *enemyPosition, radius)) {
 
-				auto directionx = (enemyPosition->x + enemeySpeed->dx * (context.deltaTime * 10)) - towerPosition->x;
-				auto directiony = (enemyPosition->y + enemeySpeed->dy * (context.deltaTime * 10)) - towerPosition->y;
+				auto directionx = (enemyPosition->x + enemeySpeed->dx * (context.deltaTime * 15)) - towerPosition->x;
+				auto directiony = (enemyPosition->y + enemeySpeed->dy * (context.deltaTime * 15)) - towerPosition->y;
 				Math::Vector3f vec = Math::Vector3f(directionx, directiony, 0);
 				vec.normalize();
 
@@ -41,6 +41,7 @@ void ECS::Systems::TowerAimingSystem::update(Context & context)
 				shootingComponent->zPosition = 1;
 				
 				shootingComponent->isShooting = true;
+				break;;
 			}
 			else {
 				shootingComponent->isShooting = false;
