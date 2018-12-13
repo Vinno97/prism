@@ -37,6 +37,11 @@ void BumpSystem::update(Context& context)
 						if (entityManager->hasComponent<PositionComponent>(colliderId)) {
 							auto colliderPosition = entityManager->getComponent<PositionComponent>(colliderId);
 
+
+							if (entityManager->hasComponent<PlayerComponent>(entity.id)) {
+								int k = 5;
+							}
+
 							//Various checks for collisions. Only in theses situations does the collisions need to be resolved
 							bool cx2 = currentPosition->x < colliderPosition->x && currentVelocity->dx > 0;
 							bool cx1 = currentPosition->x > colliderPosition->x && currentVelocity->dx < 0;
@@ -66,18 +71,28 @@ void BumpSystem::update(Context& context)
 							}
 
 							//The side with the least amount of collision needs te be resolved
-							if (xColT < yColT && (cx1 || cx2)) {
+							if (xColT > 0 && yColT > 0) {
+								if (xColT < yColT && (cx1 || cx2)) {
+									xCol = true;
+								}
+								else if (yColT < xColT && (cy1 || cy2)) {
+									yCol = true;
+								}
+								else if (xColT == yColT) {
+									xCol = true;
+									yCol = true;
+								}
+							}
+							else if (xColT > 0 && yColT <= 0) {
 								xCol = true;
 							}
-							else if (yColT < xColT && (cy1 || cy2)) {
-								yCol = true;
-							}
-							else if (xColT == yColT){
-								xCol = true;
+							else if (yColT > 0 && xColT <= 0) {
 								yCol = true;
 							}
 						}
 					}
+
+					
 
 					//Based on the axis of the collision, the positions needs to be reset
 					if (xCol && yCol) {
