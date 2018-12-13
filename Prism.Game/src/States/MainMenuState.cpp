@@ -31,7 +31,7 @@ namespace States {
 		std::function<void()> nightmareModeCallback = [&]() { 
 			if (context.stateMachine->hasState<PrismGame>() && cooldown > maxCooldown) {
 				auto prismgame = context.stateMachine->getState<PrismGame>();
-				prismgame->toggleNightmare();
+				prismgame->toggleNightmare(context);
 				cooldown = 0;
 			}
 		};

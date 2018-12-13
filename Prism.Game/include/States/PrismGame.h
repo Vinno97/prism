@@ -21,7 +21,7 @@ class PrismGame : public Game
 	void onUpdate(Context &context) override;
 	void onEnter(Context & context) override;
 	void onLeave(Context & context) override;
-	void toggleNightmare();
+	void toggleNightmare(Context & context);
 
   private:
 	ECS::EntityManager entityManager;
@@ -41,7 +41,7 @@ class PrismGame : public Game
 	bool canPressEscape;
 	bool canPressF3;
 	bool showFPS;
-	bool isNightmareMode = false;
+	bool isNightmareMode;
 	void registerSystems(Context &context);
 	void toggleFPS(Context &context);
 	void loadAudio(Context &context) const;

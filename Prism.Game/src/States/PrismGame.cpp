@@ -182,6 +182,8 @@ namespace States {
 		context.audioManager->addSound("EnemyKill", "EnemyKill.wav");
 		context.audioManager->addSound("Resource", "ResourceGathering.wav");
 		context.audioManager->addSound("Heartbeat", "Heartbeat.wav");
+		context.audioManager->addSound("NightmareOn", "NightmareModeOn.wav");
+		context.audioManager->addSound("NightmareOff", "NightmareModeOff.wav");
 	}
 
 	void PrismGame::onEnter(Context &context) {
@@ -231,12 +233,14 @@ namespace States {
 
 	void PrismGame::onLeave(Context &context) {
 	}
-	void PrismGame::toggleNightmare()
+	void PrismGame::toggleNightmare(Context &context)
 	{
 		if (!isNightmareMode) {
+			context.audioManager->playSound("NightmareOn", 0);
 			isNightmareMode = true;
 		}
 		else {
+			context.audioManager->playSound("NightmareOff", 0);
 			isNightmareMode = false;
 		}
 	}
