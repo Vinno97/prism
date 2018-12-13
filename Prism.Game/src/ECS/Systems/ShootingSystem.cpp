@@ -39,7 +39,7 @@ namespace ECS {
 						auto entityAppearance = entityManager->getComponent<AppearanceComponent>(entity.id);
 						auto projectileAppearance = entityManager->getComponent<AppearanceComponent>(projectileId);
 						projectileAppearance->color = entityAppearance->color;
-						pointLight->color = Math::Vector3f(entityAppearance->color.x * 1.2, entityAppearance->color.y * 1.2, entityAppearance->color.z * 1.2);;
+						pointLight->color = Math::Vector3f(entityAppearance->color.x, entityAppearance->color.y, entityAppearance->color.z);
 						context.audioManager->playSound("Bullet", 0);
 					}
 					entityManager->getComponent<BulletComponent>(projectileId)->lifeTime = 2;
