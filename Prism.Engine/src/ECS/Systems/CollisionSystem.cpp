@@ -57,9 +57,6 @@ void CollisionSystem::update(Context& context)
 					boundingBoxComponent->collidesWith.push_back(boundingBoxMap[currentBox]);
 				}
 			}
-			//if (boundingBoxComponent->didCollide) {
-			//	int k = 5;
-			//}
 		}
 	}
 	quadTree.Clear();
