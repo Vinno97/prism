@@ -116,7 +116,7 @@ void main() {
 	shadowCoordTemp = shadowCoordTemp * 0.5 + 0.5; 
 	vec4 shadowCoord = vec4(shadowCoordTemp, 1.0);
 	
-	float bias = 0.0005;
+	float bias = 0.005;
 	float t1 = texture(gShadowMap, shadowCoord.xy).r;
 	float t2 = shadowCoord.z-bias;
 	float visibility = 1.0;
@@ -126,7 +126,7 @@ void main() {
 	
 	for (int i=0;i<4;i++){
 	  if ( texture( gShadowMap, shadowCoord.xy + poissonDisk[i]/4000.0 ).r  <  shadowCoord.z-bias ){
-		visibility-=0.3;
+		visibility-=0.35;
 	  }
 	}
 	
