@@ -10,6 +10,7 @@ using namespace Renderer::Graphics;
 namespace Renderer {
 	namespace Graphics {
 		namespace OpenGL {
+
 			OGLFragmentShader::OGLFragmentShader(const char* source)
 			{
 				fragmentID = glCreateShader(GL_FRAGMENT_SHADER);

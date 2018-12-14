@@ -20,7 +20,7 @@ namespace ECS {
 					Renderer::Animation key = it->first;
 
 					if (animationComponent->currentAnimations[key] > 0) {
-						animationComponent->currentAnimations[key] -= context.deltaTime;
+						animationComponent->currentAnimations[key] -= context.deltaTime/100;
 					}
 				}
 			}

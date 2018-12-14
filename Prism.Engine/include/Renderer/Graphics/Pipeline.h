@@ -35,7 +35,7 @@ namespace Renderer {
 			/// <summary>
 			/// Set the uniform to a specific integer
 			/// </summary> 
-			virtual bool setUniformInt(const char* name, const int value) = 0;
+			virtual bool setUniformInt(const char* name, int value) = 0;
 
 			/// <summary>
 			/// Set the uniform to a specific float 

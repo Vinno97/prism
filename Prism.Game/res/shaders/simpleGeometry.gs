@@ -3,11 +3,24 @@ layout (triangles) in;
 layout (triangle_strip, max_vertices = 3) out;
 
 uniform float time;
+uniform int isAnimating;
+
+in VS
+{
+    vec3 fragPos;
+	vec3 normal;
+} source[]; //One for each input vertex, but since we're using points, it's just one.
+
+out FS
+{
+    vec3 fragPos;
+	vec3 normal;
+} dest;
 
 vec4 explode(vec4 position, vec3 normal)
 {
     float magnitude = 5.0;
-    vec3 direction = normal * ((sin(time) + 1.0) / 2.0) * magnitude; 
+    vec3 direction = normal * time * magnitude; 
     return position + vec4(direction, 0.0);
 } 
 
@@ -20,13 +33,26 @@ vec3 GetNormal()
 
 void main()
 {
-    vec3 normal = GetNormal();
+	dest.normal = source[0].normal;
+	dest.fragPos = source[0].fragPos;
 
-    gl_Position = explode(gl_in[0].gl_Position, normal);
-    EmitVertex();
-    gl_Position = explode(gl_in[1].gl_Position, normal);
-    EmitVertex();
-    gl_Position = explode(gl_in[2].gl_Position, normal);
-    EmitVertex();
-    EndPrimitive();
+	if(isAnimating == 1) {
+		vec3 normal = GetNormal();
+
+		gl_Position = explode(gl_in[0].gl_Position, normal);
+		EmitVertex();
+		gl_Position = explode(gl_in[1].gl_Position, normal);
+		EmitVertex();
+		gl_Position = explode(gl_in[2].gl_Position, normal);
+		EmitVertex();
+		EndPrimitive();
+	} else {
+		gl_Position = gl_in[0].gl_Position;
+		EmitVertex();
+		gl_Position = gl_in[1].gl_Position;
+		EmitVertex();
+		gl_Position = gl_in[2].gl_Position;
+		EmitVertex();
+		EndPrimitive();
+	}
 } 

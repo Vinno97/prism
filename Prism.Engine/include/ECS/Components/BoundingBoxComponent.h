@@ -17,7 +17,7 @@ namespace ECS {
 			
 			std::unique_ptr<Component> clone() override
 			{
-				auto newComponent = std::make_unique <BoundingBoxComponent>(boundingBox.GetNorth(),boundingBox.GetEast(), boundingBox.GetSouth(),boundingBox.GetWest());
+				auto newComponent = std::make_unique <BoundingBoxComponent>(boundingBox.GetNorthBound(),boundingBox.GetEastBound(), boundingBox.GetSouthBound(),boundingBox.GetWestBound());
 				newComponent->didCollide = this->didCollide;
 				for (int i = 0;i < collidesWith.size();i++) {
 					newComponent->collidesWith.push_back(collidesWith[i]);
@@ -27,4 +27,3 @@ namespace ECS {
 		};
 	}
 }
-

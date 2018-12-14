@@ -32,6 +32,10 @@ void main()
 		distance = 0;
 	}
 	
+	if(offset > 1 && isAnimating) {
+		offset = 1;
+	}
+	
 	dest.normal = source[0].normal;
 	dest.fragPos = source[0].fragPos;
 	

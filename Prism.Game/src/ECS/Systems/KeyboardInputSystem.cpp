@@ -10,6 +10,7 @@
 #include "ECS/Components/HealthComponent.h"
 #include "ECS/Components/KeyboardInputComponent.h"
 #include "Math/Vector3f.h"
+#include "ECS/Components/AnimationComponent.h"
 
 namespace ECS {
 	namespace Systems {
@@ -23,13 +24,31 @@ namespace ECS {
 
 		void KeyboardInputSystem::update(Context& context) {
 			// 1 unit/second^2
-			//double acceleration = 5;
-			double acceleration = 5;
+			//double acceleration = 10;
+			double acceleration = 15;
 
 			auto input = context.inputManager;
 			
 			float dirX = 0;
 			float dirY = 0;
+
+			if(input->isKeyPressed(Key::KEY_L))
+			{
+				auto p = entityManager->getAllEntitiesWithComponent<PlayerComponent>()[0];
+				if (entityManager->hasComponent<AnimationComponent>(p.id))
+				{
+					entityManager->removeComponentFromEntity<AnimationComponent>(p.id);
+				}
+			}
+
+			if (input->isKeyPressed(Key::KEY_I))
+			{
+				auto p = entityManager->getAllEntitiesWithComponent<PlayerComponent>()[0];
+				if (!entityManager->hasComponent<AnimationComponent>(p.id))
+				{
+					entityManager->addComponentToEntity<AnimationComponent>(p.id);
+				}
+			}
 
 
 			for (auto entity : entityManager->getAllEntitiesWithComponent<KeyboardInputComponent>()) {

@@ -1,4 +1,5 @@
 #include "States/PauseState.h"
+#include "States/EndState.h"
 #include "StateMachine.h";
 #include "States/PrismGame.h"
 #include "Renderer/Graphics/RenderDevice.h"
@@ -13,7 +14,13 @@ namespace States {
 
 	void PauseState::onInit(Context & context)
 	{
+		std::function<void()> callbackEndstate = [&context]() { 
+			context.stateMachine->setState<EndState>(context);			
+		};
+
 		menuBuilder.addControl(-0.5, 0, 1, 0.21, "img/pause.png");
+		menuBuilder.addControl(-0.35, -0.5, 0.7, 0.18, "img/QuitGameButton.png", callbackEndstate);
+
 		menu = menuBuilder.buildMenu();
 		Renderer::Graphics::RenderDevice* renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
 		renderDevice->setClearColour(1.f, 1.f, 1.f, 1.f);
@@ -32,9 +39,13 @@ namespace States {
 			canPressEscape = true;
 		}
 
+		if (menu->handleInput(*context.inputManager, context.window->width, context.window->height)) {
+			return;
+		}
+
 		Renderer::Graphics::RenderDevice* renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
 		renderDevice->clearScreen();
-		menuRenderer.renderMenu(menu, float(context.window->width) / float(context.window->height));
+		menuRenderer.renderMenu(*menu, float(context.window->width) / float(context.window->height));
 		context.window->swapScreen();
 	}
 
@@ -45,11 +56,6 @@ namespace States {
 
 	void PauseState::onLeave(Context & context)
 	{
-	}
-
-	PauseState::PauseState(const PauseState & obj)
-	{
-		menu = obj.menu;
 	}
 
 	PauseState::~PauseState()

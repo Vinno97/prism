@@ -12,8 +12,10 @@ namespace Math {
 
 		Vector3f operator+(const Vector3f other);
 		Vector3f operator-(const Vector3f other);
-		
+		Vector3f operator*(const float scale);
+
 		Vector3f normalize();
+		Vector3f invert();
 
 
 		float x;

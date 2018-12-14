@@ -1,6 +1,8 @@
 #pragma once
 #include <glm/glm.hpp>
 #include <tuple>
+#include <map>
+#include "Renderer/Animation.h"
 #include "Math/Vector3f.h"
 #include "Renderer/Graphics/Models/Model.h"
 
@@ -19,5 +21,7 @@ public:
 	std::tuple<float, float, float> rotation;
 	std::tuple<float, float, float> scale;
 	Math::Vector3f color;
+
+	std::map<Renderer::Animation, int> currentAnimations;
 };
 

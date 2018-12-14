@@ -28,11 +28,11 @@ namespace States {
 	{
 		Renderer::Graphics::RenderDevice* renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
 		renderDevice->clearScreen();
-		menuRenderer.renderMenu(menu, float(context.window->width) / float(context.window->height));
+		menuRenderer.renderMenu(*menu, float(context.window->width) / float(context.window->height));
 		context.window->swapScreen();
 
 		auto input = context.inputManager;
-		if (menu.handleInput(*context.inputManager, context.window->width, context.window->height)) {
+		if (menu->handleInput(*context.inputManager, context.window->width, context.window->height)) {
 			return;
 		}
 	}
@@ -43,11 +43,6 @@ namespace States {
 
 	void HelpState::onLeave(Context & context)
 	{
-	}
-
-	HelpState::HelpState(const HelpState & obj)
-	{
-		menu = obj.menu;
 	}
 
 	HelpState::~HelpState()
