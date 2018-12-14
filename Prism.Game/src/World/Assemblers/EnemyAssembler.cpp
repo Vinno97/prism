@@ -7,7 +7,7 @@ using namespace World::Assemblers;
 
 void EnemyAssembler::assemble(int entity, const WorldObject& worldObject, ECS::EntityManager& entityManager) const {
 	if (worldObject.gid == 5) {
-		EntityFactory().createEnemy(entity, entityManager);
+		EntityFactory::getInstance().createEnemy(entity, entityManager);
 	}
 }
 

@@ -7,7 +7,7 @@ using namespace World::Assemblers;
 
 void WallAssembler::assemble(int entity, const WorldObject& worldObject, ECS::EntityManager& entityManager) const {
 	if (worldObject.gid == 6) {
-		EntityFactory().createWall(entity, entityManager);
+		EntityFactory::getInstance().createWall(entity, entityManager);
 	}
 }
 

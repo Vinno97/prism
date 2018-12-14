@@ -20,15 +20,12 @@ namespace ECS {
 
 		void ShootingSystem::update(Context& context)
 		{
-			
-
-			EntityFactory ef = EntityFactory();
 			for (auto entity : entityManager->getAllEntitiesWithComponent<ShootingComponent>()) {
 				auto component = entityManager->getComponent<ShootingComponent>(entity.id);
-				component->pastTime += context.deltaTime;
-				if (component->isShooting && component->pastTime > component->cooldown) {
-					component->pastTime = 0;
-					int projectileId = ef.createProjectile(*entityManager);
+				pastTime += context.deltaTime;
+				if (component->isShooting && pastTime > cooldown) {
+					pastTime = 0;
+					int projectileId = EntityFactory::getInstance().createProjectile(*entityManager);
 					auto position = entityManager->getComponent<PositionComponent>(projectileId);
 					position->x = entityManager->getComponent<PositionComponent>(entity.id)->x + (component->xdirection / 4);
 					position->y = entityManager->getComponent<PositionComponent>(entity.id)->y + (component->ydirection / 4);

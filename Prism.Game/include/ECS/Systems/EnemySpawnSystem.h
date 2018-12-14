@@ -3,6 +3,7 @@
 #include "Context.h"
 #include "ECS/Systems/System.h"
 #include "InputManager.h"
+#include "EntityFactory.h"
 
 namespace ECS {
 	namespace Systems {
