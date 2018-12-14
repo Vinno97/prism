@@ -214,7 +214,7 @@ unsigned EntityFactory::createWall(unsigned entity, EntityManager& entityManager
 	return EntityBuilder(entityManager, entity)
 		.addComponent<WallComponent>()
 		.addComponent<PositionComponent>()
-		.addComponent<BoundingBoxComponent>(1.0, 1.0)
+		.addComponent<BoundingBoxComponent>(1.0, 1.0, 1.0)
 		.addComponent<CollidableComponent>()
 		.addComponent<HealthComponent>(50)
 		.addComponent(appearance)

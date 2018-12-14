@@ -26,6 +26,7 @@ InputManager::InputManager() {
 	keyMap[Key::KEY_PLUS] = SDL_SCANCODE_KP_PLUS;
 	keyMap[Key::KEY_END] = SDL_SCANCODE_END;
 	buttonMap[Key::MOUSE_BUTTON_LEFT] = SDL_BUTTON_LEFT;
+	buttonMap[Key::MOUSE_BUTTON_RIGHT] = SDL_BUTTON_RIGHT;
 }
 
 bool InputManager::isKeyPressed(Key key) const

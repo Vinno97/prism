@@ -12,6 +12,9 @@
 #include "ECS/Components/InventoryComponent.h"
 #include "ECS/Components/CollidableComponent.h"
 #include "ECS/Components/BuildComponent.h"
+#include "ECS/Components/WallComponent.h"
+#include "ECS/Components/TowerComponent.h"
+#include "ECS/Components/MineComponent.h"
 #include <algorithm>
 #include <cmath>
 
@@ -98,15 +101,38 @@ void ECS::Systems::PlaceCurrentBuildSystem::update(Context& context) {
 					}
 				}
 				else {
-					if (!canPlace) {
-						//TODO :: leuk muziekje?
+					appearance->color = CanNotBuildColor;
+
+
+					if (!canPlace && inRange) {
+						auto & colliders = boundingBoxComponent->collidesWith;
+						auto it = std::find_if(colliders.begin(), colliders.end(),
+							[&,this](unsigned int collider) -> bool { return this->isBuilding(collider); });
+					
+						if (it != colliders.end()) {
+							appearance->color = CanRemoveBuildColor;
+							if (context.inputManager->isMouseButtonPressed(Key::MOUSE_BUTTON_RIGHT)) {
+								entityManager->removeEntity(*it);
+							}
+						}						
 					}
 					if (!enoughResources) {
 						//TODO :: leuk muziekje?
 					}
-					appearance->color = CanNotBuildColor;
 				}
 			}
 		}
 	}
+}
+
+bool ECS::Systems::PlaceCurrentBuildSystem::isBuilding(unsigned int id) const
+{
+	if (entityManager->getComponent<WallComponent>(id)) {
+		return true;
+	}else if (entityManager->getComponent<TowerComponent>(id)) {
+		return true;
+	}else if (entityManager->getComponent<MineComponent>(id)) {
+		return true;
+	}
+	return false;
 }
