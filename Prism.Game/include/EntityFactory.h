@@ -26,6 +26,21 @@ public:
 	unsigned createWall(ECS::EntityManager& entityManager) const;
 	unsigned createWall(unsigned entity, ECS::EntityManager& entityManager) const;
 
+	unsigned createCliff(ECS::EntityManager& entityManager, int rotation = 0) const;
+	unsigned createCliff(unsigned entity, ECS::EntityManager& entityManager, int rotation) const;
+
+	unsigned createCliffFiller(ECS::EntityManager& entityManager) const;
+	unsigned createCliffFiller(unsigned entity, ECS::EntityManager& entityManager) const;
+
+	unsigned createCliffCorner(ECS::EntityManager& entityManager, int rotation = 0) const;
+	unsigned createCliffCorner(unsigned entity, ECS::EntityManager& entityManager, int rotation) const;
+
+	unsigned createTree(ECS::EntityManager& entityManager) const;
+	unsigned createTree(unsigned entity, ECS::EntityManager& entityManager) const;
+
+	unsigned createRock(ECS::EntityManager& entityManager) const;
+	unsigned createRock(unsigned entity, ECS::EntityManager& entityManager) const;
+
 	unsigned createMine(ECS::EntityManager& entityManager) const;
 	unsigned createMine(unsigned entity, ECS::EntityManager& entityManager) const;
 

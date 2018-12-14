@@ -5,7 +5,7 @@
 #include "Renderer/Graphics/Pipeline.h"
 #include "Renderer/Graphics/VertexBuffer.h"
 #include "Renderer/Graphics/IndexBuffer.h"
-#include "Renderer/Graphics/Texture.h"
+#include "Renderer/Graphics/Texture.h" 
 #include "Renderer/Graphics/VertexArrayObject.h"
 #include "Renderer/Graphics/RenderTarget.h"
 #include <memory>
@@ -41,6 +41,11 @@ namespace Renderer {
 			virtual std::unique_ptr<VertexBuffer> createVertexBuffer(long size, const void *data) const = 0;
 
 			/// <summary>
+			/// Create a new dynamic vertexbuffer
+			/// </summary>
+			virtual std::unique_ptr<VertexBuffer> createDynamicVertexBuffer() const = 0;
+
+			/// <summary>
 			/// Create a new indexBuffer
 			/// </summary>
 			/// <param name="size">Size of the indice buffer</param>
@@ -55,7 +60,7 @@ namespace Renderer {
 			/// <summary>
 			/// Create a new vertexArrayObject
 			/// </summary>
-			virtual std::unique_ptr<RenderTarget> createRenderTarget(bool useDepthBuffer, std::shared_ptr<Texture> texture) const = 0;
+			virtual std::unique_ptr<RenderTarget> createRenderTarget(bool useDepthBuffer, int width, int height) const = 0;
 
 			/// <summary>
 			/// Create a new texture with image path
@@ -63,9 +68,14 @@ namespace Renderer {
 			virtual std::shared_ptr<Texture> createTexture(const char* path) const = 0;
 
 			/// <summary>
+			/// Create a new texture with width and height
+			/// </summary>
+			virtual std::shared_ptr<Texture> createTexture(int width, int height, unsigned char* pixels, bool useRGB) const = 0;
+
+			/// <summary>
 			/// Create a new texture 
 			/// </summary>
-			virtual std::shared_ptr<Texture> createTexture() const = 0;
+			virtual std::shared_ptr<Texture> createTexture(bool depth, int width, int height) const = 0;
 
 			/// <summary>
 			/// Set the colour that the screen will be cleared with

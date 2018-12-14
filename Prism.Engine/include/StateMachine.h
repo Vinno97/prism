@@ -49,7 +49,6 @@ public:
 	template<typename T, typename...Fs, typename = std::enable_if_t < std::is_base_of<State, T>::type::value>>
 	void addState(Context & context, Fs&&... fs )
 	{
-
 		const std::type_index type{ std::type_index(typeid(T)) };
 
 		if (hasState(type)) {

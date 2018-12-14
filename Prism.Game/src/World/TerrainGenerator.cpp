@@ -30,7 +30,7 @@ namespace World {
 		float i = 0;
 		for (int y = 0; y < height; y++) {
 			for (int x = 0; x < width; x++) {
-				heightMap[y][x] = distribution(generator)/10;
+				heightMap[y][x] = 0;
 			}
 		}
 
@@ -60,12 +60,12 @@ namespace World {
 		auto verticesSize = positions.size() * sizeof(float);
 		float* verticesArray = positions.data();
 		std::unique_ptr<VertexBuffer> vertexBuffer = renderDevice->createVertexBuffer(verticesSize, verticesArray);
-		vertexArrayObject->addVertexBuffer(move(vertexBuffer), 0, 3 * sizeof(float), 0, 3);
+		vertexArrayObject->addVertexBuffer(vertexBuffer.get(), 0, 3 * sizeof(float), 0, 3);
 
 		auto normalsSize = normals.size() * sizeof(float);
 		float* normalsArray = normals.data();
 		std::unique_ptr<VertexBuffer> normalBuffer = renderDevice->createVertexBuffer(normalsSize, normalsArray);
-		vertexArrayObject->addVertexBuffer(move(normalBuffer), 1, 3 * sizeof(float), 0, 3);
+		vertexArrayObject->addVertexBuffer(normalBuffer.get(), 1, 3 * sizeof(float), 0, 3);
 
 		std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>(move(vertexArrayObject));
 		mesh->isIndiced = false;

@@ -42,7 +42,7 @@ namespace ECS {
 							if (entityManager->hasComponent<PlayerComponent>(vector[i])) {
 								updateEntity(vector[i], context);
 								updateEntity(entity.id, context);
-								context.audioManager->playSound("EnemyKill");
+								context.audioManager->playSound("EnemyKill", 0);
 							}
 						}
 					}
@@ -60,10 +60,10 @@ namespace ECS {
 			if (entityManager->hasComponent<HealthComponent>(id)) {
 				auto currentComponent = entityManager->getComponent<HealthComponent>(id);
 
-				currentComponent->health -= 10;
+				currentComponent->currentHealth -= 10;
 
 				// Print (Remove after review)
-				std::cout << "Speler: " << currentComponent->health << std::endl;
+				std::cout << "Speler: " << currentComponent->currentHealth << std::endl;
 			}
 		}
 	}

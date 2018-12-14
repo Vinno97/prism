@@ -2,7 +2,9 @@
 
 #include <memory>
 #include <functional>
+#include <string>
 #include "Menu/Menu.h"
+#include "Menu/TextControl.h"
 #include "Renderer/Graphics/Models/Model.h"
 #include "Renderer/Graphics/Models/Mesh.h"
 #include "Renderer/Graphics/OpenGL/OGLRenderDevice.h"
@@ -13,15 +15,16 @@ namespace Menu {
 	{
 	public:
 		MenuBuilder();
+		TextControl* addTextControl(float x, float y, float scale, Math::Vector3f colour, std::string text);
 		void addControl(float x, float y, float width, float height, const char *path);
 		void addControl(float x, float y, float width, float height, const char *path, std::function<void()> callback_);
-		Menu buildMenu();
+		std::unique_ptr<Menu> buildMenu();
 	private:
 		void initMesh();
 
 		Renderer::Graphics::RenderDevice* renderDevice;
 		std::shared_ptr<Renderer::Graphics::Models::Mesh> mesh;
-		Menu menu;
+		std::unique_ptr<Menu> menu;
 
 		float vertices[8] = {
 			 1.0f,  1.0f,  // top right
