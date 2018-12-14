@@ -12,6 +12,8 @@
 #include "ECS/Components/InventoryComponent.h"
 #include "ECS/Components/CollidableComponent.h"
 #include "ECS/Components/BuildComponent.h"
+#include "EntityFactory.h"
+
 #include <algorithm>
 #include <cmath>
 
@@ -57,17 +59,17 @@ void ECS::Systems::SetCurrentBuildSystem::update(Context& context) {
 				}
 
 				if (key1Pressed && builderComponent->currentBuild != BuildTypes::WALL) {
-					tempBuildId = ef.createWall(*entityManager);
+					tempBuildId = EntityFactory::getInstance().createWall(*entityManager);
 					builderComponent->currentBuild = BuildTypes::WALL;
 					builderComponent->isBuilding = true;
 				}
 				else if (key2Pressed && builderComponent->currentBuild != BuildTypes::TOWER) {
-					tempBuildId = ef.createTower(*entityManager);
+					tempBuildId = EntityFactory::getInstance().createTower(*entityManager);
 					builderComponent->currentBuild = BuildTypes::TOWER;
 					builderComponent->isBuilding = true;
 				}
 				else if (key3Pressed && builderComponent->currentBuild != BuildTypes::MINE) {
-					tempBuildId = ef.createMine(*entityManager);
+					tempBuildId = EntityFactory::getInstance().createMine(*entityManager);
 					builderComponent->currentBuild = BuildTypes::MINE;
 					builderComponent->isBuilding = true;
 				} 

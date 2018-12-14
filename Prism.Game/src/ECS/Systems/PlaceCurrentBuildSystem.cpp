@@ -15,6 +15,7 @@
 #include "ECS/Components/WallComponent.h"
 #include "ECS/Components/TowerComponent.h"
 #include "ECS/Components/MineComponent.h"
+#include "EntityFactory.h"
 #include <algorithm>
 #include <cmath>
 
@@ -79,17 +80,17 @@ void ECS::Systems::PlaceCurrentBuildSystem::update(Context& context) {
 					if (context.inputManager->isMouseButtonPressed(Key::MOUSE_BUTTON_LEFT)) {
 						unsigned int tempId;
 						if (builderComponent->currentBuild == BuildTypes::WALL) {
-							tempId = ef.createWall(*entityManager);
+							tempId = EntityFactory::getInstance().createWall(*entityManager);
 							inventory->greenResource -= wallRequirements;
 							//shootDeltaTime = waitTime;
 						}
 						else if (builderComponent->currentBuild == BuildTypes::TOWER) {
-							tempId = ef.createTower(*entityManager);
+							tempId = EntityFactory::getInstance().createTower(*entityManager);
 							inventory->redResource -= towerRequirements;
 							//shootDeltaTime = waitTime;
 						}
 						else if (builderComponent->currentBuild == BuildTypes::MINE) {
-							tempId = ef.createMine(*entityManager);
+							tempId = EntityFactory::getInstance().createMine(*entityManager);
 							inventory->blueResource -= mineRequirements;
 							//shootDeltaTime = waitTime;
 						}
