@@ -40,6 +40,10 @@
     <ClCompile Include="src\World\Assemblers\MineAssembler.cpp" />
     <ClCompile Include="src\ECS\Systems\HealthRegenerationSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\TowerAimingSystem.cpp" />
+    <ClCompile Include="src\States\EndState.cpp" />
+    <ClCompile Include="src\ECS\Systems\EnemySpawnSystem.cpp" />
+    <ClCompile Include="src\ECS\Systems\EnemyPathFindingSystem.cpp" />
+    <ClCompile Include="src\World\Assemblers\EnemySpawnAssembler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ECS\Components\BulletComponent.h" />
@@ -59,7 +63,6 @@
     <ClInclude Include="include\ECS\Systems\BumpSystem.h" />
     <ClInclude Include="include\ECS\Systems\ResourceBlobSystem.h" />
     <ClInclude Include="include\ECS\Systems\ResourceGatherSystem.h" />
-    <ClInclude Include="include\EntityFactory.h" />
     <ClInclude Include="include\States\PrismGame.h" />
     <ClInclude Include="include\World\Assemblers\EnemyAssembler.h" />
     <ClInclude Include="include\World\Assemblers\PlayerAssembler.h" />
@@ -147,6 +150,16 @@
     <ClCompile Include="src\States\PrismGame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClInclude Include="include\ECS\Components\EnemySpawnComponent.h" />
+    <ClInclude Include="include\ECS\Systems\EnemyPathFindingSystem.h" />
+    <ClInclude Include="include\ECS\Systems\EnemySpawnSystem.h" />
+    <ClInclude Include="include\States\EndState.h" />
+    <ClInclude Include="include\World\Assemblers\EnemySpawnAssembler.h" />
+    <ClInclude Include="include\EntityFactory.h" />
+    <ClInclude Include="include\ECS\Components\EnemySpawnComponent.h" />
+    <ClInclude Include="include\ECS\Systems\EnemyPathFindingSystem.h" />
+    <ClInclude Include="include\ECS\Systems\EnemySpawnSystem.h" />
+    <ClInclude Include="include\World\Assemblers\EnemySpawnAssembler.h" />
     <ClInclude Include="include\States\EndState.h" />
     <ClInclude Include="include\States\CreditsState.h" />
     <ClInclude Include="include\ECS\Systems\GameOverSystem.h" />

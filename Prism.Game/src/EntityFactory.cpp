@@ -49,6 +49,19 @@
 #include <time.h>
 #include "Renderer/Graphics/Loader/ModelLoader.h"
 #include "World/TerrainGenerator.h"
+#include "ECS/Components/BulletComponent.h"
+#include "ECS/Components/ProjectileAttackComponent.h"
+#include <World/TerrainGenerator.h>
+#include "ECS/Components/BoundingBoxComponent.h"
+#include "ECS/Components/CameraComponent.h"
+#include "ECS/Components/MousePointerComponent.h"
+#include <World/TerrainGenerator.h>
+#include "ECS/Components/EnemySpawnComponent.h"
+#include "ECS/Components/InventoryComponent.h"
+#include "ECS/Components/ResourceGatherComponent.h"
+#include "ECS/Components/ResourceBlobComponent.h"
+#include "ECS/Components/HealthComponent.h"
+#include "Renderer/Camera.h"
 
 using namespace ECS;
 using namespace ECS::Components;
@@ -61,10 +74,8 @@ unsigned EntityFactory::createPlayer(EntityManager& entityManager) const
 	return createPlayer(entityManager.createEntity(), entityManager);
 }
 
-unsigned EntityFactory::createPlayer(unsigned entity, EntityManager& entityManager) const
-{
-	Renderer::Graphics::Loader::ModelLoader ml;
-	auto model = ml.loadModel("./res/player.obj");
+unsigned EntityFactory::createPlayer(unsigned entity, EntityManager& entityManager) const {
+	auto model = modelLoader.loadModel("./res/player.obj");
 
 	AppearanceComponent appearance;
 	appearance.scaleX = 0.002f;
@@ -97,8 +108,7 @@ unsigned EntityFactory::createEnemy(EntityManager& entityManager) const
 
 unsigned EntityFactory::createEnemy(unsigned entity, EntityManager& entityManager) const
 {
-	Renderer::Graphics::Loader::ModelLoader ml;
-	auto model = ml.loadModel("./res/uglyenemy.obj");
+	auto model = modelLoader.loadModel("./res/uglyenemy.obj");
 
 	AppearanceComponent appearance;
 	appearance.color = Math::Vector3f{ 0.22, 0.22, 0.22 };
@@ -131,8 +141,7 @@ unsigned EntityFactory::createResourcePoint(unsigned entity, EntityManager& enti
 	Enums::ResourceType type, int gatherRate,
 	float value) const
 {
-	Renderer::Graphics::Loader::ModelLoader ml;
-	auto model = ml.loadModel("./res/resource2.obj");
+	auto model = modelLoader.loadModel("./res/resource2.obj");
 
 	AppearanceComponent appearance;
 	appearance.scaleX = 0.002f;
@@ -166,8 +175,7 @@ unsigned EntityFactory::createTower(EntityManager& entityManager) const
 
 unsigned EntityFactory::createTower(unsigned entity, EntityManager& entityManager) const
 {
-	Renderer::Graphics::Loader::ModelLoader ml;
-	auto model = ml.loadModel("./res/wall.obj");
+	auto model = modelLoader.loadModel("./res/wall.obj");
 
 	AppearanceComponent appearance;
 	appearance.scaleX = 0.5f;
@@ -192,8 +200,7 @@ unsigned EntityFactory::createWall(EntityManager& entityManager) const
 
 unsigned EntityFactory::createWall(unsigned entity, EntityManager& entityManager) const
 {
-	Renderer::Graphics::Loader::ModelLoader ml;
-	auto model = ml.loadModel("./res/wall.obj");
+	auto model = modelLoader.loadModel("./res/wall.obj");
 
 	AppearanceComponent appearance;
 	appearance.scaleX = 0.5f;
@@ -333,8 +340,7 @@ unsigned EntityFactory::createMine(EntityManager& entityManager) const
 
 unsigned EntityFactory::createMine(unsigned entity, EntityManager& entityManager) const
 {
-	Renderer::Graphics::Loader::ModelLoader ml;
-	auto model = ml.loadModel("./res/uglyenemy.obj");
+	auto model = modelLoader.loadModel("./res/uglyenemy.obj");
 
 	AppearanceComponent appearance;
 	appearance.scaleX = 0.005f;
@@ -368,8 +374,7 @@ unsigned EntityFactory::createProjectile(EntityManager& entityManager) const
 
 unsigned EntityFactory::createProjectile(unsigned entity, EntityManager& entityManager) const
 {
-	Renderer::Graphics::Loader::ModelLoader ml;
-	auto model = ml.loadModel("./res/projectile.obj");
+	auto model = modelLoader.loadModel("./res/projectile.obj");
 
 	AppearanceComponent appearance;
 	appearance.scaleX = 0.1f;
@@ -401,9 +406,8 @@ unsigned EntityFactory::createFloor(unsigned entity, EntityManager& entityManage
 	const int height{ 150 };
 	const float scale{ 0.5 };
 
-	Renderer::Graphics::Loader::ModelLoader ml;
-	auto model =
-		World::TerrainGenerator().generateTerrain(width / scale, height / scale);
+	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
+	auto model = World::TerrainGenerator().generateTerrain(width / scale, height / scale);
 
 	AppearanceComponent appearance;
 	appearance.translationX -= 6.25;
@@ -437,7 +441,7 @@ unsigned EntityFactory::createResourceBlob(unsigned entity,
 	ECS::EntityManager& entityManager,
 	Enums::ResourceType type, float value) const
 {
-	Renderer::Graphics::Loader::ModelLoader ml;
+	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
 	auto model = ml.loadModel("./res/blob.obj");
 
 	AppearanceComponent appearance;
@@ -489,9 +493,8 @@ unsigned EntityFactory::createEnemySpawn(unsigned entity,
 	ECS::EntityManager& entityManager,
 	float spawnInterval, bool enabled) const
 {
-	Renderer::Graphics::Loader::ModelLoader ml;
-	auto model = ml.loadModel("./res/spawner.obj");
-
+	auto model = modelLoader.loadModel("./res/spawner.obj");
+	
 	AppearanceComponent appearance;
 	appearance.scaleX = 0.15f;
 	appearance.scaleY = 0.15f;

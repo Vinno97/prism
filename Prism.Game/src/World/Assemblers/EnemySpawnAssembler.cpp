@@ -19,7 +19,7 @@ void EnemySpawnAssembler::assemble(int entity, const WorldObject& worldObject, E
 			enabled = std::stoi(worldObject.additionalProperties.at("enabled").value);
 		}
 
-		EntityFactory().createEnemySpawn(entity, entityManager, spawnInterval, enabled);
+		EntityFactory::getInstance().createEnemySpawn(entity, entityManager, spawnInterval, enabled);
 	}
 }
 
