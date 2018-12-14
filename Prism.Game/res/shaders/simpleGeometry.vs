@@ -5,13 +5,15 @@ uniform mat4 model;
 uniform mat4 view;
 uniform mat4 proj; 
 
-out vec3 fragPos;
-out vec3 normal;
-
+out VS
+{
+	out vec3 fragPos;
+	out vec3 normal;
+} dest;
 
 void main() { 
 	gl_Position = proj * view * model * vec4(aPos.x, aPos.y, aPos.z, 1 ); 
-	fragPos = vec3(model * vec4(aPos, 1.0));
+	dest.fragPos = vec3(model * vec4(aPos, 1.0));
 	vec3 Normal = mat3(transpose(inverse(model))) * aNormal;  
-	normal = Normal;
+	dest.normal = Normal;
 }

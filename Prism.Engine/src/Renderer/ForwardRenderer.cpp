@@ -73,6 +73,7 @@ namespace Renderer {
 			geometryPipeline->setUniformMatrix4f("view", view);
 			geometryPipeline->setUniformMatrix4f("proj", projection);
 			geometryPipeline->setUniformMatrix4f("model", model);
+			geometryPipeline->setUniformInt("isAnimating", 0);
 			geometryPipeline->setUniformFloat("time", float(i));
 			
 

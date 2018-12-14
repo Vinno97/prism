@@ -33,6 +33,11 @@ namespace Renderer {
 			virtual bool setUniformVector(const char* name, float x, float y, float z) = 0;
 
 			/// <summary>
+			/// Set the uniform to a specific integer
+			/// </summary> 
+			virtual bool setUniformInt(const char* name, const int value) = 0;
+
+			/// <summary>
 			/// Set the uniform to a specific float 
 			/// </summary> 
 			virtual bool setUniformFloat(const char* name, float value) = 0;

@@ -21,6 +21,7 @@ namespace Renderer {
 				bool createUniform(const char* name) override;
 				bool setUniformMatrix4f(const char* name, glm::mat4 matrix) override;
 				bool setUniformVector(const char* name, float x, float y, float z) override;
+				bool setUniformInt(const char* name, const int value) override;
 				bool setUniformFloat(const char* name, float value) override;
 				std::map<std::string, int> uniforms;
 			};

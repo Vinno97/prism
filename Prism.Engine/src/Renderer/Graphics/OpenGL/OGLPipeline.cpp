@@ -104,6 +104,13 @@ namespace Renderer {
 				return true;
 			}
 
+			bool OGLPipeline::setUniformInt(const char* name, const int value)
+			{
+				int id = uniforms[name];
+				glUniform1i(id, value);
+				return true;
+			}
+
 			bool OGLPipeline::setUniformFloat(const char * name, float value)
 			{
 				int id = uniforms[name];

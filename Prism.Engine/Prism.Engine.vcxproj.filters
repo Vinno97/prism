@@ -56,6 +56,7 @@
     <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLRenderTarget.cpp" />
     <ClCompile Include="src\Util\AdvertisementSystem.cpp" />
     <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLGeometryShader.cpp" />
+    <ClCompile Include="src\ECS\Systems\GeometryAnimationSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ECS\Components\HealthComponent.h" />
@@ -158,6 +159,9 @@
     <ClInclude Include="include\Util\AdvertisementSystem.h" />
     <ClInclude Include="include\Renderer\Graphics\GeometryShader.h" />
     <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLGeometryShader.h" />
+    <ClInclude Include="include\ECS\Components\AnimationComponent.h" />
+    <ClInclude Include="include\Renderer\Animation.h" />
+    <ClInclude Include="include\ECS\Systems\GeometryAnimationSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\x64\SDL2test.lib" />
