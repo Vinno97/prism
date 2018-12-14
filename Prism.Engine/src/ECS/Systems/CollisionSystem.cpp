@@ -49,6 +49,7 @@ void CollisionSystem::update(Context& context)
 
 			std::list<Physics::BoundingBox const *> boundingBoxes;
 			quadTree.RetrieveAll(boundingBoxes, boundingBoxComponent->boundingBox);
+			boundingBoxComponent->boundingBox.SetPosXYZ(position->x, position->y,position->z);
 
 			for (const auto& currentBox : boundingBoxes) {
 				auto k = aabbCollider.CheckCollision(boundingBoxComponent->boundingBox, *currentBox);
