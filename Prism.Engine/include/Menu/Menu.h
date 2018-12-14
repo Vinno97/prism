@@ -8,17 +8,21 @@
 #include "InputManager.h"
 
 namespace Menu {
-	class Menu
-	{
-	public:
-		Menu()=default;
-		std::vector<Control> controls;
-		std::vector<std::unique_ptr<TextControl>> textControls;
-		std::shared_ptr<Renderer::Graphics::Models::Mesh> mesh;
+    class Menu {
+    public:
+        Menu() = default;
 
-		bool handleInput(InputManager& input, int height, int width);
+        std::vector<Control> controls;
+        std::vector<std::unique_ptr<TextControl>> textControls;
+        std::shared_ptr<Renderer::Graphics::Models::Mesh> mesh;
 
-		~Menu();
-		void cleanup();
-	};
+        bool handleInput(InputManager &input, int height, int width);
+
+        ~Menu();
+
+        void cleanup();
+
+    private:
+        bool isHandlingClicks{true};
+    };
 }
