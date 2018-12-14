@@ -20,6 +20,7 @@ namespace ECS {
 			{
 				auto newComponent = std::make_unique <BoundingBoxComponent>(boundingBox.GetNorthBound(),boundingBox.GetEastBound(), boundingBox.GetSouthBound(),boundingBox.GetWestBound(),boundingBox.GetUp(),boundingBox.GetDown());
 				newComponent->didCollide = this->didCollide;
+				newComponent->boundingBox.SetPosXYZ(this->boundingBox.GetPosX(), this->boundingBox.GetPosY(), this->boundingBox.GetPosZ());
 				for (int i = 0;i < collidesWith.size();i++) {
 					newComponent->collidesWith.push_back(collidesWith[i]);
 				}

@@ -5,6 +5,12 @@
 #include "ECS/Components/PlayerComponent.h"
 #include "ECS/Components/DynamicComponent.h"
 
+
+
+#include "ECS/Components/BuildComponent.h"
+#include "ECS/Components/ProjectileAttackComponent.h"
+#include "ECS/Components/EnemyComponent.h"
+
 using namespace ECS;
 using namespace ECS::Components;
 using namespace ECS::Systems;
@@ -22,7 +28,17 @@ void BumpSystem::update(Context& context)
 		if(boundingBoxComponent != nullptr){
 			auto & collisions = boundingBoxComponent->collidesWith;
 
+
 			if (collisions.size() > 0) {
+				auto z = entityManager->getAllEntitiesWithComponent<PlayerComponent>()[0].id;
+				auto x = entityManager->getComponent<BuildComponent>(z);
+
+				auto v = entityManager->getComponent<ProjectileAttackComponent>(entity.id);
+				auto e = entityManager->getComponent<EnemyComponent>(boundingBoxComponent->collidesWith[0]);
+				if (v != nullptr){ //&& e ==nullptr) {
+					std::cout << "cunt!!!!!!!";
+				}
+
 				auto currentPosition = entityManager->getComponent<PositionComponent>(entity.id);
 				auto currentVelocity = entityManager->getComponent<VelocityComponent>(entity.id);
 				if (currentPosition != nullptr && currentVelocity != nullptr) {
