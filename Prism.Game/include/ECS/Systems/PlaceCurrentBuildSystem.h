@@ -15,7 +15,7 @@ namespace ECS {
 			PlaceCurrentBuildSystem(EntityManager &entityManager, float wallRequirements, float towerRequirements, float mineRequirements , float buildRange);
 			~PlaceCurrentBuildSystem();
 			void update(Context& context) override;
-			bool isBuilding(unsigned int id) const;
+			
 		private:
 			EntityFactory ef;
 			Math::Vector3f canBuildColor = Math::Vector3f{ 0.5f, 1.0f, 1.0f };
@@ -26,6 +26,7 @@ namespace ECS {
 			float towerRequirements;
 			float mineRequirements;
 			float buildRange;
+			bool isBuilding(unsigned int id) const;
 		};
 	}
 }

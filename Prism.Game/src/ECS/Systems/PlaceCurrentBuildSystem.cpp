@@ -102,8 +102,6 @@ void ECS::Systems::PlaceCurrentBuildSystem::update(Context& context) {
 				}
 				else {
 					appearance->color = CanNotBuildColor;
-
-
 					if (!canPlace && inRange) {
 						auto & colliders = boundingBoxComponent->collidesWith;
 						auto it = std::find_if(colliders.begin(), colliders.end(),
@@ -115,9 +113,6 @@ void ECS::Systems::PlaceCurrentBuildSystem::update(Context& context) {
 								entityManager->removeEntity(*it);
 							}
 						}						
-					}
-					if (!enoughResources) {
-						//TODO :: leuk muziekje?
 					}
 				}
 			}

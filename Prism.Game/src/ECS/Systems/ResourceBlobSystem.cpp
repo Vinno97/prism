@@ -9,8 +9,11 @@
 #include "ECS/Components/InventoryComponent.h"
 #include "ECS/Components/PositionComponent.h"
 #include "ECS/Components/TargetComponent.h"
+#include "ECS/Components/ResourceGatherComponent.h"
 #include "Enums/ResourceTypeEnum.h"
 #include "Util/DistanceUtil.h"
+#include <algorithm>
+
 
 namespace ECS {
 	namespace Systems {
@@ -26,8 +29,25 @@ namespace ECS {
 
 			for (auto blob : resouceBlobs) {
                 auto target = entityManager->getComponent<TargetComponent>(blob.id);
+				
 				auto blobPosition = entityManager->getComponent<PositionComponent>(blob.id);
                 auto targetLocation = entityManager->getComponent<PositionComponent>(target->target);
+
+				//When the target gets lost search for a new target
+				if (targetLocation == nullptr) {
+					Math::Vector2<double> spawnPos = *entityManager->getComponent<PositionComponent>(blob.id);
+					auto resourceGatherers = entityManager->getAllEntitiesWithComponent<ResourceGatherComponent>();
+					auto gatherer = std::min_element(resourceGatherers.begin(), resourceGatherers.end(), [&](auto e1, auto e2) {
+						Math::Vector2<double> pos1 = *entityManager->getComponent<PositionComponent>(e1.id);
+						Math::Vector2<double> pos2 = *entityManager->getComponent<PositionComponent>(e2.id);
+						return Math::distance(spawnPos, pos1) < Math::distance(spawnPos, pos2);
+					});
+					target->target = gatherer->id;
+					targetLocation = entityManager->getComponent<PositionComponent>(target->target);
+				}
+
+
+
 
 				auto blobVelocity = entityManager->getComponent<VelocityComponent>(blob.id);
 				auto direction = Math::Vector3f{ float(targetLocation->x - blobPosition->x), float(targetLocation->y - blobPosition->y), 0.f };

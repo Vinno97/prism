@@ -163,6 +163,7 @@
     <ClInclude Include="include\ECS\Components\PointLightComponent.h" />
     <ClInclude Include="include\ECS\Components\CollidableComponent.h" />
     <ClInclude Include="include\ECS\Components\PlayerComponent.h" />
+    <ClInclude Include="include\Math\Vector2.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\x64\SDL2test.lib" />

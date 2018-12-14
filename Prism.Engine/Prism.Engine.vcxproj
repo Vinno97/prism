@@ -17,6 +17,7 @@
     <ClInclude Include="include\ECS\EntityBuilder.h" />
     <ClInclude Include="include\ECS\Components\PointLightComponent.h" />
     <ClInclude Include="include\ECS\Components\CollidableComponent.h" />
+    <ClInclude Include="include\Math\Vector2.h" />
     <ClInclude Include="include\Menu\Control.h" />
     <ClInclude Include="include\Menu\TextControl.h" />
     <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLRenderTarget.h" />
