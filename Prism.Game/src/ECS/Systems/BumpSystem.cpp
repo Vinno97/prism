@@ -34,7 +34,7 @@ void BumpSystem::update(Context& context)
 					bool yCol = false;
 
 					for (auto& colliderId : collisions) {
-						if (entityManager->hasComponent<PositionComponent>(colliderId)) {
+						if (entityManager->hasComponent<PositionComponent>(colliderId) && entityManager->hasComponent<BoundingBoxComponent>(colliderId)) {
 							auto colliderPosition = entityManager->getComponent<PositionComponent>(colliderId);
 
 							//Various checks for collisions. Only in theses situations does the collisions need to be resolved

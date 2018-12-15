@@ -3,7 +3,7 @@ layout (triangles) in;
 layout (triangle_strip, max_vertices = 3) out;
 
 uniform float time;
-uniform int isAnimating;
+uniform int isExpanding;
 
 in VS
 {
@@ -36,7 +36,7 @@ void main()
 	dest.normal = source[0].normal;
 	dest.fragPos = source[0].fragPos;
 
-	if(isAnimating == 1) {
+	if(isExpanding == 1) {
 		vec3 normal = GetNormal();
 
 		gl_Position = explode(gl_in[0].gl_Position, normal);

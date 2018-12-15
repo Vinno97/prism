@@ -95,14 +95,16 @@ namespace Renderer {
 			geometryPipeline->setUniformMatrix4f("proj", projection);
 			geometryPipeline->setUniformMatrix4f("model", model);
 
-			if (!renderable.currentAnimations.empty()) {
-				geometryPipeline->setUniformInt("isAnimating", 1);
-				geometryPipeline->setUniformFloat("time", renderable.currentAnimations.at(Animation::Expand));
-			} else
-			{
-				geometryPipeline->setUniformInt("isAnimating", 0);
-				geometryPipeline->setUniformFloat("time", float(3));
-			}
+		if (renderable.currentAnimations.count(Animation::Expand)) {
+			geometryPipeline->setUniformInt("isExpanding", 1);
+			float x = std::get<0>(renderable.currentAnimations.at(Animation::Expand)) / (100 - 0);
+			float result = 0 + (1 - 0) * x;
+			geometryPipeline->setUniformFloat("time", 1-result);
+		} else
+		{
+			geometryPipeline->setUniformInt("isExpanding", 0);
+			geometryPipeline->setUniformFloat("time", float(3));
+		}
 
 			
 			geometryPipeline->setUniformVector("objectColor", renderable.color.x, renderable.color.y, renderable.color.z);
@@ -139,10 +141,10 @@ namespace Renderer {
 			shadowPipeline->setUniformMatrix4f("proj", shadowProjection);
 			shadowPipeline->setUniformMatrix4f("model", model);
 			if (!renderable.currentAnimations.empty()) {
-				shadowPipeline->setUniformInt("isAnimating", 1);
+				shadowPipeline->setUniformInt("isExpanding", 1);
 			} else
 			{
-				shadowPipeline->setUniformInt("isAnimating", 0);
+				shadowPipeline->setUniformInt("isExpanding", 0);
 			}
 
 			renderable.model->mesh->vertexArrayObject->bind();
@@ -262,7 +264,7 @@ namespace Renderer {
 		geometryPipeline->createUniform("view");
 		geometryPipeline->createUniform("proj");
 		geometryPipeline->createUniform("time");
-		geometryPipeline->createUniform("isAnimating");
+		geometryPipeline->createUniform("isExpanding");
 
 		//Setup quad shaders
 		vertexSource = fileReader.readResourceFileIntoString("/shaders/quadShader.vs");
@@ -326,6 +328,6 @@ namespace Renderer {
 		shadowPipeline->createUniform("model");
 		shadowPipeline->createUniform("view");
 		shadowPipeline->createUniform("proj");
-		shadowPipeline->createUniform("isAnimating");
+		shadowPipeline->createUniform("isExpanding");
 	}
 }

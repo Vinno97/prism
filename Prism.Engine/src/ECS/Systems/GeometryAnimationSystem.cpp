@@ -15,12 +15,22 @@ namespace ECS {
 			for (auto target : targets)
 			{
 				auto animationComponent = target.component;
-				for (auto it = animationComponent->currentAnimations.begin(); it != animationComponent->currentAnimations.end(); ++it)
+				//Place incrementation for iterator inside for loop so we can delete whilst iterating
+				for (auto it = animationComponent->currentAnimations.cbegin(); it != animationComponent->currentAnimations.cend(); )
 				{
 					Renderer::Animation key = it->first;
-
-					if (animationComponent->currentAnimations[key] > 0) {
-						animationComponent->currentAnimations[key] -= context.deltaTime/100;
+			
+					if (std::get<0>(animationComponent->currentAnimations[key]) > 0) {
+						std::get<0>(animationComponent->currentAnimations[key]) -= 10.f;
+						++it;
+					} else
+					{
+						if(std::get<1>(animationComponent->currentAnimations[key]))
+						{
+							entityManager->removeEntity(target.id);
+							break;
+						}
+						animationComponent->currentAnimations.erase(it++);
 					}
 				}
 			}

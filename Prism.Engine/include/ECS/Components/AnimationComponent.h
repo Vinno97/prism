@@ -3,6 +3,8 @@
 #include "Component.h"
 #include "Renderer/Animation.h"
 #include <map>
+#include <tuple>
+#include <functional>
 
 namespace ECS
 {
@@ -13,7 +15,11 @@ namespace ECS
 		{
 			AnimationComponent() = default;
 
-			std::map<Renderer::Animation, int> currentAnimations;
+			//Base is 0 (no animation)
+			//Max is always 100
+			//To start animation add new animation to map and set float value anywhere from 0 to 100
+			//Animation will automatically be removed when finished
+			std::map<Renderer::Animation, std::tuple<float, bool>> currentAnimations;
 
 			std::unique_ptr<Component> clone() override
 			{

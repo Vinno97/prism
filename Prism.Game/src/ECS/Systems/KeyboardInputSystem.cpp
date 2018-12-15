@@ -11,6 +11,8 @@
 #include "ECS/Components/KeyboardInputComponent.h"
 #include "Math/Vector3f.h"
 #include "ECS/Components/AnimationComponent.h"
+#include "../../../../Prism.Engine/include/ECS/Components/AnimationComponent.h"
+#include "../../../../Prism.Engine/include/Renderer/Animation.h"
 
 namespace ECS {
 	namespace Systems {
@@ -32,25 +34,6 @@ namespace ECS {
 			float dirX = 0;
 			float dirY = 0;
 
-			if(input->isKeyPressed(Key::KEY_L))
-			{
-				auto p = entityManager->getAllEntitiesWithComponent<PlayerComponent>()[0];
-				if (entityManager->hasComponent<AnimationComponent>(p.id))
-				{
-					entityManager->removeComponentFromEntity<AnimationComponent>(p.id);
-				}
-			}
-
-			if (input->isKeyPressed(Key::KEY_I))
-			{
-				auto p = entityManager->getAllEntitiesWithComponent<PlayerComponent>()[0];
-				if (!entityManager->hasComponent<AnimationComponent>(p.id))
-				{
-					entityManager->addComponentToEntity<AnimationComponent>(p.id);
-				}
-			}
-
-
 			for (auto entity : entityManager->getAllEntitiesWithComponent<KeyboardInputComponent>()) {
 				auto velocity = entityManager->getComponent<VelocityComponent>(entity.id);
 
@@ -70,20 +53,6 @@ namespace ECS {
 				{
 					dirX += acceleration;
 				}
-
-				//	//TODO MOET WAARSCHIJNLIJK ANDERS
-				//	if (input->isMouseButtonPressed(Key::MOUSE_BUTTON_LEFT))
-				//	{
-				//		auto position = entityManager->getComponent<PositionComponent>(entity.id);
-				//		std::vector<int> pos = input->GetMousePoisiton();
-				//		float x = (pos[0] - context.window->width / 2.0)*0.006;
-				//		float y = (pos[1] - context.window->height / 2.0)*0.006;
-				//		velocity->dx = -1 * (position->x - x);
-				//		velocity->dy = -1 * (position->y - y);
-				//		//position->x = x;
-				//		//position->y = y;
-				//	}
-
 
 				if (entityManager->hasComponent<AppearanceComponent>(entity.id)) {
 					auto appearance = entityManager->getComponent<AppearanceComponent>(entity.id);

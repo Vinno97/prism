@@ -45,6 +45,7 @@
 #include "Renderer/PointLight.h"
 #include <functional>
 #include "ECS/Systems/GeometryAnimationSystem.h"
+#include "../../../Prism.Engine/include/ECS/Components/AnimationComponent.h"
 
 namespace States {
 	using namespace ECS;
@@ -132,14 +133,6 @@ namespace States {
 			.registerSystem<5, RenderSystem>(entityManager, context.window->width, context.window->height)
 			.registerSystem<5, HealthRegenerationSystem>(entityManager)
 			.registerSystem<5, GameOverSystem>(entityManager);
-
-
-			auto p = entityManager.getAllEntitiesWithComponent<AnimationComponent>();
-
-			for (auto p1 : p)
-			{
-				p1.component->currentAnimations[Renderer::Animation::Expand] = 20;
-			}
 	}
 
 	void PrismGame::onUpdate(Context &context)
