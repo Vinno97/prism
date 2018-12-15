@@ -18,7 +18,7 @@ namespace ECS {
 		private:
 			Math::Vector3f canBuildColor = Math::Vector3f{ 0.5f, 1.0f, 1.0f };
 			Math::Vector3f CanNotBuildColor = Math::Vector3f{ 1.0f, 0.5f, 0.5f };
-			Math::Vector3f CanRemoveBuildColor = Math::Vector3f{ 0.5f, 1.0f, 0.5f };
+			Math::Vector3f CanRemoveBuildColor = Math::Vector3f{ 1.0f, 0.75f, 0.0f };
 
 			float wallRequirements;
 			float towerRequirements;
