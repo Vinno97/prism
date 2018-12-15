@@ -1,18 +1,12 @@
 #pragma once
-#include <thread>
 #include "Context.h"
 #include "InputManager.h"
-#include <mutex>
 #include "ECS/Systems/KeyboardInputSystem.h"
 #include "ECS/Components/VelocityComponent.h"
 #include "ECS/Components/AppearanceComponent.h"
-#include "ECS/Components/PlayerComponent.h"
-#include "ECS/Components/HealthComponent.h"
 #include "ECS/Components/KeyboardInputComponent.h"
 #include "Math/Vector3f.h"
-#include "ECS/Components/AnimationComponent.h"
-#include "../../../../Prism.Engine/include/ECS/Components/AnimationComponent.h"
-#include "../../../../Prism.Engine/include/Renderer/Animation.h"
+
 
 namespace ECS {
 	namespace Systems {
