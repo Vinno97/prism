@@ -99,11 +99,11 @@ namespace Renderer {
 			geometryPipeline->setUniformInt("isExpanding", 1);
 			float x = std::get<0>(renderable.currentAnimations.at(Animation::Expand)) / (100 - 0);
 			float result = 0 + (1 - 0) * x;
-			geometryPipeline->setUniformFloat("time", 1-result);
+			geometryPipeline->setUniformFloat("expandProgress", 1-result);
 		} else
 		{
 			geometryPipeline->setUniformInt("isExpanding", 0);
-			geometryPipeline->setUniformFloat("time", float(3));
+			geometryPipeline->setUniformFloat("expandProgress", float(3));
 		}
 
 			
@@ -263,7 +263,7 @@ namespace Renderer {
 		geometryPipeline->createUniform("model");
 		geometryPipeline->createUniform("view");
 		geometryPipeline->createUniform("proj");
-		geometryPipeline->createUniform("time");
+		geometryPipeline->createUniform("expandProgress");
 		geometryPipeline->createUniform("isExpanding");
 
 		//Setup quad shaders

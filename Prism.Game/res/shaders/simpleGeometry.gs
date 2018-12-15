@@ -2,7 +2,7 @@
 layout (triangles) in;
 layout (triangle_strip, max_vertices = 3) out;
 
-uniform float time;
+uniform float expandProgress;
 uniform int isExpanding;
 
 in VS
@@ -20,7 +20,7 @@ out FS
 vec4 explode(vec4 position, vec3 normal)
 {
     float magnitude = 5.0;
-    vec3 direction = normal * time * magnitude; 
+    vec3 direction = normal * expandProgress * magnitude; 
     return position + vec4(direction, 0.0);
 } 
 
