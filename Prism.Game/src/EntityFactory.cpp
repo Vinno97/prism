@@ -126,7 +126,7 @@ unsigned EntityFactory::createEnemy(unsigned entity, EntityManager& entityManage
 	    .addComponent<AnimationComponent>()
 	    .addComponent<HealthComponent>(100)
 	    .addComponent<DragComponent>(5.f)
-	    .addComponent<BoundingBoxComponent>(.4, .4)
+	    .addComponent<BoundingBoxComponent>(.4, .4, 2)
 	    .addComponent(appearance)
 	    .getEntity();
 }

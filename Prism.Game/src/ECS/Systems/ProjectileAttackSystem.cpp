@@ -60,7 +60,6 @@ namespace ECS {
 										auto c = entityManager->getComponent<AnimationComponent>(collider);
 										c->currentAnimations[Renderer::Animation::Expand] = std::make_tuple<float, bool>(100.f, true);
 									}
-									entityManager->removeComponentFromEntity<BoundingBoxComponent>(collider);
 									entityManager->removeComponentFromEntity<EnemyComponent>(collider);
 									entityManager->removeComponentFromEntity<VelocityComponent>(collider);
 									entityManager->removeComponentFromEntity<HealthComponent>(collider);
