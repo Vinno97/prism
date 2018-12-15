@@ -30,15 +30,6 @@ void BumpSystem::update(Context& context)
 
 
 			if (collisions.size() > 0) {
-				auto z = entityManager->getAllEntitiesWithComponent<PlayerComponent>()[0].id;
-				auto x = entityManager->getComponent<BuildComponent>(z);
-
-				auto v = entityManager->getComponent<ProjectileAttackComponent>(entity.id);
-				auto e = entityManager->getComponent<EnemyComponent>(boundingBoxComponent->collidesWith[0]);
-				if (v != nullptr){ //&& e ==nullptr) {
-					std::cout << "cunt!!!!!!!";
-				}
-
 				auto currentPosition = entityManager->getComponent<PositionComponent>(entity.id);
 				auto currentVelocity = entityManager->getComponent<VelocityComponent>(entity.id);
 				if (currentPosition != nullptr && currentVelocity != nullptr) {

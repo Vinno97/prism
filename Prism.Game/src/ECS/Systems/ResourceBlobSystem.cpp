@@ -46,9 +46,6 @@ namespace ECS {
 					targetLocation = entityManager->getComponent<PositionComponent>(target->target);
 				}
 
-
-
-
 				auto blobVelocity = entityManager->getComponent<VelocityComponent>(blob.id);
 				auto direction = Math::Vector3f{ float(targetLocation->x - blobPosition->x), float(targetLocation->y - blobPosition->y), 0.f };
 
