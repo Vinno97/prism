@@ -55,46 +55,51 @@ void BumpSystem::update(Context& context)
 							bool cy1 = currentPosition->y > colliderPosition->y && currentVelocity->dy < 0;
 							bool cy2 = currentPosition->y < colliderPosition->y && currentVelocity->dy > 0;
 
-							const auto &colliderBB = entityManager->getComponent<BoundingBoxComponent>(colliderId)->boundingBox;
+							const auto colliderBoundingBoxComponent = entityManager->getComponent<BoundingBoxComponent>(colliderId);
+							
 
-							//Depth of collision on x-axis
-							float xColT = 0.0;
-							//Depth of collision on y-axis
-							float yColT = 0.0;
 
-							if (currentPosition->x > colliderPosition->x) {
-								xColT = std::abs((colliderBB.GetEastCoordinate()) - (currentBB.GetWestCoordinate()));
-							}
-							else if (currentPosition->x < colliderPosition->x) {
-								xColT = std::abs((currentBB.GetEastCoordinate()) - (colliderBB.GetWestCoordinate()));
-							}
+							if (colliderBoundingBoxComponent != nullptr) {
+								const auto &colliderBB = colliderBoundingBoxComponent->boundingBox;
+								//Depth of collision on x-axis
+								float xColT = 0.0;
+								//Depth of collision on y-axis
+								float yColT = 0.0;
 
-							if (currentPosition->y > colliderPosition->y) {
-								yColT = std::abs((colliderBB.GetNorthCoordinate()) - (currentBB.GetSouthCoordinate()));
-								
-							}
-							else if (currentPosition->y < colliderPosition->y) {
-								yColT = std::abs((colliderBB.GetSouthCoordinate()) - (currentBB.GetNorthCoordinate()));
-							}
+								if (currentPosition->x > colliderPosition->x) {
+									xColT = std::abs((colliderBB.GetEastCoordinate()) - (currentBB.GetWestCoordinate()));
+								}
+								else if (currentPosition->x < colliderPosition->x) {
+									xColT = std::abs((currentBB.GetEastCoordinate()) - (colliderBB.GetWestCoordinate()));
+								}
 
-							//The side with the least amount of collision needs te be resolved
-							if (xColT > 0 && yColT > 0) {
-								if (xColT < yColT && (cx1 || cx2)) {
+								if (currentPosition->y > colliderPosition->y) {
+									yColT = std::abs((colliderBB.GetNorthCoordinate()) - (currentBB.GetSouthCoordinate()));
+
+								}
+								else if (currentPosition->y < colliderPosition->y) {
+									yColT = std::abs((colliderBB.GetSouthCoordinate()) - (currentBB.GetNorthCoordinate()));
+								}
+
+								//The side with the least amount of collision needs te be resolved
+								if (xColT > 0 && yColT > 0) {
+									if (xColT < yColT && (cx1 || cx2)) {
+										xCol = true;
+									}
+									else if (yColT < xColT && (cy1 || cy2)) {
+										yCol = true;
+									}
+									else if (xColT == yColT) {
+										xCol = true;
+										yCol = true;
+									}
+								}
+								else if (xColT > 0 && yColT <= 0) {
 									xCol = true;
 								}
-								else if (yColT < xColT && (cy1 || cy2)) {
+								else if (yColT > 0 && xColT <= 0) {
 									yCol = true;
 								}
-								else if (xColT == yColT) {
-									xCol = true;
-									yCol = true;
-								}
-							}
-							else if (xColT > 0 && yColT <= 0) {
-								xCol = true;
-							}
-							else if (yColT > 0 && xColT <= 0) {
-								yCol = true;
 							}
 						}
 					}
