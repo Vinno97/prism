@@ -7,6 +7,8 @@
 #include "ECS/Components/PositionComponent.h"
 #include "Util/DistanceUtil.h"
 #include <cmath>
+#include "ECS/Components/AnimationComponent.h"
+#include "ECS/Components/VelocityComponent.h"
 
 namespace ECS {
 	namespace Systems {
@@ -45,13 +47,23 @@ namespace ECS {
 									entityManager->removeEntity(entity.id);
 								}
 								if (EnemyHealth->currentHealth <= 0) {
-									entityManager->removeEntity(collider);
+
 									Util::DistanceUtil distanceUtil;
 									int BoxX = boundingBoxComponent->boundingBox.GetPosX();
 									int BoxY = boundingBoxComponent->boundingBox.GetPosY();
 									int PlayerX = entityManager->getComponent<PositionComponent>(players[0].id)->x;
 									int PlayerY = entityManager->getComponent<PositionComponent>(players[0].id)->x;
 									context.audioManager->playSound("EnemyKill", distanceUtil.CalculateDistance(BoxX, BoxY, PlayerX, PlayerY));
+
+									if (entityManager->hasComponent<AnimationComponent>(collider))
+									{
+										auto c = entityManager->getComponent<AnimationComponent>(collider);
+										c->currentAnimations[Renderer::Animation::Expand] = std::make_tuple<float, bool>(100.f, true);
+									}
+									entityManager->removeComponentFromEntity<EnemyComponent>(collider);
+									entityManager->removeComponentFromEntity<VelocityComponent>(collider);
+									entityManager->removeComponentFromEntity<HealthComponent>(collider);
+
 									break;
 								}
 							}

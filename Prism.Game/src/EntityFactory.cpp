@@ -49,6 +49,7 @@
 #include <time.h>
 #include "Renderer/Graphics/Loader/ModelLoader.h"
 #include "World/TerrainGenerator.h"
+#include "ECS/Components/AnimationComponent.h"
 #include "ECS/Components/BulletComponent.h"
 #include "ECS/Components/ProjectileAttackComponent.h"
 #include <World/TerrainGenerator.h>
@@ -118,15 +119,16 @@ unsigned EntityFactory::createEnemy(unsigned entity, EntityManager& entityManage
 	appearance.model = std::move(model);
 
 	return EntityBuilder(entityManager, entity)
-		.addComponent<VelocityComponent>()
-		.addComponent<PositionComponent>()
-		.addComponent<EnemyComponent>()
-		.addComponent<DynamicComponent>()
-		.addComponent<HealthComponent>(100)
-		.addComponent<DragComponent>(5.f)
-		.addComponent<BoundingBoxComponent>(.4, .4, 2)
-		.addComponent(appearance)
-		.getEntity();
+	    .addComponent<VelocityComponent>()
+	    .addComponent<PositionComponent>()
+	    .addComponent<EnemyComponent>()
+	    .addComponent<DynamicComponent>()
+	    .addComponent<AnimationComponent>()
+	    .addComponent<HealthComponent>(100)
+	    .addComponent<DragComponent>(5.f)
+	    .addComponent<BoundingBoxComponent>(.4, .4, 2)
+	    .addComponent(appearance)
+	    .getEntity();
 }
 
 unsigned EntityFactory::createResourcePoint(EntityManager& entityManager,
@@ -221,7 +223,7 @@ unsigned EntityFactory::createCliff(EntityManager & entityManager, int rotation)
 	return createCliff(entityManager.createEntity(), entityManager, rotation);
 }
 
-unsigned EntityFactory::createCliff(unsigned entity, EntityManager & entityManager, int rotation) const
+unsigned EntityFactory::createCliff(unsigned entity, EntityManager& entityManager, int rotation) const
 {
 	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
 	auto model = ml.loadModel("./res/cliff_straight.obj");
@@ -244,7 +246,7 @@ unsigned EntityFactory::createCliffFiller(EntityManager & entityManager) const {
 	return createCliffFiller(entityManager.createEntity(), entityManager);
 }
 
-unsigned EntityFactory::createCliffFiller(unsigned entity, EntityManager & entityManager) const
+unsigned EntityFactory::createCliffFiller(unsigned entity, EntityManager& entityManager) const
 {
 	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
 	auto model = ml.loadModel("./res/FillerCliff.obj");
@@ -266,7 +268,7 @@ unsigned EntityFactory::createCliffCorner(EntityManager & entityManager, int rot
 	return createCliffCorner(entityManager.createEntity(), entityManager, rotation);
 }
 
-unsigned EntityFactory::createCliffCorner(unsigned entity, EntityManager & entityManager, int rotation) const
+unsigned EntityFactory::createCliffCorner(unsigned entity, EntityManager& entityManager, int rotation) const
 {
 	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
 	auto model = ml.loadModel("./res/cliff_corner.obj");
@@ -289,7 +291,7 @@ unsigned EntityFactory::createTree(EntityManager & entityManager) const {
 	return createTree(entityManager.createEntity(), entityManager);
 }
 
-unsigned EntityFactory::createTree(unsigned entity, EntityManager & entityManager) const
+unsigned EntityFactory::createTree(unsigned entity, EntityManager& entityManager) const
 {
 	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
 	auto model = ml.loadModel("./res/Tree.obj");
@@ -313,7 +315,7 @@ unsigned EntityFactory::createRock(EntityManager & entityManager) const {
 	return createRock(entityManager.createEntity(), entityManager);
 }
 
-unsigned EntityFactory::createRock(unsigned entity, EntityManager & entityManager) const
+unsigned EntityFactory::createRock(unsigned entity, EntityManager& entityManager) const
 {
 	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
 	auto model = ml.loadModel("./res/Big Rock.obj"); // And/or small rock?

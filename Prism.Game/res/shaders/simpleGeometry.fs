@@ -5,8 +5,11 @@ layout(location = 2) out vec3 gAlbedo;
 
 uniform vec3 objectColor;
 
-in vec3 fragPos;  
-in vec3 normal;  
+in FS
+{
+    vec3 fragPos;
+	vec3 normal;
+};
 
 void main() {
 	gPosition = fragPos;
