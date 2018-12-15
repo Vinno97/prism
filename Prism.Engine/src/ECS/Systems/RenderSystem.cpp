@@ -74,7 +74,7 @@ namespace ECS {
 				renderable.model = appearance->model.get();
 
 				std::get<0>(renderable.position) = position->x + appearance->translationX;
-				std::get<1>(renderable.position) = appearance->translationY;
+				std::get<1>(renderable.position) = position->z + appearance->translationY;
 				std::get<2>(renderable.position) = position->y + appearance->translationZ;
 
 				std::get<0>(renderable.scale) = appearance->scaleX;

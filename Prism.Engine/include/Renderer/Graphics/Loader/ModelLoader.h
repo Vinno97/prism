@@ -14,13 +14,14 @@
 #include <vector>
 #include <string>
 #include <memory>
+#include <map>
 
 namespace Renderer {
 	namespace Graphics {
 		namespace Loader {
 			class ModelLoader {
 			public:
-				std::unique_ptr<Renderer::Graphics::Models::Model> loadModel(std::string path);
+				std::unique_ptr<Renderer::Graphics::Models::Model> loadModel(std::string path) const;
 			private:
 				StaticMeshLoader staticMeshLoader;
 			};
