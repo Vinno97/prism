@@ -28,6 +28,7 @@ namespace ECS {
 				if (entityManager->hasComponent<PositionComponent>(player.id) && entityManager->hasComponent<ShootingComponent>(player.id)) {
 					auto playerPosition = entityManager->getComponent<PositionComponent>(player.id);
 					auto playerShooting = entityManager->getComponent<ShootingComponent>(player.id);
+					playerShooting->shotByTower = false;
 					if (input->isMouseButtonPressed(Key::MOUSE_BUTTON_LEFT)) {
 						for (auto entity : entityManager->getAllEntitiesWithComponent<MousePointerComponent>()) {
 							auto component = entityManager->getComponent<PositionComponent>(entity.id);
@@ -37,8 +38,9 @@ namespace ECS {
 							float pythagoras = sqrt((xDif * xDif) + (yDif * yDif));
 							float normalizedX = xDif / pythagoras;
 							float normalizedY = yDif / pythagoras;
-							playerShooting->xdirection = normalizedX;
-							playerShooting->ydirection = normalizedY;
+							float spread = static_cast<float>((rand() % (10) - 5) / 100.0);
+							playerShooting->xdirection = normalizedX + spread;
+							playerShooting->ydirection = normalizedY + spread;
 							playerShooting->isShooting = true;
 						}
 

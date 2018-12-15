@@ -43,6 +43,35 @@ namespace Renderer {
 				}
 			}
 
+			OGLPipeline::OGLPipeline(VertexShader & vs, FragmentShader & fs, GeometryShader & gs)
+			{
+				pipelineID = glCreateProgram();
+				glAttachShader(pipelineID, vs.vertexID);
+				glAttachShader(pipelineID, fs.fragmentID);
+				glAttachShader(pipelineID, gs.geometryID);
+				glLinkProgram(pipelineID);
+				GLint programSuccess = GL_TRUE;
+				glGetProgramiv(pipelineID, GL_LINK_STATUS, &programSuccess);
+
+				if (programSuccess != GL_TRUE)
+				{
+					int infologLength = 0;
+
+					int charsWritten = 0;
+					char *infoLog;
+
+					glGetProgramiv(pipelineID, GL_INFO_LOG_LENGTH, &infologLength);
+
+					infoLog = (char *)malloc(infologLength);
+					glGetProgramInfoLog(pipelineID, infologLength, &charsWritten, infoLog);
+
+					std::string log = infoLog;
+
+					std::cerr << "Unable to link pipeline" << log;
+					throw std::runtime_error("Pipeline cannot be linked");
+				}
+			}
+
 			OGLPipeline::~OGLPipeline()
 			{
 			}
@@ -72,6 +101,13 @@ namespace Renderer {
 			{
 				int id = uniforms[name];
 				glUniform3f(id, x, y, z);
+				return true;
+			}
+
+			bool OGLPipeline::setUniformInt(const char* name, int value)
+			{
+				int id = uniforms[name];
+				glUniform1i(id, value);
 				return true;
 			}
 
