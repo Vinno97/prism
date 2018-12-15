@@ -53,8 +53,6 @@ namespace ECS {
 		void AttackSystem::updateEntity(int id, Context& context) {
 			if (entityManager->hasComponent<EnemyComponent>(id)) {
 				entityManager->removeEntity(id);
-				// Print (Remove after review)
-				std::cout << "Enemy is exploded" << std::endl;
 			}
 
 			if (entityManager->hasComponent<HealthComponent>(id)) {
@@ -63,12 +61,8 @@ namespace ECS {
 				currentComponent->currentHealth -= 10;
 
 				if (!entityManager->hasComponent<PlayerComponent>(id) && currentComponent->currentHealth <= 0) {
-					//context.stateMachine->setState<EndState>();
 					entityManager->removeEntity(id);
 				}
-
-				// Print (Remove after review)
-				std::cout << "Speler: " << currentComponent->currentHealth << std::endl;
 			}
 		}
 	}
