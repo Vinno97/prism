@@ -6,6 +6,7 @@
 #include "ECS/Components/AppearanceComponent.h"
 #include "ECS/Components/PositionComponent.h"
 #include "ECS/Components/PointLightComponent.h"
+#include "ECS/Components/PlayerComponent.h"
 
 using namespace ECS::Components;
 
@@ -44,7 +45,9 @@ namespace ECS {
 							projectilePosition->z = 1;
 						}
 						projectileAppearance->color = entityAppearance->color;
-						pointLight->color = Math::Vector3f(entityAppearance->color.x, entityAppearance->color.y, entityAppearance->color.z);
+						if (entityManager->hasComponent<PlayerComponent>(entity.id)) {
+							pointLight->color = Math::Vector3f(entityAppearance->color.x, entityAppearance->color.y, entityAppearance->color.z);
+						}
 						context.audioManager->playSound("Bullet", 0);
 					}
 					entityManager->getComponent<BulletComponent>(projectileId)->lifeTime = 2;
