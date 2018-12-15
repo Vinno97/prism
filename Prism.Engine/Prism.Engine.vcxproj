@@ -12,13 +12,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\AudioManager.h" />
+    <ClInclude Include="include\ECS\Components\AnimationComponent.h" />
     <ClInclude Include="include\ECS\Components\DynamicComponent.h" />
     <ClInclude Include="include\ECS\Components\PlayerComponent.h" />
     <ClInclude Include="include\ECS\EntityBuilder.h" />
+    <ClInclude Include="include\ECS\Systems\GeometryAnimationSystem.h" />
     <ClInclude Include="include\ECS\Components\PointLightComponent.h" />
     <ClInclude Include="include\ECS\Components\CollidableComponent.h" />
     <ClInclude Include="include\Math\Vector2.h" />
     <ClInclude Include="include\Menu\Control.h" />
+    <ClInclude Include="include\Renderer\Animation.h" />
+    <ClInclude Include="include\Renderer\Graphics\GeometryShader.h" />
+    <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLGeometryShader.h" />
     <ClInclude Include="include\Menu\TextControl.h" />
     <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLRenderTarget.h" />
     <ClInclude Include="include\Renderer\Graphics\RenderTarget.h" />
@@ -107,6 +112,8 @@
     <ClInclude Include="include\Menu\TextRenderer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\ECS\Systems\GeometryAnimationSystem.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLGeometryShader.cpp" />
     <ClCompile Include="src\Util\AdvertisementSystem.cpp" />
     <ClCompile Include="src\AudioManager.cpp" />
     <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLRenderTarget.cpp" />

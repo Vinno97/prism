@@ -57,6 +57,8 @@
     <ClCompile Include="src\Menu\TextRenderer.cpp" />
     <ClCompile Include="src\Util\AdvertisementSystem.cpp" />
     <ClCompile Include="src\Util\DistanceUtil.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLGeometryShader.cpp" />
+    <ClCompile Include="src\ECS\Systems\GeometryAnimationSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ECS\Components\HealthComponent.h" />
@@ -162,8 +164,13 @@
     <ClInclude Include="include\Renderer\PointLight.h" />
     <ClInclude Include="include\ECS\Components\PointLightComponent.h" />
     <ClInclude Include="include\ECS\Components\CollidableComponent.h" />
-    <ClInclude Include="include\ECS\Components\PlayerComponent.h" />
     <ClInclude Include="include\Math\Vector2.h" />
+    <ClInclude Include="include\ECS\Components\PlayerComponent.h" />
+    <ClInclude Include="include\Renderer\Graphics\GeometryShader.h" />
+    <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLGeometryShader.h" />
+    <ClInclude Include="include\ECS\Components\AnimationComponent.h" />
+    <ClInclude Include="include\Renderer\Animation.h" />
+    <ClInclude Include="include\ECS\Systems\GeometryAnimationSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\x64\SDL2test.lib" />
