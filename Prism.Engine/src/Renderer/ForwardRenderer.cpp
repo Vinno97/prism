@@ -58,8 +58,6 @@ namespace Renderer {
 
 	void ForwardRenderer::draw(const Camera& camera, const std::vector<Renderable>& renderables, const Scene& scene, std::vector<PointLight>& pointLights, Math::Vector3f position)
 	{
-
-		//i += 0.01;
 		glm::mat4 model;
 		const glm::mat4 view = camera.getCameraMatrix();
 		auto lightDir = scene.sun.direction;
@@ -84,9 +82,6 @@ namespace Renderer {
 		milliseconds ms = duration_cast<milliseconds>(
 			system_clock::now().time_since_epoch()
 			);
-
-		
-		//i -= 0.7;
 
 		for (const auto& renderable : renderables) {
 			model = renderable.getMatrix();

@@ -53,12 +53,12 @@ namespace ECS {
 
 		void AttackSystem::updateEntity(int id, Context& context) {
 			if (entityManager->hasComponent<EnemyComponent>(id)) {
-				//entityManager->removeEntity(id);
 				if(entityManager->hasComponent<AnimationComponent>(id))
 				{
 					auto c = entityManager->getComponent<AnimationComponent>(id);
 					c->currentAnimations[Renderer::Animation::Expand] = std::make_tuple<float, bool>(100.f, true);
 				}
+
 				entityManager->removeComponentFromEntity<EnemyComponent>(id);
 				entityManager->removeComponentFromEntity<VelocityComponent>(id);
 				entityManager->removeComponentFromEntity<HealthComponent>(id);
