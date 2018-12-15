@@ -44,11 +44,6 @@ void BumpSystem::update(Context& context)
 						if (entityManager->hasComponent<PositionComponent>(colliderId)) {
 							auto colliderPosition = entityManager->getComponent<PositionComponent>(colliderId);
 
-
-							if (entityManager->hasComponent<PlayerComponent>(entity.id)) {
-								int k = 5;
-							}
-
 							//Various checks for collisions. Only in theses situations does the collisions need to be resolved
 							bool cx2 = currentPosition->x < colliderPosition->x && currentVelocity->dx > 0;
 							bool cx1 = currentPosition->x > colliderPosition->x && currentVelocity->dx < 0;

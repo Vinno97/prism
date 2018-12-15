@@ -407,7 +407,6 @@ unsigned EntityFactory::createProjectile(unsigned entity, EntityManager& entityM
 		.addComponent<BulletComponent>()
 		.addComponent<HealthComponent>(15)
 		.addComponent<BoundingBoxComponent>(0.1, 0.1, 1.0)
-		//.addComponent<CollidableComponent>()
 		.addComponent<ProjectileAttackComponent>()
 		.addComponent<DynamicComponent>()
 		.addComponent<PointLightComponent>(Math::Vector3f{ 1.f, 0.f, 0.f }, 4.0f, 0.f)

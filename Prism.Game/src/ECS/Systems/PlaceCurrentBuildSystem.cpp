@@ -82,17 +82,14 @@ void ECS::Systems::PlaceCurrentBuildSystem::update(Context& context) {
 						if (builderComponent->currentBuild == BuildTypes::WALL) {
 							tempId = EntityFactory::getInstance().createWall(*entityManager);
 							inventory->greenResource -= wallRequirements;
-							//shootDeltaTime = waitTime;
 						}
 						else if (builderComponent->currentBuild == BuildTypes::TOWER) {
 							tempId = EntityFactory::getInstance().createTower(*entityManager);
 							inventory->redResource -= towerRequirements;
-							//shootDeltaTime = waitTime;
 						}
 						else if (builderComponent->currentBuild == BuildTypes::MINE) {
 							tempId = EntityFactory::getInstance().createMine(*entityManager);
 							inventory->blueResource -= mineRequirements;
-							//shootDeltaTime = waitTime;
 						}
 						auto position = entityManager->getComponent<PositionComponent>(tempId);
 						if (position != nullptr) {
