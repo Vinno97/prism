@@ -24,9 +24,9 @@ namespace ECS {
 		{
 			for (auto entity : entityManager->getAllEntitiesWithComponent<ShootingComponent>()) {
 				auto component = entityManager->getComponent<ShootingComponent>(entity.id);
-				pastTime += context.deltaTime;
-				if (component->isShooting && pastTime > cooldown) {
-					pastTime = 0;
+				component->pastTime += context.deltaTime;
+				if (component->isShooting && component->pastTime > component->cooldown) {
+					component->pastTime = 0;
 					int projectileId = EntityFactory::getInstance().createProjectile(*entityManager);
 					auto position = entityManager->getComponent<PositionComponent>(projectileId);
 					position->x = entityManager->getComponent<PositionComponent>(entity.id)->x + (component->xdirection / 4);
