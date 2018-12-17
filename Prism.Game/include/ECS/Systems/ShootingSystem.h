@@ -12,9 +12,6 @@ namespace ECS {
 			~ShootingSystem();
 
 			void update(Context& context) override;
-		private:
-			float pastTime = 0;
-			float cooldown = 0.2;
 		};
 	}
 }
