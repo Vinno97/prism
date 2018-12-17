@@ -12,7 +12,7 @@ namespace Menu {
 	{
 	public:
 		Menu()=default;
-		std::vector<Control> controls;
+		std::vector<std::unique_ptr<Control>> controls;
 		std::vector<std::unique_ptr<TextControl>> textControls;
 		std::shared_ptr<Renderer::Graphics::Models::Mesh> mesh;
 

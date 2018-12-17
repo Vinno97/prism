@@ -41,15 +41,15 @@ namespace Menu {
 
 		for (auto& control : menu.controls) 
 		{
-			auto pos = control.position;
+			auto pos = control->position;
 			glm::mat4 model = glm::mat4(1.0f);
 
 			model = glm::translate(model, glm::vec3(pos.x, pos.y, 0.0f));
-			model = glm::rotate(model, control.rotation, glm::vec3(0.f, 0.f, 1.f));
-			model = glm::scale(model, glm::vec3(control.size.x, control.size.y, 1.0f));
+			model = glm::rotate(model, control->rotation, glm::vec3(0.f, 0.f, 1.f));
+			model = glm::scale(model, glm::vec3(control->size.x, control->size.y, 1.0f));
 			menuPipeline->setUniformMatrix4f("model", model);
 
-			control.texture->bind(textures[0]);
+			control->texture->bind(textures[0]);
 			renderDevice->DrawTrianglesIndexed(0, menu.mesh->indicesLength);	
 		}
 		renderDevice->useBlending(false);

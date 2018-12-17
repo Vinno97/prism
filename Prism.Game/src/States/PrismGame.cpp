@@ -75,13 +75,6 @@ namespace States {
 			auto endstate = context.stateMachine->getState<EndState>();
 
 
-			int totalScore;
-			for (const auto& entity : entityManager.getAllEntitiesWithComponent<PlayerComponent>()) {
-				totalScore = entityManager.getComponent<ScoreComponent>(entity.id)->totalScore;
-
-				auto scoreComponent = entityManager.getComponent<ScoreComponent>(entity.id);
-				scoreComponent->survivedTime += context.deltaTime;
-			}
 		}
 
 
@@ -159,7 +152,7 @@ namespace States {
 		}
 			
 		auto inventory = entityManager.getAllEntitiesWithComponent<InventoryComponent>()[0].component;
-		int playerHealth;
+		int playerHealth;	
 		float time;
 		int totalScore;
 		for (const auto& entity : entityManager.getAllEntitiesWithComponent<PlayerComponent>()) {
