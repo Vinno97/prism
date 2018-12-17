@@ -361,3 +361,4 @@ CTestTestfile.cmake
 *.ini
 
 Prism.Game/res/saves/
+Prism.Game/res/saves/Sample Save.json
