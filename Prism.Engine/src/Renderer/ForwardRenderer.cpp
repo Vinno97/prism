@@ -1,27 +1,26 @@
 #include <GL/glew.h>
 #include "Renderer/ForwardRenderer.h"
+#include "Renderer/Animation.h"
 #include <string>
 #include <glm/glm.hpp>
-#include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include "Renderer/Graphics/RenderDevice.h"
 #include "Renderer/Graphics/VertexShader.h"
 #include "Renderer/Graphics/OpenGL/OGLRenderDevice.h"
-#include "Renderer/Graphics/OpenGL/OGLVertexShader.h"
-#include "Renderer/Graphics/OpenGL/OGLPipeline.h"
 #include "Renderer/Graphics/Pipeline.h"
 #include "Renderer/Graphics/VertexArrayObject.h"
 #include "Renderer/Graphics/VertexBuffer.h"
-#include "Renderer/Graphics/Loader/ModelLoader.h"
 #include "Renderer/Graphics/Models/Model.h"
 #include "Util/FileSystem.h"
 #include "Math/Vector3f.h"
 #include <SDL2/SDL_opengl.h>
+#include <chrono>
 
 using namespace Math;
 using namespace Renderer;
 using namespace Renderer::Graphics;
 using namespace Renderer::Graphics::OpenGL;
+using namespace std::chrono;
 using namespace Renderer::Graphics::Models;
 
 namespace Renderer {
@@ -55,12 +54,11 @@ namespace Renderer {
 		shadowCamera.position = glm::vec3{ -55.f, 11.0f, -25 };
 	}
 
-	float i = 0;
+	float i = 0.1;
 
 	void ForwardRenderer::draw(const Camera& camera, const std::vector<Renderable>& renderables, const Scene& scene, std::vector<PointLight>& pointLights, Math::Vector3f position, const int wWidth, const int wHeight)
 	{
 		projection = glm::perspective(glm::radians(45.0f), (float)width / height, 0.5f, 100.f);
-		i += 0.01;
 		glm::mat4 model;
 		const glm::mat4 view = camera.getCameraMatrix();
 		auto lightDir = scene.sun.direction;
@@ -82,6 +80,10 @@ namespace Renderer {
 		renderDevice->clearScreen();
 		geometryPipeline->run();
 
+		milliseconds ms = duration_cast<milliseconds>(
+			system_clock::now().time_since_epoch()
+			);
+
 		for (const auto& renderable : renderables) {
 			model = renderable.getMatrix();
 
@@ -89,6 +91,18 @@ namespace Renderer {
 			geometryPipeline->setUniformMatrix4f("proj", projection);
 			geometryPipeline->setUniformMatrix4f("model", model);
 
+		if (renderable.currentAnimations.count(Animation::Expand)) {
+			geometryPipeline->setUniformInt("isExpanding", 1);
+			float x = std::get<0>(renderable.currentAnimations.at(Animation::Expand)) / (100 - 0);
+			float result = 0 + (1 - 0) * x;
+			geometryPipeline->setUniformFloat("expandProgress", 1-result);
+		} else
+		{
+			geometryPipeline->setUniformInt("isExpanding", 0);
+			geometryPipeline->setUniformFloat("expandProgress", float(3));
+		}
+
+			
 			geometryPipeline->setUniformVector("objectColor", renderable.color.x, renderable.color.y, renderable.color.z);
 
 			renderable.model->mesh->vertexArrayObject->bind();
@@ -122,6 +136,12 @@ namespace Renderer {
 			shadowPipeline->setUniformMatrix4f("view", shadowView);
 			shadowPipeline->setUniformMatrix4f("proj", shadowProjection);
 			shadowPipeline->setUniformMatrix4f("model", model);
+			if (!renderable.currentAnimations.empty()) {
+				shadowPipeline->setUniformInt("isExpanding", 1);
+			} else
+			{
+				shadowPipeline->setUniformInt("isExpanding", 0);
+			}
 
 			renderable.model->mesh->vertexArrayObject->bind();
 			if (renderable.model->mesh->isIndiced) {
@@ -228,14 +248,19 @@ namespace Renderer {
 		Util::FileSystem fileReader;
 		std::string vertexSource = fileReader.readResourceFileIntoString("/shaders/simpleGeometry.vs");
 		std::string fragmentSource = fileReader.readResourceFileIntoString("/shaders/simpleGeometry.fs");
+		std::string geometrySource = fileReader.readResourceFileIntoString("/shaders/simpleGeometry.gs");
 		std::unique_ptr<VertexShader> vertexShader = renderDevice->createVertexShader(vertexSource.c_str());
 		std::unique_ptr<FragmentShader> fragmentShader = renderDevice->createFragmentShader(fragmentSource.c_str());
-		geometryPipeline = move(renderDevice->createPipeline(*vertexShader, *fragmentShader));
+		std::unique_ptr<GeometryShader> geometryShader = renderDevice->createGeometryShader(geometrySource.c_str());
+
+		geometryPipeline = move(renderDevice->createPipeline(*vertexShader, *fragmentShader, *geometryShader));
 
 		geometryPipeline->createUniform("objectColor");
 		geometryPipeline->createUniform("model");
 		geometryPipeline->createUniform("view");
 		geometryPipeline->createUniform("proj");
+		geometryPipeline->createUniform("expandProgress");
+		geometryPipeline->createUniform("isExpanding");
 
 		//Setup quad shaders
 		vertexSource = fileReader.readResourceFileIntoString("/shaders/quadShader.vs");
@@ -299,5 +324,6 @@ namespace Renderer {
 		shadowPipeline->createUniform("model");
 		shadowPipeline->createUniform("view");
 		shadowPipeline->createUniform("proj");
+		shadowPipeline->createUniform("isExpanding");
 	}
 }

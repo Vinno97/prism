@@ -12,6 +12,7 @@
 #include "Renderer/Scene.h"
 #include "Renderer/Graphics/Loader/ModelLoader.h"
 #include "ECS/Components/PositionComponent.h"
+#include "ECS/Components/AnimationComponent.h"
 
 using namespace Renderer;
 using namespace ECS;
@@ -73,7 +74,7 @@ namespace ECS {
 				renderable.model = appearance->model.get();
 
 				std::get<0>(renderable.position) = position->x + appearance->translationX;
-				std::get<1>(renderable.position) = appearance->translationY;
+				std::get<1>(renderable.position) = position->z + appearance->translationY;
 				std::get<2>(renderable.position) = position->y + appearance->translationZ;
 
 				std::get<0>(renderable.scale) = appearance->scaleX;
@@ -85,6 +86,12 @@ namespace ECS {
 				std::get<2>(renderable.rotation) = appearance->rotationZ;
 
 				renderable.color = appearance->color;
+
+				auto const animations = entityManager->getComponent<AnimationComponent>(appearanceEntities[i].id);
+				if(animations != nullptr)
+				{
+					renderable.currentAnimations = animations->currentAnimations;
+				}
 
 				rendererData.push_back(renderable);
 			}

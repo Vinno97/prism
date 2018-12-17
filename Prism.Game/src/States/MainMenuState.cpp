@@ -18,7 +18,6 @@ namespace States {
 
 	void MainMenuState::onInit(Context & context)
 	{
-		context.window->setSize(1536, 864);
 		context.stateMachine->addState<PrismGame>(context);
 		context.stateMachine->addState<CreditsState>(context);
 		context.stateMachine->addState<ResolutionMenuState>(context);

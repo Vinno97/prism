@@ -12,6 +12,7 @@
 #include "Renderer/Graphics/OpenGL/OGLRenderTarget.h"
 #include "Renderer/Graphics/OpenGL/OGLVertexArrayObject.h"
 #include "Renderer/Graphics/OpenGL/OGLTexture.h"
+#include "Renderer/Graphics/OpenGL/OGLGeometryShader.h"
 #include <memory>
 #include <SDL2/SDL_opengl.h>
 
@@ -46,9 +47,19 @@ namespace Renderer {
 				return make_unique<OGLFragmentShader>(source);
 			}
 
+			unique_ptr<GeometryShader> OGLRenderDevice::createGeometryShader(const char * source) const
+			{
+				return make_unique<OGLGeometryShader>(source);
+			}
+
 			unique_ptr<Pipeline> OGLRenderDevice::createPipeline(VertexShader& vs, FragmentShader& fs) const
 			{
 				return make_unique<OGLPipeline>(vs, fs);
+			}
+
+			std::unique_ptr<Pipeline> OGLRenderDevice::createPipeline(VertexShader & vs, FragmentShader & fs, GeometryShader & gs) const
+			{
+				return make_unique<OGLPipeline>(vs, fs, gs);
 			}
 
 			unique_ptr<VertexBuffer> OGLRenderDevice::createVertexBuffer(long size, const void * data) const

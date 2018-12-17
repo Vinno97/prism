@@ -6,7 +6,7 @@ void World::Assemblers::MineAssembler::assemble(int entity, const WorldObject& w
 {
     if (worldObject.gid == 20)
     {
-        EntityFactory().createMine(entity, entityManager);
+        EntityFactory::getInstance().createMine(entity, entityManager);
     }
 }
 
