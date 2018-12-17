@@ -18,7 +18,7 @@ namespace States {
 	void WorldSelectionState::onInit(Context &context) {
 		levels = Util::FileSystem().getFilenamesInDirectory(levelDirectory);
 		levels.erase(std::remove_if(levels.begin(), levels.end(), [](const std::string &v) {
-			constexpr std::string_view extension = LEVEL_EXTENSION;
+			const std::string extension = LEVEL_EXTENSION;
 			const auto canFit = extension.size() <= v.size();
 			const auto matchesEnd = std::equal(v.begin() + v.size() - extension.size(), v.end(), extension.begin());
 			return !(canFit && matchesEnd);
@@ -41,7 +41,7 @@ namespace States {
 			context.stateMachine->setState<MainMenuState>(context);
 		});
 
-		const auto pageCount{std::ceil(1.0 * levels.size() / pageSize) + 1};
+		const auto pageCount{std::ceil(1.0 * levels.size() / pageSize)};
 		const auto pageStr{fmt::format("{: ^7}", fmt::format("{} / {}", currentPage + 1, pageCount))};
 		menuBuilder.addTextControl(-.08f, -.95f, 0.001f, Math::Vector3f(0, 0, 0), pageStr);
 

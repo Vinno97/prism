@@ -129,8 +129,12 @@
     <ClInclude Include="include\States\CreditsState.h" />
     <ClInclude Include="include\States\EndState.h" />
     <ClInclude Include="include\States\HelpState.h" />
+    <ClInclude Include="include\States\LevelSelectionState.h" />
     <ClInclude Include="include\States\MainMenuState.h" />
     <ClInclude Include="include\States\PrismGame.h" />
+    <ClInclude Include="include\States\SaveSelectionState.h" />
+    <ClInclude Include="include\States\WorldSelectionState.h" />
+    <ClInclude Include="include\Variables.h" />
     <ClInclude Include="include\World\Assemblers\CliffCornerAssembler.h" />
     <ClInclude Include="include\World\Assemblers\CliffFillerAssembler.h" />
     <ClInclude Include="include\World\Assemblers\EnemyAssembler.h" />
@@ -185,6 +189,7 @@
     <ClCompile Include="src\EntityFactory.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\States\PrismGame.cpp" />
+    <ClCompile Include="src\States\WorldSelectionState.cpp" />
     <ClCompile Include="src\World\Assemblers\CliffAssembler.cpp" />
     <ClCompile Include="src\World\Assemblers\CliffCornerAssembler.cpp" />
     <ClCompile Include="src\World\Assemblers\CliffFillerAssembler.cpp" />
