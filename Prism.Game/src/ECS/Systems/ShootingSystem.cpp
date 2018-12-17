@@ -4,6 +4,7 @@
 #include "ECS/Components/VelocityComponent.h"
 #include "ECS/Components/BulletComponent.h"
 #include "ECS/Components/AppearanceComponent.h"
+#include "ECS/Components/ScoreComponent.h"
 #include "ECS/Components/PositionComponent.h"
 #include "ECS/Components/PointLightComponent.h"
 #include "ECS/Components/PlayerComponent.h"

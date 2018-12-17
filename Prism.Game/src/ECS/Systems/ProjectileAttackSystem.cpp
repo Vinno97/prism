@@ -2,6 +2,7 @@
 #include "ECS/Components/ProjectileAttackComponent.h"
 #include "ECS/Components/BoundingBoxComponent.h"
 #include "ECS/Components/EnemyComponent.h"
+#include "ECS/Components/ScoreComponent.h"
 #include "ECS/Components/HealthComponent.h"
 #include "ECS/Components/PlayerComponent.h"
 #include "ECS/Components/PositionComponent.h"
@@ -23,6 +24,7 @@ namespace ECS {
 
 		void ProjectileAttackSystem::update(Context& context)
 		{
+			auto player = entityManager->getAllEntitiesWithComponent<PlayerComponent>()[0];
 			auto players = entityManager->getAllEntitiesWithComponent<PlayerComponent>();
 
 			for (auto entity : entityManager->getAllEntitiesWithComponent<ProjectileAttackComponent>()) {
@@ -47,7 +49,8 @@ namespace ECS {
 									entityManager->removeEntity(entity.id);
 								}
 								if (EnemyHealth->currentHealth <= 0) {
-
+									auto scoreComponent = entityManager->getComponent<ScoreComponent>(player.id);
+									scoreComponent->killedEnemies += 1;
 									Util::DistanceUtil distanceUtil;
 									int BoxX = boundingBoxComponent->boundingBox.GetPosX();
 									int BoxY = boundingBoxComponent->boundingBox.GetPosY();
@@ -69,12 +72,13 @@ namespace ECS {
 							}
 						}
 					}
+					boundingBoxComponent->didCollide = false;
+					boundingBoxComponent->collidesWith.clear();
+
 					if (!isEnemy) {
 						entityManager->removeEntity(entity.id);
 					}
 				}
-				boundingBoxComponent->didCollide = false;
-				boundingBoxComponent->collidesWith.clear();
 			}
 		}
 	}

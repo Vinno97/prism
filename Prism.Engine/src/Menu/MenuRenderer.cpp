@@ -49,7 +49,6 @@ namespace Menu {
 			model = glm::translate(model, glm::vec3(pos.x, pos.y, 0.0f));
 			model = glm::rotate(model, control.rotation, glm::vec3(0.f, 0.f, 1.f));
 			model = glm::scale(model, glm::vec3(control.size.x, control.size.y, 1.0f));
-
 			menuPipeline->setUniformMatrix4f("model", model);
 			menuPipeline->setUniformMatrix4f("projection", glm::ortho(-1.f, 1.f, -1.f, 1.f, 0.1f, 1.f));
 

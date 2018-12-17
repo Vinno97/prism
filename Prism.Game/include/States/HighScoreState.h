@@ -1,32 +1,30 @@
 #pragma once
 
+#include <memory>
 #include "State.h"
 #include "ECS/Systems/KeyboardInputSystem.h"
 #include "Menu/MenuBuilder.h"
 #include "Menu/Menu.h"
 #include "Menu/MenuRenderer.h"
-#include "Util/AdvertisementSystem.h"
 
 namespace States {
-	class MainMenuState : public State
+	class HighScoreState : public State
 	{
 	public:
-		MainMenuState();
+		HighScoreState();
 
 		void onInit(Context &context) override;
 		void onUpdate(Context &context) override;
 		void onEnter(Context & context) override;
 		void onLeave(Context & context) override;
-		~MainMenuState();
+		~HighScoreState();
 
 	private:
+		void buildMenu(Context & context);
+		std::vector<int> getHighScore();
+		void showHighscore(std::vector<int> numbers, Context & context);
 		Menu::MenuRenderer menuRenderer;
-		bool exitBool = false;
 		Menu::MenuBuilder menuBuilder;
 		std::unique_ptr<Menu::Menu> menu;
-		float cooldown = 0.0f;
-		float maxCooldown = 1.0f;
-		Renderer::Graphics::RenderDevice* renderDevice;
 	};
 }
-

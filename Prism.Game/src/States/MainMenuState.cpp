@@ -2,6 +2,7 @@
 #include "StateMachine.h";
 #include "States/PrismGame.h"; 
 #include "States/CreditsState.h"; 
+#include "States/HighScoreState.h"; 
 #include "States/HelpState.h"
 #include "Renderer/Graphics/RenderDevice.h"
 #include "Renderer/Graphics/OpenGL/OGLRenderDevice.h"
@@ -21,6 +22,7 @@ namespace States {
 		context.stateMachine->addState<CreditsState>(context);
 		context.stateMachine->addState<ResolutionMenuState>(context);
 		context.stateMachine->addState<HelpState>(context);
+		context.stateMachine->addState<HighScoreState>(context);
 
 		std::function<void()> callback = [&context](){
 			if (!context.stateMachine->hasState<PrismGame>()) {
@@ -44,6 +46,7 @@ namespace States {
 			context.stateMachine->setState<ResolutionMenuState>(context);
 		};
 		std::function<void()> helpCallback = [&]() {context.stateMachine->setState<HelpState>(context); };
+		std::function<void()> highscoreCallback = [&context]() {context.stateMachine->setState<HighScoreState>(context); };
 		std::function<void()> quitCallback = [&]() {
 			if (exitBool) {
 				exit(0);
@@ -53,11 +56,12 @@ namespace States {
 
 		const float aspect = float(context.window->width) / float(context.window->height);
     
+		menuBuilder.addControl(-0.35,  0.7, 0.6, 0.18, "img/NewGameButton.png", callback);
+		menuBuilder.addControl(-0.35,  0.4, 0.6, 0.18, "img/LoadGameButton.png");
+		menuBuilder.addControl(-0.35,  0.1, 0.6, 0.18, "img/ToCredits.png", creditsCallback);
+		menuBuilder.addControl(-0.35, -0.2, 0.6, 0.18, "img/ToHelp.png", helpCallback);
+		menuBuilder.addControl(-0.35, -0.5, 0.6, 0.18, "img/HighscoreButton.png", highscoreCallback);
 		menuBuilder.addControl(-0.98, 0.9 , 0.05, 0.05*aspect, "img/settings.png", settingsCallback);
-		menuBuilder.addControl(-0.35,  0.4, 0.6, 0.18, "img/NewGameButton.png", callback);
-		menuBuilder.addControl(-0.35,  0.1, 0.6, 0.18, "img/LoadGameButton.png");
-		menuBuilder.addControl(-0.35, -0.2, 0.6, 0.18, "img/ToCredits.png", creditsCallback);
-		menuBuilder.addControl(-0.35, -0.5, 0.6, 0.18, "img/ToHelp.png", helpCallback);
 		menuBuilder.addControl(-0.35, -0.8, 0.6, 0.18, "img/QuitGameButton.png", quitCallback);
 		menuBuilder.addControl(-0.7, 0.49, 0.35, 0.1, "img/nightmare_mode.png", nightmareModeCallback);
 

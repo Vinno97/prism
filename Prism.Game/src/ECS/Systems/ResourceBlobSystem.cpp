@@ -7,6 +7,7 @@
 #include "Math/Vector3f.h"
 #include "ECS/Components/VelocityComponent.h"
 #include "ECS/Components/InventoryComponent.h"
+#include "ECS/Components/ScoreComponent.h"
 #include "ECS/Components/PositionComponent.h"
 #include "ECS/Components/TargetComponent.h"
 #include "ECS/Components/ResourceGatherComponent.h"
@@ -26,6 +27,7 @@ namespace ECS {
 		void ResourceBlobSystem::update(Context & context)
 		{
 			auto resouceBlobs = entityManager->getAllEntitiesWithComponent<ResourceBlobComponent>();
+
 
 			for (auto blob : resouceBlobs) {
                 auto target = entityManager->getComponent<TargetComponent>(blob.id);
@@ -70,7 +72,7 @@ namespace ECS {
 				auto resource = entityManager->getComponent<ResourceBlobComponent>(blob);
 				auto player = entityManager->getAllEntitiesWithComponent<PlayerComponent>()[0];
 				auto playerInventory = entityManager->getComponent<InventoryComponent>(player.id);
-				increateResource(resource->resourceType, *playerInventory, resource->value );
+				increateResource(resource->resourceType, *playerInventory, resource->value);
 
 				context.audioManager->playSound("Resource", distanceUtil.CalculateDistance(blobPosition.x, blobPosition.y, playerPosition.x, playerPosition.y));
 				entityManager->removeEntity(blob);
@@ -80,19 +82,23 @@ namespace ECS {
 
 		void ResourceBlobSystem::increateResource(Enums::ResourceType resourceType, InventoryComponent& playerInventory, float gatherRate)
 		{
+			auto player = entityManager->getAllEntitiesWithComponent<PlayerComponent>()[0];
+			auto score = entityManager->getComponent<ScoreComponent>(player.id);
+
+
 			if (resourceType == Enums::ResourceType::RED ) {
 				playerInventory.redResource += gatherRate;
-				//std::cout << "type " << resourceType << "- amount " << playerInventory.redResource << std::endl;
+				score->gatheredRedResources++;
 			}
 
 			if (resourceType == Enums::ResourceType::BLUE) {
 				playerInventory.blueResource += gatherRate;
-				//std::cout << "type " << resourceType << "- amount " << playerInventory.blueResource << std::endl;
+				score->gatheredBlueResources++;
 			}
 
 			if (resourceType == Enums::ResourceType::GREEN) {
 				playerInventory.greenResource += gatherRate;
-				//std::cout << "type " << resourceType << "- amount " << playerInventory.greenResource << std::endl;
+				score->gatheredGreenResources++;
 			}
 		}
 	}
