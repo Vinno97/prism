@@ -68,6 +68,18 @@ namespace Menu {
 		menu->controls.push_back(control);
 	}
 
+
+	Control* MenuBuilder::addImage(float x, float y, float width, float height, const char *path) {
+		Control control{ x, y, width, height, path};
+		Model model = Model{ mesh };
+		menu->controls.push_back(control);
+
+		return &menu->controls[menu->controls.size() - 1];
+
+	}
+
+
+
 	void MenuBuilder::addControl(float x, float y, float width, float height, const char * path, std::function<void()> callback_)
 	{
 		Control control{ x, y, width, height, path, callback_ };

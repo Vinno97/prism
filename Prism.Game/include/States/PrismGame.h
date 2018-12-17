@@ -31,8 +31,10 @@ class PrismGame : public Game
 	Menu::MenuBuilder menuBuilder;
 	std::unique_ptr<Menu::Menu> menu;
 
+	Menu::Control* healthImage;
 
 	//Textcontrols
+
 	Menu::TextControl* redResource;
 	Menu::TextControl* greenResource;
 	Menu::TextControl* blueResource;

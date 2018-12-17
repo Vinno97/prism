@@ -1,6 +1,7 @@
 #include "Menu/TextRenderer.h"
 #include "States/PrismGame.h"
 #include "Math/Vector3f.h"
+
 #include "StateMachine.h"
 #include "States/PauseState.h"
 #include "States/EndState.h"
@@ -84,13 +85,16 @@ namespace States {
 		}
 
 
-		menuBuilder.addControl(0.6, 0.35, 0.40, 0.65, "img/resources.png");
-		menuBuilder.addControl(-1, 0.83, 0.4, 0.15, "img/healthbar.png");
+	
+		healthImage = menuBuilder.addImage(-0.98, 0.85, 0.6, 0.1, "img/healthbar.png");
 		menuBuilder.addControl(-1, -0.97, 0.55, 0.20, "img/score.png");
+
+		menuBuilder.addControl(-0.97, 0.55, 0.04, 0.25, "img/resources.png");
 		health = menuBuilder.addTextControl(-0.98, 0.89, 0.0012, Math::Vector3f{ 1.0f, 1.0f, 1.0f }, "100");
-		blueResource = menuBuilder.addTextControl(0.65, 0.83, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
-		redResource = menuBuilder.addTextControl(0.65, 0.64, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
-		greenResource = menuBuilder.addTextControl(0.65, 0.45, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
+		blueResource = menuBuilder.addTextControl(-0.92, 0.75, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
+		greenResource = menuBuilder.addTextControl(-0.92, 0.66, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
+		redResource = menuBuilder.addTextControl(-0.92, 0.57, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
+
 		survivedTime = menuBuilder.addTextControl(0.7, -0.95, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
 		fps = menuBuilder.addTextControl(0.725, 0.25, 0.0015, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "");
 		score = menuBuilder.addTextControl(-0.98, -0.88, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
@@ -170,6 +174,12 @@ namespace States {
 		redResource->text = std::to_string(static_cast<int>(inventory->redResource));
 		blueResource->text = std::to_string(static_cast<int>(inventory->blueResource));
 		greenResource->text = std::to_string(static_cast<int>(inventory->greenResource));
+
+		float test = ((float)playerHealth * 0.006);
+
+		healthImage->size = Math::Vector3f{ test, 0.1, 0};
+	
+
 		health->text = "Health: " + std::to_string(playerHealth);
 		score->text = "Score: " + std::to_string(totalScore);
 		survivedTime->text = std::to_string(static_cast<int>(time)) + " seconds";
