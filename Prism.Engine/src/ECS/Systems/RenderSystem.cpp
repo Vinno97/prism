@@ -45,8 +45,22 @@ namespace ECS {
 			auto players = entityManager->getAllEntitiesWithComponent<PlayerComponent>();
 			if (!players.empty()) {
 				auto playerPosition = entityManager->getComponent<PositionComponent>(players.front().id);
-				camera->position.x -= (camera->position.x - playerPosition->x) * context.deltaTime * 2;
-				camera->position.z -= (camera->position.z - 4.f - playerPosition->y) * context.deltaTime * 2;
+
+				camera->target.x = playerPosition->x;
+				camera->target.z = playerPosition->y;
+
+				camera->position.x = playerPosition->x;;
+				camera->position.z = playerPosition->y + 5;
+
+			//	camera->target.z = 1;
+			//
+			//	camera->position.x = playerPosition->x;
+			//	camera->position.y = playerPosition->y-5;
+			//	camera->position.z = 1;
+
+
+				//camera->position.x -= (camera->position.x - playerPosition->x) * context.deltaTime * 2;
+				//camera->position.z -= (camera->position.z - 4.f - playerPosition->y) * context.deltaTime * 2;
 			}
 
 
@@ -59,7 +73,7 @@ namespace ECS {
 				renderable.model = appearance->model.get();
 
 				std::get<0>(renderable.position) = position->x + appearance->translationX;
-				std::get<1>(renderable.position) = appearance->translationY;
+				std::get<1>(renderable.position) = position->z + appearance->translationY;
 				std::get<2>(renderable.position) = position->y + appearance->translationZ;
 
 				std::get<0>(renderable.scale) = appearance->scaleX;

@@ -34,27 +34,25 @@ namespace Renderer {
 		albedoBuffer = renderDevice->createTexture(false, width, height);
 		depthBuffer = renderDevice->createTexture(true, width, height);
 
-		renderTarget = renderDevice->createRenderTarget(true);
+		renderTarget = renderDevice->createRenderTarget(true, width, height);
 
 		renderTarget->addBuffer(positionBuffer);
 		renderTarget->addBuffer(normalBuffer);
 		renderTarget->addBuffer(albedoBuffer);
 		renderTarget->setDepthBuffer(depthBuffer);
 
-		shadowDepthTarget = renderDevice->createRenderTarget(true); 
-		shadowDepthBuffer = renderDevice->createTexture(true, width ,height);
+		shadowDepthTarget = renderDevice->createRenderTarget(true, 3000, 3000);
+		shadowDepthBuffer = renderDevice->createTexture(true, 3000, 3000);
 		shadowDepthTarget->setDepthBuffer(shadowDepthBuffer);
 
 		loadPipelines();
 		createTargetQuad();
 
 	    projection = glm::perspective(glm::radians(45.0f), (float) width/height, 0.5f, 100.f);
-		shadowProjection = glm::ortho(-3.0f, 3.0f, -3.0f, 3.0f, 0.f, 7.5f);
+		shadowProjection = glm::ortho(-11.f, 11.f, -11.f, 11.f, 0.f, 30.f);
 
 		renderDevice->setClearColour(1.f, 1.f, 1.f, 1.f);
-		shadowCamera.position = glm::vec3{ -45.f, 1.0f, -15 };
-
-		shadowCamera.rotation = glm::vec3{ -40.f, -20.f, 0.f };
+		shadowCamera.position = glm::vec3{ -55.f, 11.0f, -25 };
 	}
 
 	float i = 0;
@@ -65,7 +63,15 @@ namespace Renderer {
 		i += 0.01;
 		glm::mat4 model;
 		const glm::mat4 view = camera.getCameraMatrix();
-		shadowCamera.position = glm::vec3(position.x, position.y, position.z);
+		auto lightDir = scene.sun.direction;
+		lightDir.normalize(); //Set length to one
+		lightDir.invert(); //Reverse direction of vector
+		lightDir = lightDir * 2; //Backup by three
+
+		shadowCamera.position = camera.position;
+		shadowCamera.position.x += lightDir.x;
+		shadowCamera.position.y += lightDir.y;
+		shadowCamera.target = camera.target;
 
 		glViewport(0, 0, width, height);
 		//Do GBuffer pass
@@ -99,14 +105,16 @@ namespace Renderer {
 		geometryPipeline->stop();
 		//End GBuffer pass
 
+		glViewport(0, 0, 3000, 3000);
 		//Shadow depth map render
 		shadowDepthTarget->bind();
 		renderDevice->useDepthTest(true);
 		renderDevice->clearScreen();
 		shadowPipeline->run();
+		glViewport(0, 0, 3000, 3000);
 
-		auto shadowView = glm::lookAt( glm::vec3(position.x, position.y, position.z), glm::vec3(-45.f, 1.0f, -15), glm::vec3(0, 1, 0) );
-
+		auto shadowView = shadowCamera.getCameraMatrix();
+		glCullFace(GL_FRONT);
 
 		for (const auto& renderable : renderables) {
 			model = renderable.getMatrix();
@@ -124,11 +132,12 @@ namespace Renderer {
 				renderDevice->DrawTriangles(0, renderable.model->mesh->verticesLength);
 			}
 		}
-
+		glViewport(0, 0, width, height);
+		glCullFace(GL_BACK);
 		shadowDepthTarget->unbind();
 		shadowPipeline->stop();
 		//End shadow depth map render
-
+		glViewport(0, 0, width, height);
 		//Do lighting pass
 		renderDevice->useDepthTest(false);
 		quadPipeline->run();
@@ -136,8 +145,8 @@ namespace Renderer {
 		quadPipeline->setUniformVector("gDirectionalLight.Color", scene.ambientLightColor.x, scene.ambientLightColor.y, scene.ambientLightColor.z);
 		quadPipeline->setUniformVector("gDirectionalLight.Direction", scene.sun.direction.x, scene.sun.direction.y, scene.sun.direction.z);
 
-		quadPipeline->setUniformFloat("gDirectionalLight.AmbientIntensity", 0.6f);
-		quadPipeline->setUniformFloat("gDirectionalLight.DiffuseIntensity", 0.5f);
+		quadPipeline->setUniformFloat("gDirectionalLight.AmbientIntensity", scene.ambientLightStrength);
+		quadPipeline->setUniformFloat("gDirectionalLight.DiffuseIntensity", scene.directionalLightStrength);
 
 		quadPipeline->setUniformMatrix4f("shadowView", shadowView);
 		quadPipeline->setUniformMatrix4f("view", view);

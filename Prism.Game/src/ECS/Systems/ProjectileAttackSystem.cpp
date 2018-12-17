@@ -5,6 +5,9 @@
 #include "ECS/Components/ScoreComponent.h"
 #include "ECS/Components/HealthComponent.h"
 #include "ECS/Components/PlayerComponent.h"
+#include "ECS/Components/PositionComponent.h"
+#include "Util/DistanceUtil.h"
+#include <cmath>
 
 namespace ECS {
 	namespace Systems {
@@ -20,6 +23,7 @@ namespace ECS {
 		void ProjectileAttackSystem::update(Context& context)
 		{
 			auto player = entityManager->getAllEntitiesWithComponent<PlayerComponent>()[0];
+			auto players = entityManager->getAllEntitiesWithComponent<PlayerComponent>();
 
 			for (auto entity : entityManager->getAllEntitiesWithComponent<ProjectileAttackComponent>()) {
 				auto boundingBoxComponent = entityManager->getComponent<BoundingBoxComponent>(entity.id);
@@ -48,7 +52,12 @@ namespace ECS {
 									scoreComponent->killedEnemies += 1;
 
 									entityManager->removeEntity(collider);
-									context.audioManager->playSound("EnemyKill");
+									Util::DistanceUtil distanceUtil;
+									int BoxX = boundingBoxComponent->boundingBox.GetPosX();
+									int BoxY = boundingBoxComponent->boundingBox.GetPosY();
+									int PlayerX = entityManager->getComponent<PositionComponent>(players[0].id)->x;
+									int PlayerY = entityManager->getComponent<PositionComponent>(players[0].id)->x;
+									context.audioManager->playSound("EnemyKill", distanceUtil.CalculateDistance(BoxX, BoxY, PlayerX, PlayerY));
 									break;
 								}
 							}
@@ -59,7 +68,8 @@ namespace ECS {
 					}
 				}
 
-				// TODO: Wat doet deze code hier eigenlijk? De game crasht hierop, maar werkt correct als het uitgeschakeld staat. Ik kan me ook niet bedenken wat dit zou horen te doen.
+				// TODO: Wat doet deze code hier eigenlijk? De game crasht hierop, maar werkt correct als het uitgeschakeld staat. 
+				// Ik kan me ook niet bedenken wat dit zou horen te doen.
 				// boundingBoxComponent->didCollide = false;
 				// boundingBoxComponent->collidesWith.clear();
 			}

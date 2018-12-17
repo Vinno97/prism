@@ -46,7 +46,7 @@
 #include "ECS/Systems/HealthRegenerationSystem.h"
 #include "Renderer/PointLight.h"
 #include <functional>
-
+#include "ECS/Systems/TowerAimingSystem.h"
 namespace States {
 	using namespace ECS;
 	using namespace ECS::Components;
@@ -64,11 +64,11 @@ namespace States {
 		sceneComponent->scene.ambientLightColor = Math::Vector3f{ 1.0f, 1.0f, 1.0f };
 		sceneComponent->scene.ambientLightStrength = 0.95f;
 		sceneComponent->scene.sun.color = Math::Vector3f{ 1.f, 1.f, 1.f };
-		sceneComponent->scene.sun.direction = Math::Vector3f{ -0.3, -1.0f, -.3f };
+		sceneComponent->scene.sun.direction = Math::Vector3f{ 2, -1.0f, -.3f };
 
 		World::LevelManager loader{ std::make_unique<PrismEntityAssembler>() };
 
-		loader.load("levels/Sample World", entityManager);
+		loader.load("levels/motest", entityManager);
 		// Dit is hoe een wereld zou worden opgeslagen en weer ingeladen.
 		//loader.load("saves/Sample Save", entityManager);
 		loader.save("saves/Sample Save", entityManager);
@@ -132,6 +132,7 @@ namespace States {
 			//3
 			.registerSystem<3, ResourceBlobSystem>(entityManager)
 			.registerSystem<3, ShootingSystem>(entityManager)
+			.registerSystem<3, TowerAimingSystem>(entityManager)
 			.registerSystem<3, CollisionSystem>(entityManager, context.window->width, context.window->height, 0, 0, 2)
 
 			//4
@@ -148,7 +149,6 @@ namespace States {
 
 	void PrismGame::onUpdate(Context &context)
 	{
-		std::cout << "FPS:   \t" << 1.0 / context.deltaTime << std::endl;
 		toggleFPS(context);
 		auto input = context.inputManager;
 	
@@ -202,9 +202,23 @@ namespace States {
 		context.audioManager->addSound("EnemyKill", "EnemyKill.wav");
 		context.audioManager->addSound("Resource", "ResourceGathering.wav");
 		context.audioManager->addSound("Heartbeat", "Heartbeat.wav");
+		context.audioManager->addSound("NightmareOn", "NightmareModeOn.wav");
+		context.audioManager->addSound("NightmareOff", "NightmareModeOff.wav");
 	}
 
 	void PrismGame::onEnter(Context &context) {
+		auto scene = entityManager.getAllEntitiesWithComponent<SceneComponent>()[0];
+		auto sceneCompontent = entityManager.getComponent<SceneComponent>(scene.id);
+		if (isNightmareMode) {
+			sceneCompontent->scene.ambientLightStrength = 0;
+			sceneCompontent->scene.directionalLightStrength = 0;
+		}
+		else {
+			sceneCompontent->scene.ambientLightStrength = 0.6f;
+			sceneCompontent->scene.directionalLightStrength = 0.5f;
+		}
+
+		
 		context.audioManager->playMusic("Ambience");
 	}
 
@@ -238,6 +252,15 @@ namespace States {
 
 	void PrismGame::onLeave(Context &context) {
 	}
-
-
+	void PrismGame::toggleNightmare(Context &context)
+	{
+		if (!isNightmareMode) {
+			context.audioManager->playSound("NightmareOn", 0);
+			isNightmareMode = true;
+		}
+		else {
+			context.audioManager->playSound("NightmareOff", 0);
+			isNightmareMode = false;
+		}
+	}
 }

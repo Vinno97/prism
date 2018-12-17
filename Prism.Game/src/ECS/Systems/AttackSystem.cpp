@@ -43,7 +43,7 @@ namespace ECS {
 							if (entityManager->hasComponent<PlayerComponent>(vector[i])) {
 								updateEntity(vector[i], context);
 								updateEntity(entity.id, context);
-								context.audioManager->playSound("EnemyKill");
+								context.audioManager->playSound("EnemyKill", 0);
 							}
 						}
 					}

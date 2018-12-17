@@ -11,6 +11,7 @@
 #include "ECS/Components/PositionComponent.h"
 #include "ECS/Components/TargetComponent.h"
 #include "Enums/ResourceTypeEnum.h"
+#include "Util/DistanceUtil.h"
 
 namespace ECS {
 	namespace Systems {
@@ -50,12 +51,13 @@ namespace ECS {
 			float distance = std::sqrt((x*x) + (y*y));
 
 			if (distance < 0.05f ) {
+				Util::DistanceUtil distanceUtil;
 				auto resource = entityManager->getComponent<ResourceBlobComponent>(blob);
 				auto player = entityManager->getAllEntitiesWithComponent<PlayerComponent>()[0];
 				auto playerInventory = entityManager->getComponent<InventoryComponent>(player.id);
 				increateResource(resource->resourceType, *playerInventory, resource->value);
 
-				context.audioManager->playSound("Resource");
+				context.audioManager->playSound("Resource", distanceUtil.CalculateDistance(blobPosition.x, blobPosition.y, playerPosition.x, playerPosition.y));
 				entityManager->removeEntity(blob);
 			}
 			

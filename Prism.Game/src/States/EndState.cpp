@@ -26,8 +26,15 @@ namespace States {
 
 	void EndState::onInit(Context & context)
 	{
-		std::function<void()> callbackMainMenu = [&context]() { context.stateMachine->setState<MainMenuState>(context); };
-		std::function<void()> callBackRestart = [&]() {
+		
+
+		std::function<void()> callbackMainMenu = [&context](){
+			if (!context.stateMachine->hasState<PrismGame>()) {
+				context.stateMachine->addState<PrismGame>(context);
+			}
+			context.stateMachine->setState<MainMenuState>(context); };
+
+		std::function<void()> callBackRestart = [&context](){
 			if (!context.stateMachine->hasState<PrismGame>()) {
 				context.stateMachine->addState<PrismGame>(context);
 				context.stateMachine->setState<PrismGame>(context);
