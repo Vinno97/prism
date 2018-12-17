@@ -79,7 +79,7 @@ namespace States {
 				totalScore = entityManager.getComponent<ScoreComponent>(entity.id)->totalScore;
 
 				auto scoreComponent = entityManager.getComponent<ScoreComponent>(entity.id);
-				scoreComponent->survivedTime += context.deltaTime;
+				//scoreComponent->survivedTime += context.deltaTime;
 			}
 		}
 
@@ -160,11 +160,11 @@ namespace States {
 		int totalScore;
 		for (const auto& entity : entityManager.getAllEntitiesWithComponent<PlayerComponent>()) {
 			playerHealth = entityManager.getComponent<HealthComponent>(entity.id)->currentHealth;
-			totalScore = entityManager.getComponent<ScoreComponent>(entity.id)->totalScore;
-
+			
 			auto scoreComponent = entityManager.getComponent<ScoreComponent>(entity.id);
-			scoreComponent->survivedTime += context.deltaTime;
-			time = entityManager.getComponent<ScoreComponent>(entity.id)->survivedTime;
+			totalScore = scoreComponent->totalScore;
+			//scoreComponent->survivedTime += context.deltaTime;
+			time = scoreComponent->survivedTime;
 		}
 
 		redResource->text = std::to_string(static_cast<int>(inventory->redResource));
