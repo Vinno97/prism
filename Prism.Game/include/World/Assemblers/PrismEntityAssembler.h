@@ -9,9 +9,6 @@ namespace World {
 		class PrismEntityAssembler : public EntityAssembler {
 		public:
 			PrismEntityAssembler();
-			//PrismEntityAssembler(ECS::EntityManager& entityManager, EntityFactory& factory_);
-		private:
-			//EntityFactory factory;
 		};
 	}
 }

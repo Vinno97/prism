@@ -30,6 +30,10 @@
 #include <functional>
 #include "ECS/Systems/TowerAimingSystem.h"
 #include "ECS/Systems/GeometryAnimationSystem.h"
+#include "ECS/Systems/SetCurrentBuildSystem.h"
+#include "ECS/Systems/MoveCurrentBuildSystem.h"
+#include "ECS/Systems/PlaceCurrentBuildSystem.h"
+
 
 namespace States {
 	using namespace ECS;
@@ -52,7 +56,7 @@ namespace States {
 
 		World::LevelManager loader{ std::make_unique<PrismEntityAssembler>() };
 
-		loader.load("levels/motest", entityManager);
+		loader.load("levels/Level_1", entityManager);
 		// Dit is hoe een wereld zou worden opgeslagen en weer ingeladen.
 		//loader.load("saves/Sample Save", entityManager);
 		loader.save("saves/Sample Save", entityManager);
@@ -94,6 +98,7 @@ namespace States {
 			.registerSystem<1, MousePointSystem>(entityManager)
 			.registerSystem<1, CheatSystem>(entityManager)
 			.registerSystem<1, EnemyPathFindingSystem>(entityManager, 15)
+			.registerSystem<1, SetCurrentBuildSystem>(entityManager)
 
 			//2
 			.registerSystem<2, MotionSystem>(entityManager)
@@ -101,14 +106,17 @@ namespace States {
 			.registerSystem<2, AimingSystem>(entityManager)
 			.registerSystem<2, ResourceGatherSystem>(entityManager)
 			.registerSystem<2, EnemySpawnSystem>(entityManager)
+			.registerSystem<2, MoveCurrentBuildSystem>(entityManager)
 
 			//3
 			.registerSystem<3, ResourceBlobSystem>(entityManager)
 			.registerSystem<3, ShootingSystem>(entityManager)
 			.registerSystem<3, TowerAimingSystem>(entityManager)
 			.registerSystem<3, CollisionSystem>(entityManager, context.window->width, context.window->height, 0, 0, 2)
+			
 
 			//4
+			.registerSystem<4, PlaceCurrentBuildSystem>(entityManager, 10, 10, 10,5)
 			.registerSystem<4, ProjectileAttackSystem>(entityManager)
 			.registerSystem<4, AttackSystem>(entityManager)
 			.registerSystem<4, GeometryAnimationSystem>(entityManager)

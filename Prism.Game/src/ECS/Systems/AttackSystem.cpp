@@ -40,7 +40,7 @@ namespace ECS {
 					if (boundingBoxComponent->didCollide) {
 
 						for (int i = 0; i < vector.size(); i++) {
-							if (entityManager->hasComponent<PlayerComponent>(vector[i])) {
+							if (entityManager->hasComponent<HealthComponent>(vector[i]) && !entityManager->hasComponent<EnemyComponent>(vector[i])) {
 								updateEntity(vector[i], context);
 								updateEntity(entity.id, context);
 								context.audioManager->playSound("EnemyKill", 0);
@@ -62,8 +62,6 @@ namespace ECS {
 				entityManager->removeComponentFromEntity<EnemyComponent>(id);
 				entityManager->removeComponentFromEntity<VelocityComponent>(id);
 				entityManager->removeComponentFromEntity<HealthComponent>(id);
-				// Print (Remove after review)
-				std::cout << "Enemy is exploded" << std::endl;
 			}
 
 			if (entityManager->hasComponent<HealthComponent>(id)) {
@@ -71,8 +69,9 @@ namespace ECS {
 
 				currentComponent->currentHealth -= 10;
 
-				// Print (Remove after review)
-				std::cout << "Speler: " << currentComponent->currentHealth << std::endl;
+				if (!entityManager->hasComponent<PlayerComponent>(id) && currentComponent->currentHealth <= 0) {
+					entityManager->removeEntity(id);
+				}
 			}
 		}
 	}

@@ -43,6 +43,8 @@
 #include "ECS/Components/VelocityComponent.h"
 #include "ECS/Components/PointLightComponent.h"
 #include "ECS/Components/WallComponent.h"
+#include "ECS/Components/CollidableComponent.h"
+#include "ECS/Components/BuildComponent.h"
 #include "ECS/EntityBuilder.h"
 #include "Renderer/Camera.h"
 #include <stdlib.h>
@@ -99,6 +101,8 @@ unsigned EntityFactory::createPlayer(unsigned entity, EntityManager& entityManag
 		.addComponent<BoundingBoxComponent>(.3, .3, 10)
 		.addComponent<PointLightComponent>(Math::Vector3f{ 1.f, 1.f, 0.f }, 1.f, 0.f)
 		.addComponent(appearance)
+		.addComponent<CollidableComponent>()
+		.addComponent<BuildComponent>()
 		.getEntity();
 }
 
@@ -119,16 +123,17 @@ unsigned EntityFactory::createEnemy(unsigned entity, EntityManager& entityManage
 	appearance.model = std::move(model);
 
 	return EntityBuilder(entityManager, entity)
-	    .addComponent<VelocityComponent>()
-	    .addComponent<PositionComponent>()
-	    .addComponent<EnemyComponent>()
-	    .addComponent<DynamicComponent>()
+		.addComponent<VelocityComponent>()
+		.addComponent<PositionComponent>()
+		.addComponent<EnemyComponent>()
+		.addComponent<DynamicComponent>()
 	    .addComponent<AnimationComponent>()
-	    .addComponent<HealthComponent>(100)
-	    .addComponent<DragComponent>(5.f)
-	    .addComponent<BoundingBoxComponent>(.4, .4, 2)
-	    .addComponent(appearance)
-	    .getEntity();
+		.addComponent<HealthComponent>(100)
+		.addComponent<DragComponent>(5.f)
+		.addComponent<BoundingBoxComponent>(.4, .4, 2)
+		.addComponent<CollidableComponent>()
+		.addComponent(appearance)
+		.getEntity();
 }
 
 unsigned EntityFactory::createResourcePoint(EntityManager& entityManager,
@@ -167,6 +172,8 @@ unsigned EntityFactory::createResourcePoint(unsigned entity, EntityManager& enti
 		.addComponent<PositionComponent>()
 		.addComponent<ResourceSpawnComponent>(gatherRate, type, value)
 		.addComponent(appearance)
+		.addComponent<CollidableComponent>()
+		.addComponent<BoundingBoxComponent>(.4, .4)
 		.getEntity();
 }
 
@@ -191,6 +198,8 @@ unsigned EntityFactory::createTower(unsigned entity, EntityManager& entityManage
 		.addComponent<PositionComponent>()
 		.addComponent<BoundingBoxComponent>(1.0, 1.0, 1.0)
 		.addComponent<ShootingComponent>()
+		.addComponent<CollidableComponent>()
+		.addComponent<HealthComponent>(50)
 		.addComponent(appearance)
 		.getEntity();
 }
@@ -215,6 +224,8 @@ unsigned EntityFactory::createWall(unsigned entity, EntityManager& entityManager
 		.addComponent<WallComponent>()
 		.addComponent<PositionComponent>()
 		.addComponent<BoundingBoxComponent>(1.0, 1.0, 1.0)
+		.addComponent<CollidableComponent>()
+		.addComponent<HealthComponent>(50)
 		.addComponent(appearance)
 		.getEntity();
 }
@@ -239,6 +250,7 @@ unsigned EntityFactory::createCliff(unsigned entity, EntityManager& entityManage
 	entityManager.addComponentToEntity(entity, PositionComponent());
 	entityManager.addComponentToEntity(entity, appearance);
 	entityManager.addComponentToEntity(entity, BoundingBoxComponent(1.0, 1.0));
+	entityManager.addComponentToEntity(entity, CollidableComponent());
 	return entity;
 }
 
@@ -261,6 +273,7 @@ unsigned EntityFactory::createCliffFiller(unsigned entity, EntityManager& entity
 	entityManager.addComponentToEntity(entity, PositionComponent());
 	entityManager.addComponentToEntity(entity, appearance);
 	entityManager.addComponentToEntity(entity, BoundingBoxComponent(1.0, 1.0));
+	entityManager.addComponentToEntity(entity, CollidableComponent());
 	return entity;
 }
 
@@ -284,6 +297,7 @@ unsigned EntityFactory::createCliffCorner(unsigned entity, EntityManager& entity
 	entityManager.addComponentToEntity(entity, PositionComponent());
 	entityManager.addComponentToEntity(entity, appearance);
 	entityManager.addComponentToEntity(entity, BoundingBoxComponent(1.0, 1.0));
+	entityManager.addComponentToEntity(entity, CollidableComponent());
 	return entity;
 }
 
@@ -308,6 +322,7 @@ unsigned EntityFactory::createTree(unsigned entity, EntityManager& entityManager
 	entityManager.addComponentToEntity(entity, PositionComponent());
 	entityManager.addComponentToEntity(entity, appearance);
 	entityManager.addComponentToEntity(entity, BoundingBoxComponent(0.6, 0.6));
+	entityManager.addComponentToEntity(entity, CollidableComponent());
 	return entity;
 }
 
@@ -332,6 +347,7 @@ unsigned EntityFactory::createRock(unsigned entity, EntityManager& entityManager
 	entityManager.addComponentToEntity(entity, PositionComponent());
 	entityManager.addComponentToEntity(entity, appearance);
 	entityManager.addComponentToEntity(entity, BoundingBoxComponent(1.2, 1.2));
+	entityManager.addComponentToEntity(entity, CollidableComponent());
 	return entity;
 }
 
@@ -353,7 +369,10 @@ unsigned EntityFactory::createMine(unsigned entity, EntityManager& entityManager
 	return EntityBuilder(entityManager, entity)
 		.addComponent<MineComponent>()
 		.addComponent<PositionComponent>()
+		.addComponent<BoundingBoxComponent>(1.0, 1.0,1.0)
+		.addComponent<CollidableComponent>()
 		.addComponent<ResourceGatherComponent>()
+		.addComponent<HealthComponent>(50)
 		.addComponent(appearance)
 		.getEntity();
 }
@@ -514,6 +533,8 @@ unsigned EntityFactory::createEnemySpawn(unsigned entity,
 		.addComponent(position)
 		.addComponent(spawnComponent)
 		.addComponent(appearance)
+		.addComponent<BoundingBoxComponent>(1.0, 1.0)
+		.addComponent<CollidableComponent>()
 		.getEntity();
 }
 
