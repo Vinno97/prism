@@ -260,4 +260,8 @@ namespace States {
 			isNightmareMode = false;
 		}
 	}
+	bool PrismGame::isNightmare()
+	{
+		return isNightmareMode;
+	}
 }
