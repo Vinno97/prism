@@ -89,19 +89,16 @@ namespace ECS {
 			if (resourceType == Enums::ResourceType::RED ) {
 				playerInventory.redResource += gatherRate;
 				score->gatheredRedResources++;
-				//std::cout << "type " << resourceType << "- amount " << playerInventory.redResource << std::endl;
 			}
 
 			if (resourceType == Enums::ResourceType::BLUE) {
 				playerInventory.blueResource += gatherRate;
 				score->gatheredBlueResources++;
-				//std::cout << "type " << resourceType << "- amount " << playerInventory.blueResource << std::endl;
 			}
 
 			if (resourceType == Enums::ResourceType::GREEN) {
 				playerInventory.greenResource += gatherRate;
 				score->gatheredGreenResources++;
-				//std::cout << "type " << resourceType << "- amount " << playerInventory.greenResource << std::endl;
 			}
 		}
 	}
