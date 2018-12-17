@@ -11,6 +11,7 @@ namespace ECS {
 			~GameOverSystem();
 			void update(Context& context) override;
 		private:
+			int channel;
 			bool health_sound_is_playing = false;
 		};
 	}

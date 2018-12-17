@@ -21,8 +21,16 @@ namespace ECS {
 		void ECS::Systems::GameOverSystem::update(Context& context) {
 			for (auto entity : entityManager->getAllEntitiesWithComponent<PlayerComponent>()) {
 				auto healthComponent = entityManager->getComponent<HealthComponent>(entity.id);
+				
+				if (healthComponent->currentHealth > 30 && health_sound_is_playing)
+				{
+					context.audioManager->stopSound(this->channel);
+					this->channel = 0;
+					this->health_sound_is_playing = false;
+				}
+
 				if (healthComponent->currentHealth <= 30 && !health_sound_is_playing) {
-					context.audioManager->playSound("Heartbeat", -1);
+					this->channel = context.audioManager->playSound("Heartbeat", 0, -1);
 					this->health_sound_is_playing = true;
 				}
 				if (healthComponent->currentHealth <= 0) {
