@@ -18,6 +18,7 @@ namespace States {
 		void onEnter(Context & context) override;
 		void onLeave(Context & context) override;
 		~MainMenuState();
+		//TODO HAAL WEG
 		//bool nightmareMode = false;
 
 	private:

@@ -249,10 +249,12 @@ namespace States {
 	void PrismGame::toggleNightmare(Context &context)
 	{
 		if (!isNightmareMode) {
+			//TODO HAAL WEG
 			//context.audioManager->playSound("NightmareOn", 0);
 			isNightmareMode = true;
 		}
 		else {
+			//TODO HAAL WEG
 			//context.audioManager->playSound("NightmareOff", 0);
 			isNightmareMode = false;
 		}
