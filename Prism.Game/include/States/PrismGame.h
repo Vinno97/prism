@@ -32,23 +32,26 @@ class PrismGame : public Game
 	std::unique_ptr<Menu::Menu> menu;
 
 	Menu::Control* healthImage;
+	Menu::Control* resourceImage;
 
 	//Textcontrols
 
 	Menu::TextControl* redResource;
 	Menu::TextControl* greenResource;
 	Menu::TextControl* blueResource;
-	Menu::TextControl* health;
 	Menu::TextControl* survivedTime;
 	Menu::TextControl* score;
 	Menu::TextControl* fps;
 
 	bool canPressEscape;
 	bool canPressF3;
+	bool canPressShift;
 	bool showFPS;
+	bool showResources;
 	bool isNightmareMode;
 	void registerSystems(Context &context);
 	void toggleFPS(Context &context);
+	void toggleResources(Context &context);
 	void loadAudio(Context &context) const;
 	int Fps(Context &context);
 };

@@ -73,20 +73,15 @@ namespace States {
 		if (!context.stateMachine->hasState<EndState>()) {
 			context.stateMachine->addState<EndState>(context);
 			auto endstate = context.stateMachine->getState<EndState>();
-
-
 		}
+		resourceImage = menuBuilder.addImage(-0.97, 0.55, 0, 0, "img/resources.png");
+		blueResource = menuBuilder.addTextControl(-0.92, 0.75, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "");
+		greenResource = menuBuilder.addTextControl(-0.92, 0.66, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "");
+		redResource = menuBuilder.addTextControl(-0.92, 0.57, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "");
 
 
-	
 		healthImage = menuBuilder.addImage(-0.98, 0.85, 0.6, 0.1, "img/healthbar.png");
 		menuBuilder.addControl(-1, -0.97, 0.55, 0.20, "img/score.png");
-
-		menuBuilder.addControl(-0.97, 0.55, 0.04, 0.25, "img/resources.png");
-		health = menuBuilder.addTextControl(-0.98, 0.89, 0.0012, Math::Vector3f{ 1.0f, 1.0f, 1.0f }, "100");
-		blueResource = menuBuilder.addTextControl(-0.92, 0.75, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
-		greenResource = menuBuilder.addTextControl(-0.92, 0.66, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
-		redResource = menuBuilder.addTextControl(-0.92, 0.57, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
 
 		survivedTime = menuBuilder.addTextControl(0.7, -0.95, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
 		fps = menuBuilder.addTextControl(0.725, 0.25, 0.0015, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "");
@@ -142,6 +137,8 @@ namespace States {
 	void PrismGame::onUpdate(Context &context)
 	{
 		toggleFPS(context);
+		toggleResources(context);
+
 		auto input = context.inputManager;
 
 
@@ -151,7 +148,7 @@ namespace States {
 			}
 		}
 			
-		auto inventory = entityManager.getAllEntitiesWithComponent<InventoryComponent>()[0].component;
+
 		int playerHealth;	
 		float time;
 		int totalScore;
@@ -164,16 +161,8 @@ namespace States {
 			time = entityManager.getComponent<ScoreComponent>(entity.id)->survivedTime;
 		}
 
-		redResource->text = std::to_string(static_cast<int>(inventory->redResource));
-		blueResource->text = std::to_string(static_cast<int>(inventory->blueResource));
-		greenResource->text = std::to_string(static_cast<int>(inventory->greenResource));
-
-		float test = ((float)playerHealth * 0.006);
-
-		healthImage->size = Math::Vector3f{ test, 0.1, 0};
-	
-
-		health->text = "Health: " + std::to_string(playerHealth);
+		float sizeHealth = ((float)playerHealth * 0.006);
+		healthImage->size = Math::Vector3f{ sizeHealth, 0.1, 0};
 		score->text = "Score: " + std::to_string(totalScore);
 		survivedTime->text = std::to_string(static_cast<int>(time)) + " seconds";
 
@@ -247,6 +236,40 @@ namespace States {
 		if (showFPS) {
 			fps->text = "FPS: " + std::to_string(Fps(context));
 		}
+	}
+
+	void PrismGame::toggleResources(Context & context)
+	{
+
+		auto inventory = entityManager.getAllEntitiesWithComponent<InventoryComponent>()[0].component;
+		auto input = context.inputManager;
+		if (!input->isKeyPressed(Key::KEY_SHIFT)) {
+			canPressShift = true;
+		}
+		if (input->isKeyPressed(Key::KEY_SHIFT) && !showResources && canPressShift) {
+			canPressShift = false;
+			showResources = true;
+			resourceImage->size = Math::Vector3f{ 0.045, 0.25,  0 };
+			redResource->text = std::to_string(static_cast<int>(inventory->redResource));
+			blueResource->text = std::to_string(static_cast<int>(inventory->blueResource));
+			greenResource->text = std::to_string(static_cast<int>(inventory->greenResource));
+		}
+		else if (input->isKeyPressed(Key::KEY_SHIFT) && showResources && canPressShift) {
+			canPressShift = false;
+			showResources = false;
+			resourceImage->size = Math::Vector3f{ 0,0, 0 };
+			redResource->text = "";
+			blueResource->text = "";
+			greenResource->text = "";
+		}
+
+		if (showResources) {
+			resourceImage->size = Math::Vector3f{ 0.045, 0.25,  0 };
+			redResource->text = std::to_string(static_cast<int>(inventory->redResource));
+			blueResource->text = std::to_string(static_cast<int>(inventory->blueResource));
+			greenResource->text = std::to_string(static_cast<int>(inventory->greenResource));
+		}
+
 	}
 
 	void PrismGame::onLeave(Context &context) {
