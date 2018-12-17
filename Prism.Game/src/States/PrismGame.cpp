@@ -248,6 +248,7 @@ namespace States {
 
 	void PrismGame::onLeave(Context &context) {
 	}
+  
 	void PrismGame::toggleNightmare(Context &context)
 	{
 		if (!isNightmareMode) {

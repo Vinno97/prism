@@ -180,6 +180,7 @@ unsigned EntityFactory::createResourcePoint(unsigned entity, EntityManager& enti
 		.addComponent(appearance)
 		.addComponent<CollidableComponent>()
 		.addComponent<BoundingBoxComponent>(.4, .4)
+    .addComponent<PointLightComponent>(appearance.color, 4.0f, 0.f)
 		.getEntity();
 }
 
@@ -206,6 +207,7 @@ unsigned EntityFactory::createTower(unsigned entity, EntityManager& entityManage
 		.addComponent<ShootingComponent>()
 		.addComponent<CollidableComponent>()
 		.addComponent<HealthComponent>(50)
+    .addComponent<PointLightComponent>(Math::Vector3f(0.2f, 0.2f, 0.2f), 4.0f, 0.f)
 		.addComponent(appearance)
 		.getEntity();
 }
@@ -232,6 +234,7 @@ unsigned EntityFactory::createWall(unsigned entity, EntityManager& entityManager
 		.addComponent<BoundingBoxComponent>(1.0, 1.0, 1.0)
 		.addComponent<CollidableComponent>()
 		.addComponent<HealthComponent>(50)
+    .addComponent<PointLightComponent>(Math::Vector3f(0.2f, 0.2f, 0.2f), 4.0f, 0.f)
 		.addComponent(appearance)
 		.getEntity();
 }
@@ -379,6 +382,7 @@ unsigned EntityFactory::createMine(unsigned entity, EntityManager& entityManager
 		.addComponent<CollidableComponent>()
 		.addComponent<ResourceGatherComponent>()
 		.addComponent<HealthComponent>(50)
+    .addComponent<PointLightComponent>(appearance.color, 4.0f, 0.f)
 		.addComponent(appearance)
 		.getEntity();
 }
