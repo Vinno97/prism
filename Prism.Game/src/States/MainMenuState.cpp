@@ -24,21 +24,29 @@ namespace States {
 		context.stateMachine->addState<HelpState>(context);
 		context.stateMachine->addState<HighScoreState>(context);
 
-		std::function<void()> callback = [&context](){
-			if (!context.stateMachine->hasState<PrismGame>()) {
-				context.stateMachine->addState<PrismGame>(context);
+		std::function<void()> callback = [&](){
+			context.stateMachine->removeState<PrismGame>();
+			context.stateMachine->addState<PrismGame>(context);
+			if(nightmareMode)
+			{
+				auto prismgame = context.stateMachine->getState<PrismGame>();
+				prismgame->toggleNightmare(context);
 			}
 			context.stateMachine->setState<PrismGame>(context);
 		};
 
 		std::function<void()> nightmareModeCallback = [&]() { 
-			if (context.stateMachine->hasState<PrismGame>() && cooldown > maxCooldown) {
-				auto prismgame = context.stateMachine->getState<PrismGame>();
-				prismgame->toggleNightmare(context);
-				cooldown = 0;
+			if (cooldown > maxCooldown) {
+				if(nightmareMode)
+				{
+					nightmareMode = false;
+				} else
+				{
+					nightmareMode = true;
+					cooldown = 0;
+				}
 			}
 		};
-
 
 		std::function<void()> creditsCallback = [&context]() { context.stateMachine->setState<CreditsState>(context); };
 		std::function<void()> settingsCallback = [&context]()

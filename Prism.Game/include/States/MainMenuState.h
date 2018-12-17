@@ -18,6 +18,7 @@ namespace States {
 		void onEnter(Context & context) override;
 		void onLeave(Context & context) override;
 		~MainMenuState();
+		bool nightmareMode = false;
 
 	private:
 		Menu::MenuRenderer menuRenderer;
