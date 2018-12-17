@@ -22,13 +22,15 @@
 #include "Physics/QuadTree.h"
 #include "States/MainMenuState.h"
 #include "States/CreditsState.h"
+#include "States/ResolutionMenuState.h"
 
 #define _CRTDBG_MAP_ALLOC
 
 // This function makes sure all objects are cleared from the stack before the memory gets dumped.
 void start() {
     CoreEngine ce = CoreEngine();
-    ce.InitWindow("prism", 1920 / 2, 1080 / 2, 100, 100);
+	srand(time(NULL));
+    ce.InitWindow("prism", 1920 / 2, 1080 / 2, 0, 0);
     ce.addState<States::MainMenuState>();
     ce.setEntryPoint<States::MainMenuState>();
 

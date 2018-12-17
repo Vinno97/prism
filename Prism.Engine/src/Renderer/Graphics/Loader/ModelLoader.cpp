@@ -23,9 +23,8 @@ namespace Renderer {
 	namespace Graphics {
 		namespace Loader {
 
-			unique_ptr<Model> ModelLoader::loadModel(string path)
+			unique_ptr<Model> ModelLoader::loadModel(string path) const
 			{
-				StaticMeshLoader staticMeshLoader = StaticMeshLoader();
 				shared_ptr<Mesh> m = staticMeshLoader.loadMesh(path);
 				unique_ptr<Model> model = make_unique<Model>(m);
 				return model;

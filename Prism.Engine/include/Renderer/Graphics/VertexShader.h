@@ -8,7 +8,7 @@ namespace Renderer {
 	namespace Graphics {
 		class VertexShader {
 		public:
-			VertexShader()=default;
+			VertexShader() = default;
 			GLuint vertexID;
 		};
 	}

@@ -2,6 +2,7 @@
 #include <SDL2/SDL_opengl.h>
 #include "Renderer/Graphics/RenderDevice.h"
 #include "Renderer/Graphics/VertexShader.h"
+#include "Renderer/Graphics/GeometryShader.h"
 #include "Renderer/Graphics/FragmentShader.h"
 #include "Renderer/Graphics/Pipeline.h"
 #include "Renderer/Graphics/VertexBuffer.h"
@@ -28,12 +29,14 @@ namespace Renderer {
 
 				std::unique_ptr<VertexShader> createVertexShader(const char* source) const override;
 				std::unique_ptr<FragmentShader> createFragmentShader(const char* source) const override;
+				std::unique_ptr<GeometryShader> createGeometryShader(const char* source) const override;
 				std::unique_ptr<Pipeline> createPipeline(VertexShader& vs, FragmentShader& fs) const override;
+				std::unique_ptr<Pipeline> createPipeline(VertexShader& vs, FragmentShader& fs, GeometryShader& gs) const override;
 				std::unique_ptr<VertexBuffer> createVertexBuffer(long size, const void *data) const override;
 				std::unique_ptr<VertexBuffer> createDynamicVertexBuffer() const override;
 				std::unique_ptr<IndexBuffer> createIndexBuffer(long size, const void *data) const override;
 				std::unique_ptr<VertexArrayObject> createVertexArrayobject() const override;
-				std::unique_ptr<RenderTarget> createRenderTarget(bool useDepthBuffer) const override;
+				std::unique_ptr<RenderTarget> createRenderTarget(bool useDepthBuffer, int width, int height) const override;
 				std::shared_ptr<Texture> createTexture(const char* path) const override;
 				std::shared_ptr<Texture> createTexture(bool depth, int width, int height) const override;
 				std::shared_ptr<Texture> createTexture(int width, int height, unsigned char* pixels, bool useRGB) const override;
@@ -41,6 +44,7 @@ namespace Renderer {
 				void useBlending(const bool blend) const override;
 				void setClearColour(float r, float g, float b, float w) const override;
 				void useDepthTest(bool enable) const override;
+				void setViewPort(const int width, const int height) const override;
 				void clearScreen() const override;
 				void DrawTrianglesIndexed(long offset, int count) const override;
 				void DrawTriangles(long offset, int count) const override;

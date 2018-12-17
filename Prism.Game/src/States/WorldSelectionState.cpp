@@ -108,8 +108,8 @@ namespace States {
 	void WorldSelectionState::onUpdate(Context &context) {
 		// TODO: Move this generic code to shared function or superclass.
 		renderDevice->clearScreen();
-		menuRenderer.renderMenu(*menu, float(context.window->width) / float(context.window->height));
-
+//		menuRenderer.renderMenu(*menu, float(context.window->width) / float(context.window->height));
+		menuRenderer.renderMenu(*menu, context.window->width, context.window->height);
 		if (menu->handleInput(*context.inputManager, context.window->width, context.window->height)) {
 			return;
 		}

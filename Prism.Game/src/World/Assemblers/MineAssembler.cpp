@@ -4,9 +4,9 @@
 
 void World::Assemblers::MineAssembler::assemble(int entity, const WorldObject& worldObject, ECS::EntityManager& entityManager) const
 {
-    if (worldObject.gid == 9)
+    if (worldObject.gid == 20)
     {
-        EntityFactory().createMine(entity, entityManager);
+        EntityFactory::getInstance().createMine(entity, entityManager);
     }
 }
 
@@ -14,6 +14,6 @@ void World::Assemblers::MineAssembler::disassemble(int entity, WorldObject& worl
 {
     if (entityManager.hasComponent<ECS::Components::MineComponent>(entity))
     {
-        worldObject.gid = 9;
+        worldObject.gid = 20;
     }
 }

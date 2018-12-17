@@ -1,4 +1,4 @@
-#include <utility>
+#pragma once
 
 #include "Game.h"
 #include "Menu/MenuBuilder.h"
@@ -22,6 +22,8 @@ class PrismGame : public Game
 	void onUpdate(Context &context) override;
 	void onEnter(Context & context) override;
 	void onLeave(Context & context) override;
+	void toggleNightmare(Context & context);
+	bool isNightmare();
 
 	std::string getLevel() const { return levelPath; }
 
@@ -33,17 +35,21 @@ class PrismGame : public Game
 	Menu::MenuBuilder menuBuilder;
 	std::unique_ptr<Menu::Menu> menu;
 
+
 	//Textcontrols
 	Menu::TextControl* redResource{nullptr};
 	Menu::TextControl* greenResource{nullptr};
 	Menu::TextControl* blueResource{nullptr};
 	Menu::TextControl* health{nullptr};
+	Menu::TextControl* survivedTime{nullptr};
+	Menu::TextControl* score{nullptr};
 	Menu::TextControl* fps{nullptr};
 
-	std::string levelPath;
 	bool canPressEscape{false};
 	bool canPressF3{false};
 	bool showFPS{false};
+	bool isNightmareMode{false};
+	std::string levelPath{};
 	void registerSystems(Context &context);
 	void toggleFPS(Context &context);
 	void loadAudio(Context &context) const;

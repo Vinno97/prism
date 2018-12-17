@@ -2,11 +2,14 @@
 #include "ECS/Components/ProjectileAttackComponent.h"
 #include "ECS/Components/BoundingBoxComponent.h"
 #include "ECS/Components/EnemyComponent.h"
+#include "ECS/Components/ScoreComponent.h"
 #include "ECS/Components/HealthComponent.h"
 #include "ECS/Components/PlayerComponent.h"
 #include "ECS/Components/PositionComponent.h"
 #include "Util/DistanceUtil.h"
 #include <cmath>
+#include "ECS/Components/AnimationComponent.h"
+#include "ECS/Components/VelocityComponent.h"
 
 namespace ECS {
 	namespace Systems {
@@ -21,6 +24,7 @@ namespace ECS {
 
 		void ProjectileAttackSystem::update(Context& context)
 		{
+			auto player = entityManager->getAllEntitiesWithComponent<PlayerComponent>()[0];
 			auto players = entityManager->getAllEntitiesWithComponent<PlayerComponent>();
 
 			for (auto entity : entityManager->getAllEntitiesWithComponent<ProjectileAttackComponent>()) {
@@ -45,27 +49,37 @@ namespace ECS {
 									entityManager->removeEntity(entity.id);
 								}
 								if (EnemyHealth->currentHealth <= 0) {
-									entityManager->removeEntity(collider);
+									auto scoreComponent = entityManager->getComponent<ScoreComponent>(player.id);
+									scoreComponent->killedEnemies += 1;
 									Util::DistanceUtil distanceUtil;
 									int BoxX = boundingBoxComponent->boundingBox.GetPosX();
 									int BoxY = boundingBoxComponent->boundingBox.GetPosY();
 									int PlayerX = entityManager->getComponent<PositionComponent>(players[0].id)->x;
 									int PlayerY = entityManager->getComponent<PositionComponent>(players[0].id)->x;
 									context.audioManager->playSound("EnemyKill", distanceUtil.CalculateDistance(BoxX, BoxY, PlayerX, PlayerY));
+
+									if (entityManager->hasComponent<AnimationComponent>(collider))
+									{
+										auto c = entityManager->getComponent<AnimationComponent>(collider);
+										c->currentAnimations[Renderer::Animation::Expand] = std::make_tuple<float, bool>(100.f, true);
+									}
+									entityManager->removeComponentFromEntity<EnemyComponent>(collider);
+									entityManager->removeComponentFromEntity<VelocityComponent>(collider);
+									entityManager->removeComponentFromEntity<HealthComponent>(collider);
+
 									break;
 								}
 							}
 						}
+
 					}
+
 					if (!isEnemy) {
+						boundingBoxComponent->didCollide = false;
+						boundingBoxComponent->collidesWith.clear();
 						entityManager->removeEntity(entity.id);
 					}
 				}
-
-				// TODO: Wat doet deze code hier eigenlijk? De game crasht hierop, maar werkt correct als het uitgeschakeld staat. 
-				// Ik kan me ook niet bedenken wat dit zou horen te doen.
-				// boundingBoxComponent->didCollide = false;
-				// boundingBoxComponent->collidesWith.clear();
 			}
 		}
 	}

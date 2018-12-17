@@ -23,6 +23,6 @@ namespace Menu {
         void cleanup();
 
     private:
-        bool isHandlingClicks{true};
+        bool isHandlingClicks{false};
     };
 }

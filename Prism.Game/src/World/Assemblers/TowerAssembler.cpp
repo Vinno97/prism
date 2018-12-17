@@ -7,7 +7,7 @@ using namespace World::Assemblers;
 
 void TowerAssembler::assemble(int entity, const WorldObject& worldObject, ECS::EntityManager& entityManager) const {
 	if (worldObject.gid == 7) {
-		EntityFactory().createTower(entity, entityManager);
+		EntityFactory::getInstance().createTower(entity, entityManager);
 	}
 }
 

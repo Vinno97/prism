@@ -2,13 +2,15 @@
 #include "ECS/Systems/AttackSystem.h"
 #include "ECS/EntityManager.h"
 #include "ECS/SystemManager.h"
+#include "Renderer/Animation.h"
 #include "ECS/Components/HealthComponent.h"
 #include "ECS/Components/VelocityComponent.h"
 #include "ECS/Components/BoundingBoxComponent.h"
 #include "ECS/Components/EnemyComponent.h"
+#include "ECS/Components/ScoreComponent.h"
 #include "ECS/Components/PlayerComponent.h"
 #include "ECS/Components/PositionComponent.h"
-
+#include "ECS/Components/AnimationComponent.h"
 
 
 namespace ECS {
@@ -39,7 +41,7 @@ namespace ECS {
 					if (boundingBoxComponent->didCollide) {
 
 						for (int i = 0; i < vector.size(); i++) {
-							if (entityManager->hasComponent<PlayerComponent>(vector[i])) {
+							if (entityManager->hasComponent<HealthComponent>(vector[i]) && !entityManager->hasComponent<EnemyComponent>(vector[i])) {
 								updateEntity(vector[i], context);
 								updateEntity(entity.id, context);
 								context.audioManager->playSound("EnemyKill", 0);
@@ -52,9 +54,15 @@ namespace ECS {
 
 		void AttackSystem::updateEntity(int id, Context& context) {
 			if (entityManager->hasComponent<EnemyComponent>(id)) {
-				entityManager->removeEntity(id);
-				// Print (Remove after review)
-				std::cout << "Enemy is exploded" << std::endl;
+				if(entityManager->hasComponent<AnimationComponent>(id))
+				{
+					auto c = entityManager->getComponent<AnimationComponent>(id);
+					c->currentAnimations[Renderer::Animation::Expand] = std::make_tuple<float, bool>(100.f, true);
+				}
+
+				entityManager->removeComponentFromEntity<EnemyComponent>(id);
+				entityManager->removeComponentFromEntity<VelocityComponent>(id);
+				entityManager->removeComponentFromEntity<HealthComponent>(id);
 			}
 
 			if (entityManager->hasComponent<HealthComponent>(id)) {
@@ -62,8 +70,9 @@ namespace ECS {
 
 				currentComponent->currentHealth -= 10;
 
-				// Print (Remove after review)
-				std::cout << "Speler: " << currentComponent->currentHealth << std::endl;
+				if (!entityManager->hasComponent<PlayerComponent>(id) && currentComponent->currentHealth <= 0) {
+					entityManager->removeEntity(id);
+				}
 			}
 		}
 	}

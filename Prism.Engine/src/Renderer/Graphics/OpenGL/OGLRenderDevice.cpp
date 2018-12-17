@@ -10,6 +10,7 @@
 #include "Renderer/Graphics/OpenGL/OGLRenderTarget.h"
 #include "Renderer/Graphics/OpenGL/OGLVertexArrayObject.h"
 #include "Renderer/Graphics/OpenGL/OGLTexture.h"
+#include "Renderer/Graphics/OpenGL/OGLGeometryShader.h"
 #include <memory>
 #include <SDL2/SDL_opengl.h>
 
@@ -44,9 +45,19 @@ namespace Renderer {
 				return make_unique<OGLFragmentShader>(source);
 			}
 
+			unique_ptr<GeometryShader> OGLRenderDevice::createGeometryShader(const char * source) const
+			{
+				return make_unique<OGLGeometryShader>(source);
+			}
+
 			unique_ptr<Pipeline> OGLRenderDevice::createPipeline(VertexShader& vs, FragmentShader& fs) const
 			{
 				return make_unique<OGLPipeline>(vs, fs);
+			}
+
+			std::unique_ptr<Pipeline> OGLRenderDevice::createPipeline(VertexShader & vs, FragmentShader & fs, GeometryShader & gs) const
+			{
+				return make_unique<OGLPipeline>(vs, fs, gs);
 			}
 
 			unique_ptr<VertexBuffer> OGLRenderDevice::createVertexBuffer(long size, const void * data) const
@@ -84,9 +95,9 @@ namespace Renderer {
 				return make_shared<OGLTexture>(width, height, pixels, useRGB);
 			}
 
-			unique_ptr<RenderTarget> OGLRenderDevice::createRenderTarget(bool useDepthBuffer) const
+			unique_ptr<RenderTarget> OGLRenderDevice::createRenderTarget(bool useDepthBuffer, int width, int height) const
 			{
-				return make_unique<OGLRenderTarget>(useDepthBuffer);
+				return make_unique<OGLRenderTarget>(useDepthBuffer, width, height);
 			}
 
 			void OGLRenderDevice::useBlending(const bool blend) const
@@ -111,6 +122,11 @@ namespace Renderer {
 					glEnable(GL_DEPTH_TEST);
 				else
 					glDisable(GL_DEPTH_TEST);
+			}
+
+			void OGLRenderDevice::setViewPort(const int width, const int height) const
+			{
+				glViewport(0, 0, width, height);
 			}
 
 			void OGLRenderDevice::clearScreen() const

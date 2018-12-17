@@ -15,7 +15,7 @@ namespace Menu {
 	{
 	public:
 		MenuRenderer();
-		void renderMenu(Menu& menu, float aspect);
+		void renderMenu(Menu& menu, const int width, const int height);
 	private:
 		TextRenderer textRenderer;
 		Renderer::Graphics::RenderDevice* renderDevice;
