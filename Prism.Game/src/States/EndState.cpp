@@ -136,11 +136,6 @@ namespace States {
 					numbers.push_back(newScore);
 				}
 			}
-
-			// Sort list (high to low)
-			std::sort(numbers.begin(), numbers.end());
-			std::reverse(numbers.begin(), numbers.end());
-
 		}
 
 		// Clear file scores.txt and copy values (vector: numbers) to file

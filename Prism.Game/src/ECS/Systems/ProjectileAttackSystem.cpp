@@ -76,11 +76,8 @@ namespace ECS {
 						entityManager->removeEntity(entity.id);
 					}
 				}
-
-				// TODO: Wat doet deze code hier eigenlijk? De game crasht hierop, maar werkt correct als het uitgeschakeld staat. 
-				// Ik kan me ook niet bedenken wat dit zou horen te doen.
-				// boundingBoxComponent->didCollide = false;
-				// boundingBoxComponent->collidesWith.clear();
+				boundingBoxComponent->didCollide = false;
+				boundingBoxComponent->collidesWith.clear();
 			}
 		}
 	}
