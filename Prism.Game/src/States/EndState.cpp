@@ -26,19 +26,7 @@ namespace States {
 
 	void EndState::onInit(Context & context)
 	{
-		survivedTimeLabel = menuBuilder.addTextControl(-0.98, -0.4, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "Time survived:");
-		killedEnemiesLabel = menuBuilder.addTextControl(-0.98, -0.45, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "Kills:");
-		redLabel = menuBuilder.addTextControl(-0.98, -0.50, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "Red resources:");
-		blueLabel = menuBuilder.addTextControl(-0.98, -0.55, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "Blue resources:");
-		greenLabel = menuBuilder.addTextControl(-0.98, -0.60, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "Green resources:");
-		scoreLabel = menuBuilder.addTextControl(-0.98, -0.65, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "Total score:");
-
-		survivedTime = menuBuilder.addTextControl(-0.5, -0.4, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
-		killedEnemies = menuBuilder.addTextControl(-0.5, -0.45, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
-		red = menuBuilder.addTextControl(-0.5, -0.50, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
-		blue = menuBuilder.addTextControl(-0.5, -0.55, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
-		green = menuBuilder.addTextControl(-0.5, -0.60, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
-		score = menuBuilder.addTextControl(-0.5, -0.65, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
+	
 
 		std::function<void()> callbackMainMenu = [&context]() { context.stateMachine->setState<MainMenuState>(context); };
 		std::function<void()> callBackRestart = [&]() {
@@ -50,9 +38,26 @@ namespace States {
 		};
 
 		menuBuilder.addControl(-0.5, 0.5, 1, 0.24, "img/gameover.png");
-		menuBuilder.addControl(-1, -.35, 0.7, 0.08, "img/stats.png");
+		menuBuilder.addControl(-0.35, -.35, 0.7, 0.08, "img/stats.png");
 		menuBuilder.addControl(-0.35, 0.1, 0.7, 0.18, "img/mainMenuButton.png", callbackMainMenu);
 		menuBuilder.addControl(-0.35, -0.2, 0.7, 0.18, "img/restart.png", callBackRestart);
+
+
+		survivedTimeLabel = menuBuilder.addTextControl(-0.35, -0.4, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "Time survived:");
+		killedEnemiesLabel = menuBuilder.addTextControl(-0.35, -0.45, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "Kills:");
+		redLabel = menuBuilder.addTextControl(-0.35, -0.50, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "Red resources:");
+		blueLabel = menuBuilder.addTextControl(-0.35, -0.55, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "Blue resources:");
+		greenLabel = menuBuilder.addTextControl(-0.35, -0.60, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "Green resources:");
+		scoreLabel = menuBuilder.addTextControl(-0.35, -0.65, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "Total score:");
+
+		survivedTime = menuBuilder.addTextControl(0.15, -0.4, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
+		killedEnemies = menuBuilder.addTextControl(0.15, -0.45, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
+		red = menuBuilder.addTextControl(0.15, -0.50, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
+		blue = menuBuilder.addTextControl(0.15, -0.55, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
+		green = menuBuilder.addTextControl(0.15, -0.60, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
+		score = menuBuilder.addTextControl(0.15, -0.65, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
+
+
 		menu = menuBuilder.buildMenu();
 
 		Renderer::Graphics::RenderDevice* renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
@@ -90,10 +95,14 @@ namespace States {
 		std::fstream file;
 		std::vector<int> numbers;
 		int newScore = totalscore;
-		file.open("res/saves/scores.txt");
+		std::string filename = "res/saves/scores.txt";
 
-		if (file.is_open())
-		{
+		file.open("res/saves/scores.txt");
+	
+		if (file.fail()) {
+			numbers.push_back(newScore);
+		}
+		else{
 			if (file.peek() == std::ifstream::traits_type::eof()) {
 				numbers.push_back(newScore);
 			}
@@ -129,12 +138,12 @@ namespace States {
 			// Sort list
 			std::sort(numbers.begin(), numbers.end());
 			std::reverse(numbers.begin(), numbers.end());
+		}
 
-			// Clear file scores.txt and copy values (vector: numbers) to file
-			std::ofstream out("res/saves/scores.txt");
-			if (out.is_open()) {
-				std::copy(numbers.begin(), numbers.end(), std::ostream_iterator<int>(out, "\n"));
-			}
+		// Clear file scores.txt and copy values (vector: numbers) to file
+		std::ofstream out("res/saves/scores.txt");
+		if (out.is_open()) {
+			std::copy(numbers.begin(), numbers.end(), std::ostream_iterator<int>(out, "\n"));
 		}
 	}
 
