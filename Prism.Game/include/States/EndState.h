@@ -34,6 +34,7 @@ namespace States {
 		Menu::TextControl* redLabel;
 		Menu::TextControl* greenLabel;
 		Menu::TextControl* blueLabel;
+		Menu::TextControl* statsLabel;
 
 		Menu::TextControl* survivedTime;
 		Menu::TextControl* score;

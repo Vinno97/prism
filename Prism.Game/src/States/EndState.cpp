@@ -26,8 +26,6 @@ namespace States {
 
 	void EndState::onInit(Context & context)
 	{
-	
-
 		std::function<void()> callbackMainMenu = [&context]() { context.stateMachine->setState<MainMenuState>(context); };
 		std::function<void()> callBackRestart = [&]() {
 			if (!context.stateMachine->hasState<PrismGame>()) {
@@ -38,28 +36,25 @@ namespace States {
 		};
 
 		menuBuilder.addControl(-0.5, 0.5, 1, 0.24, "img/gameover.png");
-		menuBuilder.addControl(-0.35, -.35, 0.7, 0.08, "img/stats.png");
-		menuBuilder.addControl(-0.35, 0.1, 0.7, 0.18, "img/mainMenuButton.png", callbackMainMenu);
-		menuBuilder.addControl(-0.35, -0.2, 0.7, 0.18, "img/restart.png", callBackRestart);
+		menuBuilder.addControl(-0.45, -0.10, 0.005, 0.47, "img/score_bar.png");
+		menuBuilder.addControl(0, -0.6, 0.7, 0.18, "img/mainMenuButton.png", callbackMainMenu);
+		menuBuilder.addControl(-0.7, -0.6, 0.7, 0.18, "img/restart.png", callBackRestart);
 
+		statsLabel = menuBuilder.addTextControl(-0.4, 0.32, 0.0013, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "Score:");
+		survivedTimeLabel = menuBuilder.addTextControl(-0.4, 0.25, 0.0013, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "Time survived:");
+		killedEnemiesLabel = menuBuilder.addTextControl(-0.4, 0.18, 0.0013, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "Kills:");
+		redLabel = menuBuilder.addTextControl(-0.4, 0.11, 0.0013, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "Red resources:");
+		blueLabel = menuBuilder.addTextControl(-0.4, 0.04, 0.0013, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "Blue resources:");
+		greenLabel = menuBuilder.addTextControl(-0.4, -0.03, 0.0013, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "Green resources:");
+		scoreLabel = menuBuilder.addTextControl(-0.4, -0.10, 0.0013, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "Total score:");
 
-		survivedTimeLabel = menuBuilder.addTextControl(-0.35, -0.4, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "Time survived:");
-		killedEnemiesLabel = menuBuilder.addTextControl(-0.35, -0.45, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "Kills:");
-		redLabel = menuBuilder.addTextControl(-0.35, -0.50, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "Red resources:");
-		blueLabel = menuBuilder.addTextControl(-0.35, -0.55, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "Blue resources:");
-		greenLabel = menuBuilder.addTextControl(-0.35, -0.60, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "Green resources:");
-		scoreLabel = menuBuilder.addTextControl(-0.35, -0.65, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "Total score:");
-
-		survivedTime = menuBuilder.addTextControl(0.15, -0.4, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
-		killedEnemies = menuBuilder.addTextControl(0.15, -0.45, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
-		red = menuBuilder.addTextControl(0.15, -0.50, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
-		blue = menuBuilder.addTextControl(0.15, -0.55, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
-		green = menuBuilder.addTextControl(0.15, -0.60, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
-		score = menuBuilder.addTextControl(0.15, -0.65, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
-
-
+		survivedTime = menuBuilder.addTextControl(0.15, 0.25, 0.0013, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
+		killedEnemies = menuBuilder.addTextControl(0.15, 0.18, 0.0013, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
+		red = menuBuilder.addTextControl(0.15, 0.11, 0.0013, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
+		blue = menuBuilder.addTextControl(0.15, 0.04, 0.0013, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
+		green = menuBuilder.addTextControl(0.15, -0.03, 0.0013, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
+		score = menuBuilder.addTextControl(0.15, -0.10, 0.0013, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
 		menu = menuBuilder.buildMenu();
-
 		Renderer::Graphics::RenderDevice* renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
 		renderDevice->setClearColour(1.f, 1.f, 1.f, 1.f);
 	}
@@ -135,9 +130,10 @@ namespace States {
 				}
 			}
 
-			// Sort list
+			// Sort list (high to low)
 			std::sort(numbers.begin(), numbers.end());
 			std::reverse(numbers.begin(), numbers.end());
+
 		}
 
 		// Clear file scores.txt and copy values (vector: numbers) to file
