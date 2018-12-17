@@ -71,13 +71,15 @@ namespace ECS {
 								}
 							}
 						}
+
 					}
+
 					if (!isEnemy) {
+						boundingBoxComponent->didCollide = false;
+						boundingBoxComponent->collidesWith.clear();
 						entityManager->removeEntity(entity.id);
 					}
 				}
-				boundingBoxComponent->didCollide = false;
-				boundingBoxComponent->collidesWith.clear();
 			}
 		}
 	}
