@@ -63,8 +63,7 @@ namespace ECS {
 				Math::Vector3f v = Math::Vector3f(dirX, dirY, 0);
 				v.normalize();
 				velocity->dx += v.x * acceleration*context.deltaTime;
-				velocity->dy += v.y * acceleration*context.deltaTime;
-			
+				velocity->dy += v.y * acceleration*context.deltaTime;	
 			}
 		}
 	}

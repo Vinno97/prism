@@ -7,6 +7,7 @@
 #include "ECS/Components/VelocityComponent.h"
 #include "ECS/Components/BoundingBoxComponent.h"
 #include "ECS/Components/EnemyComponent.h"
+#include "ECS/Components/ScoreComponent.h"
 #include "ECS/Components/PlayerComponent.h"
 #include "ECS/Components/PositionComponent.h"
 #include "ECS/Components/AnimationComponent.h"
