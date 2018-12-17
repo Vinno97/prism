@@ -165,8 +165,8 @@ namespace Renderer {
 		quadPipeline->setUniformVector("gDirectionalLight.Color", scene.ambientLightColor.x, scene.ambientLightColor.y, scene.ambientLightColor.z);
 		quadPipeline->setUniformVector("gDirectionalLight.Direction", scene.sun.direction.x, scene.sun.direction.y, scene.sun.direction.z);
 
-		quadPipeline->setUniformFloat("gDirectionalLight.AmbientIntensity", 0.6f);
-		quadPipeline->setUniformFloat("gDirectionalLight.DiffuseIntensity", 0.5f);
+		quadPipeline->setUniformFloat("gDirectionalLight.AmbientIntensity", scene.ambientLightStrength);
+		quadPipeline->setUniformFloat("gDirectionalLight.DiffuseIntensity", scene.directionalLightStrength);
 
 		quadPipeline->setUniformMatrix4f("shadowView", shadowView);
 		quadPipeline->setUniformMatrix4f("view", view);

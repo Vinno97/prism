@@ -177,9 +177,23 @@ namespace States {
 		context.audioManager->addSound("EnemyKill", "EnemyKill.wav");
 		context.audioManager->addSound("Resource", "ResourceGathering.wav");
 		context.audioManager->addSound("Heartbeat", "Heartbeat.wav");
+		context.audioManager->addSound("NightmareOn", "NightmareModeOn.wav");
+		context.audioManager->addSound("NightmareOff", "NightmareModeOff.wav");
 	}
 
 	void PrismGame::onEnter(Context &context) {
+		auto scene = entityManager.getAllEntitiesWithComponent<SceneComponent>()[0];
+		auto sceneCompontent = entityManager.getComponent<SceneComponent>(scene.id);
+		if (isNightmareMode) {
+			sceneCompontent->scene.ambientLightStrength = 0;
+			sceneCompontent->scene.directionalLightStrength = 0;
+		}
+		else {
+			sceneCompontent->scene.ambientLightStrength = 0.6f;
+			sceneCompontent->scene.directionalLightStrength = 0.5f;
+		}
+
+		
 		context.audioManager->playMusic("Ambience");
 	}
 
@@ -213,5 +227,17 @@ namespace States {
 	}
 
 	void PrismGame::onLeave(Context &context) {
+	}
+  
+	void PrismGame::toggleNightmare(Context &context)
+	{
+		if (!isNightmareMode) {
+			context.audioManager->playSound("NightmareOn", 0);
+			isNightmareMode = true;
+		}
+		else {
+			context.audioManager->playSound("NightmareOff", 0);
+			isNightmareMode = false;
+		}
 	}
 }
