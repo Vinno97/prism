@@ -17,7 +17,6 @@ class PrismGame : public Game
 {
   public:
 	PrismGame() = default;
-	ECS::EntityManager entityManager;
 	void onInit(Context &context) override;
 	void onUpdate(Context &context) override;
 	void onEnter(Context & context) override;
@@ -26,6 +25,7 @@ class PrismGame : public Game
 	bool isNightmare();
 
   private:
+	ECS::EntityManager entityManager;
 	ECS::SystemManager systemManager;
 	EntityFactory entityFactory;
 	Menu::MenuRenderer menuRenderer;
@@ -36,7 +36,6 @@ class PrismGame : public Game
 	Menu::Control* resourceImage;
 
 	//Textcontrols
-
 	Menu::TextControl* redResource;
 	Menu::TextControl* greenResource;
 	Menu::TextControl* blueResource;
