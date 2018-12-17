@@ -79,6 +79,7 @@ void Window::swapScreen() {
 void Window::setSize(const int newWidth, const int newHeight)
 {	
 	SDL_SetWindowSize(gWindow, newWidth, newHeight);
+	SDL_SetWindowPosition(gWindow, 0, 0);
 	width = newWidth;
 	height = newHeight;
 }
