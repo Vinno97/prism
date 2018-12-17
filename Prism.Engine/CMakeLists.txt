@@ -30,6 +30,7 @@ else () # Assume GCC/Clang on a Unix os
     pkg_check_modules(SDL2_IMAGE REQUIRED SDL2_image)
     pkg_check_modules(SDL2_MIXER REQUIRED SDL2_mixer)
     find_package(OpenGL REQUIRED)
+    find_package(FMT REQUIRED)
     find_package(GLEW REQUIRED)
     find_package(Assimp REQUIRED)
     find_package(Freetype REQUIRED)
@@ -38,13 +39,14 @@ else () # Assume GCC/Clang on a Unix os
 
     #    add_compile_options(-Wall -Wpedantic -Werror)
     set(CMAKE_CXX_FLAGS_DEBUG "-g")
+    set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 endif ()
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
 include_directories(SYSTEM ${PROJECT_SOURCE_DIR}/lib/include)
 link_directories(${CMAKE_SOURCE_DIR}/lib)
 
-file(GLOB_RECURSE SRC_FILES ${PROJECT_SOURCE_DIR}/src/*.cpp)
+file(GLOB_RECURSE SRC_FILES ${PROJECT_SOURCE_DIR}/*.cpp)
 add_library(Prism.Engine SHARED ${SRC_FILES})
 
 #target_compile_features(Prism.Engine PUBLIC cxx_std_17)
@@ -66,7 +68,7 @@ endif ()
 #target_link_libraries(Prism.Engine PRIVATE ${ASSIMP_LIBRARIES} ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES} ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES})
 target_link_libraries(Prism.Engine PRIVATE
         ${ASSIMP_LIBRARIES}
-        ${OPENGL_LIBRARIES}
+        ${ASSIMP_LIBRARIES}
         ${GLEW_LIBRARIES}
         ${SDL2_LIBRARIES}
         ${SDL2_IMAGE_LIBRARIES}
@@ -80,6 +82,7 @@ target_include_directories(Prism.Engine PRIVATE
         src
         ${ASSIMP_INCLUDE_DIRS}
         ${OPENGL_INCLUDE_DIRS}
+        ${FMT_INCLUDE_DIRS}
         ${GLEW_INCLUDE_DIRS}
         ${SDL2_INCLUDE_DIRS}
         ${SDL2_IMAGE_INCLUDE_DIRS}

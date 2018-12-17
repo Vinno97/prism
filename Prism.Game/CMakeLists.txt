@@ -8,6 +8,7 @@ if(MSVC)
 else()
 #    add_compile_options(-Wall -Wpedantic)
     set(CMAKE_CXX_FLAGS_DEBUG "-g")
+    set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 endif()
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
@@ -34,4 +35,9 @@ set_target_properties(Prism.Game PROPERTIES
 #add_custom_target(resources ALL
 #        COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_CURRENT_SOURCE_DIR}/resources" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/resources")
 
-add_custom_command(TARGET Prism.Game POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/res "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/res")
+add_custom_target(
+        Resources
+        COMMAND
+        ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/res "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/res")
+
+#add_custom_command(TARGET Prism.Game POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/res "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/res")

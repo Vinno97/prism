@@ -1,11 +1,6 @@
-#include <utility>
-
-#include <utility>
-
-#include <utility>
-
 #pragma once
 
+#include <utility>
 #include <string>
 #include <array>
 
@@ -23,12 +18,16 @@ namespace States {
 
         void onUpdate(Context &context) override;
 
+    protected:
+        void makeButtons(Context& context);
+
     private:
         std::unique_ptr<Menu::Menu> menu;
         Menu::MenuRenderer menuRenderer;
         std::string levelDirectory;
-        std::array<std::string,
-                Variables::Visual::LevelSelection::ROWS * Variables::Visual::LevelSelection::COLUMNS> levels{""};
-        Renderer::Graphics::RenderDevice* renderDevice{nullptr};
+        std::vector<std::string> levels{""};
+        Renderer::Graphics::RenderDevice *renderDevice{nullptr};
+        int currentPage{0};
+        static constexpr int pageSize{Variables::Visual::LevelSelection::ROWS * Variables::Visual::LevelSelection::COLUMNS};
     };
 }
