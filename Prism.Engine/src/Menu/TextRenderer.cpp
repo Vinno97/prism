@@ -60,6 +60,7 @@ TextRenderer::TextRenderer()
 	textPipeline = std::move(renderDevice->createPipeline(*vertexShader, *fragmentShader));
 
 	textPipeline->createUniform("textColor");
+	textPipeline->createUniform("projection");
 }
 
 void TextRenderer::RenderText(const Menu::TextControl& control)
@@ -67,6 +68,7 @@ void TextRenderer::RenderText(const Menu::TextControl& control)
 //// Activate corresponding render state	
 	textPipeline->run();
 	textPipeline->setUniformVector("textColor", control.colour.x, control.colour.y, control.colour.z);
+	textPipeline->setUniformMatrix4f("projection", glm::ortho(-1.f, 1.f, -1.f, 1.f, 0.1f, 1.f));
 	VAO2->bind();
 	renderDevice->useBlending(true);
 	renderDevice->useDepthTest(false);
