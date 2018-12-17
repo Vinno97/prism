@@ -58,9 +58,11 @@ void CoreEngine::Run()
 
 		//Check if state is changed
 		if (context.stateMachine->getCurrentState() != currentState) {
-			context.stateMachine->getCurrentState()->onEnter(context);
+			if (currentState != nullptr) {
+				currentState->onLeave(context);
+			}
 			currentState = context.stateMachine->getCurrentState();
-			context.stateMachine->getCurrentState()->onLeave(context);
+			context.stateMachine->getCurrentState()->onEnter(context);
 		}
 
 		//Deltatime in microseconds

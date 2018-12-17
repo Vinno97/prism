@@ -80,7 +80,7 @@ namespace States {
 		killedEnemies->text = std::to_string(kills);
 		Renderer::Graphics::RenderDevice* renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
 		renderDevice->clearScreen();
-		menuRenderer.renderMenu(*menu, float(context.window->width) / float(context.window->height));
+		menuRenderer.renderMenu(*menu, context.window->width, context.window->height);
 
 		auto input = context.inputManager;
 		if (mouseWaitTime <= 0 && menu->handleInput(*context.inputManager, context.window->width, context.window->height) ) {

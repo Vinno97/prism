@@ -126,6 +126,11 @@ namespace Renderer {
 					glDisable(GL_DEPTH_TEST);
 			}
 
+			void OGLRenderDevice::setViewPort(const int width, const int height) const
+			{
+				glViewport(0, 0, width, height);
+			}
+
 			void OGLRenderDevice::clearScreen() const
 			{
 				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

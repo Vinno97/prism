@@ -174,7 +174,7 @@ namespace States {
 		score->text = "Score: " + std::to_string(totalScore);
 		survivedTime->text = std::to_string(static_cast<int>(time)) + " seconds";
 
-		menuRenderer.renderMenu(*menu, float(context.window->width) / float(context.window->height));
+		menuRenderer.renderMenu(*menu, context.window->width, context.window->height);
 		context.window->swapScreen();
 
 		if (menu->handleInput(*context.inputManager, context.window->width, context.window->height)) {
@@ -193,13 +193,10 @@ namespace States {
 	void PrismGame::loadAudio(Context &context) const
 	{
 		context.audioManager->addMusic("Ambience", "Ambience.wav");
-		context.audioManager->addMusic("MainMenu", "MainMenu.wav");
 		context.audioManager->addSound("Bullet", "Bullet.wav");
 		context.audioManager->addSound("EnemyKill", "EnemyKill.wav");
 		context.audioManager->addSound("Resource", "ResourceGathering.wav");
 		context.audioManager->addSound("Heartbeat", "Heartbeat.wav");
-		context.audioManager->addSound("NightmareOn", "NightmareModeOn.wav");
-		context.audioManager->addSound("NightmareOff", "NightmareModeOff.wav");
 	}
 
 	void PrismGame::onEnter(Context &context) {

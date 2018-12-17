@@ -25,6 +25,7 @@
 #include "Physics/QuadTree.h"
 #include "States/MainMenuState.h"
 #include "States/CreditsState.h"
+#include "States/ResolutionMenuState.h"
 
 #define _CRTDBG_MAP_ALLOC
 
@@ -32,7 +33,7 @@
 void start() {
     CoreEngine ce = CoreEngine();
 	srand(time(NULL));
-    ce.InitWindow("prism", 1920 / 2, 1080 / 2, 100, 100);
+    ce.InitWindow("prism", 1920 / 2, 1080 / 2, 0, 0);
     ce.addState<States::MainMenuState>();
     ce.setEntryPoint<States::MainMenuState>();
 
