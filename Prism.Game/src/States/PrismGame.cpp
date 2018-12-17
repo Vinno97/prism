@@ -71,16 +71,6 @@ namespace States {
 		}
 		if (!context.stateMachine->hasState<EndState>()) {
 			context.stateMachine->addState<EndState>(context);
-			auto endstate = context.stateMachine->getState<EndState>();
-
-
-			int totalScore;
-			for (const auto& entity : entityManager.getAllEntitiesWithComponent<PlayerComponent>()) {
-				totalScore = entityManager.getComponent<ScoreComponent>(entity.id)->totalScore;
-
-				auto scoreComponent = entityManager.getComponent<ScoreComponent>(entity.id);
-				//scoreComponent->survivedTime += context.deltaTime;
-			}
 		}
 
 
