@@ -28,6 +28,7 @@ namespace Menu {
 		menuPipeline = move(renderDevice->createPipeline(*vertexShader, *fragmentShader));
 
 		menuPipeline->createUniform("model");
+		menuPipeline->createUniform("projection");
 	}
 
 	void MenuRenderer::renderMenu(Menu& menu, const int width, const int height)
@@ -50,6 +51,7 @@ namespace Menu {
 			model = glm::scale(model, glm::vec3(control.size.x, control.size.y, 1.0f));
 
 			menuPipeline->setUniformMatrix4f("model", model);
+			menuPipeline->setUniformMatrix4f("projection", glm::ortho(-1.f, 1.f, -1.f, 1.f, 0.1f, 1.f));
 
 			control.texture->bind(textures[0]);
 			renderDevice->DrawTrianglesIndexed(0, menu.mesh->indicesLength);	
