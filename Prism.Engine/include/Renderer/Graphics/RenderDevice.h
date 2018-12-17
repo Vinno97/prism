@@ -2,6 +2,7 @@
 #include <SDL2/SDL_opengl.h>
 #include "Renderer/Graphics/VertexShader.h"
 #include "Renderer/Graphics/FragmentShader.h"
+#include "Renderer/Graphics/GeometryShader.h"
 #include "Renderer/Graphics/Pipeline.h"
 #include "Renderer/Graphics/VertexBuffer.h"
 #include "Renderer/Graphics/IndexBuffer.h"
@@ -29,9 +30,19 @@ namespace Renderer {
 			virtual std::unique_ptr<FragmentShader> createFragmentShader(const char* source)  const = 0;
 
 			/// <summary>
+			/// Create a new fragmentshader
+			/// </summary>
+			virtual std::unique_ptr<GeometryShader> createGeometryShader(const char* source)  const = 0;
+
+			/// <summary>
 			/// Create a new pipeline
 			/// </summary>
 			virtual std::unique_ptr<Pipeline> createPipeline(VertexShader& vs, FragmentShader& fs) const = 0;
+
+			/// <summary>
+			/// Create a new pipeline
+			/// </summary>
+			virtual std::unique_ptr<Pipeline> createPipeline(VertexShader& vs, FragmentShader& fs, GeometryShader& gs) const = 0;
 
 			/// <summary>
 			/// Create a new vertexbuffer

@@ -6,6 +6,7 @@
 #include "ECS/Components/AppearanceComponent.h"
 #include "ECS/Components/ScoreComponent.h"
 #include "ECS/Components/PositionComponent.h"
+#include "ECS/Components/PointLightComponent.h"
 
 using namespace ECS::Components;
 
@@ -21,20 +22,18 @@ namespace ECS {
 
 		void ShootingSystem::update(Context& context)
 		{
-			
-
-			EntityFactory ef = EntityFactory();
 			for (auto entity : entityManager->getAllEntitiesWithComponent<ShootingComponent>()) {
 				auto component = entityManager->getComponent<ShootingComponent>(entity.id);
-				component->pastTime += context.deltaTime;
-				if (component->isShooting && component->pastTime > component->cooldown) {
-					component->pastTime = 0;
-					int projectileId = ef.createProjectile(*entityManager);
+				pastTime += context.deltaTime;
+				if (component->isShooting && pastTime > cooldown) {
+					pastTime = 0;
+					int projectileId = EntityFactory::getInstance().createProjectile(*entityManager);
 					auto position = entityManager->getComponent<PositionComponent>(projectileId);
 					position->x = entityManager->getComponent<PositionComponent>(entity.id)->x + (component->xdirection / 4);
 					position->y = entityManager->getComponent<PositionComponent>(entity.id)->y + (component->ydirection / 4);
 
 					auto velocity = entityManager->getComponent<VelocityComponent>(projectileId);
+					auto pointLight = entityManager->getComponent<PointLightComponent>(projectileId);
 					velocity->dx = component->xdirection * 5;
 					velocity->dy = component->ydirection * 5;
 
@@ -46,6 +45,7 @@ namespace ECS {
 							projectilePosition->z = 1;
 						}
 						projectileAppearance->color = entityAppearance->color;
+						pointLight->color = Math::Vector3f(entityAppearance->color.x, entityAppearance->color.y, entityAppearance->color.z);
 						context.audioManager->playSound("Bullet", 0);
 					}
 					entityManager->getComponent<BulletComponent>(projectileId)->lifeTime = 2;

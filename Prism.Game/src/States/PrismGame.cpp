@@ -1,23 +1,13 @@
 #include "Menu/TextRenderer.h"
 #include "States/PrismGame.h"
-#include <iomanip>
-#include <sstream>
-#include <iostream>
 #include "Math/Vector3f.h"
 #include "StateMachine.h"
 #include "States/PauseState.h"
 #include "States/EndState.h"
 #include "ECS/Components/SceneComponent.h"
 #include "ECS/Components/PlayerComponent.h"
-#include "ECS/Components/PositionComponent.h"
-#include "ECS/Components/VelocityComponent.h"
-#include "ECS/Components/PointLightComponent.h"
-#include "ECS/Components/AppearanceComponent.h"
-#include "ECS/Components/EnemyComponent.h"
-#include "ECS/Components/DragComponent.h"
 #include "ECS/Components/ScoreComponent.h"
 #include "ECS/Components/HealthComponent.h"
-#include "ECS/Components/KeyboardInputComponent.h"
 #include "ECS/Systems/EnemyPathFindingSystem.h"
 #include "ECS/Systems/MotionSystem.h"
 #include "ECS/Systems/GameOverSystem.h"
@@ -27,7 +17,6 @@
 #include "ECS/Systems/MousePointSystem.h"
 #include "ECS/Systems/KeyboardInputSystem.h"
 #include "ECS/Systems/AnimationSystem.h"
-#include "ECS/Systems/AttackSystem.h"
 #include "ECS/Systems/BumpSystem.h"
 #include "ECS/Systems/CollisionSystem.h"
 #include "ECS/Systems/CheatSystem.h"
@@ -37,16 +26,13 @@
 #include "ECS/Systems/ShootingSystem.h"
 #include "ECS/Systems/ProjectileAttackSystem.h"
 #include "ECS/Systems/AimingSystem.h"
-#include "ECS/Systems/EnemySpawnSystem.h"
-#include "ECS/Systems/MousePointSystem.h"
 #include "World/WorldLoader.h"
 #include "World/Assemblers/PrismEntityAssembler.h"
-#include "ECS/Systems/MousePointSystem.h"
-#include "ECS/Systems/EnemySpawnSystem.h"
 #include "ECS/Systems/HealthRegenerationSystem.h"
-#include "Renderer/PointLight.h"
 #include <functional>
 #include "ECS/Systems/TowerAimingSystem.h"
+#include "ECS/Systems/GeometryAnimationSystem.h"
+
 namespace States {
 	using namespace ECS;
 	using namespace ECS::Components;
@@ -138,6 +124,7 @@ namespace States {
 			//4
 			.registerSystem<4, ProjectileAttackSystem>(entityManager)
 			.registerSystem<4, AttackSystem>(entityManager)
+			.registerSystem<4, GeometryAnimationSystem>(entityManager)
 
 			//5
 			.registerSystem<5, BumpSystem>(entityManager)
@@ -151,7 +138,8 @@ namespace States {
 	{
 		toggleFPS(context);
 		auto input = context.inputManager;
-	
+
+
 		for (auto& systemList : systemManager.getAllSystems()) {
 			for (auto& system : systemList.second) {
 				system.second->update(context);

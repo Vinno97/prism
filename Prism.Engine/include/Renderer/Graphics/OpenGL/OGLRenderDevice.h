@@ -2,6 +2,7 @@
 #include <SDL2/SDL_opengl.h>
 #include "Renderer/Graphics/RenderDevice.h"
 #include "Renderer/Graphics/VertexShader.h"
+#include "Renderer/Graphics/GeometryShader.h"
 #include "Renderer/Graphics/FragmentShader.h"
 #include "Renderer/Graphics/Pipeline.h"
 #include "Renderer/Graphics/VertexBuffer.h"
@@ -28,7 +29,9 @@ namespace Renderer {
 
 				std::unique_ptr<VertexShader> createVertexShader(const char* source) const override;
 				std::unique_ptr<FragmentShader> createFragmentShader(const char* source) const override;
+				std::unique_ptr<GeometryShader> createGeometryShader(const char* source) const override;
 				std::unique_ptr<Pipeline> createPipeline(VertexShader& vs, FragmentShader& fs) const override;
+				std::unique_ptr<Pipeline> createPipeline(VertexShader& vs, FragmentShader& fs, GeometryShader& gs) const override;
 				std::unique_ptr<VertexBuffer> createVertexBuffer(long size, const void *data) const override;
 				std::unique_ptr<VertexBuffer> createDynamicVertexBuffer() const override;
 				std::unique_ptr<IndexBuffer> createIndexBuffer(long size, const void *data) const override;
