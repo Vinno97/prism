@@ -45,10 +45,10 @@ namespace States {
 
 	void PrismGame::onInit(Context & context)
 	{
-		auto floor = entityFactory.createFloor(entityManager);
-		auto scene = entityFactory.createScene(entityManager);
-		auto camera = entityFactory.createCamera(entityManager);
-		auto mousePointer = entityFactory.createCameraPointer(entityManager);
+		auto floor = entityFactory.getInstance().createFloor(entityManager);
+		auto scene = entityFactory.getInstance().createScene(entityManager);
+		auto camera = entityFactory.getInstance().createCamera(entityManager);
+		auto mousePointer = entityFactory.getInstance().createCameraPointer(entityManager);
 		auto sceneComponent = entityManager.getComponent<SceneComponent>(scene);
 
 		sceneComponent->scene.ambientLightColor = Math::Vector3f{ 1.0f, 1.0f, 1.0f };
