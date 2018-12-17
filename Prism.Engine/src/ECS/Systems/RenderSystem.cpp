@@ -110,7 +110,7 @@ namespace ECS {
 				forwardRenderer->loadPipelines();
 			}
 
-			forwardRenderer->draw(cameraComponent->camera, rendererData, sceneComponent->scene, lights, pos);
+			forwardRenderer->draw(cameraComponent->camera, rendererData, sceneComponent->scene, lights, pos, 1920, 1080);
 		}
 	}
 }

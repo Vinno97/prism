@@ -23,6 +23,7 @@ class PrismGame : public Game
 	void onEnter(Context & context) override;
 	void onLeave(Context & context) override;
 	void toggleNightmare(Context & context);
+	bool isNightmare();
 
   private:
 	ECS::SystemManager systemManager;

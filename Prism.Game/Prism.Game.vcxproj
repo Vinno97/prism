@@ -152,9 +152,11 @@
     <ClInclude Include="include\World\TerrainGenerator.h" />
     <ClInclude Include="include\ECS\Components\ScoreComponent.h" />
     <ClInclude Include="include\ECS\Systems\ScoreSystem.h" />
+    <ClInclude Include="include\States\ResolutionMenuState.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="include\ECS\Components\CliffCornerComponent.h" />
+    <ClCompile Include="src\States\ResolutionMenuState.cpp" />
     <ClCompile Include="src\States\HighScoreState.cpp" />
     <ClCompile Include="src\ECS\Systems\ScoreSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\AimingSystem.cpp" />

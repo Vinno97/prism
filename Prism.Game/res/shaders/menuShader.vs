@@ -5,6 +5,7 @@ layout (location = 1) in vec2 UV;
 out vec2 textureCoords;
 
 uniform mat4 model;
+uniform mat4 projection;
 
 void main()
 {

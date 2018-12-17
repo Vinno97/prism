@@ -165,7 +165,7 @@ namespace States {
 		score->text = "Score: " + std::to_string(totalScore);
 		survivedTime->text = std::to_string(static_cast<int>(time)) + " seconds";
 
-		menuRenderer.renderMenu(*menu, float(context.window->width) / float(context.window->height));
+		menuRenderer.renderMenu(*menu, context.window->width, context.window->height);
 		context.window->swapScreen();
 
 		if (menu->handleInput(*context.inputManager, context.window->width, context.window->height)) {
@@ -284,5 +284,9 @@ namespace States {
 			context.audioManager->playSound("NightmareOff", 0);
 			isNightmareMode = false;
 		}
+	}
+	bool PrismGame::isNightmare()
+	{
+		return isNightmareMode;
 	}
 }
