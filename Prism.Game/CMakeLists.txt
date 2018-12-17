@@ -40,4 +40,4 @@ add_custom_target(
         COMMAND
         ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/res "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/res")
 
-#add_custom_command(TARGET Prism.Game POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/res "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/res")
+add_custom_command(TARGET Prism.Game POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/res "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/res")

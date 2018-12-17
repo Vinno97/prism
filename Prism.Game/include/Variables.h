@@ -21,6 +21,10 @@ namespace Variables {
             constexpr SpritePath NEW_GAME = "img/NewGameButton.png";
             constexpr SpritePath LEVEL_SLOT_FILLED = "img/LoadLevelButton_Filled.png";
             constexpr SpritePath LEVEL_SLOT_EMPTY = "img/LoadLevelButton_Empty.png";
+            constexpr SpritePath PREVIOUS_BUTTON = "img/PreviousPageButton.png";
+            constexpr SpritePath PREVIOUS_BUTTON_DISABLED = "img/PreviousPageButton_Disabled.png";
+            constexpr SpritePath NEXT_BUTTON = "img/NextPageButton.png";
+            constexpr SpritePath NEXT_BUTTON_DISABLED = "img/NextPageButton_Disabled.png";
         }
     }
     namespace Visual {

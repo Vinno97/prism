@@ -14,6 +14,7 @@ in
         buildInputs = [
             cmake
             freetype
+            fmt
             pkgconfig
             SDL2
             SDL2_image
