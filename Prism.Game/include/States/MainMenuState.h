@@ -27,6 +27,7 @@ namespace States {
 		float cooldown = 0.0f;
 		float maxCooldown = 1.0f;
 		Renderer::Graphics::RenderDevice* renderDevice;
+		bool nightmareMode = false;
 	};
 }
 

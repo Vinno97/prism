@@ -178,7 +178,7 @@ namespace States {
 		context.window->swapScreen();
 
 		if (menu->handleInput(*context.inputManager, context.window->width, context.window->height)) {
-			return;
+			//return;
 		}
 		if (!input->isKeyPressed(Key::KEY_ESCAPE)) {
 			canPressEscape = true;
@@ -252,11 +252,11 @@ namespace States {
 	void PrismGame::toggleNightmare(Context &context)
 	{
 		if (!isNightmareMode) {
-			context.audioManager->playSound("NightmareOn", 0);
+			//context.audioManager->playSound("NightmareOn", 0);
 			isNightmareMode = true;
 		}
 		else {
-			context.audioManager->playSound("NightmareOff", 0);
+			//context.audioManager->playSound("NightmareOff", 0);
 			isNightmareMode = false;
 		}
 	}

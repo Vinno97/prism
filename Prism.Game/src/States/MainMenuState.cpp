@@ -23,17 +23,29 @@ namespace States {
 		context.stateMachine->addState<HelpState>(context);
 		context.stateMachine->addState<HighScoreState>(context);
 
-		std::function<void()> callback = [&context](){
+		std::function<void()> callback = [&](){
 			if (!context.stateMachine->hasState<PrismGame>()) {
 				context.stateMachine->addState<PrismGame>(context);
 			}
 			context.stateMachine->setState<PrismGame>(context);
+			if (nightmareMode) {
+				context.stateMachine->getState<PrismGame>()->toggleNightmare(context);
+			}
+
 		};
 
 		std::function<void()> nightmareModeCallback = [&]() { 
 			if (context.stateMachine->hasState<PrismGame>() && cooldown > maxCooldown) {
-				auto prismgame = context.stateMachine->getState<PrismGame>();
-				prismgame->toggleNightmare(context);
+				//auto prismgame = context.stateMachine->getState<PrismGame>();
+				//prismgame->toggleNightmare(context);
+				if (!nightmareMode) {
+					context.audioManager->playSound("NightmareOn", 0);
+					nightmareMode = true;
+				}
+				else {
+					context.audioManager->playSound("NightmareOff", 0);
+					nightmareMode = false;
+				}
 				cooldown = 0;
 			}
 		};
@@ -81,6 +93,7 @@ namespace States {
 	void MainMenuState::onEnter(Context & context)
 	{
 		context.audioManager->playMusic("MainMenu");
+		nightmareMode = false;
 	}
 
 	void MainMenuState::onLeave(Context & context)

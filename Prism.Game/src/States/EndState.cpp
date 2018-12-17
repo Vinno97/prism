@@ -29,9 +29,9 @@ namespace States {
 		
 
 		std::function<void()> callbackMainMenu = [&context](){
-			if (!context.stateMachine->hasState<PrismGame>()) {
-				context.stateMachine->addState<PrismGame>(context);
-			}
+			//if (!context.stateMachine->hasState<PrismGame>()) {
+			//	context.stateMachine->addState<PrismGame>(context);
+			//}
 			context.stateMachine->setState<MainMenuState>(context); };
 
 		std::function<void()> callBackRestart = [&context](){
@@ -68,6 +68,10 @@ namespace States {
 
 	void EndState::onUpdate(Context & context)
 	{
+		if (mouseWaitTime > 0) {
+			mouseWaitTime -= context.deltaTime;
+		}
+
 		score->text = std::to_string(totalscore);
 		survivedTime->text = std::to_string(time);
 		red->text = std::to_string(resourceRed);
@@ -79,8 +83,8 @@ namespace States {
 		menuRenderer.renderMenu(*menu, float(context.window->width) / float(context.window->height));
 
 		auto input = context.inputManager;
-		if (menu->handleInput(*context.inputManager, context.window->width, context.window->height)) {
-			return;
+		if (mouseWaitTime <= 0 && menu->handleInput(*context.inputManager, context.window->width, context.window->height) ) {
+//			return;
 		}
 
 		context.window->swapScreen();
@@ -90,7 +94,7 @@ namespace States {
 	{
 		context.stateMachine->removeState<PrismGame>();
 		updateScores();
-		
+		mouseWaitTime = waitTime;
 	}
 
 	void EndState::updateScores() {
