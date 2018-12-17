@@ -73,7 +73,6 @@ namespace ECS {
 						}
 
 					}
-				
 
 					if (!isEnemy) {
 						boundingBoxComponent->didCollide = false;
