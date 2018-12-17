@@ -81,11 +81,10 @@ namespace States {
 
 
 		healthImage = menuBuilder.addImage(-0.98, 0.85, 0.6, 0.1, "img/healthbar.png");
-		menuBuilder.addControl(-1, -0.97, 0.55, 0.20, "img/score.png");
 
 		survivedTime = menuBuilder.addTextControl(0.7, -0.95, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
-		fps = menuBuilder.addTextControl(0.725, 0.25, 0.0015, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "");
-		score = menuBuilder.addTextControl(-0.98, -0.88, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
+		fps = menuBuilder.addTextControl(0.8, 0.9, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "");
+		score = menuBuilder.addTextControl(-0.98, -0.95, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
 		menu = menuBuilder.buildMenu();
 
 		std::function<void()> callback = [context, &canPress = canPressEscape]() mutable { canPress = false; context.stateMachine->setState<PauseState>(context); };
