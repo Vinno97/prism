@@ -67,7 +67,7 @@ void ECS::Systems::PlaceCurrentBuildSystem::update(Context& context) {
 				else if (builderComponent->currentBuild == BuildTypes::TOWER && inventory->redResource >= towerRequirements) {
 					enoughResources = true;
 				}
-				else if (builderComponent->currentBuild == BuildTypes::MINE && inventory->blueResource >= towerRequirements) {
+				else if (builderComponent->currentBuild == BuildTypes::MINE && inventory->blueResource >= mineRequirements) {
 					enoughResources = true;
 				}
 
