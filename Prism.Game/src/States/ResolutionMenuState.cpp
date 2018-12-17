@@ -18,7 +18,10 @@ namespace States {
 
 	void ResolutionMenuState::onInit(Context & context)
 	{
-		std::function<void()> callback = [&context]() { context.stateMachine->setState<MainMenuState>(context); };
+		std::function<void()> callback = [&context]()
+		{
+			context.stateMachine->setState<MainMenuState>(context);
+		};
 		menuBuilder.addControl(-0.9f, 0.8, 0.3, 0.1, "img/Back.png", callback);
 
 		menuBuilder.addControl(-0.35, 0.4, 0.6, 0.18, "img/resolutionoptions/960-720.png", [&context]() { context.window->setSize(960, 720); });

@@ -18,7 +18,6 @@ namespace States {
 
 	void MainMenuState::onInit(Context & context)
 	{
-		context.stateMachine->addState<PrismGame>(context);
 		context.stateMachine->addState<CreditsState>(context);
 		context.stateMachine->addState<ResolutionMenuState>(context);
 		context.stateMachine->addState<HelpState>(context);
@@ -31,7 +30,10 @@ namespace States {
 		};
 
 		std::function<void()> creditsCallback = [&context]() { context.stateMachine->setState<CreditsState>(context); };
-		std::function<void()> settingsCallback = [&context]() { context.stateMachine->setState<ResolutionMenuState>(context); };
+		std::function<void()> settingsCallback = [&context]()
+		{
+			context.stateMachine->setState<ResolutionMenuState>(context);
+		};
 		std::function<void()> helpCallback = [&]() {context.stateMachine->setState<HelpState>(context); };
 		std::function<void()> quitCallback = [&]() {
 			if (exitBool) {
