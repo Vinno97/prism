@@ -29,7 +29,7 @@ void ResourceSpawnAssembler::assemble(int entity, const WorldObject& worldObject
 			value = std::stoi(worldObject.additionalProperties.at("value").value);
 		}
 		
-		EntityFactory().createResourcePoint(entity, entityManager, resourceType, gatherRate, value);
+		EntityFactory::getInstance().createResourcePoint(entity, entityManager, resourceType, gatherRate, value);
 	}
 
 }

@@ -1,27 +1,26 @@
 #include <GL/glew.h>
 #include "Renderer/ForwardRenderer.h"
+#include "Renderer/Animation.h"
 #include <string>
 #include <glm/glm.hpp>
-#include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include "Renderer/Graphics/RenderDevice.h"
 #include "Renderer/Graphics/VertexShader.h"
 #include "Renderer/Graphics/OpenGL/OGLRenderDevice.h"
-#include "Renderer/Graphics/OpenGL/OGLVertexShader.h"
-#include "Renderer/Graphics/OpenGL/OGLPipeline.h"
 #include "Renderer/Graphics/Pipeline.h"
 #include "Renderer/Graphics/VertexArrayObject.h"
 #include "Renderer/Graphics/VertexBuffer.h"
-#include "Renderer/Graphics/Loader/ModelLoader.h"
 #include "Renderer/Graphics/Models/Model.h"
 #include "Util/FileSystem.h"
 #include "Math/Vector3f.h"
 #include <SDL2/SDL_opengl.h>
+#include <chrono>
 
 using namespace Math;
 using namespace Renderer;
 using namespace Renderer::Graphics;
 using namespace Renderer::Graphics::OpenGL;
+using namespace std::chrono;
 using namespace Renderer::Graphics::Models;
 
 namespace Renderer {
@@ -34,38 +33,42 @@ namespace Renderer {
 		albedoBuffer = renderDevice->createTexture(false, width, height);
 		depthBuffer = renderDevice->createTexture(true, width, height);
 
-		renderTarget = renderDevice->createRenderTarget(true);
+		renderTarget = renderDevice->createRenderTarget(true, width, height);
 
 		renderTarget->addBuffer(positionBuffer);
 		renderTarget->addBuffer(normalBuffer);
 		renderTarget->addBuffer(albedoBuffer);
 		renderTarget->setDepthBuffer(depthBuffer);
 
-		shadowDepthTarget = renderDevice->createRenderTarget(true); 
-		shadowDepthBuffer = renderDevice->createTexture(true, width ,height);
+		shadowDepthTarget = renderDevice->createRenderTarget(true, 3000, 3000);
+		shadowDepthBuffer = renderDevice->createTexture(true, 3000, 3000);
 		shadowDepthTarget->setDepthBuffer(shadowDepthBuffer);
 
 		loadPipelines();
 		createTargetQuad();
 
 	    projection = glm::perspective(glm::radians(45.0f), (float) width/height, 0.5f, 100.f);
-		shadowProjection = glm::ortho(-3.0f, 3.0f, -3.0f, 3.0f, 0.f, 7.5f);
+		shadowProjection = glm::ortho(-11.f, 11.f, -11.f, 11.f, 0.f, 30.f);
 
 		renderDevice->setClearColour(1.f, 1.f, 1.f, 1.f);
-		shadowCamera.position = glm::vec3{ -45.f, 1.0f, -15 };
-
-		shadowCamera.rotation = glm::vec3{ -40.f, -20.f, 0.f };
+		shadowCamera.position = glm::vec3{ -55.f, 11.0f, -25 };
 	}
 
-	float i = 0;
+	float i = 0.1;
 
 	void ForwardRenderer::draw(const Camera& camera, const std::vector<Renderable>& renderables, const Scene& scene, std::vector<PointLight>& pointLights, Math::Vector3f position)
 	{
-
-		i += 0.01;
 		glm::mat4 model;
 		const glm::mat4 view = camera.getCameraMatrix();
-		shadowCamera.position = glm::vec3(position.x, position.y, position.z);
+		auto lightDir = scene.sun.direction;
+		lightDir.normalize(); //Set length to one
+		lightDir.invert(); //Reverse direction of vector
+		lightDir = lightDir * 2; //Backup by three
+
+		shadowCamera.position = camera.position;
+		shadowCamera.position.x += lightDir.x;
+		shadowCamera.position.y += lightDir.y;
+		shadowCamera.target = camera.target;
 
 		glViewport(0, 0, width, height);
 		//Do GBuffer pass
@@ -76,6 +79,10 @@ namespace Renderer {
 		renderDevice->clearScreen();
 		geometryPipeline->run();
 
+		milliseconds ms = duration_cast<milliseconds>(
+			system_clock::now().time_since_epoch()
+			);
+
 		for (const auto& renderable : renderables) {
 			model = renderable.getMatrix();
 
@@ -83,6 +90,18 @@ namespace Renderer {
 			geometryPipeline->setUniformMatrix4f("proj", projection);
 			geometryPipeline->setUniformMatrix4f("model", model);
 
+		if (renderable.currentAnimations.count(Animation::Expand)) {
+			geometryPipeline->setUniformInt("isExpanding", 1);
+			float x = std::get<0>(renderable.currentAnimations.at(Animation::Expand)) / (100 - 0);
+			float result = 0 + (1 - 0) * x;
+			geometryPipeline->setUniformFloat("expandProgress", 1-result);
+		} else
+		{
+			geometryPipeline->setUniformInt("isExpanding", 0);
+			geometryPipeline->setUniformFloat("expandProgress", float(3));
+		}
+
+			
 			geometryPipeline->setUniformVector("objectColor", renderable.color.x, renderable.color.y, renderable.color.z);
 
 			renderable.model->mesh->vertexArrayObject->bind();
@@ -99,14 +118,16 @@ namespace Renderer {
 		geometryPipeline->stop();
 		//End GBuffer pass
 
+		glViewport(0, 0, 3000, 3000);
 		//Shadow depth map render
 		shadowDepthTarget->bind();
 		renderDevice->useDepthTest(true);
 		renderDevice->clearScreen();
 		shadowPipeline->run();
+		glViewport(0, 0, 3000, 3000);
 
-		auto shadowView = glm::lookAt( glm::vec3(position.x, position.y, position.z), glm::vec3(-45.f, 1.0f, -15), glm::vec3(0, 1, 0) );
-
+		auto shadowView = shadowCamera.getCameraMatrix();
+		glCullFace(GL_FRONT);
 
 		for (const auto& renderable : renderables) {
 			model = renderable.getMatrix();
@@ -114,6 +135,12 @@ namespace Renderer {
 			shadowPipeline->setUniformMatrix4f("view", shadowView);
 			shadowPipeline->setUniformMatrix4f("proj", shadowProjection);
 			shadowPipeline->setUniformMatrix4f("model", model);
+			if (!renderable.currentAnimations.empty()) {
+				shadowPipeline->setUniformInt("isExpanding", 1);
+			} else
+			{
+				shadowPipeline->setUniformInt("isExpanding", 0);
+			}
 
 			renderable.model->mesh->vertexArrayObject->bind();
 			if (renderable.model->mesh->isIndiced) {
@@ -124,11 +151,12 @@ namespace Renderer {
 				renderDevice->DrawTriangles(0, renderable.model->mesh->verticesLength);
 			}
 		}
-
+		glViewport(0, 0, width, height);
+		glCullFace(GL_BACK);
 		shadowDepthTarget->unbind();
 		shadowPipeline->stop();
 		//End shadow depth map render
-
+		glViewport(0, 0, width, height);
 		//Do lighting pass
 		renderDevice->useDepthTest(false);
 		quadPipeline->run();
@@ -219,14 +247,19 @@ namespace Renderer {
 		Util::FileSystem fileReader;
 		std::string vertexSource = fileReader.readResourceFileIntoString("/shaders/simpleGeometry.vs");
 		std::string fragmentSource = fileReader.readResourceFileIntoString("/shaders/simpleGeometry.fs");
+		std::string geometrySource = fileReader.readResourceFileIntoString("/shaders/simpleGeometry.gs");
 		std::unique_ptr<VertexShader> vertexShader = renderDevice->createVertexShader(vertexSource.c_str());
 		std::unique_ptr<FragmentShader> fragmentShader = renderDevice->createFragmentShader(fragmentSource.c_str());
-		geometryPipeline = move(renderDevice->createPipeline(*vertexShader, *fragmentShader));
+		std::unique_ptr<GeometryShader> geometryShader = renderDevice->createGeometryShader(geometrySource.c_str());
+
+		geometryPipeline = move(renderDevice->createPipeline(*vertexShader, *fragmentShader, *geometryShader));
 
 		geometryPipeline->createUniform("objectColor");
 		geometryPipeline->createUniform("model");
 		geometryPipeline->createUniform("view");
 		geometryPipeline->createUniform("proj");
+		geometryPipeline->createUniform("expandProgress");
+		geometryPipeline->createUniform("isExpanding");
 
 		//Setup quad shaders
 		vertexSource = fileReader.readResourceFileIntoString("/shaders/quadShader.vs");
@@ -290,5 +323,6 @@ namespace Renderer {
 		shadowPipeline->createUniform("model");
 		shadowPipeline->createUniform("view");
 		shadowPipeline->createUniform("proj");
+		shadowPipeline->createUniform("isExpanding");
 	}
 }

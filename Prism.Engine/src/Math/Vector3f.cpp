@@ -42,6 +42,14 @@ Math::Vector3f Math::Vector3f::operator-(const Math::Vector3f other) {
     return vector;
 }
 
+Math::Vector3f Math::Vector3f::operator*(const float scale) {
+	Vector3f vector;
+	vector.x = this->x * scale;
+	vector.y = this->y * scale;
+	vector.z = this->z * scale;
+	return vector;
+}
+
 Math::Vector3f Math::Vector3f::normalize()
 {
 	float length = std::sqrt((x*x) + (y*y) + (z*z));
@@ -50,6 +58,14 @@ Math::Vector3f Math::Vector3f::normalize()
 		y = y / length;
 		z = z / length;
 	}
+	return *this;
+}
+
+Math::Vector3f Math::Vector3f::invert()
+{
+	x = -x;
+	y = -y;
+	z = -z;
 	return *this;
 }
 
