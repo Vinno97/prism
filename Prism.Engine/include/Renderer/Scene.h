@@ -8,6 +8,7 @@ namespace Renderer {
 	public:
 		Scene() = default;
 		float ambientLightStrength;
+		float directionalLightStrength;
 		Math::Vector3f ambientLightColor;
 		DirectionalLight sun;
 	};

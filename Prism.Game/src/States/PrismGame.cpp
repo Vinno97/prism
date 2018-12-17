@@ -6,6 +6,7 @@
 #include "States/EndState.h"
 #include "ECS/Components/SceneComponent.h"
 #include "ECS/Components/PlayerComponent.h"
+#include "ECS/Components/ScoreComponent.h"
 #include "ECS/Components/HealthComponent.h"
 #include "ECS/Systems/EnemyPathFindingSystem.h"
 #include "ECS/Systems/MotionSystem.h"
@@ -19,6 +20,7 @@
 #include "ECS/Systems/BumpSystem.h"
 #include "ECS/Systems/CollisionSystem.h"
 #include "ECS/Systems/CheatSystem.h"
+#include "ECS/Systems/ScoreSystem.h"
 #include "ECS/Systems/ResourceGatherSystem.h"
 #include "ECS/Systems/ResourceBlobSystem.h"
 #include "ECS/Systems/ShootingSystem.h"
@@ -69,20 +71,31 @@ namespace States {
 		}
 		if (!context.stateMachine->hasState<EndState>()) {
 			context.stateMachine->addState<EndState>(context);
+			auto endstate = context.stateMachine->getState<EndState>();
+
+
+			int totalScore;
+			for (const auto& entity : entityManager.getAllEntitiesWithComponent<PlayerComponent>()) {
+				totalScore = entityManager.getComponent<ScoreComponent>(entity.id)->totalScore;
+
+				auto scoreComponent = entityManager.getComponent<ScoreComponent>(entity.id);
+				scoreComponent->survivedTime += context.deltaTime;
+			}
 		}
+
 
 		menuBuilder.addControl(0.6, 0.35, 0.40, 0.65, "img/resources.png");
 		menuBuilder.addControl(-1, 0.83, 0.4, 0.15, "img/healthbar.png");
+		menuBuilder.addControl(-1, -0.97, 0.55, 0.20, "img/score.png");
 		health = menuBuilder.addTextControl(-0.98, 0.89, 0.0012, Math::Vector3f{ 1.0f, 1.0f, 1.0f }, "100");
 		blueResource = menuBuilder.addTextControl(0.65, 0.83, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
 		redResource = menuBuilder.addTextControl(0.65, 0.64, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
 		greenResource = menuBuilder.addTextControl(0.65, 0.45, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
-
-		fps = menuBuilder.addTextControl(0.83, 0.3, 0.0009, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "");
-
+		survivedTime = menuBuilder.addTextControl(0.7, -0.95, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
+		fps = menuBuilder.addTextControl(0.725, 0.25, 0.0015, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "");
+		score = menuBuilder.addTextControl(-0.98, -0.88, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
 		menu = menuBuilder.buildMenu();
 
-		
 		std::function<void()> callback = [context, &canPress = canPressEscape]() mutable { canPress = false; context.stateMachine->setState<PauseState>(context); };
 	}
 
@@ -123,9 +136,10 @@ namespace States {
 
 			//5
 			.registerSystem<5, BumpSystem>(entityManager)
+			.registerSystem<5, GameOverSystem>(entityManager)
+			.registerSystem<5, ScoreSystem>(entityManager)
 			.registerSystem<5, RenderSystem>(entityManager, context.window->width, context.window->height)
-			.registerSystem<5, HealthRegenerationSystem>(entityManager)
-			.registerSystem<5, GameOverSystem>(entityManager);
+			.registerSystem<5, HealthRegenerationSystem>(entityManager);
 	}
 
 	void PrismGame::onUpdate(Context &context)
@@ -142,14 +156,23 @@ namespace States {
 			
 		auto inventory = entityManager.getAllEntitiesWithComponent<InventoryComponent>()[0].component;
 		int playerHealth;
+		float time;
+		int totalScore;
 		for (const auto& entity : entityManager.getAllEntitiesWithComponent<PlayerComponent>()) {
 			playerHealth = entityManager.getComponent<HealthComponent>(entity.id)->currentHealth;
+			totalScore = entityManager.getComponent<ScoreComponent>(entity.id)->totalScore;
+
+			auto scoreComponent = entityManager.getComponent<ScoreComponent>(entity.id);
+			scoreComponent->survivedTime += context.deltaTime;
+			time = entityManager.getComponent<ScoreComponent>(entity.id)->survivedTime;
 		}
 
 		redResource->text = std::to_string(static_cast<int>(inventory->redResource));
 		blueResource->text = std::to_string(static_cast<int>(inventory->blueResource));
 		greenResource->text = std::to_string(static_cast<int>(inventory->greenResource));
 		health->text = "Health: " + std::to_string(playerHealth);
+		score->text = "Score: " + std::to_string(totalScore);
+		survivedTime->text = std::to_string(static_cast<int>(time)) + " seconds";
 
 		menuRenderer.renderMenu(*menu, float(context.window->width) / float(context.window->height));
 		context.window->swapScreen();
@@ -157,8 +180,6 @@ namespace States {
 		if (menu->handleInput(*context.inputManager, context.window->width, context.window->height)) {
 			return;
 		}
-
-
 		if (!input->isKeyPressed(Key::KEY_ESCAPE)) {
 			canPressEscape = true;
 		}
@@ -177,16 +198,29 @@ namespace States {
 		context.audioManager->addSound("EnemyKill", "EnemyKill.wav");
 		context.audioManager->addSound("Resource", "ResourceGathering.wav");
 		context.audioManager->addSound("Heartbeat", "Heartbeat.wav");
+		context.audioManager->addSound("NightmareOn", "NightmareModeOn.wav");
+		context.audioManager->addSound("NightmareOff", "NightmareModeOff.wav");
 	}
 
 	void PrismGame::onEnter(Context &context) {
+		auto scene = entityManager.getAllEntitiesWithComponent<SceneComponent>()[0];
+		auto sceneCompontent = entityManager.getComponent<SceneComponent>(scene.id);
+		if (isNightmareMode) {
+			sceneCompontent->scene.ambientLightStrength = 0;
+			sceneCompontent->scene.directionalLightStrength = 0;
+		}
+		else {
+			sceneCompontent->scene.ambientLightStrength = 0.6f;
+			sceneCompontent->scene.directionalLightStrength = 0.5f;
+		}
+
+		
 		context.audioManager->playMusic("Ambience");
 	}
 
 	int PrismGame::Fps(Context &context)
 	{
-		double fps = 1.0 / context.deltaTime;
-		return(floor(fps));
+		return(floor(1.0 / context.deltaTime));
 	}
 
 	void PrismGame::toggleFPS(Context & context)
@@ -213,5 +247,17 @@ namespace States {
 	}
 
 	void PrismGame::onLeave(Context &context) {
+	}
+  
+	void PrismGame::toggleNightmare(Context &context)
+	{
+		if (!isNightmareMode) {
+			context.audioManager->playSound("NightmareOn", 0);
+			isNightmareMode = true;
+		}
+		else {
+			context.audioManager->playSound("NightmareOff", 0);
+			isNightmareMode = false;
+		}
 	}
 }

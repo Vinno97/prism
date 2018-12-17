@@ -47,6 +47,8 @@
     <ClCompile Include="src\ECS\Systems\EnemySpawnSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\EnemyPathFindingSystem.cpp" />
     <ClCompile Include="src\World\Assemblers\EnemySpawnAssembler.cpp" />
+    <ClCompile Include="src\ECS\Systems\ScoreSystem.cpp" />
+    <ClCompile Include="src\States\HighScoreState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ECS\Components\BulletComponent.h" />
@@ -169,10 +171,15 @@
     <ClInclude Include="include\ECS\Systems\CheatSystem.h" />
     <ClInclude Include="include\States\HelpState.h" />
     <ClInclude Include="include\ECS\Components\TargetComponent.h" />
+    <ClInclude Include="include\States\MainMenuState.h" />
+    <ClInclude Include="include\States\EndState.h" />
+    <ClInclude Include="include\ECS\Components\ScoreComponent.h" />
+    <ClInclude Include="include\ECS\Systems\ScoreSystem.h" />
     <ClInclude Include="include\World\Assemblers\MineAssembler.h" />
     <ClInclude Include="include\ECS\Components\TargetComponent.h" />
     <ClInclude Include="include\ECS\Systems\HealthRegenerationSystem.h" />
     <ClInclude Include="include\ECS\Systems\TowerAimingSystem.h" />
+    <ClInclude Include="include\States\HighScoreState.h" />
     <ClInclude Include="include\ECS\Components\BuildComponent.h" />
     <ClInclude Include="include\ECS\Systems\SetCurrentBuildSystem.h" />
     <ClInclude Include="include\Enums\BuildTypes.h" />
@@ -283,5 +290,8 @@
   <ItemGroup>
     <Image Include="res\img\gameover.png" />
     <Image Include="res\img\restart.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="scores.txt" />
   </ItemGroup>
 </Project>

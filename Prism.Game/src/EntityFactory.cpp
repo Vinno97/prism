@@ -29,6 +29,11 @@
 #include "ECS/Components/InventoryComponent.h"
 #include "ECS/Components/KeyboardInputComponent.h"
 #include "ECS/Components/MineComponent.h"
+#include "ECS/Components/ScoreComponent.h"
+#include "ECS/Components/SceneComponent.h"
+#include "ECS/Components/HealthComponent.h"
+#include "ECS/Components/EnemyComponent.h"
+#include "ECS/Components/TowerComponent.h"
 #include "ECS/Components/TargetComponent.h"
 #include "ECS/Components/MousePointerComponent.h"
 #include "ECS/Components/PlayerComponent.h"
@@ -90,6 +95,7 @@ unsigned EntityFactory::createPlayer(unsigned entity, EntityManager& entityManag
 	return EntityBuilder(entityManager, entity)
 		.addComponent<VelocityComponent>()
 		.addComponent<PositionComponent>()
+		.addComponent<ScoreComponent>()
 		.addComponent<KeyboardInputComponent>()
 		.addComponent<PlayerComponent>()
 		.addComponent<InventoryComponent>()
@@ -174,6 +180,7 @@ unsigned EntityFactory::createResourcePoint(unsigned entity, EntityManager& enti
 		.addComponent(appearance)
 		.addComponent<CollidableComponent>()
 		.addComponent<BoundingBoxComponent>(.4, .4)
+    .addComponent<PointLightComponent>(appearance.color, 4.0f, 0.f)
 		.getEntity();
 }
 
@@ -200,6 +207,7 @@ unsigned EntityFactory::createTower(unsigned entity, EntityManager& entityManage
 		.addComponent<ShootingComponent>()
 		.addComponent<CollidableComponent>()
 		.addComponent<HealthComponent>(50)
+    .addComponent<PointLightComponent>(Math::Vector3f(0.2f, 0.2f, 0.2f), 4.0f, 0.f)
 		.addComponent(appearance)
 		.getEntity();
 }
@@ -226,6 +234,7 @@ unsigned EntityFactory::createWall(unsigned entity, EntityManager& entityManager
 		.addComponent<BoundingBoxComponent>(1.0, 1.0, 1.0)
 		.addComponent<CollidableComponent>()
 		.addComponent<HealthComponent>(50)
+    .addComponent<PointLightComponent>(Math::Vector3f(0.2f, 0.2f, 0.2f), 4.0f, 0.f)
 		.addComponent(appearance)
 		.getEntity();
 }
@@ -373,6 +382,7 @@ unsigned EntityFactory::createMine(unsigned entity, EntityManager& entityManager
 		.addComponent<CollidableComponent>()
 		.addComponent<ResourceGatherComponent>()
 		.addComponent<HealthComponent>(50)
+    .addComponent<PointLightComponent>(appearance.color, 4.0f, 0.f)
 		.addComponent(appearance)
 		.getEntity();
 }

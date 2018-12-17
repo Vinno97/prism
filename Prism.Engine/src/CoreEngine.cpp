@@ -40,6 +40,10 @@ void CoreEngine::Run()
 
 	//Holds the time in which the gameupdate was last called 
 	auto lastTime = std::chrono::system_clock::now();
+
+	// Holds the time when the was started
+	auto gameStarted = std::chrono::system_clock::now();
+
 	int count = 0;
 
 	//Current State
