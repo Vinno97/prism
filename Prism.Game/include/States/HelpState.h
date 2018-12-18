@@ -18,17 +18,11 @@ namespace States {
 		void onEnter(Context & context) override;
 		void onLeave(Context & context) override;
 
-		template<typename T, typename = std::enable_if_t < std::is_base_of<State, T>::type::value>>
-		void setPreviousState(Context &context) {
-			previousState = context.stateMachine->getState<HelpState>();
-		}
-
 		~HelpState();
 
 	private:
 		Menu::MenuRenderer menuRenderer;
 		Menu::MenuBuilder menuBuilder;
 		std::unique_ptr<Menu::Menu> menu;
-		State * previousState;
 	};
 }

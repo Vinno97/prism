@@ -21,7 +21,6 @@ namespace States {
 
 		std::function<void()> callbackHelpstate = [&context]() {
 			context.stateMachine->setState<HelpState>(context);
-			context.stateMachine->getState<HelpState>()->setPreviousState<PauseState>(context);
 		};
 
 		menuBuilder.addControl(-0.5, 0, 1, 0.21, "img/pause.png");
