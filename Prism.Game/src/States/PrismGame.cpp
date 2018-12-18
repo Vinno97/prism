@@ -35,7 +35,10 @@
 #include "ECS/Systems/SetCurrentBuildSystem.h"
 #include "ECS/Systems/MoveCurrentBuildSystem.h"
 #include "ECS/Systems/PlaceCurrentBuildSystem.h"
-
+#include <iostream>
+#include <sstream>
+#include <iterator>
+#include <fstream>
 
 namespace States {
 	using namespace ECS;
@@ -167,6 +170,21 @@ namespace States {
 			time = entityManager.getComponent<ScoreComponent>(entity.id)->survivedTime;
 		}
 
+		std::fstream file;
+		file.open("res/saves/scores.txt");
+		if (file.is_open()) {
+			int num;
+			while (file >> num)
+			{
+				std::cout << "YEET\t" << num << "\n";
+				// Add newScore when it belongs to the highscores
+				if (totalScore >= num) {
+					context.audioManager->playMusic("AmbienceSuspense");
+				}
+				break;
+			}
+		}
+
 		redResource->text = std::to_string(static_cast<int>(inventory->redResource));
 		blueResource->text = std::to_string(static_cast<int>(inventory->blueResource));
 		greenResource->text = std::to_string(static_cast<int>(inventory->greenResource));
@@ -193,7 +211,9 @@ namespace States {
 	void PrismGame::loadAudio(Context &context) const
 	{
 		context.audioManager->addMusic("Ambience", "Ambience.wav");
+		context.audioManager->addMusic("AmbienceSuspense", "Ambience_Suspense.wav");
 		context.audioManager->addMusic("MainMenu", "MainMenu.wav");
+		context.audioManager->addSound("AmbienceEnemies", "Ambience_Enemies.wav");
 		context.audioManager->addSound("Bullet", "Bullet.wav");
 		context.audioManager->addSound("EnemyKill", "EnemyKill.wav");
 		context.audioManager->addSound("Resource", "ResourceGathering.wav");
