@@ -20,7 +20,6 @@ InputManager::InputManager() {
 	keyMap[Key::KEY_1] = SDL_SCANCODE_1;
 	keyMap[Key::KEY_2] = SDL_SCANCODE_2;
 	keyMap[Key::KEY_3] = SDL_SCANCODE_3;
-	keyMap[Key::KEY_SHIFT] = SDL_SCANCODE_LSHIFT;
 	keyMap[Key::KEY_TAB] = SDL_SCANCODE_TAB;
 	keyMap[Key::KEY_ESCAPE] = SDL_SCANCODE_ESCAPE;
 	keyMap[Key::KEY_MIN] = SDL_SCANCODE_KP_MINUS;

@@ -35,23 +35,23 @@ class PrismGame : public Game
 	Menu::Control* healthImage;
 	Menu::Control* resourceImage;
 
+
 	//Textcontrols
 	Menu::TextControl* redResource;
 	Menu::TextControl* greenResource;
 	Menu::TextControl* blueResource;
-	Menu::TextControl* survivedTime;
 	Menu::TextControl* score;
 	Menu::TextControl* fps;
+	Menu::TextControl* health;
 
 	bool canPressEscape;
 	bool canPressF3;
-	bool canPressShift;
 	bool showFPS;
-	bool showResources;
 	bool isNightmareMode;
 	void registerSystems(Context &context);
+	void changeTextColorNM();
 	void toggleFPS(Context &context);
-	void toggleResources(Context &context);
+	void toggleResources(Context &context, int playerHealth);
 	void loadAudio(Context &context) const;
 	int Fps(Context &context);
 };

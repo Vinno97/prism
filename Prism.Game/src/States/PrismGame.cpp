@@ -52,6 +52,7 @@ namespace States {
 		auto mousePointer = entityFactory.createCameraPointer(entityManager);
 		auto sceneComponent = entityManager.getComponent<SceneComponent>(scene);
 
+
 		sceneComponent->scene.ambientLightColor = Math::Vector3f{ 1.0f, 1.0f, 1.0f };
 		sceneComponent->scene.ambientLightStrength = 0.95f;
 		sceneComponent->scene.sun.color = Math::Vector3f{ 1.f, 1.f, 1.f };
@@ -74,15 +75,13 @@ namespace States {
 			context.stateMachine->addState<EndState>(context);
 			auto endstate = context.stateMachine->getState<EndState>();
 		}
+
+		health = menuBuilder.addTextControl(-0.95, 0.89, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "");
 		resourceImage = menuBuilder.addImage(-0.97, 0.55, 0, 0, "img/resources.png");
 		blueResource = menuBuilder.addTextControl(-0.92, 0.75, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "");
 		greenResource = menuBuilder.addTextControl(-0.92, 0.66, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "");
 		redResource = menuBuilder.addTextControl(-0.92, 0.57, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "");
-
-
 		healthImage = menuBuilder.addImage(-0.98, 0.85, 0.6, 0.1, "img/healthbar.png");
-
-		survivedTime = menuBuilder.addTextControl(0.7, -0.95, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
 		fps = menuBuilder.addTextControl(0.8, 0.9, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "");
 		score = menuBuilder.addTextControl(-0.98, -0.95, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
 		menu = menuBuilder.buildMenu();
@@ -135,19 +134,14 @@ namespace States {
 
 	void PrismGame::onUpdate(Context &context)
 	{
-		toggleFPS(context);
-		toggleResources(context);
-
 		auto input = context.inputManager;
-
 
 		for (auto& systemList : systemManager.getAllSystems()) {
 			for (auto& system : systemList.second) {
 				system.second->update(context);
 			}
 		}
-			
-
+		
 		int playerHealth;	
 		float time;
 		int totalScore;
@@ -163,8 +157,6 @@ namespace States {
 		float sizeHealth = ((float)playerHealth * 0.006);
 		healthImage->size = Math::Vector3f{ sizeHealth, 0.1, 0};
 		score->text = "Score: " + std::to_string(totalScore);
-		survivedTime->text = std::to_string(static_cast<int>(time)) + " seconds";
-
 		menuRenderer.renderMenu(*menu, context.window->width, context.window->height);
 		context.window->swapScreen();
 
@@ -179,6 +171,9 @@ namespace States {
 			canPressEscape = false;
 			context.stateMachine->setState<PauseState>(context);
 		}
+		changeTextColorNM();
+		toggleFPS(context);
+		toggleResources(context, playerHealth);
 	}
 
 	void PrismGame::loadAudio(Context &context) const
@@ -203,9 +198,7 @@ namespace States {
 		else {
 			sceneCompontent->scene.ambientLightStrength = 0.6f;
 			sceneCompontent->scene.directionalLightStrength = 0.5f;
-		}
-
-		
+		}		
 		context.audioManager->playMusic("Ambience");
 	}
 
@@ -237,38 +230,35 @@ namespace States {
 		}
 	}
 
-	void PrismGame::toggleResources(Context & context)
+	void PrismGame::toggleResources(Context & context, int playerHealth)
 	{
-
 		auto inventory = entityManager.getAllEntitiesWithComponent<InventoryComponent>()[0].component;
 		auto input = context.inputManager;
-		if (!input->isKeyPressed(Key::KEY_SHIFT)) {
-			canPressShift = true;
-		}
-		if (input->isKeyPressed(Key::KEY_SHIFT) && !showResources && canPressShift) {
-			canPressShift = false;
-			showResources = true;
+
+		if (input->isKeyPressed(Key::KEY_Q)) {
+			health->text = "Health: " + std::to_string(playerHealth);
 			resourceImage->size = Math::Vector3f{ 0.045, 0.25,  0 };
 			redResource->text = std::to_string(static_cast<int>(inventory->redResource));
 			blueResource->text = std::to_string(static_cast<int>(inventory->blueResource));
 			greenResource->text = std::to_string(static_cast<int>(inventory->greenResource));
 		}
-		else if (input->isKeyPressed(Key::KEY_SHIFT) && showResources && canPressShift) {
-			canPressShift = false;
-			showResources = false;
+		else {
+			health->text = "";
 			resourceImage->size = Math::Vector3f{ 0,0, 0 };
 			redResource->text = "";
 			blueResource->text = "";
 			greenResource->text = "";
 		}
+	}
 
-		if (showResources) {
-			resourceImage->size = Math::Vector3f{ 0.045, 0.25,  0 };
-			redResource->text = std::to_string(static_cast<int>(inventory->redResource));
-			blueResource->text = std::to_string(static_cast<int>(inventory->blueResource));
-			greenResource->text = std::to_string(static_cast<int>(inventory->greenResource));
+	void PrismGame::changeTextColorNM()
+	{
+		if (isNightmareMode) {
+			score->colour = Math::Vector3f{ 1.0f, 1.0f, 1.0f };
+			redResource->colour = Math::Vector3f{ 1.0f, 1.0f, 1.0f };
+			blueResource->colour = Math::Vector3f{ 1.0f, 1.0f, 1.0f };
+			greenResource->colour = Math::Vector3f{ 1.0f, 1.0f, 1.0f };
 		}
-
 	}
 
 	void PrismGame::onLeave(Context &context) {
