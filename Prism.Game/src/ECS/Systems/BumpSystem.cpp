@@ -28,8 +28,7 @@ void BumpSystem::update(Context& context)
 		if(boundingBoxComponent != nullptr){
 			auto & collisions = boundingBoxComponent->collidesWith;
 
-			//TODO 
-			if (boundingBoxComponent->didCollide/*collisions.size() > 0*/) {
+			if (boundingBoxComponent->didCollide) {
 				auto currentPosition = entityManager->getComponent<PositionComponent>(entity.id);
 				auto currentVelocity = entityManager->getComponent<VelocityComponent>(entity.id);
 				if (currentPosition != nullptr && currentVelocity != nullptr) {

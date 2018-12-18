@@ -29,9 +29,6 @@ namespace States {
 		
 
 		std::function<void()> callbackMainMenu = [&context](){
-			//if (!context.stateMachine->hasState<PrismGame>()) {
-			//	context.stateMachine->addState<PrismGame>(context);
-			//}
 			context.stateMachine->setState<MainMenuState>(context); };
 
 		std::function<void()> callBackRestart = [&context](){
@@ -83,9 +80,7 @@ namespace States {
 		menuRenderer.renderMenu(*menu, context.window->width, context.window->height);
 
 		auto input = context.inputManager;
-		if (mouseWaitTime <= 0 && menu->handleInput(*context.inputManager, context.window->width, context.window->height) ) {
-//			return;
-		}
+		mouseWaitTime <= 0 && menu->handleInput(*context.inputManager, context.window->width, context.window->height);
 
 		context.window->swapScreen();
 	}

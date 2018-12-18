@@ -153,7 +153,6 @@ namespace States {
 			
 			auto scoreComponent = entityManager.getComponent<ScoreComponent>(entity.id);
 			totalScore = scoreComponent->totalScore;
-			//scoreComponent->survivedTime += context.deltaTime;
 			time = scoreComponent->survivedTime;
 		}
 
@@ -167,9 +166,7 @@ namespace States {
 		menuRenderer.renderMenu(*menu, context.window->width, context.window->height);
 		context.window->swapScreen();
 
-		if (menu->handleInput(*context.inputManager, context.window->width, context.window->height)) {
-			//return;
-		}
+		menu->handleInput(*context.inputManager, context.window->width, context.window->height);
 		if (!input->isKeyPressed(Key::KEY_ESCAPE)) {
 			canPressEscape = true;
 		}
@@ -239,13 +236,9 @@ namespace States {
 	void PrismGame::toggleNightmare(Context &context)
 	{
 		if (!isNightmareMode) {
-			//TODO HAAL WEG
-			//context.audioManager->playSound("NightmareOn", 0);
 			isNightmareMode = true;
 		}
 		else {
-			//TODO HAAL WEG
-			//context.audioManager->playSound("NightmareOff", 0);
 			isNightmareMode = false;
 		}
 	}

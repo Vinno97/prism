@@ -46,13 +46,9 @@ namespace ECS {
 				int green;
 
 				for (const auto& entity : entityManager->getAllEntitiesWithComponent<PlayerComponent>()) {
-					//totalScore = entityManager->getComponent<ScoreComponent>(entity.id)->totalScore;
+					auto scoreComponent = entityManager->getComponent<ScoreComponent>(entity.id);			
 
-					auto scoreComponent = entityManager->getComponent<ScoreComponent>(entity.id);
-					
-					
 					scoreComponent->survivedTime += context.deltaTime;
-
 
 					endState->totalscore = scoreComponent->totalScore;
 					endState->time = scoreComponent->survivedTime;
