@@ -165,9 +165,7 @@ namespace States {
 			int num;
 			while (file >> num)
 			{
-				std::cout << "YEET\t" << num << "\n";
-				// Add newScore when it belongs to the highscores
-				if (totalScore >= num) {
+				if (totalScore >= num && num != 0) {
 					context.audioManager->playMusic("AmbienceSuspense");
 				}
 				break;
