@@ -48,10 +48,10 @@ namespace States {
 
 	void PrismGame::onInit(Context & context)
 	{
-		auto floor = entityFactory.createFloor(entityManager);
-		auto scene = entityFactory.createScene(entityManager);
-		auto camera = entityFactory.createCamera(entityManager);
-		auto mousePointer = entityFactory.createCameraPointer(entityManager);
+		auto floor = entityFactory.getInstance().createFloor(entityManager);
+		auto scene = entityFactory.getInstance().createScene(entityManager);
+		auto camera = entityFactory.getInstance().createCamera(entityManager);
+		auto mousePointer = entityFactory.getInstance().createCameraPointer(entityManager);
 		auto sceneComponent = entityManager.getComponent<SceneComponent>(scene);
 
 		sceneComponent->scene.ambientLightColor = Math::Vector3f{ 1.0f, 1.0f, 1.0f };
@@ -74,16 +74,6 @@ namespace States {
 		}
 		if (!context.stateMachine->hasState<EndState>()) {
 			context.stateMachine->addState<EndState>(context);
-			auto endstate = context.stateMachine->getState<EndState>();
-
-
-			int totalScore;
-			for (const auto& entity : entityManager.getAllEntitiesWithComponent<PlayerComponent>()) {
-				totalScore = entityManager.getComponent<ScoreComponent>(entity.id)->totalScore;
-
-				auto scoreComponent = entityManager.getComponent<ScoreComponent>(entity.id);
-				scoreComponent->survivedTime += context.deltaTime;
-			}
 		}
 
 
@@ -163,11 +153,10 @@ namespace States {
 		int totalScore;
 		for (const auto& entity : entityManager.getAllEntitiesWithComponent<PlayerComponent>()) {
 			playerHealth = entityManager.getComponent<HealthComponent>(entity.id)->currentHealth;
-			totalScore = entityManager.getComponent<ScoreComponent>(entity.id)->totalScore;
-
+			
 			auto scoreComponent = entityManager.getComponent<ScoreComponent>(entity.id);
-			scoreComponent->survivedTime += context.deltaTime;
-			time = entityManager.getComponent<ScoreComponent>(entity.id)->survivedTime;
+			totalScore = scoreComponent->totalScore;
+			time = scoreComponent->survivedTime;
 		}
 
 		std::fstream file;
@@ -195,9 +184,7 @@ namespace States {
 		menuRenderer.renderMenu(*menu, context.window->width, context.window->height);
 		context.window->swapScreen();
 
-		if (menu->handleInput(*context.inputManager, context.window->width, context.window->height)) {
-			return;
-		}
+		menu->handleInput(*context.inputManager, context.window->width, context.window->height);
 		if (!input->isKeyPressed(Key::KEY_ESCAPE)) {
 			canPressEscape = true;
 		}
@@ -218,8 +205,6 @@ namespace States {
 		context.audioManager->addSound("EnemyKill", "EnemyKill.wav");
 		context.audioManager->addSound("Resource", "ResourceGathering.wav");
 		context.audioManager->addSound("Heartbeat", "Heartbeat.wav");
-		context.audioManager->addSound("NightmareOn", "NightmareModeOn.wav");
-		context.audioManager->addSound("NightmareOff", "NightmareModeOff.wav");
 	}
 
 	void PrismGame::onEnter(Context &context) {
@@ -272,11 +257,9 @@ namespace States {
 	void PrismGame::toggleNightmare(Context &context)
 	{
 		if (!isNightmareMode) {
-			context.audioManager->playSound("NightmareOn", 0);
 			isNightmareMode = true;
 		}
 		else {
-			context.audioManager->playSound("NightmareOff", 0);
 			isNightmareMode = false;
 		}
 	}
