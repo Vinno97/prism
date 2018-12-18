@@ -36,6 +36,7 @@ namespace States {
 		}
 
 		if (menu->handleInput(*context.inputManager, context.window->width, context.window->height)) {
+			canPressEscape = false;
 			return;
 		}
 

@@ -22,6 +22,7 @@ namespace States {
 
 	void MainMenuState::onInit(Context & context)
 	{
+		loadMusic(context);
 		context.stateMachine->addState<CreditsState>(context);
 		context.stateMachine->addState<ResolutionMenuState>(context);
 		context.stateMachine->addState<HelpState>(context);
@@ -89,6 +90,7 @@ namespace States {
 	void MainMenuState::onEnter(Context & context)
 	{
 		context.audioManager->playMusic("MainMenu");
+		nightmareMode = false;
 	}
 
 	void MainMenuState::onLeave(Context & context)
@@ -97,5 +99,11 @@ namespace States {
 
 	MainMenuState::~MainMenuState()
 	{
+	}
+	void MainMenuState::loadMusic(Context & context)
+	{
+		context.audioManager->addMusic("MainMenu", "MainMenu.wav");
+		context.audioManager->addSound("NightmareOn", "NightmareModeOn.wav");
+		context.audioManager->addSound("NightmareOff", "NightmareModeOff.wav");
 	}
 }

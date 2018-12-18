@@ -60,6 +60,10 @@ namespace States {
 
 	void EndState::onUpdate(Context & context)
 	{
+		if (mouseWaitTime > 0) {
+			mouseWaitTime -= context.deltaTime;
+		}
+
 		score->text = std::to_string(totalscore);
 		survivedTime->text = std::to_string(time);
 		red->text = std::to_string(resourceRed);
@@ -70,9 +74,7 @@ namespace States {
 		renderDevice->clearScreen();
 		menuRenderer.renderMenu(*menu, context.window->width, context.window->height);
 
-		if (menu->handleInput(*context.inputManager, context.window->width, context.window->height)) {
-			return;
-		}
+		menu->handleInput(*context.inputManager, context.window->width, context.window->height);
 
 		context.window->swapScreen();
 	}

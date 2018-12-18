@@ -26,7 +26,14 @@ namespace ECS {
 			if (context.stateMachine->hasState<PrismGame>()) {
 				nightmare = context.stateMachine->getState<PrismGame>()->isNightmare();
 			}
-		
+
+			if (firstTime) {
+				firstTime = false;
+				score->survivedTime = 0.0f;
+			}
+			else {
+				score->survivedTime += context.deltaTime;
+			}
 			score->totalScore = floor((score->killedEnemies * 503) + ((score->gatheredBlueResources + score->gatheredGreenResources + score->gatheredRedResources) * 6.6) + (log2(score->survivedTime + 1) * 5)) * (1 + nightmare);
 
 		}

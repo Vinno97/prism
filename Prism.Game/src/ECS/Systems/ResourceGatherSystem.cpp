@@ -47,7 +47,7 @@ namespace ECS {
 
         void ResourceGatherSystem::spawnResourceBlob(Math::Vector2<double> position, unsigned targetId,
                                                      Enums::ResourceType type, float value) {
-            auto blob = entityFactory.createResourceBlob(*entityManager, type, value);
+            auto blob = entityFactory.getInstance().createResourceBlob(*entityManager, type, value);
             auto positionComponent = entityManager->getComponent<PositionComponent>(blob);
             auto targetComponent = entityManager->getComponent<TargetComponent>(blob);
             targetComponent->target = targetId;
