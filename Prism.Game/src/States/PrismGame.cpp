@@ -117,7 +117,7 @@ namespace States {
 			.registerSystem<3, CollisionSystem>(entityManager, context.window->width, context.window->height, 0, 0, 2)
 			
 			//4
-			.registerSystem<4, PlaceCurrentBuildSystem>(entityManager, 10, 10, 10,5)
+			.registerSystem<4, PlaceCurrentBuildSystem>(entityManager, 2, 25, 20, 5)
 			.registerSystem<4, ProjectileAttackSystem>(entityManager)
 			.registerSystem<4, AttackSystem>(entityManager)
 			.registerSystem<4, GeometryAnimationSystem>(entityManager)

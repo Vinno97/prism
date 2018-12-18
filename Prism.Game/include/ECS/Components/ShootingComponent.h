@@ -12,7 +12,7 @@ namespace ECS {
 			bool shotByTower = true;
 			bool isShooting;
 			float pastTime = 0;
-			float cooldown = 0.2;
+			float cooldown = 0.1;
 
 			std::unique_ptr<Component> clone() override {
 				return std::make_unique<ShootingComponent>();
