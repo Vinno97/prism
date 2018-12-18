@@ -205,7 +205,6 @@ namespace States {
 		context.audioManager->addMusic("AmbienceSuspense", "Ambience_Suspense.wav");
 		context.audioManager->addMusic("AmbienceTime", "Ambience_Time.wav");
 		context.audioManager->addMusic("MainMenu", "MainMenu.wav");
-		//context.audioManager->addSound("AmbienceEnemies", "Ambience_Enemies.wav");
 		context.audioManager->addSound("Bullet", "Bullet.wav");
 		context.audioManager->addSound("EnemyKill", "EnemyKill.wav");
 		context.audioManager->addSound("Resource", "ResourceGathering.wav");
