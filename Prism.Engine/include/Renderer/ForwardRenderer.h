@@ -4,27 +4,18 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <vector>
-#include <tuple>
 #include <memory>
 #include "Renderer/Graphics/RenderDevice.h"
 #include "Renderer/Renderable.h"
 #include "Renderer/Camera.h"
-#include "Renderer/Graphics/VertexShader.h"
 #include "Renderer/Graphics/OpenGL/OGLRenderDevice.h"
-#include "Renderer/Graphics/OpenGL/OGLVertexShader.h"
 #include "Renderer/Graphics/RenderTarget.h"
-#include "Renderer/Graphics/OpenGL/OGLPipeline.h"
-#include "Renderer/Graphics/VertexArrayObject.h"
-#include "Renderer/Graphics/VertexBuffer.h"
 #include "Renderer/Graphics/Texture.h"
 #include "Renderer/Graphics/Models/Mesh.h"
-#include "Renderer/Graphics/Loader/ModelLoader.h"
-#include "Renderer/Graphics/Models/Model.h"
-#include "Renderer/DirectionalLight.h"
 #include "Renderer/PointLight.h"
 #include "Renderer/Scene.h"
 #include "Math/Vector3f.h"
-
+#include "../../lib/include/glm/mat4x4.hpp"
 
 
 namespace Renderer {
@@ -36,7 +27,7 @@ namespace Renderer {
 		/// <summary>
 		/// Draws the list of renderables from the viewpoint of a given camera
 		/// </summary>
-		void draw(const Camera& camera, const std::vector<Renderable>& renderables, const Renderer::Scene& scene, std::vector<PointLight>& pointLights, Math::Vector3f position);
+		void draw(const Camera& camera, const std::vector<Renderable>& renderables, const Renderer::Scene& scene, std::vector<PointLight>& pointLights, Math::Vector3f position, const int width, const int height);
 
 		int width;
 		int height;

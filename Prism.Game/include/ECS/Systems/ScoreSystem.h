@@ -14,7 +14,7 @@ namespace ECS {
 			void update(Context& context) override;
 
 		private:
-
+			bool firstTime = true;
 		};
 	}
 }

@@ -317,12 +317,17 @@ unsigned EntityFactory::createTree(EntityManager & entityManager) const {
 unsigned EntityFactory::createTree(unsigned entity, EntityManager& entityManager) const
 {
 	Renderer::Graphics::Loader::ModelLoader ml = Renderer::Graphics::Loader::ModelLoader();
-	auto model = ml.loadModel("./res/Tree.obj");
+	int x = (rand() % 2) + 1;
+	std::string str;
+	str.append("./res/prop_");
+	str.append(std::to_string(x)); 
+	str.append(".obj");	
+	auto model = ml.loadModel(str.c_str());
 
 	AppearanceComponent appearance;
-	appearance.scaleX = 0.2f;
-	appearance.scaleY = 0.2f;
-	appearance.scaleZ = 0.2f;
+	appearance.scaleX = 0.02f;
+	appearance.scaleY = 0.02f;
+	appearance.scaleZ = 0.02f;
 	appearance.color = Math::Vector3f(0.9f, 0.9f, 0.9f);
 
 	appearance.rotationY = rand() % 360;
@@ -330,7 +335,7 @@ unsigned EntityFactory::createTree(unsigned entity, EntityManager& entityManager
 
 	entityManager.addComponentToEntity(entity, PositionComponent());
 	entityManager.addComponentToEntity(entity, appearance);
-	entityManager.addComponentToEntity(entity, BoundingBoxComponent(0.6, 0.6));
+	entityManager.addComponentToEntity(entity, BoundingBoxComponent(1.5, 1.5));
 	entityManager.addComponentToEntity(entity, CollidableComponent());
 	return entity;
 }

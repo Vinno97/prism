@@ -63,6 +63,7 @@ namespace ECS {
 				entityManager->removeComponentFromEntity<EnemyComponent>(id);
 				entityManager->removeComponentFromEntity<VelocityComponent>(id);
 				entityManager->removeComponentFromEntity<HealthComponent>(id);
+				entityManager->removeComponentFromEntity<BoundingBoxComponent>(id);
 			}
 
 			if (entityManager->hasComponent<HealthComponent>(id)) {

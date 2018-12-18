@@ -42,6 +42,8 @@
     <ClCompile Include="src\ECS\Systems\SetCurrentBuildSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\PlaceCurrentBuildSystem.cpp" />
     <ClCompile Include="src\ECS\Systems\MoveCurrentBuildSystem.cpp" />
+    <ClCompile Include="src\ECS\Systems\HealthRegenerationSystem.cpp" />
+    <ClCompile Include="src\States\ResolutionMenuState.cpp" />
     <ClCompile Include="src\ECS\Systems\TowerAimingSystem.cpp" />
     <ClCompile Include="src\States\EndState.cpp" />
     <ClCompile Include="src\ECS\Systems\EnemySpawnSystem.cpp" />
@@ -185,6 +187,7 @@
     <ClInclude Include="include\Enums\BuildTypes.h" />
     <ClInclude Include="include\ECS\Systems\PlaceCurrentBuildSystem.h" />
     <ClInclude Include="include\ECS\Systems\MoveCurrentBuildSystem.h" />
+    <ClInclude Include="include\States\ResolutionMenuState.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="lib\assimp-vc140-mtd.dll" />

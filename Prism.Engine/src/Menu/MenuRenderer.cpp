@@ -28,11 +28,13 @@ namespace Menu {
 		menuPipeline = move(renderDevice->createPipeline(*vertexShader, *fragmentShader));
 
 		menuPipeline->createUniform("model");
+		menuPipeline->createUniform("projection");
 	}
 
-	void MenuRenderer::renderMenu(Menu& menu, float aspect)
+	void MenuRenderer::renderMenu(Menu& menu, const int width, const int height)
 	{
 		menuPipeline->run();
+		renderDevice->setViewPort(width, height);
 		renderDevice->useDepthTest(false);
 		renderDevice->useBlending(true);
 
@@ -41,15 +43,16 @@ namespace Menu {
 
 		for (auto& control : menu.controls) 
 		{
-			auto pos = control.position;
+			auto pos = control->position;
 			glm::mat4 model = glm::mat4(1.0f);
 
 			model = glm::translate(model, glm::vec3(pos.x, pos.y, 0.0f));
-			model = glm::rotate(model, control.rotation, glm::vec3(0.f, 0.f, 1.f));
-			model = glm::scale(model, glm::vec3(control.size.x, control.size.y, 1.0f));
+			model = glm::rotate(model, control->rotation, glm::vec3(0.f, 0.f, 1.f));
+			model = glm::scale(model, glm::vec3(control->size.x, control->size.y, 1.0f));
 			menuPipeline->setUniformMatrix4f("model", model);
+			menuPipeline->setUniformMatrix4f("projection", glm::ortho(-1.f, 1.f, -1.f, 1.f, 0.1f, 1.f));
 
-			control.texture->bind(textures[0]);
+			control->texture->bind(textures[0]);
 			renderDevice->DrawTrianglesIndexed(0, menu.mesh->indicesLength);	
 		}
 		renderDevice->useBlending(false);

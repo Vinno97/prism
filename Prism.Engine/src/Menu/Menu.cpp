@@ -12,11 +12,11 @@ namespace Menu {
 			float y = 1.0f - (2.0f * pos[1]) / h;
 
 			for (auto &control : controls) {
-				if (control.position.x < x &&
-					control.position.y < y &&
-					control.position.x + control.size.x > x &&
-					control.position.y + control.size.y > y) {
-						control.onClick();
+				if (control->position.x < x &&
+					control->position.y < y &&
+					control->position.x + control->size.x > x &&
+					control->position.y + control->size.y > y) {
+						control->onClick();
 						return true;
 				}
 			}

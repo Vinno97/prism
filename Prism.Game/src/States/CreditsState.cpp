@@ -21,7 +21,7 @@ namespace States {
 
 		Util::AdvertisementSystem as;
 		std::string filepath = "img/advertisements/" + as.RandomAdvertisement();
-		menuBuilder.addControl(0.55, -1, 0.25, (1.777 / 4), filepath.c_str());
+		menuBuilder.addControl(0.55f, -1, 0.25, (1.777f / 4.0f), filepath.c_str());
 
 		menu = menuBuilder.buildMenu();
 		Renderer::Graphics::RenderDevice* renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
@@ -32,7 +32,7 @@ namespace States {
 	{
 		Renderer::Graphics::RenderDevice* renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
 		renderDevice->clearScreen();
-		menuRenderer.renderMenu(*menu, float(context.window->width) / float(context.window->height));
+		menuRenderer.renderMenu(*menu, context.window->width, context.window->height);
 		context.window->swapScreen();
 
 		auto input = context.inputManager;
