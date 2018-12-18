@@ -19,6 +19,7 @@ namespace States {
 
 	void MainMenuState::onInit(Context & context)
 	{
+		loadMusic(context);
 		context.stateMachine->addState<CreditsState>(context);
 		context.stateMachine->addState<ResolutionMenuState>(context);
 		context.stateMachine->addState<HelpState>(context);
@@ -27,24 +28,24 @@ namespace States {
 		std::function<void()> callback = [&](){
 			context.stateMachine->removeState<PrismGame>();
 			context.stateMachine->addState<PrismGame>(context);
-			if(nightmareMode)
-			{
-				auto prismgame = context.stateMachine->getState<PrismGame>();
-				prismgame->toggleNightmare(context);
-			}
 			context.stateMachine->setState<PrismGame>(context);
+			if (nightmareMode) {
+				context.stateMachine->getState<PrismGame>()->toggleNightmare(context);
+			}
+
 		};
 
 		std::function<void()> nightmareModeCallback = [&]() { 
 			if (cooldown > maxCooldown) {
-				if(nightmareMode)
-				{
-					nightmareMode = false;
-				} else
-				{
+				if (!nightmareMode) {
+					context.audioManager->playSound("NightmareOn", 0);
 					nightmareMode = true;
-					cooldown = 0;
 				}
+				else {
+					context.audioManager->playSound("NightmareOff", 0);
+					nightmareMode = false;
+				}
+				cooldown = 0;
 			}
 		};
 
@@ -96,6 +97,7 @@ namespace States {
 	void MainMenuState::onEnter(Context & context)
 	{
 		context.audioManager->playMusic("MainMenu");
+		nightmareMode = false;
 	}
 
 	void MainMenuState::onLeave(Context & context)
@@ -104,5 +106,11 @@ namespace States {
 
 	MainMenuState::~MainMenuState()
 	{
+	}
+	void MainMenuState::loadMusic(Context & context)
+	{
+		context.audioManager->addMusic("MainMenu", "MainMenu.wav");
+		context.audioManager->addSound("NightmareOn", "NightmareModeOn.wav");
+		context.audioManager->addSound("NightmareOff", "NightmareModeOff.wav");
 	}
 }

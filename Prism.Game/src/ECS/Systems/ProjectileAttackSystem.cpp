@@ -31,7 +31,7 @@ namespace ECS {
 				auto boundingBoxComponent = entityManager->getComponent<BoundingBoxComponent>(entity.id);
 
 				if (entityManager->getComponent<ProjectileAttackComponent>(entity.id) && boundingBoxComponent->didCollide) {
-				
+					boundingBoxComponent->didCollide = false;
 					auto vector = boundingBoxComponent->collidesWith;
 					bool isEnemy = false;
 					for (auto collider : vector) {
@@ -75,8 +75,8 @@ namespace ECS {
 					}
 
 					if (!isEnemy) {
-						boundingBoxComponent->didCollide = false;
-						boundingBoxComponent->collidesWith.clear();
+						//boundingBoxComponent->didCollide = false;
+						//boundingBoxComponent->collidesWith.clear();
 						entityManager->removeEntity(entity.id);
 					}
 				}
