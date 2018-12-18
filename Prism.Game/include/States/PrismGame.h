@@ -31,7 +31,7 @@ class PrismGame : public Game
 	Menu::MenuRenderer menuRenderer;
 	Menu::MenuBuilder menuBuilder;
 	std::unique_ptr<Menu::Menu> menu;
-
+	bool suspense_not_playing = true;
 
 	//Textcontrols
 	Menu::TextControl* redResource;

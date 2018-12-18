@@ -5,6 +5,7 @@
 #include "States/PauseState.h"
 #include "States/EndState.h"
 #include "ECS/Components/SceneComponent.h"
+#include "ECS/Components/EnemyComponent.h"
 #include "ECS/Components/PlayerComponent.h"
 #include "ECS/Components/ScoreComponent.h"
 #include "ECS/Components/HealthComponent.h"
@@ -166,10 +167,15 @@ namespace States {
 			while (file >> num)
 			{
 				if (totalScore >= num && num != 0) {
+					this->suspense_not_playing = false;
 					context.audioManager->playMusic("AmbienceSuspense");
 				}
 				break;
 			}
+		}
+
+		if (time > 120 && suspense_not_playing) {
+			context.audioManager->playMusic("AmbienceTime");
 		}
 
 		redResource->text = std::to_string(static_cast<int>(inventory->redResource));
@@ -197,8 +203,9 @@ namespace States {
 	{
 		context.audioManager->addMusic("Ambience", "Ambience.wav");
 		context.audioManager->addMusic("AmbienceSuspense", "Ambience_Suspense.wav");
+		context.audioManager->addMusic("AmbienceTime", "Ambience_Time.wav");
 		context.audioManager->addMusic("MainMenu", "MainMenu.wav");
-		context.audioManager->addSound("AmbienceEnemies", "Ambience_Enemies.wav");
+		//context.audioManager->addSound("AmbienceEnemies", "Ambience_Enemies.wav");
 		context.audioManager->addSound("Bullet", "Bullet.wav");
 		context.audioManager->addSound("EnemyKill", "EnemyKill.wav");
 		context.audioManager->addSound("Resource", "ResourceGathering.wav");
