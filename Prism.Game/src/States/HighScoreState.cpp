@@ -27,9 +27,7 @@ namespace States {
 		context.window->swapScreen();
 
 		auto input = context.inputManager;
-		if (menu->handleInput(*context.inputManager, context.window->width, context.window->height)) {
-			return;
-		}
+		menu->handleInput(*context.inputManager, context.window->width, context.window->height);
 	}
 
 	void HighScoreState::onEnter(Context & context)

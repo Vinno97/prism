@@ -1,5 +1,6 @@
 #include "States/PauseState.h"
 #include "States/EndState.h"
+#include "States/HelpState.h"
 #include "StateMachine.h";
 #include "States/PrismGame.h"
 #include "Renderer/Graphics/RenderDevice.h"
@@ -18,8 +19,14 @@ namespace States {
 			context.stateMachine->setState<EndState>(context);			
 		};
 
+		std::function<void()> callbackHelpstate = [&context]() {
+			context.stateMachine->setState<HelpState>(context);
+			context.stateMachine->getState<HelpState>()->setPreviousState<PauseState>(context);
+		};
+
 		menuBuilder.addControl(-0.5, 0, 1, 0.21, "img/pause.png");
-		menuBuilder.addControl(-0.35, -0.5, 0.7, 0.18, "img/QuitGameButton.png", callbackEndstate);
+		menuBuilder.addControl(-0.35, -0.75, 0.7, 0.18, "img/QuitGameButton.png", callbackEndstate);
+		menuBuilder.addControl(-0.35, -0.5, 0.7, 0.18, "img/ToHelp.png", callbackHelpstate);
 
 		menu = menuBuilder.buildMenu();
 		Renderer::Graphics::RenderDevice* renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();

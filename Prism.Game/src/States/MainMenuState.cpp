@@ -23,6 +23,7 @@ namespace States {
 		context.stateMachine->addState<CreditsState>(context);
 		context.stateMachine->addState<ResolutionMenuState>(context);
 		context.stateMachine->addState<HelpState>(context);
+		context.stateMachine->getState<HelpState>()->setPreviousState<MainMenuState>(context);
 		context.stateMachine->addState<HighScoreState>(context);
 
 		std::function<void()> callback = [&](){
@@ -87,9 +88,7 @@ namespace States {
 		menuRenderer.renderMenu(*menu, context.window->width, context.window->height);
 
 		auto input = context.inputManager;
-		if (menu->handleInput(*context.inputManager, context.window->width, context.window->height)) {
-			return;
-		}
+		menu->handleInput(*context.inputManager, context.window->width, context.window->height);
 
 		context.window->swapScreen();
 	}

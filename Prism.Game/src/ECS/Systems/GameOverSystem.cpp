@@ -38,13 +38,6 @@ namespace ECS {
 
 				auto endState = context.stateMachine->getState<EndState>();
 
-				int totalScore;
-				int time;
-				int kills;
-				int red;
-				int blue;
-				int green;
-
 				for (const auto& entity : entityManager->getAllEntitiesWithComponent<PlayerComponent>()) {
 					auto scoreComponent = entityManager->getComponent<ScoreComponent>(entity.id);			
 
