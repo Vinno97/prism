@@ -82,7 +82,7 @@ void ECS::Systems::PlaceCurrentBuildSystem::update(Context& context) {
 						if (builderComponent->currentBuild == BuildTypes::WALL) {
 							tempId = EntityFactory::getInstance().createWall(*entityManager);
 							inventory->greenResource -= wallRequirements;
-							wallRequirements *= 1.02;
+							wallRequirements *= 1.01f;
 						}
 						else if (builderComponent->currentBuild == BuildTypes::TOWER) {
 							tempId = EntityFactory::getInstance().createTower(*entityManager);

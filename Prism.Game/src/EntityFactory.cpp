@@ -191,7 +191,7 @@ unsigned EntityFactory::createTower(EntityManager& entityManager) const
 
 unsigned EntityFactory::createTower(unsigned entity, EntityManager& entityManager) const
 {
-	auto model = modelLoader.loadModel("./res/wall.obj");
+	auto model = modelLoader.loadModel("./res/tower.obj");
 
 	AppearanceComponent appearance;
 	appearance.scaleX = 0.5f;
