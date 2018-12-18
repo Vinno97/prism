@@ -359,6 +359,3 @@ CTestTestfile.cmake
 !Prism.*/lib/x86/
 
 *.ini
-
-Prism.Game/res/saves/
-Prism.Game/res/saves/Sample Save.json

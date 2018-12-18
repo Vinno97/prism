@@ -44,8 +44,6 @@ namespace States {
 		Menu::TextControl* blue{};
 
 		void updateScores();
-		float waitTime = .5f;
-		float mouseWaitTime = .0f;
 	};
 }
 

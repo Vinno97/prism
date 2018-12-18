@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <Variables.h>
 #include "States/HighScoreState.h"
 #include "StateMachine.h"
 #include "States/PrismGame.h"
@@ -10,14 +11,7 @@
 #include "Renderer/Graphics/OpenGL/OGLPipeline.h"
 
 namespace States {
-	HighScoreState::HighScoreState()
-	{
-	}
-
-	void HighScoreState::onInit(Context & context)
-	{
-
-	}
+	using namespace Variables::Resources;
 
 	void HighScoreState::onUpdate(Context & context)
 	{
@@ -46,8 +40,9 @@ namespace States {
 
 		menuBuilder.addControl(-0.5, 0.5, 1, 0.24, "img/HighscoreButton.png");
 		showHighscore(getHighScore(), context);
-		std::function<void()> callback = [&context]() { context.stateMachine->setState<MainMenuState>(context); };
-		menuBuilder.addControl(-0.9f, 0.8, 0.3, 0.1, "img/Back.png", callback);
+		menuBuilder.addControl(-0.8f, 0.8, .25, 0.096, Sprites::BACK, [&context]() {
+			context.stateMachine->setState<MainMenuState>(context);
+		});
 		Renderer::Graphics::RenderDevice* renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
 		renderDevice->setClearColour(1.f, 1.f, 1.f, 1.f);
 		menu = menuBuilder.buildMenu();
@@ -91,14 +86,5 @@ namespace States {
 			count++;
 			test -= 0.2;
 		}
-	}
-
-	void HighScoreState::onLeave(Context & context)
-	{
-	}
-
-
-	HighScoreState::~HighScoreState()
-	{
 	}
 }

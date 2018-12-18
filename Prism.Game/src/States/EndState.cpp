@@ -19,18 +19,18 @@
 namespace States {
 	using namespace ECS;
 	using namespace ECS::Components;
+
 	void EndState::onInit(Context & context)
 	{
-		
-
 		std::function<void()> callbackMainMenu = [&context](){
 			context.stateMachine->removeState<PrismGame>();
 			context.stateMachine->setState<MainMenuState>(context); };
 
 		std::function<void()> callBackRestart = [&context](){
 			auto level = context.stateMachine->getState<PrismGame>()->getLevel();
+			auto isNightmareMode = context.stateMachine->getState<PrismGame>()->isNightmare();
 			context.stateMachine->removeState<PrismGame>();
-			context.stateMachine->addState<PrismGame>(context, level);
+			context.stateMachine->addState<PrismGame>(context, level, isNightmareMode);
 			context.stateMachine->setState<PrismGame>(context);
 		};
 
@@ -60,10 +60,6 @@ namespace States {
 
 	void EndState::onUpdate(Context & context)
 	{
-		if (mouseWaitTime > 0) {
-			mouseWaitTime -= context.deltaTime;
-		}
-
 		score->text = std::to_string(totalscore);
 		survivedTime->text = std::to_string(time);
 		red->text = std::to_string(resourceRed);
