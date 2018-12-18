@@ -18,21 +18,40 @@ namespace ECS {
 			auto time = context.deltaTime;
 			auto input = context.inputManager;
 
-			for (const auto& spawnPoint : entityManager->getAllEntitiesWithComponent<EnemySpawnComponent>()) {
-				auto component = spawnPoint.component;
+			if (timeSinceLastWave >= timeToNextWave)
+			{
+				timeSinceLastWave = 0.f;
+				waveIsOngoing = true;
+				waveDuration += 0.6f;
+			}
 
-				if (!component->enabled)
-					return;
+			if(!waveIsOngoing)
+			{
+				timeSinceLastWave += time;
+			} else {
+				currentWaveLength += time;
+				if(currentWaveLength >= waveDuration)
+				{
+					waveIsOngoing = false;
+					currentWaveLength = 1.0f;
+				}
 
-				auto position = entityManager->getComponent<PositionComponent>(spawnPoint.id);
+				for (const auto& spawnPoint : entityManager->getAllEntitiesWithComponent<EnemySpawnComponent>()) {
+					auto component = spawnPoint.component;
 
-				component->timeSinceLastSpawn += time;
+					if (!component->enabled)
+						return;
 
-				if (component->timeSinceLastSpawn > component->spawnInterval) {
-					component->timeSinceLastSpawn = 0;
-					auto enemy = EntityFactory::getInstance().createEnemy(*entityManager);
-					entityManager->getComponent<PositionComponent>(enemy)->x += position->x+1;
-					entityManager->getComponent<PositionComponent>(enemy)->y += position->y+1;
+					auto position = entityManager->getComponent<PositionComponent>(spawnPoint.id);
+
+					component->timeSinceLastSpawn += time;
+				
+					if (component->timeSinceLastSpawn > 0.3f) {
+						component->timeSinceLastSpawn = 0;
+						auto enemy = EntityFactory::getInstance().createEnemy(*entityManager);
+						entityManager->getComponent<PositionComponent>(enemy)->x += position->x+1;
+						entityManager->getComponent<PositionComponent>(enemy)->y += position->y+1;
+					}
 				}
 			}
 		}
