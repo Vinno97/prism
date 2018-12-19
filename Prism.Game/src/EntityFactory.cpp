@@ -398,7 +398,7 @@ unsigned EntityFactory::createMine(unsigned entity, EntityManager& entityManager
 		.addComponent<CollidableComponent>()
 		.addComponent<ResourceGatherComponent>()
 		.addComponent<HealthComponent>(50)
-		.addComponent<PointLightComponent>(appearance.color, 4.0f, 0.f)
+		.addComponent<PointLightComponent>(Math::Vector3f(0.2f, 0.2f, 0.2f), 4.0f, 0.f)
 		.addComponent(appearance)
 		.getEntity();
 }
