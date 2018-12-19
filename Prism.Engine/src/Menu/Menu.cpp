@@ -9,8 +9,9 @@ namespace Menu {
 		auto w = context.window->width;
 		auto h = context.window->height;
 
-		if (!input.isMouseButtonPressed(Key::MOUSE_BUTTON_LEFT))
+		if (!isHandlingClicks && !input.isMouseButtonPressed(Key::MOUSE_BUTTON_LEFT)) {
 			isHandlingClicks = true;
+		}
 
 		std::vector<int> pos = input.GetMousePoisiton();
 
@@ -25,6 +26,7 @@ namespace Menu {
 				if (input.isMouseButtonPressed(Key::MOUSE_BUTTON_LEFT) && isHandlingClicks) {
 					context.audioManager->playSound("ButtonClick", 0);
 					control->onClick();
+					isHandlingClicks = false;
 					return true;
 				} else if (!control->isActive) {
 					control->onEnter(context);

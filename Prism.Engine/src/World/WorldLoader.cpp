@@ -34,5 +34,5 @@ void World::LevelManager::save(const std::string &worldName, ECS::EntityManager 
     serializer->serialize(objects, output);
     std::string buffer;
     output >> buffer;
-    Util::FileSystem().saveStringIntoResource(worldName + ".json", buffer);
+    Util::FileSystem().saveStringIntoResource(worldName , buffer);
 }

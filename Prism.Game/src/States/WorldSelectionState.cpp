@@ -19,14 +19,6 @@ using namespace Variables::Visual::WorldSelection;
 namespace States {
 
 	void WorldSelectionState::onInit(Context &context) {
-		levels = Util::FileSystem().getFilenamesInDirectory(levelDirectory);
-		levels.erase(std::remove_if(levels.begin(), levels.end(), [](const std::string &v) {
-			const std::string extension = LEVEL_EXTENSION;
-			const auto canFit = extension.size() <= v.size();
-			const auto matchesEnd = std::equal(v.begin() + v.size() - extension.size(), v.end(), extension.begin());
-			return !(canFit && matchesEnd);
-		}), levels.end());
-
 		renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
 	}
 
@@ -110,12 +102,11 @@ namespace States {
 						context.stateMachine->addState<TransitionState<PrismGame>>();
 						context.stateMachine->setState<TransitionState<PrismGame>>();
 					});
-					readableLevelName = fmt::format("{:^13}", readableLevelName);
-					if (readableLevelName.size() > 13)
-						readableLevelName = readableLevelName.substr(0, 10) + "...";
+					readableLevelName = fmt::format("{:^11}", readableLevelName);
+					if (readableLevelName.size() > 11)
+						readableLevelName = readableLevelName.substr(0, 9) + "...";
 
-					menuBuilder.addControl(x, y, width, height, levelSlotFilled);
-					menuBuilder.addTextControl(x + .03f, y + height / 2, 0.001, buttonTextColor,
+					menuBuilder.addTextControl(x + .02f, y + height / 2, 0.001, buttonTextColor,
 					                           readableLevelName);
 				} else {
 					menuBuilder.addControl(x, y, width, height, levelSlotEmpty);
@@ -143,6 +134,14 @@ namespace States {
 	}
 
 	void WorldSelectionState::onEnter(Context &context) {
+		levels = Util::FileSystem().getFilenamesInDirectory(levelDirectory);
+		levels.erase(std::remove_if(levels.begin(), levels.end(), [](const std::string &v) {
+			const std::string extension = LEVEL_EXTENSION;
+			const auto canFit = extension.size() <= v.size();
+			const auto matchesEnd = std::equal(v.begin() + v.size() - extension.size(), v.end(), extension.begin());
+			return !(canFit && matchesEnd);
+		}), levels.end());
+
 		drawMenu(context);
 	}
 
