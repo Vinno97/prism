@@ -14,23 +14,27 @@
 namespace States {
 	class SaveMenuState : public State {
 	public:
-		SaveMenuState() = default;
-		~SaveMenuState() = default;
+	    SaveMenuState() = default;
 
 		void onInit(Context &context) override;
 
 		void onUpdate(Context &context) override;
 
+		void onLeave(Context &context) override;
+
+		void onEnter(Context &context) override;
+
+	protected:
+		void drawMenu(Context &context);
+
 	private:
-		void makeButtons(Context& context);
 		std::unique_ptr<Menu::Menu> menu;
 		Menu::MenuRenderer menuRenderer;
-		std::string levelDirectory = Variables::Resources::SAVES;
-		std::vector<std::string> savedGames{ "" };
-		Renderer::Graphics::RenderDevice *renderDevice{ nullptr };
-		int currentPage{ 0 };
-		static constexpr int pageSize{ Variables::Visual::LevelSelection::ROWS * Variables::Visual::LevelSelection::COLUMNS };
-		float ASPECT;
-		bool shouldUpdateButtons = false;
+		std::string levelDirectory{Variables::Resources::SAVES};
+		std::vector<std::string> levels{""};
+		Renderer::Graphics::RenderDevice *renderDevice{nullptr};
+		bool nightmareMode{false};
+		int currentPage{0};
+		static constexpr int pageSize{Variables::Visual::WorldSelection::ROWS * Variables::Visual::WorldSelection::COLUMNS};
 	};
 }

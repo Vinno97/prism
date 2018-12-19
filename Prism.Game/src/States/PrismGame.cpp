@@ -288,8 +288,7 @@ namespace States {
 
 	void PrismGame::Save(std::string name)
 	{
-
+		World::LevelManager loader{ std::make_unique<PrismEntityAssembler>() };
 		loader.save(name, entityManager);
-
 	}
 }

@@ -12,7 +12,7 @@ namespace States {
 		ASPECT = context.window->width / context.window->height;
 
 		if (!context.stateMachine->hasState<SaveMenuState>()) {
-			context.stateMachine->addState<SaveMenuState>(context);
+			context.stateMachine->addState<SaveMenuState>();
 		}
 
 		std::function<void()> callbackEndstate = [&context]() { 
@@ -20,7 +20,7 @@ namespace States {
 		};
 
 		std::function<void()> callbackSaveMenuState = [&context]() {
-			context.stateMachine->setState<SaveMenuState>(context);
+			context.stateMachine->setState<SaveMenuState>();
 		};
 
 		menuBuilder.addControl(-0.5, 0, 1 * ASPECT, 0.21, "img/pause.png");

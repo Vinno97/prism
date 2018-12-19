@@ -19,14 +19,6 @@ using namespace Variables::Visual::WorldSelection;
 namespace States {
 
 	void WorldSelectionState::onInit(Context &context) {
-		levels = Util::FileSystem().getFilenamesInDirectory(levelDirectory);
-		levels.erase(std::remove_if(levels.begin(), levels.end(), [](const std::string &v) {
-			const std::string extension = LEVEL_EXTENSION;
-			const auto canFit = extension.size() <= v.size();
-			const auto matchesEnd = std::equal(v.begin() + v.size() - extension.size(), v.end(), extension.begin());
-			return !(canFit && matchesEnd);
-		}), levels.end());
-
 		renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
 	}
 
@@ -143,6 +135,14 @@ namespace States {
 	}
 
 	void WorldSelectionState::onEnter(Context &context) {
+		levels = Util::FileSystem().getFilenamesInDirectory(levelDirectory);
+		levels.erase(std::remove_if(levels.begin(), levels.end(), [](const std::string &v) {
+			const std::string extension = LEVEL_EXTENSION;
+			const auto canFit = extension.size() <= v.size();
+			const auto matchesEnd = std::equal(v.begin() + v.size() - extension.size(), v.end(), extension.begin());
+			return !(canFit && matchesEnd);
+		}), levels.end());
+
 		drawMenu(context);
 	}
 

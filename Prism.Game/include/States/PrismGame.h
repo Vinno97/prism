@@ -29,6 +29,8 @@ namespace States {
 
         bool isNightmare();
 
+        void Save(std::string name);
+
         std::string getLevel() const { return levelPath; }
 
     private:
