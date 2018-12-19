@@ -13,49 +13,60 @@
 #include <memory>
 #include "World/WorldLoader.h"
 
-namespace States
-{
-class PrismGame : public Game
-{
-  public:
-    explicit PrismGame(std::string levelPath) : levelPath(std::move(levelPath)){};
-	void onInit(Context &context) override;
-	void onUpdate(Context &context) override;
-	void onEnter(Context & context) override;
-	void onLeave(Context & context) override;
-	void toggleNightmare(Context & context);
-	bool isNightmare();
-	void Save(std::string name);
+namespace States {
+    class PrismGame : public Game {
+    public:
+        explicit PrismGame(std::string levelPath, bool nightmareMode) : levelPath(std::move(levelPath)),
+                                                                        isNightmareMode(nightmareMode) {};
 
-	std::string getLevel() const { return levelPath; }
+        void onInit(Context &context) override;
 
-  private:
-	ECS::EntityManager entityManager;
-	ECS::SystemManager systemManager;
-	EntityFactory entityFactory;
-	Menu::MenuRenderer menuRenderer;
-	Menu::MenuBuilder menuBuilder;
-	std::unique_ptr<Menu::Menu> menu;
-	World::LevelManager loader;
+        void onUpdate(Context &context) override;
 
+        void onEnter(Context &context) override;
 
-	//Textcontrols
-	Menu::TextControl* redResource{nullptr};
-	Menu::TextControl* greenResource{nullptr};
-	Menu::TextControl* blueResource{nullptr};
-	Menu::TextControl* health{nullptr};
-	Menu::TextControl* survivedTime{nullptr};
-	Menu::TextControl* score{nullptr};
-	Menu::TextControl* fps{nullptr};
+        void onLeave(Context &context) override;
 
-	bool canPressEscape{false};
-	bool canPressF3{false};
-	bool showFPS{false};
-	bool isNightmareMode{false};
-	std::string levelPath{};
-	void registerSystems(Context &context);
-	void toggleFPS(Context &context);
-	void loadAudio(Context &context) const;
-	int Fps(Context &context);
-};
+        bool isNightmare();
+
+        std::string getLevel() const { return levelPath; }
+
+    private:
+        ECS::EntityManager entityManager;
+        ECS::SystemManager systemManager;
+        Menu::MenuRenderer menuRenderer;
+        Menu::MenuBuilder menuBuilder;
+        std::unique_ptr<Menu::Menu> menu;
+
+        Menu::Control *healthImage{nullptr};
+        Menu::Control *resourceImage{nullptr};
+
+        //Textcontrols
+        Menu::TextControl *redResource{nullptr};
+        Menu::TextControl *greenResource{nullptr};
+        Menu::TextControl *blueResource{nullptr};
+        Menu::TextControl *health{nullptr};
+        Menu::TextControl *survivedTime{nullptr};
+        Menu::TextControl *score{nullptr};
+        Menu::TextControl *fps{nullptr};
+
+        bool suspense_not_playing{true};
+        bool canPressEscape{false};
+        bool canPressF3{false};
+        bool showFPS{false};
+        bool isNightmareMode{false};
+        std::string levelPath{};
+
+        void registerSystems(Context &context);
+
+        void changeTextColorNM();
+
+        void toggleFPS(Context &context);
+
+        void toggleResources(Context &context, int playerHealth);
+
+        void loadAudio(Context &context) const;
+
+        int Fps(Context &context);
+    };
 }

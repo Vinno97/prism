@@ -16,7 +16,7 @@ namespace States {
 		}
 
 		std::function<void()> callbackEndstate = [&context]() { 
-			context.stateMachine->setState<EndState>(context);			
+			context.stateMachine->setState<EndState>();
 		};
 
 		std::function<void()> callbackSaveMenuState = [&context]() {
@@ -38,14 +38,14 @@ namespace States {
 		auto input = context.inputManager;
 		if (input->isKeyPressed(Key::KEY_ESCAPE) && canPressEscape) {
 			canPressEscape = false;
-			context.stateMachine->setState<PrismGame>(context);
+			context.stateMachine->setState<PrismGame>();
 		}
 
 		if (!input->isKeyPressed(Key::KEY_ESCAPE)) {
 			canPressEscape = true;
 		}
 
-		if (menu->handleInput(*context.inputManager, context.window->width, context.window->height)) {
+		if (menu->handleInput(context)) {
 			canPressEscape = false;
 			return;
 		}

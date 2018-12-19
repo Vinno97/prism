@@ -18,8 +18,12 @@ namespace States {
 
         void onUpdate(Context &context) override;
 
+        void onLeave(Context &context) override;
+
+        void onEnter(Context &context) override;
+
     protected:
-        void makeButtons(Context& context);
+        void drawMenu(Context &context);
 
     private:
         std::unique_ptr<Menu::Menu> menu;
@@ -27,7 +31,8 @@ namespace States {
         std::string levelDirectory;
         std::vector<std::string> levels{""};
         Renderer::Graphics::RenderDevice *renderDevice{nullptr};
+        bool nightmareMode{false};
         int currentPage{0};
-        static constexpr int pageSize{Variables::Visual::LevelSelection::ROWS * Variables::Visual::LevelSelection::COLUMNS};
+        static constexpr int pageSize{Variables::Visual::WorldSelection::ROWS * Variables::Visual::WorldSelection::COLUMNS};
     };
 }
