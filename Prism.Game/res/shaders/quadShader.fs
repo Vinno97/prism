@@ -139,6 +139,15 @@ void main() {
 		pointColor += vec4(calcPointLight(Normal, worldPos, gPointLights[i]), 1.0);
 	}
 	
+	if(pointColor.x >= 1)
+		pointColor.x = 1;
+		
+	if(pointColor.y >= 1)
+		pointColor.y = 1;
+		
+	if(pointColor.z >= 1)
+		pointColor.z = 1;
+	
 	vec4 AmbientColor = vec4(gDirectionalLight.Color * gDirectionalLight.AmbientIntensity, 1.0f);
 	float DiffuseFactor = dot(normalize(Normal), -gDirectionalLight.Direction);
 	

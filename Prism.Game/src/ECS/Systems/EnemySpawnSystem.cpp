@@ -23,7 +23,7 @@ namespace ECS {
 			{
 				timeSinceLastWave = 0.f;
 				waveIsOngoing = true;
-				waveDuration += 0.6f;
+				waveDuration += 0.8f;
 			}
 
 			if(!waveIsOngoing)

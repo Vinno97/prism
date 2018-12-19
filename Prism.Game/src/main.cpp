@@ -23,6 +23,7 @@
 #include "States/MainMenuState.h"
 #include "States/CreditsState.h"
 #include "States/ResolutionMenuState.h"
+#include "States/TransitionState.h"
 
 #define _CRTDBG_MAP_ALLOC
 
