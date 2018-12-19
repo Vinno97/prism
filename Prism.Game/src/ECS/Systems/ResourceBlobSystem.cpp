@@ -50,7 +50,7 @@ namespace ECS {
 				auto direction = Math::Vector3f{ float(targetLocation->x - blobPosition->x), float(targetLocation->y - blobPosition->y), 0.f };
 
 				direction.normalize();
-				direction = direction * 2;
+				direction = direction * 3.5;
 
 				blobVelocity->dx = direction.x;
 				blobVelocity->dy = direction.y;
@@ -66,7 +66,7 @@ namespace ECS {
 
 			float distance = std::sqrt((x*x) + (y*y));
 
-			if (distance < 0.05f ) {
+			if (distance < 0.08f ) {
 				Util::DistanceUtil distanceUtil;
 				auto resource = entityManager->getComponent<ResourceBlobComponent>(blob);
 				auto player = entityManager->getAllEntitiesWithComponent<PlayerComponent>()[0];
