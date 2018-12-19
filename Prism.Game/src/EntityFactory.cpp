@@ -74,9 +74,6 @@
 using namespace ECS;
 using namespace ECS::Components;
 
-// TODO: Normaliseer alle modellen zodat øze goed gerendered kunnen worden met
-// een scale van 1.
-
 unsigned EntityFactory::createPlayer(EntityManager& entityManager) const
 {
 	return createPlayer(entityManager.createEntity(), entityManager);

@@ -158,8 +158,6 @@ namespace ECS {
 			context.deltaTime *= multiplier;
 
 			auto input = context.inputManager;
-
-			// TODO: Later naar in game buttons
 			if (input->isKeyPressed(Key::KEY_H)) increaseHealth();
 			if (input->isKeyPressed(Key::KEY_J)) decreaseHealth();
 			if (input->isKeyPressed(Key::KEY_R)) increaseResources();

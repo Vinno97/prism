@@ -10,7 +10,6 @@ using namespace World::Assemblers;
 void AppearanceAssembler::assemble(int entity, const WorldObject& worldObject, ECS::EntityManager& entityManager) const {
 	if (entityManager.hasComponent<AppearanceComponent>(entity)) {
 		auto appearance = entityManager.getComponent<AppearanceComponent>(entity);
-		// TODO: Schakel deze code in zodra de modellen allemaal genormaliseerde groottes hebben. 
 		//appearance->scaleX = worldObject.width;
 		//appearance->scaleY = (worldObject.width + worldObject.height) / 2.f;
 		//appearance->scaleZ = worldObject.height;
@@ -22,7 +21,6 @@ void AppearanceAssembler::assemble(int entity, const WorldObject& worldObject, E
 }
 
 void AppearanceAssembler::disassemble(int entity, WorldObject& worldObject, const ECS::EntityManager& entityManager) const {
-	// TODO: Schakel deze code in zodra de modellen allemaal genormaliseerde groottes hebben. 
 	//if (entityManager.hasComponent<AppearanceComponent>(entity)) {
 	//	auto appearance = entityManager.getComponent<AppearanceComponent>(entity);
 	//	worldObject.width = appearance->scaleX;

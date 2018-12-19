@@ -2,6 +2,7 @@
 #include "Variables.h"
 #include "StateMachine.h"
 #include "States/PrismGame.h"
+#include "States/PauseState.h"
 #include "States/MainMenuState.h"
 #include "Renderer/Graphics/RenderDevice.h"
 #include "Renderer/Graphics/OpenGL/OGLRenderDevice.h"
@@ -13,7 +14,14 @@ namespace States {
 
 	void HelpState::onInit(Context & context)
 	{
-		std::function<void()> callback = [&context]() { context.stateMachine->setState<MainMenuState>(); };
+		std::function<void()> callback = [&context]() { 
+			if (context.stateMachine->hasState<PrismGame>()) {
+				context.stateMachine->setState<PauseState>();
+			}
+			else {
+				context.stateMachine->setState<MainMenuState>();
+			}
+		};
 		std::function<void()> swapScreen = [&]() { swap(); };
 		menuBuilder.addControl(-0.9f, 0.8, 0.30, 0.10, "img/Back.png", callback);
 		menuBuilder.addControl(0.6f, 0.8, 0.30, 0.10, "img/Swap.png", swapScreen);
