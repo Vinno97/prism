@@ -24,7 +24,6 @@ namespace ECS {
 
 		void AnimationSystem::update(Context& context) {
 			absoluteTime += context.deltaTime;
-			// TODO: Misschien kan dit mooier
 			for (const auto& player : entityManager->getAllEntitiesWithComponent<PlayerComponent>()) {
 				auto appearance = entityManager->getComponent<AppearanceComponent>(player.id);
 				int rotationSpeed = 45;
@@ -49,7 +48,6 @@ namespace ECS {
 				auto appearance = entityManager->getComponent<AppearanceComponent>(player.id);
 				double widthMultiplier = .05;
 				double heightMultiplier = .1;
-				// TODO: Idealiter is de schaal van een object standaard 1
 				double absoluteSize = 0.002;
 
 				auto sin = std::sin(absoluteTime / .8f) + 1;
@@ -62,7 +60,6 @@ namespace ECS {
 				auto position = entityManager->getComponent<PositionComponent>(spawnPoint.id);
 				double widthMultiplier = .15;
 				double heightMultiplier = .1;
-				// TODO: Idealiter is de schaal van een object standaard 1
 				double absoluteSize = 0.002;
 
 				auto sin = std::sin(absoluteTime);

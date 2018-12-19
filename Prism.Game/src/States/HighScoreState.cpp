@@ -12,6 +12,7 @@
 
 namespace States {
 	using namespace Variables::Resources;
+	using namespace Variables::Visual::MainMenu;
 
 	void HighScoreState::onUpdate(Context & context)
 	{
@@ -72,18 +73,23 @@ namespace States {
 
 
 	void HighScoreState::showHighscore(std::vector<int> numbers, Context & context) {
+
 		int count = 1;
-		double test = 0.3;
+
+		double yValue = 0.3;
+
 
 		for (auto const& value : numbers)
 		{
 			if (count == 6) {
 				break;
 			}
-			menuBuilder.addControl(-0.35, test, 0.6, 0.18, "img/highScoreBackground.png");
-			menuBuilder.addTextControl(-0.25, test + 0.05, 0.0013, Math::Vector3f{ 1.0f, 1.0f, 1.0f }, std::to_string(count) + ": " + std::to_string(value));
+
+
+			menuBuilder.addControl(-0.35, yValue -=0.2, MENU_WIDTH, 0.18, "img/highScoreBackground.png");
+			menuBuilder.addTextControl(-0.25, yValue + 0.05, 0.0013, Math::Vector3f{ 1.0f, 1.0f, 1.0f }, std::to_string(count) + ": " + std::to_string(value));
 			count++;
-			test -= 0.2;
+
 		}
 	}
 }

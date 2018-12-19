@@ -10,7 +10,6 @@
 #include <memory>
 
 namespace World {
-	// TODO: Verzin een naam die zowel "LevelLoader", als "LevelSaver" betekent of insinueert.
 	class LevelManager
 	{
 

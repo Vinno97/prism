@@ -17,6 +17,8 @@ namespace Variables {
             constexpr SpritePath PLAIN_WHITE = "img/White.png";
             constexpr SpritePath WHITE_BORDERED = "img/White_Bordered.png";
             constexpr SpritePath GAME_OVER = "img/menus/normal/gameover.png";
+            constexpr SpritePath SAVE_HEADER = "img/menus/normal/save_header.png";
+            constexpr SpritePath SAVE_GAME = "img/menus/normal/save_button.png";
             constexpr SpritePath BACK = "img/menus/normal/Back.png";
 
             namespace MainMenu {
@@ -27,8 +29,14 @@ namespace Variables {
                 constexpr SpritePath HIGHSCORE =  "img/HighscoreButton.png";
                 constexpr SpritePath SETTINGS = "img/settings.png";
                 constexpr SpritePath QUIT = "img/QuitGameButton.png";
-		constexpr SpritePath LOGO = "img/menus/normal/Logo.png";
+		        constexpr SpritePath LOGO = "img/menus/normal/Logo.png";
             }
+
+			namespace Pause {
+				constexpr SpritePath RESUME = "img/menus/normal/resume.png";
+				constexpr SpritePath PAUSE = "img/pause.png";
+				constexpr SpritePath SAVE = "img/menus/normal/save.png";
+			}
 
             namespace WorldSelection {
                 constexpr SpritePath SELECT_LEVEL = "img/menus/normal/select_level.png";
@@ -60,9 +68,10 @@ namespace Variables {
         constexpr int STANDARD_BUTTON_HEIGTH = 140;
 
         namespace MainMenu {
-            constexpr float MENU_WIDTH = 0.7;
+	        constexpr float MENU_WIDTH = 0.7;
             constexpr float MENU_HEIGHT = MENU_WIDTH * STANDARD_BUTTON_HEIGTH / STANDARD_BUTTON_WIDTH;
             constexpr float MENU_MARGIN = .1f;
+			constexpr float SPACE = 0.2;
         }
 
         namespace WorldSelection {
