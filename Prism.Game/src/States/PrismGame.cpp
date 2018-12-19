@@ -37,6 +37,7 @@
 #include "ECS/Systems/PlaceCurrentBuildSystem.h"
 
 
+
 namespace States {
 	using namespace ECS;
 	using namespace ECS::Components;
@@ -242,5 +243,12 @@ namespace States {
 	bool PrismGame::isNightmare()
 	{
 		return isNightmareMode;
+	}
+
+	void PrismGame::Save(std::string name)
+	{
+
+		loader.save(name, entityManager);
+
 	}
 }

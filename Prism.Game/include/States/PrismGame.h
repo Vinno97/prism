@@ -11,6 +11,7 @@
 #include "EntityFactory.h"
 #include "State.h"
 #include <memory>
+#include "World/WorldLoader.h"
 
 namespace States
 {
@@ -24,6 +25,7 @@ class PrismGame : public Game
 	void onLeave(Context & context) override;
 	void toggleNightmare(Context & context);
 	bool isNightmare();
+	void Save(std::string name);
 
 	std::string getLevel() const { return levelPath; }
 
@@ -34,6 +36,7 @@ class PrismGame : public Game
 	Menu::MenuRenderer menuRenderer;
 	Menu::MenuBuilder menuBuilder;
 	std::unique_ptr<Menu::Menu> menu;
+	World::LevelManager loader;
 
 
 	//Textcontrols

@@ -32,7 +32,7 @@ namespace Variables {
             constexpr int COLUMNS = 4;
             constexpr int ROWS = 2;
             constexpr float OUTER_MARGIN = .2f;
-            constexpr float GRID_MARGIN = .05f;
+			constexpr float GRID_MARGIN = .05f;
         }
     }
 }

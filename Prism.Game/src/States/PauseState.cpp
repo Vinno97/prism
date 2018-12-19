@@ -4,18 +4,28 @@
 #include "States/PrismGame.h"
 #include "Renderer/Graphics/RenderDevice.h"
 #include "Renderer/Graphics/OpenGL/OGLRenderDevice.h"
-#include "Renderer/Graphics/OpenGL/OGLVertexShader.h"
-#include "Renderer/Graphics/OpenGL/OGLPipeline.h"
+#include "States/SaveMenuState.h"
 
 namespace States {
 	void PauseState::onInit(Context & context)
 	{
+		ASPECT = context.window->width / context.window->height;
+
+		if (!context.stateMachine->hasState<SaveMenuState>()) {
+			context.stateMachine->addState<SaveMenuState>(context);
+		}
+
 		std::function<void()> callbackEndstate = [&context]() { 
 			context.stateMachine->setState<EndState>(context);			
 		};
 
-		menuBuilder.addControl(-0.5, 0, 1, 0.21, "img/pause.png");
-		menuBuilder.addControl(-0.35, -0.5, 0.7, 0.18, "img/QuitGameButton.png", callbackEndstate);
+		std::function<void()> callbackSaveMenuState = [&context]() {
+			context.stateMachine->setState<SaveMenuState>(context);
+		};
+
+		menuBuilder.addControl(-0.5, 0, 1 * ASPECT, 0.21, "img/pause.png");
+		menuBuilder.addControl(-0.35, -0.5, 0.7 * ASPECT, 0.18, "img/QuitGameButton.png", callbackEndstate);
+		menuBuilder.addControl(-0.35, -0.75, 0.7 * ASPECT, 0.18, "img/QuitGameButton.png", callbackSaveMenuState);
 
 		menu = menuBuilder.buildMenu();
 		Renderer::Graphics::RenderDevice* renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
