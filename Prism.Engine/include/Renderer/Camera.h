@@ -24,7 +24,6 @@ namespace Renderer {
 		/// </summary>
 		void moveTarget(const float x, const float y, const float z);
 
-		// TODO: Deze moeten mss enkel readonly getters zijn (en dat het renderSystem gewoon de delta voor move() uitrekent).
 		glm::vec3 position;
 		glm::vec3 target;
 		~Camera();

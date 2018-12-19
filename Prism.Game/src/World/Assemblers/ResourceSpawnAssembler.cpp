@@ -14,8 +14,6 @@ World::Assemblers::ResourceSpawnAssembler::ResourceSpawnAssembler()
 
 void ResourceSpawnAssembler::assemble(int entity, const WorldObject& worldObject, ECS::EntityManager& entityManager) const {
 	if (worldObject.gid == 1 || worldObject.gid == 2 || worldObject.gid == 3) {
-		// TODO: Creëer het juiste type zodra dit in de game zit.
-
 		auto value = 1;
 		auto resourceType = Enums::ResourceType::BLUE;
 		auto gatherRate = 1;

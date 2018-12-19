@@ -65,7 +65,7 @@ namespace Menu {
 		leaveCallback = leaveCallback_;
 		hoverCallback = hoverCallback_;
 	}
-    //TODO: Fix memory leak
+
 	void Control::UpdateTexture(const char *path)
 	{
 		auto pwd = filesystem::current_path();

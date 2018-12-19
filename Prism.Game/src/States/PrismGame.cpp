@@ -272,6 +272,7 @@ namespace States {
 			redResource->colour = Math::Vector3f{ 1.0f, 1.0f, 1.0f };
 			blueResource->colour = Math::Vector3f{ 1.0f, 1.0f, 1.0f };
 			greenResource->colour = Math::Vector3f{ 1.0f, 1.0f, 1.0f };
+			fps->colour = Math::Vector3f{ 1.0f, 1.0f, 1.0f };
 		}
 	}
 

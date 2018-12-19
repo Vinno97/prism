@@ -42,12 +42,12 @@ namespace States {
         renderDevice->setClearColour(1.f, 1.f, 1.f, 1.f);
 
 
-        Menu::MenuBuilder menuBuilder;
-        menuBuilder.addControl(-0.5f, 0.5, 1, 0.24, SELECT_LEVEL);
-        // TODO: Make a uniform GUI design with a standard location for this button.
-        menuBuilder.addControl(-0.8f, 0.8, .25, 0.096, BACK, [&context]() {
-            context.stateMachine->setState<MainMenuState>();
-        });
+		Menu::MenuBuilder menuBuilder;
+		menuBuilder.addControl(-0.5f, 0.5, 1, 0.24, SAVE_GAME);
+		// TODO: Make a uniform GUI design with a standard location for this button.
+		menuBuilder.addControl(-0.8f, 0.8, .25, 0.096, BACK, [&context]() {
+			context.stateMachine->setState<MainMenuState>();
+		});
 
 
         auto pageCount{std::ceil(1.0 * levels.size() / pageSize)};
