@@ -15,7 +15,7 @@ namespace ECS {
 			void update(Context& context) override;
 
 		private:
-			float timeToNextWave = 13.f;
+			float timeToNextWave = 25.f;
 			float waveDuration = 0.3f;
 			float currentWaveLength = 0.f;
 			float timeSinceLastWave = 0.f;

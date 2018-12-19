@@ -21,82 +21,82 @@ using namespace Math;
 
 namespace States {
 
-    using namespace Variables::Resources;
-    using namespace Variables::Visual::MainMenu;
+	using namespace Variables::Resources;
+	using namespace Variables::Visual::MainMenu;
 
-    void MainMenuState::onInit(Context &context) {
-        loadMusic(context);
-        context.stateMachine->addState<CreditsState>(context);
-        context.stateMachine->addState<ResolutionMenuState>(context);
-        context.stateMachine->addState<HelpState>(context);
-        context.stateMachine->addState<HighScoreState>(context);
+	void MainMenuState::onInit(Context &context) {
+		loadMusic(context);
+		context.stateMachine->addState<CreditsState>(context);
+		context.stateMachine->addState<ResolutionMenuState>(context);
+		context.stateMachine->addState<HelpState>(context);
+		context.stateMachine->addState<HighScoreState>(context);
 
-        std::function<void()> callback = [&context]() {
-            if (!context.stateMachine->hasState<LevelSelectionState>()) {
-                context.stateMachine->addState<LevelSelectionState>(context);
-            }
-            context.stateMachine->setState<LevelSelectionState>(context);
-        };
+		std::function<void()> callback = [&context]() {
+			if (!context.stateMachine->hasState<LevelSelectionState>()) {
+				context.stateMachine->addState<LevelSelectionState>(context);
+			}
+			context.stateMachine->setState<LevelSelectionState>(context);
+		};
 
-        std::function<void()> loadCallback = [&context]() {
-            if (!context.stateMachine->hasState<SaveSelectionState>()) {
-                context.stateMachine->addState<SaveSelectionState>(context);
-            }
-            context.stateMachine->setState<SaveSelectionState>(context);
-        };
+		std::function<void()> loadCallback = [&context]() {
+			if (!context.stateMachine->hasState<SaveSelectionState>()) {
+				context.stateMachine->addState<SaveSelectionState>(context);
+			}
+			context.stateMachine->setState<SaveSelectionState>(context);
+		};
 
-        std::function<void()> creditsCallback = [&context]() { context.stateMachine->setState<CreditsState>(context); };
-        std::function<void()> settingsCallback = [&context]() {
-            context.stateMachine->setState<ResolutionMenuState>(context);
-        };
-        std::function<void()> helpCallback = [&]() { context.stateMachine->setState<HelpState>(context); };
-        std::function<void()> highscoreCallback = [&context]() {
-            context.stateMachine->setState<HighScoreState>(context);
-        };
-        std::function<void()> quitCallback = [&]() {
-            if (exitBool) {
-                exit(0);
-            }
-            exitBool = true;
-        };
+		std::function<void()> creditsCallback = [&context]() { context.stateMachine->setState<CreditsState>(context); };
+		std::function<void()> settingsCallback = [&context]() {
+			context.stateMachine->setState<ResolutionMenuState>(context);
+		};
+		std::function<void()> helpCallback = [&]() { context.stateMachine->setState<HelpState>(context); };
+		std::function<void()> highscoreCallback = [&context]() {
+			context.stateMachine->setState<HighScoreState>(context);
+		};
+		std::function<void()> quitCallback = [&]() {
+			if (exitBool) {
+				exit(0);
+			}
+			exitBool = true;
+		};
 
-        const float aspect = float(context.window->width) / float(context.window->height);
+		const float aspect = float(context.window->width) / float(context.window->height);
 
-        const auto btnHeight = MENU_HEIGHT * aspect;
-        auto y = .7f;
-        auto s = MENU_MARGIN + MENU_HEIGHT;
+		const auto btnHeight = MENU_HEIGHT * aspect;
+		auto y = .7f;
+		auto s = MENU_MARGIN + MENU_HEIGHT;
 
-        menuBuilder.addControl(-0.35f, y -= s, MENU_WIDTH, btnHeight, Sprites::MainMenu::NEW_GAME, callback);
-        menuBuilder.addControl(-0.35f, y -= s, MENU_WIDTH, btnHeight, Sprites::MainMenu::LOAD_SAVE, loadCallback);
-        menuBuilder.addControl(-0.35f, y -= s, MENU_WIDTH, btnHeight, Sprites::MainMenu::CREDITS, creditsCallback);
-        menuBuilder.addControl(-0.35f, y -= s, MENU_WIDTH, btnHeight, Sprites::MainMenu::HELP, helpCallback);
-        menuBuilder.addControl(-0.35f, y -= s, MENU_WIDTH, btnHeight, Sprites::MainMenu::HIGHSCORE, highscoreCallback);
-        menuBuilder.addControl(-0.35f, y -= s, MENU_WIDTH, btnHeight, Sprites::MainMenu::QUIT, quitCallback);
-        menuBuilder.addControl(-0.98f, 0.9, 0.05, 0.05f * aspect, Sprites::MainMenu::SETTINGS, settingsCallback);
+		menuBuilder.addControl(-0.35f, y -= s, MENU_WIDTH, btnHeight, Sprites::MainMenu::NEW_GAME, callback);
+		menuBuilder.addControl(-0.35f, y -= s, MENU_WIDTH, btnHeight, Sprites::MainMenu::LOAD_SAVE, loadCallback);
+		menuBuilder.addControl(-0.35f, y -= s, MENU_WIDTH, btnHeight, Sprites::MainMenu::CREDITS, creditsCallback);
+		menuBuilder.addControl(-0.35f, y -= s, MENU_WIDTH, btnHeight, Sprites::MainMenu::HELP, helpCallback);
+		menuBuilder.addControl(-0.35f, y -= s, MENU_WIDTH, btnHeight, Sprites::MainMenu::HIGHSCORE, highscoreCallback);
+		menuBuilder.addControl(-0.35f, y -= s, MENU_WIDTH, btnHeight, Sprites::MainMenu::QUIT, quitCallback);
+		menuBuilder.addControl(-0.98f, 0.9, 0.05, 0.05f * aspect, Sprites::MainMenu::SETTINGS, settingsCallback);
 
-        menu = menuBuilder.buildMenu();
+		menu = menuBuilder.buildMenu();
 
-        renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
-        renderDevice->setClearColour(1.f, 1.f, 1.f, 1.f);
-    }
+		renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
+		renderDevice->setClearColour(1.f, 1.f, 1.f, 1.f);
+	}
 
-    void MainMenuState::onUpdate(Context &context) {
-        renderDevice->clearScreen();
-        menuRenderer.renderMenu(*menu, context.window->width, context.window->height);
+	void MainMenuState::onUpdate(Context &context) {
+		renderDevice->clearScreen();
+		menuRenderer.renderMenu(*menu, context.window->width, context.window->height);
 
-        menu->handleInput(context);
+		menu->handleInput(context);
 
-        context.window->swapScreen();
-    }
+		context.window->swapScreen();
+	}
 
-    void MainMenuState::onEnter(Context &context) {
-        context.audioManager->playMusic("MainMenu");
-    }
+	void MainMenuState::onEnter(Context &context) {
+		context.audioManager->playMusic("MainMenu");
+	}
 
-    void MainMenuState::loadMusic(Context &context) {
-        context.audioManager->addMusic("MainMenu", "MainMenu.wav");
-        context.audioManager->addSound("NightmareOn", "NightmareModeOn.wav");
-        context.audioManager->addSound("NightmareOff", "NightmareModeOff.wav");
-        context.audioManager->addSound("ButtonClick", "ButtonClick.wav");
-    }
+	void MainMenuState::loadMusic(Context &context) {
+		context.audioManager->addMusic("MainMenu", "MainMenu.wav");
+		context.audioManager->addSound("NightmareOn", "NightmareModeOn.wav");
+		context.audioManager->addSound("NightmareOff", "NightmareModeOff.wav");
+		context.audioManager->addSound("ButtonClick", "ButtonClick.wav");
+	}
 }
