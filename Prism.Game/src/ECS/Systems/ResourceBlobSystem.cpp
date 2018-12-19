@@ -17,6 +17,7 @@
 namespace ECS {
 	namespace Systems {
 		using namespace Components;
+		using namespace Math;
 		
 		ResourceBlobSystem::ResourceBlobSystem(EntityManager & entityManager) : System(entityManager)
 		{
@@ -59,7 +60,7 @@ namespace ECS {
 			}
 		}
 
-		void ResourceBlobSystem::removeResourceBlobs(PositionComponent &playerPosition, PositionComponent &blobPosition, int blob, Context & context) {
+		void ResourceBlobSystem::removeResourceBlobs(PositionComponent &playerPosition, PositionComponent &blobPosition, unsigned blob, Context & context) {
 
 			auto x = blobPosition.x - playerPosition.x;
 			auto y = blobPosition.y - playerPosition.y;
@@ -73,7 +74,12 @@ namespace ECS {
 				auto playerInventory = entityManager->getComponent<InventoryComponent>(player.id);
 				increateResource(resource->resourceType, *playerInventory, resource->value);
 
-				context.audioManager->playSound("Resource", distanceUtil.CalculateDistance(blobPosition.x, blobPosition.y, playerPosition.x, playerPosition.y));
+				const auto playerId =entityManager->getAllEntitiesWithComponent<PlayerComponent>()[0].id;
+
+				Vector2d bPos = blobPosition;
+				Vector2d pPos = *entityManager->getComponent<PositionComponent>(playerId);
+
+				context.audioManager->playSound("Resource", Math::distance(bPos, pPos));
 				entityManager->removeEntity(blob);
 			}
 			
