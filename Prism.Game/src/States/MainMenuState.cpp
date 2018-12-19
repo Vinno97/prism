@@ -4,6 +4,7 @@
 #include "States/CreditsState.h"; 
 #include "States/HighScoreState.h"; 
 #include "States/HelpState.h"
+#include "Math/Vector3f.h";
 #include "Renderer/Graphics/RenderDevice.h"
 #include "Renderer/Graphics/OpenGL/OGLRenderDevice.h"
 #include "Renderer/Graphics/OpenGL/OGLVertexShader.h"
@@ -11,6 +12,8 @@
 #include "Util/AdvertisementSystem.h"
 #include <cstdlib>
 #include "States/ResolutionMenuState.h"
+
+using namespace Math;
 
 namespace States {
 	MainMenuState::MainMenuState()
@@ -32,9 +35,9 @@ namespace States {
 			if (nightmareMode) {
 				context.stateMachine->getState<PrismGame>()->toggleNightmare(context);
 			}
-
 		};
 
+		
 		std::function<void()> nightmareModeCallback = [&]() { 
 			if (cooldown > maxCooldown) {
 				if (!nightmareMode) {
@@ -75,7 +78,6 @@ namespace States {
 		menuBuilder.addControl(-0.7, 0.49, 0.35, 0.1, "img/nightmare_mode.png", nightmareModeCallback);
 
 		menu = menuBuilder.buildMenu();
-
 		renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
 		renderDevice->setClearColour(1.f, 1.f, 1.f, 1.f);
 	}
@@ -87,7 +89,7 @@ namespace States {
 		menuRenderer.renderMenu(*menu, context.window->width, context.window->height);
 
 		auto input = context.inputManager;
-		if (menu->handleInput(*context.inputManager, context.window->width, context.window->height)) {
+		if (menu->handleInput(*context.inputManager, context.window->width, context.window->height, context)) {
 			return;
 		}
 
