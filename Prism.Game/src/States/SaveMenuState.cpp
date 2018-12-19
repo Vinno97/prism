@@ -8,6 +8,7 @@
 #include <States/MainMenuState.h>
 #include <States/PauseState.h>
 #include <chrono>
+#include <ctime>
 #include "StateMachine.h"
 #include "Menu/MenuBuilder.h"
 #include "Util/FileSystem.h"
