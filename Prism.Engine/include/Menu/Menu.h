@@ -16,9 +16,11 @@ namespace Menu {
 		std::vector<std::unique_ptr<TextControl>> textControls;
 		std::shared_ptr<Renderer::Graphics::Models::Mesh> mesh;
 
-		bool handleInput(InputManager& input, int height, int width);
+		bool handleInput(InputManager& input, int height, int width, Context& context);
 
 		~Menu();
 		void cleanup();
+	private:
+		bool hit = false;
 	};
 }

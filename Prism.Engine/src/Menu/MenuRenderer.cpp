@@ -44,9 +44,10 @@ namespace Menu {
 		for (auto& control : menu.controls) 
 		{
 			auto pos = control->position;
+			auto offset = control->offset;
 			glm::mat4 model = glm::mat4(1.0f);
 
-			model = glm::translate(model, glm::vec3(pos.x, pos.y, 0.0f));
+			model = glm::translate(model, glm::vec3(pos.x+offset.x, pos.y+offset.y, 0.0f));
 			model = glm::rotate(model, control->rotation, glm::vec3(0.f, 0.f, 1.f));
 			model = glm::scale(model, glm::vec3(control->size.x, control->size.y, 1.0f));
 			menuPipeline->setUniformMatrix4f("model", model);
