@@ -90,11 +90,11 @@ namespace States {
 							drawMenu(context);
 						}
 					});
-					readableLevelName = fmt::format("{:^13}", readableLevelName);
-					if (readableLevelName.size() > 13)
-						readableLevelName = readableLevelName.substr(0, 10) + "...";
+					readableLevelName = fmt::format("{:^11}", readableLevelName);
+					if (readableLevelName.size() > 11)
+						readableLevelName = readableLevelName.substr(0, 9) + "...";
 
-					menuBuilder.addTextControl(x + .03f, y + height / 2, 0.001, buttonTextColor,
+					menuBuilder.addTextControl(x + .02f, y + height / 2, 0.001, buttonTextColor,
 											   readableLevelName);
 				} else {
 					menuBuilder.addControl(x, y, width, height, LEVEL_SLOT_EMPTY, [&]()

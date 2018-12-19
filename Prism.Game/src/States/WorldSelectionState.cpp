@@ -102,12 +102,12 @@ namespace States {
 						context.stateMachine->addState<TransitionState<PrismGame>>();
 						context.stateMachine->setState<TransitionState<PrismGame>>();
 					});
-					readableLevelName = fmt::format("{:^13}", readableLevelName);
-					if (readableLevelName.size() > 13)
-						readableLevelName = readableLevelName.substr(0, 10) + "...";
+					readableLevelName = fmt::format("{:^11}", readableLevelName);
+					if (readableLevelName.size() > 11)
+						readableLevelName = readableLevelName.substr(0, 9) + "...";
 
 					menuBuilder.addControl(x, y, width, height, levelSlotFilled);
-					menuBuilder.addTextControl(x + .03f, y + height / 2, 0.001, buttonTextColor,
+					menuBuilder.addTextControl(x + .02f, y + height / 2, 0.001, buttonTextColor,
 					                           readableLevelName);
 				} else {
 					menuBuilder.addControl(x, y, width, height, levelSlotEmpty);
