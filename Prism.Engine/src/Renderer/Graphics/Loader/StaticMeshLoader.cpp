@@ -30,8 +30,12 @@ namespace Renderer {
 			/// <param name="path">The file path</param>
 			/// <param name="renderDevice">The RenderDevice</param>
 			/// <returns>shared_ptr<Mesh></returns>
-			shared_ptr<Mesh> StaticMeshLoader::loadMesh(string path)
+			shared_ptr<Mesh> StaticMeshLoader::loadMesh(string path) const
 			{
+				auto existingMesh = loadedMeshes.find(path);
+				if (existingMesh != loadedMeshes.end())
+					return existingMesh->second;
+
 				Assimp::Importer importer;
 
 				// Import scene pointer from given path.
@@ -89,7 +93,7 @@ namespace Renderer {
 					throw std::runtime_error("Assimp mesh loading.");
 				}
 
-				vertexArrayObject->addVertexBuffer(move(vertexBuffer), 0, 3 * sizeof(float), 0, 3);
+				vertexArrayObject->addVertexBuffer(vertexBuffer.get(), 0, 3 * sizeof(float), 0, 3);
 
 
 				//Load normals
@@ -112,7 +116,7 @@ namespace Renderer {
 					throw std::runtime_error("Assimp mesh loading.");
 				}
 
-				vertexArrayObject->addVertexBuffer(move(normalBuffer), 1, 3 * sizeof(float), 0, 3);
+				vertexArrayObject->addVertexBuffer(normalBuffer.get(), 1, 3 * sizeof(float), 0, 3);
 
 
 				/*
@@ -153,6 +157,8 @@ namespace Renderer {
 					cout << "Mesh creation failed. No mesh found." << endl;
 					throw std::runtime_error("Assimp mesh loading.");
 				}
+
+				loadedMeshes.insert(std::pair<std::string, std::shared_ptr<Mesh>>(path, combinedMesh));
 
 				return combinedMesh;
 			}

@@ -11,12 +11,25 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\Menu\ControlBuilder.h" />
     <ClInclude Include="include\AudioManager.h" />
-    <ClInclude Include="include\Menu\Control.h" />
+    <ClInclude Include="include\ECS\Components\AnimationComponent.h" />
+    <ClInclude Include="include\ECS\Components\DynamicComponent.h" />
     <ClInclude Include="include\ECS\Components\PlayerComponent.h" />
+    <ClInclude Include="include\ECS\EntityBuilder.h" />
+    <ClInclude Include="include\ECS\Systems\GeometryAnimationSystem.h" />
+    <ClInclude Include="include\ECS\Components\PointLightComponent.h" />
+    <ClInclude Include="include\ECS\Components\CollidableComponent.h" />
+    <ClInclude Include="include\Math\Vector2.h" />
+    <ClInclude Include="include\Menu\Control.h" />
+    <ClInclude Include="include\Renderer\Animation.h" />
+    <ClInclude Include="include\Renderer\Graphics\GeometryShader.h" />
+    <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLGeometryShader.h" />
+    <ClInclude Include="include\Menu\TextControl.h" />
     <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLRenderTarget.h" />
     <ClInclude Include="include\Renderer\Graphics\RenderTarget.h" />
+    <ClInclude Include="include\Util\AdvertisementSystem.h" />
+    <ClInclude Include="include\Util\DistanceUtil.h" />
+    <ClInclude Include="include\Renderer\PointLight.h" />
     <ClInclude Include="include\World\Assemblers\AppearanceAssembler.h" />
     <ClInclude Include="include\World\Assemblers\HealthAssembler.h" />
     <ClInclude Include="include\World\EntityConfigurators\AppearanceConfigurator.h" />
@@ -72,9 +85,7 @@
     <ClInclude Include="include\Key.h" />
     <ClInclude Include="include\State.h" />
     <ClInclude Include="include\StateMachine.h" />
-    <ClInclude Include="include\Util\lodepng.h" />
     <ClInclude Include="include\Window.h" />
-    <ClInclude Include="include\MenuState.h" />
     <ClInclude Include="include\ECS\SystemManager.h" />
     <ClInclude Include="include\Renderer\Graphics\RenderDevice.h" />
     <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLFragmentShader.h" />
@@ -98,11 +109,15 @@
     <ClInclude Include="include\Menu\Menu.h" />
     <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLTexture.h" />
     <ClInclude Include="include\Surface.h" />
+    <ClInclude Include="include\Menu\TextRenderer.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Menu\ControlBuilder.cpp" />
+    <ClCompile Include="src\ECS\Systems\GeometryAnimationSystem.cpp" />
+    <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLGeometryShader.cpp" />
+    <ClCompile Include="src\Util\AdvertisementSystem.cpp" />
     <ClCompile Include="src\AudioManager.cpp" />
     <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLRenderTarget.cpp" />
+    <ClCompile Include="src\Util\DistanceUtil.cpp" />
     <ClCompile Include="src\World\Assemblers\AppearanceAssembler.cpp" />
     <ClCompile Include="src\World\Assemblers\HealthAssembler.cpp" />
     <ClCompile Include="src\World\Assemblers\PositionAssembler.cpp" />
@@ -121,7 +136,6 @@
     <ClCompile Include="src\Renderer\Renderable.cpp" />
     <ClCompile Include="src\Util\FileSystem.cpp" />
     <ClCompile Include="src\Renderer\ForwardRenderer.cpp" />
-    <ClCompile Include="src\MenuState.cpp" />
     <ClCompile Include="src\ECS\EntityManager.cpp" />
     <ClCompile Include="src\Renderer\Graphics\Loader\ModelLoader.cpp" />
     <ClCompile Include="src\Renderer\Graphics\Loader\TextureLoader.cpp" />
@@ -143,7 +157,6 @@
     <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLVertexShader.cpp" />
     <ClCompile Include="src\State.cpp" />
     <ClCompile Include="src\StateMachine.cpp" />
-    <ClCompile Include="src\Util\lodepng.cpp" />
     <ClCompile Include="src\Window.cpp" />
     <ClCompile Include="src\Renderer\Graphics\Loader\StaticMeshLoader.cpp" />
     <ClCompile Include="src\ECS\SystemManager.cpp" />
@@ -154,8 +167,10 @@
     <ClCompile Include="src\World\WorldObject.cpp" />
     <ClCompile Include="src\World\WorldLoader.cpp" />
     <ClCompile Include="src\Surface.cpp" />
+    <ClCompile Include="src\Menu\TextRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Library Include="lib\x64\freetype.lib" />
     <Library Include="lib\x64\glew32.lib" />
     <Library Include="lib\x64\assimp-vc140-mtd.lib" />
     <Library Include="lib\x64\SDL2.lib" />

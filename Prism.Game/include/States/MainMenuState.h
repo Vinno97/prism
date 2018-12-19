@@ -5,6 +5,7 @@
 #include "Menu/MenuBuilder.h"
 #include "Menu/Menu.h"
 #include "Menu/MenuRenderer.h"
+#include "Util/AdvertisementSystem.h"
 
 namespace States {
 	class MainMenuState : public State
@@ -14,17 +15,20 @@ namespace States {
 
 		void onInit(Context &context) override;
 		void onUpdate(Context &context) override;
-		void onEnter() override;
-		void onLeave() override;
-
-		MainMenuState(const MainMenuState &obj);
-
+		void onEnter(Context & context) override;
+		void onLeave(Context & context) override;
 		~MainMenuState();
 
 	private:
 		Menu::MenuRenderer menuRenderer;
+		bool exitBool = false;
 		Menu::MenuBuilder menuBuilder;
-		Menu::Menu menu;
+		std::unique_ptr<Menu::Menu> menu;
+		float cooldown = 0.0f;
+		float maxCooldown = 1.0f;
+		Renderer::Graphics::RenderDevice* renderDevice;
+		bool nightmareMode = false;
+		void loadMusic(Context &context);
 	};
 }
 

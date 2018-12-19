@@ -4,7 +4,12 @@
 #include "ECS/Components/VelocityComponent.h"
 #include "ECS/Components/BulletComponent.h"
 #include "ECS/Components/AppearanceComponent.h"
+#include "ECS/Components/ScoreComponent.h"
+#include "ECS/Components/PositionComponent.h"
+#include "ECS/Components/PointLightComponent.h"
+#include "ECS/Components/PlayerComponent.h"
 
+using namespace ECS::Components;
 
 namespace ECS {
 	namespace Systems {
@@ -18,24 +23,33 @@ namespace ECS {
 
 		void ShootingSystem::update(Context& context)
 		{
-			EntityFactory ef = EntityFactory();
 			for (auto entity : entityManager->getAllEntitiesWithComponent<ShootingComponent>()) {
 				auto component = entityManager->getComponent<ShootingComponent>(entity.id);
-				pastTime += context.deltaTime;
-				if (component->isShooting && pastTime > cooldown) {
-					pastTime = 0;
-					int projectileId = ef.createProjectile(*entityManager);
+				component->pastTime += context.deltaTime;
+				if (component->isShooting && component->pastTime > component->cooldown) {
+					component->pastTime = 0;
+					int projectileId = EntityFactory::getInstance().createProjectile(*entityManager);
 					auto position = entityManager->getComponent<PositionComponent>(projectileId);
 					position->x = entityManager->getComponent<PositionComponent>(entity.id)->x + (component->xdirection / 4);
 					position->y = entityManager->getComponent<PositionComponent>(entity.id)->y + (component->ydirection / 4);
+
 					auto velocity = entityManager->getComponent<VelocityComponent>(projectileId);
+					auto pointLight = entityManager->getComponent<PointLightComponent>(projectileId);
 					velocity->dx = component->xdirection * 5;
 					velocity->dy = component->ydirection * 5;
+
 					if (entityManager->hasComponent<AppearanceComponent>(entity.id)) {
 						auto entityAppearance = entityManager->getComponent<AppearanceComponent>(entity.id);
 						auto projectileAppearance = entityManager->getComponent<AppearanceComponent>(projectileId);
+						auto projectilePosition = entityManager->getComponent<PositionComponent>(projectileId);
+						if (component->shotByTower) {
+							projectilePosition->z = 1;
+						}
 						projectileAppearance->color = entityAppearance->color;
-						context.audioManager->playSound("Bullet");
+						if (entityManager->hasComponent<PlayerComponent>(entity.id)) {
+							pointLight->color = Math::Vector3f(entityAppearance->color.x, entityAppearance->color.y, entityAppearance->color.z);
+						}
+						context.audioManager->playSound("Bullet", 0);
 					}
 					entityManager->getComponent<BulletComponent>(projectileId)->lifeTime = 2;
 					component->isShooting = false;

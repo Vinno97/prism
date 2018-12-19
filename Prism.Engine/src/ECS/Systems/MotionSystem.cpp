@@ -6,6 +6,7 @@
 #include "ECS/Components/VelocityComponent.h"
 #include "ECS/EntityManager.h"
 
+using namespace ECS::Components;
 
 ECS::Systems::MotionSystem::MotionSystem(EntityManager &entityManager) : System(entityManager) {}
 

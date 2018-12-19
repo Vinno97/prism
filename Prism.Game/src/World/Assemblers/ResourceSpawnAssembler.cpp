@@ -14,7 +14,7 @@ World::Assemblers::ResourceSpawnAssembler::ResourceSpawnAssembler()
 
 void ResourceSpawnAssembler::assemble(int entity, const WorldObject& worldObject, ECS::EntityManager& entityManager) const {
 	if (worldObject.gid == 1 || worldObject.gid == 2 || worldObject.gid == 3) {
-		// TODO: Creëer het juiste type zodra dit in de game zit.
+		// TODO: CreÃ«er het juiste type zodra dit in de game zit.
 
 		auto value = 1;
 		auto resourceType = Enums::ResourceType::BLUE;
@@ -29,7 +29,7 @@ void ResourceSpawnAssembler::assemble(int entity, const WorldObject& worldObject
 			value = std::stoi(worldObject.additionalProperties.at("value").value);
 		}
 		
-		EntityFactory().createResourcePoint(entity, entityManager, resourceType, gatherRate, value);
+		EntityFactory::getInstance().createResourcePoint(entity, entityManager, resourceType, gatherRate, value);
 	}
 
 }

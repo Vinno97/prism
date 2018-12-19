@@ -1,20 +1,28 @@
 #pragma once
 #include "Component.h"
 
-namespace ECS {
-	namespace Components {
-		struct HealthComponent : Component {
+namespace ECS
+{
+	namespace Components
+	{
+		struct HealthComponent : Component
+		{
 			HealthComponent() = default;
 
-			/// <summary>
-			///	The position in units
-			/// </summary>
-			float health{0};
+			//The current health of this entity
+			float currentHealth{0};
 
-			HealthComponent(int healthIn) : health(healthIn) {};
-			Component* Clone() override {
-				auto component = new HealthComponent();
-				component->health = health;
+			//the Maximum health of this entity
+			float maxHealth{0};
+			HealthComponent(float maxHealth) : currentHealth(maxHealth) , maxHealth(maxHealth)
+			{
+			};
+
+			std::unique_ptr<Component> clone() override
+			{
+				auto component = std::make_unique<HealthComponent>();
+				component->currentHealth = currentHealth;
+				component->maxHealth = maxHealth;
 				return component;
 			}
 		};

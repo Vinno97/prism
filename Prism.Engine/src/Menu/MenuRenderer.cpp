@@ -27,33 +27,32 @@ namespace Menu {
 		std::unique_ptr<FragmentShader> fragmentShader = renderDevice->createFragmentShader(fragmentSource.c_str());
 		menuPipeline = move(renderDevice->createPipeline(*vertexShader, *fragmentShader));
 
-		//menuPipeline->createUniform("view");
 		menuPipeline->createUniform("model");
+		menuPipeline->createUniform("projection");
 	}
 
-	void MenuRenderer::renderMenu(Menu& menu, float aspect)
+	void MenuRenderer::renderMenu(Menu& menu, const int width, const int height)
 	{
-		renderDevice->useDepthTest(false);
 		menuPipeline->run();
-	//	menuPipeline->setUniformMatrix4f("view", projection);
+		renderDevice->setViewPort(width, height);
+		renderDevice->useDepthTest(false);
 		renderDevice->useBlending(true);
-		projection = glm::ortho(-aspect, aspect, -1.f, 1.f, -1.0f, 1.0f);
 
 		menu.mesh->vertexArrayObject->bind();
 		menu.mesh->indexBuffer->bind();
 
 		for (auto& control : menu.controls) 
 		{
-			auto pos = control.position;
+			auto pos = control->position;
 			glm::mat4 model = glm::mat4(1.0f);
 
 			model = glm::translate(model, glm::vec3(pos.x, pos.y, 0.0f));
-			model = glm::rotate(model, control.rotation, glm::vec3(0.f, 0.f, 1.f));
-			model = glm::scale(model, glm::vec3(control.size.x, control.size.y, 1.0f));
-
+			model = glm::rotate(model, control->rotation, glm::vec3(0.f, 0.f, 1.f));
+			model = glm::scale(model, glm::vec3(control->size.x, control->size.y, 1.0f));
 			menuPipeline->setUniformMatrix4f("model", model);
+			menuPipeline->setUniformMatrix4f("projection", glm::ortho(-1.f, 1.f, -1.f, 1.f, 0.1f, 1.f));
 
-			control.texture->bind(textures[0]);
+			control->texture->bind(textures[0]);
 			renderDevice->DrawTrianglesIndexed(0, menu.mesh->indicesLength);	
 		}
 		renderDevice->useBlending(false);
@@ -62,5 +61,9 @@ namespace Menu {
 		glDisable(GL_BLEND);
 		menuPipeline->stop();
 		renderDevice->useDepthTest(true);
+
+		for (auto& control : menu.textControls) {
+			textRenderer.RenderText(*control);
+		}
 	}
 }

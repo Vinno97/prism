@@ -3,11 +3,13 @@
 #include "Menu/MenuBuilder.h"
 #include "Menu/MenuRenderer.h"
 #include "Menu/Menu.h"
+#include "Menu/TextControl.h"
 #include "ECS/EntityManager.h"
+#include "ECS/Systems/System.h"
 #include "ECS/SystemManager.h"
 #include "EntityFactory.h"
 #include "State.h"
-
+#include <memory>
 
 namespace States
 {
@@ -17,19 +19,40 @@ class PrismGame : public Game
 	PrismGame() = default;
 	void onInit(Context &context) override;
 	void onUpdate(Context &context) override;
-	void onEnter() override;
-	void onLeave() override;
+	void onEnter(Context & context) override;
+	void onLeave(Context & context) override;
+	void toggleNightmare(Context & context);
+	bool isNightmare();
 
   private:
 	ECS::EntityManager entityManager;
 	ECS::SystemManager systemManager;
 	EntityFactory entityFactory;
-	Menu::MenuBuilder menuBuilder;
 	Menu::MenuRenderer menuRenderer;
-	Menu::Menu menu;
+	Menu::MenuBuilder menuBuilder;
+	std::unique_ptr<Menu::Menu> menu;
+
+	Menu::Control* healthImage;
+	Menu::Control* resourceImage;
+
+
+	//Textcontrols
+	Menu::TextControl* redResource;
+	Menu::TextControl* greenResource;
+	Menu::TextControl* blueResource;
+	Menu::TextControl* score;
+	Menu::TextControl* fps;
+	Menu::TextControl* health;
 
 	bool canPressEscape;
+	bool canPressF3;
+	bool showFPS;
+	bool isNightmareMode;
 	void registerSystems(Context &context);
+	void changeTextColorNM();
+	void toggleFPS(Context &context);
+	void toggleResources(Context &context, int playerHealth);
 	void loadAudio(Context &context) const;
+	int Fps(Context &context);
 };
-} // namespace States
+}

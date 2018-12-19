@@ -2,10 +2,13 @@
 #include "ECS/Components/BoundingBoxComponent.h"
 #include "ECS/Components/VelocityComponent.h"
 #include "ECS/Components/PositionComponent.h"
+#include "ECS/Components/CollidableComponent.h"
+#include "ECS/Components/DynamicComponent.h"
+#include <list>
 
 using namespace ECS;
-using namespace ECS::Components;
-using namespace ECS::Systems;
+using namespace Components;
+using namespace Systems;
 using namespace Physics;
 
 CollisionSystem::CollisionSystem(EntityManager &entityManager, float width, float height, float posX, float posY, unsigned int maxObject) : System(entityManager)
@@ -16,37 +19,43 @@ CollisionSystem::CollisionSystem(EntityManager &entityManager, float width, floa
 CollisionSystem::~CollisionSystem()
 = default;
 
+
 void CollisionSystem::update(Context& context)
 {
-	for (auto entity : entityManager->getAllEntitiesWithComponent<ECS::Components::BoundingBoxComponent>())
+	for (auto entity : entityManager->getAllEntitiesWithComponent<CollidableComponent>())
 	{
-		if (entityManager->hasComponent<PositionComponent>(entity.id)) {
-			auto boundingBox = &entityManager->getComponent<BoundingBoxComponent>(entity.id)->boundingBox;
-			auto position = entityManager->getComponent<PositionComponent>(entity.id);
+		auto boundingBoxComponent = entityManager->getComponent<BoundingBoxComponent>(entity.id);
+		auto position = entityManager->getComponent<PositionComponent>(entity.id);
+		if (boundingBoxComponent != nullptr && position != nullptr) {
+			auto &boundingBox = boundingBoxComponent->boundingBox;
 
-			boundingBox->SetPosXY(position->x, position->y);
-			quadTree.Insert(*boundingBox);
+			boundingBox.SetPosXY(position->x, position->y);
+
+			if (!entityManager->hasComponent<BoundingBoxComponent>(boundingBoxMap[&boundingBox])) {
+				boundingBoxMap[&boundingBox] = entity.id;
+			}
+			quadTree.Insert(boundingBox);
 		}
 	}
 
-	for (auto entity : entityManager->getAllEntitiesWithComponent<VelocityComponent>())
+	for (auto entity : entityManager->getAllEntitiesWithComponent<DynamicComponent>())
 	{
-		if (entityManager->hasComponent<PositionComponent>(entity.id) &&
-			entityManager->hasComponent<BoundingBoxComponent>(entity.id)) {
-
-			auto positionComponent = entityManager->getComponent<PositionComponent>(entity.id);
-			auto boundingBoxComponent = entityManager->getComponent<BoundingBoxComponent>(entity.id);
-			//boundingBoxComponent->boundingBox.SetPosXY(positionComponent->x, positionComponent->y);
-
+		auto boundingBoxComponent = entityManager->getComponent<BoundingBoxComponent>(entity.id);
+		auto position = entityManager->getComponent<PositionComponent>(entity.id);
+		if (boundingBoxComponent != nullptr && position != nullptr) {
 			boundingBoxComponent->didCollide = false;
 			boundingBoxComponent->collidesWith.clear();
+			boundingBoxComponent->boundingBox.SetPosXY(position->x, position->y);
 
-			std::vector<Physics::BoundingBox const *> vector;
-			quadTree.RetrieveAll(vector, boundingBoxComponent->boundingBox);
-			for (int i = 0; i < vector.size(); i++) {
-				if (&boundingBoxComponent->boundingBox != vector[i] && aabbCollider.CheckCollision(boundingBoxComponent->boundingBox, *vector[i])) {
+			std::list<Physics::BoundingBox const *> boundingBoxes;
+			quadTree.RetrieveAll(boundingBoxes, boundingBoxComponent->boundingBox);
+			boundingBoxComponent->boundingBox.SetPosXYZ(position->x, position->y,position->z);
+
+			for (const auto& currentBox : boundingBoxes) {
+				auto k = aabbCollider.CheckCollision(boundingBoxComponent->boundingBox, *currentBox);
+				if (&boundingBoxComponent->boundingBox != currentBox && aabbCollider.CheckCollision(boundingBoxComponent->boundingBox, *currentBox)) {
 					boundingBoxComponent->didCollide = true;
-					boundingBoxComponent->collidesWith.push_back(vector[i]);
+					boundingBoxComponent->collidesWith.push_back(boundingBoxMap[currentBox]);
 				}
 			}
 		}
