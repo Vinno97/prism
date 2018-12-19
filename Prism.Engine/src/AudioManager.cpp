@@ -7,6 +7,7 @@ AudioManager::AudioManager()
 		std::cout << "SDL_mixer could not initialize! SDL_mixer Error: " << Mix_GetError() << "\n";
 	}
 	Mix_AllocateChannels(channels);
+	Mix_VolumeMusic(60);
 }
 
 

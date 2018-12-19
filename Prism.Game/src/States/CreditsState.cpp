@@ -15,17 +15,7 @@ namespace States {
 
 	void CreditsState::onInit(Context & context)
 	{
-		std::function<void()> callback = [&context]() { context.stateMachine->setState<MainMenuState>(context); };
-		menuBuilder.addControl(-0.9f, 0.8, 0.3, 0.1, "img/Back.png", callback);
-		menuBuilder.addControl(-0.37f, -0.86f, 0.7, 1.777f, "img/credits.png");
 
-		Util::AdvertisementSystem as;
-		std::string filepath = "img/advertisements/" + as.RandomAdvertisement();
-		menuBuilder.addControl(0.55f, -1, 0.25, (1.777f / 4.0f), filepath.c_str());
-
-		menu = menuBuilder.buildMenu();
-		Renderer::Graphics::RenderDevice* renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
-		renderDevice->setClearColour(1.f, 1.f, 1.f, 1.f);
 	}
 
 	void CreditsState::onUpdate(Context & context)
@@ -43,6 +33,22 @@ namespace States {
 
 	void CreditsState::onEnter(Context & context)
 	{
+		if (menu != nullptr) {
+			menu = nullptr;
+			menuBuilder = Menu::MenuBuilder();
+		}
+		
+		std::function<void()> callback = [&context]() { context.stateMachine->setState<MainMenuState>(context); };
+		menuBuilder.addControl(-0.9f, 0.8, 0.3, 0.1, "img/Back.png", callback);
+		menuBuilder.addControl(-0.37f, -0.86f, 0.7, 1.777f, "img/credits.png");
+
+		Util::AdvertisementSystem as;
+		std::string filepath = "img/advertisements/" + as.RandomAdvertisement();
+		menuBuilder.addControl(0.55f, -1, 0.25, (1.777f / 4.0f), filepath.c_str());
+
+		menu = menuBuilder.buildMenu();
+		Renderer::Graphics::RenderDevice* renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
+		renderDevice->setClearColour(1.f, 1.f, 1.f, 1.f);
 	}
 
 	void CreditsState::onLeave(Context & context)
