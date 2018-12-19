@@ -335,7 +335,7 @@ unsigned EntityFactory::createTree(unsigned entity, EntityManager& entityManager
 
 	entityManager.addComponentToEntity(entity, PositionComponent());
 	entityManager.addComponentToEntity(entity, appearance);
-	entityManager.addComponentToEntity(entity, BoundingBoxComponent(1.6, 1.6, 2.0));
+	entityManager.addComponentToEntity(entity, BoundingBoxComponent(1.9, 1.9, 2.0));
 	entityManager.addComponentToEntity(entity, CollidableComponent());
 	return entity;
 }
