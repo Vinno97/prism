@@ -188,6 +188,7 @@
     <ClInclude Include="include\ECS\Systems\PlaceCurrentBuildSystem.h" />
     <ClInclude Include="include\ECS\Systems\MoveCurrentBuildSystem.h" />
     <ClInclude Include="include\States\ResolutionMenuState.h" />
+    <ClInclude Include="include\States\TransitionState.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="lib\assimp-vc140-mtd.dll" />

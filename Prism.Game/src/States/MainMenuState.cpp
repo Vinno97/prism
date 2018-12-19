@@ -12,6 +12,7 @@
 #include "Util/AdvertisementSystem.h"
 #include <cstdlib>
 #include "States/ResolutionMenuState.h"
+#include "States/TransitionState.h"
 
 using namespace Math;
 
@@ -19,7 +20,7 @@ namespace States {
 	MainMenuState::MainMenuState()
 	{
 	}
-
+	
 	void MainMenuState::onInit(Context & context)
 	{
 		loadMusic(context);
@@ -27,14 +28,15 @@ namespace States {
 		context.stateMachine->addState<ResolutionMenuState>(context);
 		context.stateMachine->addState<HelpState>(context);
 		context.stateMachine->addState<HighScoreState>(context);
+		context.stateMachine->addState<TransitionState<PrismGame>>(context);
 
 		std::function<void()> callback = [&](){
 			context.stateMachine->removeState<PrismGame>();
 			context.stateMachine->addState<PrismGame>(context);
-			context.stateMachine->setState<PrismGame>(context);
 			if (nightmareMode) {
 				context.stateMachine->getState<PrismGame>()->toggleNightmare(context);
 			}
+			context.stateMachine->setState<TransitionState<PrismGame>>(context);
 		};
 
 		
