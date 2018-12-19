@@ -30,7 +30,7 @@ namespace Menu {
 		position = Math::Vector3f{ x, y, 0 };
 		size = Math::Vector3f{width, height, 0};
 
-		RenderDevice* renderDevice = OGLRenderDevice::getRenderDevice();
+		renderDevice = OGLRenderDevice::getRenderDevice();
 
 		auto pwd = filesystem::current_path();
 		auto filepath = pwd.concat("/res/").concat(path);
@@ -48,9 +48,18 @@ namespace Menu {
 		callback = callback_;
 	}
 
+	//TOD: Fix memory leak
 	void Control::UpdateTexture(const char *path)
 	{
+		auto pwd = filesystem::current_path();
+		auto filepath = pwd.concat("/res/").concat(path);
 
+		if (!filesystem::exists(filepath)) {
+			throw std::invalid_argument("File does not exist");
+			return;
+		}
+
+		texture = renderDevice->createTexture(filepath.generic_string().c_str());
 	}
 
 	void Control::onClick()

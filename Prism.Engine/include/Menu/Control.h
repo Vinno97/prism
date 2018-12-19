@@ -26,5 +26,7 @@ namespace Menu {
 		std::shared_ptr<Renderer::Graphics::Texture> texture;
 
 		std::function<void()> callback;
+	private:
+		Renderer::Graphics::RenderDevice* renderDevice;
 	};
 }
