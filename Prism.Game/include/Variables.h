@@ -17,6 +17,8 @@ namespace Variables {
             constexpr SpritePath PLAIN_WHITE = "img/White.png";
             constexpr SpritePath WHITE_BORDERED = "img/White_Bordered.png";
             constexpr SpritePath GAME_OVER = "img/menus/normal/gameover.png";
+            constexpr SpritePath SAVE_HEADER = "img/menus/normal/save_header.png";
+            constexpr SpritePath SAVE_GAME = "img/menus/normal/save_button.png";
             constexpr SpritePath BACK = "img/menus/normal/Back.png";
 
             namespace MainMenu {
