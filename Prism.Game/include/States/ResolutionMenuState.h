@@ -11,18 +11,14 @@ namespace States {
 	class ResolutionMenuState : public State
 	{
 	public:
-		ResolutionMenuState();
+		ResolutionMenuState() = default;
 
 		void onInit(Context &context) override;
 		void onUpdate(Context &context) override;
 		void onEnter(Context & context) override;
-		void onLeave(Context & context) override;
-
-		~ResolutionMenuState();
 
 	private:
 		Menu::MenuRenderer menuRenderer;
-		bool exitBool = false;
 		Menu::MenuBuilder menuBuilder;
 		std::unique_ptr<Menu::Menu> menu;
 

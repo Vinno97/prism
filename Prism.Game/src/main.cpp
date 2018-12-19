@@ -1,6 +1,3 @@
-#pragma once
-
-#include <cstdlib>
 //#include <crtdbg.h>
 #include <iostream>
 #include "CoreEngine.h"

@@ -1,4 +1,3 @@
-#pragma once
 #include "Context.h"
 #include "InputManager.h"
 #include "ECS/Systems/KeyboardInputSystem.h"

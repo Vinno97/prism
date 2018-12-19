@@ -1,5 +1,3 @@
-#pragma once
-
 #include <cmath>
 #include "ECS/Systems/ResourceBlobSystem.h"
 #include "ECS//Components/ResourceBlobComponent.h"

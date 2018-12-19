@@ -6,14 +6,14 @@
 /// </summary>
 class State {
 public:
-	State();
-	virtual ~State();
+	State() = default;
+	virtual ~State() = default;
 	
 	/// <summary>
 	/// Method to initialize the state
 	/// </summary>
 	/// <param name="context">Contains context</param>
-	virtual void onInit(Context &context);
+	virtual void onInit(Context &context){};
 
 	/// <summary>
 	/// Method to update the state
@@ -24,10 +24,10 @@ public:
 	/// <summary>
 	/// Method to enter the state
 	/// </summary>
-	virtual void onEnter(Context & context);
+	virtual void onEnter(Context & context) {}
 
 	/// <summary>
 	/// Method to leave the state
 	/// </summary>
-	virtual void onLeave(Context & context);
+	virtual void onLeave(Context & context){};
 };

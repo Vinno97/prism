@@ -110,8 +110,12 @@
     <ClInclude Include="include\Renderer\Graphics\OpenGL\OGLTexture.h" />
     <ClInclude Include="include\Surface.h" />
     <ClInclude Include="include\Menu\TextRenderer.h" />
+    <ClInclude Include="lib\include\fmt\core.h" />
+    <ClInclude Include="lib\include\fmt\format-inl.h" />
+    <ClInclude Include="lib\include\fmt\format.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="lib\src\format.cpp" />
     <ClCompile Include="src\ECS\Systems\GeometryAnimationSystem.cpp" />
     <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLGeometryShader.cpp" />
     <ClCompile Include="src\Util\AdvertisementSystem.cpp" />
@@ -155,7 +159,6 @@
     <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLRenderDevice.cpp" />
     <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLVertexBuffer.cpp" />
     <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLVertexShader.cpp" />
-    <ClCompile Include="src\State.cpp" />
     <ClCompile Include="src\StateMachine.cpp" />
     <ClCompile Include="src\Window.cpp" />
     <ClCompile Include="src\Renderer\Graphics\Loader\StaticMeshLoader.cpp" />

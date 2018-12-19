@@ -1,5 +1,3 @@
-#pragma once
-
 #include <GL/glew.h>
 #include "Renderer/Graphics/RenderDevice.h"
 #include "Renderer/Graphics/OpenGL/OGLRenderDevice.h"
