@@ -20,10 +20,10 @@ namespace States {
 	{
 		std::function<void()> callback = [&context]()
 		{
-			context.stateMachine->setState<MainMenuState>(context);
+			context.stateMachine->setState<MainMenuState>();
 		};
 		menuBuilder.addControl(-0.8f, 0.8, .25, 0.096, Sprites::BACK, [&context]() {
-			context.stateMachine->setState<MainMenuState>(context);
+			context.stateMachine->setState<MainMenuState>();
 		});
 		menuBuilder.addControl(-0.35, 0.4, 0.6, 0.18, "img/resolutionoptions/960-720.png", [&context]() { context.window->setSize(960, 720); });
 		menuBuilder.addControl(-0.35, 0.1, 0.6, 0.18, "img/resolutionoptions/1360-768.png", [&context]() { context.window->setSize(1360, 768); });

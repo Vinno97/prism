@@ -13,7 +13,7 @@ namespace States {
 
 	void HelpState::onInit(Context & context)
 	{
-		std::function<void()> callback = [&context]() { context.stateMachine->setState<MainMenuState>(context); };
+		std::function<void()> callback = [&context]() { context.stateMachine->setState<MainMenuState>(); };
 		std::function<void()> swapScreen = [&]() { swap(); };
 		menuBuilder.addControl(-0.9f, 0.8, 0.30, 0.10, "img/Back.png", callback);
 		menuBuilder.addControl(0.6f, 0.8, 0.30, 0.10, "img/Swap.png", swapScreen);

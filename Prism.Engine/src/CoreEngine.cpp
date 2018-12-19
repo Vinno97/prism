@@ -59,19 +59,23 @@ void CoreEngine::Run()
 		//Check if state is changed
 		if (context.stateMachine->getCurrentState() != currentState) {
 			if (currentState != nullptr) {
-				currentState->onLeave(context);
+				currentState->leave(context);
 			}
 			currentState = context.stateMachine->getCurrentState();
-			context.stateMachine->getCurrentState()->onEnter(context);
+			if (!currentState->isInitialized()) {
+				currentState->init(context);
+			}
+			currentState->enter(context);
 		}
+
+		context.stateMachine->destroyEolStates(context);
 
 		//Deltatime in microseconds
 		auto deltaTime = std::chrono::duration_cast<std::chrono::microseconds>(startTime - lastTime);
 		lastTime = startTime;
-		//c.rotate(0.0f, 3.14f, 0.f);
 		//Sets the right values in context
 		context.deltaTime = deltaTime.count() / 1000000.f;
-		context.stateMachine->getCurrentState()->onUpdate(context);
+		currentState->update(context);
 	}
 }
 
