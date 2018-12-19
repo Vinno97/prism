@@ -1,4 +1,3 @@
-#pragma once
 #include <glm/glm.hpp>
 #include "Renderer/Graphics/RenderDevice.h"
 #include "Renderer/Graphics/OpenGL/OGLRenderDevice.h"

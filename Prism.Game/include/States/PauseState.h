@@ -10,17 +10,14 @@ namespace States {
 	class PauseState : public State
 	{
 	public:
-		PauseState();
+		PauseState() = default;
 
 		void onInit(Context &context) override;
 		void onUpdate(Context &context) override;
 		void onEnter(Context & context) override;
-		void onLeave(Context & context) override;
-
-		~PauseState();
 
 	private:
-		bool canPressEscape = false;
+		bool canPressEscape{false};
 		Menu::MenuRenderer menuRenderer;
 		Menu::MenuBuilder menuBuilder;
 		std::unique_ptr<Menu::Menu> menu;

@@ -33,8 +33,12 @@ namespace Menu {
 	private:
 		void initMesh();
 
-		std::function<void(Control* control, Context& context)> hoverCallback = [](Control* control, Context& context) { control->offset.y -= 0.01; };
-		std::function<void(Control* control, Context& context)> leaveCallback = [](Control* control, Context& context) { control->offset.y += 0.01; };
+		std::function<void(Control* control, Context& context)> hoverCallback = [](Control* control, Context& context) {
+			control->offset.y -= 0.01f;
+		};
+		std::function<void(Control* control, Context& context)> leaveCallback = [](Control* control, Context& context) {
+			control->offset.y += 0.01f;
+		};
 		std::function<void()> callback = [&]() {};
 
 		Renderer::Graphics::RenderDevice* renderDevice;

@@ -61,9 +61,6 @@ namespace Menu {
 		std::unique_ptr<Control> control = std::make_unique<Control>(x, y, width, height, path);
 		Model model = Model{ mesh };
 
-		control->hoverCallback = hoverCallback;
-		control->leaveCallback = leaveCallback;
-
 		menu->controls.push_back(std::move(control));
 	}
 

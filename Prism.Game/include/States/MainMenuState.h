@@ -11,23 +11,18 @@ namespace States {
 	class MainMenuState : public State
 	{
 	public:
-		MainMenuState();
+		MainMenuState() = default;
 
 		void onInit(Context &context) override;
 		void onUpdate(Context &context) override;
 		void onEnter(Context & context) override;
-		void onLeave(Context & context) override;
-		~MainMenuState();
 
 	private:
 		Menu::MenuRenderer menuRenderer;
 		bool exitBool = false;
 		Menu::MenuBuilder menuBuilder;
 		std::unique_ptr<Menu::Menu> menu;
-		float cooldown = 0.0f;
-		float maxCooldown = 1.0f;
 		Renderer::Graphics::RenderDevice* renderDevice;
-		bool nightmareMode = false;
 		void loadMusic(Context &context);
 	};
 }

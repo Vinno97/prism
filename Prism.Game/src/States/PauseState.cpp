@@ -1,6 +1,6 @@
 #include "States/PauseState.h"
 #include "States/EndState.h"
-#include "StateMachine.h";
+#include "StateMachine.h"
 #include "States/PrismGame.h"
 #include "Renderer/Graphics/RenderDevice.h"
 #include "Renderer/Graphics/OpenGL/OGLRenderDevice.h"
@@ -8,10 +8,6 @@
 #include "Renderer/Graphics/OpenGL/OGLPipeline.h"
 
 namespace States {
-	PauseState::PauseState()
-	{
-	}
-
 	void PauseState::onInit(Context & context)
 	{
 		std::function<void()> callbackEndstate = [&context]() { 
@@ -39,7 +35,7 @@ namespace States {
 			canPressEscape = true;
 		}
 
-		if (menu->handleInput(*context.inputManager, context.window->width, context.window->height, context)) {
+		if (menu->handleInput(context)) {
 			canPressEscape = false;
 			return;
 		}
@@ -52,14 +48,6 @@ namespace States {
 
 	void PauseState::onEnter(Context & context)
 	{
-
-	}
-
-	void PauseState::onLeave(Context & context)
-	{
-	}
-
-	PauseState::~PauseState()
-	{
+		canPressEscape = false;
 	}
 }

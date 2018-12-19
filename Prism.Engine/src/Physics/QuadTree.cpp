@@ -47,8 +47,8 @@ QuadTree & QuadTree::operator=(const QuadTree& other)
 				*nodes[i] = *other.nodes[i];
 			}
 		}
-		return *this;
 	}
+	return *this;
 }
 
 QuadTree::QuadTree(QuadTree&& other)

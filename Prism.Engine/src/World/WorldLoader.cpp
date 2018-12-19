@@ -12,8 +12,7 @@ using namespace nlohmann;
 using namespace World;
 
 void LevelManager::load(const std::string &worldName, ECS::EntityManager &entityManager) {
-    auto filename = worldName + ".json";
-    auto stream{Util::FileSystem().readResourceIntoStream(filename)};
+    auto stream{Util::FileSystem().readResourceIntoStream(worldName)};
     auto worldObjects{serializer->deserialize(stream)};
     for (const auto &object : worldObjects) {
         int entity = entityManager.createEntity();

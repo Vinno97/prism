@@ -29,7 +29,6 @@
     <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLRenderDevice.cpp" />
     <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLVertexBuffer.cpp" />
     <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLVertexShader.cpp" />
-    <ClCompile Include="src\State.cpp" />
     <ClCompile Include="src\StateMachine.cpp" />
     <ClCompile Include="src\Window.cpp" />
     <ClCompile Include="src\Renderer\Graphics\Loader\StaticMeshLoader.cpp" />
@@ -57,6 +56,7 @@
     <ClCompile Include="src\Menu\TextRenderer.cpp" />
     <ClCompile Include="src\Util\AdvertisementSystem.cpp" />
     <ClCompile Include="src\Util\DistanceUtil.cpp" />
+    <ClCompile Include="lib\src\format.cpp" />
     <ClCompile Include="src\Renderer\Graphics\OpenGL\OGLGeometryShader.cpp" />
     <ClCompile Include="src\ECS\Systems\GeometryAnimationSystem.cpp" />
   </ItemGroup>
@@ -163,6 +163,9 @@
     <ClInclude Include="include\Util\DistanceUtil.h" />
     <ClInclude Include="include\Renderer\PointLight.h" />
     <ClInclude Include="include\ECS\Components\PointLightComponent.h" />
+    <ClInclude Include="lib\include\fmt\core.h" />
+    <ClInclude Include="lib\include\fmt\format.h" />
+    <ClInclude Include="lib\include\fmt\format-inl.h" />
     <ClInclude Include="include\ECS\Components\CollidableComponent.h" />
     <ClInclude Include="include\Math\Vector2.h" />
     <ClInclude Include="include\ECS\Components\PlayerComponent.h" />
