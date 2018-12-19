@@ -42,5 +42,6 @@ namespace Menu {
 
 		bool isActive = false;
 	private:
+    	Renderer::Graphics::RenderDevice* renderDevice;
 	};
 }
