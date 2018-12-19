@@ -67,7 +67,7 @@ namespace States {
 		// Sort list (high to low)
 		std::sort(numbers.begin(), numbers.end());
 		std::reverse(numbers.begin(), numbers.end());
-
+		infile.close();
 		return numbers;
 	}
 

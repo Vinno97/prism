@@ -78,17 +78,26 @@ namespace States {
 
 
 		// Set highscore
-		std::fstream file;
-		file.open("res/saves/scores.txt");
+		std::ifstream infile;
+		infile.open("res/saves/scores.txt");
+		std::vector<int> numbers;
 
-
-		if (file.is_open())
+		if (infile.is_open())
 		{
-			std::string sLine;
-			getline(file, sLine);
-			currentHighscore = std::stoi(sLine);
+			int num;
+			while (infile >> num)
+			{
+				numbers.push_back(num);
+			}
 		}
-		file.close();
+		infile.close();
+
+		if(!numbers.empty())
+		{
+			std::sort(numbers.begin(), numbers.end());
+			std::reverse(numbers.begin(), numbers.end());
+			currentHighscore = numbers[0];
+		}
 
 
 		health = menuBuilder.addTextControl(-0.95, 0.89, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "");
