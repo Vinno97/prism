@@ -258,7 +258,7 @@ unsigned EntityFactory::createCliff(unsigned entity, EntityManager& entityManage
 
 	entityManager.addComponentToEntity(entity, PositionComponent());
 	entityManager.addComponentToEntity(entity, appearance);
-	entityManager.addComponentToEntity(entity, BoundingBoxComponent(1.0, 1.0));
+	entityManager.addComponentToEntity(entity, BoundingBoxComponent(1.0, 1.0, 2.0));
 	entityManager.addComponentToEntity(entity, CollidableComponent());
 	return entity;
 }
@@ -281,7 +281,7 @@ unsigned EntityFactory::createCliffFiller(unsigned entity, EntityManager& entity
 
 	entityManager.addComponentToEntity(entity, PositionComponent());
 	entityManager.addComponentToEntity(entity, appearance);
-	entityManager.addComponentToEntity(entity, BoundingBoxComponent(1.0, 1.0));
+	entityManager.addComponentToEntity(entity, BoundingBoxComponent(1.0, 1.0, 2.0));
 	entityManager.addComponentToEntity(entity, CollidableComponent());
 	return entity;
 }
@@ -305,7 +305,7 @@ unsigned EntityFactory::createCliffCorner(unsigned entity, EntityManager& entity
 
 	entityManager.addComponentToEntity(entity, PositionComponent());
 	entityManager.addComponentToEntity(entity, appearance);
-	entityManager.addComponentToEntity(entity, BoundingBoxComponent(1.0, 1.0));
+	entityManager.addComponentToEntity(entity, BoundingBoxComponent(1.0, 1.0, 2.0));
 	entityManager.addComponentToEntity(entity, CollidableComponent());
 	return entity;
 }
@@ -335,7 +335,7 @@ unsigned EntityFactory::createTree(unsigned entity, EntityManager& entityManager
 
 	entityManager.addComponentToEntity(entity, PositionComponent());
 	entityManager.addComponentToEntity(entity, appearance);
-	entityManager.addComponentToEntity(entity, BoundingBoxComponent(1.5, 1.5));
+	entityManager.addComponentToEntity(entity, BoundingBoxComponent(1.6, 1.6, 2.0));
 	entityManager.addComponentToEntity(entity, CollidableComponent());
 	return entity;
 }
@@ -360,7 +360,7 @@ unsigned EntityFactory::createRock(unsigned entity, EntityManager& entityManager
 
 	entityManager.addComponentToEntity(entity, PositionComponent());
 	entityManager.addComponentToEntity(entity, appearance);
-	entityManager.addComponentToEntity(entity, BoundingBoxComponent(1.2, 1.2));
+	entityManager.addComponentToEntity(entity, BoundingBoxComponent(1.5, 1.5));
 	entityManager.addComponentToEntity(entity, CollidableComponent());
 	return entity;
 }
