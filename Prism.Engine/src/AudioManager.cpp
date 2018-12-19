@@ -20,7 +20,7 @@ void AudioManager::addSound(const std::string name, const std::string file)
 	if (sound == nullptr) {
 		std::string error = "Failed to load sound effect! SDL_mixer Error: ";
 		error += Mix_GetError();
-		std::runtime_error(error.c_str());
+		throw std::runtime_error(error.c_str());
 	}
 	else {
 		sounds.emplace(name, sound);
@@ -35,25 +35,24 @@ void AudioManager::addMusic(const std::string name, const std::string file)
 	if (mus == nullptr) {
 		std::string error = "Failed to load music! SDL_mixer Error: ";
 		error += Mix_GetError();
-		std::runtime_error(error.c_str());
+		throw std::runtime_error(error.c_str());
 	}
 	else {
 		music.emplace(name, mus);
 	}
 }
 
-const int AudioManager::playSound(const std::string name, int distance, int loops)
+const int AudioManager::playSound(const std::string name, double distance, int loops)
 {
+	const float max_distance = 10;
 	if (sounds.count(name))
 	{
 		for (int i = 0; i < channels; ++i)
 		{
 			if (Mix_Playing(i) == 0) {
-				int volume = 100 - (distance / 5);
-				if (volume < 0) {
-					volume = 0;
-				}
-				
+				int volume = static_cast<int>(-1. * (MIX_MAX_VOLUME / max_distance) * distance + MIX_MAX_VOLUME);
+				if (volume < 0) { volume = 0;}
+
 				Mix_Volume(i, volume);
 				return Mix_PlayChannel(i, sounds[name], loops);
 				break;
@@ -61,19 +60,21 @@ const int AudioManager::playSound(const std::string name, int distance, int loop
 		}
 	}
 	else {
-		std::runtime_error("Failed to play sound! " + name + " does not exist.");
+		throw std::runtime_error("Failed to play sound! " + name + " does not exist.");
 	}
 }
 
 const void AudioManager::playMusic(const std::string name)
 {
-	if (music.count(name) && current_music_playing != name)
+	if (music.count(name))
 	{
-		current_music_playing = name;
-		Mix_PlayMusic(music[name], -1);
+	    if (current_music_playing != name) {
+            current_music_playing = name;
+            Mix_PlayMusic(music[name], -1);
+        }
 	}
 	else {
-		std::runtime_error("Failed to play music! " + name + " does not exist.");
+		throw std::runtime_error("Failed to play music! " + name + " does not exist.");
 	}
 }
 
