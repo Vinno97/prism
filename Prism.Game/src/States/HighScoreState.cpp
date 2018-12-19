@@ -40,7 +40,7 @@ namespace States {
 		menuBuilder.addControl(-0.5, 0.5, 1, 0.24, "img/HighscoreButton.png");
 		showHighscore(getHighScore(), context);
 		menuBuilder.addControl(-0.8f, 0.8, .25, 0.096, Sprites::BACK, [&context]() {
-			context.stateMachine->setState<MainMenuState>(context);
+			context.stateMachine->setState<MainMenuState>();
 		});
 		Renderer::Graphics::RenderDevice* renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
 		renderDevice->setClearColour(1.f, 1.f, 1.f, 1.f);

@@ -1,5 +1,6 @@
 #include "StateMachine.h"
 #include <string>
+#include <algorithm>
 
 StateMachine::StateMachine()
 = default;
@@ -7,10 +8,6 @@ StateMachine::StateMachine()
 State* StateMachine::getCurrentState() const
 {
 	return this->currentState;
-}
-
-void StateMachine::setState(std::type_index type, Context & context) {
-	this->currentState = getState(type);
 }
 
 State* StateMachine::getState(std::type_index type) const {
@@ -26,4 +23,26 @@ State* StateMachine::getState(std::type_index type) const {
 
 bool StateMachine::hasState(std::type_index type) const {
 	return existingStates.find(type) != existingStates.end();
+}
+
+bool StateMachine::hasState(const State& state) const {
+	for (const auto& s : existingStates) {
+		if (s.second.get() == &state) {
+			return true;
+		}
+	}
+	return false;
+}
+
+std::vector<State*> StateMachine::getAllStates() const {
+	std::vector<State*> states{};
+	std::transform(existingStates.begin(), existingStates.end(), std::back_inserter(states), [](auto& pair) { return pair.second.get(); });
+	return states;
+}
+
+void StateMachine::destroyEolStates(Context& context) {
+    for (const auto& state : eolQueue) {
+		state->destroy(context);
+    }
+    eolQueue.clear();
 }

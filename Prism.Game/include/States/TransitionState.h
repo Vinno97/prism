@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "State.h"
+#include "StateMachine.h"
 #include "ECS/Systems/KeyboardInputSystem.h"
 #include "Menu/MenuBuilder.h"
 #include "Menu/Menu.h"
@@ -45,7 +46,11 @@ namespace States {
 				return;
 			}
 
-			context.stateMachine->setState<T>(context);
+			context.stateMachine->setState<T>();
+		}
+
+		void onLeave(Context &context) override {
+			context.stateMachine->removeState<TransitionState<T>>();
 		}
 
 

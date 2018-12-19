@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <fmt/core.h>
 #include <States/PrismGame.h>
+#include <States/TransitionState.h>
 #include <States/MainMenuState.h>
 #include "StateMachine.h"
 #include "Menu/MenuBuilder.h"
@@ -60,7 +61,7 @@ namespace States {
 		menuBuilder.addControl(-0.5f, 0.5, 1, 0.24, selectLevel);
 		// TODO: Make a uniform GUI design with a standard location for this button.
 		menuBuilder.addControl(-0.8f, 0.8, .25, 0.096, back, [&context]() {
-			context.stateMachine->setState<MainMenuState>(context);
+			context.stateMachine->setState<MainMenuState>();
 		});
 
 		menuBuilder.addControl(-.04f, 0.36, 0.4, 0.096, nightMareBtn, refresh([&]() {
@@ -105,8 +106,9 @@ namespace States {
 						if (context.stateMachine->hasState<PrismGame>()) {
 							context.stateMachine->removeState<PrismGame>();
 						}
-						context.stateMachine->addState<PrismGame>(context, path, nightmareMode);
-						context.stateMachine->setState<PrismGame>(context);
+						context.stateMachine->addState<PrismGame>(path, nightmareMode);
+						context.stateMachine->addState<TransitionState<PrismGame>>();
+						context.stateMachine->setState<TransitionState<PrismGame>>();
 					});
 					readableLevelName = fmt::format("{:^13}", readableLevelName);
 					if (readableLevelName.size() > 13)

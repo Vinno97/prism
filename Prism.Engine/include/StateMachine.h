@@ -21,10 +21,10 @@ public:
 	/// Set currentSate
 	/// </summary>
 	template<class T, typename = std::enable_if_t < std::is_base_of<State, T>::type::value>>
-	void setState(Context &context)
+	void setState()
 	{
 		const std::type_index type{ std::type_index(typeid(T)) };
-		setState(type, context);
+        this->currentState = getState(type);
 	}
 
 	/// <summary>
@@ -34,9 +34,14 @@ public:
 	void removeState()
 	{
 		const std::type_index type{ std::type_index(typeid(T)) };
-		
+
 		if (hasState(type)) {
-			existingStates.erase(type);
+			const auto it = existingStates.find(type);
+			eolQueue.push_back( std::move((*it).second) );
+			existingStates.erase(it);
+
+//			const auto test = existingStates.erase(type);
+//			eolQueue.push_back(std::move(test));
 		}
 	}
 
@@ -47,7 +52,7 @@ public:
 	///<param name="fs">Constructor parameters for State</param>
 
 	template<typename T, typename...Fs, typename = std::enable_if_t < std::is_base_of<State, T>::type::value>>
-	void addState(Context & context, Fs&&... fs )
+	void addState(Fs&&... fs )
 	{
 		const std::type_index type{ std::type_index(typeid(T)) };
 
@@ -55,7 +60,6 @@ public:
 			throw std::runtime_error("There can only one type of " + *type.name() + *" registered");
 		}
 		existingStates[type] = std::make_unique<T>(std::forward<Fs>(fs)...);
-		existingStates[type]->onInit(context);
 	}
 
 	/// <summary>
@@ -78,6 +82,12 @@ public:
 		return hasState(type);
 	}
 
+	bool hasState(const State& state) const;
+
+	std::vector<State*> getAllStates() const;
+
+	void destroyEolStates(Context& context);
+
 	/// <summary>
 	/// Get current state
 	/// </summary>
@@ -89,7 +99,7 @@ private:
 	// keeps a list of States
 	std::map<std::type_index, std::unique_ptr<State>> existingStates;
 
-	void setState(std::type_index type, Context &context);
+	std::vector<std::unique_ptr<State>> eolQueue;
 
 	State* getState(std::type_index type) const;
 	bool hasState(std::type_index type) const;
