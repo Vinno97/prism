@@ -133,7 +133,7 @@ unsigned EntityFactory::createEnemy(unsigned entity, EntityManager& entityManage
 		.addComponent<PositionComponent>()
 		.addComponent<EnemyComponent>()
 		.addComponent<DynamicComponent>()
-	    .addComponent<AnimationComponent>()
+	  .addComponent<AnimationComponent>()
 		.addComponent<HealthComponent>(100)
 		.addComponent<DragComponent>(5.f)
 		.addComponent<BoundingBoxComponent>(.4, .4, 2)
@@ -256,11 +256,13 @@ unsigned EntityFactory::createCliff(unsigned entity, EntityManager& entityManage
 	appearance.rotationY = rotation;
 	appearance.model = std::move(model);
 
-	entityManager.addComponentToEntity(entity, PositionComponent());
-	entityManager.addComponentToEntity(entity, appearance);
-	entityManager.addComponentToEntity(entity, BoundingBoxComponent(1.0, 1.0));
-	entityManager.addComponentToEntity(entity, CollidableComponent());
-	return entity;
+	return EntityBuilder(entityManager, entity)
+		.addComponent<PositionComponent>()
+		.addComponent<CliffComponent>()
+		.addComponent<BoundingBoxComponent>(1.0, 1.0)
+		.addComponent<CollidableComponent>()
+		.addComponent(appearance)
+		.getEntity();
 }
 
 unsigned EntityFactory::createCliffFiller(EntityManager & entityManager) const {
@@ -279,11 +281,13 @@ unsigned EntityFactory::createCliffFiller(unsigned entity, EntityManager& entity
 	appearance.color = Math::Vector3f(0.85f, 0.85f, 0.85f);
 	appearance.model = std::move(model);
 
-	entityManager.addComponentToEntity(entity, PositionComponent());
-	entityManager.addComponentToEntity(entity, appearance);
-	entityManager.addComponentToEntity(entity, BoundingBoxComponent(1.0, 1.0));
-	entityManager.addComponentToEntity(entity, CollidableComponent());
-	return entity;
+	return EntityBuilder(entityManager, entity)
+		.addComponent<PositionComponent>()
+		.addComponent<CliffFillerComponent>()
+		.addComponent<BoundingBoxComponent>(1.0, 1.0)
+		.addComponent<CollidableComponent>()
+		.addComponent(appearance)
+		.getEntity();
 }
 
 unsigned EntityFactory::createCliffCorner(EntityManager & entityManager, int rotation) const {
@@ -303,11 +307,13 @@ unsigned EntityFactory::createCliffCorner(unsigned entity, EntityManager& entity
 	appearance.rotationY = rotation;
 	appearance.model = std::move(model);
 
-	entityManager.addComponentToEntity(entity, PositionComponent());
-	entityManager.addComponentToEntity(entity, appearance);
-	entityManager.addComponentToEntity(entity, BoundingBoxComponent(1.0, 1.0));
-	entityManager.addComponentToEntity(entity, CollidableComponent());
-	return entity;
+	return EntityBuilder(entityManager, entity)
+		.addComponent<PositionComponent>()
+		.addComponent<CliffCornerComponent>()
+		.addComponent<BoundingBoxComponent>(1.0, 1.0)
+		.addComponent<CollidableComponent>()
+		.addComponent(appearance)
+		.getEntity();
 }
 
 unsigned EntityFactory::createTree(EntityManager & entityManager) const {
@@ -320,8 +326,8 @@ unsigned EntityFactory::createTree(unsigned entity, EntityManager& entityManager
 	int x = (rand() % 2) + 1;
 	std::string str;
 	str.append("./res/prop_");
-	str.append(std::to_string(x)); 
-	str.append(".obj");	
+	str.append(std::to_string(x));
+	str.append(".obj");
 	auto model = ml.loadModel(str.c_str());
 
 	AppearanceComponent appearance;
@@ -333,11 +339,13 @@ unsigned EntityFactory::createTree(unsigned entity, EntityManager& entityManager
 	appearance.rotationY = rand() % 360;
 	appearance.model = std::move(model);
 
-	entityManager.addComponentToEntity(entity, PositionComponent());
-	entityManager.addComponentToEntity(entity, appearance);
-	entityManager.addComponentToEntity(entity, BoundingBoxComponent(1.5, 1.5));
-	entityManager.addComponentToEntity(entity, CollidableComponent());
-	return entity;
+	return EntityBuilder(entityManager, entity)
+		.addComponent<PositionComponent>()
+		.addComponent<TreeComponent>()
+		.addComponent<BoundingBoxComponent>(1.5, 1.5)
+		.addComponent<CollidableComponent>()
+		.addComponent(appearance)
+		.getEntity();
 }
 
 unsigned EntityFactory::createRock(EntityManager & entityManager) const {
@@ -358,11 +366,13 @@ unsigned EntityFactory::createRock(unsigned entity, EntityManager& entityManager
 	appearance.color = Math::Vector3f(0.9f, 0.9f, 0.9f);
 	appearance.model = std::move(model);
 
-	entityManager.addComponentToEntity(entity, PositionComponent());
-	entityManager.addComponentToEntity(entity, appearance);
-	entityManager.addComponentToEntity(entity, BoundingBoxComponent(1.2, 1.2));
-	entityManager.addComponentToEntity(entity, CollidableComponent());
-	return entity;
+	return EntityBuilder(entityManager, entity)
+		.addComponent<PositionComponent>()
+		.addComponent<RockComponent>()
+		.addComponent<BoundingBoxComponent>(1.2, 1.2)
+		.addComponent<CollidableComponent>()
+		.addComponent(appearance)
+		.getEntity();
 }
 
 unsigned EntityFactory::createMine(EntityManager& entityManager) const
@@ -531,7 +541,7 @@ unsigned EntityFactory::createEnemySpawn(unsigned entity,
 	float spawnInterval, bool enabled) const
 {
 	auto model = modelLoader.loadModel("./res/spawner.obj");
-	
+
 	AppearanceComponent appearance;
 	appearance.scaleX = 0.15f;
 	appearance.scaleY = 0.15f;

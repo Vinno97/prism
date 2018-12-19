@@ -93,6 +93,7 @@
     <ClInclude Include="include\ECS\Components\RockComponent.h" />
     <ClInclude Include="include\ECS\Components\TreeComponent.h" />
     <ClInclude Include="include\States\TransitionState.h" />
+    <ClInclude Include="include\States\SaveMenuState.h" />
     <ClInclude Include="include\World\Assemblers\CliffAssembler.h" />
     <ClInclude Include="include\ECS\Components\BuildComponent.h" />
     <ClInclude Include="include\States\HighScoreState.h" />
@@ -190,6 +191,7 @@
     <ClCompile Include="src\EntityFactory.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\States\PrismGame.cpp" />
+    <ClCompile Include="src\States\SaveMenuState.cpp" />
     <ClCompile Include="src\States\WorldSelectionState.cpp" />
     <ClCompile Include="src\World\Assemblers\CliffAssembler.cpp" />
     <ClCompile Include="src\World\Assemblers\CliffCornerAssembler.cpp" />

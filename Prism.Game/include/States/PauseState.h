@@ -21,6 +21,7 @@ namespace States {
 		Menu::MenuRenderer menuRenderer;
 		Menu::MenuBuilder menuBuilder;
 		std::unique_ptr<Menu::Menu> menu;
+		float ASPECT;
 	};
 }
 

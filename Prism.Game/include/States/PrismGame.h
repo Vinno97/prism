@@ -11,6 +11,7 @@
 #include "EntityFactory.h"
 #include "State.h"
 #include <memory>
+#include "World/WorldLoader.h"
 
 namespace States {
     class PrismGame : public Game {
@@ -27,6 +28,8 @@ namespace States {
         void onLeave(Context &context) override;
 
         bool isNightmare();
+
+        void Save(std::string name);
 
         std::string getLevel() const { return levelPath; }
 

@@ -52,6 +52,7 @@
     <ClCompile Include="src\World\Assemblers\EnemySpawnAssembler.cpp" />
     <ClCompile Include="src\ECS\Systems\ScoreSystem.cpp" />
     <ClCompile Include="src\States\HighScoreState.cpp" />
+    <ClCompile Include="src\States\SaveMenuState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ECS\Components\BulletComponent.h" />
@@ -194,6 +195,7 @@
     <ClInclude Include="include\ECS\Systems\MoveCurrentBuildSystem.h" />
     <ClInclude Include="include\States\ResolutionMenuState.h" />
     <ClInclude Include="include\States\TransitionState.h" />
+    <ClInclude Include="include\States\SaveMenuState.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="lib\assimp-vc140-mtd.dll" />
