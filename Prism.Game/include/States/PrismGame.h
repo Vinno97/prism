@@ -17,7 +17,6 @@ class PrismGame : public Game
 {
   public:
 	PrismGame() = default;
-	ECS::EntityManager entityManager;
 	void onInit(Context &context) override;
 	void onUpdate(Context &context) override;
 	void onEnter(Context & context) override;
@@ -26,6 +25,7 @@ class PrismGame : public Game
 	bool isNightmare();
 
   private:
+	ECS::EntityManager entityManager;
 	ECS::SystemManager systemManager;
 	EntityFactory entityFactory;
 	Menu::MenuRenderer menuRenderer;
@@ -33,21 +33,26 @@ class PrismGame : public Game
 	std::unique_ptr<Menu::Menu> menu;
 	bool suspense_not_playing = true;
 
+	Menu::Control* healthImage;
+	Menu::Control* resourceImage;
+
+
 	//Textcontrols
 	Menu::TextControl* redResource;
 	Menu::TextControl* greenResource;
 	Menu::TextControl* blueResource;
-	Menu::TextControl* health;
-	Menu::TextControl* survivedTime;
 	Menu::TextControl* score;
 	Menu::TextControl* fps;
+	Menu::TextControl* health;
 
 	bool canPressEscape;
 	bool canPressF3;
 	bool showFPS;
 	bool isNightmareMode;
 	void registerSystems(Context &context);
+	void changeTextColorNM();
 	void toggleFPS(Context &context);
+	void toggleResources(Context &context, int playerHealth);
 	void loadAudio(Context &context) const;
 	int Fps(Context &context);
 };

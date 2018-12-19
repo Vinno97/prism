@@ -16,6 +16,7 @@ namespace Menu {
 	public:
 		MenuBuilder();
 		TextControl* addTextControl(float x, float y, float scale, Math::Vector3f colour, std::string text);
+		Control* addImage(float x, float y, float width, float height, const char *path);
 		void addControl(float x, float y, float width, float height, const char *path);
 		void addControl(float x, float y, float width, float height, const char *path, std::function<void()> callback_);
 		std::unique_ptr<Menu> buildMenu();

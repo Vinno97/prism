@@ -63,16 +63,24 @@ namespace Menu {
 
 	void MenuBuilder::addControl(float x, float y, float width, float height, const char *path)
 	{
-		Control control{x, y, width, height, path };
+		std::unique_ptr<Control> control = std::make_unique<Control>(x, y, width, height, path);
 		Model model = Model{ mesh };
-		menu->controls.push_back(control);
+		menu->controls.push_back(std::move(control));
+	}
+
+	Control* MenuBuilder::addImage(float x, float y, float width, float height, const char *path) {
+		std::unique_ptr<Control> control = std::make_unique<Control>(x, y, width, height, path);
+		Model model = Model{ mesh };
+		menu->controls.push_back(std::move(control));
+
+		return menu->controls[menu->controls.size() - 1].get();
 	}
 
 	void MenuBuilder::addControl(float x, float y, float width, float height, const char * path, std::function<void()> callback_)
 	{
-		Control control{ x, y, width, height, path, callback_ };
+		std::unique_ptr<Control> control = std::make_unique<Control>(x, y, width, height, path, callback_);
 		Model model = Model{ mesh };
-		menu->controls.push_back(control);
+		menu->controls.push_back(std::move(control));
 	}
 
 	std::unique_ptr<Menu> MenuBuilder::buildMenu()

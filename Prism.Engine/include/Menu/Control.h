@@ -14,7 +14,7 @@ namespace Menu {
 	class Control
 	{
 	public:
-		Control() = default;
+
 		Control(float x, float y, float width, float height, const char *path);
 		Control(float x, float y, float width, float height, const char *path, std::function<void()> callback_);
 		void UpdateTexture(const char *path);
