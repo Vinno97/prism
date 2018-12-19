@@ -86,7 +86,6 @@ namespace States {
 		renderDevice->clearScreen();
 		menuRenderer.renderMenu(*menu, context.window->width, context.window->height);
 
-		auto input = context.inputManager;
 		menu->handleInput(*context.inputManager, context.window->width, context.window->height);
 
 		context.window->swapScreen();

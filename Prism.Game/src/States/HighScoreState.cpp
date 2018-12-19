@@ -84,8 +84,9 @@ namespace States {
 			if (count == 6) {
 				break;
 			}
-			menuBuilder.addControl(-0.35, test, 0.6, 0.18, "img/highScoreBackground.png");
-			menuBuilder.addTextControl(-0.25, test + 0.05, 0.0013, Math::Vector3f{ 1.0f, 1.0f, 1.0f }, std::to_string(count) + ": " + std::to_string(value));
+			float aspect = context.window->width / context.window->height;
+			menuBuilder.addControl(-0.35, test, 0.6, 0.18*aspect, "img/highScoreBackground.png");
+			menuBuilder.addTextControl(-0.25, test + 0.05, 0.0013*aspect, Math::Vector3f{ 1.0f, 1.0f, 1.0f }, std::to_string(count) + ": " + std::to_string(value));
 			count++;
 			test -= 0.2;
 		}

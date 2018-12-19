@@ -25,9 +25,10 @@ namespace States {
 			}
 		};
 
-		menuBuilder.addControl(-0.9f, 0.8, 0.3, 0.1, "img/Back.png", callback);
-		menuBuilder.addControl(-0.5f, 0.7f, 1.2f, 0.2f, "img/goal.png");
-		menuBuilder.addControl(-1.f, -1.0f, 2.0f, 1.5f, "img/HelpScreen.jpg");
+		float aspect = context.window->width / context.window->height;
+		menuBuilder.addControl(-0.9f, 0.8, 0.3, 0.1*aspect, "img/Back.png", callback);
+		menuBuilder.addControl(-0.5f, 0.7f, 1.2f, 0.2f*aspect, "img/goal.png");
+		menuBuilder.addControl(-1.f, -1.0f, 2.0f, 1.5f*aspect, "img/HelpScreen.jpg");
 
 		menu = menuBuilder.buildMenu();
 		Renderer::Graphics::RenderDevice* renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
@@ -41,7 +42,7 @@ namespace States {
 		menuRenderer.renderMenu(*menu, context.window->width, context.window->height);
 		context.window->swapScreen();
 
-		auto input = context.inputManager;
+		
 		menu->handleInput(*context.inputManager, context.window->width, context.window->height);
 	}
 
