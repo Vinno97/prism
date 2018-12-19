@@ -20,23 +20,18 @@ namespace States {
 	using namespace ECS;
 	using namespace ECS::Components;
 
-	EndState::EndState()
-	{
-	}
-
 	void EndState::onInit(Context & context)
 	{
-		
-
 		std::function<void()> callbackMainMenu = [&context](){
+			context.stateMachine->removeState<PrismGame>();
 			context.stateMachine->setState<MainMenuState>(context); };
 
 		std::function<void()> callBackRestart = [&context](){
-			if (!context.stateMachine->hasState<PrismGame>()) {
-				context.stateMachine->addState<PrismGame>(context);
-				context.stateMachine->setState<PrismGame>(context);
-
-			}
+			auto level = context.stateMachine->getState<PrismGame>()->getLevel();
+			auto isNightmareMode = context.stateMachine->getState<PrismGame>()->isNightmare();
+			context.stateMachine->removeState<PrismGame>();
+			context.stateMachine->addState<PrismGame>(context, level, isNightmareMode);
+			context.stateMachine->setState<PrismGame>(context);
 		};
 
 		menuBuilder.addControl(-0.5, 0.5, 1, 0.24, "img/gameover.png");
@@ -65,10 +60,6 @@ namespace States {
 
 	void EndState::onUpdate(Context & context)
 	{
-		if (mouseWaitTime > 0) {
-			mouseWaitTime -= context.deltaTime;
-		}
-
 		score->text = std::to_string(totalscore);
 		survivedTime->text = std::to_string(time);
 		red->text = std::to_string(resourceRed);
@@ -79,17 +70,14 @@ namespace States {
 		renderDevice->clearScreen();
 		menuRenderer.renderMenu(*menu, context.window->width, context.window->height);
 
-		auto input = context.inputManager;
-		mouseWaitTime <= 0 && menu->handleInput(*context.inputManager, context.window->width, context.window->height);
+		menu->handleInput(context);
 
 		context.window->swapScreen();
 	}
 
 	void EndState::onEnter(Context & context)
 	{
-		context.stateMachine->removeState<PrismGame>();
 		updateScores();
-		mouseWaitTime = waitTime;
 	}
 
 	void EndState::updateScores() {
@@ -145,10 +133,6 @@ namespace States {
 	}
 
 	void EndState::onLeave(Context & context)
-	{
-	}
-
-	EndState::~EndState()
 	{
 	}
 }

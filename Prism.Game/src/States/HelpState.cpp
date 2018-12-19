@@ -1,5 +1,6 @@
 #include "States/HelpState.h"
-#include "StateMachine.h";
+#include "Variables.h"
+#include "StateMachine.h"
 #include "States/PrismGame.h"
 #include "States/MainMenuState.h"
 #include "Renderer/Graphics/RenderDevice.h"
@@ -8,9 +9,7 @@
 #include "Renderer/Graphics/OpenGL/OGLPipeline.h"
 
 namespace States {
-	HelpState::HelpState()
-	{
-	}
+	using namespace Variables::Resources;
 
 	void HelpState::onInit(Context & context)
 	{
@@ -24,26 +23,16 @@ namespace States {
 		renderDevice->setClearColour(1.f, 1.f, 1.f, 1.f);
 	}
 
-	void HelpState::onUpdate(Context & context)
-	{
-		Renderer::Graphics::RenderDevice* renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
+	void HelpState::onUpdate(Context & context) {
+		menu->handleInput(context);
+		Renderer::Graphics::RenderDevice *renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
 		renderDevice->clearScreen();
 		menuRenderer.renderMenu(*menu, context.window->width, context.window->height);
 		context.window->swapScreen();
 		countDown += context.deltaTime;
 		auto input = context.inputManager;
-		if (menu->handleInput(*context.inputManager, context.window->width, context.window->height)) {
-			return;
-		}
+		
 
-	}
-
-	void HelpState::onEnter(Context & context)
-	{
-	}
-
-	void HelpState::onLeave(Context & context)
-	{
 	}
 	void HelpState::swap()
 	{

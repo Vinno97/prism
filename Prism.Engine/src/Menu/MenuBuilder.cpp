@@ -1,6 +1,3 @@
-#include <iostream>
-#include <sstream>
-
 #include "Menu/MenuBuilder.h"
 #include "Renderer/Renderable.h"
 #include <vector>
@@ -8,9 +5,7 @@
 #include "Renderer/Graphics/Models/Model.h"
 #include "Renderer/Graphics/Models/Mesh.h"
 #include "Renderer/Graphics/OpenGL/OGLRenderDevice.h"
-#include "Renderer/Graphics/Models/Mesh.h"
 #include "Renderer/Graphics/RenderDevice.h"
-#include "Surface.h"
 
 using namespace std;
 using namespace Renderer::Graphics;
@@ -65,9 +60,9 @@ namespace Menu {
 	{
 		std::unique_ptr<Control> control = std::make_unique<Control>(x, y, width, height, path);
 		Model model = Model{ mesh };
+
 		menu->controls.push_back(std::move(control));
 	}
-
 
 	Control* MenuBuilder::addImage(float x, float y, float width, float height, const char *path) {
 		std::unique_ptr<Control> control = std::make_unique<Control>(x, y, width, height, path);
@@ -77,16 +72,35 @@ namespace Menu {
 		return menu->controls[menu->controls.size() - 1].get();
 	}
 
-
-
 	void MenuBuilder::addControl(float x, float y, float width, float height, const char * path, std::function<void()> callback_)
 	{
 		std::unique_ptr<Control> control = std::make_unique<Control>(x, y, width, height, path, callback_);
 		Model model = Model{ mesh };
+		control->hoverCallback = hoverCallback;
+		control->leaveCallback = leaveCallback;
 		menu->controls.push_back(std::move(control));
 	}
 
-	std::unique_ptr<Menu> MenuBuilder::buildMenu()
+	void MenuBuilder::addControl(float x, float y, float width, float height, const char * path, 
+		std::function<void(Control* control, Context& context)> hoverCallback_, 
+		std::function<void(Control* control, Context& context)> leaveCallback_)
+	{
+		std::unique_ptr<Control> control = std::make_unique<Control>( x, y, width, height, path, hoverCallback_, leaveCallback_ );
+		Model model = Model{ mesh };
+		menu->controls.push_back(std::move(control));
+	}
+
+	void MenuBuilder::addControl(float x, float y, float width, float height, const char * path, 
+		std::function<void()> callback_, 
+		std::function<void(Control* control, Context& context)> hoverCallback_,
+		std::function<void(Control* control, Context& context)> leaveCallback_)
+	{
+		std::unique_ptr<Control> control = std::make_unique<Control>( x, y, width, height, path, callback_, hoverCallback_, leaveCallback_ );
+		Model model = Model{ mesh };
+		menu->controls.push_back(std::move(control));
+	}
+
+    std::unique_ptr<Menu> MenuBuilder::buildMenu()
 	{
 		return std::move(menu);
 	}

@@ -1,11 +1,12 @@
-#include "Menu/TextRenderer.h"
 #include "States/PrismGame.h"
+#include "Menu/TextRenderer.h"
 #include "Math/Vector3f.h"
 
 #include "StateMachine.h"
 #include "States/PauseState.h"
 #include "States/EndState.h"
 #include "ECS/Components/SceneComponent.h"
+#include "ECS/Components/EnemyComponent.h"
 #include "ECS/Components/PlayerComponent.h"
 #include "ECS/Components/ScoreComponent.h"
 #include "ECS/Components/HealthComponent.h"
@@ -36,7 +37,10 @@
 #include "ECS/Systems/SetCurrentBuildSystem.h"
 #include "ECS/Systems/MoveCurrentBuildSystem.h"
 #include "ECS/Systems/PlaceCurrentBuildSystem.h"
-
+#include <iostream>
+#include <sstream>
+#include <iterator>
+#include <fstream>
 
 namespace States {
 	using namespace ECS;
@@ -46,10 +50,10 @@ namespace States {
 
 	void PrismGame::onInit(Context & context)
 	{
-		auto floor = entityFactory.getInstance().createFloor(entityManager);
-		auto scene = entityFactory.getInstance().createScene(entityManager);
-		auto camera = entityFactory.getInstance().createCamera(entityManager);
-		auto mousePointer = entityFactory.getInstance().createCameraPointer(entityManager);
+		auto floor = EntityFactory::getInstance().createFloor(entityManager);
+		auto scene = EntityFactory::getInstance().createScene(entityManager);
+		auto camera = EntityFactory::getInstance().createCamera(entityManager);
+		auto mousePointer = EntityFactory::getInstance().createCameraPointer(entityManager);
 		auto sceneComponent = entityManager.getComponent<SceneComponent>(scene);
 
 
@@ -60,10 +64,7 @@ namespace States {
 
 		World::LevelManager loader{ std::make_unique<PrismEntityAssembler>() };
 
-		loader.load("levels/Level_1", entityManager);
-		// Dit is hoe een wereld zou worden opgeslagen en weer ingeladen.
-		//loader.load("saves/Sample Save", entityManager);
-		loader.save("saves/Sample Save", entityManager);
+		loader.load(levelPath, entityManager);
 
 		loadAudio(context);
 		registerSystems(context);
@@ -153,11 +154,30 @@ namespace States {
 
 		float sizeHealth = ((float)playerHealth * 0.006);
 		healthImage->size = Math::Vector3f{ sizeHealth, 0.1, 0};
+		std::fstream file;
+		file.open("res/saves/scores.txt");
+		if (file.is_open()) {
+			int num;
+			while (file >> num)
+			{
+				if (totalScore >= num && num != 0) {
+					this->suspense_not_playing = false;
+					context.audioManager->playMusic("AmbienceSuspense");
+				}
+				break;
+			}
+		}
+
+		if (time > 120 && suspense_not_playing) {
+			context.audioManager->playMusic("AmbienceTime");
+		}
+
+	
 		score->text = "Score: " + std::to_string(totalScore);
 		menuRenderer.renderMenu(*menu, context.window->width, context.window->height);
 		context.window->swapScreen();
 
-		menu->handleInput(*context.inputManager, context.window->width, context.window->height);
+		menu->handleInput(context);
 		if (!input->isKeyPressed(Key::KEY_ESCAPE)) {
 			canPressEscape = true;
 		}
@@ -174,6 +194,9 @@ namespace States {
 	void PrismGame::loadAudio(Context &context) const
 	{
 		context.audioManager->addMusic("Ambience", "Ambience.wav");
+		context.audioManager->addMusic("AmbienceSuspense", "Ambience_Suspense.wav");
+		context.audioManager->addMusic("AmbienceTime", "Ambience_Time.wav");
+		context.audioManager->addMusic("MainMenu", "MainMenu.wav");
 		context.audioManager->addSound("Bullet", "Bullet.wav");
 		context.audioManager->addSound("EnemyKill", "EnemyKill.wav");
 		context.audioManager->addSound("Resource", "ResourceGathering.wav");
@@ -196,7 +219,7 @@ namespace States {
 
 	int PrismGame::Fps(Context &context)
 	{
-		return(floor(1.0 / context.deltaTime));
+		return static_cast<int>(floor(1.0 / context.deltaTime));
 	}
 
 	void PrismGame::toggleFPS(Context & context)
@@ -256,15 +279,7 @@ namespace States {
 	void PrismGame::onLeave(Context &context) {
 	}
   
-	void PrismGame::toggleNightmare(Context &context)
-	{
-		if (!isNightmareMode) {
-			isNightmareMode = true;
-		}
-		else {
-			isNightmareMode = false;
-		}
-	}
+
 	bool PrismGame::isNightmare()
 	{
 		return isNightmareMode;

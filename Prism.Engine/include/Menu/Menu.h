@@ -11,14 +11,16 @@ namespace Menu {
 	class Menu
 	{
 	public:
-		Menu()=default;
+		Menu() = default;
 		std::vector<std::unique_ptr<Control>> controls;
 		std::vector<std::unique_ptr<TextControl>> textControls;
 		std::shared_ptr<Renderer::Graphics::Models::Mesh> mesh;
 
-		bool handleInput(InputManager& input, int height, int width);
+		bool handleInput(Context& context);
 
 		~Menu();
 		void cleanup();
+	private:
+		bool isHandlingClicks{false};
 	};
 }

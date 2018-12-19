@@ -48,7 +48,24 @@ namespace Menu {
 		callback = callback_;
 	}
 
-	//TOD: Fix memory leak
+	Control::Control(float x, float y, float width, float height, const char * path,
+		std::function<void(Control* control, Context& context)> hoverCallback_,
+		std::function<void(Control* control, Context& context)> leaveCallback_) : Control(x, y, width, height, path)
+	{
+		leaveCallback = leaveCallback_;
+		hoverCallback = hoverCallback_;
+	}
+
+	Control::Control(float x, float y, float width, float height, const char * path, 
+		std::function<void()> callback_, 
+		std::function<void(Control* control, Context& context)> hoverCallback_,
+		std::function<void(Control* control, Context& context)> leaveCallback_) : Control(x, y, width, height, path)
+	{
+		callback = callback_;
+		leaveCallback = leaveCallback_;
+		hoverCallback = hoverCallback_;
+	}
+    //TODO: Fix memory leak
 	void Control::UpdateTexture(const char *path)
 	{
 		auto pwd = filesystem::current_path();
@@ -66,5 +83,22 @@ namespace Menu {
 	{
 		if(callback != nullptr)
 			callback();
+	}
+	void Control::onEnter(Context& context)
+	{
+		if (hoverCallback == nullptr || isActive)
+			return;
+
+		hoverCallback(this, context);
+		isActive = true;
+	}
+
+	void Control::onLeave(Context& context)
+	{
+		if (leaveCallback == nullptr || !isActive)
+			return;
+
+		leaveCallback(this, context);
+		isActive = false;
 	}
 }

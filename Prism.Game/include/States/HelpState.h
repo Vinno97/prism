@@ -11,13 +11,10 @@ namespace States {
 	class HelpState : public State
 	{
 	public:
-		HelpState();
+		HelpState() = default;
 
 		void onInit(Context &context) override;
 		void onUpdate(Context &context) override;
-		void onEnter(Context & context) override;
-		void onLeave(Context & context) override;
-		~HelpState() = default;
 
 	private:
 		Menu::MenuRenderer menuRenderer;
