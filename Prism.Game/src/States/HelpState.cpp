@@ -13,23 +13,39 @@ namespace States {
 
 	void HelpState::onInit(Context & context)
 	{
-		menuBuilder.addControl(-0.8f, 0.8, .25, 0.096, Sprites::BACK, [&context]() {
-			context.stateMachine->setState<MainMenuState>(context);
-		});
-		menuBuilder.addControl(-0.5f, 0.7f, 1.2f, 0.2f, "img/goal.png");
-		menuBuilder.addControl(-1.f, -1.0f, 2.0f, 1.5f, "img/HelpScreen.jpg");
-
+		std::function<void()> callback = [&context]() { context.stateMachine->setState<MainMenuState>(context); };
+		std::function<void()> swapScreen = [&]() { swap(); };
+		menuBuilder.addControl(-0.9f, 0.8, 0.30, 0.10, "img/Back.png", callback);
+		menuBuilder.addControl(0.6f, 0.8, 0.30, 0.10, "img/Swap.png", swapScreen);
+		control = menuBuilder.addImage(-1.0f, -1.0f, 2.0f, 1.6f, "img/SirHelpScreenII.png");
 		menu = menuBuilder.buildMenu();
 		Renderer::Graphics::RenderDevice* renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
 		renderDevice->setClearColour(1.f, 1.f, 1.f, 1.f);
 	}
 
 	void HelpState::onUpdate(Context & context) {
+		menu->handleInput(context);
 		Renderer::Graphics::RenderDevice *renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
 		renderDevice->clearScreen();
 		menuRenderer.renderMenu(*menu, context.window->width, context.window->height);
 		context.window->swapScreen();
+		countDown += context.deltaTime;
+		auto input = context.inputManager;
+		
 
-        menu->handleInput(context);
+	}
+	void HelpState::swap()
+	{
+		if(count == 1 && countDown > maxcountDown)
+		{
+			control->UpdateTexture("img/SirHelpScreenII.png");
+			count = 0;
+			countDown = 0;
+		}else if(countDown > maxcountDown)
+		{
+			control->UpdateTexture("img/HelpScreen.png");
+			count = 1;
+			countDown = 0;
+		}
 	}
 }

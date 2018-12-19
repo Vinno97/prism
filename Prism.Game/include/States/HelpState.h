@@ -20,5 +20,10 @@ namespace States {
 		Menu::MenuRenderer menuRenderer;
 		Menu::MenuBuilder menuBuilder;
 		std::unique_ptr<Menu::Menu> menu;
+		Menu::Control* control;
+		void swap();
+		int count = 0;
+		float maxcountDown = 1.0;
+		float countDown = 0;
 	};
 }
