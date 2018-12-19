@@ -256,7 +256,7 @@ unsigned EntityFactory::createCliff(unsigned entity, EntityManager& entityManage
 	return EntityBuilder(entityManager, entity)
 		.addComponent<PositionComponent>()
 		.addComponent<CliffComponent>()
-		.addComponent<BoundingBoxComponent>(1.0, 1.0)
+		.addComponent<BoundingBoxComponent>(1.0, 1.0, 2.0)
 		.addComponent<CollidableComponent>()
 		.addComponent(appearance)
 		.getEntity();
@@ -281,7 +281,7 @@ unsigned EntityFactory::createCliffFiller(unsigned entity, EntityManager& entity
 	return EntityBuilder(entityManager, entity)
 		.addComponent<PositionComponent>()
 		.addComponent<CliffFillerComponent>()
-		.addComponent<BoundingBoxComponent>(1.0, 1.0)
+		.addComponent<BoundingBoxComponent>(1.0, 1.0, 2.0)
 		.addComponent<CollidableComponent>()
 		.addComponent(appearance)
 		.getEntity();
@@ -307,7 +307,7 @@ unsigned EntityFactory::createCliffCorner(unsigned entity, EntityManager& entity
 	return EntityBuilder(entityManager, entity)
 		.addComponent<PositionComponent>()
 		.addComponent<CliffCornerComponent>()
-		.addComponent<BoundingBoxComponent>(1.0, 1.0)
+		.addComponent<BoundingBoxComponent>(1.0, 1.0, 2.0)
 		.addComponent<CollidableComponent>()
 		.addComponent(appearance)
 		.getEntity();
@@ -339,7 +339,7 @@ unsigned EntityFactory::createTree(unsigned entity, EntityManager& entityManager
 	return EntityBuilder(entityManager, entity)
 		.addComponent<PositionComponent>()
 		.addComponent<TreeComponent>()
-		.addComponent<BoundingBoxComponent>(1.5, 1.5)
+		.addComponent<BoundingBoxComponent>(1.9, 1.9, 2.0)
 		.addComponent<CollidableComponent>()
 		.addComponent(appearance)
 		.getEntity();
@@ -366,7 +366,7 @@ unsigned EntityFactory::createRock(unsigned entity, EntityManager& entityManager
 	return EntityBuilder(entityManager, entity)
 		.addComponent<PositionComponent>()
 		.addComponent<RockComponent>()
-		.addComponent<BoundingBoxComponent>(1.2, 1.2)
+		.addComponent<BoundingBoxComponent>(1.5, 1.5)
 		.addComponent<CollidableComponent>()
 		.addComponent(appearance)
 		.getEntity();
@@ -395,7 +395,7 @@ unsigned EntityFactory::createMine(unsigned entity, EntityManager& entityManager
 		.addComponent<CollidableComponent>()
 		.addComponent<ResourceGatherComponent>()
 		.addComponent<HealthComponent>(50)
-		.addComponent<PointLightComponent>(appearance.color, 4.0f, 0.f)
+		.addComponent<PointLightComponent>(Math::Vector3f(0.2f, 0.2f, 0.2f), 4.0f, 0.f)
 		.addComponent(appearance)
 		.getEntity();
 }
