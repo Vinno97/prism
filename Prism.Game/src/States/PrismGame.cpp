@@ -169,6 +169,7 @@ namespace States {
 
 		if (time > 120 && suspense_not_playing) {
 			context.audioManager->playMusic("AmbienceTime");
+            suspense_not_playing = false;
 		}
 
 	

@@ -10,10 +10,12 @@
 #include <cmath>
 #include "ECS/Components/AnimationComponent.h"
 #include "ECS/Components/VelocityComponent.h"
+#include "Math/Vector2.h"
 
 namespace ECS {
 	namespace Systems {
 		using namespace Components;
+		using namespace Math;
 		
 		ProjectileAttackSystem::ProjectileAttackSystem(EntityManager& entityManager) : System(entityManager)
 		{
@@ -51,12 +53,11 @@ namespace ECS {
 								if (EnemyHealth->currentHealth <= 0) {
 									auto scoreComponent = entityManager->getComponent<ScoreComponent>(player.id);
 									scoreComponent->killedEnemies += 1;
-									Util::DistanceUtil distanceUtil;
-									int BoxX = boundingBoxComponent->boundingBox.GetPosX();
-									int BoxY = boundingBoxComponent->boundingBox.GetPosY();
-									int PlayerX = entityManager->getComponent<PositionComponent>(players[0].id)->x;
-									int PlayerY = entityManager->getComponent<PositionComponent>(players[0].id)->x;
-									context.audioManager->playSound("EnemyKill", distanceUtil.CalculateDistance(BoxX, BoxY, PlayerX, PlayerY));
+
+									Vector2d ePos = *entityManager->getComponent<PositionComponent>(collider);
+									Vector2d pPos = *entityManager->getComponent<PositionComponent>(players[0].id);
+
+									context.audioManager->playSound("EnemyKill", Math::distance(ePos, pPos));
 
 									if (entityManager->hasComponent<AnimationComponent>(collider))
 									{

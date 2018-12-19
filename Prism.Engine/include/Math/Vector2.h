@@ -62,4 +62,9 @@ namespace Math {
 	constexpr T distance(const Vector2<T> &vector1, const Vector2<T> &vector2) {
 		return (vector1 - vector2).length();
 	}
+
+	typedef Vector2<float> Vector2f;
+	typedef Vector2<double> Vector2d;
+	typedef Vector2<int> Vector2i;
+	typedef Vector2<unsigned> Vector2u;
 }
