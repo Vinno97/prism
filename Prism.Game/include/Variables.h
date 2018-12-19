@@ -27,7 +27,7 @@ namespace Variables {
                 constexpr SpritePath HIGHSCORE =  "img/HighscoreButton.png";
                 constexpr SpritePath SETTINGS = "img/settings.png";
                 constexpr SpritePath QUIT = "img/QuitGameButton.png";
-				constexpr SpritePath LOGO = "img/menus/normal/Logo.png";
+		constexpr SpritePath LOGO = "img/menus/normal/Logo.png";
             }
 
             namespace WorldSelection {
