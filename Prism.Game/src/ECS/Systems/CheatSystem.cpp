@@ -160,28 +160,13 @@ namespace ECS {
 			auto input = context.inputManager;
 
 			// TODO: Later naar in game buttons
-			if (input->isKeyPressed(Key::KEY_H))
-			{
-				increaseHealth();
-			}
-			else if (input->isKeyPressed(Key::KEY_J)) {
-				decreaseHealth();
-			}
-			else if (input->isKeyPressed(Key::KEY_R)) {
-				increaseResources();
-			}
-			else if (input->isKeyPressed(Key::KEY_T)) {
-				decreaseResources();
-			}
-			else if (input->isKeyPressed(Key::KEY_PLUS)) {
-				increaseGameSpeed();
-			}
-			else if (input->isKeyPressed(Key::KEY_MIN)) {
-				decreaseGameSpeed();
-			}
-			else if (input->isKeyPressed(Key::KEY_END)) {
-				resetGameSpeed();
-			}
+			if (input->isKeyPressed(Key::KEY_H)) increaseHealth();
+			if (input->isKeyPressed(Key::KEY_J)) decreaseHealth();
+			if (input->isKeyPressed(Key::KEY_R)) increaseResources();
+			if (input->isKeyPressed(Key::KEY_T)) decreaseResources();
+			if (input->isKeyPressed(Key::KEY_PLUS)) increaseGameSpeed();
+			if (input->isKeyPressed(Key::KEY_MIN)) decreaseGameSpeed();
+			if (input->isKeyPressed(Key::KEY_END)) resetGameSpeed();
 		}
 
 	}

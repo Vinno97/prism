@@ -1,5 +1,5 @@
-#include "Menu/TextRenderer.h"
 #include "States/PrismGame.h"
+#include "Menu/TextRenderer.h"
 #include "Math/Vector3f.h"
 
 #include "StateMachine.h"
@@ -50,10 +50,10 @@ namespace States {
 
 	void PrismGame::onInit(Context & context)
 	{
-		auto floor = entityFactory.getInstance().createFloor(entityManager);
-		auto scene = entityFactory.getInstance().createScene(entityManager);
-		auto camera = entityFactory.getInstance().createCamera(entityManager);
-		auto mousePointer = entityFactory.getInstance().createCameraPointer(entityManager);
+		auto floor = EntityFactory::getInstance().createFloor(entityManager);
+		auto scene = EntityFactory::getInstance().createScene(entityManager);
+		auto camera = EntityFactory::getInstance().createCamera(entityManager);
+		auto mousePointer = EntityFactory::getInstance().createCameraPointer(entityManager);
 		auto sceneComponent = entityManager.getComponent<SceneComponent>(scene);
 
 
@@ -64,10 +64,7 @@ namespace States {
 
 		World::LevelManager loader{ std::make_unique<PrismEntityAssembler>() };
 
-		loader.load("levels/Level_1", entityManager);
-		// Dit is hoe een wereld zou worden opgeslagen en weer ingeladen.
-		//loader.load("saves/Sample Save", entityManager);
-		loader.save("saves/Sample Save", entityManager);
+		loader.load(levelPath, entityManager);
 
 		loadAudio(context);
 		registerSystems(context);
@@ -180,7 +177,7 @@ namespace States {
 		menuRenderer.renderMenu(*menu, context.window->width, context.window->height);
 		context.window->swapScreen();
 
-		menu->handleInput(*context.inputManager, context.window->width, context.window->height, context);
+		menu->handleInput(context);
 		if (!input->isKeyPressed(Key::KEY_ESCAPE)) {
 			canPressEscape = true;
 		}
@@ -222,7 +219,7 @@ namespace States {
 
 	int PrismGame::Fps(Context &context)
 	{
-		return(floor(1.0 / context.deltaTime));
+		return static_cast<int>(floor(1.0 / context.deltaTime));
 	}
 
 	void PrismGame::toggleFPS(Context & context)
@@ -282,15 +279,7 @@ namespace States {
 	void PrismGame::onLeave(Context &context) {
 	}
   
-	void PrismGame::toggleNightmare(Context &context)
-	{
-		if (!isNightmareMode) {
-			isNightmareMode = true;
-		}
-		else {
-			isNightmareMode = false;
-		}
-	}
+
 	bool PrismGame::isNightmare()
 	{
 		return isNightmareMode;

@@ -11,13 +11,10 @@ namespace States {
 	class CreditsState : public State
 	{
 	public:
-		CreditsState();
+		CreditsState() = default;
 
-		void onInit(Context &context) override;
 		void onUpdate(Context &context) override;
-		void onEnter(Context & context) override;
-		void onLeave(Context & context) override;
-		~CreditsState();
+		void onEnter(Context &context) override;
 
 	private:
 		Menu::MenuRenderer menuRenderer;

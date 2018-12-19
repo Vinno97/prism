@@ -11,13 +11,10 @@ namespace States {
 	class HighScoreState : public State
 	{
 	public:
-		HighScoreState();
+		HighScoreState() = default;
 
-		void onInit(Context &context) override;
 		void onUpdate(Context &context) override;
 		void onEnter(Context & context) override;
-		void onLeave(Context & context) override;
-		~HighScoreState();
 
 	private:
 		void buildMenu(Context & context);

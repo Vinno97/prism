@@ -1,5 +1,6 @@
 #include "States/CreditsState.h"
-#include "StateMachine.h";
+#include "Variables.h"
+#include "StateMachine.h"
 #include "States/PrismGame.h"
 #include "States/MainMenuState.h"
 #include "Renderer/Graphics/RenderDevice.h"
@@ -9,14 +10,7 @@
 #include "Util/AdvertisementSystem.h"
 
 namespace States {
-	CreditsState::CreditsState()
-	{
-	}
-
-	void CreditsState::onInit(Context & context)
-	{
-
-	}
+	using namespace Variables::Resources;
 
 	void CreditsState::onUpdate(Context & context)
 	{
@@ -25,10 +19,7 @@ namespace States {
 		menuRenderer.renderMenu(*menu, context.window->width, context.window->height);
 		context.window->swapScreen();
 
-		auto input = context.inputManager;
-		if (menu->handleInput(*context.inputManager, context.window->width, context.window->height, context)) {
-			return;
-		}
+		menu->handleInput(context);
 	}
 
 	void CreditsState::onEnter(Context & context)
@@ -49,13 +40,5 @@ namespace States {
 		menu = menuBuilder.buildMenu();
 		Renderer::Graphics::RenderDevice* renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
 		renderDevice->setClearColour(1.f, 1.f, 1.f, 1.f);
-	}
-
-	void CreditsState::onLeave(Context & context)
-	{
-	}
-
-	CreditsState::~CreditsState()
-	{
 	}
 }
