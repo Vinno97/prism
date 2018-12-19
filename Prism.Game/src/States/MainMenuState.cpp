@@ -17,6 +17,8 @@
 #include "States/ResolutionMenuState.h"
 #include "Variables.h"
 
+using namespace Math;
+
 namespace States {
 
     using namespace Variables::Resources;
@@ -82,8 +84,7 @@ namespace States {
         renderDevice->clearScreen();
         menuRenderer.renderMenu(*menu, context.window->width, context.window->height);
 
-        auto input = context.inputManager;
-        menu->handleInput(*context.inputManager, context.window->width, context.window->height);
+        menu->handleInput(context);
 
         context.window->swapScreen();
     }
@@ -96,5 +97,6 @@ namespace States {
         context.audioManager->addMusic("MainMenu", "MainMenu.wav");
         context.audioManager->addSound("NightmareOn", "NightmareModeOn.wav");
         context.audioManager->addSound("NightmareOff", "NightmareModeOff.wav");
+        context.audioManager->addSound("ButtonClick", "ButtonClick.wav");
     }
 }

@@ -50,6 +50,7 @@ namespace ECS {
 				auto direction = Math::Vector3f{ float(targetLocation->x - blobPosition->x), float(targetLocation->y - blobPosition->y), 0.f };
 
 				direction.normalize();
+				direction = direction * 4;
 
 				blobVelocity->dx = direction.x;
 				blobVelocity->dy = direction.y;

@@ -154,12 +154,12 @@ unsigned EntityFactory::createResourcePoint(unsigned entity, EntityManager& enti
 	Enums::ResourceType type, int gatherRate,
 	float value) const
 {
-	auto model = modelLoader.loadModel("./res/resource2.obj");
+	auto model = modelLoader.loadModel("./res/resource3.obj");
 
 	AppearanceComponent appearance;
-	appearance.scaleX = 0.002f;
-	appearance.scaleY = 0.002f;
-	appearance.scaleZ = 0.002f;
+	appearance.scaleX = 0.5f;
+	appearance.scaleY = 0.5f;
+	appearance.scaleZ = 0.5f;
 	appearance.model = std::move(model);
 
 	if (type == Enums::ResourceType::BLUE)
@@ -180,7 +180,7 @@ unsigned EntityFactory::createResourcePoint(unsigned entity, EntityManager& enti
 		.addComponent(appearance)
 		.addComponent<CollidableComponent>()
 		.addComponent<BoundingBoxComponent>(.4, .4)
-    .addComponent<PointLightComponent>(appearance.color, 4.0f, 0.f)
+		.addComponent<PointLightComponent>(appearance.color, 4.0f, 0.f)
 		.getEntity();
 }
 
@@ -191,7 +191,7 @@ unsigned EntityFactory::createTower(EntityManager& entityManager) const
 
 unsigned EntityFactory::createTower(unsigned entity, EntityManager& entityManager) const
 {
-	auto model = modelLoader.loadModel("./res/wall.obj");
+	auto model = modelLoader.loadModel("./res/tower.obj");
 
 	AppearanceComponent appearance;
 	appearance.scaleX = 0.5f;
@@ -372,13 +372,14 @@ unsigned EntityFactory::createMine(EntityManager& entityManager) const
 
 unsigned EntityFactory::createMine(unsigned entity, EntityManager& entityManager) const
 {
-	auto model = modelLoader.loadModel("./res/uglyenemy.obj");
+	auto model = modelLoader.loadModel("./res/mine.obj");
 
 	AppearanceComponent appearance;
-	appearance.scaleX = 0.005f;
-	appearance.scaleY = 0.005f;
-	appearance.scaleZ = 0.005f;
+	appearance.scaleX = 0.5f;
+	appearance.scaleY = 0.5f;
+	appearance.scaleZ = 0.5f;
 	appearance.model = std::move(model);
+	appearance.color = Math::Vector3f(0.9f, 0.9f, 0.9f);
 
 	return EntityBuilder(entityManager, entity)
 		.addComponent<MineComponent>()
@@ -387,7 +388,7 @@ unsigned EntityFactory::createMine(unsigned entity, EntityManager& entityManager
 		.addComponent<CollidableComponent>()
 		.addComponent<ResourceGatherComponent>()
 		.addComponent<HealthComponent>(50)
-    .addComponent<PointLightComponent>(appearance.color, 4.0f, 0.f)
+		.addComponent<PointLightComponent>(appearance.color, 4.0f, 0.f)
 		.addComponent(appearance)
 		.getEntity();
 }

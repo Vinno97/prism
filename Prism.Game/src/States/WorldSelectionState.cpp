@@ -131,9 +131,7 @@ namespace States {
 		// TODO: Move this generic code to shared function or superclass.
 		renderDevice->clearScreen();
 		menuRenderer.renderMenu(*menu, context.window->width, context.window->height);
-		if (menu->handleInput(*context.inputManager, context.window->width, context.window->height)) {
-			return;
-		}
+		menu->handleInput(context);
 
 		context.window->swapScreen();
 	}

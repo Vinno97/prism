@@ -1,4 +1,4 @@
-#include <iostream>
+	#include <iostream>
 #include <fstream>
 #include <Variables.h>
 #include "States/HighScoreState.h"
@@ -20,8 +20,7 @@ namespace States {
 		menuRenderer.renderMenu(*menu, float(context.window->width), float(context.window->height));
 		context.window->swapScreen();
 
-		auto input = context.inputManager;
-		if (menu->handleInput(*context.inputManager, context.window->width, context.window->height)) {
+		if (menu->handleInput(context)) {
 			return;
 		}
 	}
@@ -81,7 +80,7 @@ namespace States {
 			if (count == 6) {
 				break;
 			}
-			menuBuilder.addControl(-0.35, test, 0.6, 0.18, "img/scoreBackground.png");
+			menuBuilder.addControl(-0.35, test, 0.6, 0.18, "img/highScoreBackground.png");
 			menuBuilder.addTextControl(-0.25, test + 0.05, 0.0013, Math::Vector3f{ 1.0f, 1.0f, 1.0f }, std::to_string(count) + ": " + std::to_string(value));
 			count++;
 			test -= 0.2;

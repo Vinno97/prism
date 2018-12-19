@@ -70,7 +70,7 @@ namespace States {
 		renderDevice->clearScreen();
 		menuRenderer.renderMenu(*menu, context.window->width, context.window->height);
 
-		menu->handleInput(*context.inputManager, context.window->width, context.window->height);
+		menu->handleInput(context);
 
 		context.window->swapScreen();
 	}

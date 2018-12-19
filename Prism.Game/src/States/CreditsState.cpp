@@ -12,11 +12,25 @@
 namespace States {
 	using namespace Variables::Resources;
 
-	void CreditsState::onInit(Context & context)
+	void CreditsState::onUpdate(Context & context)
 	{
-		menuBuilder.addControl(-0.8f, 0.8, .25, 0.096, Sprites::BACK, [&context]() {
-			context.stateMachine->setState<MainMenuState>(context);
-		});
+		Renderer::Graphics::RenderDevice* renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
+		renderDevice->clearScreen();
+		menuRenderer.renderMenu(*menu, context.window->width, context.window->height);
+		context.window->swapScreen();
+
+		menu->handleInput(context);
+	}
+
+	void CreditsState::onEnter(Context & context)
+	{
+		if (menu != nullptr) {
+			menu = nullptr;
+			menuBuilder = Menu::MenuBuilder();
+		}
+		
+		std::function<void()> callback = [&context]() { context.stateMachine->setState<MainMenuState>(context); };
+		menuBuilder.addControl(-0.9f, 0.8, 0.3, 0.1, "img/Back.png", callback);
 		menuBuilder.addControl(-0.37f, -0.86f, 0.7, 1.777f, "img/credits.png");
 
 		Util::AdvertisementSystem as;
@@ -26,17 +40,5 @@ namespace States {
 		menu = menuBuilder.buildMenu();
 		Renderer::Graphics::RenderDevice* renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
 		renderDevice->setClearColour(1.f, 1.f, 1.f, 1.f);
-	}
-
-	void CreditsState::onUpdate(Context & context)
-	{
-		Renderer::Graphics::RenderDevice* renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
-		renderDevice->clearScreen();
-		menuRenderer.renderMenu(*menu, context.window->width, context.window->height);
-		context.window->swapScreen();
-
-		if (menu->handleInput(*context.inputManager, context.window->width, context.window->height)) {
-			return;
-		}
 	}
 }

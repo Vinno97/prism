@@ -21,9 +21,7 @@ namespace ECS {
 			// 1 unit/second^2
 			//double acceleration = 10;
 			double acceleration = 15;
-
 			auto input = context.inputManager;
-			
 			float dirX = 0;
 			float dirY = 0;
 
@@ -45,18 +43,6 @@ namespace ECS {
 				if (input->isKeyPressed(Key::KEY_D))
 				{
 					dirX += acceleration;
-				}
-
-				if (entityManager->hasComponent<AppearanceComponent>(entity.id)) {
-					auto appearance = entityManager->getComponent<AppearanceComponent>(entity.id);
-					if (input->isKeyPressed(Key::KEY_Q))
-					{
-						appearance->rotationY -= context.deltaTime * 50;
-					}
-					if (input->isKeyPressed(Key::KEY_E))
-					{
-						appearance->rotationY += context.deltaTime * 50;
-					}
 				}
 				
 				Math::Vector3f v = Math::Vector3f(dirX, dirY, 0);
