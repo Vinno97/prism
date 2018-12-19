@@ -6,6 +6,7 @@
 #include "States/PauseState.h"
 #include "States/EndState.h"
 #include "ECS/Components/SceneComponent.h"
+#include "ECS/Components/EnemyComponent.h"
 #include "ECS/Components/PlayerComponent.h"
 #include "ECS/Components/ScoreComponent.h"
 #include "ECS/Components/HealthComponent.h"
@@ -36,7 +37,10 @@
 #include "ECS/Systems/SetCurrentBuildSystem.h"
 #include "ECS/Systems/MoveCurrentBuildSystem.h"
 #include "ECS/Systems/PlaceCurrentBuildSystem.h"
-
+#include <iostream>
+#include <sstream>
+#include <iterator>
+#include <fstream>
 
 namespace States {
 	using namespace ECS;
@@ -153,6 +157,25 @@ namespace States {
 
 		float sizeHealth = ((float)playerHealth * 0.006);
 		healthImage->size = Math::Vector3f{ sizeHealth, 0.1, 0};
+		std::fstream file;
+		file.open("res/saves/scores.txt");
+		if (file.is_open()) {
+			int num;
+			while (file >> num)
+			{
+				if (totalScore >= num && num != 0) {
+					this->suspense_not_playing = false;
+					context.audioManager->playMusic("AmbienceSuspense");
+				}
+				break;
+			}
+		}
+
+		if (time > 120 && suspense_not_playing) {
+			context.audioManager->playMusic("AmbienceTime");
+		}
+
+	
 		score->text = "Score: " + std::to_string(totalScore);
 		menuRenderer.renderMenu(*menu, context.window->width, context.window->height);
 		context.window->swapScreen();
@@ -174,6 +197,9 @@ namespace States {
 	void PrismGame::loadAudio(Context &context) const
 	{
 		context.audioManager->addMusic("Ambience", "Ambience.wav");
+		context.audioManager->addMusic("AmbienceSuspense", "Ambience_Suspense.wav");
+		context.audioManager->addMusic("AmbienceTime", "Ambience_Time.wav");
+		context.audioManager->addMusic("MainMenu", "MainMenu.wav");
 		context.audioManager->addSound("Bullet", "Bullet.wav");
 		context.audioManager->addSound("EnemyKill", "EnemyKill.wav");
 		context.audioManager->addSound("Resource", "ResourceGathering.wav");
