@@ -2,7 +2,7 @@
 #include "Renderer/Graphics/OpenGL/OGLRenderDevice.h"
 
 namespace Menu {
-	bool Menu::handleInput(InputManager& input, int w, int h, Context context)
+	bool Menu::handleInput(InputManager& input, int w, int h, Context& context)
 	{
 		std::vector<int> pos = input.GetMousePoisiton();
 

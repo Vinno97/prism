@@ -22,19 +22,19 @@ namespace Menu {
 		void addControl(float x, float y, float width, float height, const char *path);
 		void addControl(float x, float y, float width, float height, const char *path, std::function<void()> callback_);
 		void addControl(float x, float y, float width, float height, const char *path,
-			std::function<void(Control* control, Context context)> hoverCallback_,
-			std::function<void(Control* control, Context context)> leaveCallback_);
+			std::function<void(Control* control, Context& context)> hoverCallback_,
+			std::function<void(Control* control, Context& context)> leaveCallback_);
 		void addControl(float x, float y, float width, float height, const char *path, 
 			std::function<void()> callback_, 
-			std::function<void(Control* control, Context context)> hoverCallback_,
-			std::function<void(Control* control, Context context)> leaveCallback_);
+			std::function<void(Control* control, Context& context)> hoverCallback_,
+			std::function<void(Control* control, Context& context)> leaveCallback_);
 
 		std::unique_ptr<Menu> buildMenu();
 	private:
 		void initMesh();
 
-		std::function<void(Control* control, Context context)> hoverCallback = [](Control* control, Context context) { control->offset.y -= 0.01; };
-		std::function<void(Control* control, Context context)> leaveCallback = [](Control* control, Context context) { control->offset.y += 0.01; };
+		std::function<void(Control* control, Context& context)> hoverCallback = [](Control* control, Context& context) { control->offset.y -= 0.01; };
+		std::function<void(Control* control, Context& context)> leaveCallback = [](Control* control, Context& context) { control->offset.y += 0.01; };
 		std::function<void()> callback = [&]() {};
 
 		Renderer::Graphics::RenderDevice* renderDevice;

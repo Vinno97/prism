@@ -85,8 +85,8 @@ namespace Menu {
 	}
 
 	void MenuBuilder::addControl(float x, float y, float width, float height, const char * path, 
-		std::function<void(Control* control, Context context)> hoverCallback_, 
-		std::function<void(Control* control, Context context)> leaveCallback_)
+		std::function<void(Control* control, Context& context)> hoverCallback_, 
+		std::function<void(Control* control, Context& context)> leaveCallback_)
 	{
 		std::unique_ptr<Control> control = std::make_unique<Control>( x, y, width, height, path, hoverCallback_, leaveCallback_ );
 		Model model = Model{ mesh };
@@ -95,8 +95,8 @@ namespace Menu {
 
 	void MenuBuilder::addControl(float x, float y, float width, float height, const char * path, 
 		std::function<void()> callback_, 
-		std::function<void(Control* control, Context context)> hoverCallback_,
-		std::function<void(Control* control, Context context)> leaveCallback_)
+		std::function<void(Control* control, Context& context)> hoverCallback_,
+		std::function<void(Control* control, Context& context)> leaveCallback_)
 	{
 		std::unique_ptr<Control> control = std::make_unique<Control>( x, y, width, height, path, callback_, hoverCallback_, leaveCallback_ );
 		Model model = Model{ mesh };
