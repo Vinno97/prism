@@ -54,10 +54,7 @@ namespace States {
 			context.stateMachine->setState<HighScoreState>();
 		};
 		std::function<void()> quitCallback = [&]() {
-			if (exitBool) {
-				exit(0);
-			}
-			exitBool = true;
+			exit(0);
 		};
 
 		const float aspect = float(context.window->width) / float(context.window->height);
