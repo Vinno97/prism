@@ -3,6 +3,8 @@
 #include "Context.h"
 #include "ECS/Systems/System.h"
 
+
+
 namespace ECS {
 	namespace Systems {
 		class KeyboardInputSystem : public System
@@ -10,8 +12,7 @@ namespace ECS {
 		public:
 			KeyboardInputSystem(EntityManager &entityManager);
 			~KeyboardInputSystem();
-			void update(Context context) override;
-			System* clone() override;
+			void update(Context& context) override;
 		};
 	}
 }

@@ -2,8 +2,8 @@
 
 #include "ECS/Systems/System.h"
 #include "Renderer/ForwardRenderer.h"
+#include "Math/Vector3f.h"
 
-//using namespace Renderer;
 namespace ECS {
 	namespace Systems {
 		class RenderSystem : public System
@@ -11,11 +11,10 @@ namespace ECS {
 		public:
 			RenderSystem(EntityManager &entityManager, int windowWidth, int windowHeight);
 			~RenderSystem();
-			void update(Context context) override;
-			System* clone() override;
+			void update(Context& context) override;
 		private:
 			std::shared_ptr<Renderer::ForwardRenderer> forwardRenderer;
-			Renderer::Camera camera;
+			Math::Vector3f pos{ -45.f, 3.5f, -15 };
 		};
 
 

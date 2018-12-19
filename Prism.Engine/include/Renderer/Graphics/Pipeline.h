@@ -5,7 +5,7 @@ namespace Renderer {
 		class Pipeline
 		{
 		public:
-			Pipeline() {};
+			Pipeline()=default;
 
 			/// <summary>
 			/// Start this pipeline
@@ -31,6 +31,11 @@ namespace Renderer {
 			/// Set the uniform to a specific vector
 			/// </summary> 
 			virtual bool setUniformVector(const char* name, float x, float y, float z) = 0;
+
+			/// <summary>
+			/// Set the uniform to a specific integer
+			/// </summary> 
+			virtual bool setUniformInt(const char* name, int value) = 0;
 
 			/// <summary>
 			/// Set the uniform to a specific float 

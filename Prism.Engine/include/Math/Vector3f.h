@@ -8,9 +8,15 @@ namespace Math {
 
 		Vector3f add(const Vector3f& vector);
 		Vector3f substract(const Vector3f& vector);
+		//Vector3f normalize(const Vector3f& vector);
 
 		Vector3f operator+(const Vector3f other);
 		Vector3f operator-(const Vector3f other);
+		Vector3f operator*(const float scale);
+
+		Vector3f normalize();
+		Vector3f invert();
+
 
 		float x;
 		float y;

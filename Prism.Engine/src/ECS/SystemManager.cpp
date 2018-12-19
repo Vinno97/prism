@@ -1,4 +1,3 @@
-#pragma once
 #include "ECS/SystemManager.h"
 #include <map>
 
@@ -12,54 +11,22 @@ namespace ECS {
 
 	SystemManager::~SystemManager()
 	{
-		for (const auto type : systems) {
-			delete type.second;
-		}
-	}
-
-	SystemManager::SystemManager(const SystemManager & other)
-	{
-		for (const auto type : other.systems) {
-			this->systems[type.first] = type.second->clone();
-			type.first;
-		};
-
 		
-		//this->systems.insert(other.systems.begin(), other.systems.end());
 	}
 
-	SystemManager & SystemManager::operator=(const SystemManager & other)
+	std::map<int, std::map<std::type_index, std::unique_ptr<System>>>& SystemManager::getAllSystems()
 	{
-		if (this != &other) {
-			for (const auto type : other.systems) {
-				this->systems[type.first] = type.second->clone();
-				type.first;
-			};
-		}
-		return *this;
-	}
-
-	SystemManager::SystemManager(SystemManager && other)
-	{
-		this->systems = other.systems;
-		other.systems.clear();
-	}
-
-	SystemManager & SystemManager::operator=(SystemManager && other)
-	{
-		if (this != &other) {
-			this->systems = other.systems;
-			other.systems.clear();
-		}
-		return *this;
+		return prioritizedSystems;
 	}
 
 	void SystemManager::unRegisterSystem(std::type_index systemType)
 	{
 		try
 		{
-			delete systems.at(systemType);
-			systems.erase(systemType);
+			for (auto& systems : prioritizedSystems) {
+				systems.second.erase(systemType);
+			}
+
 		}
 		catch (const std::out_of_range&)
 		{
@@ -67,15 +34,15 @@ namespace ECS {
 		}
 	}
 
-	void SystemManager::registerSystem(std::type_index systemType, ECS::Systems::System* system)
-	{
-	}
 
-	ECS::Systems::System * SystemManager::getSystem(std::type_index systemType) const
+	System* SystemManager::getSystem(std::type_index systemType) const
 	{
 		try
 		{
-			return systems.at(systemType);
+			for (auto& systems : prioritizedSystems) {
+				return systems.second.at(systemType).get();
+			}
+
 		}
 		catch (const std::out_of_range&)
 		{

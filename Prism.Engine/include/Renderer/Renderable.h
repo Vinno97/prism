@@ -1,9 +1,11 @@
 #pragma once
 #include <glm/glm.hpp>
 #include <tuple>
+#include <map>
+#include "Renderer/Animation.h"
+#include "Math/Vector3f.h"
 #include "Renderer/Graphics/Models/Model.h"
-
-using namespace Renderer::Graphics::Models;
+#include <functional>
 
 class Renderable
 {
@@ -15,9 +17,12 @@ public:
 	glm::mat4 getMatrix() const;
 	~Renderable();
 
-	Model* model;
-	tuple<float, float, float> position;
-	tuple<float, float, float> rotation;
-	tuple<float, float, float> scale;
+	Renderer::Graphics::Models::Model* model;
+	std::tuple<float, float, float> position;
+	std::tuple<float, float, float> rotation;
+	std::tuple<float, float, float> scale;
+	Math::Vector3f color;
+
+	std::map<Renderer::Animation, std::tuple<float, bool>> currentAnimations;
 };
 

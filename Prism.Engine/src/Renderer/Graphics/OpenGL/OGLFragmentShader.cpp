@@ -1,15 +1,15 @@
-#pragma once;
-#include <gl/glew.h>
+#include <GL/glew.h>
 #include <SDL2/SDL_opengl.h>
 #include <iostream> 
 #include <string>
-#include "Renderer/Graphics/openGL/OGLFragmentShader.h"
+#include "Renderer/Graphics/OpenGL/OGLFragmentShader.h"
 
 using namespace Renderer::Graphics;
 
 namespace Renderer {
 	namespace Graphics {
 		namespace OpenGL {
+
 			OGLFragmentShader::OGLFragmentShader(const char* source)
 			{
 				fragmentID = glCreateShader(GL_FRAGMENT_SHADER);
@@ -38,6 +38,7 @@ namespace Renderer {
 					throw std::runtime_error("Fragment shader does not compile");
 				}
 			}
+
 			//QQQ Delete shader
 			OGLFragmentShader::~OGLFragmentShader()
 			{

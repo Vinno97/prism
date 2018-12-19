@@ -10,7 +10,7 @@ namespace Renderer {
 			class OGLVertexArrayObject : public VertexArrayObject {
 			public:
 				OGLVertexArrayObject();
-				void addVertexBuffer(std::unique_ptr<VertexBuffer> vertexBuffer, int index, long long size, int start, int stride) override;
+				void addVertexBuffer(VertexBuffer* vertexBuffer, int index, long long size, int start, int stride) override;
 				void bind() override;
 				void unbind() override;
 				~OGLVertexArrayObject();

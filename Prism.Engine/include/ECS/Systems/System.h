@@ -1,8 +1,8 @@
 #pragma once
 
+#include <memory>
 #include "ECS/EntityManager.h"
 #include "Context.h"
-#include "ECS/EntityManager.h"
 
 namespace ECS {
 	namespace Systems {
@@ -13,10 +13,9 @@ namespace ECS {
 		class System
 		{
 		public:
-			System(EntityManager& entityManager);
-			virtual ~System();
-			virtual void update(Context context) = 0;
-			virtual System* clone() = 0;
+			explicit System(EntityManager& entityManager_);
+			virtual ~System() = 0;
+			virtual void update(Context& context) = 0;
 
 		protected:
 			EntityManager *entityManager;

@@ -1,20 +1,25 @@
 #include "State.h"
 
-State::State()
-= default;
-
-State::~State()
-= default;
-
-void State::onInit(Context &context)
-{
+void State::init(Context &context) {
+    onInit(context);
+    isInitialized_ = true;
 }
 
-void State::onEnter()
-{
+void State::enter(Context &context) {
+    onEnter(context);
+    isActive_ = true;
 }
 
-void State::onLeave()
-{
+void State::update(Context &context) {
+    onUpdate(context);
 }
 
+void State::leave(Context &context) {
+    onLeave(context);
+    isActive_ = false;
+}
+
+void State::destroy(Context &context) {
+    onDestroy(context);
+    isDestroyed_ = true;
+}

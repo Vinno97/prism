@@ -1,4 +1,3 @@
-#pragma once
 #include <glm/glm.hpp>
 #include "Renderer/Graphics/OpenGL/OGLVertexBuffer.h"
 #include "Renderer/Graphics/VertexArrayObject.h"
@@ -16,6 +15,12 @@ namespace Renderer {
 			Mesh::Mesh(unique_ptr<VertexArrayObject> vertexArrayObject, unique_ptr<IndexBuffer> indexBuffer) {
 				this->vertexArrayObject = move(vertexArrayObject);
 				this->indexBuffer = move(indexBuffer);
+				isIndiced = true;
+			}
+
+			Mesh::Mesh(unique_ptr<VertexArrayObject> vertexArrayObject)
+			{
+				this->vertexArrayObject = move(vertexArrayObject);
 			}
 		}
 	}

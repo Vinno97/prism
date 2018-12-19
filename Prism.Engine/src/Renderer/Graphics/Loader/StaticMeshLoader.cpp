@@ -1,5 +1,3 @@
-#pragma once
-
 #include "Renderer/Graphics/Loader/StaticMeshLoader.h"
 #include "Renderer/Graphics/OpenGL/OGLRenderDevice.h"
 #include "Renderer/Graphics/Models/Mesh.h"
@@ -30,8 +28,12 @@ namespace Renderer {
 			/// <param name="path">The file path</param>
 			/// <param name="renderDevice">The RenderDevice</param>
 			/// <returns>shared_ptr<Mesh></returns>
-			shared_ptr<Mesh> StaticMeshLoader::loadMesh(string path)
+			shared_ptr<Mesh> StaticMeshLoader::loadMesh(string path) const
 			{
+				auto existingMesh = loadedMeshes.find(path);
+				if (existingMesh != loadedMeshes.end())
+					return existingMesh->second;
+
 				Assimp::Importer importer;
 
 				// Import scene pointer from given path.
@@ -42,12 +44,10 @@ namespace Renderer {
 					auto error = importer.GetErrorString();
 
 					cout << "ERROR::ASSIMP::" << error << endl;
-					throw exception("Assimp mesh loading.");
+					throw std::runtime_error("Assimp mesh loading.");
 				}
 
 				// Get the first mesh of the scene.  
-				// Needs function to handle all meshes from the scene.
-				// TODO: Function to handle more meshes from a model.
 				aiMesh* mesh = scene->mMeshes[0];
 
 				vector<float> vertices;
@@ -56,7 +56,7 @@ namespace Renderer {
 				if (!mesh)
 				{
 					cout << "No meshes found." << endl;
-					throw exception("Assimp mesh loading.");
+					throw std::runtime_error("Assimp mesh loading.");
 				}
 
 				// iterate over the mesh's vertices and push the 3d coordinates into the vector.
@@ -72,11 +72,10 @@ namespace Renderer {
 
 				unique_ptr<VertexArrayObject> vertexArrayObject = renderDevice->createVertexArrayobject();
 
-
 				if (!vertexArrayObject)
 				{
 					cout << "Renderdevice could not create VAO. No Vertex Array Object found." << endl;
-					throw exception("Assimp mesh loading.");
+					throw std::runtime_error("Assimp mesh loading.");
 				}
 
 				// Get the size of the vertices to provide the VertexBuffer with the right data.
@@ -87,10 +86,10 @@ namespace Renderer {
 				if (!vertexBuffer)
 				{
 					cout << "Renderdevice could not create Vertex Buffer. No Vertex Buffer found." << endl;
-					throw exception("Assimp mesh loading.");
+					throw std::runtime_error("Assimp mesh loading.");
 				}
 
-				vertexArrayObject->addVertexBuffer(move(vertexBuffer), 0, 3 * sizeof(float), 0, 3);
+				vertexArrayObject->addVertexBuffer(vertexBuffer.get(), 0, 3 * sizeof(float), 0, 3);
 
 
 				//Load normals
@@ -110,10 +109,10 @@ namespace Renderer {
 				if (!normalBuffer)
 				{
 					cout << "Renderdevice could not create Vertex Buffer. No Vertex Buffer found." << endl;
-					throw exception("Assimp mesh loading.");
+					throw std::runtime_error("Assimp mesh loading.");
 				}
 
-				vertexArrayObject->addVertexBuffer(move(normalBuffer), 1, 3 * sizeof(float), 0, 3);
+				vertexArrayObject->addVertexBuffer(normalBuffer.get(), 1, 3 * sizeof(float), 0, 3);
 
 
 				/*
@@ -139,7 +138,7 @@ namespace Renderer {
 				if (!indexBuffer)
 				{
 					cout << "Renderdevice could not create IndexBuffer. No Index Buffer found." << endl;
-					throw exception("Assimp mesh loading.");
+					throw std::runtime_error("Assimp mesh loading.");
 				}
 
 				// Vertex Array Object gets unbind for it is no longer needed.
@@ -148,12 +147,14 @@ namespace Renderer {
 				// Combine all into a mesh.
 				shared_ptr<Mesh> combinedMesh = make_shared<Mesh>(move(vertexArrayObject), move(indexBuffer));
 				combinedMesh->indicesLength = indices.size();
-
+				combinedMesh->isIndiced = true;
 				if (!combinedMesh)
 				{
 					cout << "Mesh creation failed. No mesh found." << endl;
-					throw exception("Assimp mesh loading.");
+					throw std::runtime_error("Assimp mesh loading.");
 				}
+
+				loadedMeshes.insert(std::pair<std::string, std::shared_ptr<Mesh>>(path, combinedMesh));
 
 				return combinedMesh;
 			}

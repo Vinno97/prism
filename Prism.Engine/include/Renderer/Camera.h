@@ -4,9 +4,6 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <tuple>
 
-using namespace std;
-using namespace glm;
-
 namespace Renderer {
 	class Camera
 	{
@@ -15,20 +12,20 @@ namespace Renderer {
 		/// <summary>
 		/// Returns a 4f matrix with the camera transformation
 		/// </summary>
-		mat4 getCameraMatrix() const;
+		glm::mat4 getCameraMatrix() const;
 		
 		/// <summary>
 		/// Translates the camera by the values given
 		/// </summary>
-		void move(float x, float y, float z);
+		void move(const float x, const float y, const float z);
 
 		/// <summary>
 		/// Translates the camera by the values given
 		/// </summary>
-		void rotate(float x, float y, float z);
+		void moveTarget(const float x, const float y, const float z);
+
+		glm::vec3 position;
+		glm::vec3 target;
 		~Camera();
-	private:
-		vec3 position;
-		vec3 rotation;
 	};
 }
