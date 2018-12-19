@@ -15,6 +15,7 @@
 #include "Renderer/Graphics/OpenGL/OGLRenderDevice.h"
 #include "Renderer/Graphics/OpenGL/OGLVertexShader.h"
 #include "Renderer/Graphics/OpenGL/OGLPipeline.h"
+#include "Variables.h"
 
 namespace States {
 	using namespace ECS;
@@ -34,7 +35,7 @@ namespace States {
 			context.stateMachine->setState<PrismGame>(context);
 		};
 
-		menuBuilder.addControl(-0.5, 0.5, 1, 0.24, "img/gameover.png");
+		menuBuilder.addControl(-0.5, 0.5, 1, 0.24, Variables::Resources::Sprites::GAME_OVER);
 		menuBuilder.addControl(-0.45, -0.10, 0.005, 0.47, "img/score_bar.png");
 		menuBuilder.addControl(0, -0.6, 0.7, 0.18, "img/mainMenuButton.png", callbackMainMenu);
 		menuBuilder.addControl(-0.7, -0.6, 0.7, 0.18, "img/restart.png", callBackRestart);
