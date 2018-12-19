@@ -69,6 +69,8 @@ namespace States {
 
         void loadAudio(Context &context) const;
 
+		int currentHighscore;
+
         int Fps(Context &context);
     };
 }

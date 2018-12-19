@@ -36,6 +36,7 @@
 #include "ECS/Systems/SetCurrentBuildSystem.h"
 #include "ECS/Systems/MoveCurrentBuildSystem.h"
 #include "ECS/Systems/PlaceCurrentBuildSystem.h"
+
 #include <iostream>
 #include <sstream>
 #include <iterator>
@@ -74,6 +75,21 @@ namespace States {
 		if (!context.stateMachine->hasState<EndState>()) {
 			context.stateMachine->addState<EndState>();
 		}
+
+
+		// Set highscore
+		std::fstream file;
+		file.open("res/saves/scores.txt");
+
+
+		if (file.is_open())
+		{
+			std::string sLine;
+			getline(file, sLine);
+			currentHighscore = std::stoi(sLine);
+		}
+		file.close();
+
 
 		health = menuBuilder.addTextControl(-0.95, 0.89, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "");
 		resourceImage = menuBuilder.addImage(-0.97, 0.55, 0, 0, "img/resources.png");
@@ -153,18 +169,11 @@ namespace States {
 
 		float sizeHealth = ((float)playerHealth * 0.006);
 		healthImage->size = Math::Vector3f{ sizeHealth, 0.1, 0};
-		std::fstream file;
-		file.open("res/saves/scores.txt");
-		if (file.is_open()) {
-			int num;
-			while (file >> num)
-			{
-				if (totalScore >= num && num != 0) {
-					this->suspense_not_playing = false;
-					context.audioManager->playMusic("AmbienceSuspense");
-				}
-				break;
-			}
+
+		// Check if totalScore is >= 
+		if (totalScore >= currentHighscore && currentHighscore != 0) {
+			this->suspense_not_playing = false;
+			context.audioManager->playMusic("AmbienceSuspense");
 		}
 
 		if (time > 120 && suspense_not_playing) {
