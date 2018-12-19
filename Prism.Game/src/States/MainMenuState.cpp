@@ -66,6 +66,7 @@ namespace States {
 		auto y = .7f;
 		auto s = MENU_MARGIN + MENU_HEIGHT;
 
+		menuBuilder.addControl(-0.5f, y -= s, 1, 0.24, Sprites::MainMenu::LOGO);
 		menuBuilder.addControl(-0.35f, y -= s, MENU_WIDTH, btnHeight, Sprites::MainMenu::NEW_GAME, callback);
 		menuBuilder.addControl(-0.35f, y -= s, MENU_WIDTH, btnHeight, Sprites::MainMenu::LOAD_SAVE, loadCallback);
 		menuBuilder.addControl(-0.35f, y -= s, MENU_WIDTH, btnHeight, Sprites::MainMenu::CREDITS, creditsCallback);
