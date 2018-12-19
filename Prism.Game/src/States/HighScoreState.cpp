@@ -1,4 +1,4 @@
-#include <iostream>
+	#include <iostream>
 #include <fstream>
 #include "States/HighScoreState.h"
 #include "StateMachine.h";
@@ -84,7 +84,7 @@ namespace States {
 			if (count == 6) {
 				break;
 			}
-			menuBuilder.addControl(-0.35, test, 0.6, 0.18, "img/scoreBackground.png");
+			menuBuilder.addControl(-0.35, test, 0.6, 0.18, "img/highScoreBackground.png");
 			menuBuilder.addTextControl(-0.25, test + 0.05, 0.0013, Math::Vector3f{ 1.0f, 1.0f, 1.0f }, std::to_string(count) + ": " + std::to_string(value));
 			count++;
 			test -= 0.2;
