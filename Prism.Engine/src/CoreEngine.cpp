@@ -75,7 +75,7 @@ void CoreEngine::Run()
 		lastTime = startTime;
 		//Sets the right values in context
 		context.deltaTime = deltaTime.count() / 1000000.f;
-		context.stateMachine->getCurrentState()->update(context);
+		currentState->update(context);
 	}
 }
 

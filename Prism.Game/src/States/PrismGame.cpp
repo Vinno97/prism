@@ -70,10 +70,10 @@ namespace States {
 		registerSystems(context);
 		
 		if (!context.stateMachine->hasState<PauseState>()) {
-			context.stateMachine->addState<PauseState>(context);
+			context.stateMachine->addState<PauseState>();
 		}
 		if (!context.stateMachine->hasState<EndState>()) {
-			context.stateMachine->addState<EndState>(context);
+			context.stateMachine->addState<EndState>();
 		}
 
 		health = menuBuilder.addTextControl(-0.95, 0.89, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "");
@@ -86,7 +86,7 @@ namespace States {
 		score = menuBuilder.addTextControl(-0.98, -0.95, 0.001, Math::Vector3f{ 0.1f, 0.1f, 0.1f }, "0");
 		menu = menuBuilder.buildMenu();
 
-		std::function<void()> callback = [context, &canPress = canPressEscape]() mutable { canPress = false; context.stateMachine->setState<PauseState>(context); };
+		std::function<void()> callback = [context, &canPress = canPressEscape]() mutable { canPress = false; context.stateMachine->setState<PauseState>(); };
 	}
 
 	/// <summary>
@@ -184,7 +184,7 @@ namespace States {
 
 		if (input->isKeyPressed(Key::KEY_ESCAPE) && canPressEscape) {
 			canPressEscape = false;
-			context.stateMachine->setState<PauseState>(context);
+			context.stateMachine->setState<PauseState>();
 		}
 		changeTextColorNM();
 		toggleFPS(context);

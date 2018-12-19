@@ -29,7 +29,7 @@ namespace States {
 			menuBuilder = Menu::MenuBuilder();
 		}
 		
-		std::function<void()> callback = [&context]() { context.stateMachine->setState<MainMenuState>(context); };
+		std::function<void()> callback = [&context]() { context.stateMachine->setState<MainMenuState>(); };
 		menuBuilder.addControl(-0.9f, 0.8, 0.3, 0.1, "img/Back.png", callback);
 		menuBuilder.addControl(-0.37f, -0.86f, 0.7, 1.777f, "img/credits.png");
 

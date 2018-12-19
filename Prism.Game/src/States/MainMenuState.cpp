@@ -26,32 +26,32 @@ namespace States {
 
 	void MainMenuState::onInit(Context &context) {
 		loadMusic(context);
-		context.stateMachine->addState<CreditsState>(context);
-		context.stateMachine->addState<ResolutionMenuState>(context);
-		context.stateMachine->addState<HelpState>(context);
-		context.stateMachine->addState<HighScoreState>(context);
+		context.stateMachine->addState<CreditsState>();
+		context.stateMachine->addState<ResolutionMenuState>();
+		context.stateMachine->addState<HelpState>();
+		context.stateMachine->addState<HighScoreState>();
 
 		std::function<void()> callback = [&context]() {
 			if (!context.stateMachine->hasState<LevelSelectionState>()) {
-				context.stateMachine->addState<LevelSelectionState>(context);
+				context.stateMachine->addState<LevelSelectionState>();
 			}
-			context.stateMachine->setState<LevelSelectionState>(context);
+			context.stateMachine->setState<LevelSelectionState>();
 		};
 
 		std::function<void()> loadCallback = [&context]() {
 			if (!context.stateMachine->hasState<SaveSelectionState>()) {
-				context.stateMachine->addState<SaveSelectionState>(context);
+				context.stateMachine->addState<SaveSelectionState>();
 			}
-			context.stateMachine->setState<SaveSelectionState>(context);
+			context.stateMachine->setState<SaveSelectionState>();
 		};
 
-		std::function<void()> creditsCallback = [&context]() { context.stateMachine->setState<CreditsState>(context); };
+		std::function<void()> creditsCallback = [&context]() { context.stateMachine->setState<CreditsState>(); };
 		std::function<void()> settingsCallback = [&context]() {
-			context.stateMachine->setState<ResolutionMenuState>(context);
+			context.stateMachine->setState<ResolutionMenuState>();
 		};
-		std::function<void()> helpCallback = [&]() { context.stateMachine->setState<HelpState>(context); };
+		std::function<void()> helpCallback = [&]() { context.stateMachine->setState<HelpState>(); };
 		std::function<void()> highscoreCallback = [&context]() {
-			context.stateMachine->setState<HighScoreState>(context);
+			context.stateMachine->setState<HighScoreState>();
 		};
 		std::function<void()> quitCallback = [&]() {
 			if (exitBool) {

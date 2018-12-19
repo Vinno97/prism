@@ -21,10 +21,10 @@ public:
 	/// Set currentSate
 	/// </summary>
 	template<class T, typename = std::enable_if_t < std::is_base_of<State, T>::type::value>>
-	void setState(Context &context)
+	void setState()
 	{
 		const std::type_index type{ std::type_index(typeid(T)) };
-		setState(type, context);
+        this->currentState = getState(type);
 	}
 
 	/// <summary>
@@ -52,7 +52,7 @@ public:
 	///<param name="fs">Constructor parameters for State</param>
 
 	template<typename T, typename...Fs, typename = std::enable_if_t < std::is_base_of<State, T>::type::value>>
-	void addState(Context & context, Fs&&... fs )
+	void addState(Fs&&... fs )
 	{
 		const std::type_index type{ std::type_index(typeid(T)) };
 
@@ -100,8 +100,6 @@ private:
 	std::map<std::type_index, std::unique_ptr<State>> existingStates;
 
 	std::vector<std::unique_ptr<State>> eolQueue;
-
-	void setState(std::type_index type, Context &context);
 
 	State* getState(std::type_index type) const;
 	bool hasState(std::type_index type) const;

@@ -11,7 +11,7 @@ namespace States {
 	void PauseState::onInit(Context & context)
 	{
 		std::function<void()> callbackEndstate = [&context]() { 
-			context.stateMachine->setState<EndState>(context);			
+			context.stateMachine->setState<EndState>();
 		};
 
 		menuBuilder.addControl(-0.5, 0, 1, 0.21, "img/pause.png");
@@ -28,7 +28,7 @@ namespace States {
 		auto input = context.inputManager;
 		if (input->isKeyPressed(Key::KEY_ESCAPE) && canPressEscape) {
 			canPressEscape = false;
-			context.stateMachine->setState<PrismGame>(context);
+			context.stateMachine->setState<PrismGame>();
 		}
 
 		if (!input->isKeyPressed(Key::KEY_ESCAPE)) {

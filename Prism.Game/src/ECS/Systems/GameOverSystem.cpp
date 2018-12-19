@@ -60,7 +60,7 @@ namespace ECS {
 
 				if (healthComponent->currentHealth <= 0) {
 					context.audioManager->stopSound();
-					context.stateMachine->setState<EndState>(context);
+					context.stateMachine->setState<EndState>();
 				}
 			}
 		}
