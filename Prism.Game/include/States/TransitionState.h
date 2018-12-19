@@ -31,7 +31,7 @@ namespace States {
 				menuBuilder = Menu::MenuBuilder();
 			}
 
-			menuBuilder.addControl(-0.9f, 0.8, 0.3, 0.1, "img/Back.png");
+			menuBuilder.addControl(-0.5, 0.5, 1, 0.24, "img/loading.png");
 			menu = menuBuilder.buildMenu();
 			Renderer::Graphics::RenderDevice* renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
 			renderDevice->clearScreen();
