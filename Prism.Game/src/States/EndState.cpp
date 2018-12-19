@@ -37,10 +37,10 @@ namespace States {
             context.stateMachine->setState<TransitionState<PrismGame>>();
         };
 
-        menuBuilder.addControl(-0.5, 0.5, 1, 0.24, Variables::Resources::Sprites::GAME_OVER);
-        menuBuilder.addControl(-0.45, -0.10, 0.005, 0.47, "img/score_bar.png");
-        menuBuilder.addControl(0, -0.6, 0.7, 0.18, "img/mainMenuButton.png", callbackMainMenu);
-        menuBuilder.addControl(-0.7, -0.6, 0.7, 0.18, "img/restart.png", callBackRestart);
+		menuBuilder.addControl(-0.5f, 0.5, 1, 0.24, Variables::Resources::Sprites::GAME_OVER);
+		menuBuilder.addControl(-0.45, -0.10, 0.005, 0.47, "img/score_bar.png");
+		menuBuilder.addControl(0, -0.6, 0.7, 0.18, "img/mainMenuButton.png", callbackMainMenu);
+		menuBuilder.addControl(-0.7, -0.6, 0.7, 0.18, "img/restart.png", callBackRestart);
 
         statsLabel = menuBuilder.addTextControl(-0.4, 0.32, 0.0013, Math::Vector3f{0.1f, 0.1f, 0.1f}, "Score:");
         survivedTimeLabel = menuBuilder.addTextControl(-0.4, 0.25, 0.0013, Math::Vector3f{0.1f, 0.1f, 0.1f},
