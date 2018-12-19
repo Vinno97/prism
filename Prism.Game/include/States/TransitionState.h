@@ -21,7 +21,7 @@ namespace States {
 			context.window->swapScreen();
 
 			auto input = context.inputManager;
-			if (menu->handleInput(*context.inputManager, context.window->width, context.window->height, context)) {
+			if (menu->handleInput(context)) {
 				return;
 			}
 		}
@@ -41,7 +41,7 @@ namespace States {
 			context.window->swapScreen();
 
 			auto input = context.inputManager;
-			if (menu->handleInput(*context.inputManager, context.window->width, context.window->height, context)) {
+			if (menu->handleInput(context)) {
 				return;
 			}
 
