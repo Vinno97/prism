@@ -30,9 +30,9 @@ namespace States {
 		float aspect = context.window->width / context.window->height;
 
 		menuBuilder.addControl(-0.5, 0, 1, 0.21*aspect, "img/pause.png");
-		menuBuilder.addControl(-0.35, -0.7, 0.7, 0.18*aspect, "img/QuitGameButton.png", callbackEndstate);
-		menuBuilder.addControl(-0.35, -0.45, 0.7, 0.18*aspect, "img/resume.png", callbackResumestate);
-		menuBuilder.addControl(-0.35, -0.95, 0.7, 0.18*aspect, "img/ToHelp.png", callbackHelpstate);
+		menuBuilder.addControl(-0.35, -0.45, 0.7, 0.18*aspect, "img/ToHelp.png", callbackHelpstate);
+		menuBuilder.addControl(-0.35, -0.7, 0.7, 0.18*aspect, "img/resume.png", callbackResumestate);
+		menuBuilder.addControl(-0.35, -0.95, 0.7, 0.18*aspect, "img/QuitGameButton.png", callbackEndstate);
 
 		menu = menuBuilder.buildMenu();
 		Renderer::Graphics::RenderDevice* renderDevice = Renderer::Graphics::OpenGL::OGLRenderDevice::getRenderDevice();
