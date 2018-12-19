@@ -175,7 +175,7 @@ namespace States {
 			context.audioManager->playMusic("AmbienceTime");
 		}
 
-
+	
 		score->text = "Score: " + std::to_string(totalScore);
 		menuRenderer.renderMenu(*menu, context.window->width, context.window->height);
 		context.window->swapScreen();
