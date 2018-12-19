@@ -106,7 +106,6 @@ namespace States {
 					if (readableLevelName.size() > 11)
 						readableLevelName = readableLevelName.substr(0, 9) + "...";
 
-					menuBuilder.addControl(x, y, width, height, levelSlotFilled);
 					menuBuilder.addTextControl(x + .02f, y + height / 2, 0.001, buttonTextColor,
 					                           readableLevelName);
 				} else {
