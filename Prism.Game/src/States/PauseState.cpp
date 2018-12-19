@@ -39,7 +39,7 @@ namespace States {
 			canPressEscape = true;
 		}
 
-		if (menu->handleInput(*context.inputManager, context.window->width, context.window->height)) {
+		if (menu->handleInput(*context.inputManager, context.window->width, context.window->height, context)) {
 			canPressEscape = false;
 			return;
 		}

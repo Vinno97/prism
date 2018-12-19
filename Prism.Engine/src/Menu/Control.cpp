@@ -49,8 +49,8 @@ namespace Menu {
 	}
 
 	Control::Control(float x, float y, float width, float height, const char * path,
-		std::function<void(Math::Vector3f&position, Math::Vector3f&size)> hoverCallback_,
-		std::function<void(Math::Vector3f&position, Math::Vector3f&size)> leaveCallback_) : Control(x, y, width, height, path)
+		std::function<void(Control* control, Context context)> hoverCallback_,
+		std::function<void(Control* control, Context context)> leaveCallback_) : Control(x, y, width, height, path)
 	{
 		leaveCallback = leaveCallback_;
 		hoverCallback = hoverCallback_;
@@ -58,8 +58,8 @@ namespace Menu {
 
 	Control::Control(float x, float y, float width, float height, const char * path, 
 		std::function<void()> callback_, 
-		std::function<void(Math::Vector3f&position, Math::Vector3f&size)> hoverCallback_,
-		std::function<void(Math::Vector3f&position, Math::Vector3f&size)> leaveCallback_) : Control(x, y, width, height, path)
+		std::function<void(Control* control, Context context)> hoverCallback_,
+		std::function<void(Control* control, Context context)> leaveCallback_) : Control(x, y, width, height, path)
 	{
 		callback = callback_;
 		leaveCallback = leaveCallback_;
@@ -76,21 +76,21 @@ namespace Menu {
 		if(callback != nullptr)
 			callback();
 	}
-	void Control::onEnter()
+	void Control::onEnter(Context context)
 	{
 		if (hoverCallback == nullptr || isActive)
 			return;
 
-		hoverCallback(position, size);
+		hoverCallback(this, context);
 		isActive = true;
 	}
 
-	void Control::onLeave()
+	void Control::onLeave(Context context)
 	{
 		if (leaveCallback == nullptr || !isActive)
 			return;
 
-		leaveCallback(position, size);
+		leaveCallback(this, context);
 		isActive = false;
 	}
 }

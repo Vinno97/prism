@@ -2,7 +2,7 @@
 #include "Renderer/Graphics/OpenGL/OGLRenderDevice.h"
 
 namespace Menu {
-	bool Menu::handleInput(InputManager& input, int w, int h)
+	bool Menu::handleInput(InputManager& input, int w, int h, Context context)
 	{
 		std::vector<int> pos = input.GetMousePoisiton();
 
@@ -20,7 +20,7 @@ namespace Menu {
 					return true;
 				}
 				else if (!control->isActive && !hit) {
-					control->onEnter();
+					control->onEnter(context);
 				}
 				return false;
 			}
@@ -28,7 +28,7 @@ namespace Menu {
 		
 		for (auto &control : controls) {
 			if(control->isActive)
-				control->onLeave();
+				control->onLeave(context);
 		}
 
 		return false;

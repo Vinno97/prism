@@ -80,7 +80,7 @@ namespace States {
 		menuRenderer.renderMenu(*menu, context.window->width, context.window->height);
 
 		auto input = context.inputManager;
-		mouseWaitTime <= 0 && menu->handleInput(*context.inputManager, context.window->width, context.window->height);
+		mouseWaitTime <= 0 && menu->handleInput(*context.inputManager, context.window->width, context.window->height, context);
 
 		context.window->swapScreen();
 	}

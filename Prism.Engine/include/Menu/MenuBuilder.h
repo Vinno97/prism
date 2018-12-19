@@ -10,6 +10,7 @@
 #include "Renderer/Graphics/OpenGL/OGLRenderDevice.h"
 #include "Renderer/Graphics/RenderDevice.h"
 #include "Math/Vector3f.h"
+#include "Context.h"
 
 namespace Menu {
 	class MenuBuilder
@@ -21,19 +22,19 @@ namespace Menu {
 		void addControl(float x, float y, float width, float height, const char *path);
 		void addControl(float x, float y, float width, float height, const char *path, std::function<void()> callback_);
 		void addControl(float x, float y, float width, float height, const char *path,
-			std::function<void(Math::Vector3f& position, Math::Vector3f& size)> hoverCallback_,
-			std::function<void(Math::Vector3f& position, Math::Vector3f& size)> leaveCallback_);
+			std::function<void(Control* control, Context context)> hoverCallback_,
+			std::function<void(Control* control, Context context)> leaveCallback_);
 		void addControl(float x, float y, float width, float height, const char *path, 
 			std::function<void()> callback_, 
-			std::function<void(Math::Vector3f& position, Math::Vector3f& size)> hoverCallback_,
-			std::function<void(Math::Vector3f& position, Math::Vector3f& size)> leaveCallback_);
+			std::function<void(Control* control, Context context)> hoverCallback_,
+			std::function<void(Control* control, Context context)> leaveCallback_);
 
 		std::unique_ptr<Menu> buildMenu();
 	private:
 		void initMesh();
 
-		std::function<void(Math::Vector3f& position, Math::Vector3f& size)> hoverCallback = [](Math::Vector3f& position, Math::Vector3f& size) { position.y -= 0.01; };
-		std::function<void(Math::Vector3f& position, Math::Vector3f& size)> leaveCallback = [](Math::Vector3f& position, Math::Vector3f& size) { position.y += 0.01; };
+		std::function<void(Control* control, Context context)> hoverCallback = [](Control* control, Context context) { control->offset.y -= 0.01; };
+		std::function<void(Control* control, Context context)> leaveCallback = [](Control* control, Context context) { control->offset.y += 0.01; };
 		std::function<void()> callback = [&]() {};
 
 		Renderer::Graphics::RenderDevice* renderDevice;
