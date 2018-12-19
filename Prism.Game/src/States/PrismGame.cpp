@@ -45,10 +45,10 @@ namespace States {
 
 	void PrismGame::onInit(Context & context)
 	{
-		auto floor = entityFactory.getInstance().createFloor(entityManager);
-		auto scene = entityFactory.getInstance().createScene(entityManager);
-		auto camera = entityFactory.getInstance().createCamera(entityManager);
-		auto mousePointer = entityFactory.getInstance().createCameraPointer(entityManager);
+		auto floor = EntityFactory::getInstance().createFloor(entityManager);
+		auto scene = EntityFactory::getInstance().createScene(entityManager);
+		auto camera = EntityFactory::getInstance().createCamera(entityManager);
+		auto mousePointer = EntityFactory::getInstance().createCameraPointer(entityManager);
 		auto sceneComponent = entityManager.getComponent<SceneComponent>(scene);
 
 		sceneComponent->scene.ambientLightColor = Math::Vector3f{ 1.0f, 1.0f, 1.0f };
@@ -201,7 +201,7 @@ namespace States {
 
 	int PrismGame::Fps(Context &context)
 	{
-		return(floor(1.0 / context.deltaTime));
+		return static_cast<int>(floor(1.0 / context.deltaTime));
 	}
 
 	void PrismGame::toggleFPS(Context & context)
@@ -230,15 +230,7 @@ namespace States {
 	void PrismGame::onLeave(Context &context) {
 	}
   
-	void PrismGame::toggleNightmare(Context &context)
-	{
-		if (!isNightmareMode) {
-			isNightmareMode = true;
-		}
-		else {
-			isNightmareMode = false;
-		}
-	}
+
 	bool PrismGame::isNightmare()
 	{
 		return isNightmareMode;

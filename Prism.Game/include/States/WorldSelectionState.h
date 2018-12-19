@@ -33,6 +33,6 @@ namespace States {
         Renderer::Graphics::RenderDevice *renderDevice{nullptr};
         bool nightmareMode{false};
         int currentPage{0};
-        static constexpr int pageSize{Variables::Visual::LevelSelection::ROWS * Variables::Visual::LevelSelection::COLUMNS};
+        static constexpr int pageSize{Variables::Visual::WorldSelection::ROWS * Variables::Visual::WorldSelection::COLUMNS};
     };
 }

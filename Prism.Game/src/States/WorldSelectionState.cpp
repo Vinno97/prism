@@ -12,7 +12,8 @@
 using namespace Variables;
 using namespace Variables::Resources;
 using namespace Variables::Resources::Sprites;
-using namespace Variables::Visual::LevelSelection;
+using namespace Variables::Resources::Sprites::WorldSelection;
+using namespace Variables::Visual::WorldSelection;
 
 namespace States {
 

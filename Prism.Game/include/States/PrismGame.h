@@ -26,8 +26,6 @@ namespace States {
 
 		void onLeave(Context &context) override;
 
-		void toggleNightmare(Context &context);
-
 		bool isNightmare();
 
 		std::string getLevel() const { return levelPath; }
@@ -35,7 +33,6 @@ namespace States {
 	private:
 		ECS::EntityManager entityManager;
 		ECS::SystemManager systemManager;
-		EntityFactory entityFactory;
 		Menu::MenuRenderer menuRenderer;
 		Menu::MenuBuilder menuBuilder;
 		std::unique_ptr<Menu::Menu> menu;
