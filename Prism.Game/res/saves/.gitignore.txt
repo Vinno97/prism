@@ -1,4 +1,0 @@
-# Ignore everything
-# This file mainly exists so that the folder gets included in Git and the
-*
-!.gitignore
