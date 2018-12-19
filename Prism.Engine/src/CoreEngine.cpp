@@ -52,9 +52,12 @@ void CoreEngine::Run()
 	//While the window is unclosed run the gameloop
 	while (!context.window->shouldClose())
 	{
-		//Holds the time in which the current gameupdat is being called
+		//Holds the time in which the current gameupdate is being called
 		auto startTime = std::chrono::system_clock::now();
-
+		auto deltaTime = std::chrono::duration_cast<std::chrono::microseconds>(startTime - lastTime);
+		lastTime = startTime;
+		//Sets the right values in context
+		context.deltaTime = deltaTime.count() / 1000000.f;
 
 		//Check if state is changed
 		if (context.stateMachine->getCurrentState() != currentState) {
@@ -66,15 +69,13 @@ void CoreEngine::Run()
 				currentState->init(context);
 			}
 			currentState->enter(context);
+			context.deltaTime = 0;
+			lastTime = std::chrono::system_clock::now();
 		}
 
 		context.stateMachine->destroyEolStates(context);
 
-		//Deltatime in microseconds
-		auto deltaTime = std::chrono::duration_cast<std::chrono::microseconds>(startTime - lastTime);
-		lastTime = startTime;
-		//Sets the right values in context
-		context.deltaTime = deltaTime.count() / 1000000.f;
+
 		currentState->update(context);
 	}
 }
