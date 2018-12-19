@@ -18,9 +18,6 @@ namespace States {
 
 		void onUpdate(Context &context) override
 		{
-			menuRenderer.renderMenu(*menu, context.window->width, context.window->height);
-			context.window->swapScreen();
-
 			auto input = context.inputManager;
 			if (menu->handleInput(context)) {
 				return;
