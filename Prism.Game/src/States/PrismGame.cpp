@@ -41,6 +41,7 @@
 #include <iterator>
 #include <fstream>
 
+
 namespace States {
 	using namespace ECS;
 	using namespace ECS::Components;
@@ -281,5 +282,11 @@ namespace States {
 	bool PrismGame::isNightmare()
 	{
 		return isNightmareMode;
+	}
+
+	void PrismGame::Save(std::string name)
+	{
+		World::LevelManager loader{ std::make_unique<PrismEntityAssembler>() };
+		loader.save(name, entityManager);
 	}
 }

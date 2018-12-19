@@ -6,8 +6,7 @@
 #include "States/HelpState.h"
 #include "Renderer/Graphics/RenderDevice.h"
 #include "Renderer/Graphics/OpenGL/OGLRenderDevice.h"
-#include "Renderer/Graphics/OpenGL/OGLVertexShader.h"
-#include "Renderer/Graphics/OpenGL/OGLPipeline.h"
+#include "States/SaveMenuState.h"
 
 namespace States {
 	using namespace Variables::Resources;
@@ -15,6 +14,12 @@ namespace States {
 
 	void PauseState::onInit(Context & context)
 	{
+		ASPECT = context.window->width / context.window->height;
+
+		if (!context.stateMachine->hasState<SaveMenuState>()) {
+			context.stateMachine->addState<SaveMenuState>();
+		}
+
 		std::function<void()> callbackEndstate = [&context]() { 
 			context.stateMachine->setState<EndState>();
 		};
@@ -27,13 +32,18 @@ namespace States {
 			context.stateMachine->setState<HelpState>();
 		};
 
+		std::function<void()> callbackSave = [&context]() {
+			context.stateMachine->setState<SaveMenuState>();
+		};
+
 		const float aspect = float(context.window->width) / float(context.window->height);
 		const auto btnHeight = MENU_HEIGHT * aspect;
 		auto y = .7f;
 		auto s = MENU_MARGIN + MENU_HEIGHT;
 		menuBuilder.addControl(-0.5f, y -= s, 1, 0.24, Sprites::Pause::PAUSE);
 
-		menuBuilder.addControl(-0.35, y -= s + SPACE, MENU_WIDTH, btnHeight, Sprites::MainMenu::HELP, callbackHelp);
+		menuBuilder.addControl(-0.35, y -= s + SPACE, MENU_WIDTH, btnHeight, Sprites::Pause::SAVE, callbackSave);
+		menuBuilder.addControl(-0.35, y -= s, MENU_WIDTH, btnHeight, Sprites::MainMenu::HELP, callbackHelp);
 		menuBuilder.addControl(-0.35, y -= s, MENU_WIDTH, btnHeight, Sprites::Pause::RESUME, callbackResume);
 		menuBuilder.addControl(-0.35, y -= s, MENU_WIDTH, btnHeight, Sprites::MainMenu::QUIT, callbackEndstate);
 		menu = menuBuilder.buildMenu();

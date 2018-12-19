@@ -35,6 +35,7 @@ namespace Variables {
 			namespace Pause {
 				constexpr SpritePath RESUME = "img/menus/normal/resume.png";
 				constexpr SpritePath PAUSE = "img/pause.png";
+				constexpr SpritePath SAVE = "img/menus/normal/save.png";
 			}
 
             namespace WorldSelection {
@@ -77,7 +78,7 @@ namespace Variables {
             constexpr int COLUMNS = 4;
             constexpr int ROWS = 2;
             constexpr float OUTER_MARGIN = .2f;
-            constexpr float GRID_MARGIN = .05f;
+			constexpr float GRID_MARGIN = .05f;
         }
     }
 }
