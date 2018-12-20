@@ -25,7 +25,7 @@ namespace Renderer {
 			OGLTexture::OGLTexture(bool depth, int width, int height)
 			{
 				glGenTextures(1, &textureID);
-				glBindTexture(GL_TEXTURE_2D, textureID);
+				glBindTexture(GL_TEXTURE_2D, textureID);	
 
 				// Give an empty image to OpenGL ( the last "0" )
 				if (depth) {

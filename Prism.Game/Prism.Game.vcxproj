@@ -209,15 +209,6 @@
     <ClCompile Include="src\World\TerrainGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="lib\assimp-vc140-mtd.dll" />
-    <None Include="lib\glew32.dll" />
-    <None Include="lib\SDL2.dll">
-      <DeploymentContent>true</DeploymentContent>
-      <FileType>Document</FileType>
-    </None>
-    <None Include="lib\SDL2_mixer.dll" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Prism.Engine\Prism.Engine.vcxproj">
       <Project>{76c79dd1-01cd-4145-a02f-26538e4b060d}</Project>
     </ProjectReference>

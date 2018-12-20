@@ -198,12 +198,6 @@
     <ClInclude Include="include\States\SaveMenuState.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="lib\assimp-vc140-mtd.dll" />
-    <None Include="lib\glew32.dll" />
-    <None Include="lib\SDL2.dll" />
-    <None Include="lib\SDL2_mixer.dll" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="include\ECS\Components\KeyboardInputComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>

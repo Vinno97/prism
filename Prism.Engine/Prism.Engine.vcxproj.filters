@@ -181,22 +181,16 @@
     <Library Include="lib\x64\glew32.lib" />
     <Library Include="lib\x64\SDL2.lib" />
     <Library Include="lib\x64\SDL2main.lib" />
-    <Library Include="lib\x64\assimp-vc140-mtd.lib" />
     <Library Include="lib\x64\SDL2_mixer.lib" />
     <Library Include="lib\x64\SDL2_image.lib" />
     <Library Include="lib\x64\freetype.lib" />
+    <Library Include="lib\x64\assimp-vc140-mt.lib" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="png\healthbar.png" />
     <Image Include="png\someimage.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="lib\libjpeg-9.dll" />
-    <None Include="lib\libpng16-16.dll" />
-    <None Include="lib\libtiff-5.dll" />
-    <None Include="lib\libwebp-7.dll" />
-    <None Include="lib\SDL2_image.dll" />
-    <None Include="lib\zlib1.dll" />
     <None Include="lib\x64\libjpeg-9.dll" />
     <None Include="lib\x64\libpng16-16.dll" />
     <None Include="lib\x64\libtiff-5.dll" />
